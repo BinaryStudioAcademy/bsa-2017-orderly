@@ -8,6 +8,8 @@ const router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+// что-то не так зарекваирилось, не находит роут /api/teams/.
+// Я начинал с POST, так как определил в репозитории для него addTeam
 require('./routes/index')(router);
 
 app.get('/', function (req, res) {
@@ -15,6 +17,7 @@ app.get('/', function (req, res) {
 });
 
 app.use("./api", router);
+
 
 app.use((req, res, next) => {
 	let err = new Error('Route not Found');
