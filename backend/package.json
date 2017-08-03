@@ -2,7 +2,7 @@
   "name": "bsa-2017-orderly",
   "version": "0.1.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon app"
   },
