@@ -14,7 +14,7 @@ app.get('/', function (req, res) {
   res.send('Hello World!')
 });
 
-app.use("./api", router)
+app.use("./api", router);
 
 app.use((req, res, next) => {
 	let err = new Error('Route not Found');

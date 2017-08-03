@@ -10,19 +10,27 @@ TeamRepository.prototype = new Repository();
 
 
 /*
-UserRepository.prototype.getById = function(id, callback) {
+TeamRepository.prototype.getById = function(id, callback) {
 };
 
-UserRepository.prototype.getAll = function(body, callback) {
+TeamRepository.prototype.getAll = function(body, callback) {
+};
+*/
+
+TeamRepository.prototype.addTeam = function(objTeam, callback) {
+    if (objTeam){
+        console.log(objTeam);
+        callback(objTeam);
+    } else {
+        callback(new Error('Team is no exist'));
+    }
 };
 
-UserRepository.prototype.addTeam = function(objTeam, callback) {
+/*
+TeamRepository.prototype.findOneAndDelete = function(id, callback) {
 };
 
-UserRepository.prototype.findOneAndDelete = function(id, callback) {
-};
-
-UserRepository.prototype.findOneAndUpdate = function(id, objTeam, callback) {
+TeamRepository.prototype.findOneAndUpdate = function(id, objTeam, callback) {
 };
 */
 

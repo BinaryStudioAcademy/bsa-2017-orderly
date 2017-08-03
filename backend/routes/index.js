@@ -3,6 +3,7 @@ const teamRoutes = require('./teamRoutes');
 
 module.exports = function(app) {
 	return {
-		userRoutes: userRoutes(app)
+
+        teamRoutes: teamRoutes(app)
 	};
 };

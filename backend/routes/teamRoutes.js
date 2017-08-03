@@ -1,5 +1,5 @@
-let apiResponse = require('express-api-response');
-let teamRepository = require('../repositories/teamRepository');
+var apiResponse = require('express-api-response');
+var teamRepository = require('../repositories/teamRepository');
 
 module.exports = function(app) {
     app.get('/api/teams/:id', function(req, res, next) {
