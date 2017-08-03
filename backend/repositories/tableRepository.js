@@ -1,10 +1,7 @@
 const Table = require('../schemas/Table');
 const Record = require('../schemas/Record');
 
-const add = (table) => {
-  console.log('jdfldskfjlds')
-  return new Table(table).save();
-}
+const add = (table) => new Table(table).save();
 
 const getById = (tableId) => Table.findById(tableId);
 
