@@ -1,5 +1,5 @@
 var Repository = require('./generalRepository');
-var User = require('../schemas/userSchema');
+var User = require('../schemas/User');
 
 function UserRepository() {
 	Repository.prototype.constructor.call(this);

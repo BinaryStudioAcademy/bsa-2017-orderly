@@ -5,7 +5,10 @@ const tableRepository = require('../repositories/tableRepository');
 
 router.post('/', (request, response) => {
 	tableRepository.add(request.body)
-		.then(table => request.status(200).send(table))
+		.then(table => {
+			console.log(table)
+     return request.status(201).send(table)
+		})
 		.catch(error => response.sendStatus(400));
 });
 
@@ -28,7 +31,7 @@ router.put('/:id', (request, response) => {
 });
 
 router.delete('/:id', (request, response) => {
-	tableRepository.delete(request.params.id)
+	tableRepository.deleteTable(request.params.id)
 		.then(() => request.status(200))
 		.catch(error => response.sendStatus(400));
 });
