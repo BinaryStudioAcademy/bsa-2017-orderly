@@ -5,10 +5,7 @@ const tableRepository = require('../repositories/tableRepository');
 
 router.post('/', (request, response) => {
 	tableRepository.add(request.body)
-		.then(table => {
-			console.log(table)
-     return request.status(201).send(table)
-		})
+		.then(table => request.status(201).send(table))
 		.catch(error => response.sendStatus(400));
 });
 

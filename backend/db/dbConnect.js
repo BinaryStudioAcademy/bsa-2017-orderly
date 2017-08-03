@@ -3,7 +3,7 @@ function dbConnectionHandler() {
 	const config = require('../config/db');
 
 	mongoose.Promise = global.Promise;
-	mongoose.connect(config.uri, config.opts, err => {console.log(err)});
+	mongoose.connect(config.uri, config.opts);
 
 	const db = mongoose.connection;
 
