@@ -1,0 +1,23 @@
+{
+  "name": "bsa-2017-orderly",
+  "version": "0.1.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app"
+  },
+  "keywords": [],
+  "author": "BSA2017_JS",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongodb": "^2.2.30",
+    "mongoose": "^4.11.1",
+    "morgan": "^1.8.2",
+    "ramda": "^0.24.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
