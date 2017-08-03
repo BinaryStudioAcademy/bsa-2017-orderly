@@ -1,9 +1,6 @@
-const userRoutes = require('./userRoutes');
-const tableRoutes = require('./tableRoutes');
+// const userRoutes = require('./userRoutes');
 
-module.exports = function(app) {
-	return {
-		userRoutes: userRoutes(app),
-		tableRoutes: tableRoutes(app)
-	};
+module.exports = function(router) {
+	// userRoutes(router);
+	router.use('/api/tables', require('./table'));
 };
