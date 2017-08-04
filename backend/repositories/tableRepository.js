@@ -21,6 +21,9 @@ const addRecord = (tableId, record) =>
         {'new': true}
     ))
 
+const deleteRecord = (tableId, recordId) =>
+  Table.findByIdAndUpdate(tableId, {'$pull': {records: recordId}})
+
 
 
 
@@ -31,5 +34,6 @@ module.exports = {
   getById,
   update,
   deleteTable,
-  addRecord
+  addRecord,
+  deleteRecord
 }

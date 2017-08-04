@@ -43,13 +43,13 @@ router.post('/:id/records', (request, response) => {
 
 router.delete('/:tableId/records/:recordId', (request, response) => {
 	tableRepository.deleteRecord(request.params.tableId, request.params.recordId)
-		.then(() => response.status(200))
+		.then(record => response.status(200).send(record))
 		.catch(error => response.sendStatus(400));
 });
 
 router.put('/:tableId/records/:recordId', (request, response) => {
 	tableRepository.updateRecord(request.params.tableId, request.params.recordId, request.body)
-		.then(record => response.status(200).send(record))
+		.then(table => response.status(200).send(table))
 		.catch(error => response.sendStatus(400));
 });
 
