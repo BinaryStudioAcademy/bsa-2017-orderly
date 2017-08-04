@@ -1,41 +1,32 @@
-require('../../db/dbConnect');
 const Kanban = require('../../schemas/view/kanbanSchema');
+const Repository = require('../generalRepository');
 
-const add = (kanban) => new Kanban(kanban).save();
+class KanbanRepository extends Repository {
+    constructor() {
+        super();
+        this.model = Kanban;
+    }
 
-const getById = (viewId) => Kanban.findById(viewId);
+    addColumn(viewId, kanbanColumnData) {
+        return this.model.findByIdAndUpdate(viewId,
+            {'$push': {'columns_config': kanbanColumnData}},
+            {'new': true});
+    }
 
-const getAll = () => Kanban.find({});
+    updateColumn(viewId, columnId, kanbanColumnData) {
+        return this.model.findOneAndUpdate({
+                _id: viewId,
+                'columns_config._id': columnId},
+            {
+                $set:{
+                    'columns_config.$.hidden': kanbanColumnData.hidden
+                }
+            });
+    }
 
-const update = (viewId, kanbanViewData) => Kanban.findByIdAndUpdate({_id: viewId}, kanbanViewData);
+    deleteColumn(viewId, columnId) {
+        return this.model.findByIdAndUpdate(viewId, {'$pull': { 'columns_config': { _id: columnId } }});
+    }
+}
 
-const deleteKanban = (viewId) => Kanban.findByIdAndRemove(viewId);
-
-const addColumn = (viewId, kanbanColumnData) =>
-    Kanban.findByIdAndUpdate(viewId,
-        {'$push': {'columns_config': kanbanColumnData}},
-        {'new': true});
-
-const updateColumn = (viewId, columnId, kanbanColumnData) =>
-    Kanban.findOneAndUpdate({
-            _id: viewId,
-            'columns_config._id': columnId},
-        {
-            $set:{
-                'columns_config.$.hidden': kanbanColumnData.hidden
-            }
-        });
-
-const deleteColumn = (viewId, columnId) =>
-    Kanban.findByIdAndUpdate(viewId, {'$pull': { 'columns_config': { _id: columnId } }});
-
-module.exports = {
-    add,
-    getById,
-    getAll,
-    update,
-    deleteKanban,
-    addColumn,
-    updateColumn,
-    deleteColumn
-};
+module.exports = new KanbanRepository();

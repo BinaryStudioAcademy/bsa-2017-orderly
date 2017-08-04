@@ -1,15 +1,11 @@
-var Repository = require('./generalRepository');
-var User = require('../schemas/userSchema');
+const User = require('../../schemas/view/userSchema');
+const Repository = require('../generalRepository');
 
-function UserRepository() {
-	Repository.prototype.constructor.call(this);
-	this.model = User;
+class UserRepository extends Repository {
+    constructor() {
+        super();
+        this.model = User;
+    }
 }
-
-UserRepository.prototype = new Repository();
-
-
-// UserRepository.prototype.SomeFunction = function() {
-// };
 
 module.exports = new UserRepository();

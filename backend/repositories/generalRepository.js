@@ -1,28 +1,37 @@
-var Repository = function(){};
+require('../db/dbConnect');
 
-Repository.prototype.add = function(data, callback){
-	var model = this.model;
-	var newitem = new model(data);
-	newitem.save(callback);
-};
+class Repository {
+    constructor() {
+        this.model = null;
+    }
 
-Repository.prototype.update = function(id, body, callback){
-	var query = this.model.update({_id:id}, body);
-	query.exec(callback);
-};
+    add(data) {
+        return new this.model(data).save();
+    };
 
-Repository.prototype.delete = function(id, callback){
-	var model = this.model;
-	var query = model.remove({_id:id});
-	query.exec(callback);
-};
+    getById(id) {
+        return this.model.findById(id);
+    };
 
-Repository.prototype.deleteMany = function(array, callback){
-	var model = this.model;
-	array.forEach(id => {
-		var query = model.remove({_id:id});
-		query.exec(callback);
-	});
-};
+    getAll() {
+        return this.model.find();
+    };
+
+    update(id, body) {
+        return this.model.update({_id: id}, body);
+    };
+
+    remove(id) {
+        return this.model.remove({_id: id});
+    };
+
+    // ToDo: fix this. Do we really need it?
+    deleteMany(array, callback) {
+        array.forEach(id => {
+            const query = this.model.remove({_id: id});
+            query.exec(callback);
+        });
+    };
+}
 
 module.exports = Repository;
