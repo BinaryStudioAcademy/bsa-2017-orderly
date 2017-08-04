@@ -1,3 +1,5 @@
+const R = require('ramda')
+
 class Repository {
 
 	getAll() {
@@ -18,6 +20,11 @@ class Repository {
 
 	remove(id) {
 		return this.model.findByIdAndRemove(id);
+	}
+
+	deleteMany(array) {
+		let model = this.model;
+		return Promise.all(R.map(model.remove, array))
 	}
 
 }

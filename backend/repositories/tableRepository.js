@@ -1,13 +1,12 @@
 require('../db/dbConnect');
 const Repository = require('./generalRepository');
 const Table = require('../schemas/Table');
-const Record = require('../schemas/Record');
 
 class TableRepository extends Repository {
 
   constructor() {
     super();
-     this.model = Table;
+    this.model = Table;
   }
 
 }
