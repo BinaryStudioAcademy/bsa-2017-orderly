@@ -4,17 +4,17 @@ const path = require('path');
 const app = express();
 const router = express.Router();
 const favicon = require('serve-favicon');
+const port = 2020;
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
-app.get('/', function (req, res) {
-    res.send('Hello World!');
-});
-
 app.use('/api', router);
 require('./routes/index')(router);
+
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 
 app.use((req, res, next) => {
     let err = new Error('Route not Found');
@@ -29,7 +29,7 @@ app.use((err, req, res) => {
     res.render('error');
 });
 
-app.listen(2020, () => {
+app.listen(port, () => {
     console.log('Server is started on localhost:2020');
 });
 
