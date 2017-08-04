@@ -18,8 +18,7 @@ const Record = new Schema({
 const History = new Schema({
   collaborator: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    ref: 'User'
   },
   changes: {
     changed_from: {
@@ -34,12 +33,10 @@ const History = new Schema({
 const Comment = new Schema({
   collaborator: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    ref: 'User'
   },
   message: {
-    type: String,
-    required: true
+    type: String
   }
 });
 

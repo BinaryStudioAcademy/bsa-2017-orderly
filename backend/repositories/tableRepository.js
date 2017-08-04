@@ -1,3 +1,4 @@
+require('../db/dbConnect')
 const Table = require('../schemas/Table');
 const Record = require('../schemas/Record');
 
