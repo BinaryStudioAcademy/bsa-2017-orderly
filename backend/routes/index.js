@@ -1,8 +1,9 @@
-const userRoutes = require('./userRoutes');
-const teamRoutes = require('./teamRoutes');
+const teamRoutes = require('./team/teamRoutes');
 
-module.exports = function(app) {
-	return {
-        teamRoutes: teamRoutes(app)
-	};
+module.exports = (router) => {
+    router.get('/', (req, res) => {
+        res.send('REST API orderly v1.0');
+    });
+
+    router.use('/team', teamRoutes);
 };

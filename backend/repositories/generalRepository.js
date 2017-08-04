@@ -20,7 +20,7 @@ Repository.prototype.delete = function (id, callback) {
 
 Repository.prototype.deleteMany = function (array, callback) {
     let model = this.model;
-    array.forEach(id => {
+    array.forEach((id) => {
         let query = model.remove({_id: id});
         query.exec(callback);
     });

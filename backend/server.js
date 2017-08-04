@@ -4,8 +4,8 @@ const path = require('path');
 const app = express();
 const router = express.Router();
 const favicon = require('serve-favicon');
-
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
@@ -13,8 +13,8 @@ app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
-require('./routes/index')(router);
 app.use('/api', router);
+require('./routes/index')(router);
 
 app.use((req, res, next) => {
     let err = new Error('Route not Found');
