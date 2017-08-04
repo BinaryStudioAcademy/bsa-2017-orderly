@@ -1,4 +1,3 @@
-var apiResponse = require('express-api-response');
 var userRepository = require('../repositories/userRepository');
 
 module.exports = function(app) {
@@ -8,5 +7,5 @@ module.exports = function(app) {
 			res.err = err;
 			next();
 		});
-	}, apiResponse);
+	});
 };
