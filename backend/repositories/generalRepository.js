@@ -1,28 +1,26 @@
-var Repository = function(){};
+class Repository {
 
-Repository.prototype.add = function(data, callback){
-	var model = this.model;
-	var newitem = new model(data);
-	newitem.save(callback);
-};
+	getAll() {
+		return this.model.find({});
+	}
 
-Repository.prototype.update = function(id, body, callback){
-	var query = this.model.update({_id:id}, body);
-	query.exec(callback);
-};
+	getById(id) {
+		return this.model.findById(id);
+	}
 
-Repository.prototype.delete = function(id, callback){
-	var model = this.model;
-	var query = model.remove({_id:id});
-	query.exec(callback);
-};
+	add(data) {
+		return new this.model(data).save();
+	}
 
-Repository.prototype.deleteMany = function(array, callback){
-	var model = this.model;
-	array.forEach(id => {
-		var query = model.remove({_id:id});
-		query.exec(callback);
-	});
-};
+	update(id, data) {
+		return this.model.findByIdAndUpdate(id, data, {'new': true});
+	}
 
-module.exports = Repository;
+	remove(id) {
+		return this.model.findByIdAndRemove(id);
+	}
+
+}
+
+module.exports = Repository
+

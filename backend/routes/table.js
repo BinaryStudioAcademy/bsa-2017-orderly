@@ -28,7 +28,7 @@ router.put('/:id', (request, response, next) => {
 });
 
 router.delete('/:id', (request, response, next) => {
-	tableRepository.deleteTable(request.params.id)
+	tableRepository.remove(request.params.id)
 		.then(() => response.status(204))
 		.catch(error => {response.status(400); next(error)});
 });
