@@ -13,24 +13,20 @@ class Repository {
         return this.model.findById(id);
     };
 
+    getbyIds(ids) {
+        return this.model.find({'_id': { $in: ids}})
+    };
+
     getAll() {
         return this.model.find();
     };
 
     update(id, body) {
-        return this.model.update({_id: id}, body);
+        return this.model.update({_id: id}, body, {'new': true});
     };
 
     remove(id) {
         return this.model.remove({_id: id});
-    };
-
-    // ToDo: fix this. Do we really need it?
-    deleteMany(array, callback) {
-        array.forEach(id => {
-            const query = this.model.remove({_id: id});
-            query.exec(callback);
-        });
     };
 }
 
