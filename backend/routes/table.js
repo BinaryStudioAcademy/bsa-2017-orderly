@@ -5,31 +5,31 @@ const tableRepository = require('../repositories/tableRepository');
 
 router.post('/', (request, response) => {
 	tableRepository.add(request.body)
-		.then(table => response.status(201).send(table))
+		.then(table => request.status(201).send(table))
 		.catch(error => response.sendStatus(400));
 });
 
 router.get('/:id', (request, response) => {
 	tableRepository.getById(request.params.id)
-		.then(table => response.status(200).send(table))
+		.then(table => request.status(200).send(table))
 		.catch(error => response.sendStatus(400));
 });
 
 router.get('/', (request, response) => {
 	tableRepository.getAll()
-		.then(tables => response.status(200).send(tables))
+		.then(tables => request.status(200).send(tables))
 		.catch(error => response.sendStatus(400));
 });
 
 router.put('/:id', (request, response) => {
 	tableRepository.update(request.params.id, request.body)
-		.then(table => response.status(200).send(table))
+		.then(table => request.status(200).send(table))
 		.catch(error => response.sendStatus(400));
 });
 
 router.delete('/:id', (request, response) => {
 	tableRepository.deleteTable(request.params.id)
-		.then(table => response.status(200).send(table))
+		.then(() => request.status(204))
 		.catch(error => response.sendStatus(400));
 });
 
@@ -37,19 +37,19 @@ router.delete('/:id', (request, response) => {
 
 router.post('/:id/records', (request, response) => {
 	tableRepository.addRecord(request.params.id, request.body)
-		.then(record => response.status(200).send(record))
-		.catch(error => response.sendStatus(400))
+		.then(record => request.status(200).send(record))
+		.catch(error => response.sendStatus(400));
 });
 
 router.delete('/:tableId/records/:recordId', (request, response) => {
 	tableRepository.deleteRecord(request.params.tableId, request.params.recordId)
-		.then(record => response.status(200).send(record))
+		.then(() => request.status(204))
 		.catch(error => response.sendStatus(400));
 });
 
 router.put('/:tableId/records/:recordId', (request, response) => {
 	tableRepository.updateRecord(request.params.tableId, request.params.recordId, request.body)
-		.then(table => response.status(200).send(table))
+		.then(record => request.status(200).send(record))
 		.catch(error => response.sendStatus(400));
 });
 
@@ -57,13 +57,13 @@ router.put('/:tableId/records/:recordId', (request, response) => {
 
 router.post('/:tableId/records/:recordId/comments', (request, response) => {
 	tableRepository.addComment(request.params.tableId, request.params.recordId, request.body)
-		.then(comment => response.status(200).send(comment))
+		.then(comment => request.status(200).send(comment))
 		.catch(error => response.sendStatus(400));
 });
 
 router.delete('/:tableId/records/:recordId/comments/:commentId', (request, response) => {
 	tableRepository.deleteComment(request.params.tableId, request.params.recordId, request.params.commentId)
-		.then(() => response.status(200))
+		.then(() => request.status(204))
 		.catch(error => response.sendStatus(400));
 });
 
@@ -71,19 +71,19 @@ router.delete('/:tableId/records/:recordId/comments/:commentId', (request, respo
 
 router.post('/:id/fields', (request, response) => {
 	tableRepository.addField(request.params.id, request.body)
-		.then(field => response.status(200).send(field))
+		.then(field => request.status(200).send(field))
 		.catch(error => response.sendStatus(400));
 });
 
 router.put('/:tableId/fields/:fieldId', (request, response) => {
 	tableRepository.updateField(request.params.tableId, request.params.fieldId, request.body)
-		.then(field => response.status(200).send(field))
+		.then(field => request.status(200).send(field))
 		.catch(error => response.sendStatus(400));
 });
 
 router.delete('/:tableId/fields/:fieldId', (request, response) => {
 	tableRepository.deleteField(request.params.tableId, request.params.fieldId)
-		.then(() => response.status(200))
+		.then(() => request.status(204))
 		.catch(error => response.sendStatus(400));
 });
 
@@ -91,13 +91,13 @@ router.delete('/:tableId/fields/:fieldId', (request, response) => {
 
 router.post('/:tableId/views/:viewId', (request, response) => {
 	tableRepository.addView(request.params.tableId, request.params.viewId)
-		.then(() => response.status(200))
+		.then(() => request.status(200))
 		.catch(error => response.sendStatus(400));
 });
 
 router.delete('/:tableId/views/:viewId', (request, response) => {
 	tableRepository.deleteView(request.params.tableId, request.params.viewId)
-		.then(() => response.status(200))
+		.then(() => request.status(204))
 		.catch(error => response.sendStatus(400));
 });
 
