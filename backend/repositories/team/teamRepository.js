@@ -1,6 +1,6 @@
 require('../../db/dbConnect');
-let Repository = require('../generalRepository');
-let Team = require('../../schemas/team/teamSchema');
+const Repository = require('../generalRepository');
+const Team = require('../../schemas/team/teamSchema');
 
 class TeamRepository extends Repository{
     constructor() {
@@ -13,20 +13,20 @@ class TeamRepository extends Repository{
     }
 
     getById(id) {
-        return this.model.find({id}).exec();
+        return this.model.find(id).exec();
     }
 
     add(teamData) {
-        let team = new this.model(teamData);
+        const team = new this.model(teamData);
         return team.save(team);
     }
 
-    findOneAndDelete(id) {
+    remove(id) {
         return this.model.findOneAndRemove(id);
     }
 
-    findOneAndUpdate(id, teamData) {
-        return this.model.findOneAndUpdate(id, {$set: teamData}, {new: true});
+    update(id, teamData) {
+        return this.model.findOneAndUpdate(id, {$set: teamData}, {'new': true});
     }
 }
 
