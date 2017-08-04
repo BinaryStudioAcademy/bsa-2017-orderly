@@ -8,7 +8,6 @@ function UserRepository() {
 
 UserRepository.prototype = new Repository();
 
-
 // UserRepository.prototype.SomeFunction = function() {
 // };
 

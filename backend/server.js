@@ -1,7 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
-const morgan = require('morgan');
 const app = express();
 const router = express.Router();
 
@@ -11,7 +9,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 require('./routes/index')(router);
 
 app.get('/', function (req, res) {
-    res.send('Hello World!')
+    res.send('Hello World!');
 });
 
 app.use("./api", router);
