@@ -1,12 +1,29 @@
 require('../db/dbConnect');
 const Repository = require('./generalRepository');
 const Table = require('../schemas/Table');
+let that
 
 class TableRepository extends Repository {
 
   constructor() {
     super();
     this.model = Table;
+    that = this
+  }
+
+  updateRecord(tableId, record) {
+    return that.model.findByIdAndUpdate(
+      tableId,
+      {'$push': {records: record._id}},
+      {'new': true}
+    )
+  }
+
+  pullRecord(tableId, recordId) {
+    return that.model.findByIdAndUpdate(
+      tableId,
+      {'$pull': {records: recordId}}
+    )
   }
 
 }

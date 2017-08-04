@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Record = new Schema({
+const recordSchema = new Schema({
+  record_data: [{
+    data: String
+  }],
   history: [{
     type: Schema.Types.ObjectId,
     ref: 'History'
@@ -10,12 +13,9 @@ const Record = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Comment'
   }],
-  record_data: [{
-    data: String
-  }]
 });
 
-const History = new Schema({
+const historySchema = new Schema({
   collaborator: {
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -30,7 +30,7 @@ const History = new Schema({
   }
 })
 
-const Comment = new Schema({
+const commentSchema = new Schema({
   collaborator: {
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -41,6 +41,6 @@ const Comment = new Schema({
 });
 
 
-module.exports = mongoose.model('Record', Record);
-module.exports = mongoose.model('Comment', Comment);
-module.exports = mongoose.model('History', History);
+module.exports.Comment = mongoose.model('Comment', commentSchema);
+// module.exports.History = mongoose.model('History', historySchema);
+module.exports.Record = mongoose.model('Record', recordSchema);

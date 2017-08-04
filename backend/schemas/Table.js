@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-const Table = new Schema({
+const tableSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -25,4 +25,4 @@ const Table = new Schema({
 });
 
 
-module.exports = mongoose.model('Table', Table);
+module.exports = mongoose.model('Table', tableSchema);

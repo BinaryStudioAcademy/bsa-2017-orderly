@@ -15,7 +15,7 @@ class Repository {
 	}
 
 	update(id, data) {
-		return this.model.findByIdAndUpdate(id, data, {'new': true});
+		return this.model.update(id, data, {'new': true});
 	}
 
 	remove(id) {
