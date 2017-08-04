@@ -1,7 +1,6 @@
 module.exports = {
-	dbname: 'orderly-base',
-	uri: 'mongodb://localhost:27017',
+	uri: 'mongodb://localhost:27017/orderly-base',
 	opts: {
 		useMongoClient: true
 	}
-}
+};
