@@ -1,80 +1,41 @@
-const dbConnect = require('../../db/dbConnect');
-const Repository = require('../generalRepository');
+require('../../db/dbConnect');
 const Kanban = require('../../schemas/view/kanbanSchema');
-///const Table = require('../../schemas/tableSchema');
 
-class KanbanRepository extends Repository {
+const add = (kanban) => new Kanban(kanban).save();
 
-    constructor() {
-        super();
-        this.model = Kanban;
-        ///this.table = Table;
-    }
+const getById = (viewId) => Kanban.findById(viewId);
 
-    getById(viewId, callback) {
-        const query = this.model.findOne({_id: viewId});
-        query.exec(callback);
-    };
+const getAll = () => Kanban.find({});
 
-    add(tableId, kanbanViewData, callback) {
-        const newKanbanViewData = new this.model(kanbanViewData);
-        newKanbanViewData.save(function(err, data) {
-            if (!err){
-                // ToDo: add addView method in Table Repository
-                // this.table.addView(tableId, data, callback);
-                callback(null, data);
-            } else {
-                callback(err, null);
-            }
-        });
-    };
+const update = (viewId, kanbanViewData) => Kanban.findByIdAndUpdate({_id: viewId}, kanbanViewData);
 
-    findOneAndUpdate(viewId, kanbanViewData, callback) {
-        const query = this.model.update({_id: viewId}, kanbanViewData);
-        query.exec(callback);
-    };
+const deleteKanban = (viewId) => Kanban.findByIdAndRemove(viewId);
 
-    findOneAndDelete(tableId, viewId, callback) {
-        // ToDo: add removeView method in Table Repository
-        /*this.table.removeView(tableId, viewId, function(err, data) {
-            if (!err){
-                const query = this.model.remove({_id: viewId});
-                query.exec(callback);
-            } else {
-                callback(err, null);
-            }
-        });*/
-    };
+const addColumn = (viewId, kanbanColumnData) =>
+    Kanban.findByIdAndUpdate(viewId,
+        {'$push': {'columns_config': kanbanColumnData}},
+        {'new': true});
 
-
-    addColumn(viewId, kanbanColumnData, callback) {
-        const query = this.model.update({_id: viewId},{
-            $push: {'columns_config': kanbanColumnData}
-        });
-        query.exec(callback);
-    };
-
-    findOneColumnAndUpdate(viewId, columnId, kanbanColumnData, callback) {
-        const query = this.model.update({
+const updateColumn = (viewId, columnId, kanbanColumnData) =>
+    Kanban.findOneAndUpdate({
             _id: viewId,
-            'columns_config._id': columnId
-        }, {
+            'columns_config._id': columnId},
+        {
             $set:{
-                'columns_config.$.name': kanbanColumnData.name,
-                'columns_config.$.position': kanbanColumnData.position,
-                'columns_config.$.included': kanbanColumnData.included
+                'columns_config.$.hidden': kanbanColumnData.hidden
             }
         });
-        query.exec(callback);
 
-    };
+const deleteColumn = (viewId, columnId) =>
+    Kanban.findByIdAndUpdate(viewId, {'$pull': { 'columns_config': { _id: columnId } }});
 
-    findOneColumnAndDelete(viewId, columnId, callback) {
-        const query = this.model.update({_id: viewId},{
-            $pull: { 'columns_config': { _id: columnId } } }
-        );
-        query.exec(callback);
-    };
-}
-
-module.exports = new KanbanRepository();
+module.exports = {
+    add,
+    getById,
+    getAll,
+    update,
+    deleteKanban,
+    addColumn,
+    updateColumn,
+    deleteColumn
+};

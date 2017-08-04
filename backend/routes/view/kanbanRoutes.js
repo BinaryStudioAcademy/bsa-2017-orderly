@@ -1,93 +1,52 @@
+const router = require('express').Router();
 const kanbanRepository = require('../../repositories/view/kanbanRepositories');
 
-module.exports = (app) => {
-    app.get('/views/kanban/:viewId', (req, res, next) => {
-        kanbanRepository.getById(req.params.viewId, (err, data) => {
-            if (!err){
-                res.data = data;
-                res.json(res.data);
-            } else {
-                res.status(400);
-                res.end();
-            }
-        });
-    });
+router.get('/:viewId', (request, response) => {
+    kanbanRepository.getById(request.params.viewId)
+        .then(data => response.status(200).send(data))
+        .catch(error => response.sendStatus(400));
+});
 
-//Todo move to TablesRoute ?
-    app.post('/tables/:tableId/views/kanban', (req, res, next) => {
-        const kanbanViewData = req.body;
-        kanbanRepository.add(req.params.tableId, kanbanViewData, (err, data) => {
-            if (!err){
-                res.data = data;
-                res.json(res.data);
-            } else {
-                res.status(400);
-                res.end();
-            }
-        });
-    });
+router.get('/', (request, response) => {
+    kanbanRepository.getAll()
+        .then(data => response.status(200).send(data))
+        .catch(error => response.sendStatus(400));
+});
 
-    app.put('/views/kanban/:viewId', (req, res, next) => {
-        const kanbanViewData = req.body;
-        kanbanRepository.findOneAndUpdate(req.params.viewId, kanbanViewData, (err, data) => {
-            if (!err){
-                res.data = data;
-                res.json(res.data);
-            } else {
-                res.status(400);
-                res.end();
-            }
-        });
-    });
+router.post('/', (request, response) => {
+    kanbanRepository.add(request.body)
+        .then(data => response.status(200).send(data))
+        .catch(error => response.sendStatus(400));
+});
 
-//Todo move to TablesRoute ?
-    app.delete('/tables/:tableId/views/kanban/:viewId', (req, res, next) => {
-        kanbanRepository.findOneAndDelete(req.params.tableId, req.params.viewId, (err, data) => {
-            if (!err){
-                res.data = data;
-                res.json(res.data);
-            } else {
-                res.status(400);
-                res.end();
-            }
-        });
-    });
+router.delete('/:viewId/columns/:columnId', (request, response) => {
+    kanbanRepository.deleteColumn(request.params.viewId, request.params.columnId,)
+        .then(data => response.status(200).send(data))
+        .catch(error => response.sendStatus(400));
+});
 
-    app.post('/views/kanban/:viewId/columns', (req, res, next) => {
-        const kanbanColumnData = req.body;
-        kanbanRepository.addColumn(req.params.viewId, kanbanColumnData, (err, data) => {
-            if (!err){
-                res.data = data;
-                res.json(res.data);
-            } else {
-                res.status(400);
-                res.end();
-            }
-        });
-    });
+router.put('/:viewId', (request, response) => {
+    kanbanRepository.update(request.params.viewId, request.body)
+        .then(data => response.status(200).send(data))
+        .catch(error => response.sendStatus(400));
+});
 
-    app.put('/views/kanban/:viewId/columns/:columnId', (req, res, next) => {
-        const kanbanColumnData = req.body;
-        kanbanRepository.findOneColumnAndUpdate(req.params.viewId, req.params.columnId, kanbanColumnData, (err, data) => {
-            if (!err){
-                res.data = data;
-                res.json(res.data);
-            } else {
-                res.status(400);
-                res.end();
-            }
-        });
-    });
+router.delete('/:viewId', (request, response) => {
+    kanbanRepository.deleteKanban(request.params.viewId)
+        .then(data => response.status(200).send(data))
+        .catch(error => response.sendStatus(400));
+});
 
-    app.delete('/views/kanban/:viewId/columns/:columnId', (req, res, next) => {
-        kanbanRepository.findOneColumnAndDelete(req.params.viewId, req.params.columnId, (err, data) => {
-            if (!err){
-                res.data = data;
-                res.json(res.data);
-            } else {
-                res.status(400);
-                res.end();
-            }
-        });
-    });
-};
+router.post('/:viewId/columns', (request, response) => {
+    kanbanRepository.addColumn(request.params.viewId, request.body)
+        .then(data => response.status(200).send(data))
+        .catch(error => response.sendStatus(400))
+});
+
+router.put('/:viewId/columns/:columnId', (request, response) => {
+    kanbanRepository.updateColumn(request.params.viewId, request.params.columnId, request.body)
+        .then(data => response.status(200).send(data))
+        .catch(error => response.sendStatus(400));
+});
+
+module.exports = router;

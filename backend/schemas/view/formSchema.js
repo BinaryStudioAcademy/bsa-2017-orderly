@@ -2,14 +2,31 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const formSchema = new Schema({
-    type: String,
-    name: String,
+    type: {
+        type: String,
+        enum: ["form"],
+        default: "form",
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
     description: String,
     logo: String,
     fields_config: [{
-        name: String,
-        position: Number,
-        included: Boolean
+        name: {
+            type: String,
+            required: true
+        },
+        position: {
+            type: Number,
+            required: true
+        },
+        included: {
+            type: Boolean,
+            default: true
+        }
     }]
 });
 

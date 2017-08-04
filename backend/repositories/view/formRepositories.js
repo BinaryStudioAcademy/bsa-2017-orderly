@@ -1,80 +1,43 @@
-const dbConnect = require('../../db/dbConnect');
-const Repository = require('../generalRepository');
+require('../../db/dbConnect');
 const Form = require('../../schemas/view/formSchema');
-///const Table = require('../../schemas/tableSchema');
 
-class FormRepository extends Repository {
+const add = (form) => new Form(form).save();
 
-    constructor() {
-        super();
-        this.model = Form;
-        ///this.table = Table;
-    }
+const getById = (viewId) => Form.findById(viewId);
 
-    getById(viewId, callback) {
-        const query = this.model.findOne({_id: viewId});
-        query.exec(callback);
-    };
+const getAll = () => Form.find({});
 
-    add(tableId, formViewData, callback) {
-        const newFormViewData = new this.model(formViewData);
-        newFormViewData.save(function(err, data) {
-            if (!err){
-                // ToDo: add addView method in Table Repository
-                // this.table.addView(tableId, data, callback);
-                callback(null, data);
-            } else {
-                callback(err, null);
-            }
-        });
-    };
+const update = (viewId, formViewData) => Form.findByIdAndUpdate({_id: viewId}, formViewData);
 
-    findOneAndUpdate(viewId, formViewData, callback) {
-        const query = this.model.update({_id: viewId}, formViewData);
-        query.exec(callback);
-    };
+const deleteForm = (viewId) => Form.findByIdAndRemove(viewId);
 
-    findOneAndDelete(tableId, viewId, callback) {
-        // ToDo: add removeView method in Table Repository
-        /*this.table.removeView(tableId, viewId, function(err, data) {
-            if (!err){
-                const query = this.model.remove({_id: viewId});
-                query.exec(callback);
-            } else {
-                callback(err, null);
-            }
-        });*/
-    };
+const addField = (viewId, formFieldData) =>
+    Form.findByIdAndUpdate(viewId,
+        {'$push': {'fields_config': formFieldData}},
+        {'new': true});
 
+const updateField = (viewId, fieldId, formFieldData) =>
+    Form.findOneAndUpdate({
+        _id: viewId,
+        'fields_config._id': fieldId},
+        {
+        $set:{
+            'fields_config.$.name': formFieldData.name,
+            'fields_config.$.position': formFieldData.position,
+            'fields_config.$.included': formFieldData.included
+        }
+    });
 
-    addField(viewId, formFieldData, callback) {
-        const query = this.model.update({_id: viewId},{
-            $push: {'fields_config': formFieldData}
-        });
-        query.exec(callback);
-    };
+const deleteField = (viewId, fieldId) =>
+    Form.findByIdAndUpdate(viewId, {'$pull': { 'fields_config': { _id: fieldId } }});
 
-    findOneFieldAndUpdate(viewId, fieldId, formFieldData, callback) {
-        const query = this.model.update({
-            _id: viewId,
-            'fields_config._id': fieldId
-        }, {
-            $set:{
-                'fields_config.$.name': formFieldData.name,
-                'fields_config.$.position': formFieldData.position,
-                'fields_config.$.included': formFieldData.included
-            }
-        });
-        query.exec(callback);
-
-    };
-
-    findOneFieldAndDelete(viewId, fieldId, callback) {
-        const query = this.model.update({_id: viewId},{
-            $pull: { 'fields_config': { _id: fieldId } } }
-        );
-        query.exec(callback);
-    };
-}
-
-module.exports = new FormRepository();
+module.exports = {
+    add,
+    getById,
+    getAll,
+    update,
+    deleteForm,
+    addField,
+    updateField,
+    deleteField
+};

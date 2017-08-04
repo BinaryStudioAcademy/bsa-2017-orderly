@@ -1,9 +1,8 @@
+const router = require('express').Router();
 const formRoutes = require('./formRoutes');
 const kanbanRoutes = require('./kanbanRoutes');
 
-module.exports = function(app) {
-    return {
-        formRoutes: formRoutes(app),
-        kanbanRoutes: kanbanRoutes(app)
-    };
-};
+router.use('/form', formRoutes);
+router.use('/kanban', kanbanRoutes);
+
+module.exports = router;
