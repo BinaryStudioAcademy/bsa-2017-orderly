@@ -41,6 +41,18 @@ router.post('/:id/records', (request, response) => {
 		.catch(error => response.sendStatus(400));
 });
 
+router.get('/:tableId/records/:recordId', (request, response) => {
+	tableRepository.getRecordById(request.params.tableId, request.params.recordId)
+		.then(record => request.status(200).send(record))
+		.catch(error => response.sendStatus(400));
+});
+
+router.get('/:id/records', (request, response) => {
+	tableRepository.getAllRecordsByTableId(request.params.id)
+		.then(records => request.status(200).send(records))
+		.catch(error => response.sendStatus(400));
+});
+
 router.delete('/:tableId/records/:recordId', (request, response) => {
 	tableRepository.deleteRecord(request.params.tableId, request.params.recordId)
 		.then(() => request.status(204))
@@ -102,3 +114,4 @@ router.delete('/:tableId/views/:viewId', (request, response) => {
 });
 
 module.exports = router;
+
