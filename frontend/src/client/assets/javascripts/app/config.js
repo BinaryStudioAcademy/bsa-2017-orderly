@@ -6,5 +6,5 @@ export function logException(ex, context) {
     Raven.captureException(ex, {
         extra: context
     });
-    window && window.console && console.error && console.error(ex)
+    window && window.console && console.error && console.error(ex);
 }

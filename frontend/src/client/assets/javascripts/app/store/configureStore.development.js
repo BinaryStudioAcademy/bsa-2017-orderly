@@ -1,10 +1,10 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import { persistState } from 'redux-devtools'
-import promiseMiddleware from 'redux-promise'
-import createLogger from 'redux-logger'
+import { createStore, applyMiddleware, compose } from 'redux';
+import { persistState } from 'redux-devtools';
+import promiseMiddleware from 'redux-promise';
+import createLogger from 'redux-logger';
 
-import rootReducer from '../reducer'
-import DevTools from '../DevTools'
+import rootReducer from '../reducer';
+import DevTools from '../DevTools';
 
 /**
  * Entirely optional.
@@ -18,27 +18,27 @@ const middlewares = [promiseMiddleware, logger, require('redux-immutable-state-i
 
 // By default we try to read the key from ?debug_session=<key> in the address bar
 const getDebugSessionKey = function () {
-  const matches = window.location.href.match(/[?&]debug_session=([^&]+)\b/);
-  return (matches && matches.length) ? matches[1] : null
+    const matches = window.location.href.match(/[?&]debug_session=([^&]+)\b/);
+    return (matches && matches.length) ? matches[1] : null;
 };
 
 const enhancer = compose(
-  applyMiddleware(...middlewares),
-  window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
-  // Optional. Lets you write ?debug_session=<key> in address bar to persist debug sessions
-  persistState(getDebugSessionKey())
+    applyMiddleware(...middlewares),
+    window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
+    // Optional. Lets you write ?debug_session=<key> in address bar to persist debug sessions
+    persistState(getDebugSessionKey())
 );
 
 export default function configureStore(initialState) {
-  const store = createStore(rootReducer, initialState, enhancer);
+    const store = createStore(rootReducer, initialState, enhancer);
 
-  // Enable hot module replacement for reducers (requires Webpack or Browserify HMR to be enabled)
-  if (module.hot) {
-    module.hot.accept('../reducer', () => {
-      const nextReducer = require('../reducer').default;
-      store.replaceReducer(nextReducer)
-    })
-  }
+    // Enable hot module replacement for reducers (requires Webpack or Browserify HMR to be enabled)
+    if (module.hot) {
+        module.hot.accept('../reducer', () => {
+            const nextReducer = require('../reducer').default;
+            store.replaceReducer(nextReducer);
+        });
+    }
 
-  return store
+    return store;
 }
