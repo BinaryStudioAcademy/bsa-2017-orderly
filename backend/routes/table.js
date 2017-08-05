@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const R = require('ramda')
 const tableRepository = require('../repositories/tableRepository');
+const fieldRepository = require('../repositories/fieldRepository');
 const recordRepository = require('../repositories/recordRepository').recordRepository;
 const commentRepository = require('../repositories/recordRepository').commentRepository;
 
@@ -88,27 +89,44 @@ router.delete('/records/:recordId/comments/:commentId', (request, response, next
 		.then(() => response.sendStatus(204))
 		.catch(error => {response.status(400); next(error)});
 });
-/*
+
 //TODO add link to view and field repositories after merge
 // field
 
 router.post('/:id/fields', (request, response, next) => {
-	tableRepository.addField(request.params.id, request.body)
+	fieldRepository.add(request.body)
+		.then(R.curry(tableRepository.addField)(request.params.id))
+		.then(table => response.status(200).send(table))
+		.catch(error => {response.status(400); next(error)});
+});
+
+router.put('/fields/:fieldId', (request, response, next) => {
+	fieldRepository.update(request.params.fieldId, request.body)
 		.then(field => response.status(200).send(field))
 		.catch(error => {response.status(400); next(error)});
 });
 
-router.put('/:tableId/fields/:fieldId', (request, response, next) => {
-	tableRepository.updateField(request.params.tableId, request.params.fieldId, request.body)
+router.get('/fields/:id', (request, response, next) => {
+	fieldRepository.getById(request.params.id)
 		.then(field => response.status(200).send(field))
+		.catch(error => {response.status(400); next(error)});
+});
+
+router.get('/:id/fields', (request, response, next) => {
+	tableRepository.getById(request.params.id)
+		.then(R.compose(fieldRepository.getByIds, R.prop('fieldIds')))
+		.then(records => response.status(200).send(records))
 		.catch(error => {response.status(400); next(error)});
 });
 
 router.delete('/:tableId/fields/:fieldId', (request, response, next) => {
-	tableRepository.deleteField(request.params.tableId, request.params.fieldId)
-		.then(() => response.status(204))
+	tableRepository.pullField(request.params.tableId, request.params.fieldId)
+		.then(() => fieldRepository.remove(request.params.fieldId))
+		.then(() => response.sendStatus(204))
 		.catch(error => {response.status(400); next(error)});
 });
+
+/*
 
 // views
 

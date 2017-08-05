@@ -14,7 +14,7 @@ const tableSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Record'
   }],
-  fields: [{
+  fieldIds: [{
     type: Schema.Types.ObjectId,
     ref: 'Field'
   }],

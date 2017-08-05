@@ -26,6 +26,22 @@ class TableRepository extends Repository {
     )
   }
 
+  addField(tableId, field) {
+    return that.model.findByIdAndUpdate(
+        tableId,
+        {'$push': {fieldIds: field._id}},
+        {'new': true}
+    )
+  }
+
+  pullField(tableId, fieldId) {
+    return that.model.findByIdAndUpdate(
+        tableId,
+        {'$pull': {fieldIds: fieldId}}
+    )
+  }
+
+
 }
 
 module.exports = new TableRepository()
