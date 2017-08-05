@@ -15,15 +15,15 @@ class FormRepository extends Repository {
 
     updateField(viewId, fieldId, formFieldData) {
         return this.model.findOneAndUpdate({
-                _id: viewId,
-                'fields_config._id': fieldId},
-            {
-                $set:{
-                    'fields_config.$.name': formFieldData.name,
-                    'fields_config.$.position': formFieldData.position,
-                    'fields_config.$.included': formFieldData.included
-                }
-            });
+            _id: viewId,
+            'fields_config._id': fieldId},
+        {
+            $set:{
+                'fields_config.$.name': formFieldData.name,
+                'fields_config.$.position': formFieldData.position,
+                'fields_config.$.included': formFieldData.included
+            }
+        });
     }
 
     deleteField(viewId, fieldId) {

@@ -15,13 +15,13 @@ class KanbanRepository extends Repository {
 
     updateColumn(viewId, columnId, kanbanColumnData) {
         return this.model.findOneAndUpdate({
-                _id: viewId,
-                'columns_config._id': columnId},
-            {
-                $set:{
-                    'columns_config.$.hidden': kanbanColumnData.hidden
-                }
-            });
+            _id: viewId,
+            'columns_config._id': columnId},
+        {
+            $set:{
+                'columns_config.$.hidden': kanbanColumnData.hidden
+            }
+        });
     }
 
     deleteColumn(viewId, columnId) {
