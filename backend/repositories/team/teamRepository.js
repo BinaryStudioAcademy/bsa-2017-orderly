@@ -22,11 +22,11 @@ class TeamRepository extends Repository{
     }
 
     remove(id) {
-        return this.model.findOneAndRemove(id);
+        return this.model.findOneAndRemove({_id: id});
     }
 
     update(id, teamData) {
-        return this.model.findOneAndUpdate(id, {$set: teamData}, {'new': true});
+        return this.model.findOneAndUpdate({_id: id}, {$set: teamData}, {'new': true});
     }
 }
 
