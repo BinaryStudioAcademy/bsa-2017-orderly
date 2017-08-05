@@ -1,29 +1,33 @@
-let Repository = function () {
-};
+const R = require('ramda');
 
-Repository.prototype.add = function (data, callback) {
-    let model = this.model;
-    let newitem = new model(data);
-    newitem.save(callback);
-};
+class Repository {
 
-Repository.prototype.update = function (id, body, callback) {
-    let query = this.model.update({_id: id}, body);
-    query.exec(callback);
-};
+    getAll() {
+        return this.model.find({});
+    }
 
-Repository.prototype.delete = function (id, callback) {
-    let model = this.model;
-    let query = model.remove({_id: id});
-    query.exec(callback);
-};
+    getById(id) {
+        return this.model.findById(id);
+    }
 
-Repository.prototype.deleteMany = function (array, callback) {
-    let model = this.model;
-    array.forEach(id => {
-        let query = model.remove({_id: id});
-        query.exec(callback);
-    });
-};
+    add(data) {
+        return new this.model(data).save();
+    }
+
+    update(id, data) {
+        return this.model.update(id, data, {'new': true});
+    }
+
+    remove(id) {
+        return this.model.findByIdAndRemove(id);
+    }
+
+    deleteMany(array) {
+        let model = this.model;
+        return Promise.all(R.map(model.remove, array));
+    }
+
+}
 
 module.exports = Repository;
+

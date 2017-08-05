@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon app"
+    "start": "nodemon server"
   },
   "keywords": [],
   "author": "BSA2017_JS",
@@ -13,11 +13,12 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "mongodb": "^2.2.30",
-    "mongoose": "^4.11.1",
+    "mongoose": "^4.11.3",
     "morgan": "^1.8.2",
     "ramda": "^0.24.1"
   },
   "devDependencies": {
+    "locus": "^2.0.1",
     "nodemon": "^1.11.0"
   }
 }
