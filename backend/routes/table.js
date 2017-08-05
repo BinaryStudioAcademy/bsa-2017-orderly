@@ -129,13 +129,13 @@ router.delete('/:tableId/fields/:fieldId', (request, response, next) => {
 
 router.put('/:tableId/views/:viewId', (request, response, next) => {
 	tableRepository.linkView(request.params.tableId, request.params.viewId)
-		.then(() => request.status(200))
+		.then(() => response.sendStatus(200))
 		.catch(error => {response.status(400); next(error)});
 });
 
 router.delete('/:tableId/views/:viewId', (request, response, next) => {
 	tableRepository.unlinkView(request.params.tableId, request.params.viewId)
-		.then(() => request.status(204))
+		.then(() => response.sendStatus(204))
 		.catch(error => {response.status(400); next(error)});
 });
 
