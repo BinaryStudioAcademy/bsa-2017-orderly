@@ -13,7 +13,7 @@ class TeamRepository extends Repository{
     }
 
     getById(id) {
-        return this.model.find(id).exec();
+        return this.model.findById(id);
     }
 
     add(teamData) {
