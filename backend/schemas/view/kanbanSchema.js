@@ -19,6 +19,6 @@ const kanbanSchema = new Schema({
             "default": false
         }
     }]
-});
+}, {versionKey: false});
 
 module.exports = mongoose.model('kanban', kanbanSchema);

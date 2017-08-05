@@ -28,6 +28,6 @@ const formSchema = new Schema({
             "default": true
         }
     }]
-});
+}, {versionKey: false});
 
 module.exports = mongoose.model('form', formSchema);
