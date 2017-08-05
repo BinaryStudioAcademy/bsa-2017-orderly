@@ -40,6 +40,7 @@ router.delete('/:id', (request, response, next) => {
 
 router.post('/:id/records', (request, response, next) => {     // R.curry - обычное каррирование, позволяет отложенно вызывать
 	recordRepository.add(request.body)													// функцию в зависимости от наличия аргументов
+		// r => tableRepository.updateRecord(request.params.id, r)
 		.then(R.curry(tableRepository.updateRecord)(request.params.id))  // здесь в tableRepository.updateRecord сначала передается tableRepository.updateRecord
 		.then(table => response.status(200).send(table))						// а потом то, что приходит из функции recordRepository.add
 		.catch(error => {response.status(400); next(error)});
@@ -53,7 +54,8 @@ router.get('/records/:id', (request, response, next) => {
 
 router.get('/:id/records', (request, response, next) => {
 	tableRepository.getById(request.params.id)
-    .then(R.compose(recordRepository.getByIds, R.prop('records'))) // R.compose(func2, func1) - вызовет сначала func1 потом передаст результат выполнения
+		// t => recordRepository.getByIds(t.records)
+        .then(R.compose(recordRepository.getByIds, R.prop('records'))) // R.compose(func2, func1) - вызовет сначала func1 потом передаст результат выполнения
 		.then(records => response.status(200).send(records))						// в func2 и вернет его. R.prop('records) - берет значение в поле records объекта, который
 		.catch(error => {response.status(400); next(error)});						// возвращает tableRepository.getById
 });
