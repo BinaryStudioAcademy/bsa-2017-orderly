@@ -78,8 +78,8 @@ router.put('/records/:recordId', (request, response, next) => {
 
 router.post('/records/:recordId/comments', (request, response, next) => {
 	commentRepository.add(request.body)
-		.then(R.curry(recordRepository.updateComment)(request.params.recordId))
-		.then(comment => response.status(200).send(comment))
+		.then(R.curry(recordRepository.addComment)(request.params.recordId))
+		.then(record => response.status(200).send(record))
 		.catch(error => {response.status(400); next(error)});
 });
 
@@ -90,7 +90,6 @@ router.delete('/records/:recordId/comments/:commentId', (request, response, next
 		.catch(error => {response.status(400); next(error)});
 });
 
-//TODO add link to view and field repositories after merge
 // field
 
 router.post('/:id/fields', (request, response, next) => {
@@ -114,8 +113,8 @@ router.get('/fields/:id', (request, response, next) => {
 
 router.get('/:id/fields', (request, response, next) => {
 	tableRepository.getById(request.params.id)
-		.then(R.compose(fieldRepository.getByIds, R.prop('fieldIds')))
-		.then(records => response.status(200).send(records))
+		.then(R.compose(fieldRepository.getByIds, R.prop('fields')))
+		.then(fields => response.status(200).send(fields))
 		.catch(error => {response.status(400); next(error)});
 });
 
@@ -126,21 +125,19 @@ router.delete('/:tableId/fields/:fieldId', (request, response, next) => {
 		.catch(error => {response.status(400); next(error)});
 });
 
-/*
-
 // views
 
-router.post('/:tableId/views/:viewId', (request, response, next) => {
-	tableRepository.addView(request.params.tableId, request.params.viewId)
+router.put('/:tableId/views/:viewId', (request, response, next) => {
+	tableRepository.linkView(request.params.tableId, request.params.viewId)
 		.then(() => request.status(200))
 		.catch(error => {response.status(400); next(error)});
 });
 
 router.delete('/:tableId/views/:viewId', (request, response, next) => {
-	tableRepository.deleteView(request.params.tableId, request.params.viewId)
+	tableRepository.unlinkView(request.params.tableId, request.params.viewId)
 		.then(() => request.status(204))
 		.catch(error => {response.status(400); next(error)});
 });
-*/
+
 module.exports = router;
 

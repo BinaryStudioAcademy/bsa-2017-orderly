@@ -29,7 +29,7 @@ class TableRepository extends Repository {
   addField(tableId, field) {
     return that.model.findByIdAndUpdate(
         tableId,
-        {'$push': {fieldIds: field._id}},
+        {'$push': {fields: field._id}},
         {'new': true}
     )
   }
@@ -37,9 +37,25 @@ class TableRepository extends Repository {
   pullField(tableId, fieldId) {
     return that.model.findByIdAndUpdate(
         tableId,
-        {'$pull': {fieldIds: fieldId}}
+        {'$pull': {fields: fieldId}}
     )
   }
+
+  linkView(tableId, viewId) {
+    return that.model.findByIdAndUpdate(
+        tableId,
+        {'$push': {views: viewId}},
+        {'new': true}
+    )
+  }
+
+  unlinkView(tableId, viewId) {       //remove
+    return that.model.findByIdAndUpdate(
+        tableId,
+        {'$pull': {views: viewId}}
+    )
+  }
+
 
 
 }

@@ -16,7 +16,7 @@ class RecordRepository extends Repository {
     return that.model.find({'_id': { $in: ids}})
   }
 
-  updateComment(recordId, comment) {
+  addComment(recordId, comment) {          //link comment with record
     return that.model.findByIdAndUpdate(
       recordId,
       {'$push': {comments: comment._id}},
