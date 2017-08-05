@@ -10,10 +10,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 require('./routes/index')(router);
 
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-});
-
 app.use("/api", router);
 
 app.use((req, res, next) => {

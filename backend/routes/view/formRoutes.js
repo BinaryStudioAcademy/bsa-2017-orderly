@@ -44,7 +44,7 @@ router.put('/:viewId/fields/:fieldId', (request, response) => {
 });
 
 router.delete('/:viewId/fields/:fieldId', (request, response) => {
-    formRepository.deleteField(request.params.viewId, request.params.fieldId,)
+    formRepository.deleteField(request.params.viewId, request.params.fieldId)
         .then(data => response.status(200).send(data))
         .catch(error => response.status(400).send(`Can not delete form view field. ${error}`));
 });

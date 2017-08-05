@@ -44,7 +44,7 @@ router.put('/:viewId/columns/:columnId', (request, response) => {
 });
 
 router.delete('/:viewId/columns/:columnId', (request, response) => {
-    kanbanRepository.deleteColumn(request.params.viewId, request.params.columnId,)
+    kanbanRepository.deleteColumn(request.params.viewId, request.params.columnId)
         .then(data => response.status(200).send(data))
         .catch(error => response.status(400).send(`Can not delete kanban view column. ${error}`));
 });
