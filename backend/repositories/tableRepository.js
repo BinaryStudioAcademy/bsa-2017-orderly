@@ -1,68 +1,64 @@
 require('../db/dbConnect');
 const Repository = require('./generalRepository');
 const Table = require('../schemas/Table');
-let that
+let that;
 
 class TableRepository extends Repository {
 
-  constructor() {
-    super();
-    this.model = Table;
-    that = this
-  }
+    constructor() {
+        super();
+        this.model = Table;
+        that = this;
+    }
 
-  updateRecord(tableId, record) {
-    return that.model.findByIdAndUpdate(
-      tableId,
-      {'$push': {records: record._id}},
-      {'new': true}
-    )
-  }
+    updateRecord(tableId, record) {
+        return that.model.findByIdAndUpdate(
+            tableId,
+            {'$push': {records: record._id}},
+            {'new': true}
+        );
+    }
 
-  pullRecord(tableId, recordId) {
-    return that.model.findByIdAndUpdate(
-      tableId,
-      {'$pull': {records: recordId}}
-    )
-  }
+    pullRecord(tableId, recordId) {
+        return that.model.findByIdAndUpdate(
+            tableId,
+            {'$pull': {records: recordId}}
+        );
+    }
 
-  addField(tableId, field) {
-    return that.model.findByIdAndUpdate(
-        tableId,
-        {'$push': {fields: field._id}},
-        {'new': true}
-    )
-  }
+    addField(tableId, field) {
+        return that.model.findByIdAndUpdate(
+            tableId,
+            {'$push': {fields: field._id}},
+            {'new': true}
+        );
+    }
 
-  pullField(tableId, fieldId) {
-    return that.model.findByIdAndUpdate(
-        tableId,
-        {'$pull': {fields: fieldId}}
-    )
-  }
+    pullField(tableId, fieldId) {
+        return that.model.findByIdAndUpdate(
+            tableId,
+            {'$pull': {fields: fieldId}}
+        );
+    }
 
-  linkView(tableId, viewId) {
-    return that.model.findByIdAndUpdate(
-        tableId,
-        {'$push': {views: viewId}},
-        {'new': true}
-    )
-  }
+    linkView(tableId, viewId) {
+        return that.model.findByIdAndUpdate(
+            tableId,
+            {'$push': {views: viewId}},
+            {'new': true}
+        );
+    }
 
-  unlinkView(tableId, viewId) {       //remove
-    return that.model.findByIdAndUpdate(
-        tableId,
-        {'$pull': {views: viewId}}
-    )
-  }
-
-
+    unlinkView(tableId, viewId) {       //remove
+        return that.model.findByIdAndUpdate(
+            tableId,
+            {'$pull': {views: viewId}}
+        );
+    }
 
 }
 
-module.exports = new TableRepository()
-
-
+module.exports = new TableRepository();
 
 //
 // const addRecord = (tableId, record) =>

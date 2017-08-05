@@ -1,33 +1,33 @@
-const R = require('ramda')
+const R = require('ramda');
 
 class Repository {
 
-	getAll() {
-		return this.model.find({});
-	}
+    getAll() {
+        return this.model.find({});
+    }
 
-	getById(id) {
-		return this.model.findById(id);
-	}
+    getById(id) {
+        return this.model.findById(id);
+    }
 
-	add(data) {
-		return new this.model(data).save();
-	}
+    add(data) {
+        return new this.model(data).save();
+    }
 
-	update(id, data) {
-		return this.model.update(id, data, {'new': true});
-	}
+    update(id, data) {
+        return this.model.update(id, data, {'new': true});
+    }
 
-	remove(id) {
-		return this.model.findByIdAndRemove(id);
-	}
+    remove(id) {
+        return this.model.findByIdAndRemove(id);
+    }
 
-	deleteMany(array) {
-		let model = this.model;
-		return Promise.all(R.map(model.remove, array))
-	}
+    deleteMany(array) {
+        let model = this.model;
+        return Promise.all(R.map(model.remove, array));
+    }
 
 }
 
-module.exports = Repository
+module.exports = Repository;
 
