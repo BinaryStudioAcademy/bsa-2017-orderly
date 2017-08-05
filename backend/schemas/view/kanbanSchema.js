@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const kanbanSchema = new Schema({
+const KanbanSchema = new Schema({
     "type": {
         "type": String,
         "enum": ["kanban"],
@@ -10,7 +10,8 @@ const kanbanSchema = new Schema({
     },
     "name": {
         "type": String,
-        "required": true
+        "required": true,
+        "trim": true
     },
     "description": String,
     "columns_config": [{
@@ -21,4 +22,9 @@ const kanbanSchema = new Schema({
     }]
 }, {versionKey: false});
 
-module.exports = mongoose.model('kanban', kanbanSchema);
+KanbanSchema.pre('findOneAndUpdate', function(next) {
+    this.options.runValidators = true;
+    next();
+});
+
+module.exports = mongoose.model('kanban', KanbanSchema);

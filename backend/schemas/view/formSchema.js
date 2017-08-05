@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const formSchema = new Schema({
+const FormSchema = new Schema({
     "type": {
         "type": String,
         "enum": ["form"],
@@ -10,14 +10,16 @@ const formSchema = new Schema({
     },
     "name": {
         "type": String,
-        "required": true
+        "required": true,
+        "trim": true
     },
     "description": String,
     "logo": String,
     "fields_config": [{
         "name": {
             "type": String,
-            "required": true
+            "required": true,
+            "trim": true
         },
         "position": {
             "type": Number,
@@ -30,4 +32,9 @@ const formSchema = new Schema({
     }]
 }, {versionKey: false});
 
-module.exports = mongoose.model('form', formSchema);
+FormSchema.pre('findOneAndUpdate', function(next) {
+    this.options.runValidators = true;
+    next();
+});
+
+module.exports = mongoose.model('form', FormSchema);
