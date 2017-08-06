@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const GridSchema = new Schema({
-    
+const GridSchema = new Schema({    
     "description": {
         "type": "String"
     },
@@ -18,7 +17,6 @@ const GridSchema = new Schema({
     },
     "fields_config": [
         {
-            
             "name": {
                 "type": "String",
                 "required": true
@@ -36,8 +34,7 @@ const GridSchema = new Schema({
                 "type": "Number"
             }
         }
-    ]
- 
+    ] 
 }, { versionKey: false });
 
 GridSchema.pre('findOneAndUpdate', function(next) {

@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const GallerySchema = new Schema({
-   
+const GallerySchema = new Schema({   
     "description": {
         "type": "String"
     },
@@ -29,8 +28,7 @@ const GallerySchema = new Schema({
                 }
             ]
         }
-    ]
- 
+    ] 
 }, { versionKey: false });
 
 GallerySchema.pre('findOneAndUpdate', function(next) {
