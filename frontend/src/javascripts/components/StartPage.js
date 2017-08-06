@@ -1,5 +1,5 @@
 import React from 'react'
-import InDeveloping from './in developing/InDeveloping'
+import InDeveloping from './in_developing/InDeveloping'
 
 const StartPage = (props) => (
   <InDeveloping/>
