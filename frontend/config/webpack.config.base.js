@@ -10,21 +10,19 @@ module.exports = {
     },
     resolve: {
         modules: [
-            path.join(__dirname, '../src/client/scripts'),
-            path.join(__dirname, '../src/client/assets'),
-            path.join(__dirname, '../src/client/assets/javascripts'),
-            'node_modules'
+            path.join(__dirname, '../src/'),
+            path.join(__dirname, '../src/javascripts'),
+            path.join(__dirname, '../node_modules')
         ],
         alias: {
-            models: path.join(__dirname, '../src/client/assets/javascripts/models')
+            models: path.join(__dirname, '../src/javascripts/models')
         },
         extensions: ['.js', '.jsx', '.json', '.scss']
     },
     plugins: [
         new webpack.ProvidePlugin({
-            'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'  // fetch API
+            'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
         }),
-        // Shared code
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             filename: 'js/vendor.bundle.js',
@@ -33,14 +31,11 @@ module.exports = {
     ],
     module: {
         loaders: [
-            // JavaScript / ES6
             {
                 test: /\.jsx?$/,
-                include: path.resolve(__dirname, '../src/client/assets/javascripts'),
+                include: path.resolve(__dirname, '../src/javascripts'),
                 loader: 'babel'
             },
-            // Images
-            // Inline base64 URLs for <=8k images, direct URLs for the rest
             {
                 test: /\.(png|jpg|jpeg|gif|svg)$/,
                 loader: 'url',
@@ -49,7 +44,6 @@ module.exports = {
                     name: 'images/[name].[ext]?[hash]'
                 }
             },
-            // Fonts
             {
                 test: /\.(woff|woff2|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'url',

@@ -9,7 +9,6 @@ const config = require('./config/webpack.config.development');
 const app = express();
 const compiler = webpack(config);
 
-// Apply CLI dashboard for your webpack dev server
 compiler.apply(new DashboardPlugin());
 
 const host = process.env.HOST || 'localhost';
@@ -23,16 +22,14 @@ function log() {
 app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
     publicPath: config.output.publicPath,
-    stats: {
-        colors: true
-    },
+    stats: {colors: true},
     historyApiFallback: true
 }));
 
 app.use(webpackHotMiddleware(compiler));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './src/client/assets/index.html'));
+    res.sendFile(path.join(__dirname, './src/index.html'));
 });
 
 app.listen(port, host, (err) => {
