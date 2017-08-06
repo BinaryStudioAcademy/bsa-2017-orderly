@@ -7,13 +7,13 @@ class GalleryRepository extends Repository {
         this.model = Gallery;
     }
 
-    addRecordsConfig(viewId, galleryRecordsConfigData) {        
+    addRecords(viewId, galleryRecordsConfigData) {        
         return this.model.findByIdAndUpdate(viewId,
             {'$push': {'records_config': galleryRecordsConfigData}},
             {'new': true});
     }
 
-    updateRecordsConfig(viewId, configId, galleryRecordsConfigData) {
+    updateRecords(viewId, configId, galleryRecordsConfigData) {
         return this.model.findOneAndUpdate({
             _id: viewId,
             'records_config._id': configId},
@@ -25,7 +25,7 @@ class GalleryRepository extends Repository {
         });
     }
 
-    deleteRecordsConfig(viewId, configId) {
+    deleteRecords(viewId, configId) {
         return this.model.findByIdAndUpdate(viewId, {'$pull': { 'records_config': { _id: configId } }});
     }
 
