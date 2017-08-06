@@ -2,12 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const GallerySchema = new Schema({
-    
    
     "description": {
         "type": "String"
     },
-   "type": {
+    "type": {
         "type": "String",
         "enum": [ "gallery" ],
         "required": true,
@@ -22,7 +21,7 @@ const GallerySchema = new Schema({
             
             "position": {
                 "type": "Number",
-                 "required": true
+                "required": true
             },
             "included_fields": [
                 {

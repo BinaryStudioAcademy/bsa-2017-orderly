@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const GridSchema = new Schema({
     
-   "description": {
+    "description": {
         "type": "String"
     },
     "type": {

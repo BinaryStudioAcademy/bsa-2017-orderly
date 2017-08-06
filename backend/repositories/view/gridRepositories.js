@@ -13,22 +13,21 @@ class GridRepository extends Repository {
             {'new': true});
     }
 
-   updateField(viewId, fieldId, gridFieldData) {
+    updateField(viewId, fieldId, gridFieldData) {
         return this.model.findOneAndUpdate({
-                _id: viewId,
-                'fields_config._id': fieldId},
-            {
-                $set:{
+            _id: viewId,
+            'fields_config._id': fieldId},
+        {
+            $set:{
                 'fields_config.$.name': gridFieldData.name,
                 'fields_config.$.position': gridFieldData.position,
                 'fields_config.$.included': gridFieldData.included,
                 'fields_config.$.hidden': gridFieldData.hidden,
                 'fields_config.$.fixed_area': gridFieldData.fixed_area,
                 'fields_config.$.size': gridFieldData.size
-                }
-            });
+            }
+        });
     }
-  
 
     deleteField(viewId, fieldId) {
         return this.model.findByIdAndUpdate(viewId, {'$pull': { 'fields_config': { _id: fieldId } }});
