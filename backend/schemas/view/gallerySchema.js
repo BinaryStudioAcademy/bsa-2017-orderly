@@ -13,7 +13,8 @@ const GallerySchema = new Schema({
     },    
     "name": {
         "type": "String",
-        "required": true
+        "required": true,
+        "trim": true
     },
     "records_config": [
         {

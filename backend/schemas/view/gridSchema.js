@@ -9,7 +9,8 @@ const GridSchema = new Schema({
         "type": "String",
         "enum": [ "grid" ],
         "required": true,
-        "default": "grid"
+        "default": "grid",
+        "trim": true
     },    
     "name": {
         "type": "String",
@@ -19,7 +20,8 @@ const GridSchema = new Schema({
         {
             "name": {
                 "type": "String",
-                "required": true
+                "required": true,
+                "trim": true
             },
             "hidden": {
                 "type": "Boolean"
