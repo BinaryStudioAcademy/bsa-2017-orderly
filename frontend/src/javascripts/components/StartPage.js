@@ -1,9 +1,8 @@
-import React from 'react'
-import InDeveloping from './in_developing/InDeveloping'
+import React from 'react';
+import InDeveloping from './in_developing/InDeveloping';
 
 const StartPage = (props) => (
-  <InDeveloping/>
-)
+    <InDeveloping/>
+);
 
-export default StartPage
-
+export default StartPage;
