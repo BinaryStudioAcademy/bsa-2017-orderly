@@ -24,16 +24,20 @@ const GridSchema = new Schema({
                 "trim": true
             },
             "hidden": {
-                "type": "Boolean"
+                "type": "Boolean",
+                "default": false
             },
             "size": {
-                "type": "Number"
+                "type": "Number",
+                "required": true
             },
             "position": {
-                "type": "Number"
+                "type": "Number",
+                "required": true
             },
             "fixed_area": {
-                "type": "Number"
+                "type": "Number",
+                "required": true
             }
         }
     ] 
