@@ -59,30 +59,3 @@ class TableRepository extends Repository {
 }
 
 module.exports = new TableRepository();
-
-//
-// const addRecord = (tableId, record) =>
-//   new Record(record).save()
-//     .then( recordObj =>
-//       Table.findByIdAndUpdate(
-//         tableId,
-//         {'$push': {'records': recordObj._id}},
-//         {'new': true}
-//     ))
-//
-// const deleteRecord = (tableId, recordId) =>
-//   Table.findByIdAndUpdate(tableId, {'$pull': {records: recordId}})
-//
-//
-//
-//
-//
-// module.exports = {
-//   add,
-//   getAll,
-//   getById,
-//   update,
-//   deleteTable,
-//   addRecord,
-//   deleteRecord
-// }
