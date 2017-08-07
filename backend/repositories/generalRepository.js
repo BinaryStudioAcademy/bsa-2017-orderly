@@ -22,12 +22,12 @@ class Repository {
     }
 
     update(id, body) {
-        return this.model.update({_id: id}, body, {'new': true});
+        return this.model.findByIdAndUpdate(id, body, {'new': true});
     }
 
     remove(id) {
-        return this.model.remove({_id: id});
-    }
+        return this.model.remove({_id: id}).exec();
+    }    
 }
 
 module.exports = Repository;

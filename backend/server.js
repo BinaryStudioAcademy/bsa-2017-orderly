@@ -9,12 +9,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
-app.use('/api', router);
 require('./routes/index')(router);
-
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+app.use('/api', router);
 
 app.use((req, res, next) => {
     let err = new Error('Route not Found');
