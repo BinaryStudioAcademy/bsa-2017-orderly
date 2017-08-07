@@ -1,33 +1,33 @@
-const R = require('ramda');
+require('../db/dbConnect');
 
 class Repository {
-
-    getAll() {
-        return this.model.find({});
-    }
-
-    getById(id) {
-        return this.model.findById(id);
+    constructor() {
+        this.model = null;
     }
 
     add(data) {
         return new this.model(data).save();
     }
 
-    update(id, data) {
-        return this.model.update(id, data, {'new': true});
+    getById(id) {
+        return this.model.findById(id);
+    }
+
+    getbyIds(ids) {
+        return this.model.find({'_id': { $in: ids}});
+    }
+
+    getAll() {
+        return this.model.find();
+    }
+
+    update(id, body) {
+        return this.model.findByIdAndUpdate(id, body, {'new': true});
     }
 
     remove(id) {
-        return this.model.findByIdAndRemove(id);
-    }
-
-    deleteMany(array) {
-        let model = this.model;
-        return Promise.all(R.map(model.remove, array));
-    }
-
+        return this.model.remove({_id: id}).exec();
+    }    
 }
 
 module.exports = Repository;
-

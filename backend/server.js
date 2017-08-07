@@ -4,18 +4,14 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
 const router = express.Router();
-
-app.use(morgan('combined'));
+const favicon = require('serve-favicon');
+const port = 2020;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
 require('./routes/index')(router);
-
-app.get('/', function (req, res) {
-    res.send('Hello World!');
-});
-
-app.use("/api", router);
+app.use('/api', router);
 
 app.use((request, response, next) => {
     response.sendStatus(404);
@@ -30,7 +26,7 @@ app.use((error, request, response, next) => {
     response.send();
 });
 
-app.listen(2020, () => {
+app.listen(port, () => {
     console.log('Server is started on localhost:2020');
 });
 

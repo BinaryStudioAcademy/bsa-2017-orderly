@@ -1,10 +1,7 @@
 module.exports = (router) => {
 
-    router.get('/', (req, res) => {
-        res.send('REST API orderly v1.0');
-    });
-
-    // router.use('/user', require('./user'));
-
+    router.use('/view', require('./view'));
+    router.use('/team', require('./team/teamRoutes'));
     router.use('/tables', require('./table'));
+
 };
