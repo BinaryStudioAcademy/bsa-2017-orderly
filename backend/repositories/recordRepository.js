@@ -2,22 +2,20 @@ require('../db/dbConnect');
 const Repository = require('./generalRepository');
 const Record = require('../schemas/Record').Record;
 const Comment = require('../schemas/Record').Comment;
-let that;
 
 class RecordRepository extends Repository {
 
     constructor() {
         super();
         this.model = Record;
-        that = this;
     }
 
     getByIds(ids) {
-        return that.model.find({'_id': {$in: ids}});
+        return this.model.find({'_id': {$in: ids}});
     }
 
     addComment(recordId, comment) {          //link comment with record
-        return that.model.findByIdAndUpdate(
+        return this.model.findByIdAndUpdate(
             recordId,
             {'$push': {comments: comment._id}},
             {'new': true}
@@ -25,7 +23,7 @@ class RecordRepository extends Repository {
     }
 
     pullComment(recordId, commentId) {
-        return that.model.findByIdAndUpdate(
+        return this.model.findByIdAndUpdate(
             recordId,
             {'$pull': {comments: commentId}}
         );

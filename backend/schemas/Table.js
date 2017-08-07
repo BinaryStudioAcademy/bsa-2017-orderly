@@ -22,7 +22,7 @@ const tableSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'View'
   }]
-});
+}, {versionKey: false});
 
 
 module.exports = mongoose.model('Table', tableSchema);

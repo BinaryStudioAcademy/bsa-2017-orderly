@@ -12,8 +12,8 @@ const recordSchema = new Schema({
   comments: [{
     type: Schema.Types.ObjectId,
     ref: 'Comment'
-  }],
-});
+  }]
+}, {versionKey: false});
 
 const historySchema = new Schema({
   collaborator: {
@@ -28,7 +28,7 @@ const historySchema = new Schema({
       type: String
     }
   }
-})
+}, {versionKey: false});
 
 const commentSchema = new Schema({
   collaborator: {
@@ -38,7 +38,7 @@ const commentSchema = new Schema({
   message: {
     type: String
   }
-});
+}, {versionKey: false});
 
 
 module.exports.Comment = mongoose.model('Comment', commentSchema);

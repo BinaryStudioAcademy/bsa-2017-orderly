@@ -13,7 +13,7 @@ const fieldSchema = new Schema({
   description: {
     type: String
   }
-});
+}, {versionKey: false});
 
 
 module.exports = mongoose.model('Field', fieldSchema);
