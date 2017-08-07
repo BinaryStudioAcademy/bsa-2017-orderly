@@ -1,6 +1,6 @@
-require('../db/dbConnect');
-const Repository = require('./generalRepository');
-const Table = require('../schemas/Table');
+require('../../db/dbConnect');
+const Repository = require('../generalRepository');
+const Table = require('../../schemas/table/Table');
 
 class TableRepository extends Repository {
 

@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const R = require('ramda');
-const tableRepository = require('../repositories/tableRepository');
-const fieldRepository = require('../repositories/fieldRepository');
-const recordRepository = require('../repositories/recordRepository').recordRepository;
-const commentRepository = require('../repositories/recordRepository').commentRepository;
+const tableRepository = require('../../repositories/table/tableRepository');
+const fieldRepository = require('../../repositories/table/fieldRepository');
+const recordRepository = require('../../repositories/table/recordRepository').recordRepository;
+const commentRepository = require('../../repositories/table/recordRepository').commentRepository;
 
 // tables
 
