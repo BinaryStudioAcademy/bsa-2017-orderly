@@ -22,11 +22,10 @@ module.exports = merge(config, {
     plugins: [
         new CopyWebpackPlugin([
             {
-                from: path.join(__dirname, '../src/client/assets/images'),
+                from: path.join(__dirname, '../src/images'),
                 to: 'images'
             }
         ]),
-        // Avoid publishing files when compilation fails
         new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin(GLOBALS),
         new webpack.optimize.DedupePlugin(),
@@ -52,13 +51,11 @@ module.exports = merge(config, {
     module: {
         noParse: /\.min\.js$/,
         loaders: [
-            // Sass
             {
                 test: /\.scss$/,
                 include: [
-                    path.resolve(__dirname, '../src/client/assets/javascripts'),
-                    path.resolve(__dirname, '../src/client/assets/styles'),
-                    path.resolve(__dirname, '../src/client/scripts')
+                    path.resolve(__dirname, '../src/javascripts'),
+                    path.resolve(__dirname, '../src/styles'),
                 ],
                 loader: ExtractTextPlugin.extract({
                     fallbackLoader: 'style',
@@ -69,7 +66,6 @@ module.exports = merge(config, {
                     ]
                 })
             },
-            // CSS
             {
                 test: /\.css$/,
                 loader: ExtractTextPlugin.extract({
