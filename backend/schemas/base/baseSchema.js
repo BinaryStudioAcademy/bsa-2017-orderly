@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = Schema.Types.ObjectID;
+const ObjectId = Schema.Types.ObjectId;
+const baseIcon = require('./baseIconSchema');
 
 const baseSchema = new Schema({
     name: {
@@ -9,7 +10,10 @@ const baseSchema = new Schema({
         trim: true
     },
     description: String,
-    icon: ObjectId,
+    icon: {
+        type: ObjectId,
+        ref: baseIcon,
+    },
     collaborators: [
         {
             userId: {
@@ -30,7 +34,10 @@ const baseSchema = new Schema({
     ],
     tables: [{type: ObjectId, ref: 'Tables'}],
     color: String,
-    createdAt:  Date,
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 }, {versionKey: false});
 
 module.exports = mongoose.model('base', baseSchema);
