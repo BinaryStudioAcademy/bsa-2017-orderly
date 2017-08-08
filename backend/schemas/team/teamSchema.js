@@ -5,7 +5,7 @@ const baseSchema = require('../base/baseSchema');
 
 const teamSchema = new Schema({
     owner: {
-        type: String,
+        type: ObjectId,
         required: true
     },
     name: {
