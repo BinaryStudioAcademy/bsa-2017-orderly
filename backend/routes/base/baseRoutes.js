@@ -10,10 +10,15 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    baseRepository.getById(req.params.id).then((base) => {
-        res.send(base);
+    const baseId = req.params.id;
+    baseRepository.getById(baseId).then((base) => {
+        if (base) {
+            res.send(base);
+        } else {
+            res.send(`No base with id ${baseId}`);
+        }
     }).catch((err) => {
-        res.send(`Can not get base ${req.params.id}\n${err}`);
+        res.send(`Can not get base ${baseId}\n${err}`);
     });
 });
 
@@ -28,8 +33,13 @@ router.post('/', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    baseRepository.remove(req.params.id).then((result) => {
-        res.send(`Base ${req.params.id} deleted:\n${result}`);
+    const baseId = req.params.id;
+    baseRepository.remove(baseId).then((result) => {
+        if (result.n) {
+            res.send(`Base  deleted:\n${result}`);
+        } else {
+            res.send(`No base with ID ${baseId}`);
+        }
     }).catch((err) => {
         res.send(`Can not delete base, ${err}`);
     });
@@ -38,10 +48,15 @@ router.delete('/:id', (req, res) => {
 
 router.put('/:id', function (req, res) {
     const baseObj = req.body;
-    baseRepository.update(req.params.id, baseObj).then((result) => {
-        res.send(`Base ${req.params.id} updated:\n${result}`);
+    const baseId = req.params.id;
+    baseRepository.update(baseId, baseObj).then((result) => {
+        if (result) {
+            res.send(`Base ${baseId} updated:\n${result}`);
+        } else {
+            res.send(`No base with ID ${baseId}`);
+        }
     }).catch((err) => {
-        res.send(`Can not update base ${req.params.id}\n${err}`);
+        res.send(`Can not update base ${baseId}\n${err}`);
     });
 });
 
