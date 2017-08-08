@@ -10,10 +10,15 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    teamRepository.getById(req.params.id).then((team) => {
-        res.send(team);
+    const teamId = req.params.id;
+    teamRepository.getById(teamId).then((team) => {
+        if (team) {
+            res.send(team);
+        } else {
+            res.send(`No team with id ${teamId}`);
+        }
     }).catch((err) => {
-        res.send(`Can not get team ${req.params.id}\n${err}`);
+        res.send(`Can not get team ${teamId}\n${err}`);
     });
 });
 
@@ -28,20 +33,29 @@ router.post('/', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    teamRepository.remove(req.params.id).then((result) => {
-        res.send(`Team ${req.params.id} deleted:\n${result}`);
+    const teamObj = req.params.id;
+    teamRepository.remove(teamObj).then((result) => {
+        if (result.n) {
+            res.send(`Team deleted:\n${result}`);
+        } else {
+            res.send(`No team with ID ${teamObj}`);
+        }
     }).catch((err) => {
         res.send(`Can not delete team, ${err}`);
     });
-
 });
 
 router.put('/:id', function (req, res) {
     const teamObj = req.body;
-    teamRepository.update(req.params.id, teamObj).then((result) => {
-        res.send(`Team ${req.params.id} updated:\n${result}`);
+    const teamId = req.params.id;
+    teamRepository.update(teamId, teamObj).then((result) => {
+        if (result) {
+            res.send(`Team ${teamId} updated:\n${result}`);
+        } else {
+            res.send(`No team with ID ${teamId}`);
+        }
     }).catch((err) => {
-        res.send(`Can not update team ${req.params.id}\n${err}`);
+        res.send(`Can not update team ${teamId}\n${err}`);
     });
 });
 
