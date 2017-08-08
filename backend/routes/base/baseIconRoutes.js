@@ -10,10 +10,15 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    baseIconRepository.getById(req.params.id).then((icon) => {
-        res.send(icon);
+    const iconId = req.params.id;
+    baseIconRepository.getById(iconId).then((icon) => {
+        if (icon) {
+            res.send(icon);
+        } else {
+            res.send(`No icon with id ${iconId}`);
+        }
     }).catch((err) => {
-        res.send(`Can not get icon ${req.params.id}\n${err}`);
+        res.send(`Can not get icon ${iconId}\n${err}`);
     });
 });
 
@@ -28,20 +33,30 @@ router.post('/', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    baseIconRepository.remove(req.params.id).then((result) => {
-        res.send(`Icon ${req.params.id} deleted:\n${result}`);
+    const iconId = req.params.id;
+    baseIconRepository.remove(iconId).then((result) => {
+        if (result.n) {
+            res.send(`Icon deleted:\n${result}`);
+        } else {
+            res.send(`No icon with ID ${iconId}`);
+        }
     }).catch((err) => {
-        res.send(`Can not delete icon, ${err}`);
+        res.send(`Can not delete icon:\n${err}`);
     });
 
 });
 
 router.put('/:id', function (req, res) {
     const iconObj = req.body;
-    baseIconRepository.update(req.params.id, iconObj).then((result) => {
-        res.send(`Icon ${req.params.id} updated:\n${result}`);
+    const iconId = req.params.id;
+    baseIconRepository.update(iconId, iconObj).then((result) => {
+        if (result) {
+            res.send(`Icon ${iconId} updated:\n${result}`);
+        } else {
+            res.send(`No icon with ID ${iconId}`);
+        }
     }).catch((err) => {
-        res.send(`Can not update icon ${req.params.id}\n${err}`);
+        res.send(`Can not update icon ${iconId}\n${err}`);
     });
 });
 
