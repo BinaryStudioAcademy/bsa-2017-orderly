@@ -36,7 +36,7 @@ router.delete('/:id', (req, res) => {
     const baseId = req.params.id;
     baseRepository.remove(baseId).then((result) => {
         if (result.n) {
-            res.send(`Base  deleted:\n${result}`);
+            res.send(`Base deleted:\n${result}`);
         } else {
             res.send(`No base with ID ${baseId}`);
         }
