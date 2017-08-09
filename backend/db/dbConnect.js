@@ -9,7 +9,7 @@ function dbConnectionHandler() {
 
     db.on('error', console.error.bind(console, 'connection db error: '));
     db.once('open', () => {
-        console.log('connection to db is success!');
+        console.log(`Connection to MongoDB by URL '${config.uri}' successfully obtained`);
     });
 }
 

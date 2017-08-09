@@ -1,0 +1,49 @@
+import R from 'ramda';
+
+const initState = {
+    tables: [{
+        _id: 0,
+        name: '',
+        isActive: false
+    }]
+};
+
+function dashboardReducer(state = initState, action) {
+    switch (action.type) {
+
+    case 'GET_TABLES_SUCCEEDED': {
+        return R.mergeAll([
+            {},
+            R.dissoc('tables', state),
+            {
+                tables:  R.concat(
+                    [ R.assoc('isActive', true)(action.tables[0]) ],
+                    R.map(R.assoc('isActive', false))(R.slice(1, Infinity, action.tables))
+                )
+            }]);
+    }
+
+    case 'ADD_TABLE_SUCCEEDED': {
+        return {
+            tables: R.concat(
+                R.map(R.compose(R.assoc('isActive', false), R.dissoc('isActive')))(state.tables),
+                R.map(R.assoc('isActive', true))(action.tables))
+        };
+    }
+        
+    case 'SWITCH_TABLE': {
+        return Object.assign({}, {
+            tables: R.map( (table) => {
+                let newObj = R.dissoc('isActive', table);
+                if (table._id === action._id) newObj.isActive = true;
+                else newObj.isActive = false;
+                return newObj;
+            })(state.tables)});
+    }
+        
+    default:
+        return state;
+    }
+}
+
+export default dashboardReducer;
