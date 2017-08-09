@@ -1,4 +1,23 @@
-.sign-up__form {
-  max-width: 400px;
-  background-color: #00F;
+#sign-up__container {
+  max-width: 500px;
+}
+
+#sign-up__form {
+  max-width: 500px;
+  padding: 20px 50px;
+  border: 1px solid #000;
+}
+
+#form__confirm {
+  margin-bottom: 10px;
+}
+
+#sign-up__google {
+  margin-top: 20px;
+  padding: 0 50px;
+}
+
+#sign-up__footer {
+  margin-top: 20px;
+  font-size: small;
 }
