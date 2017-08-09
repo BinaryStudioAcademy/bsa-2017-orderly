@@ -1,6 +1,6 @@
-require('../db/dbConnect');
-const Repository = require('./generalRepository');
-const Field = require('../schemas/Field');
+require('../../db/dbConnect');
+const Repository = require('../generalRepository');
+const Field = require('../../schemas/table/Field');
 
 class FieldRepository extends Repository {
     constructor() {

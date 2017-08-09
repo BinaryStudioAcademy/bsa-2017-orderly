@@ -71,6 +71,7 @@
     "redux": "3.5.2",
     "redux-logger": "2.6.1",
     "redux-promise": "0.5.3",
+    "redux-saga": "^0.15.6",
     "reselect": "2.5.3",
     "semantic-ui-css": "^2.2.11",
     "semantic-ui-react": "^0.71.3"
