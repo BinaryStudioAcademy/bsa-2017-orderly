@@ -1,0 +1,25 @@
+.header {
+  background-color: coral;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  color: #ffffff;
+  padding: {
+    left: 20px;
+    right: 20px;
+  }
+
+  .dropdown {
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+
+  .info {
+    width: 20%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+}

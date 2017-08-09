@@ -1,7 +1,7 @@
-require('../db/dbConnect');
-const Repository = require('./generalRepository');
-const Record = require('../schemas/Record').Record;
-const Comment = require('../schemas/Record').Comment;
+require('../../db/dbConnect');
+const Repository = require('../generalRepository');
+const Record = require('../../schemas/table/Record').Record;
+const Comment = require('../../schemas/table/Record').Comment;
 
 class RecordRepository extends Repository {
 
