@@ -1,36 +1,33 @@
 import R from 'ramda';
 
 const initState = {
-    tables: [
-        {
-            name: 'First',
-            id: 1,
-            isActive: false
-        },
-        {
-            name: 'Second',
-            id: 2,
-            isActive: true
-        },
-        {
-            name: 'Third',
-            id: 3,
-            isActive: false
-        }
-    ]
+    tables: [{
+        _id: 0,
+        name: '',
+        isActive: false
+    }]
 };
 
 function dashboardReducer(state = initState, action) {
     switch (action.type) {
-    case 'ADD_TABLE': {
+
+    case 'GET_TABLES_SUCCEEDED': {
+        return R.mergeAll([
+            {},
+            R.dissoc('tables', state),
+            {
+                tables:  R.concat(
+                    [ R.assoc('isActive', true)(action.tables[0]) ],
+                    R.map(R.assoc('isActive', false))(R.slice(1, Infinity, action.tables))
+                )
+            }]);
+    }
+
+    case 'ADD_TABLE_SUCCEEDED': {
         return {
             tables: R.concat(
                 R.map(R.compose(R.assoc('isActive', false), R.dissoc('isActive')))(state.tables),
-                [{
-                    name: action.name,
-                    id: action.id,
-                    isActive: true
-                }])
+                R.map(R.assoc('isActive', true))(action.tables))
         };
     }
         
@@ -38,7 +35,7 @@ function dashboardReducer(state = initState, action) {
         return Object.assign({}, {
             tables: R.map( (table) => {
                 let newObj = R.dissoc('isActive', table);
-                if (table.id === action.id) newObj.isActive = true;
+                if (table._id === action._id) newObj.isActive = true;
                 else newObj.isActive = false;
                 return newObj;
             })(state.tables)});
