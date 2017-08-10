@@ -3,8 +3,8 @@ import { Link } from 'react-router';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import SignUpForm from './signUpForm';
-import { signUp } from './signUpActions';
-import {Container, Header, Form, Input, Button, Item} from 'semantic-ui-react';
+import * as signUpActions from './signUpActions';
+import {Container, Header, Button, Item} from 'semantic-ui-react';
 import './signUp.scss';
 
 class SignUp extends Component {
@@ -14,8 +14,7 @@ class SignUp extends Component {
 
     handleSignUp = (formData) => {
         console.log('TOP SIGN UP FORM DATA');
-        console.log(formData);
-        signUp(formData);
+        this.props.signUp(formData);
     };
 
     render() {
@@ -45,7 +44,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(signUp, dispatch);
+    return bindActionCreators(signUpActions, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

@@ -7,11 +7,11 @@ const initState = {
     password: '',
 };
 
-export default function signUpReducer(state = initState, action) {
-    console.log('REDUCER FIRE');
-    console.log(action);
+function signUpReducer(state = initState, action) {
     switch (action.type) {
     case SIGN_UP_ACTION: {
+        console.log('REDUCER FIRE');
+        console.log(action);
         const credentials = {
             firstName: action.firstName,
             lastName: action.lastName,
@@ -26,3 +26,5 @@ export default function signUpReducer(state = initState, action) {
         return state;
     }
 }
+
+export default signUpReducer;

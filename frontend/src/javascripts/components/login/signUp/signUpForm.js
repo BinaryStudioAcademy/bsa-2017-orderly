@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import {Form, Input, Button} from 'semantic-ui-react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux'
-import {signUp} from "./signUpActions";
 
-class SignUpForm extends Component {
+export default class SignUpForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -70,20 +67,3 @@ class SignUpForm extends Component {
         );
     }
 }
-
-function mapDispatchToProps(dispatch) {
-    return {
-        signUpAction: bindActionCreators(signUp, dispatch),
-    }
-}
-
-function mapStateToProps(state) {
-    return {
-        firstName: state.firstName,
-        lastName: state.lastName,
-        email: state.email,
-        password: state.password,
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
