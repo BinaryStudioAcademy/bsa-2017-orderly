@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { addTable, switchTable, getTables } from './dashboardActions';
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(ownProps, 'ownProps')
     return ({
         tables: state.dashboardReducer.tables,
         current: ownProps.params._id

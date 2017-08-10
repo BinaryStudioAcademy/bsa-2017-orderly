@@ -32,13 +32,17 @@ function dashboardReducer(state = initState, action) {
     }
         
     case 'SWITCH_TABLE': {
-        return Object.assign({}, {
-            tables: R.map( (table) => {
-                let newObj = R.dissoc('isActive', table);
-                if (table._id === action._id) newObj.isActive = true;
-                else newObj.isActive = false;
-                return newObj;
-            })(state.tables)});
+        return R.mergeAll([
+            {},
+            R.dissoc('tables', state),
+            {
+                tables: R.map( (table) => {
+                    let newObj = R.dissoc('isActive', table);
+                    if (table._id === action._id) newObj.isActive = true;
+                    else newObj.isActive = false;
+                    return newObj;
+                })(state.tables)
+            }]);
     }
         
     default:

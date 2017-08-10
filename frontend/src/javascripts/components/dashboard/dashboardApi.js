@@ -3,7 +3,7 @@ const url = 'http://localhost:2020/api/tables';
 
 const getTables = () =>
     fetch(url)
-        .then( (responce) => responce.json())
+        .then( (response) => response.json())
         .catch(R.tap(console.error));
 
 const addTable = (name) =>
@@ -14,7 +14,7 @@ const addTable = (name) =>
             'Content-Type': 'application/json'
         })
     })
-        .then((responce) => responce.json())
+        .then((response) => response.json())
         .catch(R.tap(console.error));
 
 export {
