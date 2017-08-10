@@ -1,6 +1,7 @@
 import R from 'ramda';
 
 const initState = {
+    base: '',
     tables: [{
         _id: 0,
         name: '',
@@ -11,9 +12,17 @@ const initState = {
 function dashboardReducer(state = initState, action) {
     switch (action.type) {
 
+    case 'GET_BASE_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('base', state),
+            {
+                base: action.base
+            }
+        ]);
+    }
+
     case 'GET_TABLES_SUCCEEDED': {
         return R.mergeAll([
-            {},
             R.dissoc('tables', state),
             {
                 tables:  R.concat(
@@ -33,7 +42,6 @@ function dashboardReducer(state = initState, action) {
         
     case 'SWITCH_TABLE': {
         return R.mergeAll([
-            {},
             R.dissoc('tables', state),
             {
                 tables: R.map( (table) => {

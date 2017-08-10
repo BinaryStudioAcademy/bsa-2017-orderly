@@ -1,9 +1,10 @@
 import Tools from './tools/tools';
 import { connect } from 'react-redux';
-import { addTable, switchTable, getTables } from './dashboardActions';
+import { getBaseById, addTable, switchTable, getTables } from './dashboardActions';
 
 const mapStateToProps = (state, ownProps) => {
     return ({
+        base: state.dashboardReducer.base,
         tables: state.dashboardReducer.tables,
         current: ownProps.params._id
     });
@@ -12,7 +13,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = {
     addTableClick: addTable,
     switchTableClick: switchTable,
-    getAllTables: getTables
+    getAllTables: getTables,
+    getBaseById: getBaseById
 };
 
 const Dashboard = connect(

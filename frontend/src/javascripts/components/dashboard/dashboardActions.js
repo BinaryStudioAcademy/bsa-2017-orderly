@@ -1,3 +1,10 @@
+const getBaseById = (_id) => {
+    return {
+        type: 'GET_BASE',
+        _id: _id
+    };
+};
+
 const getTables = () => {
     return {
         type: 'GET_TABLES'
@@ -19,6 +26,7 @@ const switchTable = (_id) => {
 };
 
 export {
+    getBaseById,
     getTables,
     addTable,
     switchTable
