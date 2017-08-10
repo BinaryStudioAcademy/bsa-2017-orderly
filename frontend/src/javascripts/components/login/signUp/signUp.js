@@ -13,8 +13,9 @@ class SignUp extends Component {
     }
 
     handleSignUp = (formData) => {
+        console.log('TOP SIGN UP FORM DATA');
         console.log(formData);
-        signUp(...formData);
+        signUp(formData);
     };
 
     render() {

@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {Form, Input, Button} from 'semantic-ui-react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
+import {signUp} from "./signUpActions";
 
 class SignUpForm extends Component {
     constructor(props) {
@@ -12,13 +15,12 @@ class SignUpForm extends Component {
         }
     }
 
-    handleSignUp = () => {
-        this.props.onSignUp(this.state.credentials);
+    handleSignUp = (e) => {
+        e.preventDefault();
+        this.props.onSignUp(this.state);
     };
 
     handleInput = (_, field) => {
-        console.log(field.name);
-        console.log(field.value);
         this.setState({
             [field.name]: field.value,
         })
@@ -69,4 +71,19 @@ class SignUpForm extends Component {
     }
 }
 
-export default SignUpForm;
+function mapDispatchToProps(dispatch) {
+    return {
+        signUpAction: bindActionCreators(signUp, dispatch),
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+        firstName: state.firstName,
+        lastName: state.lastName,
+        email: state.email,
+        password: state.password,
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);

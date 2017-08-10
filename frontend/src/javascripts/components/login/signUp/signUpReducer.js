@@ -8,6 +8,8 @@ const initState = {
 };
 
 export default function signUpReducer(state = initState, action) {
+    console.log('REDUCER FIRE');
+    console.log(action);
     switch (action.type) {
     case SIGN_UP_ACTION: {
         const credentials = {
@@ -16,7 +18,9 @@ export default function signUpReducer(state = initState, action) {
             email: action.email,
             password: action.password,
         };
-        return Object.assign({}, state, credentials);
+        const newObj = {...state, ...credentials};
+        console.log(newObj);
+        return newObj;
     }
     default:
         return state;

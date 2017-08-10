@@ -6,7 +6,7 @@ import signUpReducer from '../components/login/signUp/signUpReducer';
 
 export default combineReducers({
     routing,
+    signUpReducer,
     dashboardReducer,
     userProfile,
-    signUpReducer,
 });
