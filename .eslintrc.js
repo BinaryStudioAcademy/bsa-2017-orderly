@@ -1,17 +1,24 @@
 module.exports = {
-    "extends": "eslint:recommended",
     "env": {
+        "es6": true,
         "browser": true,
         "node": true,
-        "commonjs": true,
-        "es6": true
+        "commonjs": true
     },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+    ],
+    "plugins": [
+        "react",
+    ],
     "parserOptions": {
         "sourceType": "module",
         "ecmaVersion": 6,
         "ecmaFeatures": {
             "jsx": true,
-            "impliedStrict": true
+            "impliedStrict": true,
+            "experimentalObjectRestSpread": true,
         }
     },
     "rules": {
