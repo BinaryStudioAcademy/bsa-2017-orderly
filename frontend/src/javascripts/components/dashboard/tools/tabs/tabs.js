@@ -6,15 +6,16 @@ import TabItem from './tabItem/tabItem';
 
 import './tabs.scss';
 
-const Tabs = ({tables, current, router, addTableClick, switchTableClick}) => (
+const Tabs = ({tables, addTableClick, switchTableClick}) => (
     <div className='tabs_panel'>
         <div className='btn_block'>
             <div className='tabs_block'>
-                { R.map( (table) => TabItem(table, switchTableClick))(tables) }
+                { R.map( (table) => {
+                    if (table._id !== 0 ) return TabItem(table, switchTableClick);
+                } )(tables) }
             </div>
             <div className='add_btn'>
-                <AddTabBtn router={router}
-                    addTableClick={addTableClick}/>
+                <AddTabBtn addTableClick={addTableClick}/>
             </div>
         </div>
         <div className='history'>

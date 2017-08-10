@@ -10,7 +10,7 @@ import Dashboard from '../components/dashboard/dashboard';
 export default (
     <Route path="/" component={App}>
       <Route path='user-page' component={UserProfile} />
-      <IndexRoute component={StartPage}/><Route path='/dashboard/:id' components={Dashboard}/>
+      <IndexRoute component={StartPage}/><Route path='/dashboard/:_id' components={Dashboard}/>
         <Route path="404" component={NotFound}/>
         <Redirect from="*" to="404"/>
     </Route>

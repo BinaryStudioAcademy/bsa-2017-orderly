@@ -4,11 +4,11 @@ import { Link } from 'react-router';
 import './tabItem.scss';
 
 const TabItem = (table, switchTableClick) => (
-    <Link to={`/dashboard/${table.id}`} key={table.id}>
+    <Link to={`/dashboard/${table._id}`} key={table._id}>
         <Button inverted
             active={table.isActive}
             onClick={() => {
-                switchTableClick(table.id);} }>
+                switchTableClick(table._id);} }>
             {table.name}
         </Button>
     </Link>

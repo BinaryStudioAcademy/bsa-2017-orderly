@@ -1,9 +1,14 @@
+const getTables = () => {
+    console.log('getTables in action')
+    return {
+        type: 'GET_TABLES'
+    };
+};
 
-const addTable = ({name, id}) => {
+const addTable = (name) => {
     return {
         type: 'ADD_TABLE',
-        name: name,
-        id: id
+        name: name
     };
 };
 
@@ -15,6 +20,7 @@ const switchTable = (id) => {
 };
 
 export {
+    getTables,
     addTable,
     switchTable
 };

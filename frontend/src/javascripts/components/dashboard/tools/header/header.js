@@ -4,7 +4,7 @@ import avatar from '../../../../../images/avatar.png';
 import './header.scss';
 
 const Header = () => (
-    <header className='header'>
+    <header className='dashboard_header'>
         <Icon name='trophy' inverted size='big'/>
         <div className='dropdown'>
             <Dropdown text='Basename 1'>
