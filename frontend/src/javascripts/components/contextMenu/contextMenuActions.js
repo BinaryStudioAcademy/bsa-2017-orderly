@@ -13,10 +13,10 @@ export const showContextMenu = (data) => {
     data
   };
 }
-export const changeBaseTitle = (title) =>{
+export const changeBaseTitle = (name) =>{
   return {
     type: 'CHANGE_BASE_NAME',
-    title
+    name
   }
 }
 
@@ -27,9 +27,23 @@ export const changeBaseColor = (color) =>{
   };
 }
 
+export const changeBaseIcon = (icon) =>{
+  return {
+    type: 'CHANGE_BASE_ICON',
+    icon
+  };
+}
+
 export const deleteBase = (data) =>{
   return {
     type: 'DELETE_BASE',
     id
   };
+}
+
+export function getBaseName(data) {
+    return {
+        type: 'GET_BASE_NAME_REQUESTED',
+        baseId: data.baseId
+    };
 }

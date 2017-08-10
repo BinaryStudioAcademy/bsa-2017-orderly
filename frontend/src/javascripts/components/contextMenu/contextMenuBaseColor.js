@@ -1,27 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { colors } from './colors'
+import { changeBaseColor } from './contextMenuActions';
 
-let colors = ['#2D7FF9', '#18BFFF', '#02AAA4', '#FF08C2', '#F82B60', '#FF6F2C', '#FCB400', '#20C933', '#8B46FF', '#666666'];
-let colortitle = ['blue', 'cyan', 'teal', 'pink', 'red', 'orange', 'yellow', 'green', 'purple', 'grey'];
-let id = 0;
-
-let BaseColor = ({ dispatch }) => {
+let BaseColorPallete = ({ contextMenu, onColorClick }) => {
   return (
     <div className = 'base-color-pallete'>
-      <div className = 'base-color-pallete-item' title="blue" style = {{backgroundColor: `${colors[0]}` }}></div>
-      <div className = 'base-color-pallete-item' title="cyan" style = {{backgroundColor: `${colors[1]}` }}></div>
-      <div className = 'base-color-pallete-item' title="teal" style = {{backgroundColor: `${colors[2]}` }}></div>
-      <div className = 'base-color-pallete-item' title="pink" style = {{backgroundColor: `${colors[3]}` }}></div>
-      <div className = 'base-color-pallete-item' title="red" style = {{backgroundColor: `${colors[4]}` }}></div>
-      <div className = 'base-color-pallete-item' title="orange" style = {{backgroundColor: `${colors[5]}` }}></div>
-      <div className = 'base-color-pallete-item' title="yellow" style = {{backgroundColor: `${colors[6]}` }}></div>
-      <div className = 'base-color-pallete-item' title="green" style = {{backgroundColor: `${colors[7]}` }}></div>
-      <div className = 'base-color-pallete-item' title="purple" style = {{backgroundColor: `${colors[8]}` }}></div>
-      <div className = 'base-color-pallete-item' title="gray" style = {{backgroundColor: `${colors[9]}` }}></div>
+      <div className = 'base-color-pallete-item' title="blue" style = {{backgroundColor: `${colors.blue}` }} onClick = {()=>onColorClick(colors.blue)}></div>
+      <div className = 'base-color-pallete-item' title="cyan" style = {{backgroundColor: `${colors.cyan}` }} onClick = {()=>onColorClick(colors.cyan)}></div>
+      <div className = 'base-color-pallete-item' title="teal" style = {{backgroundColor: `${colors.teal}` }} onClick = {()=>onColorClick(colors.teal)}></div>
+      <div className = 'base-color-pallete-item' title="pink" style = {{backgroundColor: `${colors.pink}` }} onClick = {()=>onColorClick(colors.pink)}></div>
+      <div className = 'base-color-pallete-item' title="red" style = {{backgroundColor: `${colors.red}` }} onClick = {()=>onColorClick(colors.red)}></div>
+      <div className = 'base-color-pallete-item' title="orange" style = {{backgroundColor: `${colors.orange}` }} onClick = {()=>onColorClick(colors.orange)}></div>
+      <div className = 'base-color-pallete-item' title="yellow" style = {{backgroundColor: `${colors.yellow}` }} onClick = {()=>onColorClick(colors.yellow)}></div>
+      <div className = 'base-color-pallete-item' title="green" style = {{backgroundColor: `${colors.green}` }} onClick = {()=>onColorClick(colors.green)}></div>
+      <div className = 'base-color-pallete-item' title="purple" style = {{backgroundColor: `${colors.purple}` }} onClick = {()=>onColorClick(colors.purple)}></div>
+      <div className = 'base-color-pallete-item' title="gray" style = {{backgroundColor: `${colors.gray}` }} onClick = {()=>onColorClick(colors.gray)}></div>
     </div>
   )
 }
 
-BaseColor = connect()(BaseColor);
+const mapStateToProps = state => ({
+  contextMenu: state
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onColorClick: (contextMenu) => {dispatch(changeBaseColor(contextMenu))}
+  };
+}
+
+const BaseColor = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BaseColorPallete)
 
 export default BaseColor
