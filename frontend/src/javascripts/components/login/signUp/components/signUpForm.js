@@ -3,11 +3,11 @@ import { Link } from 'react-router';
 import {Form, Message, Grid, Button, Input} from 'semantic-ui-react';
 
 const SignUpForm = ({
-                        onSubmit,
-                        onChange,
-                        errors,
-                        user,
-                    }) => (
+    onSubmit,
+    onChange,
+    errors,
+    user,
+}) => (
     <div className="container">
         <form action="/" onSubmit={onSubmit}>
             <h2 className="heading">Sign Up</h2>

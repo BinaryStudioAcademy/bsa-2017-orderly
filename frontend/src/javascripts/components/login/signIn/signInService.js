@@ -1,4 +1,4 @@
-import {browserHistory} from 'react-router'
+import {browserHistory} from 'react-router';
 import Auth from '../auth';
 
 export let signInService = {

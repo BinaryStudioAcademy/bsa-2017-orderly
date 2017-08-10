@@ -1,4 +1,3 @@
-const express = require('express');
 const router = require('express').Router();
 const validator = require('validator');
 const passport = require('passport');

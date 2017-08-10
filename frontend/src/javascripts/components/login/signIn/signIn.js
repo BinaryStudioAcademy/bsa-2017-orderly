@@ -17,7 +17,7 @@ class SignIn extends React.Component {
 
         // Redirect to homepage if user is logged in
         if (signInService.isLoggedIn()) {
-            context.router.push('/');
+            //context.router.push('/');
         }
 
         this.processForm = this.processForm.bind(this);
@@ -28,7 +28,7 @@ class SignIn extends React.Component {
         const field = event.target.name;
         const user = {};
         user[field] = event.target.value;
-        this.props.changeUserDataAction(user);
+        this.props.changeUserData(user);
     }
 
     processForm(e) {
@@ -58,8 +58,8 @@ class SignIn extends React.Component {
                         <Grid.Row>
                             <Grid.Column>
                                 <Form action="/" /*method="get"*/ size="big"
-                                      onSubmit={this.processForm}
-                                      onChange={this.changeUserData}>
+                                    onSubmit={this.processForm}
+                                    onChange={this.changeUserData}>
                                     {(!R.isEmpty(this.props.signIn.errors) ||
                                       !this.props.signIn.success) &&
                                     <Label color="red" className="error">
@@ -67,7 +67,7 @@ class SignIn extends React.Component {
                                     </Label>}
                                     <div className="field input">
                                         <Form.Input
-
+                                            required
                                             size='large'
                                             icon='mail'
                                             type="text"
@@ -81,7 +81,7 @@ class SignIn extends React.Component {
                                     </div>
                                     <div className="field input">
                                         <Form.Input
-
+                                            required
                                             size='large'
                                             icon='lock'
                                             placeholder="Password"
@@ -115,14 +115,21 @@ SignIn.contextTypes = {
     router: PropTypes.object.isRequired
 };
 
+SignIn.propTypes = {
+    processForm: PropTypes.func.isRequired,
+    changeUserData: PropTypes.func.isRequired,
+    performLogin: PropTypes.func.isRequired,
+    signIn: PropTypes.object.isRequired
+};
+
 function mapStateToProps(state) {
     return {
         signIn: state.signIn
-    }
+    };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, SignInActions),  dispatch)
+    return bindActionCreators(Object.assign({}, SignInActions),  dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

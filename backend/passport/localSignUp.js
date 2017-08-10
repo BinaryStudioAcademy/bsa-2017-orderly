@@ -18,6 +18,6 @@ module.exports = new PassportLocalStrategy({
     };
 
     userRepository.add(userData)
-        .then((data) => done(null))
-        .catch((err) => done(err));
+        .then((data) => done(null, data))
+        .catch((err) => done(err, null));
 });
