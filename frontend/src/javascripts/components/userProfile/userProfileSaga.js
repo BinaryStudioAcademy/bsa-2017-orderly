@@ -1,4 +1,4 @@
-import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import * as userApi from './userApi';
 
 // worker Saga: will be fired on GET_USER_NAME_REQUESTED actions

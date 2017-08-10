@@ -1,36 +1,35 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router';
 import './userProfile.scss';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as UserProfileActions from './userProfileActions';
 
 class UserProfile extends Component {
-
     constructor(props) {
         super(props);
         this.props = props;
     }
 
-    getUserName() {
+    getUserName(){
         console.log('Get user name action called!');
-        this.props.getUserName({userId: 1});
+        this.props.getUserName({ userId: 1 });
     }
 
-    changeUserNameColor(e) {
+    changeUserNameColor(e){
         console.log('Get user name color action called!');
-        this.props.changeUserNameColor({color: e.target.value});
+        this.props.changeUserNameColor({ color: e.target.value});	
+
     }
 
     render() {
         return (
             <div>
                 <h1>
-                    User Profile
+					User Profile
                 </h1>
-                <div style={{color: this.props.userProfile.color}}>
+                <div style={ {color: this.props.userProfile.color} }>
                     <h3>
-                        {this.props.userProfile.name}
+                        { this.props.userProfile.name }
                     </h3>
                 </div>
                 <div>
@@ -41,7 +40,7 @@ class UserProfile extends Component {
                     </select>
                 </div>
                 <div>
-                    <button onClick={this.getUserName.bind(this)}>Get User Name</button>
+                    <button onClick={this.getUserName.bind(this)}>Get User Name </button>
                 </div>
             </div>
         );
@@ -55,7 +54,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, UserProfileActions), dispatch);
+    return bindActionCreators(Object.assign({}, UserProfileActions),  dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

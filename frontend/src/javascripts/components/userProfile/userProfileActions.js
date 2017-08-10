@@ -2,7 +2,7 @@ export const GET_USER_NAME_REQUESTED = 'GET_USER_NAME_REQUESTED';
 export const GET_USER_NAME_SUCCEEDED = 'GET_USER_NAME_SUCCEEDED';
 export const CHANGE_USER_NAME_COLOR = 'CHANGE_USER_NAME_COLOR';
 
-export function changeUserNameColor(data) {
+export function changeUserNameColor(data){
     return {
         type: CHANGE_USER_NAME_COLOR,
         color: data.color
