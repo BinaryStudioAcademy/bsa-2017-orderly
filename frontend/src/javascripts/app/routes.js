@@ -1,6 +1,5 @@
 import React from 'react';
 import {Route, Redirect, IndexRoute} from 'react-router';
-
 import App from './App';
 import StartPage from '../components/StartPage';
 import UserProfile from '../components/userProfile/userProfile';
