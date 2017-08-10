@@ -17,7 +17,7 @@ const NewBaseDiv = ({ contextMenu, onMenuClick, showMenu}) => {
           onClick={() => onMenuClick(contextMenu)} 
           style = {{backgroundColor: `${contextMenu.contextMenu.color}` }}
         >
-          <Icon inverted link name={contextMenu.contextMenu.icon} color='black' size='huge' />
+          <Icon inverted link name={contextMenu.contextMenu.icon} className = 'display-icon' size='huge' />
         </div>
         <div className ={contextMenu.contextMenu.showMenu? "menu": "none"}>
           <BaseName />
