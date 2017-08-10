@@ -10,17 +10,13 @@ const initState = {
 function signUpReducer(state = initState, action) {
     switch (action.type) {
     case SIGN_UP_ACTION: {
-        console.log('REDUCER FIRE');
-        console.log(action);
         const credentials = {
             firstName: action.firstName,
             lastName: action.lastName,
             email: action.email,
             password: action.password,
         };
-        const newObj = {...state, ...credentials};
-        console.log(newObj);
-        return newObj;
+        return {...state, ...credentials};
     }
     default:
         return state;

@@ -19,11 +19,6 @@ const localLoginStrategy = require('./passport/localLogin');
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 
-// authenticaion checker middleware
-const authCheckMiddleware = require('./middleware/authCheck');
-app.use('/api', authCheckMiddleware);
-app.use('/auth', require('./routes/auth'));
-
 app.use( (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Credentials", true);
@@ -31,6 +26,12 @@ app.use( (req, res, next) => {
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
     next();
 });
+
+// authenticaion checker middleware
+const authCheckMiddleware = require('./middleware/authCheck');
+app.use('/api', authCheckMiddleware);
+
+app.use('/auth', require('./routes/auth'));
 
 require('./routes/index')(router);
 app.use('/api', router);

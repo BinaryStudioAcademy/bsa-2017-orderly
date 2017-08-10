@@ -1,20 +1,16 @@
+import { browserHistory } from 'react-router';
+
 function callAddUserApi(credentials) {
-    console.log('CALL ADD USER API');
-    console.log(credentials);
-    const url = 'http://localhost:2020/api/user';
+    const url = 'http://localhost:2020/auth/signup';
     const headers = new Headers({
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true,
+        'Content-Type': 'application/json'
     });
     return fetch(url, {method: 'POST', headers: headers, body: JSON.stringify(credentials)})
-        .then((response) => {
-            console.log(response);
-            return response;
-        });
-    //     .then(
-    //         (response) => ({response}),
-    //         (error) => ({error: error.message})
-    //     );
+        .then((response) => response.json())
+        .then(
+            setTimeout(() => browserHistory.push('/'), 1666) //Imitation of the deep validation
+        )
+        .catch((err) => console.log(err));
 }
 
 export const fetchSignUp = (credentials) => callAddUserApi(credentials);

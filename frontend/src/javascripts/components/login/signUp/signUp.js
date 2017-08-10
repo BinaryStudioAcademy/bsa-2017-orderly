@@ -13,7 +13,6 @@ class SignUp extends Component {
     }
 
     handleSignUp = (formData) => {
-        console.log('TOP SIGN UP FORM DATA');
         this.props.signUp(formData);
     };
 
@@ -30,7 +29,7 @@ class SignUp extends Component {
                 </Container>
                 <Container textAlign="left" id='sign-up__footer'>
                     <p>Already have an account?</p>
-                    <Link to="/signin">Sign In</Link>
+                    <Link to="/login">Sign In</Link>
                 </Container>
             </Container>
         );

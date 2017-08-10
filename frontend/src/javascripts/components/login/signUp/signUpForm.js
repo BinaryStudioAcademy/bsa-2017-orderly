@@ -57,6 +57,7 @@ export default class SignUpForm extends Component {
                     type="password"
                     label='Password'
                     placeholder='Password'
+                    minLength="6"
                     required/>
                 <Form.Field
                     fluid

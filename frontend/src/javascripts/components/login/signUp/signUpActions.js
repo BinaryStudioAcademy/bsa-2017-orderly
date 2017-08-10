@@ -1,8 +1,7 @@
 export const SIGN_UP_ACTION = 'SIGN_UP';
+export const SIGN_UP_PROCESS = 'SIGN_UP_PROCESS';
 
 export function signUp(formData) {
-    console.log('ACTION FIRE');
-    console.log(formData);
     return {
         type: SIGN_UP_ACTION,
         firstName: formData.firstName,
