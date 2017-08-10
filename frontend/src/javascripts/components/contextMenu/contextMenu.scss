@@ -1,6 +1,9 @@
+body {
+  box-sizing: border-box;
+}
 .new-base-wrapper {
   margin-left: 20px;
-  width: 25%;
+  width: 260px;
   text-align: center;
 }
 .new-base-container {
@@ -11,19 +14,65 @@
   font-size: 20px;
 }
 .menu {
-  padding: 2%;
-  background-color: #E1E1E1;
+  padding-top: 5px;
+  border: 1px solid #E1E1E1;
+  border-radius: 3px;
   font-size: 15px;
 }
 .none {
   display: none;
 }
 .base-name-input {
-  border-radius: 5px;
-  padding: 1%;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 7px 12px;
+  margin: 0px;
+  border: 1px solid #ccc;
+}
+.base-color-pallete{
+  display: flex;
+  margin: 3%;
 }
 .base-color-pallete-item {
-  width:25%;
-  height: 100%;
+  border: 1px solid white;
+  border-radius: 4px;
+  width: 100px;
+  height: 25px;
   list-style: none;
+}
+.base-color-pallete-item {
+  cursor: pointer;
+}
+.base-icon-wrapper {
+  height: 110px;
+  background-color: #F5F5F5;
+  width: 100%;
+  overflow: auto;
+}
+.base-icon {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 5px;
+}
+.myicon {
+  margin: 2px;
+}
+.base-options-wrapper {
+  text-align: left;
+}
+.base-options-list {
+  padding: 0;
+  margin: 0;
+}
+.base-options-list-item {
+  list-style: none;
+  font-size: 14px;
+  padding: 6px 5px 6px 14px;
+  cursor: pointer;
+}
+.base-options-list-item:last-child {
+  padding-bottom: 8px;
+}
+.base-options-list-item:hover{
+  background-color: #DAD5D2;
 }

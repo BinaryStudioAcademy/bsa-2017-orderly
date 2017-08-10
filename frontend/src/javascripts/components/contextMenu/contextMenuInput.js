@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { changeBaseTitle } from './contextMenuActions';
+import { Popup, Icon, Input } from 'semantic-ui-react';
 
 let BaseName = ({ dispatch }) => {
   let input

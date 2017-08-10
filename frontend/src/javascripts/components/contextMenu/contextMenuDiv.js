@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { showContextMenu } from './contextMenuActions';
 import BaseName from './contextMenuInput';
 import BaseColor from './contextMenuBaseColor';
+import BaseIcon from './contextMenuBaseIcon';
+import BaseOptions from './contextMenuBaseOptionsList';
 import './contextMenu.scss';
 
 const NewBaseDiv = ({ contextMenu, onMenuClick, showMenu}) => {
@@ -13,6 +15,8 @@ const NewBaseDiv = ({ contextMenu, onMenuClick, showMenu}) => {
       <div className ={contextMenu.contextMenu.showMenu? "menu": "none"}>
         <BaseName />
         <BaseColor />
+        <BaseIcon />
+        <BaseOptions />
       </div>
     </div>
   )
