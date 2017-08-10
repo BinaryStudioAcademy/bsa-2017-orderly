@@ -1,12 +1,39 @@
-const initState = {};
+import { LOGIN_USER, CHANGE_USER_DATA, LOGIN_USER_RESPONSE, LOGIN_USER_ERROR } from './signInActions';
+
+const initState = {
+    errors: {},
+    message: '',
+    success: true,
+    token: '',
+    user: {},
+    email: '',
+    password: ''
+};
 
 function loginReducer(state = initState, action) {
     switch (action.type) {
-    case 'ADD': {
-        return;
-    }
-    default:
-        return state;
+        case LOGIN_USER:
+            return Object.assign({}, state, {
+                email: action.email,
+                password: action.password
+            });
+
+        case CHANGE_USER_DATA:
+            return Object.assign({}, state, action.data);
+
+        case LOGIN_USER_RESPONSE:{
+            return Object.assign({}, state, {password: ''}, action.data);
+        }
+
+        case LOGIN_USER_ERROR:{
+            return Object.assign({}, state, {
+                errors: {},
+                success: false,
+                message: action.message
+            });
+        }
+        default:
+            return state;
     }
 }
 

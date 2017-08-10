@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
     "email": {
         "type": String,
-        "index": { unique: true },
+        "index": { "unique": true },
         "required": true,
         "trim": true
     },
@@ -27,13 +27,6 @@ UserSchema.pre('findOneAndUpdate', function(next) {
     this.options.runValidators = true;
     next();
 });
-
-/**
- * Compare the passed password with the value in the database. A model method.
- */
-UserSchema.methods.comparePassword = function comparePassword(password, callback) {
-    bcrypt.compare(password, this.password, callback);
-};
 
 /**
  * The pre-save hook method.
@@ -58,5 +51,13 @@ UserSchema.pre('save', function saveHook(next) {
         });
     });
 });
+
+/**
+ * Compare the passed password with the value in the database. A model method.
+ */
+UserSchema.methods.comparePassword = function comparePassword(password, callback) {
+    bcrypt.compare(password, this.password, callback);
+};
+
 
 module.exports = mongoose.model('User', UserSchema);
