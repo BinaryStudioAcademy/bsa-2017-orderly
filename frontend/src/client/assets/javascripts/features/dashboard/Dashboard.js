@@ -5,27 +5,27 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 class Home extends Component {
-	constructor(props) {
-		super(props);
-		this.props = props;
-	}
+    constructor(props) {
+        super(props);
+        this.props = props;
+    }
 
-	render() {
-		return (
-			<h1>Hello</h1>
-		);
-	}
+    render() {
+        return (
+            <h1>Hello</h1>
+        );
+    }
 }
 
 function mapStateToProps(state) {
-	return {
-		state: state
-	}
+    return {
+        state: state
+    };
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators(StorageActions,  dispatch)
+    return bindActionCreators(StorageActions,  dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 

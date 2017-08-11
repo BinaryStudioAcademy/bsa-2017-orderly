@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const userRepository = require('../repositories/userRepository');
+const userRepository = require('../../repositories/user/userRepository');
 
 router.get('/:userId', (request, response) => {
     userRepository.getById(request.params.userId)

@@ -1,13 +1,13 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistState } from 'redux-devtools';
 import createLogger from 'redux-logger';
-import createSagaMiddleware from 'redux-saga/lib'
+import createSagaMiddleware from 'redux-saga/lib';
 import rootReducer from '../reducer';
 import DevTools from '../DevTools';
 import rootSaga from "../saga";
 
 const logger = createLogger();
-const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware, logger, require('redux-immutable-state-invariant')()];
 
 const getDebugSessionKey = function () {

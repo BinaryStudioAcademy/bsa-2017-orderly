@@ -27,11 +27,9 @@ app.use( (req, res, next) => {
     next();
 });
 
-// authenticaion checker middleware
 const authCheckMiddleware = require('./middleware/authCheck');
 app.use('/api', authCheckMiddleware);
-
-app.use('/auth', require('./routes/auth'));
+app.use('/auth', require('./routes/auth/auth'));
 
 require('./routes/index')(router);
 app.use('/api', router);

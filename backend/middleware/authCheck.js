@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const userRepository = require('../repositories/userRepository');
+const userRepository = require('../repositories/user/userRepository');
 const config = require('../config');
 
 /**
@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
 
         // check if a user exists
         return userRepository.getById(userId)
-            .then((user) => (user) ? next() : res.status(401).end())
-            .catch((error) => res.status(401).end());
+            .then((user) => user ? next() : res.status(401).end())
+            .catch((error) => res.status(401).end(error));
     });
 };

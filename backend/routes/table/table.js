@@ -8,7 +8,7 @@ const commentRepository = require('../../repositories/table/recordRepository').c
 // tables
 
 router.post('/', (request, response, next) => {
-    console.log('request--->>>', request.body)
+    console.log('request--->>>', request.body);
     tableRepository.add(request.body)
         .then((table) => response.status(201).send(table))
         .catch((error) => {
