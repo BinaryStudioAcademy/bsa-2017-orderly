@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import HomePageBaseItem from '../HomePageBaseItem/HomePageBaseItem';
 import './homePageTeam.scss';
 
 const HomePageTeamName = () => {

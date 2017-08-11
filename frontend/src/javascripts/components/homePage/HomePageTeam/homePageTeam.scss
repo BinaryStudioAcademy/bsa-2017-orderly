@@ -25,5 +25,57 @@
   flex-wrap: wrap;
 }
 .base-list-item {
-  margin: 5px;
+}
+.one-base-wrapper{
+  position: relative;
+  border: 1px solid white;
+  width:100px;
+  height:90px;
+  margin: 5px; 
+  background-color: #C3C8B7;
+  text-align: center;
+}
+.one-base {
+  border:1px solid white;
+  height: 100%;
+}
+.one-base-icon{
+  margin-top: 18px;
+}
+.menu-show {
+  display: block;
+}
+.none {
+  display: none;
+}
+.new-base-wrapper {
+  margin-left: 50px;
+  width: 260px;
+  text-align: center;
+}
+.new-base-container {
+  margin: 0 auto;
+  padding: 10px;
+  width: 60%;
+  font-size: 20px;
+}
+.menu-icon-wrapp {
+  position: relative;
+  margin-left: 60px;
+  margin-top: -33px;
+}
+.setting {
+}
+.menu-style {
+  // margin-top: 4px;
+  // padding-top: 5px;
+  // border: 1px solid #E1E1E1;
+  // border-radius: 3px;
+  // font-size: 15px;
+  // width: 260px;
+  // background-color: white;
+  // position: absolute;
+  // left: -120px;
+  // z-index: +1;
+
 }

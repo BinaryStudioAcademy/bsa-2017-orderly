@@ -1,7 +1,3 @@
-body {
-  box-sizing: border-box;
-  background-color: #FCFCFC;
-}
 .menu-icon-wrapp {
   position: relative;
 }
@@ -30,6 +26,7 @@ body {
   background-color: white;
   position: absolute;
   left: -130px;
+  z-index: +1;
 }
 .none {
   display: none;

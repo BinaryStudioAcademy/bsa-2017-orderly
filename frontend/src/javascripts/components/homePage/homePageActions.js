@@ -14,17 +14,17 @@ export const addNewTeam = (id) => {
   };
 }
 
-export const showBaseCreationOptions = (data) => {
+export const showBaseCreationOptions = (id) => {
   return {
     type: 'SHOW_BASE_CREATION_OPTIONS',
-    data
+    id
   };
 }
 
-export const showContextMenu = (data) => {
+export const showContextMenu = (id) => {
   return {
     type: 'SHOW_CONTEXT_MENU',
-    data
+    id
   };
 }
 

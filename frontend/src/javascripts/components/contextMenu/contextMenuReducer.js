@@ -1,4 +1,4 @@
-const contextMenu = (state = { showMenu: false, name: "New Base", color: "#D0FF51", icon:"plus" }, action) => {
+const contextMenu = (state = { showMenu: false, name: "New Base", color: "#C3C8B7", icon:"plus" }, action) => {
   switch (action.type) {
     case 'SHOW_CONTEXT_MENU':
       return Object.assign({}, state, {showMenu: !state.showMenu})
