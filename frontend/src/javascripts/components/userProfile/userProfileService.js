@@ -1,11 +1,9 @@
 export let userProfileService = {
     fetchUser(userId){
-        let promise = new Promise((resolve, reject) => {
+        return Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve({ name: 'Ivan' });
             }, 2000);
         });
-
-        return promise;
     }
 };

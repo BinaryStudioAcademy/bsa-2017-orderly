@@ -3,6 +3,7 @@ import * as userApi from './userApi';
 
 // worker Saga: will be fired on GET_USER_NAME_REQUESTED actions
 function* fetchUser(action) {
+    console.log('FETCH USER SAGA');
     try {
         const user = yield call(userApi.fetchUser, action.userId);
         yield put({type: "GET_USER_NAME_SUCCEEDED", user: user});
