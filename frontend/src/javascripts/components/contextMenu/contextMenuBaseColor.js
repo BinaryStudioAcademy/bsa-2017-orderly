@@ -6,8 +6,7 @@ import { changeBaseColor } from './contextMenuActions';
 let BaseColorPallete = ({ contextMenu, onColorClick }) => {
   return (
     <div className = 'base-color-pallete'>
-      <div className = 'base-color-pallete-item' title="blue" style = {{backgroundColor: `${colors.blue}` }} 
-      onClick = {()=>onColorClick(colors.blue)}></div>
+      <div className = 'base-color-pallete-item' title="blue" style = {{backgroundColor: `${colors.blue}` }} onClick = {()=>onColorClick(colors.blue)}></div>
       <div className = 'base-color-pallete-item' title="cyan" style = {{backgroundColor: `${colors.cyan}` }} onClick = {()=>onColorClick(colors.cyan)}></div>
       <div className = 'base-color-pallete-item' title="teal" style = {{backgroundColor: `${colors.teal}` }} onClick = {()=>onColorClick(colors.teal)}></div>
       <div className = 'base-color-pallete-item' title="pink" style = {{backgroundColor: `${colors.pink}` }} onClick = {()=>onColorClick(colors.pink)}></div>

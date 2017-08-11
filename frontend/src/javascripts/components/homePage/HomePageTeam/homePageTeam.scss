@@ -1,0 +1,29 @@
+.body {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.team-wrapper{
+  margin-top: 100px;
+  
+}
+.team-block-wrapper{
+  text-align: center;
+  border-top: 2px solid #EFEFEF;
+  padding: 20px 0px 20px 0px;
+  width: 700px;
+}
+.team-header{
+  margin-bottom: 10px; 
+  margin-left: 10px;
+  font-size: 18px;
+}
+.base-list {
+  display: flex;
+  margin-left: 25px;
+  justify-content: left;
+  flex-wrap: wrap;
+}
+.base-list-item {
+  margin: 5px;
+}

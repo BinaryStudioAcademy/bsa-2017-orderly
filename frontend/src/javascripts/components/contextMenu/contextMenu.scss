@@ -1,13 +1,17 @@
 body {
   box-sizing: border-box;
+  background-color: #FCFCFC;
+}
+.menu-icon-wrapp {
+  position: relative;
 }
 .base-title {
   margin: 25px 10px 10px 10px;
   font-size: 17px;
-  font-style: italic;
+  font-style: itlic;
 }
 .new-base-wrapper {
-  margin-left: 100px;
+  margin-left: 50px;
   width: 260px;
   text-align: center;
 }
@@ -17,14 +21,15 @@ body {
   width: 60%;
   font-size: 20px;
 }
-.icon {
-  color: white;
-}
 .menu {
   padding-top: 5px;
   border: 1px solid #E1E1E1;
   border-radius: 3px;
   font-size: 15px;
+  width: 260px;
+  background-color: white;
+  position: absolute;
+  left: -130px;
 }
 .none {
   display: none;
@@ -33,7 +38,7 @@ body {
   border-radius: 4px;
   box-sizing: border-box;
   padding: 7px 12px;
-  margin: 0px;
+  margin-left: 17px;
   border: 1px solid #ccc;
 }
 .base-color-pallete{
