@@ -17,7 +17,7 @@ class SignIn extends React.Component {
 
         // Redirect to homepage if user is logged in
         if (signInService.isLoggedIn()) {
-            //context.router.push('/');
+            context.router.push('/');
         }
 
         this.processForm = this.processForm.bind(this);
@@ -116,7 +116,6 @@ SignIn.contextTypes = {
 };
 
 SignIn.propTypes = {
-    processForm: PropTypes.func.isRequired,
     changeUserData: PropTypes.func.isRequired,
     performLogin: PropTypes.func.isRequired,
     signIn: PropTypes.object.isRequired

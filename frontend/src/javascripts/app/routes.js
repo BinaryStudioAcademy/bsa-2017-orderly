@@ -6,7 +6,7 @@ import StartPage from '../components/StartPage';
 import UserProfile from '../components/userProfile/userProfile';
 import NotFound from '../components/notFound/notFound';
 import Dashboard from '../components/dashboard/dashboard';
-import SignIn from '../components/login/signIn/signIn';
+import SignIn from '../components/auth/login/signIn/signIn';
 
 export default (
     <Route path="/" component={App}>
