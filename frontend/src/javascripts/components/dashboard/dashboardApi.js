@@ -11,6 +11,11 @@ const getTables = () =>
         .then((response) => response.json())
         .catch(R.tap(console.error));
 
+const getTableById = (_id) =>
+    fetch(url + '/tables/' + _id)
+        .then((response) => response.json())
+        .catch(R.tap(console.error));
+
 const addTable = (name) =>
     fetch(url + '/tables', {
         method: 'POST',
@@ -25,5 +30,6 @@ const addTable = (name) =>
 export {
     getBase,
     getTables,
+    getTableById,
     addTable
 };

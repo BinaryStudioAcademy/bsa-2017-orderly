@@ -32,6 +32,15 @@ function dashboardReducer(state = initState, action) {
             }]);
     }
 
+    case 'GET_TABLE_BY_ID_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.concat(state.tables, action.table)
+            }
+        ]);
+    }
+
     case 'ADD_TABLE_SUCCEEDED': {
         return {
             tables: R.concat(
