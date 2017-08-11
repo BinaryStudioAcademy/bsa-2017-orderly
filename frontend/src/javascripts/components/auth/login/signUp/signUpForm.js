@@ -1,26 +1,19 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {Form, Input, Button} from 'semantic-ui-react';
 
-export default class SignUpForm extends Component {
+class SignUpForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-        }
     }
 
     handleSignUp = (e) => {
         e.preventDefault();
-        this.props.onSignUp(this.state);
+        this.props.onSignUp(this.props);
     };
 
     handleInput = (_, field) => {
-        this.setState({
-            [field.name]: field.value,
-        })
+        this.props.onChangeForm(field)
     };
 
     render() {
@@ -68,3 +61,12 @@ export default class SignUpForm extends Component {
         );
     }
 }
+
+
+function mapStateToProps(state) {
+    return {
+        stateFromReducer: state
+    };
+}
+
+export default connect(mapStateToProps)(SignUpForm);

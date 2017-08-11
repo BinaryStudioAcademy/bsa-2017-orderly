@@ -12,8 +12,15 @@ class SignUp extends Component {
         super(props);
     }
 
-    handleSignUp = (formData) => {
-        this.props.signUp(formData);
+    handleSignUp = () => {
+        this.props.signUp(this.props.signUpState);
+    };
+
+    handleChange = (field) => {
+        this.props.changeSignUpForm({
+                [field.name]: field.value,
+            }
+        )
     };
 
     render() {
@@ -22,7 +29,7 @@ class SignUp extends Component {
                 <Header as="h1" color="blue">Orderly</Header>
                 <Container text id="sign-up__form">
                     <Item>Create an account</Item>
-                    <SignUpForm onSignUp={this.handleSignUp}/>
+                    <SignUpForm onSignUp={this.handleSignUp} onChangeForm={this.handleChange}/>
                 </Container>
                 <Container id='sign-up__google'>
                     <Button fluid content='Sign up with Google'/>
@@ -38,7 +45,7 @@ class SignUp extends Component {
 
 function mapStateToProps(state) {
     return {
-        stateFromReducer: state
+        signUpState: state.signUp
     };
 }
 

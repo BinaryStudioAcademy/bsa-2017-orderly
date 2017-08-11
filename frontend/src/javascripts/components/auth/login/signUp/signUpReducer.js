@@ -1,4 +1,4 @@
-import { SIGN_UP_ACTION } from "./signUpActions";
+import { SIGN_UP_ACTION, CHANGE_SIGN_UP_FORM } from "./signUpActions";
 
 const initState = {
     firstName: '',
@@ -17,6 +17,9 @@ function signUpReducer(state = initState, action) {
             password: action.password,
         };
         return {...state, ...credentials};
+    }
+    case CHANGE_SIGN_UP_FORM: {
+        return {...state, ...action.field};
     }
     default:
         return state;
