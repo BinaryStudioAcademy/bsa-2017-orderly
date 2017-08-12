@@ -6,7 +6,7 @@ router.get('/me', (request, response) => {
     if (user) {
         return response.status(200).send(user);
     } else {
-        return response.status(400).send('Can not get current user.')
+        return response.status(400).send('Can not get current user.');
     }
 });
 

@@ -15,8 +15,8 @@ export let loginService = {
     redirectLoggedInUser() {
         if (Auth.isUserAuthenticated()) {
             getCurrentUser()
-                .then((response) => browserHistory.push('/'))
-                .catch((error) => colsole.error(error));
+                .then(() => browserHistory.push('/'))
+                .catch((error) => console.error(error));
         }
     }
 };

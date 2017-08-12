@@ -14,14 +14,14 @@ import Auth from '../components/auth/auth';
 
 export default (
     <Route path="/" component={App}>
-    <Route path='user-page' component={UserProfile} />
-    <IndexRoute component={StartPage}/>
-    <Route path='/dashboard/:_id' component={Dashboard}/>
-    <Route path="/login" component={Login}/>
-    <Route path="/logout" component={Logout}/>
-    <Route path="404" component={NotFound}/>
-    <Redirect from="*" to="404"/>
-</Route>
+        <Route path='user-page' component={UserProfile} />
+        <IndexRoute component={StartPage}/>
+        <Route path='/dashboard/:_id' component={Dashboard}/>
+        <Route path="/login" component={Login}/>
+        <Route path="/logout" component={Logout}/>
+        <Route path="404" component={NotFound}/>
+        <Redirect from="*" to="404"/>
+    </Route>
 );
 
 // Axios config

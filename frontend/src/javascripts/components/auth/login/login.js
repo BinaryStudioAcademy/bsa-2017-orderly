@@ -57,8 +57,8 @@ class Login extends React.Component {
                         <Grid.Row>
                             <Grid.Column>
                                 <Form action="/" /*method="get"*/ size="big"
-                                      onSubmit={this.processForm}
-                                      onChange={this.changeUserData}>
+                                    onSubmit={this.processForm}
+                                    onChange={this.changeUserData}>
                                     {(!R.isEmpty(this.props.login.errors) ||
                                       !this.props.login.success) &&
                                     <Label color="red" className="error">
@@ -111,6 +111,7 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
+    redirectLoggedInUser: PropTypes.func.isRequired,
     changeUserData: PropTypes.func.isRequired,
     performLogin: PropTypes.func.isRequired,
     login: PropTypes.object.isRequired
