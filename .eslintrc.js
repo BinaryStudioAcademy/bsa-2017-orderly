@@ -30,7 +30,6 @@ module.exports = {
         "camelcase": ["error", { "properties": "always" }],
         "arrow-spacing": "error",
         "arrow-parens": ["error", "always"],
-        "arrow-body-style": ["error", "as-needed"],
         "no-confusing-arrow": ["error", { "allowParens": false }],
         "no-constant-condition": "error",
         "no-labels": "error",
