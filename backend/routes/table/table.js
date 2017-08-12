@@ -16,6 +16,15 @@ router.post('/', (request, response, next) => {
         });
 });
 
+router.get('/ids/:ids', (request, response, next) => {
+    tableRepository.getByIds(request.params.ids.split(':'))
+        .then((tables) => response.status(200).send(tables))
+        .catch((error) => {
+            response.status(400);
+            next(error);
+        });
+});
+
 router.get('/:id', (request, response, next) => {
     tableRepository.getById(request.params.id)
         .then((table) => response.status(200).send(table))

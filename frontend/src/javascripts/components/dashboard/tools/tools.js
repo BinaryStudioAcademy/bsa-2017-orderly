@@ -12,9 +12,8 @@ class Tools extends Component {
     }
 
     // '5989fdcfe598fa16594f6276' - id test base
-    componentDidMount() {
+    componentWillMount() {
         this.props.getBaseCurrent(this.props.currentBase._id)
-        // this.props.getAllTables();
     }
 
     render() {

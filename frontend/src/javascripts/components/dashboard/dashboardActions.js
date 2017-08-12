@@ -11,12 +11,19 @@ const getTables = () => {
     };
 };
 
-const getTableById = (_id) => {
-    return {
-        type: 'GET_TABLE_BY_ID',
-        _id: _id
-    };
-};
+// const getTableById = (_id) => {
+//     return {
+//         type: 'GET_TABLE_BY_ID',
+//         _id: _id
+//     };
+// };
+
+// const getTablesByIds = (tables) => {
+//     return {
+//         type: 'GET_TABLES_BY_IDS_SUCCEEDED',
+//         tables: tables
+//     };
+// };
 
 const addTable = (name) => {
     return {
@@ -35,7 +42,8 @@ const switchTable = (_id) => {
 export {
     getBaseById,
     getTables,
-    getTableById,
+    // getTableById,
+    // getTablesByIds,
     addTable,
     switchTable
 };

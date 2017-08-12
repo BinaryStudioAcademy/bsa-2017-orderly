@@ -13,7 +13,7 @@ class Repository {
         return this.model.findById(id);
     }
 
-    getbyIds(ids) {
+    getByIds(ids) {
         return this.model.find({'_id': { $in: ids}});
     }
 

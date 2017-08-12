@@ -2,7 +2,7 @@ import R from 'ramda';
 
 const initState = {
     base: '',
-    tables: [{
+    tables: [{   //todo remove cap for new base
         _id: 0,
         name: '',
         isActive: false
@@ -11,13 +11,13 @@ const initState = {
 
 function dashboardReducer(state = initState, action) {
     switch (action.type) {
-    case 'GET_BASE_SUCCEEDED': {
-        return R.mergeAll([
-            R.dissoc('base', state),
-            {
-                base: action.base
-            }
-        ]);
+    case 'GET_BASE_AND_TABLES_SUCCEEDED': {
+        console.log(action.payload)
+        return R.merge(
+            state,
+            {base: action.payload.base},
+            {tables: action.payload.tables}
+        );
     }
 
     case 'GET_TABLES_SUCCEEDED': {
@@ -31,11 +31,12 @@ function dashboardReducer(state = initState, action) {
             }]);
     }
 
-    case 'GET_TABLE_BY_ID_SUCCEEDED': {
+    case 'GET_TABLES_BY_IDS_SUCCEEDED': {
+        console.log(action, '------- in reducer ------')
         return R.mergeAll([
             R.dissoc('tables', state),
             {
-                tables: R.concat(state.tables, action.table)
+                tables: action.tables
             }
         ]);
     }
