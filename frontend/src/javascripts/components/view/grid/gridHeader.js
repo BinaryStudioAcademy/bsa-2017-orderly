@@ -1,7 +1,7 @@
 import React from 'react';
 import {Container, Icon} from 'semantic-ui-react';
 
-export const ViewHeader = () => {
+export const GridHeader = () => {
     return (
         <Container fluid>
             <Icon as="i" name="caret down"/>
