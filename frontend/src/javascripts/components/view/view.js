@@ -23,7 +23,7 @@ class View extends Component {
 
 function mapStateToProps(state) {
     return {
-        stateFromReducer: state
+        dashboardState: state.dashboardReducer
     };
 }
 
