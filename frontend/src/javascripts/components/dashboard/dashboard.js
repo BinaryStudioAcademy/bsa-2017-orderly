@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, getTables } from './dashboardActions';
 
 const mapStateToProps = (state, ownProps) => {
+    console.log(ownProps.params._id, 'jdlfdkfdf')
     return ({
-        base: state.dashboardReducer.base,
-        tables: state.dashboardReducer.tables,
-        current: ownProps.params._id
+	    base: state.dashboardReducer.base,
+	    tables: state.dashboardReducer.tables,
+	    currentBase: ownProps.params
     });
 };
 
@@ -14,7 +15,7 @@ const mapDispatchToProps = {
     addTableClick: addTable,
     switchTableClick: switchTable,
     getAllTables: getTables,
-    getBaseById: getBaseById
+    getBaseCurrent: getBaseById
 };
 
 const Dashboard = connect(

@@ -11,7 +11,6 @@ const initState = {
 
 function dashboardReducer(state = initState, action) {
     switch (action.type) {
-
     case 'GET_BASE_SUCCEEDED': {
         return R.mergeAll([
             R.dissoc('base', state),

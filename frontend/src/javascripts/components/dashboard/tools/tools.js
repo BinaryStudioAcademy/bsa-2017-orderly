@@ -1,33 +1,20 @@
 import React, { Component } from 'react';
 import R from 'ramda';
-import { Button } from 'semantic-ui-react';
 
 import Header from './header/header';
 import Tabs from './tabs/tabs';
 import Menu from './menu/menu';
 import Workflow from './workflow/workflow';
 
-// const tools = ({tables, current, addTableClick, switchTableClick, getAllTables}) => (
-//     <div>
-//         <Button onClick={() => getAllTables()}>get tables</Button>
-//         <Header/>
-//         <Tabs tables={tables}
-//             current={current}
-//             switchTableClick={switchTableClick}
-//             addTableClick={addTableClick}/>
-//         <Menu/>
-//         <Workflow table={R.find((table) => table._id == current)(tables)}/>
-//     </div>
-// );
-
 class Tools extends Component {
     constructor(props) {
         super(props);
     }
 
-    componentWillMount() {
-        this.props.getBaseById('5989fdcfe598fa16594f6276')     //todo remove hardcode
-        this.props.getAllTables();
+    // '5989fdcfe598fa16594f6276' - id test base
+    componentDidMount() {
+        this.props.getBaseCurrent(this.props.currentBase._id)
+        // this.props.getAllTables();
     }
 
     render() {

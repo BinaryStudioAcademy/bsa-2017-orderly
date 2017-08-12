@@ -5,15 +5,7 @@ import { getTableById, getBase, getTables, addTable } from './dashboardApi';
 function* fetchBaseById(action) {
     try {
         const base = yield call(getBase, action._id);
-        if (base.tables && base.tables.length > 0) {
-            console.log(base.tables, '----------- after receive base ------');
-            R.forEach((id) => {
-                fetchTableById(id);
-            })(base.tables);
-        }
-
         yield put({ type: 'GET_BASE_SUCCEEDED', base: base});
-
     } catch (err) {
         yield put({ type: 'GET_BASE_FAILED', message: err.message});
     }
@@ -28,7 +20,7 @@ function* fetchAllTables() {
     }
 }
 
-function* fetchTableById(id) {
+function* fetchTableByBase() {
     try {
         const table = yield call(getTableById, id);
         yield put({ type: 'GET_TABLE_BY_ID_SUCCEEDED', table: [table]});
@@ -52,7 +44,6 @@ function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('GET_TABLES', fetchAllTables);
     yield takeEvery('ADD_TABLE', addingTable);
-
 }
 
 export default dashboardSaga;
