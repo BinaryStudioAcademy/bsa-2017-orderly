@@ -1,4 +1,4 @@
-import { LOGIN_USER, CHANGE_USER_DATA, LOGIN_USER_RESPONSE, LOGIN_USER_ERROR } from './signInActions';
+import { LOGIN_USER, CHANGE_USER_DATA, LOGIN_USER_RESPONSE, LOGIN_USER_ERROR } from './loginActions';
 
 const initState = {
     errors: {},

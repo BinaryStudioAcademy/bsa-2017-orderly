@@ -4,24 +4,23 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import {Form, Label, Grid, Button} from 'semantic-ui-react';
 import R from 'ramda';
-import * as SignInActions from './signInActions';
-import { signInService } from './signInService';
-import SignInWithGoogleBtn from './components/signInWithGoogleBtn';
-import './signIn.scss';
+import * as LoginActions from './loginActions';
+import LoginWithGoogleBtn from './components/loginWithGoogleBtn';
+import './login.scss';
 
-class SignIn extends React.Component {
+class Login extends React.Component {
 
-    constructor(props, context) {
+    constructor(props) {
         super(props);
         this.props = props;
 
-        // Redirect to homepage if user is logged in
-        if (signInService.isLoggedIn()) {
-            //context.router.push('/');
-        }
-
         this.processForm = this.processForm.bind(this);
         this.changeUserData = this.changeUserData.bind(this);
+    }
+
+    componentWillMount(){
+        // Redirect to homepage if user is logged in
+        this.props.redirectLoggedInUser();
     }
 
     changeUserData(event) {
@@ -34,8 +33,8 @@ class SignIn extends React.Component {
     processForm(e) {
         e.preventDefault();
         this.props.performLogin({
-            email: this.props.signIn.email,
-            password: this.props.signIn.password
+            email: this.props.login.email,
+            password: this.props.login.password
         });
     }
 
@@ -58,12 +57,12 @@ class SignIn extends React.Component {
                         <Grid.Row>
                             <Grid.Column>
                                 <Form action="/" /*method="get"*/ size="big"
-                                    onSubmit={this.processForm}
-                                    onChange={this.changeUserData}>
-                                    {(!R.isEmpty(this.props.signIn.errors) ||
-                                      !this.props.signIn.success) &&
+                                      onSubmit={this.processForm}
+                                      onChange={this.changeUserData}>
+                                    {(!R.isEmpty(this.props.login.errors) ||
+                                      !this.props.login.success) &&
                                     <Label color="red" className="error">
-                                        {this.props.signIn.message}
+                                        {this.props.login.message}
                                     </Label>}
                                     <div className="field input">
                                         <Form.Input
@@ -74,9 +73,9 @@ class SignIn extends React.Component {
                                             placeholder="Email"
                                             name="email"
                                         />
-                                        {this.props.signIn.errors.email &&
+                                        {this.props.login.errors.email &&
                                         <Label pointing color="red" className="error">
-                                            {this.props.signIn.errors.email}
+                                            {this.props.login.errors.email}
                                         </Label>}
                                     </div>
                                     <div className="field input">
@@ -88,19 +87,19 @@ class SignIn extends React.Component {
                                             type="password"
                                             name="password"
                                         />
-                                        {this.props.signIn.errors.password &&
+                                        {this.props.login.errors.password &&
                                         <Label pointing color="red" className="error">
-                                            {this.props.signIn.errors.password}
+                                            {this.props.login.errors.password}
                                         </Label>}
                                     </div>
-                                    <Button id="signInBtn" type="submit" color='orange' fluid>
+                                    <Button id="loginBtn" type="submit" color='orange' fluid>
                                         Sign in
                                     </Button>
-                                    <SignInWithGoogleBtn/>
+                                    <LoginWithGoogleBtn/>
                                 </Form>
                             </Grid.Column>
                         </Grid.Row>
-                        <div id="signIn-footer">
+                        <div id="login-footer">
                             <p>Don’t have an account?</p>
                             <Link to={'/signup'}>Sign up for free</Link>
                         </div>
@@ -111,25 +110,20 @@ class SignIn extends React.Component {
     }
 }
 
-SignIn.contextTypes = {
-    router: PropTypes.object.isRequired
-};
-
-SignIn.propTypes = {
-    processForm: PropTypes.func.isRequired,
+Login.propTypes = {
     changeUserData: PropTypes.func.isRequired,
     performLogin: PropTypes.func.isRequired,
-    signIn: PropTypes.object.isRequired
+    login: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
     return {
-        signIn: state.signIn
+        login: state.login
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, SignInActions),  dispatch);
+    return bindActionCreators(Object.assign({}, LoginActions),  dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

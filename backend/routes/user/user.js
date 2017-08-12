@@ -1,6 +1,15 @@
 const router = require('express').Router();
 const userRepository = require('../../repositories/user/userRepository');
 
+router.get('/me', (request, response) => {
+    const user = userRepository.getCurrentUser();
+    if (user) {
+        return response.status(200).send(user);
+    } else {
+        return response.status(400).send('Can not get current user.')
+    }
+});
+
 router.get('/:userId', (request, response) => {
     userRepository.getById(request.params.userId)
         .then((data) => response.status(200).send(data))

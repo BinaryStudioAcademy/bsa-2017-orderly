@@ -13,8 +13,8 @@ class Repository {
         return this.model.findById(id);
     }
 
-    get(criteria) {
-        return this.model.findOne(criteria);
+    get(criteria, select) {
+        return this.model.findOne(criteria).select(select);
     }
 
     getbyIds(ids) {

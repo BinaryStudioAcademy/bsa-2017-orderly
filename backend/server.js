@@ -20,13 +20,8 @@ const localLoginStrategy = require('./passport/localLogin');
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 
-app.use( (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
-    next();
-});
+const cors = require('cors');
+app.use(cors());
 
 // authenticaion checker middleware
 const authCheckMiddleware = require('./middleware/authCheck');
