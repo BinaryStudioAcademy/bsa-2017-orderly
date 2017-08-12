@@ -22,12 +22,12 @@ function validateSignupForm(payload) {
 
     if (!payload || typeof payload.firstName !== 'string' || payload.firstName.trim().length === 0) {
         isFormValid = false;
-        errors.name = 'Please provide your First name.';
+        errors.firstName = 'Please provide your First name.';
     }
 
     if (!payload || typeof payload.lastName !== 'string' || payload.lastName.trim().length === 0) {
         isFormValid = false;
-        errors.name = 'Please provide your Last name.';
+        errors.lastName = 'Please provide your Last name.';
     }
 
     if (!isFormValid) {
