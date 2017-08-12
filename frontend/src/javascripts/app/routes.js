@@ -7,6 +7,8 @@ import SignIn from '../components/auth/login/signIn/signIn';
 import UserProfile from '../components/userProfile/userProfile';
 import Dashboard from '../components/dashboard/dashboard';
 import NotFound from '../components/notFound/notFound';
+import View from '../components/view/view';
+
 export default (
     <Route path="/" component={App}>
         <Route path='user-page' component={UserProfile} />
@@ -15,5 +17,6 @@ export default (
         <Route path="/signup" component={SignUp}/>
         <Route path="/login" component={SignIn}/>
         <Route path="404" component={NotFound}/>
+        <Route path="view" component={View}/>
     </Route>
 );
