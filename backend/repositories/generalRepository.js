@@ -13,6 +13,10 @@ class Repository {
         return this.model.findById(id);
     }
 
+    get(criteria) {
+        return this.model.findOne(criteria);
+    }
+
     getbyIds(ids) {
         return this.model.find({'_id': { $in: ids}});
     }

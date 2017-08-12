@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router';
+import React, {Component} from 'react';
 import './userProfile.scss';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import * as UserProfileActions from './userProfileActions';
 
 class UserProfile extends Component {
-	
     constructor(props) {
         super(props);
         this.props = props;
@@ -20,6 +18,7 @@ class UserProfile extends Component {
     changeUserNameColor(e){
         console.log('Get user name color action called!');
         this.props.changeUserNameColor({ color: e.target.value});	
+
     }
 
     render() {
