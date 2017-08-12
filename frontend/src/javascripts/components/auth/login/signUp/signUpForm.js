@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Form, Input, Button} from 'semantic-ui-react';
+import {Form, Input, Button, Label} from 'semantic-ui-react';
 
 class SignUpForm extends Component {
     constructor(props) {
@@ -17,41 +17,62 @@ class SignUpForm extends Component {
     };
 
     render() {
+        const errorFirstName = this.props.stateErrors.firstName;
+        const errorLastName = this.props.stateErrors.lastName;
+        const errorEmail = this.props.stateErrors.email;
+        const errorPassword = this.props.stateErrors.password;
         return (
             <Form onSubmit={this.handleSignUp}>
-                <Form.Group widths='equal'>
+                <Form.Group widths='equal' id='form__group'>
+                    <div id='form__firstName'>
                     <Form.Field
                         onChange={this.handleInput}
+                        className='group__field'
                         control={Input}
-                        name="firstName"
+                        name='firstName'
                         label='First name'
                         placeholder='First name'
-                        required/>
+                    />
+                    {errorFirstName &&
+                        <Label pointing className='form__error'>{errorFirstName}</Label>
+                    }
+                    </div>
+                    <div id='form__lastName'>
                     <Form.Field
                         onChange={this.handleInput}
+                        className='group__field'
                         control={Input}
-                        name="lastName"
+                        name='lastName'
                         label='Last name'
                         placeholder='Last name'
-                        required/>
+                    />
+                    {errorLastName &&
+                        <Label pointing className='form__error'>{errorLastName}</Label>
+                    }
+                    </div>
                 </Form.Group>
                 <Form.Field
                     control={Input}
                     onChange={this.handleInput}
-                    name="email"
-                    type="email"
+                    className='form__field'
+                    name='email'
                     label='Email'
                     placeholder='Email'
-                    required/>
+                />
+                {errorEmail &&
+                    <Label pointing className='form__error'>{errorEmail}</Label>
+                }
                 <Form.Field
                     onChange={this.handleInput}
-                    control={Input}
-                    name="password"
-                    type="password"
+                    control ={Input}
+                    className='form__field'
+                    name='password'
                     label='Password'
                     placeholder='Password'
-                    minLength="6"
-                    required/>
+                />
+                {errorPassword &&
+                    <Label pointing className='form__error'>{errorPassword}</Label>
+                }
                 <Form.Field
                     fluid
                     control={Button}
@@ -65,7 +86,8 @@ class SignUpForm extends Component {
 
 function mapStateToProps(state) {
     return {
-        stateFromReducer: state
+        stateFromReducer: state,
+        stateErrors: state.signUp.errors
     };
 }
 

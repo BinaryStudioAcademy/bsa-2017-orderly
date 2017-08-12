@@ -36,7 +36,7 @@ class SignUp extends Component {
                 </Container>
                 <Container textAlign="left" id='sign-up__footer'>
                     <p>Already have an account?</p>
-                    <Link to="/login">Sign In</Link>
+                    <Link to="/login" id="footer__link">Sign In</Link>
                 </Container>
             </Container>
         );

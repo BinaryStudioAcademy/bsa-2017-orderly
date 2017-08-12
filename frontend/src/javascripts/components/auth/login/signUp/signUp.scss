@@ -9,7 +9,25 @@
 }
 
 #form__confirm {
-  margin-bottom: 10px;
+  margin-bottom: 0;
+}
+
+#form__firstName, #form__lastName {
+  width: 100%;
+  padding: 0 5px;
+}
+
+#form__group {
+  margin-bottom: 5px!important;
+}
+
+.group__field {
+  margin-bottom: 10px!important;
+}
+
+.form__error {
+  margin: 0 auto 10px auto!important;
+  color: red!important;
 }
 
 #sign-up__google {
@@ -19,5 +37,6 @@
 
 #sign-up__footer {
   margin-top: 20px;
+  margin-bottom: 20px;
   font-size: small;
 }

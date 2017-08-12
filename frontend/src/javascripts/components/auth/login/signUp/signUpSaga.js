@@ -8,12 +8,11 @@ function* fetchUser(action) {
         const signUp = yield call(signUpApi.fetchSignUp, action);
         yield put({type: SIGN_UP_PROCESS, result: signUp});
         if (!signUp.success) {
-            yield put({type: SIGN_UP_ERROR, message: signUp.errors});
+            yield put({type: SIGN_UP_ERROR, errors: signUp.errors});
         } else {
             browserHistory.push('/');
         }
     } catch (e) {
-        console.log(e);
         yield put({type: SIGN_UP_ERROR, message: e.message});
     }
 }

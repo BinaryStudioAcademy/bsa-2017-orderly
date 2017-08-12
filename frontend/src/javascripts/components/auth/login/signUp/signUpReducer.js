@@ -5,7 +5,8 @@ const initState = {
     lastName: '',
     email: '',
     password: '',
-    error: '',
+    errors: {},
+    success: true,
 };
 
 function signUpReducer(state = initState, action) {
@@ -17,13 +18,13 @@ function signUpReducer(state = initState, action) {
             email: action.email,
             password: action.password,
         };
-        return {...state, ...credentials, error: action.errors};
+        return {...state, ...credentials};
     }
     case CHANGE_SIGN_UP_FORM: {
         return {...state, ...action.field};
     }
     case SIGN_UP_ERROR: {
-        return {...state, error: action.message};
+        return {...state, errors: action.errors, success: false};
     }
     default:
         return state;
