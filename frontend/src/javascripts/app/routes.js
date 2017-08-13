@@ -1,13 +1,17 @@
 import React from 'react';
-import {Route, IndexRoute} from 'react-router';
+import {Route, Redirect, IndexRoute} from 'react-router';
+import axios from 'axios';
+import {browserHistory} from 'react-router';
+
 import App from './App';
 import StartPage from '../components/StartPage';
-import SignUp from '../components/auth/login/signUp/signUp';
-import SignIn from '../components/auth/login/signIn/signIn';
 import UserProfile from '../components/userProfile/userProfile';
-import Dashboard from '../components/dashboard/dashboard';
 import NotFound from '../components/notFound/notFound';
-import View from '../components/view/view';
+import Dashboard from '../components/dashboard/dashboard';
+import SignUp from '../components/auth/signUp/signUp';
+import Login from '../components/auth/login/login';
+import Logout from '../components/auth/logout/logout';
+import Auth from '../components/auth/auth';
 
 export default (
     <Route path="/" component={App}>
@@ -15,8 +19,33 @@ export default (
         <IndexRoute component={StartPage}/>
         <Route path='/dashboard/:_id' components={Dashboard}/>
         <Route path="/signup" component={SignUp}/>
-        <Route path="/login" component={SignIn}/>
+        <Route path="/login" component={Login}/>
+        <Route path="/logout" component={Logout}/>
         <Route path="404" component={NotFound}/>
-        <Route path="view" component={View}/>
+        <Redirect from="*" to="404"/>
     </Route>
 );
+
+// Axios config
+(function() {
+    axios.defaults.baseURL = 'http://localhost:2020';
+
+    const token = Auth.getToken();
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    } else {
+        axios.defaults.headers.common['Authorization'] = null;
+    }
+
+    // Add a response interceptor
+    axios.interceptors.response.use(null,
+        function (error) {
+            if (error.response.status === 401) {
+                if (token) {
+                    Auth.deauthenticateUser();
+                }
+                browserHistory.push('/login');
+            }
+            return Promise.reject(error.response);
+        });
+})();
