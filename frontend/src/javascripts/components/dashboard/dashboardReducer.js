@@ -41,13 +41,22 @@ function dashboardReducer(state = initState, action) {
     }
 
     case 'ADD_TABLE_SUCCEEDED': {
-        return {
-            tables: R.concat(
-                R.map(R.compose(R.assoc('isActive', false), R.dissoc('isActive')))(state.tables),
-                R.map(R.assoc('isActive', true))(action.tables))
-        };
+        // return {
+        //     tables: R.concat(
+        //         R.map(R.compose(R.assoc('isActive', false), R.dissoc('isActive')))(state.tables),
+        //         [R.assoc('isActive', true, action.payload.table)])
+        // };
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.concat(
+                    R.map(R.compose(R.assoc('isActive', false), R.dissoc('isActive')))(state.tables),
+                    [R.assoc('isActive', true, action.payload.table)]
+                )
+            }
+        ]);
     }
-        
+
     case 'SWITCH_TABLE': {
         return R.mergeAll([
             R.dissoc('tables', state),

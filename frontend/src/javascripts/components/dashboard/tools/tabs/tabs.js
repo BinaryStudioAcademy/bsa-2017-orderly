@@ -16,7 +16,8 @@ const Tabs = ({ base, tables, currentTableId, addTableClick, switchTableClick}) 
                 } )(tables) }
             </div>
             <div className='add_btn'>
-                <AddTabBtn addTableClick={addTableClick}/>
+                <AddTabBtn base={base}
+                    addTableClick={addTableClick}/>
             </div>
         </div>
         <div className='history'>

@@ -5,13 +5,13 @@ import './addTabBtn.scss';
 
 let input;
 
-const AddTabBtn = ({addTableClick}) => (
+const AddTabBtn = ({base, addTableClick}) => (
     <Popup trigger={<Icon inverted link name='plus square' size='large'/>}
         on='click'
         hideOnScroll>
         <Input icon={{ name: 'plus', link: true, onClick: () => {
             if (!input || !input.value) return;
-            addTableClick({ name: input.value});
+            addTableClick({ name: input.value, baseId: base._id});
             input = '';
         }}}
         onChange={(event) => { input = event.target;}}

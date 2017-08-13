@@ -25,10 +25,11 @@ const getTables = () => {
 //     };
 // };
 
-const addTable = (name) => {
+const addTable = ({name, baseId}) => {
     return {
         type: 'ADD_TABLE',
-        name: name
+        name: name,
+        baseId: baseId
     };
 };
 

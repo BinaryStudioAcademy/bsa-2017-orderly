@@ -24,18 +24,32 @@ const getTablesByIds = (ids) =>
 const addTable = (name) =>
     fetch(url + '/tables', {
         method: 'POST',
-        body: JSON.stringify(name),
-        headers: new Headers({
+        body: JSON.stringify({name: name}),
+		mode: 'cors',
+		headers: new Headers({
             'Content-Type': 'application/json'
         })
     })
         .then((response) => response.json())
         .catch(R.tap(console.error));
 
+const updateBaseByNewTable = (payload) => {
+    return fetch(url + '/base/' + payload.baseId + '/tables/' + payload.table._id, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    })
+        .then((response) => response.json())
+        .catch(R.tap(console.error));
+};
+
 export {
     getBase,
     getTables,
     // getTableById,
     getTablesByIds,
-    addTable
+    addTable,
+    updateBaseByNewTable
 };

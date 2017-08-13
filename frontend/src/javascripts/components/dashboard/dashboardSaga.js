@@ -1,5 +1,5 @@
 import { takeLatest, call, put, takeEvery } from 'redux-saga/effects';
-import { getTablesByIds, getBase, getTables, addTable } from './dashboardApi';
+import { getTablesByIds, getBase, getTables, addTable, updateBaseByNewTable } from './dashboardApi';
 
 function* fetchBaseById(action) {
     try {
@@ -30,11 +30,22 @@ function* fetchTablesByBase(action) {
 
 function* addingTable(action) {
     try {
-        const table = yield call(addTable, action.name);
-        yield put({ type: 'ADD_TABLE_SUCCEEDED', tables: [table] });
-
+        const payload = {};
+        payload.baseId = action.baseId;
+        payload.table = yield call(addTable, action.name);
+        yield put({ type: 'ADD_TABLE_SUCCEEDED', payload });
     } catch (err) {
         yield put({ type: 'ADD_TABLE_FAILED', message: err.message});
+    }
+}
+
+function* addTableToBase(action) {
+    try {
+        const base = yield call(updateBaseByNewTable, action.payload);
+        console.log(base, 'in saga this is base')
+        yield put({ type: 'ADD_TABLE_TO_BASE_SUCCEEDED', base: base});
+    } catch (err) {
+        yield put({ type: 'ADD_TABLE_TO_BASE_FAILED', message: err.message});
     }
 }
 
@@ -43,6 +54,7 @@ function* dashboardSaga() {
     yield takeEvery('GET_TABLES', fetchAllTables);
     yield takeEvery('ADD_TABLE', addingTable);
     yield takeLatest('GET_BASE_SUCCEEDED', fetchTablesByBase);
+    yield takeLatest('ADD_TABLE_SUCCEEDED', addTableToBase);
 }
 
 export default dashboardSaga;
