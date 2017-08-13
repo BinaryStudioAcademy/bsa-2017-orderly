@@ -12,6 +12,7 @@ export const GridContent = () => {
                     </th>
                     <th>Name</th>
                     <th>Field</th>
+                    <th>Another Field</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -19,10 +20,18 @@ export const GridContent = () => {
                     <td>1</td>
                     <td>First</td>
                     <td>Custom data</td>
+                    <td>Custom data</td>
                 </tr>
                 <tr>
                     <td>2</td>
                     <td>Second</td>
+                    <td>Custom data</td>
+                    <td>Custom data</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Third</td>
+                    <td>Custom data</td>
                     <td>Custom data</td>
                 </tr>
                 </tbody>
