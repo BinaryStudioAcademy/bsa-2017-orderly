@@ -6,7 +6,8 @@ const initState = {
         _id: 0,
         name: '',
         isActive: false
-    }]
+    }],
+    addPopupIsOpen: false
 };
 
 function dashboardReducer(state = initState, action) {
@@ -42,12 +43,22 @@ function dashboardReducer(state = initState, action) {
 
     case 'ADD_TABLE_SUCCEEDED': {
         return R.mergeAll([
-            R.dissoc('tables', state),
+            R.omit(['tables', 'addPopupIsOpen'], state),
             {
                 tables: R.concat(
                     R.map(R.compose(R.assoc('isActive', false), R.dissoc('isActive')))(state.tables),
                     [R.assoc('isActive', true, action.payload.table)]
                 )
+            },
+            { addPopupIsOpen: false}
+        ]);
+    }
+
+    case 'TOGGLE_POPUP': {
+        return R.mergeAll([
+            R.dissoc('addPopupIsOpen', state),
+            {
+                addPopupIsOpen: !state.addPopupIsOpen
             }
         ]);
     }

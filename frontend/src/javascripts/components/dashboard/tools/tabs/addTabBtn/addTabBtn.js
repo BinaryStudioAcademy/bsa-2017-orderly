@@ -5,9 +5,11 @@ import './addTabBtn.scss';
 
 let input;
 
-const AddTabBtn = ({base, addTableClick}) => (
+const AddTabBtn = ({base, togglePopup, addPopupIsOpen, addTableClick}) => (
     <Popup trigger={<Icon inverted link name='plus square' size='large'/>}
+        open={addPopupIsOpen}
         on='click'
+        onOpen={togglePopup}
         hideOnScroll>
         <Input icon={{ name: 'plus', link: true, onClick: () => {
             if (!input || !input.value) return;

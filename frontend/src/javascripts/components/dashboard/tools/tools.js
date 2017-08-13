@@ -22,8 +22,10 @@ class Tools extends Component {
                 <Header base={this.props.base}/>
                 <Tabs base={this.props.base}
                     tables={this.props.tables}
+                    addPopupIsOpen={this.props.addPopupIsOpen}
                     currentTableId={this.props.currentTableId}
                     switchTableClick={this.props.switchTableClick}
+                    togglePopup={this.props.togglePopup}
                     addTableClick={this.props.addTableClick}/>
                 <Menu/>
                 <Workflow table={R.find((table) => table._id == this.props.currentTableId)(this.props.tables)}/>

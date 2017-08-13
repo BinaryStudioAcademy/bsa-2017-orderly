@@ -1,7 +1,6 @@
 import Tools from './tools/tools';
 import { connect } from 'react-redux';
-import { getBaseById, addTable, switchTable, setActive } from './dashboardActions';
-import R from 'ramda';
+import { getBaseById, addTable, switchTable, setActive, togglePopup } from './dashboardActions';
 
 const mapStateToProps = (state, ownProps) => {
     console.log(ownProps, 'ownProps')
@@ -9,7 +8,8 @@ const mapStateToProps = (state, ownProps) => {
 		base: state.dashboardReducer.base,
 		tables: state.dashboardReducer.tables,
 		baseId: ownProps.params.baseId,
-		currentTableId: ownProps.params.tableId
+		currentTableId: ownProps.params.tableId,
+		addPopupIsOpen: state.dashboardReducer.addPopupIsOpen
 	});
 }
 
@@ -17,7 +17,8 @@ const mapDispatchToProps = {
     addTableClick: addTable,
     switchTableClick: switchTable,
     getBaseCurrent: getBaseById,
-    setActive: setActive
+    setActive: setActive,
+    togglePopup: togglePopup
 };
 
 const Dashboard = connect(

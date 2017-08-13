@@ -12,6 +12,12 @@ const getTables = () => {
     };
 };
 
+const togglePopup = () => {
+    return {
+        type: 'TOGGLE_POPUP'
+    };
+};
+
 const setActive = (tableId) => {
     return {
         type: 'SET_ACTIVE_TAB',
@@ -39,5 +45,6 @@ export {
     getTables,
     setActive,
     addTable,
-    switchTable
+    switchTable,
+    togglePopup
 };

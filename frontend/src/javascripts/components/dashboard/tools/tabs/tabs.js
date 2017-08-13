@@ -6,7 +6,8 @@ import TabItem from './tabItem/tabItem';
 
 import './tabs.scss';
 
-const Tabs = ({ base, tables, currentTableId, addTableClick, switchTableClick}) => (
+const Tabs = ({ base, tables, addPopupIsOpen, currentTableId,
+    addTableClick, switchTableClick, togglePopup}) => (
     <div className='tabs_panel'>
         <div className='btn_block'>
             {console.log(currentTableId, 'currentTable')}
@@ -17,6 +18,8 @@ const Tabs = ({ base, tables, currentTableId, addTableClick, switchTableClick}) 
             </div>
             <div className='add_btn'>
                 <AddTabBtn base={base}
+                    togglePopup={togglePopup}
+                    addPopupIsOpen={addPopupIsOpen}
                     addTableClick={addTableClick}/>
             </div>
         </div>
