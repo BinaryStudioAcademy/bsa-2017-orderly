@@ -14,38 +14,33 @@ function dashboardReducer(state = initState, action) {
     case 'GET_BASE_SUCCEEDED': {
         return R.merge(
             state,
-            {base: action.base}
+            {base: action.payload.base}
         );
     }
 
-    // case 'GET_TABLES_SUCCEEDED': {
-    //     return R.mergeAll([
-    //         R.dissoc('tables', state),
-    //         {
-    //             tables:  R.concat(
-    //                 [ R.assoc('isActive', true)(action.tables[0]) ],
-    //                 R.map(R.assoc('isActive', false))(R.slice(1, Infinity, action.tables))
-    //             )
-    //         }]);
-    // }
+    case 'SET_ACTIVE_TAB': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    let tempObj = R.dissoc('isActive', table);
+                    if (table._id === action.tableId) tempObj.isActive = true;
+                    else tempObj.isActive = false;
+                    return tempObj;
+                })(state.tables)
+            }
+        ]);
+    }
 
     case 'GET_TABLES_BY_IDS_SUCCEEDED': {
         return R.mergeAll([
 	        R.dissoc('tables', state),
 	        {
-		        tables: R.concat(
-			        [R.assoc('isActive', true)(action.tables[0])],
-			        R.map(R.assoc('isActive', false))(R.slice(1, Infinity, action.tables))
-		        )
+		        tables: action.tables
 	        }]);
     }
 
     case 'ADD_TABLE_SUCCEEDED': {
-        // return {
-        //     tables: R.concat(
-        //         R.map(R.compose(R.assoc('isActive', false), R.dissoc('isActive')))(state.tables),
-        //         [R.assoc('isActive', true, action.payload.table)])
-        // };
         return R.mergeAll([
             R.dissoc('tables', state),
             {

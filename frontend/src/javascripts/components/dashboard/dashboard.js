@@ -1,6 +1,6 @@
 import Tools from './tools/tools';
 import { connect } from 'react-redux';
-import { getBaseById, addTable, switchTable, getTables } from './dashboardActions';
+import { getBaseById, addTable, switchTable, setActive } from './dashboardActions';
 import R from 'ramda';
 
 const mapStateToProps = (state, ownProps) => {
@@ -16,8 +16,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = {
     addTableClick: addTable,
     switchTableClick: switchTable,
-    // getAllTables: getTables,
-    getBaseCurrent: getBaseById
+    getBaseCurrent: getBaseById,
+    setActive: setActive
 };
 
 const Dashboard = connect(

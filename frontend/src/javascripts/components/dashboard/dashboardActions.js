@@ -1,7 +1,8 @@
-const getBaseById = (_id) => {
+const getBaseById = (_id, tableId) => {
     return {
         type: 'GET_BASE',
-        _id: _id
+        _id: _id,
+        tableId: tableId
     };
 };
 
@@ -11,19 +12,12 @@ const getTables = () => {
     };
 };
 
-// const getTableById = (_id) => {
-//     return {
-//         type: 'GET_TABLE_BY_ID',
-//         _id: _id
-//     };
-// };
-
-// const getTablesByIds = (tables) => {
-//     return {
-//         type: 'GET_TABLES_BY_IDS_SUCCEEDED',
-//         tables: tables
-//     };
-// };
+const setActive = (tableId) => {
+    return {
+        type: 'SET_ACTIVE_TAB',
+        tableId: tableId
+    };
+};
 
 const addTable = ({name, baseId}) => {
     return {
@@ -43,8 +37,7 @@ const switchTable = (_id) => {
 export {
     getBaseById,
     getTables,
-    // getTableById,
-    // getTablesByIds,
+    setActive,
     addTable,
     switchTable
 };
