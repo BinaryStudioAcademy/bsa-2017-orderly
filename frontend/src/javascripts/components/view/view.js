@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Container} from 'semantic-ui-react';
 import * as viewActions from './viewActions';
 import {GridHeader} from './grid/gridHeader';
 import {GridContent} from './grid/gridContent';
@@ -13,10 +12,10 @@ class View extends Component {
 
     render() {
         return (
-            <Container fluid>
+            <div>
                 <GridHeader/>
                 <GridContent/>
-            </Container>
+            </div>
         );
     }
 }
