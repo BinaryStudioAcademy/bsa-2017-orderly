@@ -2,21 +2,26 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as viewActions from './viewActions';
-import {GridHeader} from './grid/gridHeader';
-import {GridContent} from './grid/gridContent';
+import {Grid} from './grid/grid';
 
 class View extends Component {
     constructor(props) {
         super(props);
     }
 
+    viewSelector(listOfViews) {
+        const activeView = listOfViews.filter((view) => view.isActive);
+        switch (activeView.type) {
+        case 'grid':
+            return <Grid/>;
+        default:
+            return <Grid/>;
+        }
+    }
+
+    //Need to receive list of views from outer reducer
     render() {
-        return (
-            <div>
-                <GridHeader/>
-                <GridContent/>
-            </div>
-        );
+        return this.viewSelector([{isActive: true, type: 'grid'}]);
     }
 }
 
