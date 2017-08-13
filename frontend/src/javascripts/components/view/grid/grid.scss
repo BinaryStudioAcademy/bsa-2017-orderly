@@ -1,0 +1,23 @@
+.view__header {
+  display: flex;
+  align-items: center;
+}
+
+#header__view-type {
+  display: flex;
+}
+
+#header__search {
+  margin-bottom: 10px;
+}
+
+tr td:nth-child(2) {
+  width: 30px;
+  text-align: center;
+}
+
+@media screen and (max-width: 650px) {
+  .menu__text {
+    display: none;
+  }
+}
