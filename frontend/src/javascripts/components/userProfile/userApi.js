@@ -1,4 +1,4 @@
-import { userProfileService } from './userProfileService';
+import {userProfileService} from './userProfileService';
 
 function callApi(userId) {
     console.log('function callApi is called!');

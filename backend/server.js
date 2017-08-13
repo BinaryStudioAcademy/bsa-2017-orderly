@@ -9,7 +9,6 @@ const favicon = require('serve-favicon');
 const port = 2020;
 
 app.use(morgan('combined'));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
@@ -23,7 +22,6 @@ passport.use('local-login', localLoginStrategy);
 const cors = require('cors');
 app.use(cors());
 
-// authenticaion checker middleware
 const authCheckMiddleware = require('./middleware/authCheck');
 app.use('/api', authCheckMiddleware);
 app.use('/auth', require('./routes/auth/auth'));

@@ -1,0 +1,42 @@
+#sign-up__container {
+  max-width: 500px!important;
+}
+
+#sign-up__form {
+  max-width: 500px!important;
+  padding: 20px 50px;
+  border: 1px solid #000;
+}
+
+#form__confirm {
+  margin-bottom: 0;
+}
+
+#form__firstName, #form__lastName {
+  width: 100%;
+  padding: 0 5px;
+}
+
+#form__group {
+  margin-bottom: 5px!important;
+}
+
+.group__field {
+  margin-bottom: 10px!important;
+}
+
+.form__error {
+  margin: 0 auto 10px auto!important;
+  color: red!important;
+}
+
+#sign-up__google {
+  margin-top: 20px;
+  padding: 0 50px;
+}
+
+#sign-up__footer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: small;
+}

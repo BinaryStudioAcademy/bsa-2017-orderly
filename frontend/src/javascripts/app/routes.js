@@ -8,6 +8,7 @@ import StartPage from '../components/StartPage';
 import UserProfile from '../components/userProfile/userProfile';
 import NotFound from '../components/notFound/notFound';
 import Dashboard from '../components/dashboard/dashboard';
+import SignUp from '../components/auth/login/signUp/signUp';
 import Login from '../components/auth/login/login';
 import Logout from '../components/auth/logout/logout';
 import Auth from '../components/auth/auth';
@@ -16,7 +17,8 @@ export default (
     <Route path="/" component={App}>
         <Route path='user-page' component={UserProfile} />
         <IndexRoute component={StartPage}/>
-        <Route path='/dashboard/:_id' component={Dashboard}/>
+        <Route path='/dashboard/:_id' components={Dashboard}/>
+        <Route path="/signup" component={SignUp}/>
         <Route path="/login" component={Login}/>
         <Route path="/logout" component={Logout}/>
         <Route path="404" component={NotFound}/>
