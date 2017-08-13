@@ -1,9 +1,13 @@
 #content__grid {
+  border-collapse: collapse;
+}
+
+table, th, td {
   border: 1px solid #AAA;
 }
 
-tr td{
-  border: 1px solid #AAA;
+th, td {
+  padding: 10px;
 }
 
 tr td:first-child {
