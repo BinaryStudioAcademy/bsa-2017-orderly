@@ -6,7 +6,7 @@ import './gridHeader.scss';
 export const GridHeader = () => {
     return (
         <div className="view__header">
-            <Icon name="caret down" size="large"/>
+            <Icon name="caret down" id="header__caret" size="large"/>
             <div id="header__view-type">
                 <Icon name={viewIcons.grid} id="view-type__icon" size="large"/>
                 <span id="view-type__name">Grid View</span>
@@ -31,7 +31,7 @@ export const GridHeader = () => {
                 <Button basic icon='external'/>
                 <Button basic icon='ellipsis horizontal'/>
             </Button.Group>
-            <Icon name="search" id="header__search"/>
+            <Icon name="search" id="header__search" size='large'/>
         </div>
     );
 };
