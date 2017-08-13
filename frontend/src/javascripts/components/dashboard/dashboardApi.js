@@ -16,14 +16,10 @@ const getTables = () =>
 //         .then((response) => response.json())
 //         .catch(R.tap(console.error));
 
-const getTablesByIds = (ids) => {
+const getTablesByIds = (ids) =>
     fetch(url + '/tables/ids/' + ids.join(':'))
         .then( (response) => response.json())
-	    .then( data => {
-	    	console.log(data, 'inside feeeeeeetch')
-	    })
         .catch(R.tap(console.error));
-};
 
 const addTable = (name) =>
     fetch(url + '/tables', {

@@ -1,13 +1,10 @@
 import { takeLatest, call, put, takeEvery } from 'redux-saga/effects';
-import R from 'ramda';
 import { getTablesByIds, getBase, getTables, addTable } from './dashboardApi';
 
 function* fetchBaseById(action) {
     try {
-        const payload = {};
-        payload.base = yield call(getBase, action._id);
-        payload.tables = yield call(getTablesByIds, payload.base.tables);
-        yield put({ type: 'GET_BASE_AND_TABLES_SUCCEEDED', payload});
+        const base = yield call(getBase, action._id);
+        yield put({ type: 'GET_BASE_SUCCEEDED', base: base});
     } catch (err) {
         yield put({ type: 'GET_BASE_AND_TABLES_FAILED', message: err.message});
     }
@@ -22,14 +19,14 @@ function* fetchAllTables() {
     }
 }
 
-// function* fetchTablesByBase(action) {
-//     try {
-//         const tables = yield call(getTablesByIds, action.base.tables);
-//         yield put({ type: 'GET_TABLES_BY_IDS_SUCCEEDED', tables: tables});
-//     } catch (err) {
-//         yield put({ type: 'GET_TABLES_BY_IDS_FAILED', message: err.message});
-//     }
-// }
+function* fetchTablesByBase(action) {
+    try {
+        const tables = yield call(getTablesByIds, action.base.tables);
+        yield put({ type: 'GET_TABLES_BY_IDS_SUCCEEDED', tables: tables});
+    } catch (err) {
+        yield put({ type: 'GET_TABLES_BY_IDS_FAILED', message: err.message});
+    }
+}
 
 function* addingTable(action) {
     try {
@@ -45,7 +42,7 @@ function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('GET_TABLES', fetchAllTables);
     yield takeEvery('ADD_TABLE', addingTable);
-    // yield takeEvery('GET_BASE_SUCCEEDED', fetchTablesByBase);
+    yield takeLatest('GET_BASE_SUCCEEDED', fetchTablesByBase);
 }
 
 export default dashboardSaga;

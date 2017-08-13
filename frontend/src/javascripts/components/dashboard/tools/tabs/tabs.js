@@ -6,12 +6,13 @@ import TabItem from './tabItem/tabItem';
 
 import './tabs.scss';
 
-const Tabs = ({tables, addTableClick, switchTableClick}) => (
+const Tabs = ({ base, tables, currentTableId, addTableClick, switchTableClick}) => (
     <div className='tabs_panel'>
         <div className='btn_block'>
+            {console.log(currentTableId, 'currentTable')}
             <div className='tabs_block'>
                 { R.map( (table) => {
-                    if (table._id !== 0 ) return TabItem(table, switchTableClick);
+                    if (table._id !== 0 ) return TabItem(base, currentTableId, table, switchTableClick);
                 } )(tables) }
             </div>
             <div className='add_btn'>

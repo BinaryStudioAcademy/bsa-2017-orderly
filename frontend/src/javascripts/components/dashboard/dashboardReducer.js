@@ -11,34 +11,33 @@ const initState = {
 
 function dashboardReducer(state = initState, action) {
     switch (action.type) {
-    case 'GET_BASE_AND_TABLES_SUCCEEDED': {
-        console.log(action.payload)
+    case 'GET_BASE_SUCCEEDED': {
         return R.merge(
             state,
-            {base: action.payload.base},
-            {tables: action.payload.tables}
+            {base: action.base}
         );
     }
 
-    case 'GET_TABLES_SUCCEEDED': {
-        return R.mergeAll([
-            R.dissoc('tables', state),
-            {
-                tables:  R.concat(
-                    [ R.assoc('isActive', true)(action.tables[0]) ],
-                    R.map(R.assoc('isActive', false))(R.slice(1, Infinity, action.tables))
-                )
-            }]);
-    }
+    // case 'GET_TABLES_SUCCEEDED': {
+    //     return R.mergeAll([
+    //         R.dissoc('tables', state),
+    //         {
+    //             tables:  R.concat(
+    //                 [ R.assoc('isActive', true)(action.tables[0]) ],
+    //                 R.map(R.assoc('isActive', false))(R.slice(1, Infinity, action.tables))
+    //             )
+    //         }]);
+    // }
 
     case 'GET_TABLES_BY_IDS_SUCCEEDED': {
-        console.log(action, '------- in reducer ------')
         return R.mergeAll([
-            R.dissoc('tables', state),
-            {
-                tables: action.tables
-            }
-        ]);
+	        R.dissoc('tables', state),
+	        {
+		        tables: R.concat(
+			        [R.assoc('isActive', true)(action.tables[0])],
+			        R.map(R.assoc('isActive', false))(R.slice(1, Infinity, action.tables))
+		        )
+	        }]);
     }
 
     case 'ADD_TABLE_SUCCEEDED': {
