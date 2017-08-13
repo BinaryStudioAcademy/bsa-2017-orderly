@@ -8,7 +8,7 @@ import StartPage from '../components/StartPage';
 import UserProfile from '../components/userProfile/userProfile';
 import NotFound from '../components/notFound/notFound';
 import Dashboard from '../components/dashboard/dashboard';
-import SignUp from '../components/auth/login/signUp/signUp';
+import SignUp from '../components/auth/signUp/signUp';
 import Login from '../components/auth/login/login';
 import Logout from '../components/auth/logout/logout';
 import Auth from '../components/auth/auth';

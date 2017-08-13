@@ -1,13 +1,34 @@
-const initState = {};
+import { SIGN_UP_ACTION, CHANGE_SIGN_UP_FORM, SIGN_UP_ERROR} from "./signUpActions";
 
-function loginReducer(state = initState, action) {
+const initState = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    errors: {},
+    success: true,
+};
+
+function signUpReducer(state = initState, action) {
     switch (action.type) {
-    case 'ADD': {
-        return;
+    case SIGN_UP_ACTION: {
+        const credentials = {
+            firstName: action.firstName,
+            lastName: action.lastName,
+            email: action.email,
+            password: action.password,
+        };
+        return {...state, ...credentials};
+    }
+    case CHANGE_SIGN_UP_FORM: {
+        return {...state, ...action.field};
+    }
+    case SIGN_UP_ERROR: {
+        return {...state, errors: action.errors, success: false};
     }
     default:
         return state;
     }
 }
 
-export default loginReducer;
+export default signUpReducer;
