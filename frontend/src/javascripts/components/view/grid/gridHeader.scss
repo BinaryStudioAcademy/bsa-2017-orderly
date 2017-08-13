@@ -4,16 +4,20 @@
 }
 
 #header__view-type {
-  display: flex;
+  flex-wrap: nowrap;
+  flex-flow: nowrap;
+}
+
+#view-type__icon {
+  display: inline;
+}
+
+#view-type__name {
+  white-space: nowrap;
 }
 
 #header__search {
   margin-bottom: 10px;
-}
-
-tr td:nth-child(2) {
-  width: 30px;
-  text-align: center;
 }
 
 @media screen and (max-width: 650px) {

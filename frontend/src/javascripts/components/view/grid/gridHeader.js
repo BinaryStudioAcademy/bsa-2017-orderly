@@ -1,15 +1,15 @@
 import React from 'react';
 import {Icon, Button} from 'semantic-ui-react';
 import {viewIcons} from '../../configuration/viewTypes';
-import './grid.scss';
+import './gridHeader.scss';
 
 export const GridHeader = () => {
     return (
         <div className="view__header">
-                <Icon name="caret down" size="large"/>
+            <Icon name="caret down" size="large"/>
             <div id="header__view-type">
-                <Icon name={viewIcons.grid} size="large"/>
-                Grid View
+                <Icon name={viewIcons.grid} id="view-type__icon" size="large"/>
+                <span id="view-type__name">Grid View</span>
             </div>
             <Button.Group>
                 <Button basic>

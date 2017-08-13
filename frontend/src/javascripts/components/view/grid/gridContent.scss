@@ -1,0 +1,16 @@
+#content__grid {
+  border: 1px solid #AAA;
+}
+
+tr td{
+  border: 1px solid #AAA;
+}
+
+tr td:first-child {
+  width: 30px;
+  text-align: center;
+}
+
+tr th:not(:first-child) {
+  text-align: left;
+}

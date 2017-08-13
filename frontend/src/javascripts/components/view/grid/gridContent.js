@@ -1,10 +1,9 @@
 import React from 'react';
-import {Container} from 'semantic-ui-react';
-import './grid.scss';
+import './gridContent.scss';
 
 export const GridContent = () => {
     return (
-        <Container fluid>
+        <div>
             <table id="content__grid">
                 <thead>
                 <tr>
@@ -28,6 +27,6 @@ export const GridContent = () => {
                 </tr>
                 </tbody>
             </table>
-        </Container>
+        </div>
     );
 };
