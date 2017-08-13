@@ -17,24 +17,30 @@ class SignUpForm extends Component {
     };
 
     render() {
+        const errorMessage = this.props.stateFromReducer.message;
         const errorFirstName = this.props.stateErrors.firstName;
         const errorLastName = this.props.stateErrors.lastName;
         const errorEmail = this.props.stateErrors.email;
         const errorPassword = this.props.stateErrors.password;
         return (
-            <Form onSubmit={this.handleSignUp}>
+            <Form onSubmit={this.handleSignUp} size="big">
+                {errorMessage &&
+                    <Label color="red" className="error">{errorMessage}</Label>
+                }
                 <Form.Group widths='equal' id='form__group'>
                     <div id='form__firstName'>
                     <Form.Field
                         onChange={this.handleInput}
                         className='group__field'
                         control={Input}
+                        type='text'
                         name='firstName'
                         label='First name'
                         placeholder='First name'
+                        fluid
                     />
                     {errorFirstName &&
-                        <Label pointing className='form__error'>{errorFirstName}</Label>
+                        <Label pointing color="red" className="error">{errorFirstName}</Label>
                     }
                     </div>
                     <div id='form__lastName'>
@@ -42,12 +48,14 @@ class SignUpForm extends Component {
                         onChange={this.handleInput}
                         className='group__field'
                         control={Input}
+                        type='text'
                         name='lastName'
                         label='Last name'
                         placeholder='Last name'
+                        fluid
                     />
                     {errorLastName &&
-                        <Label pointing className='form__error'>{errorLastName}</Label>
+                        <Label pointing color="red" className="error">{errorLastName}</Label>
                     }
                     </div>
                 </Form.Group>
@@ -55,29 +63,33 @@ class SignUpForm extends Component {
                     control={Input}
                     onChange={this.handleInput}
                     className='form__field'
+                    type='text'
                     name='email'
                     label='Email'
                     placeholder='Email'
                 />
                 {errorEmail &&
-                    <Label pointing className='form__error'>{errorEmail}</Label>
+                    <Label pointing color="red" className="error">{errorEmail}</Label>
                 }
                 <Form.Field
                     onChange={this.handleInput}
                     control ={Input}
                     className='form__field'
+                    type='password'
                     name='password'
                     label='Password'
                     placeholder='Password'
                 />
                 {errorPassword &&
-                    <Label pointing className='form__error'>{errorPassword}</Label>
+                    <Label pointing color="red" className="error">{errorPassword}</Label>
                 }
                 <Form.Field
                     fluid
                     control={Button}
                     content='Sign Up'
-                    id='form__confirm'/>
+                    id='form__confirm'
+                    color='blue'
+                    size='big'/>
             </Form>
         );
     }
@@ -86,7 +98,7 @@ class SignUpForm extends Component {
 
 function mapStateToProps(state) {
     return {
-        stateFromReducer: state,
+        stateFromReducer: state.signUp,
         stateErrors: state.signUp.errors
     };
 }

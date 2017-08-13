@@ -1,15 +1,19 @@
+#sign-up__container + h1 {
+  margin-top: 50px!important;
+}
+
 #sign-up__container {
   max-width: 500px!important;
 }
 
 #sign-up__form {
   max-width: 500px!important;
-  padding: 20px 50px;
-  border: 1px solid #000;
+  padding: 0 50px 20px;
 }
 
 #form__confirm {
   margin-bottom: 0;
+  margin-top: 23px;
 }
 
 #form__firstName, #form__lastName {
@@ -25,9 +29,8 @@
   margin-bottom: 10px!important;
 }
 
-.form__error {
-  margin: 0 auto 10px auto!important;
-  color: red!important;
+.ui.form .field>label {
+  opacity: 0.75;
 }
 
 #sign-up__google {
@@ -36,7 +39,12 @@
 }
 
 #sign-up__footer {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px 0;
+  padding: 0 50px;
   font-size: small;
+}
+#sign-up__footer {
+  p {
+    margin-bottom: 0;
+  }
 }

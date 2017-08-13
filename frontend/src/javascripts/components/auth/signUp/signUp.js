@@ -28,11 +28,11 @@ class SignUp extends Component {
             <Container text textAlign="center" id="sign-up__container">
                 <Header as="h1" color="blue">Orderly</Header>
                 <Container text id="sign-up__form">
-                    <Item>Create an account</Item>
+                    <h3>Create an account</h3>
                     <SignUpForm onSignUp={this.handleSignUp} onChangeForm={this.handleChange}/>
                 </Container>
                 <Container id='sign-up__google'>
-                    <Button fluid content='Sign up with Google'/>
+                    <Button fluid content='Sign up with Google' size='big'/>
                 </Container>
                 <Container textAlign="left" id='sign-up__footer'>
                     <p>Already have an account?</p>

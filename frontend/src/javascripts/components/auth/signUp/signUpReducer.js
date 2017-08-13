@@ -6,6 +6,7 @@ const initState = {
     email: '',
     password: '',
     errors: {},
+    message: '',
     success: true,
 };
 
@@ -24,7 +25,7 @@ function signUpReducer(state = initState, action) {
         return {...state, ...action.field};
     }
     case SIGN_UP_ERROR: {
-        return {...state, errors: action.errors, success: false};
+        return {...state, errors: action.errors, success: false, message: action.message};
     }
     default:
         return state;

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import {Form, Label, Grid, Button} from 'semantic-ui-react';
+import {Form, Label, Grid, Button, Header} from 'semantic-ui-react';
 import R from 'ramda';
 import * as LoginActions from './loginActions';
 import LoginWithGoogleBtn from './components/loginWithGoogleBtn';
@@ -43,14 +43,14 @@ class Login extends React.Component {
             <Grid verticalAlign="middle" centered columns={1} textAlign="center" relaxed>
                 <div className="ui grid">
                     <div className="column">
-                        <h2>
+                        <Header as="h1" color="blue">
                             <a href="#">
                                 <div>
                                     Orderly
                                 </div>
                             </a>
-                        </h2>
-                        <div id="con">
+                        </Header>
+                        <div id="form_heading">
                             <h3>Sign in</h3>
                             <a href="#">Forgot password?</a>
                         </div>

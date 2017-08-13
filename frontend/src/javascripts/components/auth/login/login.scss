@@ -1,11 +1,17 @@
+h1 {
+  margin-top: 50px!important;
+}
+
 a:hover {
   border-bottom: 2px solid #4183c4;
 }
-h2 + div {
+
+h1 + div {
   padding-bottom: 10px;
   display: flex;
   justify-content: space-between;
 }
+
 h3 {
   margin: 0!important;
 }
@@ -16,6 +22,7 @@ h3 {
     float: left;
   }
 }
+
 #login-footer {
   p {
     text-align: left;
@@ -23,15 +30,18 @@ h3 {
     margin-top: 10px;
   }
 }
+
 #loginBtn {
   font-size: 18px;
   margin-bottom: 36px;
   padding: 18px;
 }
+
 #loginWithGoogleBtn {
   font-size: 18px;
   padding: 18px;
 }
+
 #loginWithGoogleBtn {
   span {
     display: inline-block;
