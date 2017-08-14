@@ -1,39 +1,26 @@
+import axios from 'axios';
 import R from 'ramda';
-const url = 'http://localhost:2020/api';
+const url = '/api';
 
 const getBase = (_id) =>
-    fetch(url + '/base/' + _id)
-        .then((response) => response.json())
+    axios.get(url + '/base/' + _id)
+        .then((response) => response.data)
         .catch(R.tap(console.error));
 
 const getTablesByIds = (ids) =>
-    fetch(url + '/tables/ids/' + ids.join(':'))
-        .then( (response) => response.json())
-        .catch(R.tap(console.error));
+    axios.get(url + '/tables/ids/' + ids.join(':'))
+        .then( (response) => response.data)
+        .catch(R.tap(console.error))
 
 const addTable = (name) =>
-    fetch(url + '/tables', {
-        method: 'POST',
-        body: JSON.stringify({name: name}),
-	    mode: 'cors',
-		headers: new Headers({
-            'Content-Type': 'application/json'
-        })
-    })
-        .then((response) => response.json())
-        .catch(R.tap(console.error));
+    axios.post(url + '/tables', {name: name})
+        .then((response) => response.data)
+	    .catch(R.tap(console.error))
 
-const updateBaseByNewTable = (payload) => {
-    return fetch(url + '/base/' + payload.baseId + '/tables/' + payload.table._id, {
-        method: 'PUT',
-        mode: 'cors',
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        })
-    })
-        .then((response) => response.json())
+const updateBaseByNewTable = (payload) =>
+    axios.put(url + '/base/' + payload.baseId + '/tables/' + payload.table._id)
+        .then((response) => response.data)
         .catch(R.tap(console.error));
-};
 
 export {
     getBase,

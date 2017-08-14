@@ -1,4 +1,4 @@
-import { takeLatest, call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import { getTablesByIds, getBase, addTable, updateBaseByNewTable } from './dashboardApi';
 import { browserHistory } from 'react-router';
 
