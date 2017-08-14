@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
+//import { connect } from 'react-redux';
 import { Popup, Icon, Input } from 'semantic-ui-react';
 
 let id = 0;
-let BaseOptions = ({ dispatch }) => {
+let BaseOptions = () => {
   return (
     <div className = 'base-options-wrapper'>
       <ul className = 'base-options-list'>
@@ -32,7 +32,7 @@ let BaseOptions = ({ dispatch }) => {
   )
 }
 
-BaseOptions = connect()(BaseOptions);
+//BaseOptions = connect()(BaseOptions);
 
 export default BaseOptions
 

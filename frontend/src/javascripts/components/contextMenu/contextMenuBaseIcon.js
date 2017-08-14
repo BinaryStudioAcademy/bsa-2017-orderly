@@ -1,41 +1,27 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Icon } from 'semantic-ui-react';
 import { baseIcons } from '../configuration/baseIcons'
-import { changeBaseIcon } from './contextMenuActions';
 
-let BaseIconList = ({ contextMenu, onIconClick }) => {
+class BaseIcon extends React.Component { 
+ render(){
   return (
-    <div className = 'base-icon-wrapper'>
+    <div className = 'base-icon-wrapper' value='bla' >
       <div className = 'base-icon'>
-        {baseIcons.map(function(icon, i){
+        {baseIcons.map((icon, i) => {
           return (
-            <div key={i} className='myicon' onClick = { () => onIconClick(icon) }>
+            <div key={i} className='myicon' > 
               <Icon inverted link name={icon} 
-                 className='icon' color='black' size='large'
+                  className='icon' color='black' size='large'
+                  onClick={()=> this.props.handleClick(icon, 'icon', this.props.baseId)}
               />
             </div>
          )})
         }
       </div>
     </div>
-  )
-}
-
-const mapStateToProps = state => ({
-  contextMenu: state
-});
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onIconClick: (contextMenu) => { dispatch(changeBaseIcon(contextMenu)) }
-  };
-}
-
-const BaseIcon = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BaseIconList)
+    )
+  }
+ }
 
 export default BaseIcon
 

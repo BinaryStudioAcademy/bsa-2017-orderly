@@ -1,29 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Icon } from 'semantic-ui-react';
 import { addNewBase } from '../homePageActions'
+import ContextMenuIcon from '../../contextMenu/contextMenuIcon';
 import './homePageBaseItem.scss';
 
 let name = 'New Base';
-const BaseItemSingle = ({contextMenu, homePageStore, onNewBaseClick }) => {
-  return (
-    <div className = 'one-base-wrapper'>
-      <div className = 'one-base' style = {{backgroundColor: `${contextMenu.contextMenu.color}` }}>
-        <div className = 'one-base-icon'>
-          <Icon inverted link name={contextMenu.contextMenu.icon} size='huge'
-            onClick = { () => onNewBaseClick(name) }
-            />
-          </div>
+
+class BaseItemSingle extends Component {
+  constructor(props) {
+    super(props);
+    const onNewBaseClick = props.onNewBaseClick;
+  }
+  render() {
+    return (
+      <div className='base-name'>{this.props.base.name}
+        <div className = 'one-base-wrapper' >
+        <div className = 'one-base' style = {{backgroundColor: `${this.props.base.color}` }} > 
+          <div className = 'one-base-icon'>
+            <Icon inverted link  size='huge' name={this.props.base.icon}
+              onClick = { () => this.props.onNewBaseClick(name) } 
+              />
+            </div>
+            <div> 
+              <div>
+                <ContextMenuIcon handleClick = {this.props.handleClick}
+                  baseId = {this.props.base.id}
+                  isMenu={this.props.base.showMenu}
+                  />
+              </div>
+            </div>
+        </div>
+</div>
       </div>
-
-    </div>
-  )
+    )
+  }
 }
-
-const mapStateToProps = state => ({
-  contextMenu: state,
-  homePageStore: state
-});
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -32,7 +44,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const BaseItem = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(BaseItemSingle)
 
