@@ -12,6 +12,7 @@ class BaseList extends Component {
   constructor(props) {
     super(props);
     const onMenuClick = props.onMenuClick;
+    console.log(props)
   }
   render() {
     const props = this.props;  

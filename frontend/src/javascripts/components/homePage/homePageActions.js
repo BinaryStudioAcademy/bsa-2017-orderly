@@ -1,11 +1,25 @@
 let id = 1
+const getBaseById = (_id, tableId) => {
+    return {
+        type: 'GET_BASE',
+        _id: _id,
+        tableId: tableId
+    };
+};
+
 export const addNewBase = (name) => {
   return {
     type: 'ADD_NEW_BASE',
     id: ++id,
-    name
+    name: name
   };
 }
+
+// export const getBases = () => {
+//     return {
+//         type: 'GET_BASES'
+//     };
+// };
 
 export const addNewTeam = (id) => {
   return {
@@ -29,6 +43,7 @@ export const showContextMenu = (data, type, id) => {
     }
   }
 }
+
 export const changeBaseName = (name, type, id) =>{
   if (type ==='name') {
     return {
