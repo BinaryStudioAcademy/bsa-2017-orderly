@@ -12,7 +12,6 @@ class BaseList extends Component {
   constructor(props) {
     super(props);
     const onMenuClick = props.onMenuClick;
-    console.log(props)
   }
   render() {
     const props = this.props;  
@@ -20,7 +19,7 @@ class BaseList extends Component {
         <div className = 'base-list '  >
           { this.props.bases.map(function(base, current) {
             return (
-              <div key = {base.id}>
+              <div key = {base._id}>
                 <BaseItem className = "base-list-item"  
                     handleClick = {props.handleClick}  
                     base = {base}

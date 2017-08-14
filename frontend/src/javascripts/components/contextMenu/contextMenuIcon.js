@@ -9,7 +9,7 @@ const ContextMenuIcon = (props) => {
     <div className = 'menu-icon-wrapp'>
        <div  className = 'setting'> 
         <Icon inverted link name='setting' size='large' color='black' 
-        onClick={()=>props.handleClick(true, 'show', props.baseId)}
+        onClick={()=>props.handleClick(true, 'showMenu', props.baseId)}
         />
       </div>
       <div className ={props.isMenu ? "menu-show-2": "none"}>

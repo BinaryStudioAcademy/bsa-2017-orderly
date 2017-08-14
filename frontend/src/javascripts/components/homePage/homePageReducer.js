@@ -1,54 +1,37 @@
-const baseStore = (state = { bases: [{ id: 0, name: "New Base", color: "#C3C8B7", icon:"code", showMenu: false }]}, action) => {
+const baseStore = (state = { 
+    bases: 
+    [{ id: 0, name: "New Base", color: "#C3C8B7", icon:"code", showMenu: false }]}, action) => {
+
   switch (action.type) {
-    case 'ADD_NEW_BASE':
+    case 'ADD_NEW_BASE_SUCCESS':
       return Object.assign(
         {}, 
         state, 
         {bases: [...state.bases, { id: action.id, name: action.name, color: "#C3C8B7", icon:"code", showMenu: false }]}
         );
-        case 'ADD_BASE_ERROR': {
-          return {...state, errors: action.errors, success: false, message: action.message};
+      
+        case 'CHANGE_BASE_PARAM':
+          let bases = state.bases.map(value => Object.assign({}, value))
+
+          let currentBaseIndex = bases.findIndex(base=>{
+            return base.id === action.id
+          })
+          
+          let currentBase = bases[currentBaseIndex];
+           if (action.typeAction === "showMenu") {
+            currentBase[action.typeAction] = !currentBase.showMenu;
+          } else {
+            currentBase[action.typeAction] = action.value;
           }
-      case 'SHOW_CONTEXT_MENU':
-        return Object.assign(
-          {}, 
-          state, 
-          {bases: state.bases.map(base =>
-            (base.id === action.id) 
-              ? { id: base.id, name: base.name, color: base.color, icon:base.icon, showMenu: !base.showMenu}
-              : base
-          )}
-        )
-        case 'CHANGE_BASE_COLOR':
-        return Object.assign(
-          {}, 
-          state, 
-          {bases: state.bases.map(base =>
-            (base.id === action.id) 
-              ? { id: base.id, name: base.name, color: action.color, icon:base.icon, showMenu: base.showMenu}
-              : base
-          )}
-        )
-        case 'CHANGE_BASE_ICON':
-        return Object.assign(
-          {}, 
-          state, 
-          {bases: state.bases.map(base =>
-            (base.id === action.id) 
-              ? { id: base.id, name: base.name, color: base.color, icon:action.icon, showMenu: base.showMenu}
-              : base
-          )}
-        )
-        case 'CHANGE_BASE_NAME':
-        return Object.assign(
-          {}, 
-          state, 
-          {bases: state.bases.map(base =>
-            (base.id === action.id) 
-              ? { id: base.id, name: action.name, color: base.color, icon:base.icon, showMenu: base.showMenu}
-              : base
-          )}
-        )
+          
+          bases[currentBaseIndex] = currentBase;
+          
+          return Object.assign(
+            {}, 
+            state, 
+            {bases}
+          )
+    
     default:
       return state
   }

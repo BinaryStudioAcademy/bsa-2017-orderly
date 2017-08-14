@@ -1,30 +1,14 @@
-let id = 1
-const getBaseById = (_id, tableId) => {
-    return {
-        type: 'GET_BASE',
-        _id: _id,
-        tableId: tableId
-    };
-};
-
 export const addNewBase = (name) => {
   return {
-    type: 'ADD_NEW_BASE',
-    id: ++id,
+    type: 'ADD_NEW_BASE_SUCCESS',
     name: name
   };
 }
 
-// export const getBases = () => {
-//     return {
-//         type: 'GET_BASES'
-//     };
-// };
-
-export const addNewTeam = (id) => {
+export const addNewTeam = (name) => {
   return {
     type: 'ADD_NEW_TEAM',
-    id
+    name
   };
 }
 
@@ -35,43 +19,13 @@ export const showBaseCreationOptions = (id) => {
   };
 }
 
-export const showContextMenu = (data, type, id) => {
-  if (type ==='show') {
+export const changeBaseParam = (value, typeAction, id) =>{
     return {
-      type: 'SHOW_CONTEXT_MENU',
-      id
-    }
-  }
-}
-
-export const changeBaseName = (name, type, id) =>{
-  if (type ==='name') {
-    return {
-      type: 'CHANGE_BASE_NAME',
-      name,
-      id
-    }
-  }
-}
-
-export const changeBaseColor = (color, type, id) =>{
-  if (type ==='color') {
-    return {
-      type: 'CHANGE_BASE_COLOR',
-      color,
+      type: 'CHANGE_BASE_PARAM',
+      typeAction,
+      value,
       id
     };
-  }
-}
-
-export const changeBaseIcon = (icon, type, id) =>{
-  if (type ==='icon') {
-    return {
-      type: 'CHANGE_BASE_ICON',
-      icon,
-      id
-    };
-  }
 }
 
 export const deleteBase = (data) =>{

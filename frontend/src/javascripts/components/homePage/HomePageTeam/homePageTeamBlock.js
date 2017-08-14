@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import BaseItem from '../homePageBase/homePageBaseItem';
 import HomePageTeamName from './homePageTeamName';
 import { addNewBase } from '../homePageActions';
-import { showContextMenu, changeBaseColor, changeBaseIcon, changeBaseName } from '../homePageActions';
+import { changeBaseParam } from '../homePageActions';
 import BaseList from './homePageBaseList';
 import { Icon } from 'semantic-ui-react';
 import './homePageTeam.scss';
@@ -37,24 +37,14 @@ render() {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
   baseStore: state.baseStore
-})
+  }) 
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleClick: (data, type, id) => {
-        if (type=='icon') {
-          dispatch(changeBaseIcon(data, type, id))
-        } 
-        if (type =='color') {
-          dispatch(changeBaseColor(data, type, id))
-        }
-        if (type =='name') {
-          dispatch(changeBaseName(data, type, id))
-        }
-        if (type =='show') { 
-          dispatch(showContextMenu(data, type, id))
-        }
+    handleClick: (value, type, id) => {
+      dispatch(changeBaseParam(value, type, id))
     },
     onNewBaseClick: (name) => { dispatch(addNewBase(name))}
   }
