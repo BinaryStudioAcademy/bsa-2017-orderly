@@ -17,7 +17,7 @@ export default (
     <Route path="/" component={App}>
         <Route path='user-page' component={UserProfile} />
         <IndexRoute component={StartPage}/>
-        <Route path='/dashboard/:_id' components={Dashboard}/>
+        <Route path='/dashboard/:baseId/:tableId' components={Dashboard}/>
         <Route path="/signup" component={SignUp}/>
         <Route path="/login" component={Login}/>
         <Route path="/logout" component={Logout}/>

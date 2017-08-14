@@ -2,7 +2,7 @@ import React from 'react';
 
 const Workflow = ({table}) => (
     <h2>
-        {table || table._id ? table.name : 'no table yet'}
+        {table && table._id !== 0 ? table.name : 'no table yet'}
     </h2>
 );
 

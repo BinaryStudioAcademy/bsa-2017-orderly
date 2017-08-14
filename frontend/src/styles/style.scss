@@ -1,4 +1,9 @@
 body {
   background: #f1f1f1;
   padding-top: 30px;
+
+  .ui.inverted.button.active:focus {
+    background-color: #fff !important;
+    box-shadow: none !important;
+  }
 }
