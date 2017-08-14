@@ -23,7 +23,11 @@ app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
     publicPath: config.output.publicPath,
     stats: {colors: true},
-    historyApiFallback: true
+    historyApiFallback: true,
+    watchOptions: {
+        aggregateTimeout: 300,
+        poll: 1000,
+    }
 }));
 
 app.use(webpackHotMiddleware(compiler));

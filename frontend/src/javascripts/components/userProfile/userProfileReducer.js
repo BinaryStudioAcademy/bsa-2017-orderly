@@ -1,4 +1,4 @@
-import { GET_USER_NAME_REQUESTED, GET_USER_NAME_SUCCEEDED, CHANGE_USER_NAME_COLOR } from './userProfileActions';
+import {GET_USER_NAME_REQUESTED, GET_USER_NAME_SUCCEEDED, CHANGE_USER_NAME_COLOR} from './userProfileActions';
 
 let initialState = {
     name: 'John Doe',
@@ -6,7 +6,6 @@ let initialState = {
 };
 
 export default function userProfile(state = initialState, action) {
-
     switch (action.type) {
     case CHANGE_USER_NAME_COLOR:
         return Object.assign({}, state, {
