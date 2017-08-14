@@ -18,12 +18,16 @@ class Tools extends Component {
 
     render() {
         return (
-            <div>
+            <div onClick={() => {
+                this.props.closeMenu();
+            }}>
                 <Header base={this.props.base}/>
                 <Tabs base={this.props.base}
                     tables={this.props.tables}
                     addPopupIsOpen={this.props.addPopupIsOpen}
                     currentTableId={this.props.currentTableId}
+                    openMenu={this.props.openMenu}
+                    closeMenu={this.props.closeMenu}
                     switchTableClick={this.props.switchTableClick}
                     togglePopup={this.props.togglePopup}
                     addTableClick={this.props.addTableClick}/>

@@ -37,7 +37,10 @@ function dashboardReducer(state = initState, action) {
         return R.mergeAll([
 	        R.dissoc('tables', state),
 	        {
-		        tables: action.tables
+		        tables: R.map(R.compose(
+		            R.assoc('addPopupIsOpen', false),
+                    R.assoc('isMenuOpen', false))
+                )(action.tables)
 	        }]);
     }
 
@@ -74,6 +77,32 @@ function dashboardReducer(state = initState, action) {
                     return newObj;
                 })(state.tables)
             }]);
+    }
+
+    case 'OPEN_EDIT_MENU': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map( (table) => {
+                    let newObj = R.dissoc('isMenuOpen', table);
+	                if (table._id === action.tableId) newObj.isMenuOpen = true;
+                    else newObj.isMenuOpen = false;
+                    return newObj;
+                })(state.tables)
+            }
+        ]);
+    }
+
+    case 'CLOSE_EDIT_MENU': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map(R.compose(
+                    R.assoc('isMenuOpen', false),
+                    R.dissoc('isMenuOpen'))
+                )(state.tables)
+            }
+        ]);
     }
         
     default:

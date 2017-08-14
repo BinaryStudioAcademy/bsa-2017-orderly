@@ -10,6 +10,7 @@ const AddTabBtn = ({base, togglePopup, addPopupIsOpen, addTableClick}) => (
         open={addPopupIsOpen}
         on='click'
         onOpen={togglePopup}
+        onClose={togglePopup}
         hideOnScroll>
         <Input icon={{ name: 'plus', link: true, onClick: () => {
             if (!input || !input.value) return;

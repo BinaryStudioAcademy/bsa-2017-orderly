@@ -40,11 +40,26 @@ const switchTable = (_id) => {
     };
 };
 
+const openMenu = (tableId) => {
+    return {
+        type: 'OPEN_EDIT_MENU',
+        tableId: tableId
+    };
+};
+
+const closeMenu = () => {
+    return {
+        type: 'CLOSE_EDIT_MENU'
+    };
+};
+
 export {
     getBaseById,
     getTables,
     setActive,
     addTable,
     switchTable,
-    togglePopup
+    togglePopup,
+    openMenu,
+    closeMenu
 };
