@@ -1,5 +1,7 @@
 import React from 'react';
 import './gridContent.scss';
+import {Icon} from 'semantic-ui-react';
+import {GridCell} from './gridCell';
 
 export const GridContent = () => {
     return (
@@ -9,12 +11,15 @@ export const GridContent = () => {
                     <input type="checkbox"/>
                 </div>
                 <div className="header__item">
+                    <Icon name="font" className="item__icon"/>
                     <span>Primary</span>
                 </div>
                 <div className="header__item">
+                    <Icon name="font" className="item__icon"/>
                     <span>First</span>
                 </div>
                 <div className="header__item">
+                    <Icon name="font" className="item__icon"/>
                     <span>Second</span>
                 </div>
             </div>
@@ -23,46 +28,11 @@ export const GridContent = () => {
                     <div className="body__item item__row-selector">
                         1
                     </div>
-                    <div className="body__item">
-                        <span>Primary name</span>
-                    </div>
+                    <GridCell type='text' data='Primary Field'/>
+                    <GridCell type='text' data='One'/>
+                    <GridCell type='text' data='Two'/>
                 </div>
             </div>
         </div>
     );
 };
-
-/*
-            <table id="content__grid">
-                <thead>
-                <tr>
-                    <th id="grid__row">
-                        <input type="checkbox"/>
-                    </th>
-                    <th>Name</th>
-                    <th>Field</th>
-                    <th>Another Field</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>First</td>
-                    <td>Custom data</td>
-                    <td>Custom data</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Second</td>
-                    <td>Custom data</td>
-                    <td>Custom data</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Third</td>
-                    <td>Custom data</td>
-                    <td>Custom data</td>
-                </tr>
-                </tbody>
-            </table>
- */
