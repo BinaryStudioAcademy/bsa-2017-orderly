@@ -1,18 +1,15 @@
 import React from 'react';
-import { Icon, Dropdown, Image } from 'semantic-ui-react';
+import { Icon, Image, Label } from 'semantic-ui-react';
 import avatar from '../../../../../images/avatar.png';
 import './header.scss';
 
-const Header = () => (
+const Header = ({ base }) => (
     <header className='dashboard_header'>
         <Icon name='trophy' inverted size='big'/>
-        <div className='dropdown'>
-            <Dropdown text='Basename 1'>
-                <Dropdown.Menu>
-                    <Dropdown.Item text='Basename 2'></Dropdown.Item>
-                    <Dropdown.Item text='Basename 3'></Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
+        <div className='label'>
+            <Label as='a'
+                size='big'
+                color={'orange'}>{base.name}</Label>
         </div>
         <div className='info'>
             <Icon link name='help circle' size='large'/>
