@@ -40,9 +40,18 @@
   height: 100%;
 }
 .one-base-icon{
-  margin-top: 18px;
+  margin-top: 13px;
 }
-
+.btn {
+  border:none;
+  font-size: 14px;
+  padding:4px;
+  position: absolute;
+  left:240px;
+  top:100px;
+  color:white;
+  background-color: #C3C8B7;
+}
 .new-base-wrapper {
   margin-left: 50px;
   width: 260px;

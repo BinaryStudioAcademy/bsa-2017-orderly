@@ -1,10 +1,10 @@
-const baseStore = (state = { bases: [{ id: 0, name: "New Base", color: "#C3C8B7", icon:"plus", showMenu: false }]}, action) => {
+const baseStore = (state = { bases: [{ id: 0, name: "New Base", color: "#C3C8B7", icon:"code", showMenu: false }]}, action) => {
   switch (action.type) {
     case 'ADD_NEW_BASE':
       return Object.assign(
         {}, 
         state, 
-        {bases: [...state.bases, { id: action.id, name: action.name, color: "#C3C8B7", icon:"plus", showMenu: false }]}
+        {bases: [...state.bases, { id: action.id, name: action.name, color: "#C3C8B7", icon:"code", showMenu: false }]}
         );
         case 'ADD_BASE_ERROR': {
           return {...state, errors: action.errors, success: false, message: action.message};

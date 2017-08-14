@@ -13,6 +13,6 @@ export default function* root() {
         fork(logoutSaga),
         fork(userProfileSaga),
         fork(dashboardSaga),
-        forl(addBaseSaga)
+        fork(addBaseSaga)
     ]);
 }

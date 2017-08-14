@@ -7,10 +7,9 @@ import './homePageBaseItem.scss';
 
 let name = 'New Base';
 
-class BaseItemSingle extends Component {
+class BaseItem extends Component {
   constructor(props) {
     super(props);
-    const onNewBaseClick = props.onNewBaseClick;
   }
   render() {
     return (
@@ -18,8 +17,7 @@ class BaseItemSingle extends Component {
         <div className = 'one-base-wrapper' >
         <div className = 'one-base' style = {{backgroundColor: `${this.props.base.color}` }} > 
           <div className = 'one-base-icon'>
-            <Icon inverted link  size='huge' name={this.props.base.icon}
-              onClick = { () => this.props.onNewBaseClick(name) } 
+            <Icon inverted link  size='huge' name={this.props.base.icon} 
               />
             </div>
             <div> 
@@ -36,16 +34,5 @@ class BaseItemSingle extends Component {
     )
   }
 }
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onNewBaseClick: (name) => { dispatch(addNewBase(name))}
-  };
-}
-
-const BaseItem = connect(
-  null,
-  mapDispatchToProps
-)(BaseItemSingle)
 
 export default BaseItem
