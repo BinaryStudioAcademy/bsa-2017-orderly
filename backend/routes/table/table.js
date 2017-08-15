@@ -1,9 +1,6 @@
 const router = require('express').Router();
 const R = require('ramda');
 const tableRepository = require('../../repositories/table/tableRepository');
-const fieldRepository = require('../../repositories/table/fieldRepository');
-const recordRepository = require('../../repositories/table/recordRepository').recordRepository;
-const commentRepository = require('../../repositories/table/recordRepository').commentRepository;
 
 // tables
 
@@ -64,12 +61,7 @@ router.delete('/:id', (request, response, next) => {
 // records
 
 router.post('/:id/records', (request, response, next) => {
-    recordRepository.add(request.body)
-	    .then(table => {
-	    	// eval(require('locus'))
-		    return table
-	    })
-        .then(R.curry(tableRepository.updateRecord)(request.params.id))
+    tableRepository.update(request.params.id, request.body)
         .then((table) => response.status(200).send(table))
         .catch((error) => {
             response.status(400);
