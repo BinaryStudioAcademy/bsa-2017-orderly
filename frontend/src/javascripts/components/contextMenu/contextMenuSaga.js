@@ -12,8 +12,8 @@ function* fetchBase(action) {
 }
 
 
-Starts fetchUser on each dispatched `GET_BASE_NAME_REQUESTED` action.
-Allows concurrent fetches of user.
+// Starts fetchUser on each dispatched `GET_BASE_NAME_REQUESTED` action.
+// Allows concurrent fetches of user.
 
 function* userProfileSaga() {
   yield takeEvery("GET_BASE_NAME_REQUESTED", fetchBase);
