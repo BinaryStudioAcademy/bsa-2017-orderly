@@ -4,6 +4,7 @@ import { Popup, Icon, Input } from 'semantic-ui-react';
 
 let id = 0;
 let BaseOptions = () => {
+
   return (
     <div className = 'base-options-wrapper'>
       <ul className = 'base-options-list'>
@@ -23,7 +24,7 @@ let BaseOptions = () => {
           <Icon name='slack' key = {id++} className='icon' color='black' size='small'/>
           Slack notifications
         </li>
-        <li className = 'base-options-list-item'>
+        <li>
           <Icon name='trash' key = {id++} className='icon' color='black' size='small'/>
           Delete Base
         </li> 
@@ -31,8 +32,6 @@ let BaseOptions = () => {
     </div>
   )
 }
-
-//BaseOptions = connect()(BaseOptions);
 
 export default BaseOptions
 

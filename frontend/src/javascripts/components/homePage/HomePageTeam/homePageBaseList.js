@@ -18,11 +18,14 @@ class BaseList extends Component {
       return (
         <div className = 'base-list '  >
           { this.props.bases.map(function(base, current) {
+            console.log(base._id);
             return (
-              <div key = {base._id}>
+              <div key={base._id+1}>
                 <BaseItem className = "base-list-item"  
                     handleClick = {props.handleClick}  
                     base = {base}
+                    menu={props.menu}
+                    showMenu={props.showMenu}
                 />
               </div>
            )}) 

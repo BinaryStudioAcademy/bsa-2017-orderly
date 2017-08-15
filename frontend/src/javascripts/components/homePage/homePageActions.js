@@ -1,14 +1,12 @@
 export const addNewBase = (name) => {
   return {
-    type: 'ADD_NEW_BASE_SUCCESS',
-    name: name
+    type: 'ADD_NEW_BASE',
+    name
   };
 }
-
-export const addNewTeam = (name) => {
+export const getAllBases = () => {
   return {
-    type: 'ADD_NEW_TEAM',
-    name
+    type: 'GET_BASES'  
   };
 }
 
@@ -19,14 +17,23 @@ export const showBaseCreationOptions = (id) => {
   };
 }
 
-export const changeBaseParam = (value, typeAction, id) =>{
+export const changeBaseParam = (value, typeAction, _id) =>{
     return {
       type: 'CHANGE_BASE_PARAM',
       typeAction,
       value,
-      id
+      _id
     };
 }
+export const showContextMenu = (data, type, _id) => {
+   if (type ==='show') {
+       return {
+         type: 'SHOW_CONTEXT_MENU',
+         _id
+       }
+     }
+  }
+
 
 export const deleteBase = (data) =>{
   return {

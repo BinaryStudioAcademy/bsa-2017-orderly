@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import BaseItem from '../homePageBase/homePageBaseItem';
 import HomePageTeamName from './homePageTeamName';
-import { addNewBase } from '../homePageActions';
-import { changeBaseParam } from '../homePageActions';
+import { addNewBase, getAllBases, changeBaseParam, showContextMenu  } from '../homePageActions';
 import BaseList from './homePageBaseList';
 import { Icon } from 'semantic-ui-react';
 import './homePageTeam.scss';
 
 let name = 'New Base';
+let isShow = false;
 class HomePageTeamBlock extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +19,6 @@ class HomePageTeamBlock extends Component {
   }  
 
 render() {
-
   return (
     <div className = "team-wrapper">
         <div className = "team-header">
@@ -29,7 +28,9 @@ render() {
         <div className = "team-block-wrapper">
           <BaseList 
             handleClick = {this.props.handleClick}
-            bases = {this.props.baseStore.bases}
+            bases = {this.props.bases}
+            menu={this.props.menu}
+            showMenu={this.props.showMenu}
           />
         </div>
     </div>
@@ -37,20 +38,20 @@ render() {
   }
 }
 
-const mapStateToProps = (state) => ({
-  baseStore: state.baseStore
-  }) 
-
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleClick: (value, type, id) => {
-      dispatch(changeBaseParam(value, type, id))
+    handleClick: (value, type, _id) => {
+      if ( type === 'show' ) {
+        dispatch(showContextMenu(value, type, _id))
+      } else {
+        dispatch(changeBaseParam(value, type, _id))
+      }
     },
     onNewBaseClick: (name) => { dispatch(addNewBase(name))}
   }
 }
 
-HomePageTeamBlock  = connect(mapStateToProps, mapDispatchToProps)(HomePageTeamBlock);
+HomePageTeamBlock  = connect(null, mapDispatchToProps)(HomePageTeamBlock);
 
 
 export default HomePageTeamBlock 

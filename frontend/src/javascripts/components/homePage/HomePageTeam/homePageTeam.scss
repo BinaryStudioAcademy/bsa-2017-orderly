@@ -17,6 +17,15 @@
   margin-bottom: 10px; 
   margin-left: 10px;
   font-size: 18px;
+  display: flex;
+}
+.btn {
+  margin-left: 40px;
+  border:none;
+  font-size: 14px;
+  padding:4px;
+  color:white;
+  background-color: #C3C8B7;
 }
 .base-list {
   display: flex;
@@ -42,16 +51,7 @@
 .one-base-icon{
   margin-top: 13px;
 }
-.btn {
-  border:none;
-  font-size: 14px;
-  padding:4px;
-  position: absolute;
-  left:240px;
-  top:100px;
-  color:white;
-  background-color: #C3C8B7;
-}
+
 .new-base-wrapper {
   margin-left: 50px;
   width: 260px;

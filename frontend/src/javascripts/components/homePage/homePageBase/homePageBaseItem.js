@@ -23,14 +23,15 @@ class BaseItem extends Component {
             <div> 
               <div>
                 <ContextMenuIcon handleClick = {this.props.handleClick}
-                  baseId = {this.props.base.id}
-                  isMenu={this.props.base.showMenu}
+                  baseId = {this.props.base._id}
+                  menu={this.props.menu}
+                  showMenu={this.props.showMenu}
                   />
               </div>
             </div>
         </div>
-</div>
       </div>
+    </div>
     )
   }
 }

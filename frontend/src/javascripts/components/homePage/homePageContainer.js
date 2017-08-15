@@ -5,16 +5,27 @@ import HomePageTeamBlock from './homePageTeam/homePageTeamBlock';
 import HomePageHeader from './homePageHeader';
 import './homePage.scss';
 
-const HomePage = () => {
-  return (
-    <div className = "home-page-wrapper">
-      <HomePageHeader />
-      <div className = 'body'>
-        <HomePageTeamBlock />
+class HomePageContainer extends React.Component {
+  constructor(props) {
+      super(props);
+  }
+  componentWillMount() {
+      this.props.getBases();
+  }
+
+  render() {
+    return (
+      <div className = "home-page-wrapper">
+        <HomePageHeader />
+        <div className = 'body'>
+          <HomePageTeamBlock bases={this.props.bases}
+          menu={this.props.menu}
+          showMenu={this.props.showMenu}
+          />
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
-
-export default HomePage
+export default HomePageContainer
