@@ -1,4 +1,4 @@
- const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const tableSchema = new Schema({
@@ -14,8 +14,17 @@ const tableSchema = new Schema({
         ref: 'Record'
     }],
     fields: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Field'
+        name: {
+            type: String,
+            require: true
+        },
+        type: {
+            type: String,
+            require: true
+        },
+        description: {
+            type: String
+        }
     }],
     views: [{
         type: Schema.Types.ObjectId,
