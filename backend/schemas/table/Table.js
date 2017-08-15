@@ -39,8 +39,17 @@ const tableSchema = new Schema({
 	    }]
     }],
     fields: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Field'
+        name: {
+            type: String,
+            require: true
+        },
+        type: {
+            type: String,
+            require: true
+        },
+        description: {
+            type: String
+        }
     }],
     views: [{
         type: Schema.Types.ObjectId,
