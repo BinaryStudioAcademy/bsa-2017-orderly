@@ -41,11 +41,11 @@ function* updateBase(action) {
     }
 }
 
-function* addBaseSaga() {
+function* homePageSaga() {
     yield takeEvery('ADD_NEW_BASE', addingBase);
     yield takeEvery('GET_BASES', getAllBases);
     yield takeEvery('CHANGE_BASE_PARAM', updateBase);
     yield takeEvery('DELETE_BASE', deleteBaseById);
 }
 
-export default addBaseSaga;
+export default homePageSaga;
