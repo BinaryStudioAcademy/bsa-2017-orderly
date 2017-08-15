@@ -29,6 +29,11 @@ $cell-padding: 5px;
   flex-direction: row;
 }
 
+.body__row {
+  display: flex;
+  flex-direction: row;
+}
+
 .body__item {
   display: inline-block;
   border: $cell-border;
@@ -47,5 +52,5 @@ $cell-padding: 5px;
 }
 
 .item__row-selector input[type=checkbox] {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
