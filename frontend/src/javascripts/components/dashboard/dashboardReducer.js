@@ -44,6 +44,11 @@ function dashboardReducer(state = initState, action) {
 	        }]);
     }
 
+    case 'GET_RECORDS_BY_TABLE_ID_SUCCEEDED': {
+        console.log(action.payload, 'GET_TABLES_BY_TABLE_ID_SUCCEEDEDGET_TABLES_BY_TABLE_ID_SUCCEEDED')
+        return state
+    }
+
     case 'ADD_TABLE_SUCCEEDED': {
         return R.mergeAll([
             R.omit(['tables', 'addPopupIsOpen'], state),

@@ -6,6 +6,7 @@ class Repository {
     }
 
     add(data) {
+    	// eval(require('locus'))
         return new this.model(data).save();
     }
 

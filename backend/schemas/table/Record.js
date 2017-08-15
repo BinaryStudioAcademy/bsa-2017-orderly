@@ -3,15 +3,16 @@ const Schema = mongoose.Schema;
 
 const recordSchema = new Schema({
     record_data: [{
-        data: String
+        type: String,
+	    required: true
     }],
     history: [{
         type: Schema.Types.ObjectId,
-        ref: 'History'
+        ref: 'history'
     }],
     comments: [{
         type: Schema.Types.ObjectId,
-        ref: 'Comment'
+        ref: 'comment'
     }]
 }, {versionKey: false});
 
@@ -33,13 +34,13 @@ const historySchema = new Schema({
 const commentSchema = new Schema({
     collaborator: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'user'
     },
     message: {
         type: String
     }
 }, {versionKey: false});
 
-module.exports.Comment = mongoose.model('Comment', commentSchema);
+module.exports.Comment = mongoose.model('comment', commentSchema);
 // module.exports.History = mongoose.model('History', historySchema);
-module.exports.Record = mongoose.model('Record', recordSchema);
+module.exports.Record = mongoose.model('record', recordSchema);

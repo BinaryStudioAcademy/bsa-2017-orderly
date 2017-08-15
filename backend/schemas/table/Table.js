@@ -11,16 +11,16 @@ const tableSchema = new Schema({
     },
     records: [{
         type: Schema.Types.ObjectId,
-        ref: 'Record'
+        ref: 'record'
     }],
     fields: [{
         type: Schema.Types.ObjectId,
-        ref: 'Field'
+        ref: 'field'
     }],
     views: [{
         type: Schema.Types.ObjectId,
-        ref: 'View'
+        ref: 'view'
     }]
 }, {versionKey: false});
 
-module.exports = mongoose.model('Table', tableSchema);
+module.exports = mongoose.model('table', tableSchema);

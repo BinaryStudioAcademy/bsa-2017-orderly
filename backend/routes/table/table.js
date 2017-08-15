@@ -63,11 +63,14 @@ router.delete('/:id', (request, response, next) => {
 
 // records
 
-router.post('/:id/records', (request, response, next) => {     // R.curry - обычное каррирование, позволяет отложенно вызывать
-    recordRepository.add(request.body)													// функцию в зависимости от наличия аргументов
-        // r => tableRepository.updateRecord(request.params.id, r)
-        .then(R.curry(tableRepository.updateRecord)(request.params.id))  // здесь в tableRepository.updateRecord сначала передается tableRepository.updateRecord
-        .then((table) => response.status(200).send(table))						// а потом то, что приходит из функции recordRepository.add
+router.post('/:id/records', (request, response, next) => {
+    recordRepository.add(request.body)
+	    .then(table => {
+	    	// eval(require('locus'))
+		    return table
+	    })
+        .then(R.curry(tableRepository.updateRecord)(request.params.id))
+        .then((table) => response.status(200).send(table))
         .catch((error) => {
             response.status(400);
             next(error);
@@ -85,13 +88,17 @@ router.get('/records/:id', (request, response, next) => {
 
 router.get('/:id/records', (request, response, next) => {
     tableRepository.getById(request.params.id)
-    // t => recordRepository.getByIds(t.records)
-        .then(R.compose(recordRepository.getByIds, R.prop('records'))) // R.compose(func2, func1) - вызовет сначала func1 потом передаст результат выполнения
-        .then((records) => response.status(200).send(records))						// в func2 и вернет его. R.prop('records) - берет значение в поле records объекта, который
+        .then((data) => {
+	        // return R.compose(recordRepository.getByIds, R.prop('records'))
+	        return recordRepository.getByIds(R.map(recordId => recordId.toString())(data.records))
+        } )
+        .then((records) => {
+	        response.status(200).send(records)
+        } )
         .catch((error) => {
             response.status(400);
             next(error);
-        });						// возвращает tableRepository.getById
+        });
 });
 
 router.delete('/:tableId/records/:recordId', (request, response, next) => {

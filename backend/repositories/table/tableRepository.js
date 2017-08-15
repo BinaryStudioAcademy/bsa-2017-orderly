@@ -2,15 +2,18 @@ require('../../db/dbConnect');
 const Repository = require('../generalRepository');
 const Table = require('../../schemas/table/Table');
 
+let that
+
 class TableRepository extends Repository {
 
     constructor() {
         super();
         this.model = Table;
+        that = this
     }
 
     updateRecord(tableId, record) {
-        return this.model.findByIdAndUpdate(
+        return that.model.findByIdAndUpdate(
             tableId,
             {'$push': {records: record._id}},
             {'new': true}
@@ -18,7 +21,7 @@ class TableRepository extends Repository {
     }
 
     pullRecord(tableId, recordId) {
-        return this.model.findByIdAndUpdate(
+        return that.model.findByIdAndUpdate(
             tableId,
             {'$pull': {records: recordId}}
         );
@@ -33,7 +36,7 @@ class TableRepository extends Repository {
     }
 
     pullField(tableId, fieldId) {
-        return this.model.findByIdAndUpdate(
+        return that.model.findByIdAndUpdate(
             tableId,
             {'$pull': {fields: fieldId}}
         );

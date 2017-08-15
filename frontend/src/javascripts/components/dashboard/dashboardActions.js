@@ -12,6 +12,13 @@ const getTables = () => {
     };
 };
 
+const getRecordsByTableId = (tableId) => {
+    return {
+        type: 'GET_RECORDS_BY_TABLE_ID',
+        tableId: tableId
+    }
+}
+
 const togglePopup = () => {
     return {
         type: 'TOGGLE_POPUP'
@@ -61,5 +68,6 @@ export {
     switchTable,
     togglePopup,
     openMenu,
-    closeMenu
+    closeMenu,
+	getRecordsByTableId
 };

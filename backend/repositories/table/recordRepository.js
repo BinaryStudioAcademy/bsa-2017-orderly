@@ -1,21 +1,28 @@
 require('../../db/dbConnect');
+const mongoose = require('mongoose');
+
 const Repository = require('../generalRepository');
 const Record = require('../../schemas/table/Record').Record;
 const Comment = require('../../schemas/table/Record').Comment;
+
+
+
+let that;
 
 class RecordRepository extends Repository {
 
     constructor() {
         super();
         this.model = Record;
+        that = this;
     }
 
     getByIds(ids) {
-        return this.model.find({'_id': {$in: ids}});
+        return that.model.find({'_id': {$in: ids}});
     }
 
     addComment(recordId, comment) {          //link comment with record
-        return this.model.findByIdAndUpdate(
+        return that.model.findByIdAndUpdate(
             recordId,
             {'$push': {comments: comment._id}},
             {'new': true}
@@ -23,7 +30,7 @@ class RecordRepository extends Repository {
     }
 
     pullComment(recordId, commentId) {
-        return this.model.findByIdAndUpdate(
+        return that.model.findByIdAndUpdate(
             recordId,
             {'$pull': {comments: commentId}}
         );
@@ -34,7 +41,7 @@ class RecordRepository extends Repository {
 class CommentRepository extends Repository {
     constructor() {
         super();
-        this.model = Comment;
+        that.model = Comment;
     }
 }
 

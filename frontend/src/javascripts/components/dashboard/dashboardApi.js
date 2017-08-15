@@ -12,6 +12,11 @@ const getTablesByIds = (ids) =>
         .then( (response) => response.data)
         .catch(R.tap(console.error))
 
+const getRecordsByTableId = (tableId) =>
+	axios.get(url + /tables/ + tableId + '/records')
+		.then( (response) => response.data)
+		.catch(R.tap(console.error))
+
 const addTable = (name) =>
     axios.post(url + '/tables', {name: name})
         .then((response) => response.data)
@@ -26,5 +31,6 @@ export {
     getBase,
     getTablesByIds,
     addTable,
-    updateBaseByNewTable
+    updateBaseByNewTable,
+	getRecordsByTableId
 };
