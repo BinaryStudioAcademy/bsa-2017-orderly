@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const R = require('ramda');
 const tableRepository = require('../../repositories/table/tableRepository');
 
 // tables
