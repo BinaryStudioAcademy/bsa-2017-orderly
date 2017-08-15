@@ -7,6 +7,9 @@ import {Grid} from './grid/grid';
 class View extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            currentView: '',
+        };
     }
 
     viewSelector(listOfViews) {
