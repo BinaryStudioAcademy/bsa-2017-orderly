@@ -5,6 +5,8 @@ import login from '../components/auth/login/loginReducer';
 import dashboardReducer from '../components/dashboard/dashboardReducer';
 import userProfile from '../components/userProfile/userProfileReducer';
 import contextMenu from '../components/contextMenu/contextMenuReducer';
+import longTextReducer from '../components/gridView/fields/longText/longTextReducer';
+import textLineReducer from '../components/gridView/fields/textLine/textLineReducer';
 
 export default combineReducers({
     routing,
@@ -13,4 +15,6 @@ export default combineReducers({
     dashboardReducer,
     contextMenu,
     userProfile,
+    longTextReducer,
+    textLineReducer
 });

@@ -12,6 +12,8 @@ import SignUp from '../components/auth/signUp/signUp';
 import Login from '../components/auth/login/login';
 import Logout from '../components/auth/logout/logout';
 import Auth from '../components/auth/auth';
+import LongTextContainer from '../components/gridView/fields/longText/longTextContainer';
+import TextLineContainer from '../components/gridView/fields/textLine/textLineContainer';
 
 export default (
     <Route path="/" component={App}>
@@ -21,6 +23,8 @@ export default (
         <Route path="/signup" component={SignUp}/>
         <Route path="/login" component={Login}/>
         <Route path="/logout" component={Logout}/>
+        <Route path="/textline" component={TextLineContainer}/>
+        <Route path="/longtext" component={LongTextContainer}/>
         <Route path="404" component={NotFound}/>
         <Redirect from="*" to="404"/>
     </Route>
