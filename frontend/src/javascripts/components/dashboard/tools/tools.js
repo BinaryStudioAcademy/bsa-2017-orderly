@@ -4,14 +4,16 @@ import R from 'ramda';
 import Header from './header/header';
 import Tabs from './tabs/tabs';
 import Menu from './menu/menu';
-import Workflow from './workflow/workflow';
+import Workflow from '../../workflow/workflow';
 
 class Tools extends Component {
     constructor(props) {
         super(props);
+        this.props = props
     }
 
     // '5989fdcfe598fa16594f6276/5990a99c30136b6cc878adba' - id test base
+    // dashboard/5989fdcfe598fa16594f6276/5991d6a37ee0f860cdbf6d6c
     componentWillMount() {
         this.props.getBaseCurrent(this.props.baseId, this.props.currentTableId);
     }
@@ -32,7 +34,7 @@ class Tools extends Component {
                     togglePopup={this.props.togglePopup}
                     addTableClick={this.props.addTableClick}/>
                 <Menu/>
-                <Workflow table={R.find((table) => table._id == this.props.currentTableId)(this.props.tables)}/>
+                <Workflow currentTableId={this.props.currentTableId}/>
             </div>
         );
     }
