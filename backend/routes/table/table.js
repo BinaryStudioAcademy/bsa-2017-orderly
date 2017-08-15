@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const R = require('ramda');
 const tableRepository = require('../../repositories/table/tableRepository');
-const fieldRepository = require('../../repositories/table/fieldRepository');
+// const fieldRepository = require('../../repositories/table/fieldRepository');
 const recordRepository = require('../../repositories/table/recordRepository').recordRepository;
 const commentRepository = require('../../repositories/table/recordRepository').commentRepository;
 
@@ -65,7 +65,7 @@ router.delete('/:id', (request, response, next) => {
 
 router.post('/:id/records', (request, response, next) => {     // R.curry - обычное каррирование, позволяет отложенно вызывать
     recordRepository.add(request.body)													// функцию в зависимости от наличия аргументов
-        // r => tableRepository.updateRecord(request.params.id, r)
+    // r => tableRepository.updateRecord(request.params.id, r)
         .then(R.curry(tableRepository.updateRecord)(request.params.id))  // здесь в tableRepository.updateRecord сначала передается tableRepository.updateRecord
         .then((table) => response.status(200).send(table))						// а потом то, что приходит из функции recordRepository.add
         .catch((error) => {
@@ -137,52 +137,34 @@ router.delete('/records/:recordId/comments/:commentId', (request, response, next
 
 // field
 
-router.post('/:id/fields', (request, response, next) => {
-    fieldRepository.add(request.body)
-        .then(R.curry(tableRepository.addField)(request.params.id))
-        .then((table) => response.status(200).send(table))
-        .catch((error) => {
-            response.status(400);
-            next(error);
-        });
-});
-
-router.put('/fields/:fieldId', (request, response, next) => {
-    fieldRepository.update(request.params.fieldId, request.body)
-        .then((field) => response.status(200).send(field))
-        .catch((error) => {
-            response.status(400);
-            next(error);
-        });
-});
-
-router.get('/fields/:id', (request, response, next) => {
-    fieldRepository.getById(request.params.id)
-        .then((field) => response.status(200).send(field))
-        .catch((error) => {
-            response.status(400);
-            next(error);
-        });
-});
-
-router.get('/:id/fields', (request, response, next) => {
-    tableRepository.getById(request.params.id)
-        .then(R.compose(fieldRepository.getByIds, R.prop('fields')))
+router.get('/:id/fields', (request, response) => {
+    tableRepository.getFields(request.params.id)
         .then((fields) => response.status(200).send(fields))
-        .catch((error) => {
-            response.status(400);
-            next(error);
-        });
+        .catch((err) => response.status(500).send(err));
 });
 
-router.delete('/:tableId/fields/:fieldId', (request, response, next) => {
-    tableRepository.pullField(request.params.tableId, request.params.fieldId)
-        .then(() => fieldRepository.remove(request.params.fieldId))
-        .then(() => response.sendStatus(204))
-        .catch((error) => {
-            response.status(400);
-            next(error);
-        });
+router.get('/:id/fields/:fieldId', (request, response) => {
+    tableRepository.getOneField(request.params.id, request.params.fieldId)
+        .then((result) => response.status(200).send(result))
+        .catch((err) => response.status(500).send(err));
+});
+
+router.post('/:id/fields', (request, response) => {
+    tableRepository.addField(request.params.id, request.body)
+        .then((result) => response.status(200).send(result))
+        .catch((err) => response.status(500).send(err));
+});
+
+router.put('/:id/fields/:fieldId', (request, response) => {
+    tableRepository.updateField(request.params.id, request.params.fieldId, request.body)
+        .then((result) => response.status(200).send(result))
+        .catch((err) => response.status(500).send(err));
+});
+
+router.delete('/:id/fields/:fieldId', (request, response) => {
+    tableRepository.deleteField(request.params.id, request.params.fieldId)
+        .then((result) => response.send(result))
+        .catch((err) => response.sendStatus(500).send(err));
 });
 
 // views
