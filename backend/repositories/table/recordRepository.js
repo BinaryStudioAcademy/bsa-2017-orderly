@@ -1,5 +1,4 @@
 require('../../db/dbConnect');
-const mongoose = require('mongoose');
 
 const Repository = require('../generalRepository');
 const Record = require('../../schemas/table/Record').Record;
