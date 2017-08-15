@@ -1,0 +1,40 @@
+#no-underline {
+  text-decoration: none!important; //WTF
+}
+
+#header__caret {
+  margin: 12px 10px 3px 10px;
+  float: left;
+  cursor: pointer;
+}
+
+.view__selector {
+  position: absolute;
+  z-index: 2;
+  width: 350px;
+  height: 200px;
+  padding: 10px;
+  left: 40px;
+  background-color: #FFF;
+  border: 1px solid rgba(0,0,0, 0.3);
+}
+
+.selector__option {
+  color: black;
+  padding: 5px;
+  margin: 0 auto;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.selector__option:hover {
+  background: #EEE;
+}
+
+.option__notActive {
+  opacity: 0!important;
+}
+
+.hide {
+  display: none;
+}
