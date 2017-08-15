@@ -1,5 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { getTablesByIds, getBase, addTable, updateBaseByNewTable } from './dashboardApi';
+import { getTablesByIds, getBase, addTable,
+    updateBaseByNewTable, getRecordsByTableId } from './dashboardApi';
 import { browserHistory } from 'react-router';
 
 function* fetchBaseById(action) {
@@ -17,7 +18,7 @@ function* fetchTablesByBase(action) {
     try {
 	    const tables = yield call(getTablesByIds, action.payload.base.tables);
         yield put({ type: 'GET_TABLES_BY_IDS_SUCCEEDED', tables: tables});
-        yield put({ type: 'SET_ACTIVE_TAB', tableId: action.payload.tableId})
+        yield put({ type: 'SET_ACTIVE_TAB', tableId: action.payload.tableId});
     } catch (err) {
         yield put({ type: 'GET_TABLES_BY_IDS_FAILED', message: err.message});
     }
@@ -36,7 +37,6 @@ function* addingTable(action) {
 
 function* addTableToBase(action) {
     try {
-        console.log(action.payload, '-----------payload')
         const base = yield call(updateBaseByNewTable, action.payload);
         yield put({ type: 'ADD_TABLE_TO_BASE_SUCCEEDED', base: base});
 	    yield put({ type: 'SET_ACTIVE_TAB', tableId: action.payload.table._id});
