@@ -5,6 +5,7 @@ import login from '../components/auth/login/loginReducer';
 import dashboardReducer from '../components/dashboard/dashboardReducer';
 import userProfile from '../components/userProfile/userProfileReducer';
 import contextMenu from '../components/contextMenu/contextMenuReducer';
+import view from '../components/view/viewReducer';
 
 export default combineReducers({
     routing,
@@ -13,4 +14,5 @@ export default combineReducers({
     dashboardReducer,
     contextMenu,
     userProfile,
+    view,
 });
