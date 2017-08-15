@@ -2,19 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import R from 'ramda';
 
-import Record from './records/records';
-import { getRecordsByTableId } from '../dashboard/dashboardActions';
-
 const mapStateToProps = (state, ownProps) => {
-	console.log(state, ownProps, 'workfoooow')
 	return ({
-
-	});
-}
+		currentTable: R.find(table => table._id == ownProps.currentTableId)(state.dashboardReducer.tables)
+	})
+};
 
 const mapDispatchToProps = {
-	getRecordsByTableId: getRecordsByTableId
-}
+
+};
 
 
 class Workflow extends Component {
@@ -26,18 +22,12 @@ class Workflow extends Component {
 	render() {
 		return (
 			<div>
-				{console.log(this.props, 'props in workflow')}
-				{/*{R.map( (record) => Record(record))(table.records)}*/}
+				{console.log(this.props.currentTable, 'props in workflow')}
+				<h2>{this.props.currentTable ? this.props.currentTable.name : 'no tabs name'}</h2>
 			</div>
 		)
 	}
 }
 
-// const Workflow = (table) => (
-//     <div>
-//         {console.log(table, '--------------------')}
-//         {/*{R.map( (record) => Record(record))(table.records)}*/}
-//     </div>
-// );
 
 export default connect(mapStateToProps, mapDispatchToProps)(Workflow);

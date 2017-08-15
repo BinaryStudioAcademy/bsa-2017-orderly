@@ -24,17 +24,6 @@ function* fetchTablesByBase(action) {
     }
 }
 
-function* fetchRecordsByTableId(action) {
-    try {
-        const payload = {};
-        payload.tableId = action.tableId;
-        payload.records = yield call(getRecordsByTableId, action.tableId);
-        yield put({ type: 'GET_RECORDS_BY_TABLE_ID_SUCCEEDED',  payload});
-    } catch (err) {
-        yield put({ type: 'GET_RECORDS_BY_TABLE_ID_FAILED', message: err.message });
-    }
-}
-
 function* addingTable(action) {
     try {
         const payload = {};
@@ -48,7 +37,6 @@ function* addingTable(action) {
 
 function* addTableToBase(action) {
     try {
-        console.log(action.payload, '-----------payload')
         const base = yield call(updateBaseByNewTable, action.payload);
         yield put({ type: 'ADD_TABLE_TO_BASE_SUCCEEDED', base: base});
 	    yield put({ type: 'SET_ACTIVE_TAB', tableId: action.payload.table._id});
@@ -63,7 +51,6 @@ function* dashboardSaga() {
     yield takeEvery('ADD_TABLE', addingTable);
     yield takeEvery('GET_BASE_SUCCEEDED', fetchTablesByBase);
     yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
-    yield takeEvery('GET_RECORDS_BY_TABLE_ID', fetchRecordsByTableId)
 }
 
 export default dashboardSaga;

@@ -16,7 +16,6 @@ class Tools extends Component {
     // dashboard/5989fdcfe598fa16594f6276/5991d6a37ee0f860cdbf6d6c
     componentWillMount() {
         this.props.getBaseCurrent(this.props.baseId, this.props.currentTableId);
-	    this.props.getRecordsByTableId(this.props.currentTableId);
     }
 
     render() {
@@ -35,7 +34,7 @@ class Tools extends Component {
                     togglePopup={this.props.togglePopup}
                     addTableClick={this.props.addTableClick}/>
                 <Menu/>
-                <Workflow/>
+                <Workflow currentTableId={this.props.currentTableId}/>
             </div>
         );
     }
