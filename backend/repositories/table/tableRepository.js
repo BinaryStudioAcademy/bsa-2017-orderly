@@ -3,14 +3,14 @@ const Repository = require('../generalRepository');
 const Table = require('../../schemas/table/Table');
 const objectId = require('mongoose').Types.ObjectId;
 
-let that
+let that;
 
 class TableRepository extends Repository {
 
     constructor() {
         super();
         this.model = Table;
-        that = this
+        that = this;
     }
 
     updateRecord(tableId, record) {
