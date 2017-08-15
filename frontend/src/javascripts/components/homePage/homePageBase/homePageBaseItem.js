@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import { Icon } from 'semantic-ui-react';
 import { addNewBase } from '../homePageActions'
 import ContextMenuIcon from '../../contextMenu/contextMenuIcon';
-import './homePageBaseItem.scss';
-
-let name = 'New Base';
 
 class BaseItem extends Component {
   constructor(props) {

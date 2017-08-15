@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import BaseItem from '../homePageBase/homePageBaseItem';
 import HomePageTeamName from './homePageTeamName';
-import { addNewBase, getAllBases, changeBaseParam, showContextMenu  } from '../homePageActions';
+import { addNewBase, getAllBases, changeBaseParam, showContextMenu, deleteBase } from '../homePageActions';
 import BaseList from './homePageBaseList';
 import { Icon } from 'semantic-ui-react';
 import './homePageTeam.scss';
@@ -43,6 +43,8 @@ const mapDispatchToProps = (dispatch) => {
     handleClick: (value, type, _id) => {
       if ( type === 'show' ) {
         dispatch(showContextMenu(value, type, _id))
+      } else if ( type === 'delete') {
+        dispatch(deleteBase(value, type, _id))
       } else {
         dispatch(changeBaseParam(value, type, _id))
       }

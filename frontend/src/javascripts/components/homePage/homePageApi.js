@@ -13,6 +13,11 @@ const addBase = (name) =>
         .then((response) => response.data)
         .catch(R.tap(console.error));
 
+const deleteBase = (_id) =>
+    axios.delete(url + '/base/' + _id)
+        .then((response) => response.data)
+        .catch(R.tap(console.error));
+
 const updateBaseById = (_id, typeAction, value) =>
     axios.put(url + '/base/' + _id, {[typeAction]: value})
         .then((response) => response.data)
@@ -21,5 +26,6 @@ const updateBaseById = (_id, typeAction, value) =>
 export {
     getBases,
     addBase,
-    updateBaseById
+    updateBaseById,
+    deleteBase
 };

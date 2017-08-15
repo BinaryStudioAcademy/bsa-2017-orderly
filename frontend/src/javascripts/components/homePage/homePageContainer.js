@@ -19,8 +19,8 @@ class HomePageContainer extends React.Component {
         <HomePageHeader />
         <div className = 'body'>
           <HomePageTeamBlock bases={this.props.bases}
-          menu={this.props.menu}
-          showMenu={this.props.showMenu}
+            menu={this.props.menu}
+            showMenu={this.props.showMenu}
           />
         </div>
       </div>

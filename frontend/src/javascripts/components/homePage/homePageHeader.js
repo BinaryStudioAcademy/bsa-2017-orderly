@@ -10,4 +10,4 @@ let HomePageHeader = () => {
   )
 }
 
-export default HomePageHeader;
+export default HomePageHeader

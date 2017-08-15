@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import { connect } from 'react-redux';
 import BaseName from './contextMenuInput';
 import BaseColor from './contextMenuBaseColor';
 import BaseIcon from './contextMenuBaseIcon';

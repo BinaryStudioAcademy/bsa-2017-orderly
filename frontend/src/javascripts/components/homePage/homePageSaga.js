@@ -1,7 +1,7 @@
 import { call, put, takeEvery} from 'redux-saga/effects';
 import * as addBaseApi from './homePageApi';
 import { browserHistory } from 'react-router';
-import { addBase, getBases, updateBaseById } from './homePageApi';
+import { addBase, getBases, updateBaseById, deleteBase } from './homePageApi';
 
 function* getAllBases(action) {
     try {
@@ -12,7 +12,6 @@ function* getAllBases(action) {
     }
 }
 
-
 function* addingBase(action) {
     try {
         const payload = {};
@@ -20,6 +19,15 @@ function* addingBase(action) {
         yield put({ type: 'ADD_NEW_BASE_SUCCESS', payload });
     } catch (err) {
         yield put({ type: 'ADD_NEW_BASE_FAILED', message: err.message});
+    }
+}
+
+function* deleteBaseById(action) {
+    const droped =  yield call(deleteBase, action._id);
+    try {  
+       yield put({ type: 'DELETE_BASE_SUCCESS', droped});
+    } catch (err) {
+        yield put({ type: 'DELETE_BASE_SUCCESS_FAILED', message: err.message});
     }
 }
 
@@ -37,6 +45,7 @@ function* addBaseSaga() {
     yield takeEvery('ADD_NEW_BASE', addingBase);
     yield takeEvery('GET_BASES', getAllBases);
     yield takeEvery('CHANGE_BASE_PARAM', updateBase);
+    yield takeEvery('DELETE_BASE', deleteBaseById);
 }
 
 export default addBaseSaga;

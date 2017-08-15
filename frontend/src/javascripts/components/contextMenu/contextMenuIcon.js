@@ -12,7 +12,7 @@ const ContextMenuIcon = (props) => {
         onClick={()=>props.handleClick(null, 'show', props.baseId)}
         />
       </div>
-      <div className ={props.menu == props.baseId && props.showMenu? "menu-show-2": "none"}>
+      <div className ={props.menu == props.baseId && props.showMenu ? "menu-show-2" : "none"}>
         <ContextMenu handleClick = {props.handleClick} baseId = {props.baseId} />
       </div>
     </div>

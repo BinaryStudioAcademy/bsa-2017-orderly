@@ -34,24 +34,9 @@ export const showContextMenu = (data, type, _id) => {
      }
   }
 
-
-export const deleteBase = (data) =>{
+export const deleteBase = (data, type, _id) =>{
   return {
     type: 'DELETE_BASE',
-    id
-  };
-}
-
-export function getBaseName(data) {
-    return {
-        type: 'GET_BASE_NAME_REQUESTED',
-        baseId: data.baseId
-    };
-}
-
-export const openSelectedBase = (data) => {
-  return {
-    type: 'OPEN_SELECTED_BASE',
-    data
+    _id
   };
 }
