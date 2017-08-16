@@ -7,7 +7,6 @@ let renameIsError = true;
 
 const PopUpModal = ({table, activeModal, setTabsModal, tablesNames}) => (
 	<Modal size='mini'
-	       onClose={() => { setTabsModal('') }}
 	       open={Boolean(activeModal)}>
 		<Modal.Header>
 			Rename table

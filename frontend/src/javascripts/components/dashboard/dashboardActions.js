@@ -60,6 +60,13 @@ const setTabsModal = (activeModal) => {
 	}
 }
 
+const checkTableName = (renameIsError) => {
+	return {
+		type: 'CHECK_TABLE_NAME',
+		renameIsError: renameIsError
+	}
+}
+
 export {
     getBaseById,
     getTables,
@@ -69,5 +76,6 @@ export {
     togglePopup,
     openMenu,
     closeMenu,
-	setTabsModal
+	setTabsModal,
+	checkTableName
 };
