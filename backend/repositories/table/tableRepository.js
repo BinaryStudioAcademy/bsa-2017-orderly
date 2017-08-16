@@ -64,6 +64,11 @@ class TableRepository extends Repository {
             {'$pull': {fields: {_id: objectId(fieldId)}}});
     }
 
+    deleteAllFields(tableId) {
+        return this.model.update(
+            {_id: objectId(tableId)},
+            {'$pull': {fields: {}}});
+    }
 }
 
 module.exports = new TableRepository();

@@ -97,5 +97,11 @@ router.delete('/:id/fields/:fieldId', (request, response) => {
         .catch((err) => response.sendStatus(500).send(err));
 });
 
+router.delete('/:id/fields', (request, response) => {
+    tableRepository.deleteAllFields(request.params.id)
+        .then((result) => response.send(result))
+        .catch((err) => response.sendStatus(500).send(err));
+});
+
 module.exports = router;
 
