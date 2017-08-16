@@ -23,7 +23,9 @@ render() {
   return (
     <div className = "team-wrapper">
         <div className = "team-header">
-          <HomePageTeamName/>
+          <div className ='team-name-wrapper'>
+            <HomePageTeamName/>
+          </div>
           <button className='btn' onClick = { () => this.props.onNewBaseClick(name)}>Add Base</button>
         </div>
         <div className = "team-block-wrapper">

@@ -50,7 +50,7 @@ function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
     yield takeEvery('GET_BASE_SUCCEEDED', fetchTablesByBase);
-    yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
+    yield takeEvery('ADD_TABLE_TO_BASE', addTableToBase);
 }
 
 export default dashboardSaga;
