@@ -13,10 +13,26 @@ class TableRepository extends Repository {
         that = this;
     }
 
-    updateRecord(tableId, record) {
+    getRecords(tableId) {
+        return this.model.findById(tableId).select('records');
+    }
+
+    getOneRecord(tableId, recordId) {
+        return this.model.findOne(
+            {_id: tableId},
+            {
+                records: {
+                    $elemMatch: {
+                        _id: recordId
+                    }
+                }
+            }).select('-_id -views -fields -name -description');
+    }
+
+    addRecord(tableId, record) {
         return that.model.findByIdAndUpdate(
             tableId,
-            {'$push': {records: record._id}},
+            {'$push': {records: record}},
             {'new': true}
         );
     }
