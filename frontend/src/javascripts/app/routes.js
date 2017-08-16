@@ -13,13 +13,11 @@ import Login from '../components/auth/login/login';
 import Logout from '../components/auth/logout/logout';
 import Auth from '../components/auth/auth';
 import View from '../components/view/view';
-import GenerateTable from '../components/dashboard/dashboardGenerateTable';
 
 export default (
     <Route path="/" component={App}>
         <Route path='user-page' component={UserProfile} />
         <IndexRoute component={StartPage}/>
-        <Route path='/dashboard/:baseId' components={GenerateTable}/>
         <Route path='/dashboard/:baseId/:tableId' components={Dashboard}/>
         <Route path="/signup" component={SignUp}/>
         <Route path="/login" component={Login}/>

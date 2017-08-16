@@ -12,29 +12,29 @@ const initState = {
 
 function loginReducer(state = initState, action) {
     switch (action.type) {
-        case LOGIN_USER:
+    case LOGIN_USER:
         return {...state, ...{
             email: action.email,
             password: action.password
         }};
 
-        case CHANGE_USER_DATA:
+    case CHANGE_USER_DATA:
         return {...state, ...action.data};
 
-        case LOGIN_USER_RESPONSE:{
-            return {...state, ...{password: '', errors: {}}, ...action.data};
-        }
+    case LOGIN_USER_RESPONSE:{
+        return {...state, ...{password: '', errors: {}}, ...action.data};
+    }
 
-        case LOGIN_USER_ERROR:{
-            return {...state, ...{
-                errors: {},
-                success: false,
-                message: action.message
-            }};
-        }
-        default:
-            return state;
-        }
+    case LOGIN_USER_ERROR:{
+        return {...state, ...{
+            errors: {},
+            success: false,
+            message: action.message
+        }};
+    }
+    default:
+        return state;
+    }
 }
 
 export default loginReducer;

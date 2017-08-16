@@ -17,7 +17,7 @@ class BaseItem extends Component {
         <div className = 'one-base-wrapper' >
         <div className = 'one-base' style = {{backgroundColor: `${this.props.base.color}` }} > 
           <div className = 'one-base-icon'>
-            <Link to={`/dashboard/${this.props.base._id}`}>
+            <Link to={`/dashboard/${this.props.base._id}/${this.props.base.tables[0]}`}>
               <Icon inverted link  size='huge' name={this.props.base.icon} 
               />
             </Link>

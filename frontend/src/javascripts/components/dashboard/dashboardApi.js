@@ -10,12 +10,12 @@ const getBase = (_id) =>
 const getTablesByIds = (ids) =>
     axios.get(url + '/tables/ids/' + ids.join(':'))
         .then( (response) => response.data)
-        .catch(R.tap(console.error))
+        .catch(R.tap(console.error));
 
 const addTable = (name) =>
     axios.post(url + '/tables', {name: name})
         .then((response) => response.data)
-	    .catch(R.tap(console.error))
+	    .catch(R.tap(console.error));
 
 const updateBaseByNewTable = (payload) =>
     axios.put(url + '/base/' + payload.baseId + '/tables/' + payload.table._id)
