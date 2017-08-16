@@ -5,6 +5,7 @@ import Header from './header/header';
 import Tabs from './tabs/tabs';
 import Menu from './menu/menu';
 import Workflow from '../../workflow/workflow';
+import View from '../../view/view';
 
 class Tools extends Component {
     constructor(props) {
@@ -19,9 +20,10 @@ class Tools extends Component {
     }
 
     render() {
+        let currentTable = this.props.tables.filter((t) => t._id === this.props.currentTableId).pop();
         return (
             <div onClick={() => {
-                this.props.closeMenu();
+                // this.props.closeMenu();
             }}>
                 <Header base={this.props.base}/>
                 <Tabs base={this.props.base}
@@ -33,11 +35,13 @@ class Tools extends Component {
                     switchTableClick={this.props.switchTableClick}
                     togglePopup={this.props.togglePopup}
                     addTableClick={this.props.addTableClick}/>
-                <Menu/>
-                <Workflow currentTableId={this.props.currentTableId}/>
+                <View currentTable={currentTable}/>
             </div>
         );
     }
 }
-
+/*
+<Menu/>
+<Workflow currentTableId={this.props.currentTableId}/>
+*/
 export default Tools;
