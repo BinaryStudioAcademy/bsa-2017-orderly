@@ -1,7 +1,15 @@
 import axios from 'axios';
-const fieldApiUrl = '/fields';
+const baseTableId = '59936bd905728d627827c5ef';
+const fieldApiUrl = `/fields`;
 
-export const addColumn = (_id) =>
-    axios.post(fieldApiUrl + _id)
+export const addFieldApi = (body) => {
+    axios.post(`${baseTableId}${fieldApiUrl}`, body)
         .then((response) => response.data)
         .catch((err) => console.log(err));
+};
+//
+// export const getFieldsApi = (tableId) => {
+//     axios.get(`${tableId}${fieldApiUrl}`)
+//         .then((fields) => fields)
+//         .catch((err) => console.log(err));
+// };
