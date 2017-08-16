@@ -1,11 +1,11 @@
 import React/*, { PropTypes }*/ from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as LongTextActions from './longTextActions';
+import * as TextLineActions from './textLineActions';
 
-import LongText from './longText';
+import TextLine from './textLine';
 
-class LongTextContainer extends React.Component {
+class TextLineContainer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -17,17 +17,21 @@ class LongTextContainer extends React.Component {
         this.changeHandler = this.changeHandler.bind(this);
         this.blurFieldHandler = this.blurFieldHandler.bind(this);
         this.blurComponentHandler = this.blurComponentHandler.bind(this);
-        this.expandFieldClickHandler = this.expandFieldClickHandler.bind(this);
     }
 
     selectedHandler() {
         this.props.selectedField();
     }
 
-    keyDownHandler() {
-        if (!this.props.longText.active) {
+    keyDownHandler(e) {
+        if (!this.props.textLine.active) {
             this.props.activateClearField();
             this.props.activateField();
+        }
+        if (this.props.textLine.active) {
+            if (e.keyCode === 13) {
+                this.props.blurComponent();
+            }
         }
     }
 
@@ -47,46 +51,41 @@ class LongTextContainer extends React.Component {
         this.props.blurComponent();
     }
 
-    expandFieldClickHandler() {
-        this.props.expandFieldClick();
-    }
-
     render() {
         return (
             <div className="table-cell-container">
-            <LongText value={this.props.longText.value}
-                      selected={this.props.longText.selected}
-                      active={this.props.longText.active}
-                      onSelected={this.selectedHandler}
-                      onActivate={this.activateHandler}
-                      onKeyDown={this.keyDownHandler}
-                      onChange={this.changeHandler}
-                      onBlurField={this.blurFieldHandler}
-                      onBlurComponent={this.blurComponentHandler}
-                      expandFieldClick={this.expandFieldClickHandler}
-            >
-            </LongText>
+                <TextLine value={this.props.textLine.value}
+                          selected={this.props.textLine.selected}
+                          active={this.props.textLine.active}
+                          onSelected={this.selectedHandler}
+                          onActivate={this.activateHandler}
+                          onKeyDown={this.keyDownHandler}
+                          onChange={this.changeHandler}
+                          onBlurField={this.blurFieldHandler}
+                          onBlurComponent={this.blurComponentHandler}
+                >
+                </TextLine>
             </div>
         )}
 }
 /*
-LongTextContainer.propTypes = {
+TextLineContainer.propTypes = {
     selectedHandler: PropTypes.func.isRequired,
     activateHandler: PropTypes.func.isRequired,
     changeHandler: PropTypes.func.isRequired,
     blurFieldHandler: PropTypes.func.isRequired,
     blurComponentHandler: PropTypes.func.isRequired,
-    longText: PropTypes.object.isRequired
+    textLine: PropTypes.object.isRequired
 };
 */
 function mapStateToProps(state) {
     return {
-        longText: state.longTextReducer
+        textLine: state.textLineReducer
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, LongTextActions), dispatch);
+    return bindActionCreators(Object.assign({}, TextLineActions),  dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LongTextContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TextLineContainer);
