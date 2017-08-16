@@ -1,0 +1,30 @@
+.text-line {
+  .ui.input {
+    height: 100%;
+
+    input {
+      width: 100%;
+      /* ToDo: this does not work! */
+      height: 100%;
+      border: 2px solid #6495ed;
+      padding: 0;
+      border-radius: 1px;
+    }
+  }
+}
+
+.text-line.selected {
+  line-height: 14px;
+}
+
+.text-line {
+  .table-cell-wrap {
+    .table-cell-inner {
+      //display: block !important;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 4px 10px;
+      height: 100%;
+    }
+  }
+}

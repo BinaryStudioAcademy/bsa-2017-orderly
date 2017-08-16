@@ -1,0 +1,29 @@
+// ToDo: rename class after adding element
+// .table-cell-container{
+  .table-cell {
+    width: 100%;
+    height: 100%;
+    outline: 0;
+  }
+//}
+
+// ToDo: rename class after adding element
+// .table-cell-container{
+  .table-cell.selected {
+    border: 2px solid #6495ed;
+    border-radius: 1px;
+  }
+//}
+
+.table-cell .table-cell-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+/* DELETE THIS */
+/* ToDo: ТРЕБА БУДЕ ВИДАЛИТИ КЛАС .table-cell-container*/
+.table-cell-container {
+  width: 100px;
+  height: 26px;
+  background-color: greenyellow;
+}

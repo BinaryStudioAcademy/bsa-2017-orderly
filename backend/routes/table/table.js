@@ -8,9 +8,17 @@ const commentRepository = require('../../repositories/table/recordRepository').c
 // tables
 
 router.post('/', (request, response, next) => {
-    console.log('request--->>>', request.body);
     tableRepository.add(request.body)
         .then((table) => response.status(201).send(table))
+        .catch((error) => {
+            response.status(400);
+            next(error);
+        });
+});
+
+router.get('/ids/:ids', (request, response, next) => {
+    tableRepository.getByIds(request.params.ids.split(':'))
+        .then((tables) => response.status(200).send(tables))
         .catch((error) => {
             response.status(400);
             next(error);

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 class Auth {
 
     /**
@@ -7,6 +9,7 @@ class Auth {
      */
     static authenticateUser(token) {
         localStorage.setItem('token', token);
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
     }
 
     /**
@@ -24,6 +27,7 @@ class Auth {
      */
     static deauthenticateUser() {
         localStorage.removeItem('token');
+        axios.defaults.headers.common['Authorization'] = null;
     }
 
     /**

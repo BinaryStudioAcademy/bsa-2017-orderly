@@ -7,6 +7,14 @@ class BaseRepository extends Repository{
         super();
         this.model = Base;
     }
+
+    addTableToBase(baseId, tableId) {
+	    return this.model.findByIdAndUpdate(
+		    baseId,
+		    {'$push': {tables: tableId}},
+		    {'new': true}
+	    );
+    }
 }
 
 module.exports = new BaseRepository();
