@@ -66,6 +66,7 @@ class View extends Component {
 function mapStateToProps(state) {
     return {
         view: state.view,
+        dashboardReducer: state.dashboardReducer,
     };
 }
 

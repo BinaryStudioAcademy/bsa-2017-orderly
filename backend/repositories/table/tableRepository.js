@@ -40,7 +40,7 @@ class TableRepository extends Repository {
     pullRecord(tableId, recordId) {
         return that.model.findByIdAndUpdate(
             tableId,
-            {'$pull': {records: recordId}}
+            {'$pull': {records: {_id: recordId}}}
         );
     }
     

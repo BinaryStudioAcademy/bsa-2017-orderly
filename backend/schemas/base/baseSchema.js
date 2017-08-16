@@ -32,7 +32,7 @@ const baseSchema = new Schema({
             }
         }
     ],
-    tables: [{type: ObjectId, ref: 'table'}],
+    tables: [{type: ObjectId, ref: 'Tables'}],
     color: { type: String, default: '#C3C8B7' },
     createdAt: {
         type: Date,
