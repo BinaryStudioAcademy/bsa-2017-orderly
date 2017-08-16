@@ -37,6 +37,13 @@ const closeMenu = () => ({
     type: 'CLOSE_EDIT_MENU'
 });
 
+const addTableToBaseById = (baseId) => {
+    return {
+        type: 'ADD_TABLE_TO_BASE',
+        baseId
+    };
+}
+
 export {
     getBaseById,
     getTables,
@@ -45,5 +52,6 @@ export {
     switchTable,
     togglePopup,
     openMenu,
-    closeMenu
+    closeMenu,
+    addTableToBaseById
 };

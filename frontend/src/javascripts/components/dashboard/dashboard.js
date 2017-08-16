@@ -1,18 +1,18 @@
 import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu,
-    setActive, togglePopup, openMenu } from './dashboardActions';
+	setActive, togglePopup, openMenu } from './dashboardActions';
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(ownProps, 'ownProps');
-    return ({
-        base: state.dashboardReducer.base,
-        tables: state.dashboardReducer.tables,
-        baseId: ownProps.params.baseId,
-        currentTableId: ownProps.params.tableId,
-        addPopupIsOpen: state.dashboardReducer.addPopupIsOpen
-    });
-};
+    console.log(ownProps, 'ownProps')
+	return ({
+		base: state.dashboardReducer.base,
+		tables: state.dashboardReducer.tables,
+		baseId: ownProps.params.baseId,
+		currentTableId: ownProps.params.tableId,
+		addPopupIsOpen: state.dashboardReducer.addPopupIsOpen
+	});
+}
 
 const mapDispatchToProps = {
     addTableClick: addTable,
@@ -20,8 +20,8 @@ const mapDispatchToProps = {
     getBaseCurrent: getBaseById,
     setActive: setActive,
     togglePopup: togglePopup,
-    openMenu: openMenu,
-    closeMenu: closeMenu
+	openMenu: openMenu,
+	closeMenu: closeMenu
 };
 
 const Dashboard = connect(
