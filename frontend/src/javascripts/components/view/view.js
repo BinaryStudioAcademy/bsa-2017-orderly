@@ -25,9 +25,12 @@ class View extends Component {
         const activeView = listOfViews.filter((v) => v.id === this.props.view.currentView).pop();
         switch (activeView.type) {
         case 'grid':
-            return <Grid currentTable={this.props.currentTable}/>;
+            return <Grid
+                currentTable={this.props.currentTable}
+                onAddField={this.props.addField}
+            />;
         default:
-            return <Grid/>;
+            return <Grid currentTable={this.props.currentTable}/>;
         }
     }
 

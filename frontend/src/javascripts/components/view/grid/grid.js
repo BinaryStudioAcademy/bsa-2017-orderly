@@ -7,7 +7,10 @@ export default class Grid extends Component{
         return (
             <div>
                 <GridHeader/>
-                <GridContent currentTable={this.props.currentTable}/>
+                <GridContent
+                    currentTable={this.props.currentTable}
+                    onAddField={this.props.onAddField}
+                />
             </div>
         );
     }

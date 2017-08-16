@@ -31,11 +31,11 @@ const Field = ({type, name}) => {
 export default class GridContent extends Component {
     constructor(props){
         super(props);
-        this.props = props
+        this.props = props;
     }
 
     handleAddField = () => {
-
+        this.props.onAddField();
     };
 
     render() {
@@ -69,10 +69,3 @@ export default class GridContent extends Component {
         );
     }
 }
-
-// function mapStateToProps(state) {
-//     return {
-//         gridContent: state,
-//     };
-// }
-// export default connect(mapStateToProps)(GridContent);
