@@ -25,9 +25,9 @@ export default function viewReducer(state = initialState, action) {
     case GET_FIELDS: {
         return {...state, fields: action.fields};
     }
-    case ADD_FIELD_SUCCEED: {
-        return {...state, fields: action.fields};
-    }
+    // case ADD_FIELD_SUCCEED: {
+    //     return {...state, fields: action.fields};
+    // }
     default:
         return state;
     }

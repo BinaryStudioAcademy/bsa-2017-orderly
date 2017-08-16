@@ -24,8 +24,9 @@ export function getFields(fields) {
     };
 }
 
-export function addField() {
+export function addField(tableId) {
     return {
         type: ADD_FIELD,
+        tableId: tableId
     };
 }

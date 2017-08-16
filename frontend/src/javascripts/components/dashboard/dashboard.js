@@ -2,6 +2,7 @@ import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu,
 	setActive, togglePopup, openMenu, getRecordsByTableId } from './dashboardActions';
+import { addField } from '../view/viewActions';
 
 const mapStateToProps = (state, ownProps) => {
     console.log(ownProps, 'ownProps')
@@ -22,7 +23,8 @@ const mapDispatchToProps = {
     togglePopup: togglePopup,
 	openMenu: openMenu,
 	closeMenu: closeMenu,
-	getRecordsByTableId: getRecordsByTableId
+	getRecordsByTableId: getRecordsByTableId,
+	addField: addField
 };
 
 const Dashboard = connect(

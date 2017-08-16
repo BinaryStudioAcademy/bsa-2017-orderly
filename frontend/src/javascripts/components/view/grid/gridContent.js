@@ -35,7 +35,7 @@ export default class GridContent extends Component {
     }
 
     handleAddField = () => {
-        this.props.onAddField();
+	    this.props.onAddField(this.props.currentTable._id);
     };
 
     render() {

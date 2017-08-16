@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { getTablesByIds, getBase, addTable,
+import { getTablesByIds, getBase, addTable, addFieldsToTable,
     updateBaseByNewTable, getRecordsByTableId } from './dashboardApi';
 import { browserHistory } from 'react-router';
 
@@ -46,11 +46,23 @@ function* addTableToBase(action) {
     }
 }
 
+function* addNewField(action) {
+	try {
+		const payload = {};
+		payload.tableId = action.tableId;
+		payload.table = yield call(addFieldsToTable, payload);
+		yield put({ type: 'ADD_FIELD_SUCCEEDED', payload })
+	} catch (err) {
+		yield put({ type: 'ADD_FIELD_FAILED', message: err.message })
+	}
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
     yield takeEvery('GET_BASE_SUCCEEDED', fetchTablesByBase);
     yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
+    yield takeEvery('ADD_FIELD', addNewField);
 }
 
 export default dashboardSaga;

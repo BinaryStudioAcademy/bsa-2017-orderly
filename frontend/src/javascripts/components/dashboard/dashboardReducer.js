@@ -57,6 +57,24 @@ function dashboardReducer(state = initState, action) {
         ]);
     }
 
+    case 'ADD_FIELD_SUCCEEDED': {
+        console.log(action.payload.field, 'inside reducer')
+        return R.mergeAll([
+	        R.dissoc('tables', state),
+	        {
+		        tables: R.map(table => {
+			        if (table._id === action.payload.tableId) {
+				        let obj = R.dissoc('fields', table);
+				        obj.fields = action.payload.table.fields;
+				        return obj;
+			        } else {
+				        return table;
+			        }
+		        })(state.tables)
+	        }
+        ]);
+    }
+
     case 'TOGGLE_POPUP': {
         return R.mergeAll([
             R.dissoc('addPopupIsOpen', state),
