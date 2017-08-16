@@ -57,9 +57,21 @@ router.delete('/:id', (request, response, next) => {
 });
 
 // records
+router.get('/:id/records', (request, response) => {
+    tableRepository.getRecords(request.params.id)
+        .then((records) => response.status(200).send(records))
+        .catch((err) => response.status(500).send(err));
+});
+
+router.get('/:id/records/:recordId', (request, response) => {
+    tableRepository.getOneRecord(request.params.id, request.params.recordId)
+        .then((result) => response.status(200).send(result))
+        .catch((err) => response.status(500).send(err));
+});
+
 router.post('/:id/records', (request, response, next) => {
-    tableRepository.update(request.params.id, request.body)
-        .then((table) => response.status(200).send(table))
+    tableRepository.updateRecord(request.params.id, request.body)
+        .then((result) => response.status(200).send(result))
         .catch((error) => {
             response.status(400);
             next(error);
