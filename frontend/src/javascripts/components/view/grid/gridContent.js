@@ -1,23 +1,7 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import './gridContent.scss';
 import {Icon} from 'semantic-ui-react';
 import {GridCell} from './gridCell';
-
-const MOCK_FIELDS = [
-    {
-        description: "Gadgets without a single problem",
-        type: "text",
-        name: "Xiaomi",
-        _id: "5992e76c73640e30de3a511b"
-    },
-    {
-        description: "All type of gadgets",
-        type: "text",
-        name: "Samsung",
-        _id: "5994223abab5206884398fe1"
-    }
-];
 
 const Field = ({type, name}) => {
     return (
@@ -58,12 +42,17 @@ export default class GridContent extends Component {
                     </div>
                 </div>
                 <div className="content__body">
-                    <div className="body__row">
-                        <div className="body__item item__row-selector">1</div>
-                        <GridCell type='text' data='Primary Field'/>
-                        <GridCell type='text' data='One'/>
-                        <GridCell type='text' data='Two'/>
-                    </div>
+                    {this.props.currentTable &&
+                    this.props.currentTable.records.map((row, ind) => {
+                        return (
+                            <div key={row._id} className="body__row">
+                                <div className="body__item item__row-selector">{ind+1}</div>
+                                {row.record_data.map((data) => {
+                                    return <GridCell key={data._id} type='text' data={data.data}/>
+                                })}
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         );
