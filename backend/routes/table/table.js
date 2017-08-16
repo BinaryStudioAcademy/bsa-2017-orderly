@@ -70,7 +70,7 @@ router.get('/:id/records/:recordId', (request, response) => {
 });
 
 router.post('/:id/records', (request, response, next) => {
-    tableRepository.updateRecord(request.params.id, request.body)
+    tableRepository.addRecord(request.params.id, request.body)
         .then((result) => response.status(200).send(result))
         .catch((error) => {
             response.status(400);
