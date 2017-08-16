@@ -1,9 +1,10 @@
 import React from 'react';
 import { Icon, Image, Label } from 'semantic-ui-react';
+import UserProfile from '../../../userProfile/userProfile';
 import avatar from '../../../../../images/avatar.png';
 import './header.scss';
 
-const Header = ({ base }) => (
+const Header = ({ base, user }) => (
     <header className='dashboard_header'>
         <Icon name='trophy' inverted size='big'/>
         <div className='label'>
@@ -16,6 +17,7 @@ const Header = ({ base }) => (
             <Icon link name='grid layout' size='large'/>
             <Icon link name='bell' size='large' />
             <Image src={avatar} avatar />
+            <UserProfile/>
         </div>
     </header>
 );
