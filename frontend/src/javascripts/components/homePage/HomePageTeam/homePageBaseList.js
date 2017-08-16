@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
 import BaseItem from '../homePageBase/homePageBaseItem';
 import HomePageTeamName from './homePageTeamName';
-import { addNewBase } from '../homePageActions';
-import { showContextMenu } from '../homePageActions';
 import { Icon } from 'semantic-ui-react';
-import './homePageTeam.scss';
 
 
 class BaseList extends Component {
@@ -21,10 +17,9 @@ class BaseList extends Component {
             return (
               <div key={base._id+1}>
                 <BaseItem className = "base-list-item"  
-                    handleClick = {props.handleClick}  
-                    base = {base}
-                    menu={props.menu}
-                    showMenu={props.showMenu}
+                  handleClick = {props.handleClick}  
+                  base = {base}
+                  menu={props.menu}
                 />
               </div>
            )}) 

@@ -2,13 +2,12 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import BaseItem from '../homePageBase/homePageBaseItem';
 import HomePageTeamName from './homePageTeamName';
-import { addNewBase, getAllBases, changeBaseParam, showContextMenu, deleteBase } from '../homePageActions';
+import { addNewBase, changeBaseParam, showContextMenu, deleteBase, closeContextMenu } from '../homePageActions';
 import BaseList from './homePageBaseList';
-import { Icon } from 'semantic-ui-react';
 import './homePageTeam.scss';
 
 let name = 'New Base';
-let isShow = false;
+
 class HomePageTeamBlock extends Component {
   constructor(props) {
     super(props);
@@ -16,9 +15,11 @@ class HomePageTeamBlock extends Component {
     const baseStore = props.baseStore;
     const handleClick = props.handleClick;
     const onNewBaseClick = props.onNewBaseClick;
+    const handleClickOutside = props.handleClickOutside;
   }  
 
 render() {
+  console.log(this.props)
   return (
     <div className = "team-wrapper">
         <div className = "team-header">
@@ -30,7 +31,6 @@ render() {
             handleClick = {this.props.handleClick}
             bases = {this.props.bases}
             menu={this.props.menu}
-            showMenu={this.props.showMenu}
           />
         </div>
     </div>
@@ -49,7 +49,7 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(changeBaseParam(value, type, _id))
       }
     },
-    onNewBaseClick: (name) => { dispatch(addNewBase(name))}
+    onNewBaseClick: (name) => { dispatch(addNewBase(name))},
   }
 }
 

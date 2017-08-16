@@ -1,6 +1,5 @@
 let initialState = {
   showMenuforBase: 0,
-  showMenu: false,
   bases: []
 }
 const baseStore = (state = initialState, action) => {
@@ -23,11 +22,11 @@ const baseStore = (state = initialState, action) => {
         {bases: [...state.bases, action.payload.base]}
         );
 
-    case 'SHOW_CONTEXT_MENU':
+    case 'OPEN_CONTEXT_MENU':
       return Object.assign(
           {}, 
           state, 
-          {showMenuforBase: action._id, showMenu: !state.showMenu}
+          {showMenuforBase: action._id}
         );
 
     case 'CHANGE_BASE_PARAM_SUCCESS':

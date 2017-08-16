@@ -10,13 +10,6 @@ export const getAllBases = () => {
   };
 }
 
-export const showBaseCreationOptions = (id) => {
-  return {
-    type: 'SHOW_BASE_CREATION_OPTIONS',
-    id
-  };
-}
-
 export const changeBaseParam = (value, typeAction, _id) =>{
     return {
       type: 'CHANGE_BASE_PARAM',
@@ -25,14 +18,15 @@ export const changeBaseParam = (value, typeAction, _id) =>{
       _id
     };
 }
+
 export const showContextMenu = (data, type, _id) => {
-   if (type ==='show') {
-       return {
-         type: 'SHOW_CONTEXT_MENU',
-         _id
-       }
-     }
+  if (type ==='show') {
+    return {
+      type: 'OPEN_CONTEXT_MENU',
+      _id
+    }
   }
+}
 
 export const deleteBase = (data, type, _id) =>{
   return {

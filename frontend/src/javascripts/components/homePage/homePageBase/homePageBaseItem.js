@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Icon } from 'semantic-ui-react';
-import { addNewBase } from '../homePageActions'
+import { Link } from 'react-router';
 import ContextMenuIcon from '../../contextMenu/contextMenuIcon';
+import './homePageBaseItem.scss'
 
 class BaseItem extends Component {
   constructor(props) {
@@ -14,15 +14,17 @@ class BaseItem extends Component {
         <div className = 'one-base-wrapper' >
         <div className = 'one-base' style = {{backgroundColor: `${this.props.base.color}` }} > 
           <div className = 'one-base-icon'>
+            <Link to={`/dashboard/${this.props.base._id}/59940cf039f1311b08224955`}>
             <Icon inverted link  size='huge' name={this.props.base.icon} 
               />
+              </Link>
             </div>
             <div> 
               <div>
-                <ContextMenuIcon handleClick = {this.props.handleClick}
+                <ContextMenuIcon 
+                  handleClick = {this.props.handleClick}
                   baseId = {this.props.base._id}
-                  menu={this.props.menu}
-                  showMenu={this.props.showMenu}
+                  menu={this.props.menu}             
                   />
               </div>
             </div>

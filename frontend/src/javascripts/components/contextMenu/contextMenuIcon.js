@@ -4,19 +4,57 @@ import { Icon } from 'semantic-ui-react';
 import './contextMenu.scss';
 
 
-const ContextMenuIcon = (props) => {
-  return(
-    <div className = 'menu-icon-wrapp'>
-       <div  className = 'setting'> 
-        <Icon inverted link name='setting' size='large' color='black' 
-        onClick={()=>props.handleClick(null, 'show', props.baseId)}
-        />
+class ContextMenuIcon extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      menuVisible: false
+    };
+
+    this.handleClickOnMenu = this.handleClickOnMenu.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
+  }
+  
+  handleClickOnMenu() {
+    if (!this.state.menuVisible) {
+      document.addEventListener('click', this.handleOutsideClick, false);
+    } else {
+      document.removeEventListener('click', this.handleOutsideClick, false);
+    }
+
+    this.setState(prevState => ({
+       menuVisible: !prevState.menuVisible,
+    }));
+  }
+  
+  handleOutsideClick(e) {
+    if (this.node.contains(e.target)) {
+      return;
+    }
+    
+    this.handleClickOnMenu();
+  }
+
+render() {
+    return(
+      <div className = 'menu-icon-wrapp'>
+        <div ref={node => { this.node = node }} >
+         <div  className = 'setting' onClick={this.handleClickOnMenu} > 
+          <Icon inverted link name='setting' size='large' color='black' 
+            onClick={()=>this.props.handleClick(null, 'show', this.props.baseId)}
+          />
+        </div>
+        </div>
+        <div className ={this.props.menu ==this.props.baseId && this.state.menuVisible? "menu-show-2" : "none"}>
+          <ContextMenu 
+            handleClick = {this.props.handleClick} 
+            baseId = {this.props.baseId} 
+            />
+        </div>
       </div>
-      <div className ={props.menu == props.baseId && props.showMenu ? "menu-show-2" : "none"}>
-        <ContextMenu handleClick = {props.handleClick} baseId = {props.baseId} />
-      </div>
-    </div>
-    )
+      )
+  }
 }
 
 
