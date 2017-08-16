@@ -9,6 +9,7 @@ export default class Grid extends Component{
                 <GridHeader/>
                 <GridContent
                     currentTable={this.props.currentTable}
+                    fieldsRecords={this.props.fieldsRecords}
                     onAddField={this.props.onAddField}
                 />
             </div>

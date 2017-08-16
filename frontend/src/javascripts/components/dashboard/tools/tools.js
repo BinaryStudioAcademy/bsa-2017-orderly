@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import R from 'ramda';
-
 import Header from './header/header';
 import Tabs from './tabs/tabs';
-import Menu from './menu/menu';
-import Workflow from '../../workflow/workflow';
 import View from '../../view/view';
+import {formatFieldsRecords} from "../dashboardService";
 
 class Tools extends Component {
     constructor(props) {
@@ -21,6 +18,10 @@ class Tools extends Component {
 
     render() {
         let currentTable = this.props.tables.filter((t) => t._id === this.props.currentTableId).pop();
+        let fieldsRecords;
+        if (currentTable) {
+            fieldsRecords = formatFieldsRecords(currentTable.fields, currentTable.records);
+        }
         return (
             <div onClick={() => {
                 // this.props.closeMenu();
@@ -35,13 +36,10 @@ class Tools extends Component {
                     switchTableClick={this.props.switchTableClick}
                     togglePopup={this.props.togglePopup}
                     addTableClick={this.props.addTableClick}/>
-                <View currentTable={currentTable}/>
+                <View currentTable={currentTable} fieldsRecords={fieldsRecords}/>
             </div>
         );
     }
 }
-/*
-<Menu/>
-<Workflow currentTableId={this.props.currentTableId}/>
-*/
+
 export default Tools;

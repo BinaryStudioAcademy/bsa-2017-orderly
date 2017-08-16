@@ -3,7 +3,7 @@ import './gridContent.scss';
 import {Icon} from 'semantic-ui-react';
 import {GridCell} from './gridCell';
 
-const Field = ({type, name}) => {
+const Field = ({type, name, records}) => {
     return (
         <div className="header__item">
             <Icon name="font" className="item__icon"/>
@@ -28,10 +28,6 @@ export default class GridContent extends Component {
                 <div className="content__header">
                     <div className="header__item item__row-selector">
                         <input type="checkbox"/>
-                    </div>
-                    <div className="header__item">
-                        <Icon name="font" className="item__icon"/>
-                        <span>Primary</span>
                     </div>
                     {this.props.currentTable &&
                     this.props.currentTable.fields.map((field) => {
