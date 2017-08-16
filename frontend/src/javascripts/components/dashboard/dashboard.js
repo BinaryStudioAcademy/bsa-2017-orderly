@@ -20,8 +20,8 @@ const mapDispatchToProps = {
     getBaseCurrent: getBaseById,
     setActive: setActive,
     togglePopup: togglePopup,
-	openMenu: openMenu,
-	closeMenu: closeMenu
+	  openMenu: openMenu,
+	  closeMenu: closeMenu,
 };
 
 const Dashboard = connect(

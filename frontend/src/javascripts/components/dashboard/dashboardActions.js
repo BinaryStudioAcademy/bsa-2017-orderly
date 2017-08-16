@@ -53,6 +53,13 @@ const closeMenu = () => {
     };
 };
 
+const addTableToBaseById = (baseId) => {
+    return {
+        type: 'ADD_TABLE_TO_BASE',
+        baseId
+    };
+}
+
 export {
     getBaseById,
     getTables,
@@ -61,5 +68,6 @@ export {
     switchTable,
     togglePopup,
     openMenu,
-    closeMenu
+    closeMenu,
+    addTableToBaseById
 };
