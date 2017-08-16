@@ -1,17 +1,23 @@
-.home-page-header {
-  border-bottom: 2px solid #F5F5F5;
-  background-color: #f4f4fe;
-  padding: 2px;
-  position: fixed;
-  top: 0;
-  width:100%;
-  z-index: 2;
+.home-page-wrapper
+  .home-page-body {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
-.logo {
-  width: 160px;
-  margin-left: 10px;
-  padding: 10px;
+.home-page-wrapper
+  .home-page-header {
+    border-bottom: 2px solid #F5F5F5;
+    background-color: #f4f4fe;
+    padding: 2px;
+    position: fixed;
+    top: 0;
+    width:100%;
+    z-index: 2;
 }
-.new-base-wrapper {
-  margin-top: 200px;
+.home-page-wrapper
+  .home-page-header
+    .logo {
+      width: 160px;
+      margin-left: 10px;
+      padding: 10px;
 }

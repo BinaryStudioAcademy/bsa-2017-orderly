@@ -5,7 +5,7 @@ let BaseName = (props) => {
   let input
   return (
     <div>
-      <form className='base-name'
+      <form className='base-name-form'
         onSubmit={e => {
           e.preventDefault()
           props.handleClick(input.value, 'name', props.baseId)

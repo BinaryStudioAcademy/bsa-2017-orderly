@@ -1,76 +1,95 @@
-.body {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+.home-page-body 
+  .team-wrapper{
+    margin-top: 100px;
 }
-.team-wrapper{
-  margin-top: 100px;
+.home-page-body
+  .team-wrapper 
+    .team-block-wrapper {
+      text-align: center;
+      border-top: 2px solid #EFEFEF;
+      padding: 20px 0px 20px 0px;
+      width: 700px;
 }
-.team-block-wrapper{
-  text-align: center;
-  border-top: 2px solid #EFEFEF;
-  padding: 20px 0px 20px 0px;
-  width: 700px;
+.home-page-body
+  .team-wrapper 
+      .team-header{
+        margin-bottom: 10px; 
+        margin-left: 10px;
+        font-size: 18px;
+        display: flex;
 }
-.team-header{
-  margin-bottom: 10px; 
-  margin-left: 10px;
-  font-size: 18px;
-  display: flex;
+.home-page-body
+  .team-wrapper
+      .team-header
+        .btn {
+          margin-left: 40px;
+          border:none;
+          font-size: 14px;
+          padding:4px;
+          color:white;
+          background-color: #C3C8B7;
 }
-.btn {
-  margin-left: 40px;
-  border:none;
-  font-size: 14px;
-  padding:4px;
-  color:white;
-  background-color: #C3C8B7;
+.home-page-body 
+  .team-wrapper
+    .base-list {
+      display: flex;
+      margin-left: 25px;
+      justify-content: left;
+      flex-wrap: wrap;
 }
-.base-list {
-  display: flex;
-  margin-left: 25px;
-  justify-content: left;
-  flex-wrap: wrap;
+.home-page-body 
+  .team-wrapper
+    .team-header
+      .team-name-wrapper{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 150px;
 }
-.team-name-wrapper{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  width: 150px;
-}
-.one-base-wrapper{
-  position: relative;
-  border: 1px solid white;
-  width:100px;
-  height:90px;
-  margin: 5px; 
-  background-color: #C3C8B7;
-  text-align: center;
-}
-.one-base {
-  border:1px solid white;
-  height: 100%;
-}
-.one-base-icon{
-  margin-top: 13px;
+.home-page-body 
+  .team-wrapper
+    .base-list
+      .one-base-wrapper{
+        position: relative;
+        border: 1px solid white;
+        width:100px;
+        height:90px;
+        margin: 5px; 
+        background-color: #C3C8B7;
+        text-align: center;
 }
 
-.new-base-wrapper {
-  margin-left: 50px;
-  width: 260px;
-  text-align: center;
+.home-page-body 
+  .team-wrapper
+    .base-list
+      .one-base-wrapper
+        .one-base {
+          border:1px solid white;
+          height: 100%;
 }
-.new-base-container {
-  margin: 0 auto;
-  padding: 10px;
-  width: 60%;
-  font-size: 20px;
+.home-page-body 
+  .team-wrapper
+    .base-list
+      .one-base-wrapper
+        .one-base 
+          .one-base-icon{
+            margin-top: 13px;
 }
-.menu-icon-wrapp {
-  position: relative;
-  margin-top: -15px;
+
+.home-page-body 
+  .team-wrapper
+    .base-list
+      .one-base-wrapper
+        .menu-icon-wrapp {
+          position: relative;
+          margin-top: -15px;
 }
-.setting {
-  padding-left: 20px;
+
+.home-page-body 
+  .team-wrapper
+    .base-list
+      .one-base-wrapper
+        .menu-icon-wrapp
+          .setting {
+            padding-left: 20px;
 }

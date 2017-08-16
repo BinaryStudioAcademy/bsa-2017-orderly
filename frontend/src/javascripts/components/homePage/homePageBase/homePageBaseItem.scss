@@ -1,9 +1,18 @@
-a:hover {
-  border-bottom: 0 !important;
+.home-page-body 
+  .team-wrapper
+    .base-list
+      .one-base-wrapper
+        .one-base 
+          .one-base-icon
+            a:hover {
+              border-bottom: 0 !important;
 }
-.base-name-header {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  width: 112px;
+.home-page-body 
+  .team-wrapper
+    .base-list
+      .base-name-header {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 112px;
 }
