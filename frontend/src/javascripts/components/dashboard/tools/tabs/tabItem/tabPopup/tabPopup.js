@@ -11,11 +11,11 @@ let hidingStyle = (isOpen) => {
 	};
 };
 
-const TabPopup = ({isOpen, table, activeModal, setTabsModal, tablesNames, tables}) => (
+const TabPopup = ({isOpen, table, activeModal, setTabsModal, tablesNames, tables, renameIsError, checkRenameInput}) => (
 	<div>
 		<List className='tab_popup' style={hidingStyle(isOpen)}>
 			<List.Item className='list_menu' onClick={() => {
-				setTabsModal('rename')
+				setTabsModal('rename');
 				console.log('rename');
 			}}>
 				<List.Icon name='pencil'/>
@@ -41,6 +41,8 @@ const TabPopup = ({isOpen, table, activeModal, setTabsModal, tablesNames, tables
 			</List.Item>
 		</List>
 		<PopUpModal table={table}
+					renameIsError={renameIsError}
+                    checkRenameInput={checkRenameInput}
 		            tablesNames={R.compose(R.map(R.toLower), R.pluck('name'), R.reject(elem => elem._id == table._id))(tables)}
 		            setTabsModal={setTabsModal}
 		            activeModal={activeModal}/>

@@ -2,12 +2,19 @@ import React from 'react';
 import { Modal, Button, Input } from 'semantic-ui-react';
 import R from 'ramda';
 
-let renameInput;
-let renameIsError = true;
+import { debounce } from '../../../../../dashboardService';
 
-const PopUpModal = ({table, activeModal, setTabsModal, tablesNames}) => (
+let renameInput;
+
+const checkValidName = debounce((value, tablesNames, checkRenameFunc) => {
+    if (R.contains(R.toLower(value), tablesNames)) checkRenameFunc(true);
+    else checkRenameFunc(false);
+}, 150);
+
+const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsError, checkRenameInput}) => (
 	<Modal size='mini'
-	       onClose={() => { setTabsModal('') }}
+		   dimmer={false}
+		   onClose={() => { setTabsModal(''); }}
 	       open={Boolean(activeModal)}>
 		<Modal.Header>
 			Rename table
@@ -15,10 +22,8 @@ const PopUpModal = ({table, activeModal, setTabsModal, tablesNames}) => (
 		<Modal.Content>
 			<Input error={renameIsError} fluid
 			       onChange={(event) => {
-			       	renameInput = event.target.value;
-			       	console.log(tablesNames, renameInput, R.contains(R.toLower(renameInput), tablesNames))
-					if (R.contains(R.toLower(renameInput), tablesNames)) renameIsError = true
-				    else renameIsError = false
+			       renameInput = event.target.value;
+			       checkValidName(renameInput, tablesNames, checkRenameInput);
 			       }}
 			       placeholder='enter new name...'/>
 		</Modal.Content>
@@ -29,6 +34,6 @@ const PopUpModal = ({table, activeModal, setTabsModal, tablesNames}) => (
 			<Button positive icon='checkmark' labelPosition='right' content='Yes' />
 		</Modal.Actions>
 	</Modal>
-)
+);
 
 export default PopUpModal;

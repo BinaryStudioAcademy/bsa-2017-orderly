@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { getTablesByIds, getBase, addTable,
-    updateBaseByNewTable, getRecordsByTableId } from './dashboardApi';
+    updateBaseByNewTable } from './dashboardApi';
 import { browserHistory } from 'react-router';
 
 function* fetchBaseById(action) {

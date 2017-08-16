@@ -8,7 +8,8 @@ const initState = {
         isActive: false
     }],
     addPopupIsOpen: false,
-	activeModal: ''
+    activeModal: '',
+    renameIsError: false
 };
 
 function dashboardReducer(state = initState, action) {
@@ -36,6 +37,10 @@ function dashboardReducer(state = initState, action) {
 
     case 'SET_TABS_MODAL': {
     	return R.merge( state, { activeModal: action.activeModal });
+    }
+    
+    case 'CHECK_RENAME_INPUT': {
+        return R.merge( state, { renameIsError: action.renameIsError});
     }
 
     case 'GET_TABLES_BY_IDS_SUCCEEDED': {
