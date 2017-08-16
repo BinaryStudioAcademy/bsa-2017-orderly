@@ -36,7 +36,7 @@ class View extends Component {
 
     render() {
         return (
-            <div>
+            <div className="view__container">
                 <Icon name="caret down"
                       id="header__caret"
                       size="large"
