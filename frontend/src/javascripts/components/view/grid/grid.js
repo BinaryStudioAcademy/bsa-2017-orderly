@@ -1,12 +1,14 @@
-import React from 'react';
-import {GridHeader} from './gridHeader';
-import {GridContent} from './gridContent';
+import React, {Component} from 'react';
+import GridHeader from './gridHeader';
+import GridContent from './gridContent';
 
-export const Grid = () => {
-    return (
-        <div>
-            <GridHeader/>
-            <GridContent/>
-        </div>
-    );
-};
+export default class Grid extends Component{
+    render() {
+        return (
+            <div>
+                <GridHeader/>
+                <GridContent currentTable={this.props.currentTable}/>
+            </div>
+        );
+    }
+}
