@@ -3,7 +3,7 @@ import {Icon, Button} from 'semantic-ui-react';
 import {viewIcons} from '../../configuration/viewTypes';
 import './gridHeader.scss';
 
-export class GridHeader extends Component{
+export default class GridHeader extends Component{
     render() {
         return (
             <div className="view__header">
