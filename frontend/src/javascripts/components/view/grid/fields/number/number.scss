@@ -4,7 +4,6 @@
 
     input {
       width: 100%;
-      /* ToDo: this does not work! */
       height: 100%;
       border: 2px solid #6495ed;
       padding: 0;
@@ -20,7 +19,6 @@
 .text-line {
   .table-cell-wrap {
     .table-cell-inner {
-      //display: block !important;
       overflow: hidden;
       text-overflow: ellipsis;
       padding: 4px 10px;

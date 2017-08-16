@@ -1,31 +1,21 @@
-// ToDo: rename class after adding element
-//.table-cell-container{
-  .long-text {
-    textarea {
-      width: 100%;
-      /* ToDo: this does not work! */
-      height: 146px;
-      z-index: 10;
-      outline: none;
-      border: 2px solid #6495ed;
-      border-radius: 1px;
-    }
+.long-text {
+  textarea {
+    width: 100%;
+    height: 146px;
+    z-index: 10;
+    outline: none;
+    border: 2px solid #6495ed;
+    border-radius: 1px;
   }
-//}
+}
 
-// ToDo: rename class after adding element
-// .table-cell-container{
-  .long-text.selected {
-    height: 50px;
-  }
-//}
+.long-text.selected {
+  height: 50px;
+}
 
-// ToDo: rename class after adding element
-// .table-cell-container{
 .long-text.active {
   height: 150px;
 }
-//}
 
 .long-text.selected {
   .table-cell-wrap {
