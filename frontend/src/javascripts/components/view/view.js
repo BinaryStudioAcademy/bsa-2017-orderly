@@ -3,13 +3,14 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as viewActions from './viewActions';
 import {Icon} from 'semantic-ui-react';
-import {Grid} from './grid/grid';
+import Grid from './grid/grid';
 import {viewIcons} from '../configuration/viewTypes';
 import './view.scss';
 
 class View extends Component {
     constructor(props) {
         super(props);
+        this.props = props;
     }
 
     handleToggleSelector = () => {
@@ -21,16 +22,15 @@ class View extends Component {
     };
 
     viewSelector(listOfViews) {
-        const activeView = listOfViews.filter((v) => v.id === this.props.view.currentView);
+        const activeView = listOfViews.filter((v) => v.id === this.props.view.currentView).pop();
         switch (activeView.type) {
         case 'grid':
-            return <Grid/>;
+            return <Grid currentTable={this.props.currentTable}/>;
         default:
             return <Grid/>;
         }
     }
 
-    //Need to receive list of views from table reducer
     render() {
         return (
             <div>
@@ -44,7 +44,6 @@ class View extends Component {
                             <div key={ind}
                                  className="selector__option"
                                  onClick={() => this.handleChangeView(view.id)}>
-
                                 <Icon
                                     name="checkmark"
                                     className={view.id === this.props.view.currentView
@@ -64,7 +63,6 @@ class View extends Component {
 function mapStateToProps(state) {
     return {
         view: state.view,
-        dashboardState: state.dashboardReducer,
     };
 }
 
