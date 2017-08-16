@@ -1,10 +1,15 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router';
+import R from 'ramda';
+
 import TabPopup from './tabPopup/tabPopup';
 import './tabItem.scss';
 
-const TabItem = (base, currentTable, table, switchTableClick, openMenu, closeMenu) => (
+let currentTable;
+
+const TabItem = (base, currentTableId, table, switchTableClick, openMenu,
+                 closeMenu, activeModal, setTabsModal, tables) => (
     <div className='tab_btn' key={table._id}>
         <Link to={`/dashboard/${base._id}/${table._id}`}>
             <Button inverted
@@ -12,6 +17,7 @@ const TabItem = (base, currentTable, table, switchTableClick, openMenu, closeMen
                 onContextMenu={(evt) => {
                     evt.preventDefault();
                     evt.stopPropagation();
+                    currentTable = table
                     openMenu(table._id);
                 }}
                 onClick={() => {
@@ -21,7 +27,10 @@ const TabItem = (base, currentTable, table, switchTableClick, openMenu, closeMen
             </Button>
         </Link>
         <TabPopup isOpen={table.isMenuOpen}
-                  table={table}/>
+                  activeModal={activeModal}
+                  setTabsModal={setTabsModal}
+                  tables={tables}
+                  table={currentTable ? currentTable : table}/>
     </div>
 
 );

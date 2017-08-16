@@ -25,14 +25,16 @@ class Tools extends Component {
             }}>
                 <Header base={this.props.base}/>
                 <Tabs base={this.props.base}
-                    tables={this.props.tables}
-                    addPopupIsOpen={this.props.addPopupIsOpen}
-                    currentTableId={this.props.currentTableId}
-                    openMenu={this.props.openMenu}
-                    closeMenu={this.props.closeMenu}
-                    switchTableClick={this.props.switchTableClick}
-                    togglePopup={this.props.togglePopup}
-                    addTableClick={this.props.addTableClick}/>
+		              activeModal={this.props.activeModal}
+		              setTabsModal={this.props.setTabsModal}
+		              tables={this.props.tables}
+		              addPopupIsOpen={this.props.addPopupIsOpen}
+		              currentTableId={this.props.currentTableId}
+		              openMenu={this.props.openMenu}
+		              closeMenu={this.props.closeMenu}
+		              switchTableClick={this.props.switchTableClick}
+		              togglePopup={this.props.togglePopup}
+		              addTableClick={this.props.addTableClick}/>
                 <Menu/>
                 <Workflow currentTableId={this.props.currentTableId}/>
             </div>

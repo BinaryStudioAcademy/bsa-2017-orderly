@@ -53,6 +53,13 @@ const closeMenu = () => {
     };
 };
 
+const setTabsModal = (activeModal) => {
+	return {
+		type: 'SET_TABS_MODAL',
+		activeModal: activeModal
+	}
+}
+
 export {
     getBaseById,
     getTables,
@@ -61,5 +68,6 @@ export {
     switchTable,
     togglePopup,
     openMenu,
-    closeMenu
+    closeMenu,
+	setTabsModal
 };
