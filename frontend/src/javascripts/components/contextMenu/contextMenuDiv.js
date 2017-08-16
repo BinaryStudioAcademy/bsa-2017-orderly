@@ -8,40 +8,35 @@ import BaseOptions from './contextMenuBaseOptions';
 import { Icon } from 'semantic-ui-react';
 import './contextMenu.scss';
 
-
-const NewBaseDiv = ({ contextMenu, onMenuClick, showMenu}) => {
-  return (
+const NewBaseDiv = ({ contextMenu, onMenuClick, showMenu}) => (
     <div className = "new-base-wrapper">
-      <div className= "base-title">{contextMenu.contextMenu.name}</div>
+        <div className= "base-title">{contextMenu.contextMenu.name}</div>
         <div className = "new-base-container" 
-          onClick={() => onMenuClick(contextMenu)} 
-          style = {{backgroundColor: `${contextMenu.contextMenu.color}` }}
+            onClick={() => onMenuClick(contextMenu)} 
+            style = {{backgroundColor: `${contextMenu.contextMenu.color}` }}
         >
-          <Icon inverted link name={contextMenu.contextMenu.icon} className = 'display-icon' size='huge' />
+            <Icon inverted link name={contextMenu.contextMenu.icon} className = 'display-icon' size='huge' />
         </div>
         <div className ={contextMenu.contextMenu.showMenu? "menu": "none"}>
-          <BaseName />
-          <BaseColor />
-          <BaseIcon />
-          <BaseOptions />
+            <BaseName />
+            <BaseColor />
+            <BaseIcon />
+            <BaseOptions />
         </div>
     </div>
-  )
-}
+);
 
-const mapStateToProps = state => ({
-  contextMenu: state
+const mapStateToProps = (state) => ({
+    contextMenu: state
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onMenuClick: (contextMenu) => {dispatch(showContextMenu(contextMenu))}
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+    onMenuClick: (contextMenu) => {dispatch(showContextMenu(contextMenu));}
+});
 
 const ContextMenuShow = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewBaseDiv)
+    mapStateToProps,
+    mapDispatchToProps
+)(NewBaseDiv);
 
-export default ContextMenuShow
+export default ContextMenuShow;

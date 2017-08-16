@@ -17,9 +17,9 @@ class Repository {
         return this.model.find({'_id': { $in: ids}});
     }
 
-	get(criteria, select) {
-		return this.model.findOne(criteria).select(select);
-	}
+    get(criteria, select) {
+        return this.model.findOne(criteria).select(select);
+    }
 
     getAll() {
         return this.model.find();

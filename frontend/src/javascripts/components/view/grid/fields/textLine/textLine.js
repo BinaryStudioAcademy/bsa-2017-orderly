@@ -15,7 +15,7 @@ class TextLine extends Field {
             value={this.props.value}
             type='text'
             autoFocus={true}
-        />
+        />;
     }
 }
 

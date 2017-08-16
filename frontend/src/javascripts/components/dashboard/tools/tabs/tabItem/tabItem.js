@@ -21,7 +21,7 @@ const TabItem = (base, currentTable, table, switchTableClick, openMenu, closeMen
             </Button>
         </Link>
         <TabPopup isOpen={table.isMenuOpen}
-                  table={table}/>
+            table={table}/>
     </div>
 
 );

@@ -44,7 +44,7 @@ class Field extends Component {
                     {!this.props.active && !this.props.selected && this.renderField()}
                 </div>
             </div>
-        )
+        );
     }
 }
 

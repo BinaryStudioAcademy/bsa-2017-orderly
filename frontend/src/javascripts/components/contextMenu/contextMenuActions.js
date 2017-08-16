@@ -1,36 +1,26 @@
-export const showContextMenu = (data) => {
-  return {
+export const showContextMenu = (data) => ({
     type: 'SHOW_CONTEXT_MENU',
     data
-  };
-}
-export const changeBaseTitle = (name) =>{
-  return {
+});
+export const changeBaseTitle = (name) => ({
     type: 'CHANGE_BASE_NAME',
     name
-  }
-}
+});
 
-export const changeBaseColor = (color) =>{
-  return {
+export const changeBaseColor = (color) => ({
     type: 'CHANGE_BASE_COLOR',
     color
-  };
-}
+});
 
-export const changeBaseIcon = (icon) =>{
-  return {
+export const changeBaseIcon = (icon) => ({
     type: 'CHANGE_BASE_ICON',
     icon
-  };
-}
+});
 
-export const deleteBase = (data) =>{
-  return {
+export const deleteBase = (data) => ({
     type: 'DELETE_BASE',
     id
-  };
-}
+});
 
 export function getBaseName(data) {
     return {

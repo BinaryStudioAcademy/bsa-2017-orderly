@@ -13,12 +13,12 @@ class LongText extends Field {
             <div>
                 <div className="table-cell-inner">{this.props.value}</div>
                 <Icon name='expand'
-                      className='expand-icon'
-                      link
-                      onClick={() => this.props.expandFieldClick()}
+                    className='expand-icon'
+                    link
+                    onClick={() => this.props.expandFieldClick()}
                 />
             </div>
-        )
+        );
     }
 
     renderActiveField() {
@@ -35,12 +35,12 @@ class LongText extends Field {
                     }}}
                 />
                 <Icon name='expand'
-                      className='expand-icon'
-                      link
-                      onClick={() => this.props.expandFieldClick()}
+                    className='expand-icon'
+                    link
+                    onClick={() => this.props.expandFieldClick()}
                 />
             </div>
-        )
+        );
     }
 }
 
