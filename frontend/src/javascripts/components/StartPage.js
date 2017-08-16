@@ -1,12 +1,12 @@
 import React from 'react';
 import InDeveloping from './in_developing/InDeveloping';
-import ContextMenuShow from './contextMenu/contextMenuDiv';
+import HomePage from './homePage/homePageConnect';
+
 
 const StartPage = () => (
-    <div>
-        <InDeveloping />
-        <ContextMenuShow />
-    </div>
+  <div>
+      <HomePage />
+  </div>
 
 );
 

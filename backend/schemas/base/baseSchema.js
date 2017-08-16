@@ -1,18 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
-const baseIcon = require('./baseIconSchema');
 
 const baseSchema = new Schema({
     name: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        default: 'New Base'
     },
     description: String,
     icon: {
-        type: ObjectId,
-        ref: baseIcon,
+        type: String,
+        default: 'code'
     },
     collaborators: [
         {
@@ -33,7 +33,7 @@ const baseSchema = new Schema({
         }
     ],
     tables: [{type: ObjectId, ref: 'table'}],
-    color: String,
+    color: { type: String, default: '#C3C8B7' },
     createdAt: {
         type: Date,
         default: Date.now,

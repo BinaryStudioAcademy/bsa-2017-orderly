@@ -1,9 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Popup, Icon, Input } from 'semantic-ui-react';
 
 let id = 0;
-let BaseOptions = ({ dispatch }) => {
+let BaseOptions = (props) => {
   return (
     <div className = 'base-options-wrapper'>
       <ul className = 'base-options-list'>
@@ -23,7 +22,7 @@ let BaseOptions = ({ dispatch }) => {
           <Icon name='slack' key = {id++} className='icon' color='black' size='small'/>
           Slack notifications
         </li>
-        <li className = 'base-options-list-item'>
+        <li className = 'base-options-list-item' onClick={()=> props.handleClick(null, 'delete', props.baseId)}>
           <Icon name='trash' key = {id++} className='icon' color='black' size='small'/>
           Delete Base
         </li> 
@@ -31,8 +30,6 @@ let BaseOptions = ({ dispatch }) => {
     </div>
   )
 }
-
-BaseOptions = connect()(BaseOptions);
 
 export default BaseOptions
 
