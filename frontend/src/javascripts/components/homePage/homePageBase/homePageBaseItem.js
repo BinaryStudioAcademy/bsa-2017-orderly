@@ -10,7 +10,10 @@ class BaseItem extends Component {
   }
   render() {
     return (
-      <div className='base-name'>{this.props.base.name}
+      <div>
+        <div className='base-name'>
+          {this.props.base.name}
+        </div>
         <div className = 'one-base-wrapper' >
         <div className = 'one-base' style = {{backgroundColor: `${this.props.base.color}` }} > 
           <div className = 'one-base-icon'>

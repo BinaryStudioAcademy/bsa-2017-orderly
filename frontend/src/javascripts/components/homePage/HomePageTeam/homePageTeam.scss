@@ -32,7 +32,12 @@
   justify-content: left;
   flex-wrap: wrap;
 }
-.base-list-item {
+.team-name-wrapper{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 150px;
 }
 .one-base-wrapper{
   position: relative;

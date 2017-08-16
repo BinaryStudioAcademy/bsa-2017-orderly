@@ -16,7 +16,8 @@ class ContextMenuIcon extends React.Component {
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
   
-  handleClickOnMenu() {
+  handleClickOnMenu(event) {
+    
     if (!this.state.menuVisible) {
       document.addEventListener('click', this.handleOutsideClick, false);
     } else {
@@ -29,18 +30,19 @@ class ContextMenuIcon extends React.Component {
   }
   
   handleOutsideClick(e) {
-    if (this.node.contains(e.target)) {
-      return;
-    }
-    
+    if ( event.target.closest(".menu-show-2") == null) {  
+      if (this.node.contains(e.target)) {
+        return;
+      }
     this.handleClickOnMenu();
+    }
   }
 
 render() {
     return(
       <div className = 'menu-icon-wrapp'>
         <div ref={node => { this.node = node }} >
-         <div  className = 'setting' onClick={this.handleClickOnMenu} > 
+         <div  className = 'setting' onClick={(event) => this.handleClickOnMenu(event)} > 
           <Icon inverted link name='setting' size='large' color='black' 
             onClick={()=>this.props.handleClick(null, 'show', this.props.baseId)}
           />
