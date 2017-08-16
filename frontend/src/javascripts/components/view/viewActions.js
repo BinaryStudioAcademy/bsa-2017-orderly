@@ -1,5 +1,7 @@
 export const CHANGE_VIEW = 'CHANGE_VIEW';
 export const TOGGLE_SELECTOR = 'TOGGLE_SELECTOR';
+export const GET_FIELDS = 'GET_FIELDS';
+export const ADD_FIELD = 'ADD_FIELD';
 
 export function toggleSelector() {
     return {
@@ -11,5 +13,18 @@ export function changeView(viewId) {
     return {
         type: CHANGE_VIEW,
         viewId
+    };
+}
+
+export function getFields(fields) {
+    return {
+        type: GET_FIELDS,
+        fields
+    };
+}
+
+export function addField() {
+    return {
+        type: ADD_FIELD,
     };
 }
