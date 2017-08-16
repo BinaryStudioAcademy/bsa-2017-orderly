@@ -13,12 +13,23 @@ function* fetchUser(action) {
     }
 }
 
+function* getCurrentUser(action) {
+    try {
+        const user = yield call(userApi.getCurrentUser);
+        yield put({type: "GET_CURRENT_USER_SUCCEEDED", user: user});
+    } catch (e) {
+        console.log(e);
+        yield put({type: "GET_CURRENT_USER_FAILED", message: e.message});
+    }
+}
+
 /*
 Starts fetchUser on each dispatched `GET_USER_NAME_REQUESTED` action.
 Allows concurrent fetches of user.
 */
 function* userProfileSaga() {
     yield takeEvery("GET_USER_NAME_REQUESTED", fetchUser);
+    yield takeEvery("GET_CURRENT_USER_REQUESTED", getCurrentUser);
 }
 
 /*
