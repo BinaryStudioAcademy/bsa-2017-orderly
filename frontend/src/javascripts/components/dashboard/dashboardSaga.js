@@ -59,7 +59,7 @@ function* addNewField(action) {
     }
 }
 
-function* changeTableName(action) {
+function* changeTable(action) {
     try {
         const payload = {};
         payload._id = action.tableId;
@@ -90,7 +90,7 @@ function* dashboardSaga() {
     yield takeEvery('GET_BASE_SUCCEEDED', fetchTablesByBase);
     yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
     yield takeEvery('ADD_FIELD', addNewField);
-    yield takeEvery('UPDATE_TABLE', changeTableName);
+    yield takeEvery('UPDATE_TABLE', changeTable);
     yield takeEvery('ADD_RECORD', addNewRecord);
 }
 

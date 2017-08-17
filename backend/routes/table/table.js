@@ -1,9 +1,13 @@
 const router = require('express').Router();
+const R = require('ramda');
+
 const tableRepository = require('../../repositories/table/tableRepository');
+const { defaultTable } = require('../../config/defaultTable');
+
 
 // tables
 router.post('/', (request, response, next) => {
-    tableRepository.add(request.body)
+    tableRepository.add(R.merge(defaultTable, request.body))
         .then((table) => response.status(201).send(table))
         .catch((error) => {
             response.status(400);
