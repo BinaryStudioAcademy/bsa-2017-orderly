@@ -27,12 +27,13 @@ class UserProfileForm extends Component {
                   <Form.Input label='Country' placeholder='Country' />
                   <Form.Input label='City' placeholder='City' />
                 </Form.Group>
-                <Form.Group widths={2}>
+                <Form.Group unstackable widths={2}>
                   <Form.Input label='Address' placeholder='Address' />
                   <Form.Input label='Phone' placeholder='Phone' />
                 </Form.Group>
-                <Form.Checkbox label='I agree to the Terms and Conditions' />
-                <Button type='submit'>Update Data</Button>
+                <div className='user-profile-submit-btn'>
+                    <Button type='submit'>Update Data</Button>
+                </div>
             </Form>
         </div>
         );

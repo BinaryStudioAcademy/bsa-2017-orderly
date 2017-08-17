@@ -41,5 +41,16 @@
 .user-profile-info {
   width: 700px;
   margin-left: 10px;
-  // border:1px solid yellow;
+}
+.user-profile-submit-btn {
+  text-align: right;
+}
+#user-info
+  a {
+    color: black !important;
+}
+#user-info
+  a:hover {
+    border-bottom: 0 !important;
+    color: blue !important;
 }

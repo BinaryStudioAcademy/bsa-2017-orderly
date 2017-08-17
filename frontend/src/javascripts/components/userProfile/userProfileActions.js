@@ -3,6 +3,7 @@ export const GET_USER_NAME_SUCCEEDED = 'GET_USER_NAME_SUCCEEDED';
 export const CHANGE_USER_NAME_COLOR = 'CHANGE_USER_NAME_COLOR';
 export const GET_CURRENT_USER_REQUESTED = 'GET_CURRENT_USER_REQUESTED';
 export const GET_CURRENT_USER_SUCCEEDED = 'GET_CURRENT_USER_SUCCEEDED';
+export const CHANGE_USER_DATA = 'CHANGE_USER_DATA';
 
 export function changeUserNameColor(data){
     return {
@@ -24,11 +25,8 @@ export function getCurrentUser() {
     };
 }
 
-// export function getUserName(){
-// 	return (dispatch) => {
-// 		dispatch({
-// 			type: GET_USER_NAME_REQUESTED,
-// 	        userId: data.userId
-// 		});
-// 	}
-// }
+export function changeUserData(data) {
+    return {
+        type: CHANGE_USER_DATA
+    };
+}

@@ -32,9 +32,15 @@ class UserProfile extends Component {
         console.log(this.props)
         return (
             <div id="user-info">
-                <Image src={avatar} avatar />
-                {this.props.user && <span>{this.props.user.firstName + ' ' + this.props.user.lastName}</span>}
-                <div className="user-profile-logout-wrapper"><Link to={'/logout'} className="logout"><Icon name="log out"/>Logout</Link></div>
+                <Link to={'/user-page'}>
+                    <Image src={avatar} avatar />
+                    {this.props.user && <span>{this.props.user.firstName + ' ' + this.props.user.lastName}</span>}
+                </Link>
+                <div className="user-profile-logout-wrapper">
+                    <Link to={'/logout'} className="logout">
+                        <Icon name="log out"/>Logout
+                    </Link>
+                </div>
             </div>
         );
     }
