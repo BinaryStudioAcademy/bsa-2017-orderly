@@ -32,10 +32,12 @@ const addFieldsToTable = ({tableId}) => {
     axios.post(url + '/tables/' + tableId + '/fields/', {
         name: 'default',
         type: 'text',
-    });
-    return axios.put(url + '/tables/' + tableId + '/records/', {data: ''})
-        .then((table) => table.data)
+    })
+        .then((response) => response.data)
         .catch(R.tap(console.error));
+    // return axios.put(url + '/tables/' + tableId + '/records/', {data: ''})
+    //     .then((table) => table.data)
+    //     .catch(R.tap(console.error));
 };
 
 export {

@@ -5,7 +5,7 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
 import { addField } from '../view/viewActions';
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(ownProps, 'ownProps')
+    console.log(ownProps, 'ownProps');
 	return ({
 		base: state.dashboardReducer.base,
 		tables: state.dashboardReducer.tables,
@@ -28,7 +28,6 @@ const mapDispatchToProps = {
 	setTabsModal: setTabsModal,
 	checkTableName: checkTableName,
 	updateTable: updateTable,
-	getRecordsByTableId: getRecordsByTableId,
 	addField: addField
 };
 
