@@ -12,8 +12,6 @@ class Tools extends Component {
         this.props = props
     }
 
-    // '5989fdcfe598fa16594f6276/5990a99c30136b6cc878adba' - id test base
-    // dashboard/5989fdcfe598fa16594f6276/5991d6a37ee0f860cdbf6d6c
     componentWillMount() {
         this.props.getBaseCurrent(this.props.baseId, this.props.currentTableId);
     }
@@ -34,6 +32,8 @@ class Tools extends Component {
 		              closeMenu={this.props.closeMenu}
 		              switchTableClick={this.props.switchTableClick}
 		              togglePopup={this.props.togglePopup}
+		              renameIsError={this.props.renameIsError}
+		              checkTableName={this.props.checkTableName}
 		              addTableClick={this.props.addTableClick}/>
                 <Menu/>
                 <Workflow currentTableId={this.props.currentTableId}/>

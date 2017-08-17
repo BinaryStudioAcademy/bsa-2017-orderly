@@ -9,7 +9,8 @@ let hidingStyle = (isOpen) => ({
     display: isOpen ? 'block' : 'none'
 });
 
-const TabPopup = ({isOpen, table, activeModal, setTabsModal, tablesNames, tables}) => (
+const TabPopup = ({isOpen, table, activeModal, setTabsModal,
+                  tablesNames, tables, renameIsError, checkTableName}) => (
 	<div>
 		<List className='tab_popup' style={hidingStyle(isOpen)}>
 			<List.Item className='list_menu' onClick={() => {
@@ -40,7 +41,9 @@ const TabPopup = ({isOpen, table, activeModal, setTabsModal, tablesNames, tables
 		</List>
 		<PopUpModal table={table}
 		            tablesNames={R.compose(R.map(R.toLower), R.pluck('name'), R.reject(elem => elem._id == table._id))(tables)}
+		            checkTableName={checkTableName}
 		            setTabsModal={setTabsModal}
+		            renameIsError={renameIsError}
 		            activeModal={activeModal}/>
 	</div>
 );
