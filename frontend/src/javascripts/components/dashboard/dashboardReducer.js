@@ -7,7 +7,9 @@ const initState = {
         name: '',
         isActive: false
     }],
-    addPopupIsOpen: false
+    addPopupIsOpen: false,
+	activeModal: '',
+	renameIsError: true
 };
 
 function dashboardReducer(state = initState, action) {
@@ -31,6 +33,14 @@ function dashboardReducer(state = initState, action) {
                 })(state.tables)
             }
         ]);
+    }
+
+    case 'SET_TABS_MODAL': {
+    	return R.merge( state, { activeModal: action.activeModal });
+    }
+
+    case 'CHECK_TABLE_NAME': {
+        return R.merge( state, { renameIsError: action.renameIsError })
     }
 
     case 'GET_TABLES_BY_IDS_SUCCEEDED': {
@@ -61,7 +71,7 @@ function dashboardReducer(state = initState, action) {
         return R.mergeAll([
             R.dissoc('tables', state),
             {
-                tables: R.map(table => {
+                tables: R.map((table) => {
                     if (table._id === action.payload.tableId) {
                         let obj = R.dissoc('fields', table);
                         obj = R.dissoc('records', obj);
@@ -120,6 +130,18 @@ function dashboardReducer(state = initState, action) {
                     R.assoc('isMenuOpen', false),
                     R.dissoc('isMenuOpen'))
                 )(state.tables)
+            }
+        ]);
+    }
+
+    case 'RENAME_TABLE_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.changedTable._id) return action.changedTable;
+                    return table;
+                })(state.tables)
             }
         ]);
     }

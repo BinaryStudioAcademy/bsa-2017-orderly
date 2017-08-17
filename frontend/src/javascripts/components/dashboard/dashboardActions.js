@@ -44,6 +44,28 @@ const addTableToBaseById = (baseId) => {
     };
 }
 
+const setTabsModal = (activeModal) => {
+	return {
+		type: 'SET_TABS_MODAL',
+		activeModal: activeModal
+	}
+}
+
+const updateTable = (newData, tableId) => {
+	return {
+		type: 'UPDATE_TABLE',
+		newData,
+		tableId
+	}
+}
+
+const checkTableName = (renameIsError) => {
+	return {
+		type: 'CHECK_TABLE_NAME',
+		renameIsError: renameIsError
+	}
+}
+
 export {
     getBaseById,
     getTables,
@@ -53,5 +75,8 @@ export {
     togglePopup,
     openMenu,
     closeMenu,
-    addTableToBaseById
+	setTabsModal,
+	checkTableName,
+    addTableToBaseById,
+	updateTable
 };

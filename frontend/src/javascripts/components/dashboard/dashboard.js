@@ -1,7 +1,7 @@
 import Tools from './tools/tools';
 import { connect } from 'react-redux';
-import { getBaseById, addTable, switchTable, closeMenu,
-	setActive, togglePopup, openMenu, getRecordsByTableId } from './dashboardActions';
+import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
+	setActive, togglePopup, openMenu, setTabsModal, updateTable } from './dashboardActions';
 import { addField } from '../view/viewActions';
 
 const mapStateToProps = (state, ownProps) => {
@@ -9,9 +9,11 @@ const mapStateToProps = (state, ownProps) => {
 	return ({
 		base: state.dashboardReducer.base,
 		tables: state.dashboardReducer.tables,
+		activeModal: state.dashboardReducer.activeModal,
 		baseId: ownProps.params.baseId,
 		currentTableId: ownProps.params.tableId,
-		addPopupIsOpen: state.dashboardReducer.addPopupIsOpen
+		addPopupIsOpen: state.dashboardReducer.addPopupIsOpen,
+		renameIsError: state.dashboardReducer.renameIsError
 	});
 }
 
@@ -23,6 +25,9 @@ const mapDispatchToProps = {
     togglePopup: togglePopup,
 	openMenu: openMenu,
 	closeMenu: closeMenu,
+	setTabsModal: setTabsModal,
+	checkTableName: checkTableName,
+	updateTable: updateTable,
 	getRecordsByTableId: getRecordsByTableId,
 	addField: addField
 };
