@@ -35,13 +35,13 @@ function dashboardReducer(state = initState, action) {
 
     case 'GET_TABLES_BY_IDS_SUCCEEDED': {
         return R.mergeAll([
-	        R.dissoc('tables', state),
-	        {
-		        tables: R.map(R.compose(
-		            R.assoc('addPopupIsOpen', false),
+            R.dissoc('tables', state),
+            {
+                tables: R.map(R.compose(
+                    R.assoc('addPopupIsOpen', false),
                     R.assoc('isMenuOpen', false))
                 )(action.tables)
-	        }]);
+            }]);
     }
 
     case 'ADD_TABLE_SUCCEEDED': {
@@ -53,25 +53,26 @@ function dashboardReducer(state = initState, action) {
                     [R.assoc('isActive', true, action.payload.table)]
                 )
             },
-            { addPopupIsOpen: false}
+            {addPopupIsOpen: false}
         ]);
     }
 
     case 'ADD_FIELD_SUCCEEDED': {
-        console.log(action.payload.field, 'inside reducer')
         return R.mergeAll([
-	        R.dissoc('tables', state),
-	        {
-		        tables: R.map(table => {
-			        if (table._id === action.payload.tableId) {
-				        let obj = R.dissoc('fields', table);
-				        obj.fields = action.payload.table.fields;
-				        return obj;
-			        } else {
-				        return table;
-			        }
-		        })(state.tables)
-	        }
+            R.dissoc('tables', state),
+            {
+                tables: R.map(table => {
+                    if (table._id === action.payload.tableId) {
+                        let obj = R.dissoc('fields', table);
+                        obj = R.dissoc('records', obj);
+                        obj.fields = action.payload.table.fields;
+                        obj.records = action.payload.table.records;
+                        return obj;
+                    } else {
+                        return table;
+                    }
+                })(state.tables)
+            }
         ]);
     }
 
@@ -88,7 +89,7 @@ function dashboardReducer(state = initState, action) {
         return R.mergeAll([
             R.dissoc('tables', state),
             {
-                tables: R.map( (table) => {
+                tables: R.map((table) => {
                     let newObj = R.dissoc('isActive', table);
                     if (table._id === action._id) newObj.isActive = true;
                     else newObj.isActive = false;
@@ -101,9 +102,9 @@ function dashboardReducer(state = initState, action) {
         return R.mergeAll([
             R.dissoc('tables', state),
             {
-                tables: R.map( (table) => {
+                tables: R.map((table) => {
                     let newObj = R.dissoc('isMenuOpen', table);
-	                if (table._id === action.tableId) newObj.isMenuOpen = true;
+                    if (table._id === action.tableId) newObj.isMenuOpen = true;
                     else newObj.isMenuOpen = false;
                     return newObj;
                 })(state.tables)
@@ -122,7 +123,7 @@ function dashboardReducer(state = initState, action) {
             }
         ]);
     }
-        
+
     default:
         return state;
     }

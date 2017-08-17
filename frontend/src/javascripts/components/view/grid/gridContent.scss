@@ -1,4 +1,4 @@
-$cell-width: 150px;
+  $cell-width: 150px;
 $cell-height: 31px;
 $icon-opacity: 0.6;
 $cell-border: 1px solid #AAA;
@@ -24,6 +24,11 @@ $cell-padding: 5px;
 
 .field__icon {
   opacity: $icon-opacity!important;
+}
+
+.field__change-type {
+  float: right;
+  cursor: pointer;
 }
 
 .content__body {

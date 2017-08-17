@@ -2,6 +2,22 @@ import React, {Component} from 'react';
 import './gridContent.scss';
 import {Icon} from 'semantic-ui-react';
 
+const Field = ({type, name, records}) => {
+    return (
+        <div className="field__items">
+            <div className="content__field">
+                <Icon name="font" className="field__icon"/>
+                <span>{name}</span>
+                <Icon name="ellipsis vertical" className="field__change-type"/>
+            </div>
+            <div className="field__items">
+                {records.map((record) => {
+                    return <Record key={record._id} type='text' data={record.data}/>
+                })}
+            </div>
+        </div>
+    );
+};
 
 const Record = ({type, data}) => {
     return (
@@ -11,30 +27,14 @@ const Record = ({type, data}) => {
     );
 };
 
-const Field = ({type, name, records}) => {
-    return (
-        <div className="field__items">
-            <div className="content__field">
-                <Icon name="font" className="field__icon"/>
-                <span>{name}</span>
-            </div>
-            <div className="field__items">
-                {records && records.map((record) => {
-                    return <Record key={record._id} type='text' data={record.data}/>
-                })}
-            </div>
-        </div>
-    );
-};
-
 export default class GridContent extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.props = props;
     }
 
     handleAddField = () => {
-	    this.props.onAddField(this.props.currentTable._id);
+        this.props.onAddField(this.props.currentTable._id);
     };
 
     render() {

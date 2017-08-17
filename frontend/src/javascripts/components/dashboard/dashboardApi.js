@@ -23,13 +23,13 @@ const updateBaseByNewTable = (payload) =>
         .then((response) => response.data)
         .catch(R.tap(console.error));
 
-const addFieldsToTable = ({tableId}) => {   // todo remove cap
-    return axios.post(url + '/tables/' + tableId + '/fields/', {
+const addFieldsToTable = ({tableId}) => {
+    axios.post(url + '/tables/' + tableId + '/fields/', {
         name: 'default',
         type: 'text',
-    })
-        .then(() => axios.put(url + '/tables/' + tableId + '/records/', {data: ''})
-                .then((table) => table.data))
+    });
+    return axios.put(url + '/tables/' + tableId + '/records/', {data: ''})
+        .then((table) => table.data)
         .catch(R.tap(console.error));
 };
 
