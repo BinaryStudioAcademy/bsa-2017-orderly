@@ -1,7 +1,7 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable,
-    updateBaseByNewTable, getRecordsByTableId, updateTable
+    updateBaseByNewTable, getRecordsByTableId, updateTable, addRecord
 } from './dashboardApi';
 import {browserHistory} from 'react-router';
 
@@ -71,6 +71,19 @@ function* changeTableName(action) {
     }
 }
 
+function* addNewRecord(action) {
+    try {
+        const payload = {};
+        payload.tableId = action.tableId;
+        payload.table = yield call(addRecord, payload);
+        console.log('SAGA_------------');
+        console.log(payload);
+        yield put({type: 'ADD_RECORD_SUCCEEDED', payload});
+    } catch (err) {
+        yield put({type: 'ADD_RECORD_FAILED', message: err.message});
+    }
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -78,6 +91,7 @@ function* dashboardSaga() {
     yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
     yield takeEvery('ADD_FIELD', addNewField);
     yield takeEvery('UPDATE_TABLE', changeTableName);
+    yield takeEvery('ADD_RECORD', addNewRecord);
 }
 
 export default dashboardSaga;

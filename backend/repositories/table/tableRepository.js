@@ -84,6 +84,15 @@ class TableRepository extends Repository {
             {'$set': {'fields.$.name': data.name}});
     }
 
+    updateFields(tableId, data) {
+        return this.model.findById(tableId)
+            .then((table) => {
+                table.records.push({record_data: new Array(table.fields.length).fill(data)});
+
+                return table.save();
+            });
+    }
+
     deleteField(tableId, fieldId) {
         return this.model.update(
             {_id: objectId(tableId)},

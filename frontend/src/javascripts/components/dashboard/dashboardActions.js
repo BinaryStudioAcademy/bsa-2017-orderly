@@ -66,6 +66,13 @@ const checkTableName = (renameIsError) => {
 	}
 }
 
+const addRecord = (tableId) => {
+    return {
+        type: 'ADD_RECORD',
+        tableId
+    };
+};
+
 export {
     getBaseById,
     getTables,
@@ -78,5 +85,6 @@ export {
 	setTabsModal,
 	checkTableName,
     addTableToBaseById,
-	updateTable
+	updateTable,
+    addRecord
 };

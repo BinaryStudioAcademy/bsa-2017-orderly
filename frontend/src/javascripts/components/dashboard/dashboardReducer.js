@@ -146,6 +146,23 @@ function dashboardReducer(state = initState, action) {
         ]);
     }
 
+    case 'ADD_RECORD_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.payload.tableId) {
+                        let obj = R.dissoc('records', table);
+                        obj.records = action.payload.table.records;
+                        return obj;
+                    } else {
+                        return table;
+                    }
+                })(state.tables)
+            }
+        ]);
+    }
+
     default:
         return state;
     }
