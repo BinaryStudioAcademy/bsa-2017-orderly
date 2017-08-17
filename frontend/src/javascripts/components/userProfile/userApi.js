@@ -1,20 +1,14 @@
+import axios from 'axios';
 import {userProfileService} from './userProfileService';
 
-function callApi(userId) {
-    console.log('function callApi is called!');
-    const url = '';
+const fetchUser = (userId) => userProfileService.fetchUser();
 
-    // return fetch(url)
-    // 	.then(response =>
-    // 		response.json().then(json => ({ json, response }))
-    // 	).then(({ json, response }) => {
-    // 		...
-    // 	})
-    // 	.then(
-    // 		response => ({response}),
-    // 		error => ({error: error.message})
-    // 	)
-    return userProfileService.fetchUser();
-}
+const getCurrentUser = () =>
+    axios.get('/api/user/me')
+        .then((response) => response.data)
+        .catch((error) => error.data);
 
-export const fetchUser = (userId) => callApi(userId);
+export {
+    fetchUser,
+    getCurrentUser
+};

@@ -1,0 +1,21 @@
+.home-page-header {
+  #user-info {
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+  }
+}
+
+.dashboard_header {
+  #user-info {
+    a {
+      color: #FAFAFA;
+    }
+  }
+
+  #user-info:hover {
+    a {
+      border-bottom: 2px solid #FAFAFA;
+    }
+  }
+}

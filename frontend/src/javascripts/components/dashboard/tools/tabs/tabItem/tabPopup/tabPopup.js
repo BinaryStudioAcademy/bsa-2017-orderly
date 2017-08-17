@@ -5,11 +5,9 @@ import R from 'ramda';
 import PopUpModal from './popUpModal/popUpModal';
 import './tabPopup.scss';
 
-let hidingStyle = (isOpen) => {
-	return {
-		display: isOpen ? 'block' : 'none'
-	};
-};
+let hidingStyle = (isOpen) => ({
+    display: isOpen ? 'block' : 'none'
+});
 
 const TabPopup = ({isOpen, table, activeModal, setTabsModal, tablesNames, tables}) => (
 	<div>

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router';
-import R from 'ramda';
-
 import TabPopup from './tabPopup/tabPopup';
 import './tabItem.scss';
 
