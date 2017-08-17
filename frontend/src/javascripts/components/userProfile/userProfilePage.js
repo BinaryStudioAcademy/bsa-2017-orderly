@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import UserProfile from './userProfile'
 import HomePageHeader from '../homePage/homePageHeader';
-import UserProfilePhoto from './UserProfileComponents/UserProfilePhoto';
-import UserProfileForm from './UserProfileComponents/UserProfileForm';
+import UserProfilePhoto from './userProfileComponents/userProfilePhoto';
+import UserProfileForm from './userProfileComponents/userProfileForm';
+import { changeUserData, changeUserProfileField } from './userProfileActions';
 import { Header } from 'semantic-ui-react';
 import './userProfile.scss';
 
@@ -10,9 +12,11 @@ class UserProfilePage extends Component {
     constructor(props) {
         super(props);
         this.props = props;
+        const handleSubmit = props.handleSubmit;
+        const handleInput = props.handleInput;
     }
+
     render() {
-      console.log(this.props)
         return (
         <div>
             <HomePageHeader />
@@ -20,12 +24,35 @@ class UserProfilePage extends Component {
                 <UserProfilePhoto />
                 <div className ='user-profile-info'>
                     <Header block >My Profile</Header>
-                    <UserProfileForm/>
+                    <UserProfileForm 
+                        user={this.props.user}
+                        handleSubmit = {this.props.handleSubmit}
+                        handleInput = {this.props.handleInput}
+                    />
                 </div>
             </div>
         </div>
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        userProfile: state.userProfile,
+        user: state.userProfile.user
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleSubmit: (data) => {
+        dispatch(changeUserData(data))
+    },
+    handleInput: (value) => { dispatch(changeUserProfileField({ value: e.target.value}))},
+  }
+}
+
+
+UserProfilePage = connect(mapStateToProps, mapDispatchToProps)(UserProfilePage)
 
 export default UserProfilePage

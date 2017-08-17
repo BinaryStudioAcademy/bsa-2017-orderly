@@ -29,7 +29,6 @@ class UserProfile extends Component {
     // }
 
     render() {
-        console.log(this.props)
         return (
             <div id="user-info">
                 <Link to={'/user-page'}>

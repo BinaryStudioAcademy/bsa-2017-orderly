@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Image, Button } from 'semantic-ui-react';
-import { FileUpload } from 'redux-file-upload'
+// import { FileUpload } from 'redux-file-upload'
 import avatar from '../../../../images/avatar.png';
 
 class UserProfilePhoto extends Component {
@@ -15,16 +15,9 @@ class UserProfilePhoto extends Component {
                 <Image src={avatar} size='medium' bordered/>
             </div>
             <div className='user-profile-change-photo-button'>
-                <FileUpload
-                  allowedFileTypes={['jpg', 'pdf']}
-                  data={{ type: 'picture' }}
-                  dropzoneId="fileUpload"
-                  url="https:/url.org/api/docs/upload"
-                >
                   <Button>
                     Change Photo
                   </Button>
-                </FileUpload>
             </div>
         </div>
         );
@@ -32,3 +25,10 @@ class UserProfilePhoto extends Component {
 }
 
 export default UserProfilePhoto
+// <FileUpload
+//   allowedFileTypes={['jpg', 'pdf']}
+//   data={{ type: 'picture' }}
+//   dropzoneId="fileUpload"
+//   url="https:/url.org/api/docs/upload"
+// >
+// </FileUpload>
