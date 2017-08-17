@@ -35,9 +35,10 @@ const addFieldsToTable = ({tableId}) => {
     })
         .then((response) => response.data)
         .catch(R.tap(console.error));
-    // return axios.put(url + '/tables/' + tableId + '/records/', {data: ''})
-    //     .then((table) => table.data)
-    //     .catch(R.tap(console.error));
+
+    return axios.put(url + '/tables/' + tableId + '/records/', {data: ''})
+        .then((table) => table.data)
+        .catch(R.tap(console.error));
 };
 
 export {
