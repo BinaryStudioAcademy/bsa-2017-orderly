@@ -19,14 +19,14 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => Promise.all([
-		baseRepository.add(req.body),
-		tableRepository.add(defaultTable)
-	])
-		.then( ([base, table]) =>  baseRepository.addTableToBase(base._id, table._id))
-		.then( (result) => res.status(200).send(result))
-		.catch( (err) => res.status(500).send(err))
-)
+router.post('/', (req, res) => Promise.all(
+	[baseRepository.add(req.body),
+	tableRepository.add(defaultTable)
+])
+	.then( ([base, table]) => baseRepository.addTableToBase(base._id, table._id))
+	.then( (result) => res.status(200).send(result))
+	.catch( (err) => res.status(500).send(err))
+);
 
 router.delete('/:id', (req, res) => {
     baseRepository.remove(req.params.id).then((result) => {
@@ -45,8 +45,8 @@ router.put('/:id', function (req, res) {
     });
 });
 
-router.put('/:baseId/tables/:tableId', (req, res) => {
-    baseRepository.addTableToBase(req.params.baseId, req.params.tableId)
+router.put('/:id/tables/:tableId', (req, res) => {
+    baseRepository.addTableToBase(req.params.id, req.params.tableId)
         .then((result) => res.status(result ? 200 : 400).send(result))
         .catch((err) => res.status(500).send(err));
 });

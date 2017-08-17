@@ -2,9 +2,10 @@ import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
 	setActive, togglePopup, openMenu, setTabsModal, updateTable } from './dashboardActions';
+import { addField } from '../view/viewActions';
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(ownProps, 'ownProps')
+    console.log(ownProps, 'ownProps');
 	return ({
 		base: state.dashboardReducer.base,
 		tables: state.dashboardReducer.tables,
@@ -26,8 +27,8 @@ const mapDispatchToProps = {
 	closeMenu: closeMenu,
 	setTabsModal: setTabsModal,
 	checkTableName: checkTableName,
-	updateTable: updateTable
-
+	updateTable: updateTable,
+	addField: addField
 };
 
 const Dashboard = connect(

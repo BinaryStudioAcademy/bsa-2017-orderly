@@ -1,21 +1,38 @@
 require('../../db/dbConnect');
 const Repository = require('../generalRepository');
 const Table = require('../../schemas/table/Table');
+const objectId = require('mongoose').Types.ObjectId;
 
-let that
+let that;
 
 class TableRepository extends Repository {
 
     constructor() {
         super();
         this.model = Table;
-        that = this
+        that = this;
     }
 
-    updateRecord(tableId, record) {
+    getRecords(tableId) {
+        return this.model.findById(tableId).select('records');
+    }
+
+    getOneRecord(tableId, recordId) {
+        return this.model.findOne(
+            {_id: tableId},
+            {
+                records: {
+                    $elemMatch: {
+                        _id: recordId
+                    }
+                }
+            }).select('-_id -views -fields -name -description');
+    }
+
+    addRecord(tableId, record) {
         return that.model.findByIdAndUpdate(
             tableId,
-            {'$push': {records: record._id}},
+            {'$push': {records: record}},
             {'new': true}
         );
     }
@@ -23,40 +40,61 @@ class TableRepository extends Repository {
     pullRecord(tableId, recordId) {
         return that.model.findByIdAndUpdate(
             tableId,
-            {'$pull': {records: recordId}}
+            {'$pull': {records: {_id: recordId}}}
         );
+    }
+
+    updateRecords(tableId, data) {
+        return this.model.findById(tableId)
+            .then((table) => {
+                for (let record of table.records) {
+                    record.record_data.push(data);
+                }
+                return table.save();
+            });
+    }
+
+    getFields(tableId) {
+        return this.model.findById(tableId).select('fields');
+    }
+
+    getOneField(tableId, fieldId) {
+        return this.model.findOne(
+            {_id: tableId},
+            {
+                fields: {
+                    $elemMatch: {
+                        _id: fieldId
+                    }
+                }
+            }).select('-_id -views -records -name -description');
     }
 
     addField(tableId, field) {
         return this.model.findByIdAndUpdate(
             tableId,
-            {'$push': {fields: field._id}},
+            {'$push': {fields: field}},
             {'new': true}
         );
     }
 
-    pullField(tableId, fieldId) {
-        return that.model.findByIdAndUpdate(
-            tableId,
-            {'$pull': {fields: fieldId}}
-        );
+    updateField(tableId, fieldId, data) {
+        return this.model.update(
+            {_id: objectId(tableId), 'fields._id': objectId(fieldId)},
+            {'$set': {'fields.$.name': data.name}});
     }
 
-    linkView(tableId, viewId) {
-        return this.model.findByIdAndUpdate(
-            tableId,
-            {'$push': {views: viewId}},
-            {'new': true}
-        );
+    deleteField(tableId, fieldId) {
+        return this.model.update(
+            {_id: objectId(tableId)},
+            {'$pull': {fields: {_id: objectId(fieldId)}}});
     }
 
-    unlinkView(tableId, viewId) {       //remove
-        return this.model.findByIdAndUpdate(
-            tableId,
-            {'$pull': {views: viewId}}
-        );
+    deleteAllFields(tableId) {
+        return this.model.update(
+            {_id: objectId(tableId)},
+            {'$pull': {fields: {}}});
     }
-
 }
 
 module.exports = new TableRepository();
