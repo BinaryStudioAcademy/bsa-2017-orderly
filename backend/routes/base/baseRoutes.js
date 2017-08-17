@@ -18,14 +18,15 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => Promise.all([
-	baseRepository.add(req.body),
-	tableRepository.add({name: 'default'})
-])
-	.then( ([base, table]) => baseRepository.addTableToBase(base._id, table._id))
-	.then( (result) => res.status(200).send(result))
-	.catch( (err) => res.status(500).send(err))
-)
+router.post('/', (req, res) => Promise.all(
+    [
+        baseRepository.add(req.body),
+        tableRepository.add({name: 'default'})
+    ])
+        .then(([base, table]) => baseRepository.addTableToBase(base._id, table._id))
+        .then((result) => res.status(200).send(result))
+        .catch((err) => res.status(500).send(err))
+);
 
 router.delete('/:id', (req, res) => {
     baseRepository.remove(req.params.id).then((result) => {
