@@ -5,6 +5,7 @@ import { debounce } from '../../../../../dashboardService';
 
 let renameInput;
 
+
 const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsError, checkTableName}) => (
 	<Modal size='mini'
 	       dimmer={false}
@@ -18,7 +19,6 @@ const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsErro
 			       onChange={ (event) => {
 				       renameInput = event.target.value;
 				       console.log(renameInput)
-				       console.log(tablesNames, renameInput, R.contains(R.toLower(renameInput), tablesNames))
 				       if (R.contains(R.toLower(renameInput), tablesNames)) checkTableName(true)
 				       else checkTableName(false)
 			       }}
