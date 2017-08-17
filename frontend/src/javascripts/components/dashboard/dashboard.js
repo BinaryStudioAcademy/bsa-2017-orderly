@@ -1,17 +1,20 @@
 import Tools from './tools/tools';
 import { connect } from 'react-redux';
-import { getBaseById, addTable, switchTable, closeMenu, checkRenameInput,
+import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
 	setActive, togglePopup, openMenu, setTabsModal } from './dashboardActions';
 
-const mapStateToProps = (state, ownProps) => ({
-    base: state.dashboardReducer.base,
-    tables: state.dashboardReducer.tables,
-    activeModal: state.dashboardReducer.activeModal,
-    renameIsError: state.dashboardReducer.renameIsError,
-    baseId: ownProps.params.baseId,
-    currentTableId: ownProps.params.tableId,
-    addPopupIsOpen: state.dashboardReducer.addPopupIsOpen,
-});
+const mapStateToProps = (state, ownProps) => {
+    console.log(ownProps, 'ownProps')
+	return ({
+		base: state.dashboardReducer.base,
+		tables: state.dashboardReducer.tables,
+		activeModal: state.dashboardReducer.activeModal,
+		baseId: ownProps.params.baseId,
+		currentTableId: ownProps.params.tableId,
+		addPopupIsOpen: state.dashboardReducer.addPopupIsOpen,
+		renameIsError: state.dashboardReducer.renameIsError
+	});
+}
 
 const mapDispatchToProps = {
     addTableClick: addTable,
@@ -19,10 +22,11 @@ const mapDispatchToProps = {
     getBaseCurrent: getBaseById,
     setActive: setActive,
     togglePopup: togglePopup,
-    openMenu: openMenu,
-    closeMenu: closeMenu,
-    setTabsModal: setTabsModal,
-    checkRenameInput: checkRenameInput
+	openMenu: openMenu,
+	closeMenu: closeMenu,
+	setTabsModal: setTabsModal,
+	checkTableName: checkTableName
+
 };
 
 const Dashboard = connect(

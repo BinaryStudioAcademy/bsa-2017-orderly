@@ -37,15 +37,26 @@ const closeMenu = () => ({
     type: 'CLOSE_EDIT_MENU'
 });
 
-const setTabsModal = (activeModal) => ({
-    type: 'SET_TABS_MODAL',
-    activeModal: activeModal
-});
+const addTableToBaseById = (baseId) => {
+    return {
+        type: 'ADD_TABLE_TO_BASE',
+        baseId
+    };
+}
 
-const checkRenameInput = (renameIsError) => ({
-    type: 'CHECK_RENAME_INPUT',
-    renameIsError: renameIsError
-});
+const setTabsModal = (activeModal) => {
+	return {
+		type: 'SET_TABS_MODAL',
+		activeModal: activeModal
+	}
+}
+
+const checkTableName = (renameIsError) => {
+	return {
+		type: 'CHECK_TABLE_NAME',
+		renameIsError: renameIsError
+	}
+}
 
 export {
     getBaseById,
@@ -57,5 +68,6 @@ export {
     openMenu,
     closeMenu,
 	setTabsModal,
-    checkRenameInput
+	checkTableName,
+    addTableToBaseById
 };

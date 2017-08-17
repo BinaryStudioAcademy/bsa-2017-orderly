@@ -1,6 +1,6 @@
 export const baseIcons = [
   'student', 
-  'setting', 
+  'dashboard', 
   'trophy', 
   'privacy', 
   'alarm outline', 

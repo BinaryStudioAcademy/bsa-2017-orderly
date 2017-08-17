@@ -5,17 +5,16 @@ import R from 'ramda';
 import PopUpModal from './popUpModal/popUpModal';
 import './tabPopup.scss';
 
-let hidingStyle = (isOpen) => {
-	return {
-		display: isOpen ? 'block' : 'none'
-	};
-};
+let hidingStyle = (isOpen) => ({
+    display: isOpen ? 'block' : 'none'
+});
 
-const TabPopup = ({isOpen, table, activeModal, setTabsModal, tablesNames, tables, renameIsError, checkRenameInput}) => (
+const TabPopup = ({isOpen, table, activeModal, setTabsModal,
+                  tablesNames, tables, renameIsError, checkTableName}) => (
 	<div>
 		<List className='tab_popup' style={hidingStyle(isOpen)}>
 			<List.Item className='list_menu' onClick={() => {
-				setTabsModal('rename');
+				setTabsModal('rename')
 				console.log('rename');
 			}}>
 				<List.Icon name='pencil'/>
@@ -41,10 +40,10 @@ const TabPopup = ({isOpen, table, activeModal, setTabsModal, tablesNames, tables
 			</List.Item>
 		</List>
 		<PopUpModal table={table}
-					renameIsError={renameIsError}
-                    checkRenameInput={checkRenameInput}
 		            tablesNames={R.compose(R.map(R.toLower), R.pluck('name'), R.reject(elem => elem._id == table._id))(tables)}
+		            checkTableName={checkTableName}
 		            setTabsModal={setTabsModal}
+		            renameIsError={renameIsError}
 		            activeModal={activeModal}/>
 	</div>
 );

@@ -2,12 +2,18 @@ import React, {Component} from 'react';
 import './userProfile.scss';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import { Link } from 'react-router';
+import { Icon } from 'semantic-ui-react';
 import * as UserProfileActions from './userProfileActions';
 
 class UserProfile extends Component {
     constructor(props) {
         super(props);
         this.props = props;
+    }
+
+    componentWillMount(){
+        this.props.getCurrentUser();
     }
 
     getUserName(){
@@ -23,7 +29,12 @@ class UserProfile extends Component {
 
     render() {
         return (
-            <div>
+            <div id="user-info">
+                {this.props.user && <span>{this.props.user.firstName + ' ' + this.props.user.lastName}</span>}
+                <div><Link to={'/logout'} className="logout"><Icon name="log out"/>Logout</Link></div>
+            </div>
+        );
+        /*
                 <h1>
 					User Profile
                 </h1>
@@ -42,14 +53,14 @@ class UserProfile extends Component {
                 <div>
                     <button onClick={this.getUserName.bind(this)}>Get User Name </button>
                 </div>
-            </div>
-        );
+        */
     }
 }
 
 function mapStateToProps(state) {
     return {
-        userProfile: state.userProfile
+        userProfile: state.userProfile,
+        user: state.userProfile.user
     };
 }
 

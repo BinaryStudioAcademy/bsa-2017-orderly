@@ -6,14 +6,15 @@ import TabItem from './tabItem/tabItem';
 
 import './tabs.scss';
 
-const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, checkRenameInput, renameIsError,
-    addTableClick, switchTableClick, togglePopup, openMenu, closeMenu, activeModal, setTabsModal}) => (
+const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
+    addTableClick, switchTableClick, togglePopup, openMenu, closeMenu,
+    activeModal, setTabsModal, checkTableName}) => (
     <div className='tabs_panel'>
         <div className='btn_block'>
             <div className='tabs_block'>
                 { R.map( (table) => {
                     if (table._id !== 0 ) return TabItem(base, currentTableId, table, switchTableClick, openMenu,
-	                            closeMenu, activeModal, setTabsModal, tables, checkRenameInput, renameIsError);
+                                        closeMenu, activeModal, setTabsModal, tables, renameIsError, checkTableName);
                 } )(tables) }
             </div>
             <div className='add_btn'>
