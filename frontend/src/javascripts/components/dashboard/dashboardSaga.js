@@ -18,7 +18,7 @@ function* fetchBaseById(action) {
 
 function* fetchTablesByBase(action) {
     try {
-        const tables = yield call(getTablesByIds, action.payload.base.tables);
+	    const tables = yield call(getTablesByIds, action.payload.base.tables);
         yield put({type: 'GET_TABLES_BY_IDS_SUCCEEDED', tables: tables});
         yield put({type: 'SET_ACTIVE_TAB', tableId: action.payload.tableId});
     } catch (err) {
@@ -59,7 +59,7 @@ function* addNewField(action) {
     }
 }
 
-function* changeTableName(action) {
+function* changeTable(action) {
     try {
         const payload = {};
         payload._id = action.tableId;
@@ -77,7 +77,7 @@ function* dashboardSaga() {
     yield takeEvery('GET_BASE_SUCCEEDED', fetchTablesByBase);
     yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
     yield takeEvery('ADD_FIELD', addNewField);
-    yield takeEvery('UPDATE_TABLE', changeTableName);
+    yield takeEvery('UPDATE_TABLE', changeTable);
 }
 
 export default dashboardSaga;

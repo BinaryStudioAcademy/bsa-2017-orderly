@@ -68,6 +68,7 @@ function dashboardReducer(state = initState, action) {
     }
 
     case 'ADD_FIELD_SUCCEEDED': {
+    	console.log(action)
         return R.mergeAll([
             R.dissoc('tables', state),
             {
