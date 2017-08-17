@@ -21,7 +21,29 @@ const UserSchema = new Schema({
     "lastName": {
         "type": String,
         "trim": true
-    }
+    },
+    "avatar" : {
+        "type": String,
+        "default": "avatar"
+    },
+    "country" : {
+        "type": String,
+        "trim": true
+    },
+    "city" : {
+        "type": String,
+        "trim": true
+    },
+    "adress" : {
+        "type": String,
+        "trim": true
+    },
+    "phone" : {
+        "type": String,
+        "trim": true
+    },
+    "gender" : Boolean,
+    "Birthday": Date
 }, {versionKey: false});
 
 UserSchema.pre('findOneAndUpdate', function(next) {
