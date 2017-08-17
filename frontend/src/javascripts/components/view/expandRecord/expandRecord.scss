@@ -1,0 +1,22 @@
+.modal {
+  .text-line,
+  .long-text,
+  .number {
+    .table-cell-wrap {
+      border: 1px solid #dde1e3;
+    }
+  }
+}
+.modal {
+  .table-cell-container {
+    margin-bottom: 20px;
+  }
+}
+
+.modal {
+  .table-cell-container {
+    .table-cell.selected {
+      //box-sizing: border-box;
+    }
+  }
+}

@@ -1,6 +1,7 @@
-.text-line {
+.number {
   .ui.input {
     height: 100%;
+    width: 100%;
 
     input {
       width: 100%;
@@ -12,17 +13,18 @@
   }
 }
 
-.text-line.selected {
+.number.selected {
   line-height: 14px;
 }
 
-.text-line {
+.number {
   .table-cell-wrap {
     .table-cell-inner {
       overflow: hidden;
       text-overflow: ellipsis;
       padding: 4px 10px;
       height: 100%;
+      width: 100%;
     }
   }
 }

@@ -16,6 +16,8 @@ import GenerateTable from '../components/dashboard/dashboardGenerateTable';
 import LongTextContainer from '../components/view/grid/fields/longText/longTextContainer';
 import TextLineContainer from '../components/view/grid/fields/textLine/textLineContainer';
 import NumberContainer from '../components/view/grid/fields/number/numberContainer';
+import ExpandRecord from '../components/view/expandRecord/expandRecord';
+
 
 export default (
     <Route path="/" component={App}>
@@ -29,6 +31,7 @@ export default (
         <Route path="/textline" component={TextLineContainer}/>
         <Route path="/longtext" component={LongTextContainer}/>
         <Route path="/number" component={NumberContainer}/>
+        <Route path="/record" component={ExpandRecord}/>
         <Route path="404" component={NotFound}/>
         <Redirect from="*" to="404"/>
     </Route>

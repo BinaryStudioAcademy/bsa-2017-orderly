@@ -8,6 +8,7 @@ import baseStore from '../components/homePage/homePageReducer';
 import longTextReducer from '../components/view/grid/fields/longText/longTextReducer';
 import textLineReducer from '../components/view/grid/fields/textLine/textLineReducer';
 import numberReducer from '../components/view/grid/fields/number/numberReducer';
+import expandRecord from '../components/view/expandRecord/expandRecordReducer';
 
 export default combineReducers({
     routing,
@@ -18,4 +19,6 @@ export default combineReducers({
     baseStore,
     longTextReducer,
     textLineReducer,
-    numberReducer
+    numberReducer,
+    expandRecord
+});
