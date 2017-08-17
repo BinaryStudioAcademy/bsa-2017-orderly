@@ -1,4 +1,4 @@
-  $cell-width: 150px;
+$cell-width: 150px;
 $cell-height: 31px;
 $icon-opacity: 0.6;
 $cell-border: 1px solid #AAA;
@@ -57,6 +57,7 @@ $cell-padding: 5px;
   display: inline-block;
   width: 25px;
   min-width: 25px;
+  max-height: $cell-height;
   text-align: center;
 }
 
@@ -67,4 +68,5 @@ $cell-padding: 5px;
 .item__add-field {
   text-align: center;
   cursor: pointer;
+  max-height: $cell-height;
 }

@@ -53,7 +53,6 @@ function* addNewField(action) {
         const payload = {};
         payload.tableId = action.tableId;
         payload.table = yield call(addFieldsToTable, payload);
-        console.log(payload);
         yield put({type: 'ADD_FIELD_SUCCEEDED', payload});
     } catch (err) {
         yield put({type: 'ADD_FIELD_FAILED', message: err.message});
