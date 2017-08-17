@@ -46,7 +46,7 @@ router.put('/:id', function (req, res) {
 });
 
 router.put('/:id/tables/:tableId', (req, res) => {
-    baseRepository.addTable(req.params.id, req.params.tableId)
+    baseRepository.addTableToBase(req.params.id, req.params.tableId)
         .then((result) => res.status(result ? 200 : 400).send(result))
         .catch((err) => res.status(500).send(err));
 });

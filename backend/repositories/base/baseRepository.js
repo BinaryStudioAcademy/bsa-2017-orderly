@@ -8,7 +8,7 @@ class BaseRepository extends Repository {
         this.model = Base;
     }
 
-    addTable(baseId, tableId) {
+    addTableToBase(baseId, tableId) {
         return this.model.findByIdAndUpdate(
             baseId,
             {'$push': {tables: tableId}},
