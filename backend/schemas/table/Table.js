@@ -5,10 +5,12 @@ const Schema = mongoose.Schema;
 const tableSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+	    default: 'new table'
     },
     description: {
-        type: String
+        type: String,
+	    default: 'This is default table'
     },
     records: [{
 	    record_data: [{
