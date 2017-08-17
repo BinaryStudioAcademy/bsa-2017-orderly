@@ -1,9 +1,11 @@
 $cell-width: 150px;
+$cell-height: 31px;
 $icon-opacity: 0.6;
 $cell-border: 1px solid #AAA;
 $cell-padding: 5px;
 
 .grid__content {
+  display: flex;
 }
 
 .content__header {
@@ -11,7 +13,7 @@ $cell-padding: 5px;
   flex-direction: row;
 }
 
-.header__item {
+.content__field {
   display: inline-block;
   border: $cell-border;
   padding: $cell-padding;
@@ -20,32 +22,34 @@ $cell-padding: 5px;
   min-width: $cell-width;
 }
 
-.item__icon {
+.field__icon {
   opacity: $icon-opacity!important;
 }
 
 .content__body {
   display: flex;
-  flex-direction: column;
-}
-
-.body__row {
-  display: flex;
   flex-direction: row;
 }
 
-.body__item {
+.field__items {
+  display: flex;
+  flex-direction: column;
+}
+
+.field__item {
   display: inline-block;
   border: $cell-border;
   padding: $cell-padding;
   margin: 0;
   width: $cell-width;
   min-width: $cell-width;
+  min-height: $cell-height;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .item__row-selector {
+  display: inline-block;
   width: 25px;
   min-width: 25px;
   text-align: center;

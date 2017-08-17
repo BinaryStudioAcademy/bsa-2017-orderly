@@ -5,7 +5,7 @@ export const formatFieldsRecords = (fields, records) => {
         for (const record of records) {
             fieldRecords.push(record.record_data[ind]);
         }
-        combined.push({[field.name]: fieldRecords});
+        combined.push({_id: field._id, name: field.name, records: fieldRecords});
     }
     return combined;
 };

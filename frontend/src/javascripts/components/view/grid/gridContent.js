@@ -1,13 +1,28 @@
 import React, {Component} from 'react';
 import './gridContent.scss';
 import {Icon} from 'semantic-ui-react';
-import {GridCell} from './gridCell';
+
+
+const Record = ({type, data}) => {
+    return (
+        <div className="field__item">
+            <span>{data}</span>
+        </div>
+    );
+};
 
 const Field = ({type, name, records}) => {
     return (
-        <div className="header__item">
-            <Icon name="font" className="item__icon"/>
-            <span>{name}</span>
+        <div className="field__items">
+            <div className="content__field">
+                <Icon name="font" className="field__icon"/>
+                <span>{name}</span>
+            </div>
+            <div className="field__items">
+                {records && records.map((record) => {
+                    return <Record key={record._id} type='text' data={record.data}/>
+                })}
+            </div>
         </div>
     );
 };
@@ -25,32 +40,19 @@ export default class GridContent extends Component {
     render() {
         return (
             <div className="grid__content">
-                <div className="content__header">
-                    <div className="header__item item__row-selector">
-                        <input type="checkbox"/>
-                    </div>
-                    {this.props.currentTable &&
-                    this.props.currentTable.fields.map((field) => {
-                        return <Field key={field._id} name={field.name}/>
-                    })}
-                    <div className="header__item item__add-field" onClick={this.handleAddField}>
-                        <Icon name="plus" className="item__icon"/>
-                    </div>
+                <div className="content__field item__row-selector">
+                    <input type="checkbox"/>
                 </div>
                 <div className="content__body">
-                    {this.props.currentTable &&
-                    this.props.currentTable.records.map((row, ind) => {
-                        return (
-                            <div key={row._id} className="body__row">
-                                <div className="body__item item__row-selector">{ind+1}</div>
-                                {row.record_data.map((data) => {
-                                    return <GridCell key={data._id} type='text' data={data.data}/>
-                                })}
-                            </div>
-                        )
+                    {this.props.fieldsRecords &&
+                    this.props.fieldsRecords.map((field) => {
+                        return <Field key={field._id} name={field.name} records={field.records}/>
                     })}
+                </div>
+                <div className="content__field item__add-field" onClick={this.handleAddField}>
+                    <Icon name="plus" className="field__icon"/>
                 </div>
             </div>
         );
     }
-}
+};

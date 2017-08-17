@@ -78,6 +78,12 @@ router.post('/:id/records', (request, response, next) => {
         });
 });
 
+router.put('/:id/records', (request, response) => {
+    tableRepository.updateRecords(request.params.id, request.body)
+        .then((result) => response.status(200).send(result))
+        .catch((err) => response.status(500).send(err));
+});
+
 router.delete('/:id/records/:recordId', (request, response) => {
     tableRepository.pullRecord(request.params.id, request.params.recordId)
         .then((result) => response.send(result))

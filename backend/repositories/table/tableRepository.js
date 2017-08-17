@@ -43,7 +43,17 @@ class TableRepository extends Repository {
             {'$pull': {records: {_id: recordId}}}
         );
     }
-    
+
+    updateRecords(tableId, data) {
+        return this.model.findById(tableId)
+            .then((table) => {
+                for (let record of table.records) {
+                    record.record_data.push(data);
+                }
+                return table.save();
+            });
+    }
+
     getFields(tableId) {
         return this.model.findById(tableId).select('fields');
     }
