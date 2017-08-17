@@ -46,11 +46,11 @@
   text-align: right;
 }
 #user-info
-  a {
-    color: black !important;
-}
-#user-info
   a:hover {
     border-bottom: 0 !important;
     color: blue !important;
 }
+.user-profile-form
+  .ui.form input[type=date] {
+    color: #9E9E9E !important;
+  }
