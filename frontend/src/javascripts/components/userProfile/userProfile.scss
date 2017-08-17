@@ -19,3 +19,27 @@
     }
   }
 }
+#user-info 
+  .user-profile-logout-wrapper {
+    padding-left: 30px;
+  }
+.user-profile-wrapper {
+  text-align: center;
+  // border: 1px solid gray;
+  margin-top: 150px;
+  padding-left: 50px;
+  box-sizing: border-box;
+  display: flex;
+}
+.user-profile-photo-wrapper{
+  text-align: center;
+}
+.user-profile-change-photo-button {
+  margin-top: 10px;
+  
+}
+.user-profile-info {
+  width: 700px;
+  margin-left: 10px;
+  // border:1px solid yellow;
+}

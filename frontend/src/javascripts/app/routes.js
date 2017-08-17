@@ -5,7 +5,7 @@ import {browserHistory} from 'react-router';
 
 import App from './App';
 import StartPage from '../components/StartPage';
-import UserProfile from '../components/userProfile/userProfile';
+import UserProfilePage from '../components/userProfile/userProfilePage';
 import NotFound from '../components/notFound/notFound';
 import Dashboard from '../components/dashboard/dashboard';
 import SignUp from '../components/auth/signUp/signUp';
@@ -15,7 +15,7 @@ import Auth from '../components/auth/auth';
 
 export default (
     <Route path="/" component={App}>
-        <Route path='user-page' component={UserProfile} />
+        <Route path='user-page' component={UserProfilePage} />
         <IndexRoute component={StartPage}/>
         <Route path='/dashboard/:baseId/:tableId' components={Dashboard}/>
         <Route path="/signup" component={SignUp}/>
