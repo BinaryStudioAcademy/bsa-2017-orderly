@@ -12,15 +12,23 @@ import SignUp from '../components/auth/signUp/signUp';
 import Login from '../components/auth/login/login';
 import Logout from '../components/auth/logout/logout';
 import Auth from '../components/auth/auth';
+import GenerateTable from '../components/dashboard/dashboardGenerateTable';
+import LongTextContainer from '../components/view/grid/fields/longText/longTextContainer';
+import TextLineContainer from '../components/view/grid/fields/textLine/textLineContainer';
+import NumberContainer from '../components/view/grid/fields/number/numberContainer';
 
 export default (
     <Route path="/" component={App}>
         <Route path='user-page' component={UserProfile} />
         <IndexRoute component={StartPage}/>
+        <Route path='/dashboard/:baseId' components={GenerateTable}/>
         <Route path='/dashboard/:baseId/:tableId' components={Dashboard}/>
         <Route path="/signup" component={SignUp}/>
         <Route path="/login" component={Login}/>
         <Route path="/logout" component={Logout}/>
+        <Route path="/textline" component={TextLineContainer}/>
+        <Route path="/longtext" component={LongTextContainer}/>
+        <Route path="/number" component={NumberContainer}/>
         <Route path="404" component={NotFound}/>
         <Redirect from="*" to="404"/>
     </Route>
