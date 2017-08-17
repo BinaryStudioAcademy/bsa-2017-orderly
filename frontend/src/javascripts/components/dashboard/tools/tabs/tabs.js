@@ -8,13 +8,14 @@ import './tabs.scss';
 
 const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
     addTableClick, switchTableClick, togglePopup, openMenu, closeMenu,
-    activeModal, setTabsModal, checkTableName}) => (
+    activeModal, setTabsModal, checkTableName, updateTable}) => (
     <div className='tabs_panel'>
         <div className='btn_block'>
             <div className='tabs_block'>
                 { R.map( (table) => {
                     if (table._id !== 0 ) return TabItem(base, currentTableId, table, switchTableClick, openMenu,
-                                        closeMenu, activeModal, setTabsModal, tables, renameIsError, checkTableName);
+                                        closeMenu, activeModal, setTabsModal, tables, renameIsError, checkTableName,
+                                        updateTable);
                 } )(tables) }
             </div>
             <div className='add_btn'>

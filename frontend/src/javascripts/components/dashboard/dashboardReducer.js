@@ -114,6 +114,18 @@ function dashboardReducer(state = initState, action) {
             }
         ]);
     }
+
+    case 'RENAME_TABLE_SUCCEEDED': {
+		return R.mergeAll([
+			R.dissoc('tables', state),
+			{
+				tables: R.map((table) => {
+					if (table._id === action.changedTable._id) return action.changedTable;
+					return table;
+				})(state.tables)
+			}
+		]);
+    };
         
     default:
         return state;

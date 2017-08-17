@@ -51,6 +51,14 @@ const setTabsModal = (activeModal) => {
 	}
 }
 
+const updateTable = (newData, tableId) => {
+	return {
+		type: 'UPDATE_TABLE',
+		newData,
+		tableId
+	}
+}
+
 const checkTableName = (renameIsError) => {
 	return {
 		type: 'CHECK_TABLE_NAME',
@@ -69,5 +77,6 @@ export {
     closeMenu,
 	setTabsModal,
 	checkTableName,
-    addTableToBaseById
+    addTableToBaseById,
+	updateTable
 };

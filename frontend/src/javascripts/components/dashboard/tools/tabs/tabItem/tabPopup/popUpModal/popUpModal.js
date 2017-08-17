@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button, Input } from 'semantic-ui-react';
 import R from 'ramda';
 
-import { debounce } from '../../../../../dashboardService';
+import { debounce, setName } from '../../../../../dashboardService';
 
 let renameInput;
 
@@ -11,13 +11,14 @@ const checkValidName = debounce((value, tablesNames, checkRenameFunc) => {
     else checkRenameFunc(false);
 }, 150);
 
-const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsError, checkTableName}) => (
+const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsError,
+                    checkTableName, updateTable}) => (
 	<Modal size='mini'
 		   dimmer={false}
 		   onClose={() => { setTabsModal(''); }}
 		   open={Boolean(activeModal)}>
 		<Modal.Header>
-			Rename table
+			{setName(activeModal)}
 		</Modal.Header>
 		<Modal.Content>
 			<Input error={renameIsError} fluid
@@ -33,7 +34,16 @@ const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsErro
             }}>
 				No
 			</Button>
-			<Button positive icon='checkmark' labelPosition='right' content='Yes' />
+			<Button positive
+			        icon='checkmark'
+			        labelPosition='right'
+			        content='Yes'
+					onClick={() => {
+						if (!renameIsError) {
+							updateTable({name: renameInput},  table._id)
+							setTabsModal('')
+						}
+					}}/>
 		</Modal.Actions>
 	</Modal>
 );

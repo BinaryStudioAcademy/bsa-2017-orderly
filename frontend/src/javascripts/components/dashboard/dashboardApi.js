@@ -22,9 +22,15 @@ const updateBaseByNewTable = (payload) =>
         .then((response) => response.data)
         .catch(R.tap(console.error));
 
+const updateTable = ({ _id, body }) =>
+	axios.put(url + '/tables/' + _id, body)
+		.then((response) => response.data)
+		.catch(R.tap(console.error))
+
 export {
     getBase,
     getTablesByIds,
     addTable,
-    updateBaseByNewTable
+    updateBaseByNewTable,
+	updateTable
 };

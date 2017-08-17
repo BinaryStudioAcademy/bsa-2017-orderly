@@ -7,7 +7,8 @@ import './tabItem.scss';
 let currentTable;
 
 const TabItem = (base, currentTableId, table, switchTableClick, openMenu,
-                 closeMenu, activeModal, setTabsModal, tables, renameIsError, checkTableName, ) => (
+                 closeMenu, activeModal, setTabsModal, tables, renameIsError, checkTableName,
+                updateTable) => (
     <div className='tab_btn' key={table._id}>
         <Link to={`/dashboard/${base._id}/${table._id}`}>
             <Button inverted
@@ -30,6 +31,7 @@ const TabItem = (base, currentTableId, table, switchTableClick, openMenu,
                   tables={tables}
                   renameIsError={renameIsError}
                   checkTableName={checkTableName}
+                  updateTable={updateTable}
                   table={currentTable ? currentTable : table}/>
     </div>
 

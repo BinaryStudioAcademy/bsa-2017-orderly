@@ -1,7 +1,7 @@
 import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
-	setActive, togglePopup, openMenu, setTabsModal } from './dashboardActions';
+	setActive, togglePopup, openMenu, setTabsModal, updateTable } from './dashboardActions';
 
 const mapStateToProps = (state, ownProps) => {
     console.log(ownProps, 'ownProps')
@@ -25,7 +25,8 @@ const mapDispatchToProps = {
 	openMenu: openMenu,
 	closeMenu: closeMenu,
 	setTabsModal: setTabsModal,
-	checkTableName: checkTableName
+	checkTableName: checkTableName,
+	updateTable: updateTable
 
 };
 

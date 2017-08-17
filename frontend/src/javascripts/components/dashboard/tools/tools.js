@@ -34,6 +34,7 @@ class Tools extends Component {
 		              togglePopup={this.props.togglePopup}
 		              renameIsError={this.props.renameIsError}
 		              checkTableName={this.props.checkTableName}
+		              updateTable={this.props.updateTable}
 		              addTableClick={this.props.addTableClick}/>
                 <Menu/>
                 <Workflow currentTableId={this.props.currentTableId}/>
