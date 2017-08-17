@@ -8,17 +8,7 @@ const defaultTable = {
 			]
 		}
 	],
-	fields: [
-		{
-			name: 'new field'
-		},
-		{
-			type: 'text'
-		},
-		{
-			description: 'field'
-		}
-	],
+	fields: [],
 	views: []
 };
 

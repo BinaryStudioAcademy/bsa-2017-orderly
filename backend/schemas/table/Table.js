@@ -42,14 +42,15 @@ const tableSchema = new Schema({
     fields: [{
         name: {
             type: String,
-            require: true
+            default: 'new field'
         },
         type: {
             type: String,
             require: true
         },
         description: {
-            type: String
+            type: String,
+            default: 'description'
         }
     }],
     views: [{
