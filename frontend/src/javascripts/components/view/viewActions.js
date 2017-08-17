@@ -17,13 +17,6 @@ export function changeView(viewId) {
     };
 }
 
-export function getFields(fields) {
-    return {
-        type: GET_FIELDS,
-        fields
-    };
-}
-
 export function addField(tableId) {
     return {
         type: ADD_FIELD,

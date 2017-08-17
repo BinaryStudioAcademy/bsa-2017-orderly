@@ -1,4 +1,4 @@
-import {CHANGE_VIEW, TOGGLE_SELECTOR, GET_FIELDS, ADD_FIELD_SUCCEED} from "./viewActions";
+import {CHANGE_VIEW, TOGGLE_SELECTOR, GET_FIELDS} from "./viewActions";
 
 const MOCK_VIEWS = [
     {id: 1, type: 'grid', name: 'Grid view'},
@@ -9,8 +9,6 @@ const MOCK_VIEWS = [
 const initialState = {
     currentView: 1,
     showSelector: false,
-    records: [],
-    fields: [],
     views: MOCK_VIEWS,
 };
 
@@ -25,9 +23,6 @@ export default function viewReducer(state = initialState, action) {
     case GET_FIELDS: {
         return {...state, fields: action.fields};
     }
-    // case ADD_FIELD_SUCCEED: {
-    //     return {...state, fields: action.fields};
-    // }
     default:
         return state;
     }

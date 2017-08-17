@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import './gridContent.scss';
+import {connect} from 'react-redux';
+import {bindActionCreators} from "redux";
 import {Icon} from 'semantic-ui-react';
+import * as gridActions from './gridActions';
+import './gridContent.scss';
 
 const Field = ({type, name, records}) => {
     return (
@@ -27,7 +30,7 @@ const Record = ({type, data}) => {
     );
 };
 
-export default class GridContent extends Component {
+class GridContent extends Component {
     constructor(props) {
         super(props);
         this.props = props;
@@ -55,4 +58,16 @@ export default class GridContent extends Component {
             </div>
         );
     }
-};
+}
+
+function mapStateToProps(state) {
+    return {
+        gridReducer: state.gridReducer
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(gridActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GridContent);
