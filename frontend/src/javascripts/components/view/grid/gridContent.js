@@ -8,13 +8,13 @@ import TextLine from './fields/textLine/textLine';
 import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
 
-const Field = ({type, name, records, fieldEvents, changeType}) => {
+const Field = ({type, name, records, fieldEvents, showFieldMenu}) => {
     return (
         <div className="field__items">
             <div className="content__field">
                 <Icon name="font" className="field__icon"/>
                 <span>{name}</span>
-                <Icon name="ellipsis vertical" className="field__change-type" onClick={changeType}/>
+                <Icon name="ellipsis vertical" className="field__change-type" onClick={showFieldMenu}/>
             </div>
             <div className="field__items">
                 {records.map((record) => {
@@ -111,7 +111,7 @@ class GridContent extends Component {
                                 type={field.type}
                                 records={field.records}
                                 fieldEvents={this.props.fieldEvents}
-                                changeType={this.props.changeType}
+                                showFieldMenu={this.props.showFieldMenu}
                             />
                         })}
                     </div>

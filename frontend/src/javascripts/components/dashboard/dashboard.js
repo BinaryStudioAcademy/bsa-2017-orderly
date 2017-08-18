@@ -2,7 +2,7 @@ import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, deleteTable,
-    selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent } from './dashboardActions';
+    selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent, changeFieldType } from './dashboardActions';
 import { addField } from '../view/viewActions';
 
 const mapStateToProps = (state, ownProps) => {
@@ -37,7 +37,8 @@ const mapDispatchToProps = {
     activateRecord: activateRecord,
     changeRecord: changeRecord,
     blurRecord: blurRecord,
-    blurRecordComponent: blurRecordComponent
+    blurRecordComponent: blurRecordComponent,
+    changeFieldType: changeFieldType,
 };
 
 const Dashboard = connect(
