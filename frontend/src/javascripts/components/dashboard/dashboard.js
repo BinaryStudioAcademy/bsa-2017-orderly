@@ -1,7 +1,7 @@
 import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
-    setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord,
+    setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, deleteTable,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent } from './dashboardActions';
 import { addField } from '../view/viewActions';
 
@@ -30,6 +30,7 @@ const mapDispatchToProps = {
     setTabsModal: setTabsModal,
     checkTableName: checkTableName,
     updateTable: updateTable,
+	deleteTable: deleteTable,
     addField: addField,
     addRecord: addRecord,
     selectRecord: selectRecord,
