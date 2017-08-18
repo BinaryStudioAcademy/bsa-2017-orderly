@@ -115,6 +115,14 @@ const blurRecordComponent = (recordId) => {
     };
 }
 
+const changeFieldType = (fieldId, records) => {
+    return {
+        type: 'CHANGE_FIELD_TYPE',
+        fieldId: fieldId,
+        records: records
+    };
+};
+
 export {
     getBaseById,
     getTables,
@@ -134,5 +142,6 @@ export {
     changeRecord,
     blurRecord,
     blurRecordComponent,
-    deleteTable
+    deleteTable,
+    changeFieldType
 };

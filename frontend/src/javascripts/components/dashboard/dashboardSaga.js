@@ -1,4 +1,3 @@
-import {call, put, takeEvery, select} from 'redux-saga/effects';
 import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable,

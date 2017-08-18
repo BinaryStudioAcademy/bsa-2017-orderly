@@ -8,13 +8,13 @@ import TextLine from './fields/textLine/textLine';
 import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
 
-const Field = ({type, name, records, fieldEvents}) => {
+const Field = ({type, name, records, fieldEvents, changeType}) => {
     return (
         <div className="field__items">
             <div className="content__field">
                 <Icon name="font" className="field__icon"/>
                 <span>{name}</span>
-                <Icon name="ellipsis vertical" className="field__change-type"/>
+                <Icon name="ellipsis vertical" className="field__change-type" onClick={changeType}/>
             </div>
             <div className="field__items">
                 {records.map((record) => {
@@ -102,17 +102,17 @@ class GridContent extends Component {
                     <div className="content__field item__row-selector">
                         <input type="checkbox"/>
                     </div>
-                    {this.props.fieldsRecords.map((field) => {
-                        {field.records.map((record, ind) => {
-                            return (<div className="content__field item__row-selector">
-                                <span className="item__row_num">{ind}1</span>
-                            </div>)
-                        })}
-                    })}
-                        <div className="content__body">
+                    <div className="content__body">
                         {this.props.fieldsRecords &&
                         this.props.fieldsRecords.map((field) => {
-                            return <Field key={field._id} name={field.name} type={field.type} records={field.records} fieldEvents={this.props.fieldEvents}/>
+                            return <Field
+                                key={field._id}
+                                name={field.name}
+                                type={field.type}
+                                records={field.records}
+                                fieldEvents={this.props.fieldEvents}
+                                changeType={this.props.changeType}
+                            />
                         })}
                     </div>
                     <div className="content__field item__add-field" onClick={this.handleAddField}>
@@ -138,3 +138,13 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GridContent);
+
+
+// {this.props.fieldsRecords &&
+// this.props.fieldsRecords.map((field, ind) => {
+//     return (
+//         <div className="content__field item__row-selector">
+//             <span className="item__row_num">{ind}</span>
+//         </div>
+//     )
+// })}

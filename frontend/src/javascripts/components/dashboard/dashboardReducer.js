@@ -218,6 +218,10 @@ function dashboardReducer(state = initState, action) {
             }]);
     }
 
+    case 'CHANGE_FIELD_TYPE': {
+        return {...state};
+    }
+
     default:
         return state;
     }
