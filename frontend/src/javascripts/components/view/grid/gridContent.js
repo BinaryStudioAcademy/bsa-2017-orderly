@@ -4,8 +4,11 @@ import {bindActionCreators} from "redux";
 import {Icon} from 'semantic-ui-react';
 import * as gridActions from './gridActions';
 import './gridContent.scss';
+import TextLine from './fields/textLine/textLine';
+import LongText from './fields/longText/longText';
+import Number from './fields/number/number';
 
-const Field = ({type, name, records}) => {
+const Field = ({type, name, records, fieldEvents}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -15,17 +18,63 @@ const Field = ({type, name, records}) => {
             </div>
             <div className="field__items">
                 {records.map((record) => {
-                    return <Record key={record._id} type='text' data={record.data}/>
+                    return <Record key={record._id} id={record._id} type={type} data={record.data} fieldEvents={fieldEvents}/>
                 })}
             </div>
         </div>
     );
 };
 
-const Record = ({type, data}) => {
+const Record = ({id, type, data, fieldEvents}) => {
+    let record = null;
+    switch (type) {
+        case 'longtext':
+            record = <LongText id={id}
+                               value={data}
+                               selected={fieldEvents.isRecordSelected(id)}
+                               active={fieldEvents.isRecordActive(id)}
+                               onSelect={fieldEvents.selectRecordHandler}
+                               onActivate={fieldEvents.activateRecordHandler}
+                               onKeyDown={fieldEvents.keyDownRecordHandler}
+                               onChange={fieldEvents.changeRecordHandler}
+                               onBlurField={fieldEvents.blurRecordHandler}
+                               onBlurComponent={fieldEvents.blurRecordComponentHandler}
+                               onExpand={fieldEvents.expandRecordHandler}
+            >
+            </LongText>;
+
+        case 'number':
+            record = <Number   id={id}
+                               value={data}
+                               selected={fieldEvents.isRecordSelected(id)}
+                               active={fieldEvents.isRecordActive(id)}
+                               onSelect={fieldEvents.selectRecordHandler}
+                               onActivate={fieldEvents.activateRecordHandler}
+                               onKeyDown={fieldEvents.keyDownNumberRecordHandler}
+                               onChange={fieldEvents.changeRecordHandler}
+                               onBlurField={fieldEvents.blurRecordHandler}
+                               onBlurComponent={fieldEvents.blurRecordComponentHandler}
+            >
+            </Number>;
+
+        default:
+            record = <TextLine id={id}
+                               value={data}
+                               selected={fieldEvents.isRecordSelected(id)}
+                               active={fieldEvents.isRecordActive(id)}
+                               onSelect={fieldEvents.selectRecordHandler}
+                               onActivate={fieldEvents.activateRecordHandler}
+                               onKeyDown={fieldEvents.keyDownTextRecordHandler}
+                               onChange={fieldEvents.changeRecordHandler}
+                               onBlurField={fieldEvents.blurRecordHandler}
+                               onBlurComponent={fieldEvents.blurRecordComponentHandler}
+            >
+            </TextLine>;
+    }
+
     return (
         <div className="field__item">
-            <span>{data}</span>
+            {record}
         </div>
     );
 };
@@ -54,7 +103,7 @@ class GridContent extends Component {
                     <div className="content__body">
                         {this.props.fieldsRecords &&
                         this.props.fieldsRecords.map((field) => {
-                            return <Field key={field._id} name={field.name} records={field.records}/>
+                            return <Field key={field._id} name={field.name} type={field.type} records={field.records} fieldEvents={this.props.fieldEvents}/>
                         })}
                     </div>
                     <div className="content__field item__add-field" onClick={this.handleAddField}>

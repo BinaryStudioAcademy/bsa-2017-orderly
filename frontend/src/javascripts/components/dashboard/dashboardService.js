@@ -5,7 +5,7 @@ const formatFieldsRecords = (fields, records) => {
         for (const record of records) {
             fieldRecords.push(record.record_data[ind]);
         }
-        combined.push({_id: field._id, name: field.name, records: fieldRecords});
+        combined.push({_id: field._id, name: field.name, type: field.type, records: fieldRecords});
     }
     return combined;
 };

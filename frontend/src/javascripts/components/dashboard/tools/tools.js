@@ -7,11 +7,84 @@ import {formatFieldsRecords} from "../dashboardService";
 class Tools extends Component {
     constructor(props) {
         super(props);
-        this.props = props
+        this.props = props;
+
+        this.isRecordSelected = this.isRecordSelected.bind(this);
+        this.isRecordActive = this.isRecordActive.bind(this);
+        this.selectRecordHandler = this.selectRecordHandler.bind(this);
+        this.activateRecordHandler = this.activateRecordHandler.bind(this);
+        this.keyDownRecordHandler = this.keyDownRecordHandler.bind(this);
+        this.keyDownTextRecordHandler = this.keyDownTextRecordHandler.bind(this);
+        this.keyDownNumberRecordHandler = this.keyDownNumberRecordHandler.bind(this);
+        this.changeRecordHandler = this.changeRecordHandler.bind(this);
+        this.blurRecordHandler = this.blurRecordHandler.bind(this);
+        this.blurRecordComponentHandler = this.blurRecordComponentHandler.bind(this);
+        this.expandRecordHandler = this.expandRecordHandler.bind(this);
     }
 
     componentWillMount() {
         this.props.getBaseCurrent(this.props.baseId, this.props.currentTableId);
+    }
+
+    isRecordSelected(id) {
+        return this.props.selectedRecordId == id;
+    }
+
+    isRecordActive(id) {
+        return this.props.activeRecordId == id;
+    }
+
+    selectRecordHandler(id) {
+        this.props.selectRecord(id);
+    }
+
+    activateRecordHandler(id) {
+        this.props.activateRecord(id);
+    }
+
+    keyDownRecordHandler(id, e) {
+        if (!this.isRecordActive(id)) {
+            this.changeRecordHandler(id, '');
+            this.props.activateRecord(id);
+        }
+    }
+
+    keyDownTextRecordHandler(id, e) {
+        this.keyDownRecordHandler(id, e);
+        if (this.isRecordActive(id)) {
+            if (e.keyCode === 13) {
+                this.blurRecordComponentHandler(id);
+            }
+        }
+    }
+
+    keyDownNumberRecordHandler(id, e) {
+        this.keyDownRecordHandler(id, e);
+        if (this.isRecordActive(id)) {
+            if (e.keyCode === 13) {
+                this.blurRecordComponentHandler(id);
+            }
+        }
+    }
+
+    changeRecordHandler(id, value) {
+        this.props.changeRecord(this.props.currentTableId, id, value);
+    }
+
+    blurRecordHandler(id) {
+        this.props.blurRecord(id);
+    }
+
+    blurRecordComponentHandler(id) {
+        /*if (!this.props.records[id].typeInteger) {
+            let n =+ this.props.records[id].data;
+            this.changeRecordHandler(id, n.toFixed(this.props.records[id].precisionValue));
+        }*/
+        this.props.blurRecordComponent(id);
+    }
+
+    expandRecordHandler(id) {
+        //this.props.expandRecord(id);
     }
 
     render() {
@@ -20,6 +93,20 @@ class Tools extends Component {
         if (currentTable) {
             fieldsRecords = formatFieldsRecords(currentTable.fields, currentTable.records);
         }
+        const fieldEvents = {
+            isRecordSelected: this.isRecordSelected,
+            isRecordActive: this.isRecordActive,
+            selectRecordHandler: this.selectRecordHandler,
+            activateRecordHandler: this.activateRecordHandler,
+            keyDownRecordHandler: this.keyDownRecordHandler,
+            keyDownTextRecordHandler: this.keyDownTextRecordHandler,
+            keyDownNumberRecordHandler: this.keyDownNumberRecordHandler,
+            changeRecordHandler: this.changeRecordHandler,
+            blurRecordHandler: this.blurRecordHandler,
+            blurRecordComponentHandler: this.blurRecordComponentHandler,
+            expandRecordHandler: this.expandRecordHandler
+        }
+
         return (
             <div onClick={() => {
                 this.props.closeMenu();
@@ -39,7 +126,7 @@ class Tools extends Component {
                       checkTableName={this.props.checkTableName}
                       updateTable={this.props.updateTable}
                       addTableClick={this.props.addTableClick}/>
-                <View currentTable={currentTable} fieldsRecords={fieldsRecords}/>
+                <View currentTable={currentTable} fieldsRecords={fieldsRecords} fieldEvents={fieldEvents}/>
             </div>
         );
     }

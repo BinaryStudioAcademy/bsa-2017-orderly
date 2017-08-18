@@ -1,4 +1,4 @@
-.text-line {
+.number {
   .ui.input {
     height: 100%;
 
@@ -12,11 +12,11 @@
   }
 }
 
-.text-line.selected {
+.number.selected {
   line-height: 14px;
 }
 
-.text-line {
+.number {
   .table-cell-wrap {
     .table-cell-inner {
       overflow: hidden;
