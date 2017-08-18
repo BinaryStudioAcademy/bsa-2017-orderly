@@ -16,18 +16,6 @@ class UserProfile extends Component {
     componentWillMount(){
         this.props.getCurrentUser();
     }
-
-    getUserName(){
-        console.log('Get user name action called!');
-        this.props.getUserName({ userId: 1 });
-    }
-
-    // changeUserNameColor(e){
-    //     console.log('Get user name color action called!');
-    //     this.props.changeUserNameColor({ color: e.target.value});	
-
-    // }
-
     render() {
         return (
             <div id="user-info">

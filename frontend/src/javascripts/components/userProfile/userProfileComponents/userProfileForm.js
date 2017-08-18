@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import { Button } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import { changeUserData } from '../userProfileActions';
@@ -83,13 +83,13 @@ class UserProfileForm extends Component {
 }
 
 function mapStateToProps(state) {
-    return {
-        userProfile: state.userProfile,
-    };
+  return {
+    userProfile: state.userProfile,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, changeUserData),  dispatch);
+  return bindActionCreators(Object.assign({}, changeUserData),  dispatch);
 }
 
 export default connect(mapStateToProps, null)(UserProfileForm);

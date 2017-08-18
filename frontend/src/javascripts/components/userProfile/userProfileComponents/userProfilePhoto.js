@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Image, Button } from 'semantic-ui-react';
-// import { FileUpload } from 'redux-file-upload'
 import avatar from '../../../../images/avatar.png';
 
 class UserProfilePhoto extends Component {
@@ -25,10 +24,3 @@ class UserProfilePhoto extends Component {
 }
 
 export default UserProfilePhoto
-// <FileUpload
-//   allowedFileTypes={['jpg', 'pdf']}
-//   data={{ type: 'picture' }}
-//   dropzoneId="fileUpload"
-//   url="https:/url.org/api/docs/upload"
-// >
-// </FileUpload>

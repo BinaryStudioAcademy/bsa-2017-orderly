@@ -6,23 +6,7 @@ let initialState = {
 
 export default function userProfile(state = initialState, action) {
     switch (action.type) {
-    case "CHANGE_USER_PROFILE_DATA_SUCCESS":
-        console.log(action.user);
-
-
-        // const data = {
-        //     email: state.user.email,
-        //     _id: state.user._id,
-        //     firstName: action.updateData.firstName || state.user.firstName,
-        //     lastName: action.updateData.lastName || state.user.lastName,
-        //     gender: action.updateData.gender || state.user.gender,
-        //     birthday: action.updateData.birthday || state.user.birthday,
-        //     country: action.updateData.country || state.user.country,
-        //     city: action.updateData.city || state.user.city,
-        //     address: action.updateData.address || state.user.address,
-        //     phone: action.updateData.phone || state.user.phone
-        // };
-      
+    case "CHANGE_USER_PROFILE_DATA_SUCCESS":      
       return Object.assign(
         {}, 
         state, 
