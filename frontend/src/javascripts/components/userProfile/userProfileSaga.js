@@ -13,9 +13,9 @@ function* getCurrentUser(action) {
 }
 
 function* updateUser(action) {
-        let userNew =  yield call(userApi.updateUserById, action._id, action.updateData);
     try {
-        yield put({ type: "CHANGE_USER_PROFILE_DATA_SUCCESS", userNew});
+        let userNew =  yield call(userApi.updateUserById, action._id, action.updateData);
+        yield put({ type: "CHANGE_USER_PROFILE_DATA_SUCCESS", user: userNew});
     } catch (err) {
         console.log(e);
         yield put({ type: "CHANGE_USER_PROFILE_DATA_FAILED", message: e.message});

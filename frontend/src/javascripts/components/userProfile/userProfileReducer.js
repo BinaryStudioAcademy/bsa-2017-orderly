@@ -6,8 +6,9 @@ let initialState = {
 
 export default function userProfile(state = initialState, action) {
     switch (action.type) {
-    case "CHANGE_USER_PROFILE_DATA_SUCCESS":        
+    case "CHANGE_USER_PROFILE_DATA_SUCCESS":
         console.log(action.user);
+
 
         // const data = {
         //     email: state.user.email,
