@@ -1,24 +1,19 @@
 .table-cell-container{
   position: relative;
-  //display: flex;
-  //flex-direction: column;
 }
 
 .table-cell {
-  width: 150px;
+  width: 148px;
   height: 31px;
-  //float: left;
-  //display: inline-block;
-  //position: absolute;
-  //top: 0;
-  //left: 0;
-  //right: 0;
-  //bottom: 0;
 }
 
-.table-cell.selected {
+.table-cell.selected,
+.table-cell.active {
   border: 2px solid #6495ed;
   border-radius: 1px;
+  position: absolute;
+  background-color: #fff;
+  z-index: 1;
 }
 
 .table-cell .table-cell-wrap {
