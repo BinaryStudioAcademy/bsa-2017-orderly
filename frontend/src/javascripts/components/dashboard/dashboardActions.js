@@ -45,26 +45,33 @@ const addTableToBaseById = (baseId) => {
 }
 
 const setTabsModal = (activeModal) => {
-	return {
-		type: 'SET_TABS_MODAL',
-		activeModal: activeModal
-	}
+    return {
+        type: 'SET_TABS_MODAL',
+        activeModal: activeModal
+    }
 }
 
 const updateTable = (newData, tableId) => {
-	return {
-		type: 'UPDATE_TABLE',
-		newData,
-		tableId
-	}
+    return {
+        type: 'UPDATE_TABLE',
+        newData,
+        tableId
+    }
 }
 
 const checkTableName = (renameIsError) => {
-	return {
-		type: 'CHECK_TABLE_NAME',
-		renameIsError: renameIsError
-	}
+    return {
+        type: 'CHECK_TABLE_NAME',
+        renameIsError: renameIsError
+    }
 }
+
+const addRecord = (tableId) => {
+    return {
+        type: 'ADD_RECORD',
+        tableId
+    };
+};
 
 const selectRecord = (recordId) => {
     return {
@@ -112,10 +119,11 @@ export {
     togglePopup,
     openMenu,
     closeMenu,
-	setTabsModal,
-	checkTableName,
+    setTabsModal,
+    checkTableName,
     addTableToBaseById,
-	updateTable,
+    updateTable,
+    addRecord,
     selectRecord,
     activateRecord,
     changeRecord,

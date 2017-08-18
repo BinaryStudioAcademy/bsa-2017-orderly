@@ -70,3 +70,8 @@ $cell-padding: 0px;
   cursor: pointer;
   max-height: $cell-height;
 }
+
+.item__add-record {
+  min-width: 26px!important;
+  width: 26px;
+}

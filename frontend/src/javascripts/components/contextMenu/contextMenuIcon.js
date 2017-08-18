@@ -30,7 +30,7 @@ class ContextMenuIcon extends React.Component {
   }
   
   handleOutsideClick(e) {
-    if ( event.target.closest(".menu-show-2") == null) {  
+    if ( event.target.closest(".menu-show-2") === null) {
       if (this.node.contains(e.target)) {
         return;
       }
@@ -48,7 +48,7 @@ render() {
           />
         </div>
         </div>
-        <div className ={this.props.menu ==this.props.baseId && this.state.menuVisible? "menu-show-2" : "none"}>
+        <div className ={this.props.menu === this.props.baseId && this.state.menuVisible? "menu-show-2" : "none"}>
           <ContextMenu 
             handleClick = {this.props.handleClick} 
             baseId = {this.props.baseId} 

@@ -41,11 +41,18 @@ const addFieldsToTable = ({tableId}) => {
         .catch(R.tap(console.error));
 };
 
+const addRecord = ({tableId}) => {
+    return axios.put(url + '/tables/' + tableId + '/fields/', {data: ''})
+        .then((response) => response.data)
+        .catch(R.tap(console.error));
+};
+
 export {
     getBase,
     getTablesByIds,
     addTable,
     updateBaseByNewTable,
 	updateTable,
-    addFieldsToTable
+    addFieldsToTable,
+    addRecord
 };

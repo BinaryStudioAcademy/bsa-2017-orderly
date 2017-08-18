@@ -29,6 +29,7 @@ class View extends Component {
                 currentTable={this.props.currentTable}
                 fieldsRecords={this.props.fieldsRecords}
                 onAddField={this.props.addField}
+                onAddRecord={this.props.addRecord}
                 fieldEvents={this.props.fieldEvents}
             />;
         default:
