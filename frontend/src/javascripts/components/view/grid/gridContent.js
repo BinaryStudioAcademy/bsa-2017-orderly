@@ -42,6 +42,7 @@ const Record = ({id, type, data, fieldEvents}) => {
                                onExpand={fieldEvents.expandRecordHandler}
             >
             </LongText>;
+            break;
 
         case 'number':
             record = <Number   id={id}
@@ -56,6 +57,7 @@ const Record = ({id, type, data, fieldEvents}) => {
                                onBlurComponent={fieldEvents.blurRecordComponentHandler}
             >
             </Number>;
+            break;
 
         default:
             record = <TextLine id={id}
