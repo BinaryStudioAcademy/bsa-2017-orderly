@@ -33,7 +33,7 @@ class UserProfileForm extends Component {
           <div className='form-block'>
             <div className='form-input-block'>
               <label>First name</label>
-              <input className='user-profile-form-input' ref='firstName' placeholder='First name' />
+              <input className='user-profile-form-input' ref='firstName' placeholder='First name'/>
             </div>
             <div className='form-input-block'>
               <label>Last name</label>
