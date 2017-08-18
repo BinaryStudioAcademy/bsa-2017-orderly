@@ -9,8 +9,8 @@ const getTables = () => ({
 });
 
 const deleteTable = (tableId) => ({
-	type: 'DELETE_TABLE',
-	tableId: tableId
+    type: 'DELETE_TABLE',
+    tableId: tableId
 });
 
 const togglePopup = () => ({
@@ -134,5 +134,5 @@ export {
     changeRecord,
     blurRecord,
     blurRecordComponent,
-	deleteTable
+    deleteTable
 };

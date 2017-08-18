@@ -1,7 +1,7 @@
 $cell-width: 150px;
 $cell-height: 31px;
 $icon-opacity: 0.6;
-$cell-border: 1px solid #AAA;
+$cell-border: 0.5px solid #AAA;
 $cell-padding: 0px;
 
 .grid__content {
@@ -16,10 +16,11 @@ $cell-padding: 0px;
 .content__field {
   display: inline-block;
   border: $cell-border;
-  padding: $cell-padding;
+  padding: 5px;
   margin: 0;
   width: $cell-width;
   min-width: $cell-width;
+  min-height: $cell-height;
 }
 
 .field__icon {
@@ -72,6 +73,8 @@ $cell-padding: 0px;
 }
 
 .item__add-record {
-  min-width: 26px!important;
-  width: 26px;
+  min-width: 150px!important;
+  width: 150px;
+  margin-left: 25px;
+  text-align: center;
 }

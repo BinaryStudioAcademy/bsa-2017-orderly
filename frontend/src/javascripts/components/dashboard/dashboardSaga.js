@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects';
+import {call, put, takeEvery, select} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable,
     updateBaseByNewTable, addRecord, updateTable, deleteTable
@@ -74,14 +74,14 @@ function* changeTable(action) {
 }
 
 function* removeTable(action) {
-	try {
-		const payload = {};
-		payload.tableId = action.tableId;
-		yield call(deleteTable, payload.tableId);
-		yield put({type: 'DELETE_TABLE_SUCCEEDED', payload});
-	} catch (err) {
-		yield put({type: 'DELETE_TABLE_FAILED', message: err.message});
-	}
+    try {
+        const payload = {};
+        payload.tableId = action.tableId;
+        yield call(deleteTable, payload.tableId);
+        yield put({type: 'DELETE_TABLE_SUCCEEDED', payload});
+    } catch (err) {
+        yield put({type: 'DELETE_TABLE_FAILED', message: err.message});
+    }
 }
 
 function* addNewRecord(action) {
@@ -99,7 +99,12 @@ function* addNewRecord(action) {
 
 function* changeTableRecord(action) {
     try {
-        yield put({type: 'PERFORM_CHANGE_RECORD', tableId: action.tableId, recordId: action.recordId, data: action.data});
+        yield put({
+            type: 'PERFORM_CHANGE_RECORD',
+            tableId: action.tableId,
+            recordId: action.recordId,
+            data: action.data
+        });
         const dashboardReducer = yield select(getDashboardReducer);
         let table = dashboardReducer.tables.filter((t) => t._id === action.tableId).pop();
         yield put({type: 'UPDATE_TABLE', tableId: action.tableId, newData: table});
@@ -117,7 +122,7 @@ function* dashboardSaga() {
     yield takeEvery('UPDATE_TABLE', changeTable);
     yield takeEvery('ADD_RECORD', addNewRecord);
     yield takeEvery('CHANGE_RECORD', changeTableRecord);
-	yield takeEvery('DELETE_TABLE', removeTable);
+    yield takeEvery('DELETE_TABLE', removeTable);
 }
 
 export default dashboardSaga;

@@ -102,7 +102,14 @@ class GridContent extends Component {
                     <div className="content__field item__row-selector">
                         <input type="checkbox"/>
                     </div>
-                    <div className="content__body">
+                    {this.props.fieldsRecords.map((field) => {
+                        {field.records.map((record, ind) => {
+                            return (<div className="content__field item__row-selector">
+                                <span className="item__row_num">{ind}1</span>
+                            </div>)
+                        })}
+                    })}
+                        <div className="content__body">
                         {this.props.fieldsRecords &&
                         this.props.fieldsRecords.map((field) => {
                             return <Field key={field._id} name={field.name} type={field.type} records={field.records} fieldEvents={this.props.fieldEvents}/>

@@ -47,7 +47,6 @@ const addRecord = ({tableId}) => {
         .catch(R.tap(console.error));
 };
 
-
 const deleteTable = (tableId) =>
 	axios.delete(url + '/tables/' + tableId)
 		.then((response) => response.data)
