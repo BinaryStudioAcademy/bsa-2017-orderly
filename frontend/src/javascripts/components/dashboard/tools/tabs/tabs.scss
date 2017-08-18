@@ -1,5 +1,5 @@
+
 .tabs_panel {
-  background-color: #f2711c;
   padding: {
     left: 20px;
     right: 20px;
@@ -12,6 +12,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .ui.inverted.button.active:focus {
+      background-color: #fff !important;
+      box-shadow: none !important;
+    }
+
+    a:hover {
+      border-bottom: none;
+    }
+
     .tabs_block {
       margin-bottom: -3px;
     }

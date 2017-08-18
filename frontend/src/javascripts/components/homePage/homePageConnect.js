@@ -4,7 +4,6 @@ import { getAllBases } from './homePageActions';
 
 
 const mapStateToProps = (state) => {
-console.log(state)
   return ({
     bases: state.baseStore.bases,
     menu: state.baseStore.showMenuforBase,

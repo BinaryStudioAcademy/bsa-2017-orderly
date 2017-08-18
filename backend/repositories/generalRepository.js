@@ -14,7 +14,7 @@ class Repository {
     }
 
     getByIds(ids) {
-        return this.model.find({'_id': { $in: ids}});
+        return this.model.find({'_id': {$in: ids}});
     }
 
     get(criteria, select) {
@@ -31,7 +31,7 @@ class Repository {
 
     remove(id) {
         return this.model.remove({_id: id}).exec();
-    }    
+    }
 }
 
 module.exports = Repository;

@@ -4,18 +4,54 @@ const Schema = mongoose.Schema;
 const tableSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+	    default: 'new table'
     },
     description: {
-        type: String
+        type: String,
+	    default: 'This is default table'
     },
     records: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Record'
+        record_data: [{
+            data: String
+        }],
+        history: [{
+            collaborator: {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            },
+            changes: {
+                changed_from: {
+                    type: String
+                },
+                changed_to: {
+                    type: String
+                }
+            }
+        }],
+        comments: [{
+            collaborator: {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            },
+            message: {
+                type: String
+            }
+        }]
     }],
     fields: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Field'
+        name: {
+            type: String,
+            default: 'new field'
+        },
+        type: {
+            type: String,
+            require: true
+        },
+        description: {
+            type: String,
+            default: 'description'
+        }
     }],
     views: [{
         type: Schema.Types.ObjectId,
@@ -23,4 +59,4 @@ const tableSchema = new Schema({
     }]
 }, {versionKey: false});
 
-module.exports = mongoose.model('Table', tableSchema);
+module.exports = mongoose.model('table', tableSchema);

@@ -10,7 +10,7 @@ function* fetchUser(action) {
         if (!signUp.success) {
             yield put({type: SIGN_UP_ERROR, errors: signUp.errors, message: signUp.message});
         } else {
-            browserHistory.push('/');
+            browserHistory.push('/login');
         }
     } catch (e) {
         yield put({type: SIGN_UP_ERROR, message: e.message});

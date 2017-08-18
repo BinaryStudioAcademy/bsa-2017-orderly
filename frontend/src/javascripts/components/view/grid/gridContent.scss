@@ -1,0 +1,80 @@
+$cell-width: 150px;
+$cell-height: 33px;
+$icon-opacity: 0.6;
+$cell-border: 0.5px solid #AAA;
+$cell-padding: 0px;
+
+.grid__content {
+  display: flex;
+}
+
+.content__header {
+  display: flex;
+  flex-direction: row;
+}
+
+.content__field {
+  display: inline-block;
+  border: $cell-border;
+  padding: 5px;
+  margin: 0;
+  width: $cell-width;
+  min-width: $cell-width;
+  min-height: $cell-height;
+}
+
+.field__icon {
+  opacity: $icon-opacity!important;
+}
+
+.field__change-type {
+  float: right;
+  cursor: pointer;
+}
+
+.content__body {
+  display: flex;
+  flex-direction: row;
+}
+
+.field__items {
+  display: flex;
+  flex-direction: column;
+}
+
+.field__item {
+  display: inline-block;
+  border: $cell-border;
+  padding: $cell-padding;
+  margin: 0;
+  width: $cell-width;
+  min-width: $cell-width;
+  min-height: $cell-height;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+.item__row-selector {
+  display: inline-block;
+  width: 25px;
+  min-width: 25px;
+  max-height: $cell-height;
+  text-align: center;
+}
+
+.item__row-selector input[type=checkbox] {
+  transform: scale(1.1);
+}
+
+.item__add-field {
+  text-align: center;
+  cursor: pointer;
+  max-height: $cell-height;
+}
+
+.item__add-record {
+  min-width: 150px!important;
+  width: 150px;
+  //margin-left: 25px;
+  text-align: center;
+}

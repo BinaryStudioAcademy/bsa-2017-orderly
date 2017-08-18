@@ -7,6 +7,8 @@ class Field extends Component {
     constructor(props, className){
         super(props);
         this.className = className;
+
+        this.keyDownHandler = this.keyDownHandler.bind(this);
     }
 
     fieldSelectedClass() {
@@ -29,16 +31,20 @@ class Field extends Component {
         return this.props.value;
     }
 
+    keyDownHandler(id, event) {
+        this.props.onKeyDown(id, event);
+    }
+
     render() {
         return (
             <div
                 className={"table-cell " + this.className + this.fieldSelectedClass() + this.fieldActiveClass()}
-                onClick={this.props.onSelected}
-                onKeyDown={this.props.onKeyDown}
-                onBlur={(event) => this.props.onBlurField()}
+                onClick={() => this.props.onSelect(this.props.id)}
+                onKeyDown={(event) => this.keyDownHandler(this.props.id, event)}
+                onBlur={() => this.props.onBlurField(this.props.id)}
                 tabIndex="0"
             >
-                <div className="table-cell-wrap" onDoubleClick={this.props.onActivate}>
+                <div className="table-cell-wrap" onDoubleClick={(event) => this.props.onActivate(this.props.id)}>
                     {this.props.active && this.renderActiveField()}
                     {!this.props.active && this.props.selected && this.renderSelectedField()}
                     {!this.props.active && !this.props.selected && this.renderField()}
