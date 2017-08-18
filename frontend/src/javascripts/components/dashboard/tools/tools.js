@@ -38,6 +38,7 @@ class Tools extends Component {
                       renameIsError={this.props.renameIsError}
                       checkTableName={this.props.checkTableName}
                       updateTable={this.props.updateTable}
+                      deleteTable={this.props.deleteTable}
                       addTableClick={this.props.addTableClick}/>
                 <View currentTable={currentTable} fieldsRecords={fieldsRecords}/>
             </div>

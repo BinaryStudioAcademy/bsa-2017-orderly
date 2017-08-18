@@ -8,6 +8,11 @@ const getTables = () => ({
     type: 'GET_TABLES'
 });
 
+const deleteTable = (tableId) => ({
+	type: 'DELETE_TABLE',
+	tableId: tableId
+});
+
 const togglePopup = () => ({
     type: 'TOGGLE_POPUP'
 });
@@ -78,5 +83,6 @@ export {
 	setTabsModal,
 	checkTableName,
     addTableToBaseById,
-	updateTable
+	updateTable,
+	deleteTable
 };
