@@ -10,11 +10,8 @@ class Number extends Field {
 
     renderActiveField() {
         return <Input
-            onChange={(event) => {
-                this.props.onChange(event.target.value);
-            }
-            }
-            onBlur={(event) => this.props.onBlurComponent()}
+            onChange={(event) => {this.props.onChange(this.props.id, event.target.value)}}
+            onBlur={() => this.props.onBlurComponent(this.props.id)}
             value={this.props.value}
             type='text'
             autoFocus={true}

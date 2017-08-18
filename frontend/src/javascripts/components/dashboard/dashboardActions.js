@@ -50,25 +50,69 @@ const addTableToBaseById = (baseId) => {
 }
 
 const setTabsModal = (activeModal) => {
-	return {
-		type: 'SET_TABS_MODAL',
-		activeModal: activeModal
-	}
+    return {
+        type: 'SET_TABS_MODAL',
+        activeModal: activeModal
+    }
 }
 
 const updateTable = (newData, tableId) => {
-	return {
-		type: 'UPDATE_TABLE',
-		newData,
-		tableId
-	}
+    return {
+        type: 'UPDATE_TABLE',
+        newData,
+        tableId
+    }
 }
 
 const checkTableName = (renameIsError) => {
-	return {
-		type: 'CHECK_TABLE_NAME',
-		renameIsError: renameIsError
-	}
+    return {
+        type: 'CHECK_TABLE_NAME',
+        renameIsError: renameIsError
+    }
+}
+
+const addRecord = (tableId) => {
+    return {
+        type: 'ADD_RECORD',
+        tableId
+    };
+};
+
+const selectRecord = (recordId) => {
+    return {
+        type: 'SELECT_RECORD',
+        recordId: recordId
+    };
+}
+
+const activateRecord = (recordId) => {
+    return {
+        type: 'ACTIVATE_RECORD',
+        recordId: recordId
+    };
+}
+
+const changeRecord = (tableId, recordId, data) => {
+    return {
+        type: 'CHANGE_RECORD',
+        tableId: tableId,
+        recordId: recordId,
+        data: data
+    };
+}
+
+const blurRecord = (recordId) => {
+    return {
+        type: 'BLUR_RECORD',
+        recordId: recordId
+    };
+}
+
+const blurRecordComponent = (recordId) => {
+    return {
+        type: 'BLUR_RECORD_COMPONENT',
+        recordId: recordId
+    };
 }
 
 export {
@@ -80,9 +124,15 @@ export {
     togglePopup,
     openMenu,
     closeMenu,
-	setTabsModal,
-	checkTableName,
+    setTabsModal,
+    checkTableName,
     addTableToBaseById,
-	updateTable,
+    updateTable,
+    addRecord,
+    selectRecord,
+    activateRecord,
+    changeRecord,
+    blurRecord,
+    blurRecordComponent,
 	deleteTable
 };

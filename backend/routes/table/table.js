@@ -113,6 +113,12 @@ router.post('/:id/fields', (request, response) => {
         .catch((err) => response.status(500).send(err));
 });
 
+router.put('/:id/fields', (request, response) => {
+    tableRepository.updateFields(request.params.id, request.body)
+        .then((result) => response.status(200).send(result))
+        .catch((err) => response.status(500).send(err));
+});
+
 router.put('/:id/fields/:fieldId', (request, response) => {
     tableRepository.updateField(request.params.id, request.params.fieldId, request.body)
         .then((result) => response.status(200).send(result))

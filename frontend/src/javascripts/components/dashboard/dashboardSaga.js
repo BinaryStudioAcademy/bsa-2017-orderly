@@ -1,9 +1,11 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable,
-    updateBaseByNewTable, updateTable, deleteTable
+    updateBaseByNewTable, getRecordsByTableId, updateTable
 } from './dashboardApi';
 import {browserHistory} from 'react-router';
+
+const getDashboardReducer = (state) => state.dashboardReducer;
 
 function* fetchBaseById(action) {
     try {
@@ -18,7 +20,7 @@ function* fetchBaseById(action) {
 
 function* fetchTablesByBase(action) {
     try {
-	    const tables = yield call(getTablesByIds, action.payload.base.tables);
+        const tables = yield call(getTablesByIds, action.payload.base.tables);
         yield put({type: 'GET_TABLES_BY_IDS_SUCCEEDED', tables: tables});
         yield put({type: 'SET_ACTIVE_TAB', tableId: action.payload.tableId});
     } catch (err) {
@@ -82,6 +84,30 @@ function* removeTable(action) {
 	}
 }
 
+function* addNewRecord(action) {
+    try {
+        const payload = {};
+        payload.tableId = action.tableId;
+        payload.table = yield call(addRecord, payload);
+        console.log('SAGA_------------');
+        console.log(payload);
+        yield put({type: 'ADD_RECORD_SUCCEEDED', payload});
+    } catch (err) {
+        yield put({type: 'ADD_RECORD_FAILED', message: err.message});
+    }
+}
+
+function* changeTableRecord(action) {
+    try {
+        yield put({type: 'PERFORM_CHANGE_RECORD', tableId: action.tableId, recordId: action.recordId, data: action.data});
+        const dashboardReducer = yield select(getDashboardReducer);
+        let table = dashboardReducer.tables.filter((t) => t._id === action.tableId).pop();
+        yield put({type: 'UPDATE_TABLE', tableId: action.tableId, newData: table});
+    } catch (err) {
+        yield put({type: 'UPDATE_TABLE_FAILED', message: err.message});
+    }
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -89,7 +115,9 @@ function* dashboardSaga() {
     yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
     yield takeEvery('ADD_FIELD', addNewField);
     yield takeEvery('UPDATE_TABLE', changeTable);
-    yield takeEvery('DELETE_TABLE', removeTable);
+    yield takeEvery('ADD_RECORD', addNewRecord);
+    yield takeEvery('CHANGE_RECORD', changeTableRecord);
+	yield takeEvery('DELETE_TABLE', removeTable);
 }
 
 export default dashboardSaga;
