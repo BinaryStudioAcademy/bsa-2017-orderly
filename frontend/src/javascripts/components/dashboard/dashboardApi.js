@@ -47,6 +47,12 @@ const addRecord = ({tableId}) => {
         .catch(R.tap(console.error));
 };
 
+
+const deleteTable = (tableId) =>
+	axios.delete(url + '/tables/' + tableId)
+		.then((response) => response.data)
+		.catch(R.tap(console.error));
+
 export {
     getBase,
     getTablesByIds,
@@ -54,5 +60,6 @@ export {
     updateBaseByNewTable,
 	updateTable,
     addFieldsToTable,
-    addRecord
+    addRecord,
+	deleteTable
 };

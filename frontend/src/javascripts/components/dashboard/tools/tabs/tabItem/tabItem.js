@@ -8,7 +8,7 @@ let currentTable;
 
 const TabItem = (base, currentTableId, table, switchTableClick, openMenu,
                  closeMenu, activeModal, setTabsModal, tables, renameIsError, checkTableName,
-                updateTable) => (
+                updateTable, deleteTable) => (
     <div className='tab_btn' key={table._id}>
         <Link to={`/dashboard/${base._id}/${table._id}`}>
             <Button inverted
@@ -32,6 +32,7 @@ const TabItem = (base, currentTableId, table, switchTableClick, openMenu,
                   renameIsError={renameIsError}
                   checkTableName={checkTableName}
                   updateTable={updateTable}
+                  deleteTable={deleteTable}
                   table={currentTable ? currentTable : table}/>
     </div>
 
