@@ -1,4 +1,4 @@
-import {call, put, takeEvery, select} from 'redux-saga/effects';
+import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable,
     updateBaseByNewTable, getRecordsByTableId, updateTable, addRecord
@@ -105,7 +105,7 @@ function* dashboardSaga() {
     yield takeEvery('ADD_FIELD', addNewField);
     yield takeEvery('UPDATE_TABLE', changeTable);
     yield takeEvery('ADD_RECORD', addNewRecord);
-    yield takeEvery('CHANGE_RECORD', changeTableRecord);
+    yield takeLatest('CHANGE_RECORD', changeTableRecord);
 }
 
 export default dashboardSaga;

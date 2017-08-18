@@ -14,8 +14,7 @@ class Tools extends Component {
         this.selectRecordHandler = this.selectRecordHandler.bind(this);
         this.activateRecordHandler = this.activateRecordHandler.bind(this);
         this.keyDownRecordHandler = this.keyDownRecordHandler.bind(this);
-        this.keyDownTextRecordHandler = this.keyDownTextRecordHandler.bind(this);
-        this.keyDownNumberRecordHandler = this.keyDownNumberRecordHandler.bind(this);
+        this.keyDownSimpleRecordHandler = this.keyDownSimpleRecordHandler.bind(this);
         this.changeRecordHandler = this.changeRecordHandler.bind(this);
         this.blurRecordHandler = this.blurRecordHandler.bind(this);
         this.blurRecordComponentHandler = this.blurRecordComponentHandler.bind(this);
@@ -49,16 +48,7 @@ class Tools extends Component {
         }
     }
 
-    keyDownTextRecordHandler(id, e) {
-        this.keyDownRecordHandler(id, e);
-        if (this.isRecordActive(id)) {
-            if (e.keyCode === 13) {
-                this.blurRecordComponentHandler(id);
-            }
-        }
-    }
-
-    keyDownNumberRecordHandler(id, e) {
+    keyDownSimpleRecordHandler(id, e) {
         this.keyDownRecordHandler(id, e);
         if (this.isRecordActive(id)) {
             if (e.keyCode === 13) {
@@ -76,10 +66,6 @@ class Tools extends Component {
     }
 
     blurRecordComponentHandler(id) {
-        /*if (!this.props.records[id].typeInteger) {
-            let n =+ this.props.records[id].data;
-            this.changeRecordHandler(id, n.toFixed(this.props.records[id].precisionValue));
-        }*/
         this.props.blurRecordComponent(id);
     }
 
@@ -99,8 +85,7 @@ class Tools extends Component {
             selectRecordHandler: this.selectRecordHandler,
             activateRecordHandler: this.activateRecordHandler,
             keyDownRecordHandler: this.keyDownRecordHandler,
-            keyDownTextRecordHandler: this.keyDownTextRecordHandler,
-            keyDownNumberRecordHandler: this.keyDownNumberRecordHandler,
+            keyDownSimpleRecordHandler: this.keyDownSimpleRecordHandler,
             changeRecordHandler: this.changeRecordHandler,
             blurRecordHandler: this.blurRecordHandler,
             blurRecordComponentHandler: this.blurRecordComponentHandler,

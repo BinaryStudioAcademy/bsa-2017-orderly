@@ -51,7 +51,7 @@ const Record = ({id, type, data, fieldEvents}) => {
                                active={fieldEvents.isRecordActive(id)}
                                onSelect={fieldEvents.selectRecordHandler}
                                onActivate={fieldEvents.activateRecordHandler}
-                               onKeyDown={fieldEvents.keyDownNumberRecordHandler}
+                               onKeyDown={fieldEvents.keyDownSimpleRecordHandler}
                                onChange={fieldEvents.changeRecordHandler}
                                onBlurField={fieldEvents.blurRecordHandler}
                                onBlurComponent={fieldEvents.blurRecordComponentHandler}
@@ -66,7 +66,7 @@ const Record = ({id, type, data, fieldEvents}) => {
                                active={fieldEvents.isRecordActive(id)}
                                onSelect={fieldEvents.selectRecordHandler}
                                onActivate={fieldEvents.activateRecordHandler}
-                               onKeyDown={fieldEvents.keyDownTextRecordHandler}
+                               onKeyDown={fieldEvents.keyDownSimpleRecordHandler}
                                onChange={fieldEvents.changeRecordHandler}
                                onBlurField={fieldEvents.blurRecordHandler}
                                onBlurComponent={fieldEvents.blurRecordComponentHandler}
