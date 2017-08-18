@@ -32,8 +32,7 @@ function* deleteBaseById(action) {
 }
 
 function* updateBase(action) {
-    const baseNeed =  yield call(updateBaseById, action._id, action.typeAction, action.value);
-    
+    const baseNeed =  yield call(updateBaseById, action._id, action.typeAction, action.value); 
     try {  
        yield put({ type: 'CHANGE_BASE_PARAM_SUCCESS', base: baseNeed});
     } catch (err) {

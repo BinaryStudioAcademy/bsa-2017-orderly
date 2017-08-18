@@ -8,7 +8,14 @@ const getCurrentUser = () =>
         .then((response) => response.data)
         .catch((error) => error.data);
 
+debugger
+const updateUserById = (_id, updateData) =>
+    axios.put('/api/user/' + _id, JSON.parse(JSON.stringify(updateData)))
+        .then((response) => response.data)
+        .catch(R.tap(console.error));
+
 export {
     fetchUser,
-    getCurrentUser
+    getCurrentUser,
+    updateUserById
 };

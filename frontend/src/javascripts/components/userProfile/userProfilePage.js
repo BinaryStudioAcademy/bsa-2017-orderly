@@ -12,7 +12,6 @@ class UserProfilePage extends Component {
     constructor(props) {
         super(props);
         this.props = props;
-        const handleSubmit = props.handleSubmit;
         const handleInput = props.handleInput;
     }
 
@@ -26,8 +25,6 @@ class UserProfilePage extends Component {
                     <Header block >My Profile</Header>
                     <UserProfileForm 
                         user={this.props.user}
-                        handleSubmit = {this.props.handleSubmit}
-                        handleInput = {this.props.handleInput}
                     />
                 </div>
             </div>
@@ -45,9 +42,6 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleSubmit: (data) => {
-        dispatch(changeUserData(data))
-    },
     handleInput: (value) => { dispatch(changeUserProfileField({ value: e.target.value}))},
   }
 }

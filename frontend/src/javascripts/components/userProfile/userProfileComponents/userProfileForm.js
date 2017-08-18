@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import {bindActionCreators} from 'redux';
+import { Button } from 'semantic-ui-react';
+import {connect} from 'react-redux';
+import { changeUserData } from '../userProfileActions';
 
 const options = [
   { key: 'm', text: 'Male', value: 'male' },
@@ -7,58 +10,86 @@ const options = [
 ]
 
 class UserProfileForm extends Component {
-    constructor(props) {
-        super(props);
-        this.props = props;
+  constructor(props) {
+      super(props);
+      this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleSubmit(e) {
+    console.log(this.props);
+    e.preventDefault();
+    
+    const formData = {};
+    console.log(this.refs)
+    for (const field in this.refs) {
+      formData[field] = this.refs[field].value;
     }
-    render() {
-         console.log(this.props)
-        return (
-        <div className='user-profile-form'>
-            <Form onSubmit={e => {
-              e.preventDefault()
-              this.props.handleSubmit(this.props.user)
-              }} 
-              >
-                <Form.Group unstackable widths={2}>
-                  <Form.Input label='First name' placeholder='First name' onChange={(e) => this.props.handleInput(e.target.value)} />
-                  <Form.Input label='Last name' placeholder='Last name' onChange={(e) => this.props.handleInput(e.target.value)} />
-                </Form.Group>
-                <Form.Group unstackable widths={2}>
-                  <Form.Select label='Gender' options={options} placeholder='Gender' onChange={(e) => this.props.handleInput(e.target.value)} />
-                  <Form.Input label='Birthday' type= 'date' onChange={(e) => this.props.handleInput(e.target.value)} />
-                </Form.Group>
-                <Form.Group unstackable widths={2}>
-                  <Form.Input label='Country' placeholder='Country' onChange={(e) => this.props.handleInput(e.target.value)} />
-                  <Form.Input label='City' placeholder='City' onChange={(e) => this.props.handleInput(e.target.value)} />
-                </Form.Group>
-                <Form.Group unstackable widths={2}>
-                  <Form.Input label='Address' placeholder='Address' onChange={(e) => this.props.handleInput(e.target.value)} />
-                  <Form.Input label='Phone' placeholder='Phone' onChange={(e) => this.props.handleInput(e.target.value)} />
-                </Form.Group>
-                <div className='user-profile-submit-btn'>
-                    <Button type='submit'>Update Data</Button>
-                </div>
-            </Form>
-        </div>
-        );
-    }
+    console.log('-->', formData);
+    this.props.dispatch(changeUserData(this.props.user._id, formData));
+  }
+  render() {
+  return (
+  <div className='user-profile-form'>
+      <form onSubmit={this.handleSubmit} >
+          <div className='form-block'>
+            <div className='form-input-block'>
+              <label>First name</label>
+              <input className='user-profile-form-input' ref='firstName' placeholder='First name' />
+            </div>
+            <div className='form-input-block'>
+              <label>Last name</label>
+              <input className='user-profile-form-input' ref='lastName' placeholder='Last name' />
+            </div>
+          </div>
+          <div className='form-block'>
+            <div className='form-input-block'>
+              <label>Gender</label>
+              <select className='user-profile-form-input' ref='gender' placeholder='Gender'>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+            <div className='form-input-block'>
+              <label>Birthday</label>
+              <input className='user-profile-form-input' ref='birthday' type= 'date' />
+            </div>
+          </div>
+          <div className='form-block'>
+            <div className='form-input-block'>
+              <label>Country</label>
+              <input className='user-profile-form-input' ref='country' placeholder='Country' />
+            </div>
+            <div className='form-input-block'>
+              <label>City</label>
+              <input className='user-profile-form-input' ref='city' placeholder='City' />
+            </div>
+          </div>
+          <div className='form-block'>
+            <div className='form-input-block'>
+              <label>Address</label>
+              <input className='user-profile-form-input' ref='address' placeholder='Address' />
+            </div>
+            <div className='form-input-block'>
+              <label>Phone</label>
+              <input className='user-profile-form-input' ref='phone' placeholder='Phone' />
+            </div>
+          </div>
+          <div className='user-profile-submit-btn'>
+              <Button type='submit'>Update Data</Button>
+          </div>
+      </form>
+  </div>
+  );
+  }
 }
 
-export default UserProfileForm
+function mapStateToProps(state) {
+    return {
+        userProfile: state.userProfile,
+    };
+}
 
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(Object.assign({}, changeUserData),  dispatch);
+}
 
-// <form className='base-name-form'
-//         onSubmit={e => {
-//           e.preventDefault()
-//           props.handleClick(input.value, 'name', props.baseId)
-//           input.value = ''
-//         }}
-//       >
-//         <input placeholder="Base Name" className='base-name-input'
-//           ref={node => {
-//             input = node
-//           }}
-//         />
-//       </form>
-//     </div>
+export default connect(mapStateToProps, null)(UserProfileForm);

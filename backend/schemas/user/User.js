@@ -34,7 +34,7 @@ const UserSchema = new Schema({
         "type": String,
         "trim": true
     },
-    "adress" : {
+    "address" : {
         "type": String,
         "trim": true
     },
@@ -42,8 +42,8 @@ const UserSchema = new Schema({
         "type": String,
         "trim": true
     },
-    "gender" : Boolean,
-    "Birthday": Date
+    "gender" : String,
+    "birthday": Date
 }, {versionKey: false});
 
 UserSchema.pre('findOneAndUpdate', function(next) {

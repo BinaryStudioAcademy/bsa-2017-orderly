@@ -44,6 +44,7 @@
 }
 .user-profile-submit-btn {
   text-align: right;
+  margin-top: 10px;
 }
 #user-info
   a:hover {
@@ -54,3 +55,43 @@
   .ui.form input[type=date] {
     color: #C7C7C7 !important;
   }
+
+.form-block {
+  display: flex;
+  justify-content: space-between;
+}
+.form-input-block{
+  width: 50%;
+  padding-left: .5em;
+  padding-right: .5em;
+  flex: 0 1 auto;
+  clear: both;
+  margin-bottom: 10px;
+}
+label{
+  display: block;
+  margin: 0 0 .28571429rem 0;
+  color: rgba(0,0,0,.87);
+  font-size: .92857143em;
+  font-weight: 700;
+  text-transform: none;
+  opacity: 0.75;
+}
+.user-profile-form-input{
+    flex: 1 0 auto;
+    box-sizing:border-box;
+    margin: 0;
+    width: 100%;
+    flex: 1 0 auto;
+    outline: 0;
+    text-align: left;
+    line-height: 1.21428571em;
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    padding: .67857143em 1em;
+    background: #fff;
+    border: 1px solid rgba(34,36,38,.15);
+    color: rgba(0,0,0,.87);
+    border-radius: .28571429rem;
+    transition: box-shadow .1s ease,border-color .1s ease;
+    box-shadow: none;
+}

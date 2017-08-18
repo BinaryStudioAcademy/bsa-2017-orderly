@@ -1,17 +1,6 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import * as userApi from './userApi';
 
-// worker Saga: will be fired on GET_USER_NAME_REQUESTED actions
-function* fetchUser(action) {
-    console.log('FETCH USER SAGA');
-    try {
-        const user = yield call(userApi.fetchUser, action.userId);
-        yield put({type: "GET_USER_NAME_SUCCEEDED", user: user});
-    } catch (e) {
-        console.log(e);
-        yield put({type: "GET_USER_NAME_FAILED", message: e.message});
-    }
-}
 
 function* getCurrentUser(action) {
     try {
@@ -23,25 +12,19 @@ function* getCurrentUser(action) {
     }
 }
 
-/*
-Starts fetchUser on each dispatched `GET_USER_NAME_REQUESTED` action.
-Allows concurrent fetches of user.
-*/
-function* userProfileSaga() {
-    yield takeEvery("GET_USER_NAME_REQUESTED", fetchUser);
-    yield takeEvery("GET_CURRENT_USER_REQUESTED", getCurrentUser);
+function* updateUser(action) {
+        let userNew =  yield call(userApi.updateUserById, action._id, action.updateData);
+    try {
+        yield put({ type: "CHANGE_USER_PROFILE_DATA_SUCCESS", userNew});
+    } catch (err) {
+        console.log(e);
+        yield put({ type: "CHANGE_USER_PROFILE_DATA_FAILED", message: e.message});
+    }
 }
 
-/*
-Alternatively you may use takeLatest.
-
-Does not allow concurrent fetches of user. If "GET_USER_NAME_REQUESTED" gets
-dispatched while a fetch is already pending, that pending fetch is cancelled
-and only the latest one will be run.
-*/
-
-// function* mySaga() {
-// 	yield takeLatest("GET_USER_NAME_REQUESTED", fetchUser);
-// }
+function* userProfileSaga() {
+    yield takeEvery("GET_CURRENT_USER_REQUESTED", getCurrentUser);
+    yield takeEvery("CHANGE_USER_PROFILE_DATA", updateUser);
+}
 
 export default userProfileSaga;
