@@ -1,7 +1,7 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable,
-    updateBaseByNewTable, getRecordsByTableId, updateTable
+    updateBaseByNewTable, addRecord, updateTable, deleteTable
 } from './dashboardApi';
 import {browserHistory} from 'react-router';
 
