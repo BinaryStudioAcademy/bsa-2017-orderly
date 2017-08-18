@@ -1,4 +1,4 @@
-.number {
+.text-line {
   .ui.input {
     height: 100%;
 
@@ -12,17 +12,33 @@
   }
 }
 
-.number.selected {
+.text-line.selected {
   line-height: 14px;
 }
 
-.number {
+
+.table-cell-wrap{
+  position: relative;
+}
+
+
+.text-line {
   .table-cell-wrap {
     .table-cell-inner {
       overflow: hidden;
       text-overflow: ellipsis;
       padding: 4px 10px;
       height: 100%;
+      width: 100%;
+      //float: left;
+      //display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
   }
 }
+
+

@@ -66,6 +66,43 @@ const checkTableName = (renameIsError) => {
 	}
 }
 
+const selectRecord = (recordId) => {
+    return {
+        type: 'SELECT_RECORD',
+        recordId: recordId
+    };
+}
+
+const activateRecord = (recordId) => {
+    return {
+        type: 'ACTIVATE_RECORD',
+        recordId: recordId
+    };
+}
+
+const changeRecord = (tableId, recordId, data) => {
+    return {
+        type: 'CHANGE_RECORD',
+        tableId: tableId,
+        recordId: recordId,
+        data: data
+    };
+}
+
+const blurRecord = (recordId) => {
+    return {
+        type: 'BLUR_RECORD',
+        recordId: recordId
+    };
+}
+
+const blurRecordComponent = (recordId) => {
+    return {
+        type: 'BLUR_RECORD_COMPONENT',
+        recordId: recordId
+    };
+}
+
 export {
     getBaseById,
     getTables,
@@ -78,5 +115,10 @@ export {
 	setTabsModal,
 	checkTableName,
     addTableToBaseById,
-	updateTable
+	updateTable,
+    selectRecord,
+    activateRecord,
+    changeRecord,
+    blurRecord,
+    blurRecordComponent
 };

@@ -29,6 +29,7 @@ class View extends Component {
                 currentTable={this.props.currentTable}
                 fieldsRecords={this.props.fieldsRecords}
                 onAddField={this.props.addField}
+                fieldEvents={this.props.fieldEvents}
             />;
         default:
             return <Grid currentTable={this.props.currentTable}/>;
@@ -67,7 +68,7 @@ class View extends Component {
 function mapStateToProps(state) {
     return {
         view: state.view,
-        dashboard: state.dashboardReducer,
+        dashboard: state.dashboardReducer
     };
 }
 

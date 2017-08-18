@@ -9,7 +9,9 @@ const initState = {
     }],
     addPopupIsOpen: false,
 	activeModal: '',
-	renameIsError: true
+	renameIsError: true,
+    selectedRecordId: null,
+    activeRecordId: null
 };
 
 function dashboardReducer(state = initState, action) {
@@ -144,6 +146,51 @@ function dashboardReducer(state = initState, action) {
                 })(state.tables)
             }
         ]);
+    }
+
+    case 'SELECT_RECORD':
+        return {...state, ...{selectedRecordId: action.recordId}};
+
+    case 'ACTIVATE_RECORD':
+        return {...state, ...{activeRecordId: action.recordId}};
+
+    case 'PERFORM_CHANGE_RECORD':{
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.tableId) {
+                        return R.mergeAll([
+                            R.dissoc('records', table),
+                            {
+                                records: R.map((record) => {
+                                    return R.mergeAll([
+                                        R.dissoc('record_data', record),
+                                        {
+                                            record_data: R.map((recordItem) => {
+                                                if (recordItem._id === action.recordId) {
+                                                    let newObj = R.dissoc('data', recordItem);
+                                                    newObj.data = action.data;
+                                                    return newObj;
+                                                } else {
+                                                    return recordItem;
+                                                }
+                                            })(record.record_data)
+                                        }]);
+                                })(table.records)
+                            }]);
+                    }
+                    return table
+                })(state.tables)
+            }]);
+    }
+
+    case 'BLUR_RECORD':{
+        return {...state, ...{selectedRecordId: null}};
+    }
+
+    case 'BLUR_RECORD_COMPONENT':{
+        return {...state, ...{activeRecordId: null}};
     }
 
     default:

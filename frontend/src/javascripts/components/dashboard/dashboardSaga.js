@@ -1,9 +1,11 @@
-import {call, put, takeEvery} from 'redux-saga/effects';
+import {call, put, takeEvery, select} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable,
     updateBaseByNewTable, getRecordsByTableId, updateTable
 } from './dashboardApi';
 import {browserHistory} from 'react-router';
+
+const getDashboardReducer = (state) => state.dashboardReducer;
 
 function* fetchBaseById(action) {
     try {
@@ -71,6 +73,17 @@ function* changeTableName(action) {
     }
 }
 
+function* changeTableRecord(action) {
+    try {
+        yield put({type: 'PERFORM_CHANGE_RECORD', tableId: action.tableId, recordId: action.recordId, data: action.data});
+        const dashboardReducer = yield select(getDashboardReducer);
+        let table = dashboardReducer.tables.filter((t) => t._id === action.tableId).pop();
+        yield put({type: 'UPDATE_TABLE', tableId: action.tableId, newData: table});
+    } catch (err) {
+        yield put({type: 'UPDATE_TABLE_FAILED', message: err.message});
+    }
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -78,6 +91,7 @@ function* dashboardSaga() {
     yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
     yield takeEvery('ADD_FIELD', addNewField);
     yield takeEvery('UPDATE_TABLE', changeTableName);
+    yield takeEvery('CHANGE_RECORD', changeTableRecord);
 }
 
 export default dashboardSaga;
