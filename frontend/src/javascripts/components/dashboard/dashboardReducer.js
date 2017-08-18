@@ -147,6 +147,14 @@ function dashboardReducer(state = initState, action) {
         ]);
     }
 
+    case 'DELETE_TABLE_SUCCEEDED': {
+	    return R.mergeAll([
+		    R.dissoc('tables', state),
+		    {
+			    tables: R.reject(R.propEq('_id', action.payload.tableId))(state.tables)
+		    }]);
+    }
+
     default:
         return state;
     }

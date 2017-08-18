@@ -36,7 +36,6 @@ const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsErro
 			        content='Yes'
 					onClick={() => {
 						if (!renameIsError && activeModal == 'rename') {
-							console.log(renameInput, 'iiiiiiiiiiiiiiiiiiiiiiiiiii')
 							updateTable({name: renameInput},  table._id);
 							setTabsModal('');
 							return;
