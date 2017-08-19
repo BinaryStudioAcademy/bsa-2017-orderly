@@ -33,7 +33,7 @@ const baseSchema = new Schema({
         }
     ],
     tables: [{type: ObjectId, ref: 'Tables'}],
-    color: { type: String, default: '#C3C8B7' },
+    color: { type: String, default: '#64FCC9' },
     createdAt: {
         type: Date,
         default: Date.now,
