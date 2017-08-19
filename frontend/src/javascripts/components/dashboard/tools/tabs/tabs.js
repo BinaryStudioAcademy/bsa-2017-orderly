@@ -9,7 +9,7 @@ import './tabs.scss';
 const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
     addTableClick, switchTableClick, togglePopup, openMenu, closeMenu,
     activeModal, setTabsModal, checkTableName, updateTable, deleteTable}) => (
-    <div className='tabs_panel'>
+    <div className='tabs_panel' style={{backgroundColor:`${base.color}`}}>
         <div className='btn_block'>
             <div className='tabs_block'>
                 { R.map( (table) => {

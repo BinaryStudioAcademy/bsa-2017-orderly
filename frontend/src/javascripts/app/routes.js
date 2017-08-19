@@ -43,7 +43,7 @@ export default (
     axios.interceptors.response.use(null,
         function (error) {
             if (error.response.status === 401) {
-                if (token) {
+                if (Auth.getToken()) {
                     Auth.deauthenticateUser();
                 }
                 browserHistory.push('/login');

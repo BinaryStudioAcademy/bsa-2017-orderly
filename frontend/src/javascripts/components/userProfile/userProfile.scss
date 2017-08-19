@@ -5,10 +5,20 @@
     margin-top: 10px;
   }
 }
-
+.dashboard_header {
+  #user-info {
+    a {
+      color: #FAFAFA !important;
+    }
+    i {
+    color: #FAFAFA !important;
+    }
+  }
+}
 #user-info 
   .user-profile-logout-wrapper {
     padding-left: 30px;
+    overflow: hidden;
   }
 .user-profile-wrapper {
   text-align: center;

@@ -99,9 +99,6 @@ class GridContent extends Component {
         return (
             <div>
                 <div className="grid__content">
-                    <div className="content__field item__row-selector">
-                        <input type="checkbox"/>
-                    </div>
                     <div className="content__body">
                         {this.props.fieldsRecords &&
                         this.props.fieldsRecords.map((field) => {
@@ -148,3 +145,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(GridContent);
 //         </div>
 //     )
 // })}
+
+
+//<div className="content__field item__row-selector">
+//    <input type="checkbox"/>
+//</div>
