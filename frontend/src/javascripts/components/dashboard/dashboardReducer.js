@@ -7,7 +7,11 @@ const initState = {
         name: '',
         isActive: false
     }],
-    addPopupIsOpen: false
+    addPopupIsOpen: false,
+    activeModal: '',
+    renameIsError: true,
+    selectedRecordId: null,
+    activeRecordId: null
 };
 
 function dashboardReducer(state = initState, action) {
@@ -33,15 +37,23 @@ function dashboardReducer(state = initState, action) {
         ]);
     }
 
+    case 'SET_TABS_MODAL': {
+        return R.merge(state, {activeModal: action.activeModal});
+    }
+
+    case 'CHECK_TABLE_NAME': {
+        return R.merge(state, {renameIsError: action.renameIsError})
+    }
+
     case 'GET_TABLES_BY_IDS_SUCCEEDED': {
         return R.mergeAll([
-	        R.dissoc('tables', state),
-	        {
-		        tables: R.map(R.compose(
-		            R.assoc('addPopupIsOpen', false),
+            R.dissoc('tables', state),
+            {
+                tables: R.map(R.compose(
+                    R.assoc('addPopupIsOpen', false),
                     R.assoc('isMenuOpen', false))
                 )(action.tables)
-	        }]);
+            }]);
     }
 
     case 'ADD_TABLE_SUCCEEDED': {
@@ -53,7 +65,26 @@ function dashboardReducer(state = initState, action) {
                     [R.assoc('isActive', true, action.payload.table)]
                 )
             },
-            { addPopupIsOpen: false}
+            {addPopupIsOpen: false}
+        ]);
+    }
+
+    case 'ADD_FIELD_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.payload.tableId) {
+                        let obj = R.dissoc('fields', table);
+                        obj = R.dissoc('records', obj);
+                        obj.fields = action.payload.table.fields;
+                        obj.records = action.payload.table.records;
+                        return obj;
+                    } else {
+                        return table;
+                    }
+                })(state.tables)
+            }
         ]);
     }
 
@@ -70,7 +101,7 @@ function dashboardReducer(state = initState, action) {
         return R.mergeAll([
             R.dissoc('tables', state),
             {
-                tables: R.map( (table) => {
+                tables: R.map((table) => {
                     let newObj = R.dissoc('isActive', table);
                     if (table._id === action._id) newObj.isActive = true;
                     else newObj.isActive = false;
@@ -83,9 +114,9 @@ function dashboardReducer(state = initState, action) {
         return R.mergeAll([
             R.dissoc('tables', state),
             {
-                tables: R.map( (table) => {
+                tables: R.map((table) => {
                     let newObj = R.dissoc('isMenuOpen', table);
-	                if (table._id === action.tableId) newObj.isMenuOpen = true;
+                    if (table._id === action.tableId) newObj.isMenuOpen = true;
                     else newObj.isMenuOpen = false;
                     return newObj;
                 })(state.tables)
@@ -104,7 +135,93 @@ function dashboardReducer(state = initState, action) {
             }
         ]);
     }
-        
+
+    case 'RENAME_TABLE_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.changedTable._id) return action.changedTable;
+                    return table;
+                })(state.tables)
+            }
+        ]);
+    }
+
+    case 'ADD_RECORD_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.payload.tableId) {
+                        let obj = R.dissoc('records', table);
+                        obj.records = action.payload.table.records;
+                        return obj;
+                    } else {
+                        return table;
+                    }
+                })(state.tables)
+            }
+        ]);
+    }
+
+    case 'SELECT_RECORD':
+        return {...state, ...{selectedRecordId: action.recordId}};
+
+    case 'ACTIVATE_RECORD':
+        return {...state, ...{activeRecordId: action.recordId}};
+
+    case 'PERFORM_CHANGE_RECORD': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.tableId) {
+                        return R.mergeAll([
+                            R.dissoc('records', table),
+                            {
+                                records: R.map((record) => {
+                                    return R.mergeAll([
+                                        R.dissoc('record_data', record),
+                                        {
+                                            record_data: R.map((recordItem) => {
+                                                if (recordItem._id === action.recordId) {
+                                                    let newObj = R.dissoc('data', recordItem);
+                                                    newObj.data = action.data;
+                                                    return newObj;
+                                                } else {
+                                                    return recordItem;
+                                                }
+                                            })(record.record_data)
+                                        }]);
+                                })(table.records)
+                            }]);
+                    }
+                    return table;
+                })(state.tables)
+            }]);
+    }
+
+    case 'BLUR_RECORD': {
+        return {...state, ...{selectedRecordId: null}};
+    }
+
+    case 'BLUR_RECORD_COMPONENT': {
+        return {...state, ...{activeRecordId: null}};
+    }
+
+    case 'DELETE_TABLE_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.reject(R.propEq('_id', action.payload.tableId))(state.tables)
+            }]);
+    }
+
+    case 'CHANGE_FIELD_TYPE': {
+        return {...state};
+    }
+
     default:
         return state;
     }

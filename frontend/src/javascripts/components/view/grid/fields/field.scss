@@ -1,12 +1,19 @@
-.table-cell {
-  width: 100%;
-  height: 100%;
-  outline: 0;
+.table-cell-container{
+  position: relative;
 }
 
-.table-cell.selected {
+.table-cell {
+  width: 148px;
+  height: 31px;
+}
+
+.table-cell.selected,
+.table-cell.active {
   border: 2px solid #6495ed;
   border-radius: 1px;
+  position: absolute;
+  background-color: #fff;
+  z-index: 1;
 }
 
 .table-cell .table-cell-wrap {

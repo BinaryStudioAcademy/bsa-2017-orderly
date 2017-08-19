@@ -5,32 +5,25 @@ import {browserHistory} from 'react-router';
 
 import App from './App';
 import StartPage from '../components/StartPage';
-import UserProfile from '../components/userProfile/userProfile';
+import UserProfilePage from '../components/userProfile/userProfilePage';
 import NotFound from '../components/notFound/notFound';
 import Dashboard from '../components/dashboard/dashboard';
 import SignUp from '../components/auth/signUp/signUp';
 import Login from '../components/auth/login/login';
 import Logout from '../components/auth/logout/logout';
 import Auth from '../components/auth/auth';
-import GenerateTable from '../components/dashboard/dashboardGenerateTable';
-import LongTextContainer from '../components/view/grid/fields/longText/longTextContainer';
-import TextLineContainer from '../components/view/grid/fields/textLine/textLineContainer';
-import NumberContainer from '../components/view/grid/fields/number/numberContainer';
+import View from '../components/view/view';
 import ExpandRecord from '../components/view/expandRecord/expandRecord';
-
 
 export default (
     <Route path="/" component={App}>
-        <Route path='user-page' component={UserProfile} />
+        <Route path='user-page' component={UserProfilePage} />
         <IndexRoute component={StartPage}/>
-        <Route path='/dashboard/:baseId' components={GenerateTable}/>
         <Route path='/dashboard/:baseId/:tableId' components={Dashboard}/>
         <Route path="/signup" component={SignUp}/>
         <Route path="/login" component={Login}/>
         <Route path="/logout" component={Logout}/>
-        <Route path="/textline" component={TextLineContainer}/>
-        <Route path="/longtext" component={LongTextContainer}/>
-        <Route path="/number" component={NumberContainer}/>
+        <Route path="/view" component={View}/>
         <Route path="/record" component={ExpandRecord}/>
         <Route path="404" component={NotFound}/>
         <Redirect from="*" to="404"/>
@@ -52,7 +45,7 @@ export default (
     axios.interceptors.response.use(null,
         function (error) {
             if (error.response.status === 401) {
-                if (token) {
+                if (Auth.getToken()) {
                     Auth.deauthenticateUser();
                 }
                 browserHistory.push('/login');

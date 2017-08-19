@@ -10,7 +10,7 @@
 }
 
 .long-text.selected {
-  height: 50px;
+  height: 65px;
 }
 
 .long-text.active {
@@ -45,6 +45,7 @@
       -webkit-box-orient: vertical !important;
       overflow: hidden;
       white-space: pre-wrap;
+      line-height: 24px;
     }
   }
 }
