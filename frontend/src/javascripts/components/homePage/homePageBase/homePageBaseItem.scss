@@ -14,27 +14,5 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-        width: 112px;
-}
-
-.btn-block-wrapper {
-  position: relative;
-  border: 1px solid white;
-  width:100px;
-  height:90px;
-  margin: 5px; 
-  background-color: #C3C8B7;
-  text-align: center; 
-  cursor: pointer;
-    border-radius: 5px;
-    background-color: black;
-    transition: color .2s ease;
-}
-
-.btn-header{
-width: 112px;
-}
-.btn-add-base{
-  border:1px solid white;
-          height: 100%;
+        width: 100px;
 }

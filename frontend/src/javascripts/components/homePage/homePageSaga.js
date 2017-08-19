@@ -15,7 +15,7 @@ function* getAllBases(action) {
 function* addingBase(action) {
     try {
         const payload = {};
-        payload.base = yield call(addBase, action.name);
+        payload.base = yield call(addBase);
         yield put({ type: 'ADD_NEW_BASE_SUCCESS', payload });
     } catch (err) {
         yield put({ type: 'ADD_NEW_BASE_FAILED', message: err.message});

@@ -8,7 +8,7 @@
       text-align: center;
       border-top: 2px solid #EFEFEF;
       padding: 20px 0px 20px 0px;
-      width: 700px;
+      width: 750px;
 }
 .home-page-body
   .team-wrapper 
@@ -39,12 +39,17 @@
 .home-page-body 
   .team-wrapper
     .base-list
+      .base-wrapper {
+        margin: 10px; 
+      }
+.home-page-body 
+  .team-wrapper
+    .base-list
       .one-base-wrapper{
         position: relative;
         border: 1px solid white;
-        width:100px;
-        height:90px;
-        margin: 5px; 
+        width: 100px;
+        height: 90px;
         background-color: #C3C8B7;
         text-align: center;
 }
@@ -90,8 +95,8 @@
       .btn-add-base{
         width: 98px;
         height: 90px;
-        margin: 5px;
-        margin-top: 25px;
+        margin: 10px;
+        margin-top: 30px;
         font-size: 65px;
         padding: 33.5px 0 33.5px 0;
         border:1px solid white;
@@ -104,5 +109,5 @@
   .team-wrapper
     .base-list
       .btn-add-base:hover{
-        background-color: #f7eaea;
+        background-color: #ddd;
 }

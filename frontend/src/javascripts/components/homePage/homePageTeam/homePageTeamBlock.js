@@ -51,7 +51,7 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(changeBaseParam(value, type, _id))
       }
     },
-    onNewBaseClick: (name) => { dispatch(addNewBase(name))},
+    onNewBaseClick: () => { dispatch(addNewBase())},
   }
 }
 

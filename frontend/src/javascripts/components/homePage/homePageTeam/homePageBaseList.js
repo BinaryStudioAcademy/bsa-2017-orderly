@@ -26,7 +26,7 @@ class BaseList extends Component {
               </div>
            )}) 
           }
-            <div className='btn-add-base' onClick = {() => props.onNewBaseClick('New Base')}>+</div>
+            <div className='btn-add-base' onClick = {() => props.onNewBaseClick("#234FED")}>+</div>
         </div>
       )
     }
