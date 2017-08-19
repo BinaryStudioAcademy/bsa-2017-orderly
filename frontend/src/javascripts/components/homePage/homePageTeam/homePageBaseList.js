@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+ import React, {Component} from 'react';
 import BaseItem from '../homePageBase/homePageBaseItem';
 import HomePageTeamName from './homePageTeamName';
 import { Icon } from 'semantic-ui-react';
@@ -8,9 +8,11 @@ class BaseList extends Component {
   constructor(props) {
     super(props);
     const onMenuClick = props.onMenuClick;
+
   }
   render() {
     const props = this.props;  
+    console.log(this.props)
       return (
         <div className = 'base-list '  >
           { this.props.bases.map(function(base, current) {
@@ -24,6 +26,7 @@ class BaseList extends Component {
               </div>
            )}) 
           }
+            <div className='btn-add-base' onClick = {() => props.onNewBaseClick('New Base')}>+</div>
         </div>
       )
     }
