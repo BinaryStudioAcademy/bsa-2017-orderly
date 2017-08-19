@@ -1,11 +1,12 @@
 import React from 'react';
-import { Button, Header, Icon, Image, Modal } from 'semantic-ui-react'
+import { Button, Header, Icon, Image, Modal } from 'semantic-ui-react';
 
 import logoImage from '../../../../images/logo.png';
 import './expandRecord.scss';
-import TextLine from '../grid/fields/textLine/textLine';
-import LongText from '../grid/fields/longText/longText';
-import Number from '../grid/fields/number/number';
+import { Field } from '../grid/gridContent';
+// import TextLine from '../grid/fields/textLine/textLine';
+// import LongText from '../grid/fields/longText/longText';
+// import Number from '../grid/fields/number/number';
 
 class ExpandRecord extends React.Component {
 

@@ -13,7 +13,6 @@ import Login from '../components/auth/login/login';
 import Logout from '../components/auth/logout/logout';
 import Auth from '../components/auth/auth';
 import View from '../components/view/view';
-import ExpandRecord from '../components/view/expandRecord/expandRecord';
 
 export default (
     <Route path="/" component={App}>
@@ -24,7 +23,6 @@ export default (
         <Route path="/login" component={Login}/>
         <Route path="/logout" component={Logout}/>
         <Route path="/view" component={View}/>
-        <Route path="/record" component={ExpandRecord}/>
         <Route path="404" component={NotFound}/>
         <Redirect from="*" to="404"/>
     </Route>
