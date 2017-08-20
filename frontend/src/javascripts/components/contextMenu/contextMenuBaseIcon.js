@@ -12,7 +12,7 @@ class BaseIcon extends React.Component {
             <div key={i} className='myicon' > 
               <Icon inverted link name={icon} 
                 className='icon' color='black' size='large'
-                onClick={()=> this.props.handleClick(icon, 'icon', this.props.baseId)}
+                onClick={()=> this.props.handleClick(icon, 'icon', this.props.base._id)}
               />
             </div>
          )})
