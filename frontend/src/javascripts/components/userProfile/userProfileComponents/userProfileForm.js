@@ -2,31 +2,11 @@ import React, {Component} from 'react';
 import { Button } from 'semantic-ui-react';
 import './date.js' 
 
-const options = [
-  { key: 'm', text: 'Male', value: 'male' },
-  { key: 'f', text: 'Female', value: 'female' },
-]
-
 class UserProfileForm extends Component {
   constructor(props) {
     super(props);
-    this.props = props;
-    this.handleSubmit = this.handleSubmit.bind(this);
 
-    if ( this.props.user) { 
-      let date = Date.parse(this.props.user.birthday)
-      this.state = {
-        firstName: this.props.user.firstName,
-        lastName: this.props.user.lastName,
-        gender: this.props.user.gender,
-        birthday: new Date(Date.parse(this.props.user.birthday)).customFormat( "#YYYY#-#MM#-#DD#" ),
-        country: this.props.user.country,
-        city: this.props.user.city,
-        address: this.props.user.address,
-        phone: this.props.user.phone
-      } 
-    } else {
-       this.state = { 
+      this.state = { 
         firstName: '',
         lastName: '',
         gender: '',
@@ -35,16 +15,27 @@ class UserProfileForm extends Component {
         city: '',
         address: '',
         phone: ''
-       }
-    }
+      }
+    this.handleSubmit = this.handleSubmit.bind(this); 
+  }
+
+  componentWillReceiveProps(nextProps) {
+      this.setState({ 
+        firstName: nextProps.user.firstName, 
+        lastName: nextProps.user.lastName,
+        gender: nextProps.user.gender,
+        birthday: new Date(Date.parse(nextProps.user.birthday)).customFormat( "#YYYY#-#MM#-#DD#" ),
+        country: nextProps.user.country,
+        city: nextProps.user.city,
+        address: nextProps.user.address,
+        phone: nextProps.user.phone
+    });
   }
 
   handleSubmit(e) {
-    console.log(this.props);
     e.preventDefault();
     
     const formData = {};
-    console.log(this.refs)
     for (const field in this.refs) {
       formData[field] = this.refs[field].value;
     }

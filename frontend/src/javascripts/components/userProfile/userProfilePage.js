@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import UserProfile from './userProfile'
 import UserProfilePhoto from './userProfileComponents/userProfilePhoto';
 import UserProfileForm from './userProfileComponents/userProfileForm';
-import { changeUserData } from './userProfileActions';
+import { changeUserData, getCurrentUser } from './userProfileActions';
 import { Header } from 'semantic-ui-react';
 import '../../../images/logo.png'
 import './userProfile.scss';
@@ -15,15 +15,18 @@ class UserProfilePage extends Component {
         this.props = props;
         const handleInput = props.handleInput;
         const handleSubmitForm = props.handleSubmitForm;
+        const getCurrentUser = props.getCurrentUser;
+    }
+    componentWillMount(){
+        this.props.getCurrentUser();
     }
 
     render() {
-        console.log(this.props)
         return (
         <div>
             <div className ='home-page-header' >
                 <Link to={'/'}><img className='logo' src='../../../images/logo.png'/></Link>
-                <UserProfile/>
+                <UserProfile user={this.props.user}/>
             </div>
             <div className='user-profile-wrapper'>
                 <UserProfilePhoto />
@@ -40,7 +43,7 @@ class UserProfilePage extends Component {
     }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     return {
         user: state.userProfile.user
     };
@@ -48,7 +51,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleSubmitForm: (_id, formData) => { dispatch(changeUserData(_id, formData))}
+    handleSubmitForm: (_id, formData) => { dispatch(changeUserData(_id, formData))},
+    getCurrentUser:() => {dispatch(getCurrentUser())}
   }
 }
 

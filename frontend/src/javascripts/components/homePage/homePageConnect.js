@@ -1,17 +1,20 @@
 import HomePageContainer from './homePageContainer';
 import { connect } from 'react-redux';
 import { getAllBases } from './homePageActions';
+import { getCurrentUser } from '../userProfile/userProfileActions';
 
 
 const mapStateToProps = (state) => {
   return ({
     bases: state.baseStore.bases,
     menu: state.baseStore.showMenuforBase,
+    user: state.userProfile.user
   });
 }
 
 const mapDispatchToProps = {
-   getBases: getAllBases
+   getBases: getAllBases,
+   getUser: getCurrentUser
 }
 
 const HomePage = connect(

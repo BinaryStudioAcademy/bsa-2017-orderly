@@ -23,6 +23,7 @@ class Tools extends Component {
 
     componentWillMount() {
         this.props.getBaseCurrent(this.props.baseId, this.props.currentTableId);
+        this.props.getUser();
     }
 
     isRecordSelected(id) {
@@ -91,12 +92,11 @@ class Tools extends Component {
             blurRecordComponentHandler: this.blurRecordComponentHandler,
             expandRecordHandler: this.expandRecordHandler
         }
-
         return (
             <div onClick={() => {
                 this.props.closeMenu();
             }}>
-                <Header base={this.props.base}/>
+                <Header base={this.props.base} user={this.props.user}/>
                 <Tabs base={this.props.base}
                       activeModal={this.props.activeModal}
                       setTabsModal={this.props.setTabsModal}
