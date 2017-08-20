@@ -1,9 +1,8 @@
 import React from 'react';
-import { Modal, Button, Input } from 'semantic-ui-react';
-import R from 'ramda';
+import { Modal, Button } from 'semantic-ui-react';
 
 import { setName } from '../../../../../dashboardService';
-import { ModalBody, renameInput } from './modalContent';
+import { ModalBody, renameInput, descriptionInput } from './modalContent';
 
 
 const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsError,
@@ -20,7 +19,8 @@ const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsErro
 			           renameInput={renameInput}
 			           tablesNames={tablesNames}
 			           checkTableName={checkTableName}
-			           activeModal={activeModal} />
+			           activeModal={activeModal}
+						table={table}/>
 
 
 		</Modal.Content>
@@ -35,8 +35,13 @@ const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsErro
 			        labelPosition='right'
 			        content='Yes'
 					onClick={() => {
-						if (!renameIsError && activeModal == 'rename') {
-							updateTable({name: renameInput},  table._id);
+						if (!renameIsError && activeModal === 'rename') {
+							updateTable({name: renameInput}, table._id);
+							setTabsModal('');
+							return;
+						}
+						if (activeModal === 'edit description') {
+							updateTable({description: descriptionInput}, table._id)
 							setTabsModal('');
 							return;
 						}

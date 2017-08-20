@@ -10,16 +10,6 @@ const formatFieldsRecords = (fields, records) => {
     return combined;
 };
 
-const debounce = (func, delay) => {
-    let inDebounce = undefined;
-    return function () {
-        let context = this;
-        let args = arguments;
-        clearTimeout(inDebounce);
-        return inDebounce = setTimeout(() => func.apply(context, args), delay);
-    };
-};
-
 const setName = (activeModal) => {
     switch (activeModal) {
     case 'rename':
@@ -35,6 +25,5 @@ const setName = (activeModal) => {
 
 export {
     formatFieldsRecords,
-    debounce,
     setName
 }
