@@ -95,35 +95,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);
-
-/*
-<Modal open={this.props.view.showSelector}
-                       onClose={this.handleToggleSelector}
-                       closeOnDocumentClick
-                       size='mini'
-                       dimmer={null}
-                       id="view__modal">
-                    <Modal.Content>
-                        {this.props.view.views.map((view, ind) => {
-                            return (
-                                <div key={ind}
-                                     className="modal__view-option"
-                                     onClick={() => this.handleChangeView(view.id)}>
-                                    <Icon
-                                        name="checkmark"
-                                        className={view.id === this.props.view.currentView
-                                            ? '' : 'option__notActive'}/>
-                                    <Icon name={viewIcons[view.type]}/>
-                                    {view.name}
-                                </div>
-                            )
-                        })}
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <div id="modal__add-view">
-                            <p className="add-view__option">Add view:</p>
-                            {viewTypes}
-                        </div>
-                    </Modal.Actions>
-                </Modal>
-*/

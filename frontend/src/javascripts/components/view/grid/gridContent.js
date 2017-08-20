@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import {Icon} from 'semantic-ui-react';
 import * as gridActions from './gridActions';
+import {fieldIcons} from "../../configuration/fieldTypes";
 import './gridContent.scss';
 import TextLine from './fields/textLine/textLine';
 import LongText from './fields/longText/longText';
@@ -12,7 +13,7 @@ const Field = ({type, name, records, fieldEvents, showFieldMenu}) => {
     return (
         <div className="field__items">
             <div className="content__field">
-                <Icon name="font" className="field__icon"/>
+                <Icon name={fieldIcons[type]} className="field__icon"/>
                 <span>{name}</span>
                 <Icon name="ellipsis vertical" className="field__change-type" onClick={showFieldMenu}/>
             </div>
@@ -135,18 +136,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GridContent);
-
-
-// {this.props.fieldsRecords &&
-// this.props.fieldsRecords.map((field, ind) => {
-//     return (
-//         <div className="content__field item__row-selector">
-//             <span className="item__row_num">{ind}</span>
-//         </div>
-//     )
-// })}
-
-
-//<div className="content__field item__row-selector">
-//    <input type="checkbox"/>
-//</div>
