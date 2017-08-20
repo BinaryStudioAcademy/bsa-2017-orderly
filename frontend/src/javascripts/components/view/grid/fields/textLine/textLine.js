@@ -13,6 +13,12 @@ class TextLine extends Field {
     renderActiveField() {
         return <Input
             onChange={(event) => { inputValue = event.target.value } }
+            onKeyDown={(event) => {
+				if (event.keyCode === 13) {
+					// event.stopPropagation()
+					this.props.onChange(this.props.id, event.target.value)
+				}
+            }}
 	        onBlur={(event) => {
 	        	if (Boolean(event.target.value)) this.props.onChange(this.props.id, event.target.value)
 		        this.props.onBlurComponent(this.props.id)

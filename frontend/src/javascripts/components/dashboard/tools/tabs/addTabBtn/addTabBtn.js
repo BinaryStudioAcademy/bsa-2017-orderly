@@ -14,7 +14,9 @@ const AddTabBtn = ({base, togglePopup, addPopupIsOpen, addTableClick}) => (
         hideOnScroll>
         <Input icon={{ name: 'plus', link: true, onClick: () => {
             if (!input || !input.value) return;
-            addTableClick({ name: input.value, baseId: base._id});
+            addTableClick({ table: {
+                name: input.value
+            }, baseId: base._id});
             input = '';
         }}}
         onChange={(event) => { input = event.target;}}
