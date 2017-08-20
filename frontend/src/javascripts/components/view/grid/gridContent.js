@@ -7,6 +7,7 @@ import './gridContent.scss';
 import TextLine from './fields/textLine/textLine';
 import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
+import ExpandRecord from '../expandRecord/expandRecord';
 
 const Field = ({type, name, records, fieldEvents, showFieldMenu}) => {
     return (
@@ -25,7 +26,7 @@ const Field = ({type, name, records, fieldEvents, showFieldMenu}) => {
     );
 };
 
-const Record = ({id, type, data, fieldEvents}) => {
+export const Record = ({id, type, data, fieldEvents}) => {
     let record = null;
     switch (type) {
         case 'longtext':
@@ -100,6 +101,26 @@ class GridContent extends Component {
             <div>
                 <div className="grid__content">
                     <div className="content__body">
+                        <div className="field__items row-options-field">
+                            <div className="content__field row-options-field">
+                                <Icon name="font" className="field__icon"/>
+                            </div>
+                            <div className="field__items row-options-field">
+                                {this.props.recordRecords &&
+                                this.props.recordRecords.map((record, ind) => {
+                                    return <ExpandRecord
+                                        key={record._id}
+                                        recordId={record._id}
+                                        record_data={record.record_data}
+                                        comments={record.comments}
+                                        history={record.comments}
+                                        fieldEvents={this.props.fieldEvents}
+                                        recordRecords={this.props.recordRecords}
+                                        rowNumber={ind}
+                                    />
+                                })}
+                            </div>
+                        </div>
                         {this.props.fieldsRecords &&
                         this.props.fieldsRecords.map((field) => {
                             return <Field

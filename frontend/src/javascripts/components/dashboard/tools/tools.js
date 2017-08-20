@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Header from './header/header';
 import Tabs from './tabs/tabs';
 import View from '../../view/view';
-import {formatFieldsRecords} from "../dashboardService";
+import {formatFieldsRecords, formatRecordRecords} from "../dashboardService";
 
 class Tools extends Component {
     constructor(props) {
@@ -79,6 +79,11 @@ class Tools extends Component {
         if (currentTable) {
             fieldsRecords = formatFieldsRecords(currentTable.fields, currentTable.records);
         }
+        let recordRecords;
+        if (currentTable) {
+            recordRecords = formatRecordRecords(currentTable.fields, currentTable.records);
+        }
+
         const fieldEvents = {
             isRecordSelected: this.isRecordSelected,
             isRecordActive: this.isRecordActive,
@@ -90,7 +95,7 @@ class Tools extends Component {
             blurRecordHandler: this.blurRecordHandler,
             blurRecordComponentHandler: this.blurRecordComponentHandler,
             expandRecordHandler: this.expandRecordHandler
-        }
+        };
 
         return (
             <div onClick={() => {
@@ -112,7 +117,8 @@ class Tools extends Component {
                       updateTable={this.props.updateTable}
                       deleteTable={this.props.deleteTable}
                       addTableClick={this.props.addTableClick}/>
-                <View currentTable={currentTable} fieldsRecords={fieldsRecords} fieldEvents={fieldEvents}/>
+                <View currentTable={currentTable} fieldsRecords={fieldsRecords}
+                      fieldEvents={fieldEvents} recordRecords={recordRecords} />
             </div>
         );
     }

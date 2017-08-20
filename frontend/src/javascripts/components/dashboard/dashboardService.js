@@ -10,6 +10,27 @@ const formatFieldsRecords = (fields, records) => {
     return combined;
 };
 
+const formatRecordRecords = (fields, records) => {
+    let combined = [];
+    let fieldNames = [];
+    let fieldTypes = [];
+    for (const field of fields) {
+        fieldNames.push(field.name);
+        fieldTypes.push(field.type);
+    }
+
+    for (const [ind, record] of records.entries()) {
+        let recordDataArr = [];
+        for (const [index, record_data] of record.record_data.entries()) {
+            recordDataArr.push({_id: record_data._id, data: record_data.data,
+                                fieldName: fieldNames[index], type: fieldTypes[index]});
+        }
+        combined.push({_id: record._id, coments: record.comments,
+                       history: record.history, record_data: recordDataArr});
+    }
+    return combined;
+};
+
 const debounce = (func, delay) => {
     let inDebounce = undefined;
     return function () {
@@ -35,6 +56,7 @@ const setName = (activeModal) => {
 
 export {
     formatFieldsRecords,
+    formatRecordRecords,
     debounce,
     setName
 }

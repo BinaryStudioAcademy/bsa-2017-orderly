@@ -1,34 +1,32 @@
 import React from 'react';
 import { Button, Header, Icon, Image, Modal } from 'semantic-ui-react';
-
 import logoImage from '../../../../images/logo.png';
 import './expandRecord.scss';
-import { Field } from '../grid/gridContent';
-// import TextLine from '../grid/fields/textLine/textLine';
-// import LongText from '../grid/fields/longText/longText';
-// import Number from '../grid/fields/number/number';
+import { Record } from '../grid/gridContent';
 
-class ExpandRecord extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.props = props;
-    }
-
-    render() {
-        return (
+const ExpandRecord = ({recordId, record_data, comments, history,
+                          recordRecords, fieldEvents, rowNumber}) => {
+    return (
+        <div className="row-control-container">
             <Modal trigger={
-                <Button>
-                    <Icon name='expand'/>Expand record
+                <Button className="expand-btn">
+                    <Icon name='expand'/>
                 </Button>}>
-                <Modal.Header>Profile Picture</Modal.Header>
+                <Modal.Header>Modal Header</Modal.Header>
                 <Modal.Content image scrolling>
                     <Modal.Description className="modal">
-                        <Header>Modal Header</Header>
-                        <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>
-                        <TextLine/>
-                        <LongText/>
-                        <Number/>
+                        <Header></Header>
+                        {record_data.map((record) => {
+                            return (
+                                <div key={record._id} className="modal__field-item">
+                                    <div>
+                                        {record.fieldName}
+                                    </div>
+                                    <Record id={record._id} type={record.type}
+                                            data={record.data} fieldEvents={fieldEvents} />
+                                </div>
+                            )
+                        })}
 
                     </Modal.Description>
 
@@ -44,9 +42,9 @@ class ExpandRecord extends React.Component {
                     </Button>
                 </Modal.Actions>
             </Modal>
-        );
-    }
-}
+        </div>
+    );
+};
 
 
 

@@ -13,6 +13,7 @@ export default class Grid extends Component{
                     onAddField={this.props.onAddField}
                     onAddRecord={this.props.onAddRecord}
                     fieldEvents={this.props.fieldEvents}
+                    recordRecords={this.props.recordRecords}
                 />
             </div>
         );
