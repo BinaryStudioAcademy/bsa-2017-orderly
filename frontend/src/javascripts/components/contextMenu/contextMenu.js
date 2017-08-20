@@ -6,14 +6,14 @@ import BaseOptions from './contextMenuBaseOptions';
 import './contextMenu.scss';
 
 class ContextMenu extends Component {
- 
+
   render(){
     return (
       <div>
-        <BaseName handleClick = {this.props.handleClick} baseId = {this.props.baseId}/>
-        <BaseColor handleClick = {this.props.handleClick} baseId = {this.props.baseId}/>
-        <BaseIcon handleClick = {this.props.handleClick}  baseId = {this.props.baseId}/>
-        <BaseOptions handleClick = {this.props.handleClick}  baseId = {this.props.baseId}/>
+        <BaseName handleClick = {this.props.handleClick} base = {this.props.base} />
+        <BaseColor handleClick = {this.props.handleClick} base = {this.props.base} />
+        <BaseIcon handleClick = {this.props.handleClick}  base = {this.props.base} />
+        <BaseOptions handleClick = {this.props.handleClick}  base = {this.props.base} />
       </div>
     )
   }

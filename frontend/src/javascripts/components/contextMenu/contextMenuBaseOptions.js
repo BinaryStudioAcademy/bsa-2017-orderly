@@ -22,7 +22,7 @@ let BaseOptions = (props) => {
           <Icon name='slack' key = {id++} className='icon' color='black' size='small'/>
           Slack notifications
         </li>
-        <li className = 'base-options-list-item' onClick={()=> props.handleClick(null, 'delete', props.baseId)}>
+        <li className = 'base-options-list-item' onClick={()=> props.handleClick(null, 'delete', props.base._id)}>
           <Icon name='trash' key = {id++} className='icon' color='black' size='small'/>
           Delete Base
         </li> 
