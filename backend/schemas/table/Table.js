@@ -9,7 +9,7 @@ const tableSchema = new Schema({
     },
     description: {
         type: String,
-	    default: 'This is default table'
+	    default: ''
     },
     records: [{
         record_data: [{

@@ -80,6 +80,7 @@
     "redux-saga": "^0.15.6",
     "reselect": "2.5.3",
     "semantic-ui-css": "^2.2.11",
-    "semantic-ui-react": "^0.71.3"
+    "semantic-ui-react": "^0.71.3",
+    "throttle-debounce": "^1.0.1"
   }
 }

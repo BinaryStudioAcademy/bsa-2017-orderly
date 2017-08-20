@@ -20,7 +20,7 @@ const Header = ({ base, user }) => (
             <Icon link name='help circle' size='large'/>
             <Icon link name='grid layout' size='large'/>
             <Icon link name='bell' size='large' />
-            <UserProfile />
+            <UserProfile user={user}/>
         </div>
     </header>
 );
