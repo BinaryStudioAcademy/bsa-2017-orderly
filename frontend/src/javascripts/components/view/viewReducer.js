@@ -3,7 +3,8 @@ import {CHANGE_VIEW, TOGGLE_SELECTOR, GET_FIELDS} from "./viewActions";
 const MOCK_VIEWS = [
     {id: 1, type: 'grid', name: 'Grid view'},
     {id: 2, type: 'kanban', name: 'Kanban chan'},
-    {id: 3, type: 'form', name: 'Formal'}
+    {id: 3, type: 'form', name: 'Formal'},
+    {id: 4, type: 'gallery', name: 'Gallery'},
 ];
 
 const initialState = {
