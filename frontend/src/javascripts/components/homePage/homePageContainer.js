@@ -10,12 +10,14 @@ class HomePageContainer extends React.Component {
   }
   componentWillMount() {
       this.props.getBases();
+      this.props.getUser();
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className = "home-page-wrapper">
-        <HomePageHeader />
+        <HomePageHeader user={this.props.user}/>
         <div className = 'home-page-body'>
           <HomePageTeamBlock bases={this.props.bases}
             menu={this.props.menu}

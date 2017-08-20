@@ -4,7 +4,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 import { Icon, Image } from 'semantic-ui-react';
-import * as UserProfileActions from './userProfileActions';
 import avatar from '../../../images/avatar.png';
 
 class UserProfile extends Component {
@@ -13,9 +12,6 @@ class UserProfile extends Component {
         this.props = props;
     }
 
-    componentWillMount(){
-        this.props.getCurrentUser();
-    }
     render() {
         return (
             <div id="user-info">
@@ -33,15 +29,5 @@ class UserProfile extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        userProfile: state.userProfile,
-        user: state.userProfile.user
-    };
-}
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, UserProfileActions),  dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default UserProfile
