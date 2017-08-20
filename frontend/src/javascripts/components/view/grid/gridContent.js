@@ -26,7 +26,7 @@ const Field = ({type, name, records, fieldEvents, showFieldMenu}) => {
     );
 };
 
-export const Record = ({id, type, data, fieldEvents}) => {
+const Record = ({id, type, data, fieldEvents}) => {
     let record = null;
     switch (type) {
         case 'longtext':

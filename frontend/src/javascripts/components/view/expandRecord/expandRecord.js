@@ -2,7 +2,66 @@ import React from 'react';
 import { Button, Header, Icon, Image, Modal } from 'semantic-ui-react';
 import logoImage from '../../../../images/logo.png';
 import './expandRecord.scss';
-import { Record } from '../grid/gridContent';
+import TextLine from '../grid/fields/textLine/textLine';
+import LongText from '../grid/fields/longText/longText';
+import Number from '../grid/fields/number/number';
+//import { Record } from '../grid/gridContent';
+
+const Record = ({id, type, data, fieldEvents}) => {
+    let record = null;
+    switch (type) {
+        case 'longtext':
+            record = <LongText id={id}
+                               value={data}
+                               selected={fieldEvents.isRecordSelected(id)}
+                               active={fieldEvents.activateRecordHandler}
+                               onSelect={fieldEvents.selectRecordHandler}
+                               onActivate={fieldEvents.activateRecordHandler}
+                               onKeyDown={fieldEvents.keyDownRecordHandler}
+                               onChange={fieldEvents.changeRecordHandler}
+                               onBlurField={fieldEvents.blurRecordHandler}
+                               onBlurComponent={fieldEvents.blurRecordComponentHandler}
+                               onExpand={fieldEvents.expandRecordHandler}
+            >
+            </LongText>;
+            break;
+
+        case 'number':
+            record = <Number   id={id}
+                               value={data}
+                               selected={fieldEvents.isRecordSelected(id)}
+                               active={fieldEvents.activateRecordHandler}
+                               onSelect={fieldEvents.selectRecordHandler}
+                               onActivate={fieldEvents.activateRecordHandler}
+                               onKeyDown={fieldEvents.keyDownSimpleRecordHandler}
+                               onChange={fieldEvents.changeRecordHandler}
+                               onBlurField={fieldEvents.blurRecordHandler}
+                               onBlurComponent={fieldEvents.blurRecordComponentHandler}
+            >
+            </Number>;
+            break;
+
+        default:
+            record = <TextLine id={id}
+                               value={data}
+                               selected={false}
+                               active={true}
+                               onSelect={() => {}}
+                               onActivate={() => {}}
+                               onKeyDown={() => {}}
+                               onChange={fieldEvents.changeRecordHandler}
+                               onBlurField={fieldEvents.blurRecordHandler}
+                               onBlurComponent={fieldEvents.blurRecordComponentHandler}
+            >
+            </TextLine>;
+    }
+
+    return (
+        <div className="field__item">
+            {record}
+        </div>
+    );
+};
 
 const ExpandRecord = ({recordId, record_data, comments, history,
                           recordRecords, fieldEvents, rowNumber}) => {
@@ -45,7 +104,5 @@ const ExpandRecord = ({recordId, record_data, comments, history,
         </div>
     );
 };
-
-
 
 export default ExpandRecord;

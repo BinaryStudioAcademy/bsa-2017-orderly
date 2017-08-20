@@ -79,4 +79,7 @@
   .table-cell {
     width: 100%;
   }
+  .long-text.active {
+    min-height: 150px;
+  }
 }
