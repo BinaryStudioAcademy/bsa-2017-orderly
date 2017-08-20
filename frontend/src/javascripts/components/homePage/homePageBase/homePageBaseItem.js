@@ -10,7 +10,7 @@ class BaseItem extends Component {
   }
   render() {
     return (
-      <div>
+      <div className='base-wrapper'>
         <div className='base-name-header'>
           {this.props.base.name}
         </div>

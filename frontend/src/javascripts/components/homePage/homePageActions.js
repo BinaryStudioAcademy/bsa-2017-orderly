@@ -1,8 +1,7 @@
-export const addNewBase = (name) => {
+export const addNewBase = () => {
   return {
-    type: 'ADD_NEW_BASE',
-    name
-  };
+    type: 'ADD_NEW_BASE'    
+  }
 }
 export const getAllBases = () => {
   return {
