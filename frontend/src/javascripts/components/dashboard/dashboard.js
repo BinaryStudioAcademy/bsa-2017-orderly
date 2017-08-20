@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, deleteTable,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent, changeFieldType } from './dashboardActions';
+    import { getCurrentUser } from '../userProfile/userProfileActions';
 import { addField } from '../view/viewActions';
 
 const mapStateToProps = (state, ownProps) => {
@@ -15,7 +16,8 @@ const mapStateToProps = (state, ownProps) => {
         addPopupIsOpen: state.dashboardReducer.addPopupIsOpen,
         renameIsError: state.dashboardReducer.renameIsError,
         selectedRecordId: state.dashboardReducer.selectedRecordId,
-        activeRecordId: state.dashboardReducer.activeRecordId
+        activeRecordId: state.dashboardReducer.activeRecordId,
+        user: state.userProfile.user
     });
 }
 
@@ -39,6 +41,7 @@ const mapDispatchToProps = {
     blurRecord: blurRecord,
     blurRecordComponent: blurRecordComponent,
     changeFieldType: changeFieldType,
+    getUser: getCurrentUser
 };
 
 const Dashboard = connect(
