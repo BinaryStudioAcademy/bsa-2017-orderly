@@ -7,7 +7,6 @@ import './gridContent.scss';
 import TextLine from './fields/textLine/textLine';
 import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
-import ExpandRecord from '../expandRecord/expandRecord';
 
 const Field = ({type, name, index, records, recordData, showFieldMenu}) => {
     return (
@@ -99,24 +98,6 @@ class GridContent extends Component {
             <div>
                 <div className="grid__content">
                     <div className="content__body">
-                        <div className="field__items row-options-field">
-                            <div className="content__field row-options-field">
-                                <Icon name="font" className="field__icon"/>
-                            </div>
-                            <div className="field__items row-options-field">
-                                {this.props.currentTable &&
-                                this.props.currentTable.records.map((record, recordIndex) => {
-                                    return <ExpandRecord
-                                        key={record._id}
-                                        record={record}
-                                        fields={this.props.currentTable.fields}
-                                        recordData={this.props.recordData}
-                                        rowNumber={recordIndex}
-                                    />
-                                })}
-                            </div>
-                        </div>
-
                         {this.props.currentTable &&
                         this.props.currentTable.fields.map((field, fieldIndex) => {
                             return <Field
