@@ -22,6 +22,12 @@ function dashboardReducer(state = initState, action) {
             {base: action.payload.base}
         );
     }
+    case 'CHANGE_BASE_PARAM_SUCCESS': {
+        return R.merge(
+            state,
+            {base: action.base}
+        );
+    }
 
     case 'SET_ACTIVE_TAB': {
         return R.mergeAll([

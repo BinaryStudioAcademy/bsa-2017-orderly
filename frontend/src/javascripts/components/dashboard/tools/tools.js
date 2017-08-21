@@ -96,7 +96,10 @@ class Tools extends Component {
             <div onClick={() => {
                 // this.props.closeMenu();
             }}>
-                <Header base={this.props.base} user={this.props.user}/>
+                <Header base={this.props.base} 
+                        user={this.props.user} 
+                        menu={this.props.menu}
+                        handleClick={this.props.handleClick}  />
                 <Tabs base={this.props.base}
                       activeModal={this.props.activeModal}
                       setTabsModal={this.props.setTabsModal}
