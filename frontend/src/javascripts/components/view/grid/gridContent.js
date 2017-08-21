@@ -113,7 +113,7 @@ class GridContent extends Component {
                 <div className="grid__content">
                     <div className="content__body">
                         {this.props.fieldsRecords &&
-                        this.props.fieldsRecords.map((field) => {
+                        this.props.fieldsRecords.map((field, fieldIndex) => {
                             return <Field
                                 key={field._id}
                                 id={field._id}
@@ -123,7 +123,8 @@ class GridContent extends Component {
                                 records={field.records}
                                 recordData={this.props.recordData}
                                 tableRecords={this.props.currentTable.records}
-                                showFieldMenu={this.props.showFieldMenu}changeFieldType={this.props.changeFieldType}
+                                showFieldMenu={this.props.showFieldMenu}
+                                changeFieldType={this.props.changeFieldType}
                                 changeFieldName={this.props.changeFieldName}
                                 tableId={this.props.currentTable._id}
                             />

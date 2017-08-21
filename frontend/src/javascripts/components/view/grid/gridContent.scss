@@ -37,6 +37,7 @@ $cell-padding: 0px;
 .content__body {
   display: flex;
   flex-direction: row;
+  max-height: 445px;
 }
 
 .field__items {
