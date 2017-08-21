@@ -22,9 +22,9 @@ const setActive = (tableId) => ({
     tableId: tableId
 });
 
-const addTable = ({name, baseId}) => ({
+const addTable = ({table, baseId}) => ({
     type: 'ADD_TABLE',
-    name: name,
+    table: table,
     baseId: baseId
 });
 
