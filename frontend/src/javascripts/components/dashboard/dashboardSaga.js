@@ -32,7 +32,7 @@ function* addingTable(action) {
     try {
         const payload = {};
         payload.baseId = action.baseId;
-        payload.table = yield call(addTable, action.name);
+        payload.table = yield call(addTable, action.table);
         yield put({type: 'ADD_TABLE_SUCCEEDED', payload});
     } catch (err) {
         yield put({type: 'ADD_TABLE_FAILED', message: err.message});

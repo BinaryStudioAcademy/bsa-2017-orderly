@@ -1,12 +1,13 @@
 import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
+import R from 'ramda';
 
 import { setName } from '../../../../../dashboardService';
-import { ModalBody, renameInput, descriptionInput } from './modalContent';
+import { ModalBody, renameInput, descriptionInput, isRecordCopy } from './modalContent';
 
 
 const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsError,
-	                    checkTableName, updateTable, deleteTable}) =>  (
+	                    checkTableName, updateTable, deleteTable, addTableClick, base}) =>  (
 	<Modal size='mini'
 		   dimmer={false}
 		   onClose={() => { setTabsModal(''); }}
@@ -21,8 +22,6 @@ const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsErro
 			           checkTableName={checkTableName}
 			           activeModal={activeModal}
 						table={table}/>
-
-
 		</Modal.Content>
 		<Modal.Actions>
 			<Button negative onClick={ () => {
@@ -42,6 +41,24 @@ const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsErro
 						}
 						if (activeModal === 'edit description') {
 							updateTable({description: descriptionInput}, table._id)
+							setTabsModal('');
+							return;
+						}
+						if (activeModal === 'duplicate') {
+							let tableCopy = table;
+							tableCopy.name = table.name + ' copy'
+							if (isRecordCopy) {
+								addTableClick({
+									table: R.pick(['name', 'description', 'records',
+													'fields', 'views'], tableCopy),
+									baseId: base._id
+								})
+							} else {
+								addTableClick({
+									table: R.pick(['name', 'description'], tableCopy),
+									baseId: base._id
+								})
+							}
 							setTabsModal('');
 							return;
 						}
