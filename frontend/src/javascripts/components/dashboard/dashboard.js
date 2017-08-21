@@ -12,11 +12,7 @@ const mapStateToProps = (state, ownProps) => {
         tables: state.dashboardReducer.tables,
         activeModal: state.dashboardReducer.activeModal,
         baseId: ownProps.params.baseId,
-        // ToDo: maybe we should use currentTable instead of currentTableId ?
         currentTableId: ownProps.params.tableId,
-        currentTable: state.dashboardReducer.currentTable,
-        fieldsRecords: state.dashboardReducer.fieldsRecords,
-        expandRecords: state.dashboardReducer.expandRecords,
         addPopupIsOpen: state.dashboardReducer.addPopupIsOpen,
         renameIsError: state.dashboardReducer.renameIsError,
         selectedRecordId: state.dashboardReducer.selectedRecordId,

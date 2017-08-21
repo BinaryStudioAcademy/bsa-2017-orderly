@@ -9,7 +9,7 @@ import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
 import ExpandRecord from '../expandRecord/expandRecord';
 
-const Field = ({type, name, records, recordData, showFieldMenu}) => {
+const Field = ({type, name, index, records, recordData, showFieldMenu}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -19,7 +19,11 @@ const Field = ({type, name, records, recordData, showFieldMenu}) => {
             </div>
             <div className="field__items">
                 {records.map((record) => {
-                    return <Record key={record._id} id={record._id} type={type} data={record.data} recordData={recordData}/>
+                    return <Record key={record.record_data[index]._id}
+                                   id={record.record_data[index]._id}
+                                   type={type}
+                                   data={record.record_data[index].data}
+                                   recordData={recordData}/>
                 })}
             </div>
         </div>
@@ -100,30 +104,29 @@ class GridContent extends Component {
                                 <Icon name="font" className="field__icon"/>
                             </div>
                             <div className="field__items row-options-field">
-                                {this.props.expandRecords &&
-                                this.props.expandRecords.map((record, ind) => {
+                                {this.props.currentTable &&
+                                this.props.currentTable.records.map((record, recordIndex) => {
                                     return <ExpandRecord
                                         key={record._id}
-                                        recordId={record._id}
-                                        record_data={record.record_data}
-                                        comments={record.comments}
-                                        history={record.comments}
+                                        record={record}
+                                        fields={this.props.currentTable.fields}
                                         recordData={this.props.recordData}
-                                        expandRecords={this.props.expandRecords}
-                                        rowNumber={ind}
+                                        rowNumber={recordIndex}
                                     />
                                 })}
                             </div>
                         </div>
-                        {this.props.fieldsRecords &&
-                        this.props.fieldsRecords.map((field) => {
+
+                        {this.props.currentTable &&
+                        this.props.currentTable.fields.map((field, fieldIndex) => {
                             return <Field
-                                key={field._id}
-                                name={field.name}
-                                type={field.type}
-                                records={field.records}
-                                recordData={this.props.recordData}
-                                showFieldMenu={this.props.showFieldMenu}
+                            key={field._id}
+                            name={field.name}
+                            type={field.type}
+                            index={fieldIndex}
+                            records={this.props.currentTable.records}
+                            recordData={this.props.recordData}
+                            showFieldMenu={this.props.showFieldMenu}
                             />
                         })}
                     </div>

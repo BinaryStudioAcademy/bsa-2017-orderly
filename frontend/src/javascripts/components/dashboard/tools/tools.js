@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Header from './header/header';
 import Tabs from './tabs/tabs';
 import View from '../../view/view';
+import R from 'ramda';
 
 class Tools extends Component {
     constructor(props) {
@@ -70,6 +71,7 @@ class Tools extends Component {
     }
 
     render() {
+        const currentTable = R.find(R.propEq('_id', this.props.currentTableId))(this.props.tables);
         const recordData = {
             isRecordSelected: this.isRecordSelected,
             isRecordActive: this.isRecordActive,
@@ -101,10 +103,8 @@ class Tools extends Component {
                       updateTable={this.props.updateTable}
                       deleteTable={this.props.deleteTable}
                       addTableClick={this.props.addTableClick}/>
-                <View currentTable={this.props.currentTable}
-                      fieldsRecords={this.props.fieldsRecords}
-                      recordData={recordData}
-                      expandRecords={this.props.expandRecords} />
+                <View currentTable={currentTable}
+                      recordData={recordData}/>
             </div>
         );
     }

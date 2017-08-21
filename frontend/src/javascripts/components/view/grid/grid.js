@@ -9,11 +9,9 @@ export default class Grid extends Component{
                 <GridHeader/>
                 <GridContent
                     currentTable={this.props.currentTable}
-                    fieldsRecords={this.props.fieldsRecords}
+                    recordData={this.props.recordData}
                     onAddField={this.props.onAddField}
                     onAddRecord={this.props.onAddRecord}
-                    recordData={this.props.recordData}
-                    expandRecords={this.props.expandRecords}
                 />
             </div>
         );

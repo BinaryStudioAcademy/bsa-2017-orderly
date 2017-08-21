@@ -7,9 +7,6 @@ const initState = {
         name: '',
         isActive: false
     }],
-    currentTable: {},
-    fieldsRecords: [],
-    expandRecords: [],
     addPopupIsOpen: false,
     activeModal: '',
     renameIsError: true,
@@ -28,7 +25,7 @@ function dashboardReducer(state = initState, action) {
 
     case 'SET_ACTIVE_TAB': {
         return R.mergeAll([
-            R.omit(['tables', 'currentTable'], state),
+            R.dissoc('tables', state),
             {
                 tables: R.map((table) => {
                     let tempObj = R.dissoc('isActive', table);
@@ -36,9 +33,6 @@ function dashboardReducer(state = initState, action) {
                     else tempObj.isActive = false;
                     return tempObj;
                 })(state.tables)
-            },
-            {
-                currentTable: R.find(R.propEq('_id', action.tableId))(state.tables)
             }
         ]);
     }
@@ -64,15 +58,12 @@ function dashboardReducer(state = initState, action) {
 
     case 'ADD_TABLE_SUCCEEDED': {
         return R.mergeAll([
-            R.omit(['tables', 'currentTable', 'addPopupIsOpen'], state),
+            R.omit(['tables', 'addPopupIsOpen'], state),
             {
                 tables: R.concat(
                     R.map(R.compose(R.assoc('isActive', false), R.dissoc('isActive')))(state.tables),
                     [R.assoc('isActive', true, action.payload.table)]
                 )
-            },
-            {
-                currentTable: action.payload.table
             },
             {addPopupIsOpen: false}
         ]);
@@ -108,7 +99,7 @@ function dashboardReducer(state = initState, action) {
 
     case 'SWITCH_TABLE': {
         return R.mergeAll([
-            R.omit(['tables', 'currentTable'], state),
+            R.dissoc('tables', state),
             {
                 tables: R.map((table) => {
                     let newObj = R.dissoc('isActive', table);
@@ -116,10 +107,8 @@ function dashboardReducer(state = initState, action) {
                     else newObj.isActive = false;
                     return newObj;
                 })(state.tables)
-            },
-            {
-                currentTable: R.find(R.propEq('_id', action._id))(state.tables)
-            }]);
+            }
+        ]);
     }
 
     case 'OPEN_EDIT_MENU': {
@@ -232,17 +221,6 @@ function dashboardReducer(state = initState, action) {
 
     case 'CHANGE_FIELD_TYPE': {
         return {...state};
-    }
-
-    case 'UPDATE_TABLE_DATA': {
-        return R.mergeAll([
-            R.omit(['fieldsRecords'], state),
-            {
-                fieldsRecords: action.fieldsRecords
-            },
-            {
-                expandRecords: action.expandRecords
-            }]);
     }
 
     default:
