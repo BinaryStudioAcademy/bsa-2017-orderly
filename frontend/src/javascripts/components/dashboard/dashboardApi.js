@@ -13,8 +13,8 @@ const getTablesByIds = (ids) =>
         .then((response) => response.data)
         .catch(R.tap(console.error));
 
-const addTable = (name) =>
-    axios.post(url + '/tables', {name: name})
+const addTable = (table) =>
+    axios.post(url + '/tables', table)
         .then((response) => response.data)
         .catch(R.tap(console.error));
 
