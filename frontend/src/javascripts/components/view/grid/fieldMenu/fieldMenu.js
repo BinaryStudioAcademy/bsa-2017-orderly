@@ -68,7 +68,8 @@ export default class FieldMenu extends Component {
 
     handleKeyPress = (event) => {
         if(event.key === 'Enter'){
-            this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
+            this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName);
+            this.handleClickOnMenu();
         }
     };
 
