@@ -10,7 +10,7 @@ let hidingStyle = (isOpen) => ({
 });
 
 const TabPopup = ({isOpen, table, activeModal, setTabsModal, deleteTable,
-                  tablesNames, tables, renameIsError, checkTableName, updateTable}) => (
+                  tablesNames, tables, renameIsError, checkTableName, updateTable, addTableClick, base}) => (
 	<div>
 		<List className='tab_popup' style={hidingStyle(isOpen)}>
 			<List.Item className='list_menu' onClick={() => {
@@ -45,6 +45,8 @@ const TabPopup = ({isOpen, table, activeModal, setTabsModal, deleteTable,
 		            renameIsError={renameIsError}
 		            updateTable={updateTable}
 		            deleteTable={deleteTable}
+		            addTableClick={addTableClick}
+		            base={base}
 		            activeModal={activeModal}/>
 	</div>
 );
