@@ -10,6 +10,7 @@ export default class Grid extends Component{
                 <GridContent
                     currentTable={this.props.currentTable}
                     fieldsRecords={this.props.fieldsRecords}
+                    recordData={this.props.recordData}
                     onAddField={this.props.onAddField}
                     onAddRecord={this.props.onAddRecord}
                     fieldEvents={this.props.fieldEvents}

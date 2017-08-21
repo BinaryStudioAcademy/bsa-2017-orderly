@@ -113,7 +113,8 @@ function dashboardReducer(state = initState, action) {
                     else newObj.isActive = false;
                     return newObj;
                 })(state.tables)
-            }]);
+            }
+        ]);
     }
 
     case 'OPEN_EDIT_MENU': {
