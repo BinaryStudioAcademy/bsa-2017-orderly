@@ -114,9 +114,6 @@ function* changeTableRecord(action) {
 
 function* updateFieldMeta(action) {
     try {
-        console.log('DASH SAGA UPDATE FIELD');
-        console.log(action);
-        console.log('-----------------------');
         const updatedTable = yield call(updateField, action);
         yield put({type: 'UPDATE_FIELD_SUCCEEDED', table: updatedTable.data});
     } catch (err) {
