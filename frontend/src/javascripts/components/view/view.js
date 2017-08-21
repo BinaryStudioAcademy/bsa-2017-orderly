@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as viewActions from './viewActions';
-import {Icon, Modal} from 'semantic-ui-react';
+import {Icon} from 'semantic-ui-react';
 import Grid from './grid/grid';
 import {viewIcons} from '../configuration/viewTypes';
 import './view.scss';
@@ -34,7 +34,11 @@ class View extends Component {
                 fieldsRecords={this.props.fieldsRecords}
                 onAddField={this.props.addField}
                 onAddRecord={this.props.addRecord}
-                fieldEvents={this.props.fieldEvents}/>;
+                fieldEvents={this.props.fieldEvents}
+                showFieldMenu={this.props.showFieldMenu}
+                changeFieldType={this.props.changeFieldType}
+                changeFieldName={this.props.changeFieldName}
+            />;
         default:
             return <InDevelopment/>;
         }
@@ -44,8 +48,8 @@ class View extends Component {
         let viewTypes = [];
         for (let [k, val] of Object.entries(viewIcons)){
             viewTypes.push(
-                <div className="add-view__option" onClick={() => this.handleAddView()}>
-                    <Icon key={k} name={val}/>
+                <div key={k} className="add-view__option" onClick={() => this.handleAddView()}>
+                    <Icon name={val}/>
                     <span>{this.capitalize(k)}</span>
                 </div>)}
         return (

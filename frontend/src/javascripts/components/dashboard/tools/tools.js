@@ -94,7 +94,7 @@ class Tools extends Component {
         }
         return (
             <div onClick={() => {
-                this.props.closeMenu();
+                // this.props.closeMenu();
             }}>
                 <Header base={this.props.base} user={this.props.user}/>
                 <Tabs base={this.props.base}

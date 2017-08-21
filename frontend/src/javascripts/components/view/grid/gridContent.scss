@@ -6,6 +6,8 @@ $cell-padding: 0px;
 
 .grid__content {
   display: flex;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .content__header {

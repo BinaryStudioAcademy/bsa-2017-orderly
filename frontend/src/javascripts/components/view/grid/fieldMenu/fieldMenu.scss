@@ -1,0 +1,38 @@
+.field__ellipsis {
+  float: right;
+}
+
+.field__menu {
+  display: inline-block;
+  position: absolute;
+  z-index: 2;
+  margin-top: -5px;
+  margin-left: -100px;
+  width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #EEE;
+}
+
+.field__menu-icon {
+
+}
+
+.menu__name {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.menu__field-option {
+  margin: 5px auto;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.menu__field-option:hover {
+  background-color: #DDD;
+}
+
+.hide {
+  display: none;
+}

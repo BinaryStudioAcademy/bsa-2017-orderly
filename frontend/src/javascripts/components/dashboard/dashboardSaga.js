@@ -1,7 +1,7 @@
 import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable,
-    updateBaseByNewTable, addRecord, updateTable, deleteTable
+    updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField
 } from './dashboardApi';
 import {browserHistory} from 'react-router';
 import R from 'ramda';
@@ -90,8 +90,6 @@ function* addNewRecord(action) {
         const payload = {};
         payload.tableId = action.tableId;
         payload.table = yield call(addRecord, payload);
-        console.log('SAGA_------------');
-        console.log(payload);
         yield put({type: 'ADD_RECORD_SUCCEEDED', payload});
     } catch (err) {
         yield put({type: 'ADD_RECORD_FAILED', message: err.message});
@@ -114,6 +112,18 @@ function* changeTableRecord(action) {
     }
 }
 
+function* updateFieldMeta(action) {
+    try {
+        console.log('DASH SAGA UPDATE FIELD');
+        console.log(action);
+        console.log('-----------------------');
+        const updatedTable = yield call(updateField, action);
+        yield put({type: 'UPDATE_FIELD_SUCCEEDED', table: updatedTable.data});
+    } catch (err) {
+        yield put({type: 'UPDATE_FIELD_FAILED', message: err.message});
+    }
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -124,6 +134,8 @@ function* dashboardSaga() {
     yield takeEvery('ADD_RECORD', addNewRecord);
     yield takeLatest('CHANGE_RECORD', changeTableRecord);
     yield takeEvery('DELETE_TABLE', removeTable);
+    yield takeEvery('CHANGE_FIELD_TYPE', updateFieldMeta);
+    yield takeEvery('CHANGE_FIELD_NAME', updateFieldMeta);
 }
 
 export default dashboardSaga;

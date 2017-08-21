@@ -8,14 +8,24 @@ import './gridContent.scss';
 import TextLine from './fields/textLine/textLine';
 import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
+import FieldMenu from './fieldMenu/fieldMenu';
 
-const Field = ({type, name, records, fieldEvents, showFieldMenu}) => {
+const Field = ({id, tableId, type, name, records, fieldEvents, showFieldMenu, changeFieldType, changeFieldName}) => {
     return (
         <div className="field__items">
             <div className="content__field">
                 <Icon name={fieldIcons[type]} className="field__icon"/>
                 <span>{name}</span>
-                <Icon name="ellipsis vertical" className="field__change-type" onClick={showFieldMenu}/>
+                <FieldMenu
+                    onClick={showFieldMenu}
+                    id={id}
+                    tableId={tableId}
+                    name={name}
+                    type={type}
+                    changeFieldType={changeFieldType}
+                    changeFieldName={changeFieldName}
+                    records={records}
+                />
             </div>
             <div className="field__items">
                 {records.map((record) => {
@@ -105,11 +115,15 @@ class GridContent extends Component {
                         this.props.fieldsRecords.map((field) => {
                             return <Field
                                 key={field._id}
+                                id={field._id}
                                 name={field.name}
                                 type={field.type}
                                 records={field.records}
                                 fieldEvents={this.props.fieldEvents}
                                 showFieldMenu={this.props.showFieldMenu}
+                                changeFieldType={this.props.changeFieldType}
+                                changeFieldName={this.props.changeFieldName}
+                                tableId={this.props.currentTable._id}
                             />
                         })}
                     </div>

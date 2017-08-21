@@ -79,16 +79,18 @@ class TableRepository extends Repository {
     }
 
     updateField(tableId, fieldId, data) {
-        return this.model.update(
-            {_id: objectId(tableId), 'fields._id': objectId(fieldId)},
-            {'$set': {'fields.$.name': data.name}});
+        return this.model.findById(tableId).then((table) => {
+            const field = table.fields.find((f) => f._id.toString() === fieldId);
+            field.type = data.fieldType || field.type;
+            field.name = data.fieldName || field.name;
+            return table.save();
+        });
     }
 
     updateFields(tableId, data) {
         return this.model.findById(tableId)
             .then((table) => {
                 table.records.push({record_data: new Array(table.fields.length).fill(data)});
-
                 return table.save();
             });
     }
