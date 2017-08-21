@@ -9,6 +9,7 @@ import { addField } from '../view/viewActions';
 const mapStateToProps = (state, ownProps) => {
     return ({
         base: state.dashboardReducer.base,
+        menu: state.baseStore.showMenuforBase,
         tables: state.dashboardReducer.tables,
         activeModal: state.dashboardReducer.activeModal,
         baseId: ownProps.params.baseId,
