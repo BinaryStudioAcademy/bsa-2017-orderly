@@ -4,7 +4,6 @@ import {
     updateBaseByNewTable, addRecord, updateTable, deleteTable
 } from './dashboardApi';
 import {browserHistory} from 'react-router';
-import R from 'ramda';
 
 const getDashboardReducer = (state) => state.dashboardReducer;
 

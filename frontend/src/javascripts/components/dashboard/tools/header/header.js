@@ -10,53 +10,53 @@ import './header.scss';
 
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.props = props;
-    const base = props.base;
-    const user = props.user;
-    const handleClick = props.handleClick;
-  }  
+    constructor(props) {
+        super(props);
+        this.props = props;
+        const base = props.base;
+        const user = props.user;
+        const handleClick = props.handleClick;
+    }
 
-render() {
-  return(
-    <header className='dashboard_header' style={{backgroundColor:`${this.props.base.color}`}}>
-        <Icon link name={this.props.base.icon}
-              onClick={() => {
-                browserHistory.push('/')
-              }}
-              size='huge'/>
-        <div className='label-header'>
-            <div className='header-base-name'>{this.props.base.name}</div>
-            <ContextMenuIcon 
-              base={this.props.base}
-              menu={this.props.menu}
-              handleClick={this.props.handleClick}
-            />
-        </div>
-        <div className='info'>
-            <Icon link name='help circle' size='large'/>
-            <Icon link name='grid layout' size='large'/>
-            <Icon link name='bell' size='large' />
-            <UserProfile user={this.props.user}/>
-        </div>
-    </header>
-    )
-  }
+    render() {
+        return(
+            <header className='dashboard_header' style={{backgroundColor:`${this.props.base.color}`}}>
+                <Icon link name={this.props.base.icon}
+                      onClick={() => {
+                          browserHistory.push('/')
+                      }}
+                      size='huge'/>
+                <div className='label-header'>
+                    <div className='header-base-name'>{this.props.base.name}</div>
+                    <ContextMenuIcon
+                        base={this.props.base}
+                        menu={this.props.menu}
+                        handleClick={this.props.handleClick}
+                    />
+                </div>
+                <div className='info'>
+                    <Icon link name='help circle' size='large'/>
+                    <Icon link name='grid layout' size='large'/>
+                    <Icon link name='bell' size='large' />
+                    <UserProfile user={this.props.user}/>
+                </div>
+            </header>
+        )
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    handleClick: (value, type, _id) => {
-      if ( type === 'show' ) {
-        dispatch(showContextMenu(value, type, _id))
-      } else if ( type === 'delete') {
-        dispatch(deleteBase(value, type, _id))
-      } else {
-        dispatch(changeBaseParam(value, type, _id))
-      }
+    return {
+        handleClick: (value, type, _id) => {
+            if ( type === 'show' ) {
+                dispatch(showContextMenu(value, type, _id))
+            } else if ( type === 'delete') {
+                dispatch(deleteBase(value, type, _id))
+            } else {
+                dispatch(changeBaseParam(value, type, _id))
+            }
+        }
     }
-  }
 }
 
 Header  = connect(null, mapDispatchToProps)(Header);
