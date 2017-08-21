@@ -5,6 +5,7 @@ import {
 } from './dashboardApi';
 import {browserHistory} from 'react-router';
 import R from 'ramda';
+import {formatFieldsRecords, formatExpandRecords} from "./dashboardService";
 
 const getDashboardReducer = (state) => state.dashboardReducer;
 
@@ -114,6 +115,17 @@ function* changeTableRecord(action) {
     }
 }
 
+function* updateTableData(action) {
+    try {
+        const dashboardReducer = yield select(getDashboardReducer);
+        const fieldsRecords = formatFieldsRecords(dashboardReducer.tables, dashboardReducer.currentTable._id);
+        const expandRecords = formatExpandRecords(dashboardReducer.tables, dashboardReducer.currentTable._id);
+        yield put({type: 'UPDATE_TABLE_DATA', fieldsRecords: fieldsRecords, expandRecords: expandRecords});
+    } catch (err) {
+        yield put({type: 'UPDATE_TABLE_DATA_FAILED', message: err.message});
+    }
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -124,6 +136,13 @@ function* dashboardSaga() {
     yield takeEvery('ADD_RECORD', addNewRecord);
     yield takeLatest('CHANGE_RECORD', changeTableRecord);
     yield takeEvery('DELETE_TABLE', removeTable);
+    yield takeEvery([
+        'SET_ACTIVE_TAB',
+        'ADD_TABLE_SUCCEEDED',
+        'ADD_FIELD_SUCCEEDED',
+        'ADD_RECORD_SUCCEEDED',
+        'PERFORM_CHANGE_RECORD'
+    ], updateTableData);
 }
 
 export default dashboardSaga;

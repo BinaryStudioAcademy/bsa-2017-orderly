@@ -9,7 +9,7 @@ import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
 import ExpandRecord from '../expandRecord/expandRecord';
 
-const Field = ({type, name, records, fieldEvents, showFieldMenu}) => {
+const Field = ({type, name, records, recordData, showFieldMenu}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -19,28 +19,27 @@ const Field = ({type, name, records, fieldEvents, showFieldMenu}) => {
             </div>
             <div className="field__items">
                 {records.map((record) => {
-                    return <Record key={record._id} id={record._id} type={type} data={record.data} fieldEvents={fieldEvents}/>
+                    return <Record key={record._id} id={record._id} type={type} data={record.data} recordData={recordData}/>
                 })}
             </div>
         </div>
     );
 };
 
-const Record = ({id, type, data, fieldEvents}) => {
+const Record = ({id, type, data, recordData}) => {
     let record = null;
     switch (type) {
         case 'longtext':
             record = <LongText id={id}
                                value={data}
-                               selected={fieldEvents.isRecordSelected(id)}
-                               active={fieldEvents.isRecordActive(id)}
-                               onSelect={fieldEvents.selectRecordHandler}
-                               onActivate={fieldEvents.activateRecordHandler}
-                               onKeyDown={fieldEvents.keyDownRecordHandler}
-                               onChange={fieldEvents.changeRecordHandler}
-                               onBlurField={fieldEvents.blurRecordHandler}
-                               onBlurComponent={fieldEvents.blurRecordComponentHandler}
-                               onExpand={fieldEvents.expandRecordHandler}
+                               selected={recordData.isRecordSelected(id)}
+                               active={recordData.isRecordActive(id)}
+                               onSelect={recordData.selectRecordHandler}
+                               onActivate={recordData.activateRecordHandler}
+                               onKeyPress={recordData.keyPressRecordHandler}
+                               onBlurField={recordData.blurRecordHandler}
+                               onBlurComponent={recordData.blurRecordComponentHandler}
+                               onExpand={recordData.expandRecordHandler}
             >
             </LongText>;
             break;
@@ -48,14 +47,13 @@ const Record = ({id, type, data, fieldEvents}) => {
         case 'number':
             record = <Number   id={id}
                                value={data}
-                               selected={fieldEvents.isRecordSelected(id)}
-                               active={fieldEvents.isRecordActive(id)}
-                               onSelect={fieldEvents.selectRecordHandler}
-                               onActivate={fieldEvents.activateRecordHandler}
-                               onKeyDown={fieldEvents.keyDownSimpleRecordHandler}
-                               onChange={fieldEvents.changeRecordHandler}
-                               onBlurField={fieldEvents.blurRecordHandler}
-                               onBlurComponent={fieldEvents.blurRecordComponentHandler}
+                               selected={recordData.isRecordSelected(id)}
+                               active={recordData.isRecordActive(id)}
+                               onSelect={recordData.selectRecordHandler}
+                               onActivate={recordData.activateRecordHandler}
+                               onKeyPress={recordData.keyPressSimpleRecordHandler}
+                               onBlurField={recordData.blurRecordHandler}
+                               onBlurComponent={recordData.blurRecordComponentHandler}
             >
             </Number>;
             break;
@@ -63,14 +61,13 @@ const Record = ({id, type, data, fieldEvents}) => {
         default:
             record = <TextLine id={id}
                                value={data}
-                               selected={fieldEvents.isRecordSelected(id)}
-                               active={fieldEvents.isRecordActive(id)}
-                               onSelect={fieldEvents.selectRecordHandler}
-                               onActivate={fieldEvents.activateRecordHandler}
-                               onKeyDown={fieldEvents.keyDownSimpleRecordHandler}
-                               onChange={fieldEvents.changeRecordHandler}
-                               onBlurField={fieldEvents.blurRecordHandler}
-                               onBlurComponent={fieldEvents.blurRecordComponentHandler}
+                               selected={recordData.isRecordSelected(id)}
+                               active={recordData.isRecordActive(id)}
+                               onSelect={recordData.selectRecordHandler}
+                               onActivate={recordData.activateRecordHandler}
+                               onKeyPress={recordData.keyPressSimpleRecordHandler}
+                               onBlurField={recordData.blurRecordHandler}
+                               onBlurComponent={recordData.blurRecordComponentHandler}
             >
             </TextLine>;
     }
@@ -92,9 +89,6 @@ class GridContent extends Component {
         this.props.onAddField(this.props.currentTable._id);
     };
 
-    handleAddRecord = () => {
-        this.props.onAddRecord(this.props.currentTable._id);
-    };
 
     render() {
         return (
@@ -106,16 +100,16 @@ class GridContent extends Component {
                                 <Icon name="font" className="field__icon"/>
                             </div>
                             <div className="field__items row-options-field">
-                                {this.props.recordRecords &&
-                                this.props.recordRecords.map((record, ind) => {
+                                {this.props.expandRecords &&
+                                this.props.expandRecords.map((record, ind) => {
                                     return <ExpandRecord
                                         key={record._id}
                                         recordId={record._id}
                                         record_data={record.record_data}
                                         comments={record.comments}
                                         history={record.comments}
-                                        fieldEvents={this.props.fieldEvents}
-                                        recordRecords={this.props.recordRecords}
+                                        recordData={this.props.recordData}
+                                        expandRecords={this.props.expandRecords}
                                         rowNumber={ind}
                                     />
                                 })}
@@ -128,7 +122,7 @@ class GridContent extends Component {
                                 name={field.name}
                                 type={field.type}
                                 records={field.records}
-                                fieldEvents={this.props.fieldEvents}
+                                recordData={this.props.recordData}
                                 showFieldMenu={this.props.showFieldMenu}
                             />
                         })}

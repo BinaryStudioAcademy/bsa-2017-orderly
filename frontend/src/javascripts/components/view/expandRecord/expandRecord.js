@@ -7,21 +7,21 @@ import LongText from '../grid/fields/longText/longText';
 import Number from '../grid/fields/number/number';
 //import { Record } from '../grid/gridContent';
 
-const Record = ({id, type, data, fieldEvents}) => {
+const Record = ({id, type, data, recordData}) => {
     let record = null;
     switch (type) {
         case 'longtext':
             record = <LongText id={id}
                                value={data}
-                               selected={fieldEvents.isRecordSelected(id)}
-                               active={fieldEvents.activateRecordHandler}
-                               onSelect={fieldEvents.selectRecordHandler}
-                               onActivate={fieldEvents.activateRecordHandler}
-                               onKeyDown={fieldEvents.keyDownRecordHandler}
-                               onChange={fieldEvents.changeRecordHandler}
-                               onBlurField={fieldEvents.blurRecordHandler}
-                               onBlurComponent={fieldEvents.blurRecordComponentHandler}
-                               onExpand={fieldEvents.expandRecordHandler}
+                               selected={true}
+                               active={true}
+                               onSelect={recordData.selectRecordHandler}
+                               onActivate={recordData.activateRecordHandler}
+                               onKeyPress={recordData.keyPressRecordHandler}
+                               //onChange={recordData.changeRecordHandler}
+                               onBlurField={recordData.blurRecordHandler}
+                               onBlurComponent={recordData.blurRecordComponentHandler}
+                               onExpand={recordData.expandRecordHandler}
             >
             </LongText>;
             break;
@@ -29,14 +29,14 @@ const Record = ({id, type, data, fieldEvents}) => {
         case 'number':
             record = <Number   id={id}
                                value={data}
-                               selected={fieldEvents.isRecordSelected(id)}
-                               active={fieldEvents.activateRecordHandler}
-                               onSelect={fieldEvents.selectRecordHandler}
-                               onActivate={fieldEvents.activateRecordHandler}
-                               onKeyDown={fieldEvents.keyDownSimpleRecordHandler}
-                               onChange={fieldEvents.changeRecordHandler}
-                               onBlurField={fieldEvents.blurRecordHandler}
-                               onBlurComponent={fieldEvents.blurRecordComponentHandler}
+                               selected={true}
+                               active={true}
+                               onSelect={recordData.selectRecordHandler}
+                               onActivate={recordData.activateRecordHandler}
+                               onKeyPress={recordData.keyPressSimpleRecordHandler}
+                               //onChange={recordData.changeRecordHandler}
+                               onBlurField={recordData.blurRecordHandler}
+                               onBlurComponent={recordData.blurRecordComponentHandler}
             >
             </Number>;
             break;
@@ -46,12 +46,12 @@ const Record = ({id, type, data, fieldEvents}) => {
                                value={data}
                                selected={false}
                                active={true}
-                               onSelect={() => {}}
-                               onActivate={() => {}}
-                               onKeyDown={() => {}}
-                               onChange={fieldEvents.changeRecordHandler}
-                               onBlurField={fieldEvents.blurRecordHandler}
-                               onBlurComponent={fieldEvents.blurRecordComponentHandler}
+                               onSelect={recordData.selectRecordHandler}
+                               onActivate={recordData.activateRecordHandler}
+                               onKeyPress={recordData.keyPressSimpleRecordHandler}
+                               //onChange={recordData.changeRecordHandler}
+                               onBlurField={recordData.blurRecordHandler}
+                               onBlurComponent={recordData.blurRecordComponentHandler}
             >
             </TextLine>;
     }
@@ -64,7 +64,7 @@ const Record = ({id, type, data, fieldEvents}) => {
 };
 
 const ExpandRecord = ({recordId, record_data, comments, history,
-                          recordRecords, fieldEvents, rowNumber}) => {
+                          expandRecords, recordData, rowNumber}) => {
     return (
         <div className="row-control-container">
             <Modal trigger={
@@ -82,7 +82,7 @@ const ExpandRecord = ({recordId, record_data, comments, history,
                                         {record.fieldName}
                                     </div>
                                     <Record id={record._id} type={record.type}
-                                            data={record.data} fieldEvents={fieldEvents} />
+                                            data={record.data} recordData={recordData} />
                                 </div>
                             )
                         })}

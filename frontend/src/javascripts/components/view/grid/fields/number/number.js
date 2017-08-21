@@ -8,53 +8,53 @@ class Number extends Field {
         super(props, 'text-line');
 
         this.changeHandler = this.changeHandler.bind(this);
-        this.keyDownHandler = this.keyDownHandler.bind(this);
+        this.keyPressHandler = this.keyPressHandler.bind(this);
         this.blurHandler = this.blurHandler.bind(this);
         this.processValue = this.processValue.bind(this);
+        this.defaultValue = this.props.value;
     }
 
-    changeHandler(id, value) {
+    changeHandler(event, value) {
         let regExp;
         const isInteger = false;
         if (isInteger) {
-            regExp = /^[0-9\b]+$/;
+            regExp = /^-?[0-9\b]+$/;
         } else {
-            regExp = /^\d+(\.\d*)?$/;
+            regExp = /^-?\d+(\.\d*)?$/;
         }
         if (value === '' || regExp.test(value)) {
-            this.props.onChange(id, value);
+            this.defaultValue = value;
+        } else {
+            event.target.value = this.defaultValue;
         }
     }
 
-    keyDownHandler(id, event) {
-        this.props.onKeyDown(id, event);
-
-        if (this.props.active) {
-            if (event.keyCode === 13) {
-                this.processValue(id);
-            }
+    keyPressHandler(id, event) {
+        if (this.props.active && (event.charCode === 13)) {
+            event.target.value = this.processValue(event.target.value);
         }
+        this.props.onKeyPress(id, event);
     }
 
-    blurHandler(id){
-        this.processValue(id);
-        this.props.onBlurComponent(id);
+    blurHandler(id, value){
+        this.props.onBlurComponent(id, this.processValue(value));
     }
 
-    processValue(id) {
+    processValue(value) {
         const isInteger = false;
         const precisionValue = 2;
         if (!isInteger) {
-            let n = +this.props.value;
-            this.changeHandler(id, n.toFixed(precisionValue));
+            let n = +value;
+            return n.toFixed(precisionValue);
         }
+        return value;
     }
 
     renderActiveField() {
         return <Input
-            onChange={(event) => {this.changeHandler(this.props.id, event.target.value)}}
-            onBlur={() => this.blurHandler(this.props.id)}
-            value={this.props.value}
+            onChange={(event) => {this.changeHandler(event, event.target.value)}}
+            onBlur={(event) => this.blurHandler(this.props.id, event.target.value)}
+            defaultValue={this.props.value}
             type='text'
             autoFocus={true}
         />;

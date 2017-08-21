@@ -1,8 +1,11 @@
-const formatFieldsRecords = (fields, records) => {
+import R from 'ramda';
+
+const formatFieldsRecords = (tables, tableId) => {
+    const currentTable = R.find(R.propEq('_id', tableId))(tables);
     let combined = [];
-    for (const [ind, field] of fields.entries()) {
+    for (const [ind, field] of currentTable.fields.entries()) {
         let fieldRecords = [];
-        for (const record of records) {
+        for (const record of currentTable.records) {
             fieldRecords.push(record.record_data[ind]);
         }
         combined.push({_id: field._id, name: field.name, type: field.type, records: fieldRecords});
@@ -10,25 +13,38 @@ const formatFieldsRecords = (fields, records) => {
     return combined;
 };
 
-const formatRecordRecords = (fields, records) => {
-    let combined = [];
-    let fieldNames = [];
-    let fieldTypes = [];
-    for (const field of fields) {
-        fieldNames.push(field.name);
-        fieldTypes.push(field.type);
-    }
-
-    for (const [ind, record] of records.entries()) {
+const formatExpandRecords = (tables, tableId) => {
+    const currentTable = R.find(R.propEq('_id', tableId))(tables);
+    /*let combined = [];
+    for (const [ind, record] of currentTable.records.entries()) {
         let recordDataArr = [];
         for (const [index, record_data] of record.record_data.entries()) {
-            recordDataArr.push({_id: record_data._id, data: record_data.data,
-                fieldName: fieldNames[index], type: fieldTypes[index]});
+            recordDataArr.push({
+                _id: record_data._id,
+                data: record_data.data,
+                fieldName: currentTable.fields[index].name,
+                type: currentTable.fields[index].type
+            });
         }
         combined.push({_id: record._id, coments: record.comments,
             history: record.history, record_data: recordDataArr});
-    }
-    return combined;
+    }*/
+
+    /*return R.map((record) => {
+        return R.mergeAll([
+            R.dissoc('record_data', record),
+            {
+                record_data: R.addIndex(R.map)((recordItem, fieldIndex) => {
+                    return {
+                        ...recordItem,
+                        fieldName: currentTable.fields[fieldIndex].name,
+                        type: currentTable.fields[fieldIndex].type
+                    };
+                })(record.record_data)
+            }]);
+    })(currentTable.records);*/
+
+    return [];
 };
 
 const setName = (activeModal) => {
@@ -46,6 +62,6 @@ const setName = (activeModal) => {
 
 export {
     formatFieldsRecords,
-    formatRecordRecords,
+    formatExpandRecords,
     setName
 }

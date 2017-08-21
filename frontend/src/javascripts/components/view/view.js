@@ -30,8 +30,8 @@ class View extends Component {
                 fieldsRecords={this.props.fieldsRecords}
                 onAddField={this.props.addField}
                 onAddRecord={this.props.addRecord}
-                fieldEvents={this.props.fieldEvents}
-                recordRecords={this.props.recordRecords}
+                recordData={this.props.recordData}
+                expandRecords={this.props.expandRecords}
             />;
         default:
             return <Grid currentTable={this.props.currentTable}/>;
