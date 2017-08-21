@@ -10,7 +10,7 @@ const defaultTable = {
     ],
     fields: [
         {
-            name: 'Simple text',
+            name: 'Primary field',
             type: "text",
         },
         {

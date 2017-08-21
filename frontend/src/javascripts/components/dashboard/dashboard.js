@@ -2,7 +2,7 @@ import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, deleteTable,
-    selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent, changeFieldType } from './dashboardActions';
+    selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent} from './dashboardActions';
     import { getCurrentUser } from '../userProfile/userProfileActions';
 import { addField } from '../view/viewActions';
 
@@ -41,7 +41,6 @@ const mapDispatchToProps = {
     changeRecord: changeRecord,
     blurRecord: blurRecord,
     blurRecordComponent: blurRecordComponent,
-    changeFieldType: changeFieldType,
     getUser: getCurrentUser
 };
 
