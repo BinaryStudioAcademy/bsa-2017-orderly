@@ -1,0 +1,14 @@
+.tab_btn {
+  position: relative;
+  display: inline-block;
+
+  .pr-30 {
+    padding-right: 30px !important;
+  }
+
+  .desc_button {
+    position: absolute;
+    top: 9px;
+    right: 7px;
+  }
+}

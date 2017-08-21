@@ -1,29 +1,37 @@
-let Repository = function () {
-};
+require('../db/dbConnect');
 
-Repository.prototype.add = function (data, callback) {
-    let model = this.model;
-    let newitem = new model(data);
-    newitem.save(callback);
-};
+class Repository {
+    constructor() {
+        this.model = null;
+    }
 
-Repository.prototype.update = function (id, body, callback) {
-    let query = this.model.update({_id: id}, body);
-    query.exec(callback);
-};
+    add(data) {
+        return new this.model(data).save();
+    }
 
-Repository.prototype.delete = function (id, callback) {
-    let model = this.model;
-    let query = model.remove({_id: id});
-    query.exec(callback);
-};
+    getById(id) {
+        return this.model.findById(id);
+    }
 
-Repository.prototype.deleteMany = function (array, callback) {
-    let model = this.model;
-    array.forEach(id => {
-        let query = model.remove({_id: id});
-        query.exec(callback);
-    });
-};
+    getByIds(ids) {
+        return this.model.find({'_id': {$in: ids}});
+    }
+
+    get(criteria, select) {
+        return this.model.findOne(criteria).select(select);
+    }
+
+    getAll() {
+        return this.model.find();
+    }
+
+    update(id, body) {
+        return this.model.findByIdAndUpdate(id, body, {'new': true});
+    }
+
+    remove(id) {
+        return this.model.remove({_id: id}).exec();
+    }
+}
 
 module.exports = Repository;

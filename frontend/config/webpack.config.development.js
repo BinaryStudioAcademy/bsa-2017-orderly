@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const config = require('./webpack.config.base');
 const path = require('path');
 
-
 const GLOBALS = {
     'process.env': {
         'NODE_ENV': JSON.stringify('development')
@@ -14,7 +13,7 @@ const GLOBALS = {
 module.exports = merge(config, {
     debug: true,
     cache: true,
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'inline-eval-cheap-source-map',
     entry: {
         application: [
             'webpack-hot-middleware/client',
@@ -29,13 +28,11 @@ module.exports = merge(config, {
     ],
     module: {
         loaders: [
-            // Sass
             {
                 test: /\.scss$/,
                 include: [
-                    path.resolve(__dirname, '../src/client/assets/javascripts'),
-                    path.resolve(__dirname, '../src/client/assets/styles'),
-                    path.resolve(__dirname, '../src/client/scripts')
+                    path.resolve(__dirname, '../src/javascripts'),
+                    path.resolve(__dirname, '../src/styles'),
                 ],
                 loaders: [
                     'style',
@@ -44,7 +41,6 @@ module.exports = merge(config, {
                     {loader: 'sass', query: {outputStyle: 'expanded'}}
                 ]
             },
-            // CSS
             {
                 test: /\.css$/,
                 loader: 'style!css!postcss'
