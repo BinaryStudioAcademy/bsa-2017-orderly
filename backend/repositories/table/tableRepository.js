@@ -79,10 +79,19 @@ class TableRepository extends Repository {
     }
 
     updateField(tableId, fieldId, data) {
+        let recordIds = data.records.map((r) => r._id);
         return this.model.findById(tableId).then((table) => {
             const field = table.fields.find((f) => f._id.toString() === fieldId);
             field.type = data.fieldType || field.type;
             field.name = data.fieldName || field.name;
+            table.records.forEach((record) => {
+                record.record_data.map((d) => {
+                    if (recordIds.includes(d._id.toString())) {
+                        d.data = '';
+                    }
+                    return d;
+                });
+            });
             return table.save();
         });
     }
