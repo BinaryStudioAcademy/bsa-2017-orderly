@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Image } from 'semantic-ui-react';
 import avatar from '../../../../images/avatar.png';
+import FileInput from 'react-file-input';
 
 class UserProfilePhoto extends Component {
 constructor(props) {
@@ -10,7 +11,7 @@ constructor(props) {
             avatar: ''
         }  
     }
-    
+
   componentWillReceiveProps(nextProps) {
       this.setState({ 
       avatar: nextProps.user.avatar ? nextProps.user.avatar : '' 
@@ -34,7 +35,13 @@ constructor(props) {
                         : avatar}
                 size='medium' bordered/>
         </div>
-          <input className='change-avatar-input' type="file" onChange={this.handleFile} />
+        <form>
+           <FileInput name="myImage"
+              accept=".png,.gif"
+              placeholder="My Image"
+              className="change-avatar-input"
+              onChange={this.handleFile} />
+        </form>
       </div>
     );
   }
