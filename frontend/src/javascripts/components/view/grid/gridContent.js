@@ -112,33 +112,35 @@ class GridContent extends Component {
     render() {
         return (
             <div>
-                <div className="grid__content">
-                    <div className="content__body">
-                        {this.props.fieldsRecords &&
-                        this.props.fieldsRecords.map((field, fieldIndex) => {
-                            return <Field
-                                key={field._id}
-                                id={field._id}
-                                name={field.name}
-                                type={field.type}
-                                index={fieldIndex}
-                                records={field.records}
-                                recordData={this.props.recordData}
-                                tableRecords={this.props.currentTable.records}
-                                showFieldMenu={this.props.showFieldMenu}
-                                changeFieldType={this.props.changeFieldType}
-                                changeFieldName={this.props.changeFieldName}
-                                deleteField={this.props.deleteField}
-                                tableId={this.props.currentTable._id}
-                            />
-                        })}
+                <div className="wrapper__grid">
+                    <div className="grid__content">
+                        <div className="content__body">
+                            {this.props.fieldsRecords &&
+                            this.props.fieldsRecords.map((field, fieldIndex) => {
+                                return <Field
+                                    key={field._id}
+                                    id={field._id}
+                                    name={field.name}
+                                    type={field.type}
+                                    index={fieldIndex}
+                                    records={field.records}
+                                    recordData={this.props.recordData}
+                                    tableRecords={this.props.currentTable.records}
+                                    showFieldMenu={this.props.showFieldMenu}
+                                    changeFieldType={this.props.changeFieldType}
+                                    changeFieldName={this.props.changeFieldName}
+                                    deleteField={this.props.deleteField}
+                                    tableId={this.props.currentTable._id}
+                                />
+                            })}
+                        </div>
+                        <div className="content__field item__add-field" onClick={this.handleAddField}>
+                            <Icon name="plus" className="field__icon"/>
+                        </div>
                     </div>
-                    <div className="content__field item__add-field" onClick={this.handleAddField}>
+                    <div className="content__field item__add-record" onClick={this.handleAddRecord}>
                         <Icon name="plus" className="field__icon"/>
                     </div>
-                </div>
-                <div className="content__field item__add-record" onClick={this.handleAddRecord}>
-                    <Icon name="plus" className="field__icon"/>
                 </div>
             </div>
         );
