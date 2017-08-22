@@ -10,6 +10,14 @@ import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
 import FieldMenu from './fieldMenu/fieldMenu';
 
+const RowNum = ({tableId, recordId, index, deleteRecord}) => {
+    return (
+        <div className="rows__row" onContextMenu={(e) => {deleteRecord(e, tableId, recordId)}}>
+            <span>{index+1}</span>
+        </div>
+    )
+};
+
 const Field = ({id, tableId, type, name, index, records, tableRecords, recordData, showFieldMenu,
                    changeFieldType, changeFieldName, deleteField}) => {
     return (
@@ -30,7 +38,8 @@ const Field = ({id, tableId, type, name, index, records, tableRecords, recordDat
                 />
             </div>
             <div className="field__items">
-                {tableRecords.map((record) => {
+                {tableRecords &&
+                 tableRecords.map((record) => {
                     return <Record key={record.record_data[index]._id}
                                    id={record.record_data[index]._id}
                                    type={type}
@@ -109,11 +118,30 @@ class GridContent extends Component {
         this.props.onAddRecord(this.props.currentTable._id);
     };
 
+    handleDeleteRecord = (event, tableId, recordId) => {
+        event.preventDefault();
+        this.props.deleteRecord(tableId, recordId);
+    };
+
     render() {
         return (
             <div>
                 <div className="wrapper__grid">
                     <div className="grid__content">
+                        <div className="content__rows">
+                            <div className="rows__selector rows__row">
+                                <Icon name="delete"/>
+                            </div>
+                            {this.props.currentTable &&
+                             this.props.currentTable.records.map((record, ind) => {
+                                return <RowNum key={record._id}
+                                               tableId= {this.props.currentTable._id}
+                                               recordId={record._id}
+                                               index={ind}
+                                               deleteRecord={this.handleDeleteRecord}/>
+                             })
+                            }
+                        </div>
                         <div className="content__body">
                             {this.props.fieldsRecords &&
                             this.props.fieldsRecords.map((field, fieldIndex) => {
