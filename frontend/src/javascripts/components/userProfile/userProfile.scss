@@ -21,20 +21,43 @@
   .user-profile-photo-wrapper{
     text-align: center;
 }
-.user-profile-wrapper
-  .user-profile-change-photo-button {
+.user-profile-photo-wrapper
+  .change-avatar-input {
     margin-top: 10px;
+    cursor: pointer;
+    display: inline-block;
+    min-height: 1em;
+    outline: 0;
+    border: none;
+    vertical-align: baseline;
+    background: #e0e1e2 none;
+    color: rgba(0,0,0,.6);
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    padding: 10px;
+    text-transform: none;
+    text-shadow: none;
+    line-height: 1em;
+    font-style: normal;
+    text-align: center;
+    text-decoration: none;
+    border-radius: .28571429rem;
+    box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
+    user-select: none;
+    transition: opacity .1s ease,background-color .1s ease,color .1s ease,box-shadow .1s ease,background .1s ease;
 }
+
 .user-profile-wrapper
   .user-profile-info {
     width: 700px;
     margin-left: 10px;
 }
+
 .user-profile-wrapper
   .user-profile-submit-btn {
     text-align: right;
     margin-top: 10px;
 }
+
 #user-info
   a:hover {
     border-bottom: 0 !important;

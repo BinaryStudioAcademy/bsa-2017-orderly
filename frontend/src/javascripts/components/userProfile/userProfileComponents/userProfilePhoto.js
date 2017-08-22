@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Image } from 'semantic-ui-react';
+import avatar from '../../../../images/avatar.png';
 
 class UserProfilePhoto extends Component {
 constructor(props) {
@@ -17,7 +19,12 @@ handleFile = (event) => {
 
   render() {
     return (
-      <input type="file" onChange={this.handleFile} />
+      <div className='user-profile-photo-wrapper'>
+        <div className='user-profile-photo'>
+          <Image src={avatar} size='medium' bordered/>
+        </div>
+          <input className='change-avatar-input' type="file" onChange={this.handleFile} />
+      </div>
     );
   }
 }

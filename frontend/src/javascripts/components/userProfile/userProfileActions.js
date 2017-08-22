@@ -27,10 +27,3 @@ export function uploadSuccess(data) {
         data
   };
 }
-
-export function getAvatarByPath (path){
-    return {
-        type: 'GET_USER_AVATAR',
-        path
-    }
-}

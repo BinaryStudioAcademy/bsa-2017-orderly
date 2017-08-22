@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
         renameIsError: state.dashboardReducer.renameIsError,
         selectedRecordId: state.dashboardReducer.selectedRecordId,
         activeRecordId: state.dashboardReducer.activeRecordId,
-        user: state.userProfile.user
+        user: state.userProfile.user,
     });
 }
 
@@ -41,7 +41,7 @@ const mapDispatchToProps = {
     blurRecord: blurRecord,
     blurRecordComponent: blurRecordComponent,
     changeFieldType: changeFieldType,
-    getUser: getCurrentUser
+    getUser: getCurrentUser,
 };
 
 const Dashboard = connect(

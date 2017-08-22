@@ -30,21 +30,12 @@ function* uploadUserAvatar(action) {
         yield put({ type: "UPLOAD_USER_AVATAR_FAILED", message: e.message});
     }
 }
-function* getUserAvatar(action) {
-    try {
-        let avatar =  yield call(userApi.getAvatar, action.path);
-        yield put({ type: "GET_USER_AVATAR_SUCCESS", avatar: avatar});
-    } catch (err) {
-        console.log(e);
-        yield put({ type: "GET_USER_AVATAR_FAILED", message: e.message});
-    }
-}
+
 
 function* userProfileSaga() {
     yield takeEvery("GET_CURRENT_USER_REQUESTED", getCurrentUser);
     yield takeEvery("CHANGE_USER_PROFILE_DATA", updateUser);
     yield takeEvery("UPLOAD_USER_AVATAR", uploadUserAvatar);
-    yield takeEvery("GET_USER_AVATAR", getUserAvatar);
 }
 
 export default userProfileSaga;

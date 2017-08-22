@@ -21,16 +21,13 @@ class UserProfilePage extends Component {
     componentWillMount(){
         this.props.getCurrentUser();            
     }
-    componentWillReceiveProps(nextProps) { 
-        this.props.getAvatarByPath(nextProps.user.avatar);
-    }
 
     render() {
         return (
         <div>
             <div className ='home-page-header' >
                 <Link to={'/'}><img className='logo' src='../../../images/logo.png'/></Link>
-                <UserProfile user={this.props.user} />
+                <UserProfile user={this.props.user}/>
             </div>
             <div className='user-profile-wrapper'>
                 <UserProfilePhoto 
@@ -63,11 +60,10 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(changeUserData(_id, formData))
         }
     },
-    handleFile: (data) => {
+    handleFile: (data, path) => {
         dispatch(uploadSuccess(data))
     }, 
-    getCurrentUser:() => {dispatch(getCurrentUser())}, 
-    getAvatarByPath:(path) => {dispatch(getAvatarByPath(path))}
+    getCurrentUser:() => {dispatch(getCurrentUser())}
   }
 }
 
