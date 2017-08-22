@@ -23,7 +23,14 @@ export function changeUserData(_id, data) {
 
 export function uploadSuccess(data) {
   return {
-    type: 'UPLOAD_USER_AVATAR',
-    data
+        type: 'UPLOAD_USER_AVATAR',
+        data
   };
+}
+
+export function getAvatarByPath (path){
+    return {
+        type: 'GET_USER_AVATAR',
+        path
+    }
 }

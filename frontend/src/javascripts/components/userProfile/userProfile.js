@@ -3,6 +3,7 @@ import './userProfile.scss';
 import { Link } from 'react-router';
 import { Icon, Image } from 'semantic-ui-react';
 import avatar from '../../../images/avatar.png';
+//import myAv from '../../../../../backend/files/banana-1503395399107.png';
 
 class UserProfile extends Component {
     constructor(props) {
@@ -14,7 +15,7 @@ class UserProfile extends Component {
         return (
             <div id="user-info">
                 <Link to={'/user-page'}>
-                    <Image src={this.props.user ? avatar : ""} avatar />
+                    <Image src={this.props.user? avatar: ""} avatar />
                     {this.props.user && <span>{this.props.user.firstName + ' ' + this.props.user.lastName}</span>}
                 </Link>
                 <div className="user-profile-logout-wrapper">

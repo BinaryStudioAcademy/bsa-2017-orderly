@@ -15,7 +15,7 @@ export default function userProfile(state = initialState, action) {
       return Object.assign(
         {}, 
         state, 
-        {files: { _id: action._id, file: action.data}}
+        {files: { file: action.data}}
       )
 
     case "GET_CURRENT_USER_SUCCEEDED":

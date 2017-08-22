@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import UserProfile from './userProfile'
 import UserProfilePhoto from './userProfileComponents/userProfilePhoto';
 import UserProfileForm from './userProfileComponents/userProfileForm';
-import { changeUserData, getCurrentUser, changeUserAvatar, uploadSuccess } from './userProfileActions';
+import { changeUserData, getCurrentUser, uploadSuccess, getAvatarByPath } from './userProfileActions';
 import { Header } from 'semantic-ui-react';
 import '../../../images/logo.png'
 import './userProfile.scss';
@@ -16,9 +16,13 @@ class UserProfilePage extends Component {
         const handleFile = props.handleFile;
         const handleSubmitForm = props.handleSubmitForm;
         const getCurrentUser = props.getCurrentUser;
+        const getAvatarByPath = props.getAvatarByPath;
     }
     componentWillMount(){
-        this.props.getCurrentUser();
+        this.props.getCurrentUser();            
+    }
+    componentWillReceiveProps(nextProps) { 
+        this.props.getAvatarByPath(nextProps.user.avatar);
     }
 
     render() {
@@ -26,7 +30,7 @@ class UserProfilePage extends Component {
         <div>
             <div className ='home-page-header' >
                 <Link to={'/'}><img className='logo' src='../../../images/logo.png'/></Link>
-                <UserProfile user={this.props.user}/>
+                <UserProfile user={this.props.user} />
             </div>
             <div className='user-profile-wrapper'>
                 <UserProfilePhoto 
@@ -62,7 +66,8 @@ const mapDispatchToProps = (dispatch) => {
     handleFile: (data) => {
         dispatch(uploadSuccess(data))
     }, 
-    getCurrentUser:() => {dispatch(getCurrentUser())}
+    getCurrentUser:() => {dispatch(getCurrentUser())}, 
+    getAvatarByPath:(path) => {dispatch(getAvatarByPath(path))}
   }
 }
 
