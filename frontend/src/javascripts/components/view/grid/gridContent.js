@@ -8,6 +8,7 @@ import './gridContent.scss';
 import TextLine from './fields/textLine/textLine';
 import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
+import AutoNumber from './fields/autoNumber/autoNumber';
 import FieldMenu from './fieldMenu/fieldMenu';
 
 const Field = ({id, tableId, type, name, index, records, tableRecords, recordData, showFieldMenu,
@@ -30,9 +31,10 @@ const Field = ({id, tableId, type, name, index, records, tableRecords, recordDat
                 />
             </div>
             <div className="field__items">
-                {tableRecords.map((record) => {
+                {tableRecords.map((record, idx) => {
                     return <Record key={record.record_data[index]._id}
                                    id={record.record_data[index]._id}
+                                   recordIdx={idx}
                                    type={type}
                                    data={record.record_data[index].data}
                                    recordData={recordData}/>
@@ -42,7 +44,7 @@ const Field = ({id, tableId, type, name, index, records, tableRecords, recordDat
     );
 };
 
-const Record = ({id, type, data, recordData}) => {
+const Record = ({id, type, data, recordData, recordIdx}) => {
     let record = null;
     switch (type) {
         case 'longtext':
@@ -73,6 +75,20 @@ const Record = ({id, type, data, recordData}) => {
             >
             </Number>;
             break;
+
+	    case 'autonumber':
+	    	record = <AutoNumber id={id}
+		                         value={data}
+		                         recordIdx={recordIdx}
+		                         selected={recordData.isRecordSelected(id)}
+		                         active={recordData.isRecordActive(id)}
+		                         onSelect={recordData.selectRecordHandler}
+		                         onActivate={recordData.activateRecordHandler}
+		                         onKeyPress={recordData.keyPressSimpleRecordHandler}
+		                         onBlurField={recordData.blurRecordHandler}
+		                         onBlurComponent={recordData.blurRecordComponentHandler}
+		    />;
+		    break;
 
         default:
             record = <TextLine id={id}
