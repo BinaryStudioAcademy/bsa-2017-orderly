@@ -24,9 +24,11 @@ class ContextMenuIcon extends React.Component {
       document.removeEventListener('click', this.handleOutsideClick, false);
     }
 
-    this.setState(prevState => ({
-       menuVisible: !prevState.menuVisible,
-    }));
+    if (this.refs.contextMenu) {
+      this.setState(prevState => ({
+         menuVisible: !prevState.menuVisible,
+      }));
+    }
   }
   
   handleOutsideClick(e) {
@@ -42,7 +44,7 @@ class ContextMenuIcon extends React.Component {
 
 render() {
     return(
-      <div className = 'menu-icon-wrapp'>
+      <div ref="contextMenu"className = 'menu-icon-wrapp'>
         <div ref={node => { this.node = node }} >
          <div  className = 'setting' onClick={(event) => this.handleClickOnMenu(event)} > 
           <Icon inverted link name='setting' size='large' color='black' 
