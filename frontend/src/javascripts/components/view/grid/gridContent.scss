@@ -4,15 +4,25 @@ $icon-opacity: 0.6;
 $cell-border: 0.5px solid #AAA;
 $cell-padding: 0px;
 
+.wrapper__grid {
+  display: inline-block;
+}
+
 .grid__content {
   display: flex;
   overflow-x: auto;
   overflow-y: auto;
 }
 
-.content__header {
+//.content__header {
+//  display: flex;
+//  flex-direction: row;
+//}
+
+.content__body {
   display: flex;
   flex-direction: row;
+  max-height: 445px;
 }
 
 .content__field {
@@ -23,21 +33,6 @@ $cell-padding: 0px;
   width: $cell-width;
   min-width: $cell-width;
   min-height: $cell-height;
-}
-
-.field__icon {
-  opacity: $icon-opacity!important;
-}
-
-.field__change-type {
-  float: right;
-  cursor: pointer;
-}
-
-.content__body {
-  display: flex;
-  flex-direction: row;
-  max-height: 445px;
 }
 
 .field__items {
@@ -57,17 +52,28 @@ $cell-padding: 0px;
   position: relative;
 }
 
-.item__row-selector {
-  display: inline-block;
-  width: 25px;
-  min-width: 25px;
-  max-height: $cell-height;
+.field__icon {
+  opacity: $icon-opacity!important;
+}
+
+.field__change-type {
+  float: right;
+  cursor: pointer;
+}
+
+
+.rows__row {
+  //display: inline-block;
+  width: 30px;
+  border: $cell-border;
+  height: 33px;
+  padding: 4px;
   text-align: center;
 }
 
-.item__row-selector input[type=checkbox] {
-  transform: scale(1.1);
-}
+//.rows__row input[type=checkbox] {
+//  transform: scale(1.1);
+//}
 
 .item__add-field {
   text-align: center;
@@ -76,8 +82,7 @@ $cell-padding: 0px;
 }
 
 .item__add-record {
-  min-width: 150px!important;
-  width: 150px;
+  width: calc(100% - 150px);
   text-align: center;
   cursor: pointer;
 }

@@ -64,6 +64,12 @@ const deleteFieldRecords = (payload) => {
         .catch(R.tap(console.error));
 };
 
+const deleteRecord = (payload) => {
+    return axios.delete(url + '/tables/' + payload.tableId + '/records/' + payload.recordId)
+        .then((response) => response)
+        .catch(R.tap(console.error));
+};
+
 export {
     getBase,
     getTablesByIds,
@@ -74,5 +80,6 @@ export {
     addRecord,
 	deleteTable,
     updateField,
-    deleteFieldRecords
+    deleteFieldRecords,
+    deleteRecord,
 };

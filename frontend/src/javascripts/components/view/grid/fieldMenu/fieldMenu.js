@@ -81,10 +81,6 @@ export default class FieldMenu extends Component {
         this.props.deleteField(this.props.tableId, this.props.id)
     };
 
-    // componentWillUnmount() {
-    //     this.handleClickOnMenu();
-    // }
-
     render() {
         return(
             <div ref="fieldMenu" className='field__ellipsis'>

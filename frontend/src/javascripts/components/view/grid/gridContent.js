@@ -9,7 +9,16 @@ import TextLine from './fields/textLine/textLine';
 import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
 import AutoNumber from './fields/autoNumber/autoNumber';
+import Url from './fields/url/url';
 import FieldMenu from './fieldMenu/fieldMenu';
+
+const RowNum = ({tableId, recordId, index, deleteRecord}) => {
+    return (
+        <div className="rows__row" onContextMenu={(e) => {deleteRecord(e, tableId, recordId)}}>
+            <span>{index+1}</span>
+        </div>
+    )
+};
 
 const Field = ({id, tableId, type, name, index, records, tableRecords, recordData, showFieldMenu,
                    changeFieldType, changeFieldName, deleteField}) => {
@@ -31,7 +40,8 @@ const Field = ({id, tableId, type, name, index, records, tableRecords, recordDat
                 />
             </div>
             <div className="field__items">
-                {tableRecords.map((record, idx) => {
+                {tableRecords &&
+                 tableRecords.map((record, idx) => {
                     return <Record key={record.record_data[index]._id}
                                    id={record.record_data[index]._id}
                                    recordIdx={idx}
@@ -90,6 +100,18 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
 		    />;
 		    break;
 
+	    case 'url':
+	    	record = <Url      id={id}
+		                       value={data}
+		                       selected={recordData.isRecordSelected(id)}
+		                       onSelect={recordData.selectRecordHandler}
+		                       onBlurField={recordData.blurRecordHandler}
+		                       onKeyPress={recordData.keyPressSimpleRecordHandler}
+		                       active={recordData.isRecordActive(id)}
+		                       onBlurComponent={recordData.blurRecordComponentHandler}
+		                       onActivate={recordData.activateRecordHandler}/>;
+	    	break;
+
         default:
             record = <TextLine id={id}
                                value={data}
@@ -125,36 +147,57 @@ class GridContent extends Component {
         this.props.onAddRecord(this.props.currentTable._id);
     };
 
+    handleDeleteRecord = (event, tableId, recordId) => {
+        event.preventDefault();
+        this.props.deleteRecord(tableId, recordId);
+    };
+
     render() {
         return (
             <div>
-                <div className="grid__content">
-                    <div className="content__body">
-                        {this.props.fieldsRecords &&
-                        this.props.fieldsRecords.map((field, fieldIndex) => {
-                            return <Field
-                                key={field._id}
-                                id={field._id}
-                                name={field.name}
-                                type={field.type}
-                                index={fieldIndex}
-                                records={field.records}
-                                recordData={this.props.recordData}
-                                tableRecords={this.props.currentTable.records}
-                                showFieldMenu={this.props.showFieldMenu}
-                                changeFieldType={this.props.changeFieldType}
-                                changeFieldName={this.props.changeFieldName}
-                                deleteField={this.props.deleteField}
-                                tableId={this.props.currentTable._id}
-                            />
-                        })}
+                <div className="wrapper__grid">
+                    <div className="grid__content">
+                        <div className="content__rows">
+                            <div className="rows__selector rows__row">
+                                <Icon name="delete"/>
+                            </div>
+                            {this.props.currentTable &&
+                             this.props.currentTable.records.map((record, ind) => {
+                                return <RowNum key={record._id}
+                                               tableId= {this.props.currentTable._id}
+                                               recordId={record._id}
+                                               index={ind}
+                                               deleteRecord={this.handleDeleteRecord}/>
+                             })
+                            }
+                        </div>
+                        <div className="content__body">
+                            {this.props.fieldsRecords &&
+                            this.props.fieldsRecords.map((field, fieldIndex) => {
+                                return <Field
+                                    key={field._id}
+                                    id={field._id}
+                                    name={field.name}
+                                    type={field.type}
+                                    index={fieldIndex}
+                                    records={field.records}
+                                    recordData={this.props.recordData}
+                                    tableRecords={this.props.currentTable.records}
+                                    showFieldMenu={this.props.showFieldMenu}
+                                    changeFieldType={this.props.changeFieldType}
+                                    changeFieldName={this.props.changeFieldName}
+                                    deleteField={this.props.deleteField}
+                                    tableId={this.props.currentTable._id}
+                                />
+                            })}
+                        </div>
+                        <div className="content__field item__add-field" onClick={this.handleAddField}>
+                            <Icon name="plus" className="field__icon"/>
+                        </div>
                     </div>
-                    <div className="content__field item__add-field" onClick={this.handleAddField}>
+                    <div className="content__field item__add-record" onClick={this.handleAddRecord}>
                         <Icon name="plus" className="field__icon"/>
                     </div>
-                </div>
-                <div className="content__field item__add-record" onClick={this.handleAddRecord}>
-                    <Icon name="plus" className="field__icon"/>
                 </div>
             </div>
         );
