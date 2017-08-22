@@ -73,6 +73,14 @@ export default class FieldMenu extends Component {
         }
     };
 
+    handleDeleteField = () => {
+        this.props.deleteField(this.props.tableId, this.props.id)
+    };
+
+    componentWillUnmount() {
+        this.handleClickOnMenu();
+    }
+
     render() {
         return(
             <div className='field__ellipsis'>
@@ -90,7 +98,7 @@ export default class FieldMenu extends Component {
                     <Icon name="trash outline"
                           id="menu__delete"
                           size="large"
-                          onClick={this.props.deleteField}/>
+                          onClick={this.handleDeleteField}/>
                     <FieldOptions id={this.props.id}
                                   excludeType={this.props.type}
                                   changeFieldType={this.props.changeFieldType}

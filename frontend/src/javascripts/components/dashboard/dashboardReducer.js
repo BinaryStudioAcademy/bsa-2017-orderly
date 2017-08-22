@@ -35,8 +35,7 @@ function dashboardReducer(state = initState, action) {
             {
                 tables: R.map((table) => {
                     let tempObj = R.dissoc('isActive', table);
-                    if (table._id === action.tableId) tempObj.isActive = true;
-                    else tempObj.isActive = false;
+                    tempObj.isActive = table._id === action.tableId;
                     return tempObj;
                 })(state.tables)
             }
@@ -109,8 +108,7 @@ function dashboardReducer(state = initState, action) {
             {
                 tables: R.map((table) => {
                     let newObj = R.dissoc('isActive', table);
-                    if (table._id === action._id) newObj.isActive = true;
-                    else newObj.isActive = false;
+                    newObj.isActive = table._id === action._id;
                     return newObj;
                 })(state.tables)
             }
@@ -123,8 +121,7 @@ function dashboardReducer(state = initState, action) {
             {
                 tables: R.map((table) => {
                     let newObj = R.dissoc('isMenuOpen', table);
-                    if (table._id === action.tableId) newObj.isMenuOpen = true;
-                    else newObj.isMenuOpen = false;
+                    newObj.isMenuOpen = table._id === action.tableId;
                     return newObj;
                 })(state.tables)
             }
@@ -226,6 +223,25 @@ function dashboardReducer(state = initState, action) {
     }
 
     case 'UPDATE_FIELD_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        let obj = R.dissoc('fields', table);
+                        obj = R.dissoc('records', obj);
+                        obj.fields = action.table.fields;
+                        obj.records = action.table.records;
+                        return obj;
+                    } else {
+                        return table;
+                    }
+                })(state.tables)
+            }
+        ]);
+    }
+
+    case 'DELETE_FIELD_SUCCEEDED': {
         return R.mergeAll([
             R.dissoc('tables', state),
             {
