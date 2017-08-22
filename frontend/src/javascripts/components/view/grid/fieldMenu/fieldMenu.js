@@ -38,15 +38,17 @@ export default class FieldMenu extends Component {
     }
 
     handleClickOnMenu = () => {
-        if (!this.state.isActive) {
-            document.addEventListener('click', this.handleOutsideClick, false);
-        } else {
-            document.removeEventListener('click', this.handleOutsideClick, false);
-        }
+        if (this.refs.fieldMenu) {
+            if (!this.state.isActive) {
+                document.addEventListener('click', this.handleOutsideClick, false);
+            } else {
+                document.removeEventListener('click', this.handleOutsideClick, false);
+            }
 
-        this.setState((menuState) => ({
-            isActive: !menuState.isActive,
-        }));
+            this.setState((menuState) => ({
+                isActive: !menuState.isActive,
+            }));
+        }
     };
 
     handleOutsideClick = (e) => {
@@ -61,9 +63,11 @@ export default class FieldMenu extends Component {
     };
 
     handleChangeName = (e) => {
-        this.setState({
-            currentName: e.target.value
-        })
+        if (this.refs.fieldMenu) {
+            this.setState({
+                currentName: e.target.value
+            })
+        }
     };
 
     handleKeyPress = (event) => {
@@ -77,13 +81,13 @@ export default class FieldMenu extends Component {
         this.props.deleteField(this.props.tableId, this.props.id)
     };
 
-    componentWillUnmount() {
-        this.handleClickOnMenu();
-    }
+    // componentWillUnmount() {
+    //     this.handleClickOnMenu();
+    // }
 
     render() {
         return(
-            <div className='field__ellipsis'>
+            <div ref="fieldMenu" className='field__ellipsis'>
                 <div ref={(node) => this.node = node } >
                     <div onClick={(e) => this.handleClickOnMenu(e)} >
                         <Icon name="ellipsis vertical" className="field__change-type"/>
