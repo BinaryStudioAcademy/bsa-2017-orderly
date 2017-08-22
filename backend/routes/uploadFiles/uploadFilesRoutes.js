@@ -21,11 +21,17 @@ const upload = multer({ storage });
 router.post('/', upload.single('file'), (request, response) => {
   const meta = request.body;
   const userId = `${meta.userId}`
-  const updateAvatar = { "avatar": "path: http://localhost:2020/files/" + request.finalName}
+  const updateAvatar = { "avatar": request.finalName}
 
     userRepository.update(userId, updateAvatar)
     .then((result) => response.status(200).send(result))
     .catch((error) => response.status(400).send(`Can not add image. ${error}`));
+});
+
+router.get('/:path', (request, response) => {
+    find(request.params.path)
+        .then((data) => response.status(200).send(data))
+        .catch((error) => response.status(400).send(`Can not get user. ${error}`));
 });
 
 module.exports = router;
