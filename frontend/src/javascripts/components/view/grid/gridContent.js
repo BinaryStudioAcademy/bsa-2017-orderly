@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
-import {Icon} from 'semantic-ui-react';
+import {Button, Icon} from 'semantic-ui-react';
 import * as gridActions from './gridActions';
 import './gridContent.scss';
 import TextLine from './fields/textLine/textLine';
@@ -44,6 +44,7 @@ const Record = ({id, type, data, recordData}) => {
                                onBlurField={recordData.blurRecordHandler}
                                onBlurComponent={recordData.blurRecordComponentHandler}
                                onExpand={recordData.expandRecordHandler}
+                               autoFocus={true}
             >
             </LongText>;
             break;
@@ -58,6 +59,7 @@ const Record = ({id, type, data, recordData}) => {
                                onKeyPress={recordData.keyPressSimpleRecordHandler}
                                onBlurField={recordData.blurRecordHandler}
                                onBlurComponent={recordData.blurRecordComponentHandler}
+                               autoFocus={true}
             >
             </Number>;
             break;
@@ -72,6 +74,7 @@ const Record = ({id, type, data, recordData}) => {
                                onKeyPress={recordData.keyPressSimpleRecordHandler}
                                onBlurField={recordData.blurRecordHandler}
                                onBlurComponent={recordData.blurRecordComponentHandler}
+                               autoFocus={true}
             >
             </TextLine>;
     }
@@ -89,10 +92,14 @@ class GridContent extends Component {
         this.props = props;
     }
 
+
     handleAddField = () => {
         this.props.onAddField(this.props.currentTable._id);
     };
 
+    handleAddRecord = () => {
+        this.props.onAddRecord(this.props.currentTable._id);
+    };
 
     render() {
         return (
@@ -106,14 +113,25 @@ class GridContent extends Component {
                             <div className="field__items row-options-field">
                                 {this.props.currentTable &&
                                 this.props.currentTable.records.map((record, recordIndex) => {
-                                    return <ExpandRecord
-                                        key={record._id}
-                                        record={record}
+                                    return (
+                                        <div className="row-control-container" key={record._id}>
+                                            <Button
+                                                className="expand-btn"
+                                                onClick={(event) => this.props.onExpandRecord(recordIndex)}>
+                                                <Icon name='expand'/>
+                                            </Button>
+                                        </div>
+                                    )
+                                })}
+                                {this.props.expandRecordIndex &&
+                                    <ExpandRecord
+                                        record={this.props.currentTable.records[this.props.expandRecordIndex]}
                                         fields={this.props.currentTable.fields}
                                         recordData={this.props.recordData}
-                                        rowNumber={recordIndex}
+                                        recordIndex={this.props.expandRecordIndex}
+                                        onExpandRecord={this.props.onExpandRecord}
                                     />
-                                })}
+                                }
                             </div>
                         </div>
 

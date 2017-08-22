@@ -123,6 +123,14 @@ const changeFieldType = (fieldId, records) => {
     };
 };
 
+const expandRecord = (index) => {
+    return {
+        type: 'EXPAND_RECORD',
+        index: index,
+
+    };
+};
+
 export {
     getBaseById,
     getTables,
@@ -143,5 +151,6 @@ export {
     blurRecord,
     blurRecordComponent,
     deleteTable,
-    changeFieldType
+    changeFieldType,
+    expandRecord
 };

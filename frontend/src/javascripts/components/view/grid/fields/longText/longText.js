@@ -28,7 +28,7 @@ class LongText extends Field {
                     onBlur={(event) => this.props.onBlurComponent(this.props.id, event.target.value)}
                     defaultValue={this.props.value}
                     type='text'
-                    autoFocus={true}
+                    autoFocus={this.props.autoFocus}
                     icon={{ name: 'expand', link: true, onClick: () => {
                         this.props.onExpand(this.props.id);
                     }}}

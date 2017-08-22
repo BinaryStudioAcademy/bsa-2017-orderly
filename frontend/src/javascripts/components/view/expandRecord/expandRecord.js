@@ -5,53 +5,52 @@ import './expandRecord.scss';
 import TextLine from '../grid/fields/textLine/textLine';
 import LongText from '../grid/fields/longText/longText';
 import Number from '../grid/fields/number/number';
-//import { Record } from '../grid/gridContent';
 
 const Record = ({id, type, data, recordData}) => {
     let record = null;
     switch (type) {
         case 'longtext':
-            record = <LongText id={id}
+            record = <LongText id={id/* + '-expand'*/}
                                value={data}
                                selected={false}
                                active={true}
-                               onSelect={recordData.selectRecordHandler}
-                               onActivate={recordData.activateRecordHandler}
+                               onSelect={() => {}}
+                               onActivate={() => {}}
                                onKeyPress={recordData.keyPressRecordHandler}
-                               //onChange={recordData.changeRecordHandler}
                                onBlurField={recordData.blurRecordHandler}
                                onBlurComponent={recordData.blurRecordComponentHandler}
                                onExpand={recordData.expandRecordHandler}
+                               autoFocus={false}
             >
             </LongText>;
             break;
 
         case 'number':
-            record = <Number   id={id}
+            record = <Number   id={id/* + '-expand'*/}
                                value={data}
                                selected={false}
                                active={true}
-                               onSelect={recordData.selectRecordHandler}
-                               onActivate={recordData.activateRecordHandler}
+                               onSelect={() => {}}
+                               onActivate={() => {}}
                                onKeyPress={recordData.keyPressSimpleRecordHandler}
-                               //onChange={recordData.changeRecordHandler}
                                onBlurField={recordData.blurRecordHandler}
                                onBlurComponent={recordData.blurRecordComponentHandler}
+                               autoFocus={false}
             >
             </Number>;
             break;
 
         default:
-            record = <TextLine id={id}
+            record = <TextLine id={id/* + '-expand'*/}
                                value={data}
                                selected={false}
                                active={true}
-                               onSelect={recordData.selectRecordHandler}
-                               onActivate={recordData.activateRecordHandler}
+                               onSelect={() => {}}
+                               onActivate={() => {}}
                                onKeyPress={recordData.keyPressSimpleRecordHandler}
-                               //onChange={recordData.changeRecordHandler}
                                onBlurField={recordData.blurRecordHandler}
                                onBlurComponent={recordData.blurRecordComponentHandler}
+                               autoFocus={false}
             >
             </TextLine>;
     }
@@ -63,45 +62,35 @@ const Record = ({id, type, data, recordData}) => {
     );
 };
 
-//const ExpandRecord = ({recordId, record_data, comments, history, expandRecords, recordData, rowNumber}) => {
-const ExpandRecord = ({record, fields, recordData, rowNumber}) => {
+const ExpandRecord = ({record, fields, recordData, onExpandRecord}) => {
     return (
-        <div className="row-control-container">
-            {/*<Modal trigger={*/}
-                {/*<Button className="expand-btn">*/}
-                    {/*<Icon name='expand'/>*/}
-                {/*</Button>}>*/}
-                {/*<Modal.Header>Modal Header</Modal.Header>*/}
-                {/*<Modal.Content image scrolling>*/}
-                    {/*<Modal.Description className="modal">*/}
-                        {/*<Header></Header>*/}
-                        {/*{record.record_data.map((record, fieldIndex) => {*/}
-                            {/*return (*/}
-                                {/*<div key={record._id} className="modal__field-item">*/}
-                                    {/*<div>*/}
-                                        {/*{fields[fieldIndex].fieldName}*/}
-                                    {/*</div>*/}
-                                    {/*<Record id={record._id} type={fields[fieldIndex].type}*/}
-                                            {/*data={record.data} recordData={recordData} />*/}
-                                {/*</div>*/}
-                            {/*)*/}
-                        {/*})}*/}
+        <Modal
+            open={true}
+            onClose={(event) => onExpandRecord('')}
+            >
+            <Modal.Header>Modal Header</Modal.Header>
+            <Modal.Content image scrolling>
+                <Modal.Description className="modal">
+                    {record.record_data.map((recordItem, fieldIndex) => {
+                        return (
+                            <div key={recordItem._id} className="modal__field-item">
+                                <div>
+                                    {fields[fieldIndex].name}
+                                </div>
+                                <Record id={recordItem._id} type={fields[fieldIndex].type}
+                                        data={recordItem.data} recordData={recordData} />
+                            </div>
+                        )
+                    })}
+                </Modal.Description>
 
-                    {/*</Modal.Description>*/}
-
-                    {/*<Image*/}
-                        {/*size='medium'*/}
-                        {/*src={logoImage}*/}
-                        {/*wrapped*/}
-                    {/*/>*/}
-                {/*</Modal.Content>*/}
-                {/*<Modal.Actions>*/}
-                    {/*<Button primary>*/}
-                        {/*Proceed <Icon name='right chevron' />*/}
-                    {/*</Button>*/}
-                {/*</Modal.Actions>*/}
-            {/*</Modal>*/}
-        </div>
+                <Image
+                    size='medium'
+                    src={logoImage}
+                    wrapped
+                />
+            </Modal.Content>
+        </Modal>
     );
 };
 

@@ -107,7 +107,9 @@ class Tools extends Component {
                       deleteTable={this.props.deleteTable}
                       addTableClick={this.props.addTableClick}/>
                 <View currentTable={currentTable}
-                      recordData={recordData}/>
+                      recordData={recordData}
+                      expandRecord={this.props.expandRecord}
+                      expandRecordIndex={this.props.expandRecordIndex}/>
             </div>
         );
     }

@@ -11,7 +11,8 @@ const initState = {
     activeModal: '',
     renameIsError: true,
     selectedRecordId: null,
-    activeRecordId: null
+    activeRecordId: null,
+    expandRecordIndex: null
 };
 
 function dashboardReducer(state = initState, action) {
@@ -227,6 +228,10 @@ function dashboardReducer(state = initState, action) {
 
     case 'CHANGE_FIELD_TYPE': {
         return {...state};
+    }
+
+    case 'EXPAND_RECORD': {
+        return {...state, ...{expandRecordIndex: action.index}};
     }
 
     default:
