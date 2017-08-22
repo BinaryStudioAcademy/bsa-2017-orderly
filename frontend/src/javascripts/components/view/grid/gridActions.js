@@ -1,6 +1,7 @@
 export const TOGGLE_FIELD_MENU = 'TOGGLE_FIELD_MENU';
 export const CHANGE_FIELD_TYPE = 'CHANGE_FIELD_TYPE';
 export const CHANGE_FIELD_NAME = 'CHANGE_FIELD_NAME';
+export const DELETE_FIELD = 'DELETE_FIELD';
 
 export function toggleFieldMenu() {
     return {
@@ -24,5 +25,13 @@ export function changeFieldName(tableId, fieldId, fieldName) {
         tableId: tableId,
         fieldId: fieldId,
         fieldName: fieldName,
+    };
+}
+
+export function deleteField(tableId, fieldId) {
+    return {
+        type: DELETE_FIELD,
+        tableId: tableId,
+        fieldId: fieldId,
     };
 }

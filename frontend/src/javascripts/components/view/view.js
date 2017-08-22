@@ -38,6 +38,7 @@ class View extends Component {
                 showFieldMenu={this.props.showFieldMenu}
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
+                deleteField={this.props.deleteField}
             />;
         default:
             return <InDevelopment/>;

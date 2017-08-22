@@ -107,9 +107,14 @@ class TableRepository extends Repository {
     }
 
     deleteField(tableId, fieldId) {
-        return this.model.update(
-            {_id: objectId(tableId)},
-            {'$pull': {fields: {_id: objectId(fieldId)}}});
+        return this.model.findById(tableId).then((table) => {
+            const deleteAt = table.fields.indexOf(table.fields.find((f) => f._id.toString() === fieldId));
+            table.fields.splice(deleteAt, 1);
+            table.records.forEach((record) => {
+                record.record_data.splice(deleteAt, 1);
+            });
+            return table.save();
+        });
     }
 
     deleteAllFields(tableId) {

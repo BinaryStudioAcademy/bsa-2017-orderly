@@ -1,7 +1,8 @@
 import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable,
-    updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField
+    updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
+    deleteFieldRecords
 } from './dashboardApi';
 import {browserHistory} from 'react-router';
 
@@ -120,6 +121,15 @@ function* updateFieldMeta(action) {
     }
 }
 
+function* removeField(action) {
+    try {
+        const deleted = yield call(deleteFieldRecords, action);
+        yield put({type: 'DELETE_FIELD_SUCCEEDED', table: deleted.data});
+    } catch (err) {
+        yield put({type: 'DELETE_FIELD_FAILED', message: err.message});
+    }
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -132,6 +142,7 @@ function* dashboardSaga() {
     yield takeEvery('DELETE_TABLE', removeTable);
     yield takeEvery('CHANGE_FIELD_TYPE', updateFieldMeta);
     yield takeEvery('CHANGE_FIELD_NAME', updateFieldMeta);
+    yield takeEvery('DELETE_FIELD', removeField);
 }
 
 export default dashboardSaga;
