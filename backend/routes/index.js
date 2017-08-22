@@ -4,5 +4,4 @@ module.exports = (router) => {
     router.use('/team', require('./team/teamRoutes'));
     router.use('/tables', require('./table/table'));
     router.use('/base', require('./base/baseRoutes'));
-    router.use('/files', require('./uploadFiles/uploadFilesRoutes'));
 };

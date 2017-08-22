@@ -4,8 +4,6 @@ const { defaultTable } = require('../../config/defaultTable');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-var mime = require('mime');
-
 
 const storage = multer.diskStorage({
   destination: './files',
@@ -32,24 +30,7 @@ router.post('/', upload.single('file'), (request, response) => {
 });
 
 router.get('/:path', (request, response) => {
-
-       var filename = path.basename(request.params.path);
-      // var filepath = path.join(filesFolder, filename);
-
-      //  fs.exists(filepath, function (exists) {
-      //      if (!exists) {
-      //          response.statusCode = 404;
-      //          response.end();
-      //          return;
-      //      }
-      //      var mimetype = mime.lookup(filepath);
-      //      response.setHeader('Content-Type', mimetype);
-
-      //      var filestream = fs.createReadStream(filepath);
-      //      filestream.pipe(response);
-      //  });
-
-  //   //response.send(request.params.path, {root: './files'})
+  var filename = path.basename(request.params.path);
   fs.readFile(`./files/${filename}`, function(err, data) {
     if (err){
      response.statusCode = 404;

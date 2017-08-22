@@ -14,7 +14,7 @@ const updateUserById = (_id, updateData) =>
         .catch((error) => error.data);
 
 const uploadAvatar = (data) =>
-    axios.post('/api/files/', data)
+    axios.post('/files/', data)
         .then((response) => response.data)
         .catch((error) => error.data);
 

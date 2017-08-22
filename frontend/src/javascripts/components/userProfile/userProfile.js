@@ -8,13 +8,24 @@ class UserProfile extends Component {
     constructor(props) {
         super(props);
         this.props = props;
+        this.state = {
+            avatar: ''
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({ 
+        avatar: nextProps.user.avatar ? nextProps.user.avatar : '' 
+        })
     }
 
     render() {
         return (
             <div id="user-info">
                 <Link to={'/user-page'}>
-                    <Image src={this.props.user? `http://localhost:2020/api/files/${this.props.user.avatar}`: avatar} avatar />
+                    <Image  src={ this.state.avatar != '' ? 
+                        `http://localhost:2020/files/${this.props.user.avatar}` 
+                        : avatar} 
+                    avatar />
                     {this.props.user && <span>{this.props.user.firstName + ' ' + this.props.user.lastName}</span>}
                 </Link>
                 <div className="user-profile-logout-wrapper">
