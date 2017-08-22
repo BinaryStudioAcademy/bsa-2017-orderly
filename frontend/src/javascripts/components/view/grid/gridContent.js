@@ -175,13 +175,13 @@ class GridContent extends Component {
                                 />
                             })}
                         </div>
-                        <div className="content__field item__add-field" onClick={this.handleAddField}>
-                            <Icon name="plus" className="field__icon"/>
-                        </div>
                     </div>
                     <div className="content__field item__add-record" onClick={this.handleAddRecord}>
                         <Icon name="plus" className="field__icon"/>
                     </div>
+                </div>
+                <div className="content__field item__add-field" onClick={this.handleAddField}>
+                    <Icon name="plus" className="field__icon"/>
                 </div>
             </div>
         );
