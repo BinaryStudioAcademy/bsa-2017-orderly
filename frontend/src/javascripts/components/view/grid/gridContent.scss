@@ -6,6 +6,8 @@ $cell-padding: 0px;
 
 .grid__content {
   display: flex;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .content__header {
@@ -35,6 +37,7 @@ $cell-padding: 0px;
 .content__body {
   display: flex;
   flex-direction: row;
+  max-height: 445px;
 }
 
 .field__items {
@@ -75,6 +78,6 @@ $cell-padding: 0px;
 .item__add-record {
   min-width: 150px!important;
   width: 150px;
-  //margin-left: 25px;
   text-align: center;
+  cursor: pointer;
 }

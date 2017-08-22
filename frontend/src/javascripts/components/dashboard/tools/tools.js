@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Header from './header/header';
 import Tabs from './tabs/tabs';
 import View from '../../view/view';
+import {formatFieldsRecords} from "../dashboardService";
 import R from 'ramda';
 
 class Tools extends Component {
@@ -72,6 +73,10 @@ class Tools extends Component {
 
     render() {
         const currentTable = R.find(R.propEq('_id', this.props.currentTableId))(this.props.tables);
+        let fieldsRecords;
+        if (currentTable) {
+            fieldsRecords = formatFieldsRecords(currentTable.fields, currentTable.records);
+        }
         const recordData = {
             isRecordSelected: this.isRecordSelected,
             isRecordActive: this.isRecordActive,
@@ -85,7 +90,7 @@ class Tools extends Component {
         };
         return (
             <div onClick={() => {
-                this.props.closeMenu();
+                // this.props.closeMenu();
             }}>
                 <Header base={this.props.base} 
                         user={this.props.user} 
@@ -107,6 +112,7 @@ class Tools extends Component {
                       deleteTable={this.props.deleteTable}
                       addTableClick={this.props.addTableClick}/>
                 <View currentTable={currentTable}
+                      fieldsRecords={fieldsRecords}
                       recordData={recordData}/>
             </div>
         );

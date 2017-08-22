@@ -3,21 +3,32 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import {Icon} from 'semantic-ui-react';
 import * as gridActions from './gridActions';
+import {fieldIcons} from "../../configuration/fieldTypes";
 import './gridContent.scss';
 import TextLine from './fields/textLine/textLine';
 import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
+import FieldMenu from './fieldMenu/fieldMenu';
 
-const Field = ({type, name, index, records, recordData, showFieldMenu}) => {
+const Field = ({id, tableId, type, name, index, records, tableRecords, recordData, showFieldMenu, changeFieldType, changeFieldName}) => {
     return (
         <div className="field__items">
             <div className="content__field">
-                <Icon name="font" className="field__icon"/>
+                <Icon name={fieldIcons[type]} className="field__icon"/>
                 <span>{name}</span>
-                <Icon name="ellipsis vertical" className="field__change-type" onClick={showFieldMenu}/>
+                <FieldMenu
+                    onClick={showFieldMenu}
+                    id={id}
+                    tableId={tableId}
+                    name={name}
+                    type={type}
+                    changeFieldType={changeFieldType}
+                    changeFieldName={changeFieldName}
+                    records={records}
+                />
             </div>
             <div className="field__items">
-                {records.map((record) => {
+                {tableRecords.map((record) => {
                     return <Record key={record.record_data[index]._id}
                                    id={record.record_data[index]._id}
                                    type={type}
@@ -92,22 +103,30 @@ class GridContent extends Component {
         this.props.onAddField(this.props.currentTable._id);
     };
 
+    handleAddRecord = () => {
+        this.props.onAddRecord(this.props.currentTable._id);
+    };
 
     render() {
         return (
             <div>
                 <div className="grid__content">
                     <div className="content__body">
-                        {this.props.currentTable &&
-                        this.props.currentTable.fields.map((field, fieldIndex) => {
+                        {this.props.fieldsRecords &&
+                        this.props.fieldsRecords.map((field, fieldIndex) => {
                             return <Field
-                            key={field._id}
-                            name={field.name}
-                            type={field.type}
-                            index={fieldIndex}
-                            records={this.props.currentTable.records}
-                            recordData={this.props.recordData}
-                            showFieldMenu={this.props.showFieldMenu}
+                                key={field._id}
+                                id={field._id}
+                                name={field.name}
+                                type={field.type}
+                                index={fieldIndex}
+                                records={field.records}
+                                recordData={this.props.recordData}
+                                tableRecords={this.props.currentTable.records}
+                                showFieldMenu={this.props.showFieldMenu}
+                                changeFieldType={this.props.changeFieldType}
+                                changeFieldName={this.props.changeFieldName}
+                                tableId={this.props.currentTable._id}
                             />
                         })}
                     </div>
@@ -134,18 +153,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GridContent);
-
-
-// {this.props.fieldsRecords &&
-// this.props.fieldsRecords.map((field, ind) => {
-//     return (
-//         <div className="content__field item__row-selector">
-//             <span className="item__row_num">{ind}</span>
-//         </div>
-//     )
-// })}
-
-
-//<div className="content__field item__row-selector">
-//    <input type="checkbox"/>
-//</div>

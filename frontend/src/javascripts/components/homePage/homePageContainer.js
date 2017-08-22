@@ -14,7 +14,6 @@ class HomePageContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className = "home-page-wrapper">
         <HomePageHeader user={this.props.user}/>

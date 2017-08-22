@@ -225,8 +225,23 @@ function dashboardReducer(state = initState, action) {
             }]);
     }
 
-    case 'CHANGE_FIELD_TYPE': {
-        return {...state};
+    case 'UPDATE_FIELD_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        let obj = R.dissoc('fields', table);
+                        obj = R.dissoc('records', obj);
+                        obj.fields = action.table.fields;
+                        obj.records = action.table.records;
+                        return obj;
+                    } else {
+                        return table;
+                    }
+                })(state.tables)
+            }
+        ]);
     }
 
     default:
