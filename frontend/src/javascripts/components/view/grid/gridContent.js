@@ -10,7 +10,8 @@ import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
 import FieldMenu from './fieldMenu/fieldMenu';
 
-const Field = ({id, tableId, type, name, index, records, tableRecords, recordData, showFieldMenu, changeFieldType, changeFieldName}) => {
+const Field = ({id, tableId, type, name, index, records, tableRecords, recordData, showFieldMenu,
+                   changeFieldType, changeFieldName, deleteField}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -24,6 +25,7 @@ const Field = ({id, tableId, type, name, index, records, tableRecords, recordDat
                     type={type}
                     changeFieldType={changeFieldType}
                     changeFieldName={changeFieldName}
+                    deleteField={deleteField}
                     records={records}
                 />
             </div>
@@ -126,6 +128,7 @@ class GridContent extends Component {
                                 showFieldMenu={this.props.showFieldMenu}
                                 changeFieldType={this.props.changeFieldType}
                                 changeFieldName={this.props.changeFieldName}
+                                deleteField={this.props.deleteField}
                                 tableId={this.props.currentTable._id}
                             />
                         })}
