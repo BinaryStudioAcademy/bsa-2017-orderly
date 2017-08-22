@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import UserProfile from './userProfile'
 import UserProfilePhoto from './userProfileComponents/userProfilePhoto';
 import UserProfileForm from './userProfileComponents/userProfileForm';
-import { changeUserData, getCurrentUser } from './userProfileActions';
+import { changeUserData, getCurrentUser, changeUserAvatar, uploadSuccess } from './userProfileActions';
 import { Header } from 'semantic-ui-react';
 import '../../../images/logo.png'
 import './userProfile.scss';
@@ -13,7 +13,7 @@ class UserProfilePage extends Component {
     constructor(props) {
         super(props);
         this.props = props;
-        const handleInput = props.handleInput;
+        const handleFile = props.handleFile;
         const handleSubmitForm = props.handleSubmitForm;
         const getCurrentUser = props.getCurrentUser;
     }
@@ -29,7 +29,10 @@ class UserProfilePage extends Component {
                 <UserProfile user={this.props.user}/>
             </div>
             <div className='user-profile-wrapper'>
-                <UserProfilePhoto />
+                <UserProfilePhoto 
+                    user={this.props.user}
+                    handleFile = {this.props.handleFile}
+                />
                 <div className ='user-profile-info'>
                     <Header block >My Profile</Header>
                     <UserProfileForm 
@@ -51,7 +54,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleSubmitForm: (_id, formData) => { dispatch(changeUserData(_id, formData))},
+    handleSubmitForm: (_id, type, formData) => { 
+        if ( type === 'form' ) {
+            dispatch(changeUserData(_id, formData))
+        }
+    },
+    handleFile: (data) => {
+        dispatch(uploadSuccess(data))
+    }, 
     getCurrentUser:() => {dispatch(getCurrentUser())}
   }
 }

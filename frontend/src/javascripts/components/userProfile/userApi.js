@@ -13,8 +13,14 @@ const updateUserById = (_id, updateData) =>
         .then((response) => response.data)
         .catch((error) => error.data);
 
+const uploadAvatar = (data) =>
+    axios.post('/api/files/', data)
+        .then((response) => response.data)
+        .catch((error) => error.data);
+
 export {
     fetchUser,
     getCurrentUser,
-    updateUserById
+    updateUserById,
+    uploadAvatar
 };

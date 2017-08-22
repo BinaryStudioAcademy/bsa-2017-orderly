@@ -1,7 +1,6 @@
-import {CHANGE_USER_PROFILE_DATA, CHANGE_USER_PROFILE_DATA_SUCCESS, GET_USER_NAME_REQUESTED, GET_USER_NAME_SUCCEEDED, CHANGE_USER_NAME_COLOR, GET_CURRENT_USER_SUCCEEDED} from './userProfileActions';
-
 let initialState = {
-    user: null
+    user: null,
+    files: null
 };
 
 export default function userProfile(state = initialState, action) {
@@ -11,6 +10,12 @@ export default function userProfile(state = initialState, action) {
         {}, 
         state, 
         {user: action.user}
+      )
+    case "UPLOAD_USER_AVATAR":      
+      return Object.assign(
+        {}, 
+        state, 
+        {files: { _id: action._id, file: action.data}}
       )
 
     case "GET_CURRENT_USER_SUCCEEDED":

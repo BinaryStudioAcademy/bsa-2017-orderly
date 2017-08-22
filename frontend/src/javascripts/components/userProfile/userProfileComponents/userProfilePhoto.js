@@ -1,26 +1,25 @@
-import React, {Component} from 'react';
-import { Image, Button } from 'semantic-ui-react';
-import avatar from '../../../../images/avatar.png';
+import React, { Component } from 'react';
 
 class UserProfilePhoto extends Component {
-    constructor(props) {
-        super(props);
-        this.props = props;
+constructor(props) {
+    super(props);
+    this.props = props;   
     }
-    render() {
-        return (
-        <div className='user-profile-photo-wrapper'>
-            <div className='user-profile-photo'>
-                <Image src={avatar} size='medium' bordered/>
-            </div>
-            <div className='user-profile-change-photo-button'>
-                  <Button>
-                    Change Photo
-                  </Button>
-            </div>
-        </div>
-        );
-    }
+
+handleFile = (event) => {
+    const data = new FormData();
+    data.append('file', event.target.files[0]);
+    data.append('name', event.target.files[0].name);
+    data.append('userId', this.props.user._id)
+    let file = event.target.files[0];
+    this.props.handleFile(data);
+}
+
+  render() {
+    return (
+      <input type="file" onChange={this.handleFile} />
+    );
+  }
 }
 
 export default UserProfilePhoto

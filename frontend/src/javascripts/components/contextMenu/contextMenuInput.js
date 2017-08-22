@@ -8,7 +8,6 @@ class BaseName extends Component {
   }
 
   render(){
-    console.log(this.props)
     let input
     return (
       <div>

@@ -39,7 +39,7 @@ class UserProfileForm extends Component {
     for (const field in this.refs) {
       formData[field] = this.refs[field].value;
     }
-    this.props.handleSubmitForm(this.props.user._id, formData);
+    this.props.handleSubmitForm(this.props.user._id, 'form', formData);
   }
 
 render() {
