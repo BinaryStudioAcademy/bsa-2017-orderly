@@ -8,6 +8,7 @@ import './gridContent.scss';
 import TextLine from './fields/textLine/textLine';
 import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
+import Url from './fields/url/url';
 import FieldMenu from './fieldMenu/fieldMenu';
 
 const Field = ({id, tableId, type, name, index, records, tableRecords, recordData, showFieldMenu, changeFieldType, changeFieldName}) => {
@@ -71,6 +72,18 @@ const Record = ({id, type, data, recordData}) => {
             >
             </Number>;
             break;
+
+	    case 'url':
+	    	record = <Url      id={id}
+		                       value={data}
+		                       selected={recordData.isRecordSelected(id)}
+		                       onSelect={recordData.selectRecordHandler}
+		                       onBlurField={recordData.blurRecordHandler}
+		                       onKeyPress={recordData.keyPressSimpleRecordHandler}
+		                       active={recordData.isRecordActive(id)}
+		                       onBlurComponent={recordData.blurRecordComponentHandler}
+		                       onActivate={recordData.activateRecordHandler}/>;
+	    	break;
 
         default:
             record = <TextLine id={id}
