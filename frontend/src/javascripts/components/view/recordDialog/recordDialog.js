@@ -1,16 +1,17 @@
 import React from 'react';
-import { Button, Header, Icon, Image, Modal } from 'semantic-ui-react';
-import logoImage from '../../../../images/logo.png';
-import './expandRecord.scss';
+import { Modal, Header } from 'semantic-ui-react';
+import './recordDialog.scss';
 import TextLine from '../grid/fields/textLine/textLine';
 import LongText from '../grid/fields/longText/longText';
 import Number from '../grid/fields/number/number';
+import HistoryList from './components/history/historyList';
+import CommentsBlock from './components/comments/commentsBlock';
 
 const Record = ({id, type, data, recordData}) => {
     let record = null;
     switch (type) {
         case 'longtext':
-            record = <LongText id={id/* + '-expand'*/}
+            record = <LongText id={id}
                                value={data}
                                selected={false}
                                active={true}
@@ -19,14 +20,13 @@ const Record = ({id, type, data, recordData}) => {
                                onKeyPress={recordData.keyPressRecordHandler}
                                onBlurField={recordData.blurRecordHandler}
                                onBlurComponent={recordData.blurRecordComponentHandler}
-                               onExpand={recordData.expandRecordHandler}
                                autoFocus={false}
             >
             </LongText>;
             break;
 
         case 'number':
-            record = <Number   id={id/* + '-expand'*/}
+            record = <Number   id={id}
                                value={data}
                                selected={false}
                                active={true}
@@ -41,7 +41,7 @@ const Record = ({id, type, data, recordData}) => {
             break;
 
         default:
-            record = <TextLine id={id/* + '-expand'*/}
+            record = <TextLine id={id}
                                value={data}
                                selected={false}
                                active={true}
@@ -62,18 +62,19 @@ const Record = ({id, type, data, recordData}) => {
     );
 };
 
-const ExpandRecord = ({record, fields, recordData, onExpandRecord}) => {
+const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPressComment, user, tableId}) => {
+
     return (
         <Modal
             open={true}
-            onClose={(event) => onExpandRecord('')}
+            onClose={(event) => onOpenRecordDialog('')}
             >
             <Modal.Header>Modal Header</Modal.Header>
             <Modal.Content image scrolling>
-                <Modal.Description className="modal">
+                <Modal.Description className="modal-fields-block">
                     {record.record_data.map((recordItem, fieldIndex) => {
                         return (
-                            <div key={recordItem._id} className="modal__field-item">
+                            <div key={recordItem._id} className="modal-field-item">
                                 <div>
                                     {fields[fieldIndex].name}
                                 </div>
@@ -83,15 +84,18 @@ const ExpandRecord = ({record, fields, recordData, onExpandRecord}) => {
                         )
                     })}
                 </Modal.Description>
-
-                <Image
-                    size='medium'
-                    src={logoImage}
-                    wrapped
-                />
+                <Modal.Description>
+                    <Header>History</Header>
+                    <HistoryList record={record} fields={fields} />
+                    <Header>Comments</Header>
+                    <CommentsBlock record={record}
+                                   user={user}
+                                   tableId={tableId}
+                                   onKeyPressComment={onKeyPressComment}/>
+                </Modal.Description>
             </Modal.Content>
         </Modal>
     );
 };
 
-export default ExpandRecord;
+export default RecordDialog;

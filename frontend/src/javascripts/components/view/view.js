@@ -30,8 +30,10 @@ class View extends Component {
                 recordData={this.props.recordData}
                 onAddField={this.props.addField}
                 onAddRecord={this.props.addRecord}
-                onExpandRecord={this.props.expandRecord}
-                expandRecordIndex={this.props.expandRecordIndex}
+                onOpenRecordDialog={this.props.openRecordDialog}
+                recordDialogIndex={this.props.recordDialogIndex}
+                onKeyPressComment={this.props.keyPressCommentHandler}
+                user={this.props.user}
             />;
         default:
             return <Grid currentTable={this.props.currentTable}/>;

@@ -7,7 +7,7 @@ import './gridContent.scss';
 import TextLine from './fields/textLine/textLine';
 import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
-import ExpandRecord from '../expandRecord/expandRecord';
+import RecordDialog from '../recordDialog/recordDialog';
 
 const Field = ({type, name, index, records, recordData, showFieldMenu}) => {
     return (
@@ -43,7 +43,6 @@ const Record = ({id, type, data, recordData}) => {
                                onKeyPress={recordData.keyPressRecordHandler}
                                onBlurField={recordData.blurRecordHandler}
                                onBlurComponent={recordData.blurRecordComponentHandler}
-                               onExpand={recordData.expandRecordHandler}
                                autoFocus={true}
             >
             </LongText>;
@@ -116,20 +115,23 @@ class GridContent extends Component {
                                     return (
                                         <div className="row-control-container" key={record._id}>
                                             <Button
-                                                className="expand-btn"
-                                                onClick={(event) => this.props.onExpandRecord(recordIndex)}>
+                                                className="record-dialog-btn"
+                                                onClick={(event) => this.props.onOpenRecordDialog(recordIndex)}>
                                                 <Icon name='expand'/>
                                             </Button>
                                         </div>
                                     )
                                 })}
-                                {this.props.expandRecordIndex &&
-                                    <ExpandRecord
-                                        record={this.props.currentTable.records[this.props.expandRecordIndex]}
+                                {(this.props.recordDialogIndex === 0 || this.props.recordDialogIndex > 0) &&
+                                    <RecordDialog
+                                        record={this.props.currentTable.records[this.props.recordDialogIndex]}
                                         fields={this.props.currentTable.fields}
                                         recordData={this.props.recordData}
-                                        recordIndex={this.props.expandRecordIndex}
-                                        onExpandRecord={this.props.onExpandRecord}
+                                        recordIndex={this.props.recordDialogIndex}
+                                        onOpenRecordDialog={this.props.onOpenRecordDialog}
+                                        onKeyPressComment={this.props.onKeyPressComment}
+                                        user={this.props.user}
+                                        tableId={this.props.currentTable._id}
                                     />
                                 }
                             </div>

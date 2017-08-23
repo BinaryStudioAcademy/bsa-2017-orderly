@@ -17,7 +17,7 @@ class Tools extends Component {
         this.keyPressSimpleRecordHandler = this.keyPressSimpleRecordHandler.bind(this);
         this.blurRecordHandler = this.blurRecordHandler.bind(this);
         this.blurRecordComponentHandler = this.blurRecordComponentHandler.bind(this);
-        this.expandRecordHandler = this.expandRecordHandler.bind(this);
+        this.keyPressCommentHandler = this.keyPressCommentHandler.bind(this);
     }
 
     componentWillMount() {
@@ -43,7 +43,7 @@ class Tools extends Component {
 
     keyPressRecordHandler(id) {
         if (!this.isRecordActive(id)) {
-            this.props.changeRecord(this.props.currentTableId, id, '');
+            this.props.changeRecord(this.props.currentTableId, id, '', this.props.user);
             this.props.activateRecord(id);
         }
     }
@@ -62,12 +62,12 @@ class Tools extends Component {
     }
 
     blurRecordComponentHandler(id, value) {
-        this.props.changeRecord(this.props.currentTableId, id, value);
+        this.props.changeRecord(this.props.currentTableId, id, value, this.props.user);
         this.props.blurRecordComponent(id);
     }
 
-    expandRecordHandler(id) {
-        //this.props.expandRecord(id);
+    keyPressCommentHandler(userId, recordId, tableId, comment) {
+        this.props.addComment(userId, recordId, tableId, comment);
     }
 
     render() {
@@ -81,7 +81,6 @@ class Tools extends Component {
             keyPressSimpleRecordHandler: this.keyPressSimpleRecordHandler,
             blurRecordHandler: this.blurRecordHandler,
             blurRecordComponentHandler: this.blurRecordComponentHandler,
-            expandRecordHandler: this.expandRecordHandler
         };
         return (
             <div onClick={() => {
@@ -108,8 +107,10 @@ class Tools extends Component {
                       addTableClick={this.props.addTableClick}/>
                 <View currentTable={currentTable}
                       recordData={recordData}
-                      expandRecord={this.props.expandRecord}
-                      expandRecordIndex={this.props.expandRecordIndex}/>
+                      openRecordDialog={this.props.openRecordDialog}
+                      recordDialogIndex={this.props.recordDialogIndex}
+                      keyPressCommentHandler={this.keyPressCommentHandler}
+                      user={this.props.user}/>
             </div>
         );
     }

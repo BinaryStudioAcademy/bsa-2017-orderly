@@ -26,6 +26,12 @@ const tableSchema = new Schema({
                 },
                 changed_to: {
                     type: String
+                },
+                field_id: {
+                    type: String
+                },
+                record_id: {
+                    type: String
                 }
             }
         }],

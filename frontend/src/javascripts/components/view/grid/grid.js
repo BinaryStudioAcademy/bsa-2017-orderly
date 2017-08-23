@@ -12,8 +12,10 @@ export default class Grid extends Component{
                     recordData={this.props.recordData}
                     onAddField={this.props.onAddField}
                     onAddRecord={this.props.onAddRecord}
-                    onExpandRecord={this.props.onExpandRecord}
-                    expandRecordIndex={this.props.expandRecordIndex}
+                    onOpenRecordDialog={this.props.onOpenRecordDialog}
+                    recordDialogIndex={this.props.recordDialogIndex}
+                    onKeyPressComment={this.props.onKeyPressComment}
+                    user={this.props.user}
                 />
             </div>
         );

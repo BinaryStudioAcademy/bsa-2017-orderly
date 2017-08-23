@@ -11,7 +11,7 @@
 
 .field__items.row-options-field {
   .row-options-field {
-    .expand-btn {
+    .record-dialog-btn {
       position: relative;
       width: 25px;
       height: 33px;
@@ -26,7 +26,6 @@
       background-color: #fff !important;
 
       .expand.icon {
-        //-webkit-box-sizing: border-box !important;
         color: #2d7ff9;
         display: none;
         position: absolute;
@@ -58,6 +57,9 @@
   }
 }
 .modal {
+  .modal-fields-block {
+    min-width: 55%!important;
+  }
   .text-line,
   .long-text,
   .number {
@@ -68,18 +70,31 @@
   .table-cell-container {
     margin-bottom: 20px;
   }
-  .table-cell-container {
-    .table-cell.selected {
-      //box-sizing: border-box;
-    }
-  }
   .field__item {
     width: 100%;
   }
   .table-cell {
+    position: inherit;
     width: 100%;
   }
   .long-text.active {
     min-height: 150px;
+  }
+  .ui.input input {
+   border: none;
+  }
+  .record-history-item,
+  .record-comment-item {
+    border-bottom: 1px solid rgba(117, 116, 116, 0.33);
+    padding: 10px;
+  }
+  .record-history-changed-from{
+    text-decoration: line-through solid red;
+  }
+  .record-history-changed-to{
+    text-decoration: underline solid green;
+  }
+  .user-comment-info {
+    padding: 20px 0;
   }
 }

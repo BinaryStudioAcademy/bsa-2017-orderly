@@ -13,6 +13,18 @@ class TableRepository extends Repository {
         that = this;
     }
 
+    getByIds(ids) {
+        return this.model.find({'_id': {$in: ids}})
+            .populate('records.history.collaborator')
+            .populate('records.comments.collaborator');
+    }
+
+    update(id, body) {
+        return this.model.findByIdAndUpdate(id, body, {'new': true})
+            .populate('records.history.collaborator')
+            .populate('records.comments.collaborator');
+    }
+
     getRecords(tableId) {
         return this.model.findById(tableId).select('records');
     }
