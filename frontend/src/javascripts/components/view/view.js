@@ -4,9 +4,11 @@ import {bindActionCreators} from 'redux';
 import * as viewActions from './viewActions';
 import {Icon} from 'semantic-ui-react';
 import Grid from './grid/grid';
+import FormView from './form/form';
 import {viewIcons} from '../configuration/viewTypes';
 import './view.scss';
 import InDevelopment from '../in_developing/InDeveloping';
+import Field from "./grid/fields/field";
 
 class View extends Component {
     constructor(props) {
@@ -40,6 +42,8 @@ class View extends Component {
                 changeFieldName={this.props.changeFieldName}
                 deleteField={this.props.deleteField}
             />;
+        case 'form':
+            return <FormView/>;
         default:
             return <InDevelopment/>;
         }
