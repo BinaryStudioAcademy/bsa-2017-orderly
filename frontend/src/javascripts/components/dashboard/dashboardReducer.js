@@ -2,7 +2,7 @@ import R from 'ramda';
 
 const initState = {
     base: '',
-    tables: [{   //todo remove cap for new base
+    tables: [{
         _id: 0,
         name: '',
         isActive: false

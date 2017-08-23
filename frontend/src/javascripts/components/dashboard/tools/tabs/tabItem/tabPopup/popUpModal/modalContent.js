@@ -35,7 +35,7 @@ const ModalBody = ({activeModal, renameIsError, tablesNames, checkTableName, tab
 									          toggle/>
 								</Modal.Content>)
 		case 'delete': return (<Modal.Content>
-								<p>Are you sure you want to delete this table?</p>
+								<p>Are you want to delete this table?</p>
 								</Modal.Content>)
 		default: return (<div></div>)
 }}

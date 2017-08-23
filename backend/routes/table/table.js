@@ -2,12 +2,12 @@ const router = require('express').Router();
 const R = require('ramda');
 
 const tableRepository = require('../../repositories/table/tableRepository');
-const { defaultTable } = require('../../config/defaultTable');
+const { defaultTable } = require('../../config/defaultEntities');
 
 
 // tables
 router.post('/', (request, response, next) => {
-    let newTable = request.body || defaultTable;
+    let newTable = request.body || defaultTable();
     tableRepository.add(R.merge(newTable, request.body))
         .then((table) => response.status(201).send(table))
         .catch((error) => {

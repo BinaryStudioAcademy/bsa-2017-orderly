@@ -1,12 +1,51 @@
-export const addNewBase = () => {
+export const addNewBase = (teamId) => {
   return {
-    type: 'ADD_NEW_BASE'    
+    type: 'ADD_NEW_BASE',
+	teamId: teamId
   }
 }
-export const getAllBases = () => {
-  return {
-    type: 'GET_BASES'  
-  };
+
+export const toggleTeamPopup = (isShow) => {
+	return {
+		type: 'TOGGLE_TEAM_POPUP',
+		isShow: isShow
+	}
+}
+
+export const setTeamModal = (typeOfActivity) => {
+	return {
+		type: 'SET_TEAM_MODAL_ACTIVITY',
+		typeOfActivity: typeOfActivity
+	}
+}
+
+export const updateTeam = (data, teamId) => {
+	return {
+		type: 'UPDATE_TEAM',
+		data: data,
+		teamId: teamId
+	}
+}
+
+export const deleteTeam = (teamId) => {
+	return {
+		type: 'DELETE_TEAM',
+		teamId: teamId
+	}
+}
+
+export const getBasesByTeam = (teamId) => {
+	return {
+		type: 'GET_BASES_BY_TEAM',
+		teamId: teamId
+	}
+}
+
+export const getTeamsByUser = ({ _id }) => {
+	return {
+		type: 'GET_TEAMS_BY_USER',
+		userId: _id
+	}
 }
 
 export const changeBaseParam = (value, typeAction, _id) =>{
@@ -27,7 +66,7 @@ export const showContextMenu = (data, type, _id) => {
   }
 }
 
-export const deleteBase = (data, type, _id) =>{
+export const deleteBase = (data, type, _id) => {
   return {
     type: 'DELETE_BASE',
     _id
