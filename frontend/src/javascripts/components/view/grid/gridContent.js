@@ -36,6 +36,7 @@ const Field = ({id, tableId, type, name, index, records, tableRecords, recordDat
                     changeFieldName={changeFieldName}
                     deleteField={deleteField}
                     records={records}
+                    index={index}
                 />
             </div>
             <div className="field__items">

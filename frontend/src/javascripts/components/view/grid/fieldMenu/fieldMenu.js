@@ -95,10 +95,12 @@ export default class FieldMenu extends Component {
                            onChange={this.handleChangeName}
                            onKeyPress={this.handleKeyPress}
                     />
+                    {this.props.index !== 0 &&
                     <Icon name="trash outline"
-                          id="menu__delete"
-                          size="large"
-                          onClick={this.handleDeleteField}/>
+                        id="menu__delete"
+                        size="large"
+                        onClick={this.handleDeleteField}/>
+                    }
                     <FieldOptions id={this.props.id}
                                   excludeType={this.props.type}
                                   changeFieldType={this.props.changeFieldType}
