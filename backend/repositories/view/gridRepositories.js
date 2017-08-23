@@ -29,7 +29,9 @@ class GridRepository extends Repository {
     }
 
     deleteField(viewId, fieldId) {
-        return this.model.findByIdAndUpdate(viewId, {'$pull': { 'fields_config': { _id: fieldId } }});
+        return this.model.findByIdAndUpdate(viewId,
+            {'$pull': { 'fields_config': { _id: fieldId } }},
+            {'new': true});
     }
 
 }

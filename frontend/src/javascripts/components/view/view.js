@@ -8,7 +8,6 @@ import FormView from './form/form';
 import {viewIcons} from '../configuration/viewTypes';
 import './view.scss';
 import InDevelopment from '../in_developing/InDeveloping';
-import Field from "./grid/fields/field";
 
 class View extends Component {
     constructor(props) {
@@ -43,7 +42,9 @@ class View extends Component {
                 deleteField={this.props.deleteField}
             />;
         case 'form':
-            return <FormView/>;
+            return <FormView
+                currentTable={this.props.currentTable}
+            />;
         default:
             return <InDevelopment/>;
         }
