@@ -7,6 +7,7 @@ import {fieldIcons} from "../../configuration/fieldTypes";
 import './gridContent.scss';
 import TextLine from './fields/textLine/textLine';
 import LongText from './fields/longText/longText';
+import CurrencyField from './fields/currency/currency';
 import Number from './fields/number/number';
 import AutoNumber from './fields/autoNumber/autoNumber';
 import Url from './fields/url/url';
@@ -84,6 +85,19 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
                                onBlurComponent={recordData.blurRecordComponentHandler}
             >
             </Number>;
+            break;
+        case 'currency':
+            record = <CurrencyField   id={id}
+                               value={data}
+                               selected={recordData.isRecordSelected(id)}
+                               active={recordData.isRecordActive(id)}
+                               onSelect={recordData.selectRecordHandler}
+                               onActivate={recordData.activateRecordHandler}
+                               onKeyPress={recordData.keyPressSimpleRecordHandler}
+                               onBlurField={recordData.blurRecordHandler}
+                               onBlurComponent={recordData.blurRecordComponentHandler}
+            >
+            </CurrencyField >;
             break;
 
 	    case 'autonumber':
