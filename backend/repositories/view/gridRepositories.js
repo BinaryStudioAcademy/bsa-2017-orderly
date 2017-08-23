@@ -7,30 +7,22 @@ class GridRepository extends Repository {
         this.model = Grid;
     }
 
-    addField(viewId,gridFieldData) {
+    addField(viewId, gridFieldData) {
         return this.model.findByIdAndUpdate(viewId,
             {'$push': {'fields_config': gridFieldData}},
             {'new': true});
     }
 
     updateField(viewId, fieldId, gridFieldData) {
-        return this.model.findOneAndUpdate({
-            _id: viewId,
-            'fields_config._id': fieldId},
-        {
-            $set:{
-                'fields_config.$.name': gridFieldData.name,
-                'fields_config.$.position': gridFieldData.position,                
-                'fields_config.$.hidden': gridFieldData.hidden,
-                'fields_config.$.fixed_area': gridFieldData.fixed_area,
-                'fields_config.$.size': gridFieldData.size
-            }
-        });
+        return this.model.findOneAndUpdate(
+            {_id: viewId, 'fields_config._id': fieldId},
+            {$set: {'fields_config.$': gridFieldData}},
+            {'new': true});
     }
 
     deleteField(viewId, fieldId) {
         return this.model.findByIdAndUpdate(viewId,
-            {'$pull': { 'fields_config': { _id: fieldId } }},
+            {'$pull': {'fields_config': {_id: fieldId}}},
             {'new': true});
     }
 

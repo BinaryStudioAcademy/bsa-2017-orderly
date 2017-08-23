@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as viewActions from './viewActions';
 import {Icon} from 'semantic-ui-react';
 import Grid from './grid/grid';
-import FormView from './form/form';
+import FormView from './form/formView';
 import {viewIcons} from '../configuration/viewTypes';
 import './view.scss';
 import InDevelopment from '../in_developing/InDeveloping';
