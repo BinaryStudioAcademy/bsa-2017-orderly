@@ -13,9 +13,11 @@ class UserProfile extends Component {
         }
     }
     componentWillReceiveProps(nextProps) {
-        this.setState({ 
-        avatar: nextProps.user.avatar ? nextProps.user.avatar : '' 
-        })
+        if (nextProps.user) {
+            this.setState({ 
+            avatar: nextProps.user.avatar ? nextProps.user.avatar : '' 
+            })
+        }
     }
 
     render() {
