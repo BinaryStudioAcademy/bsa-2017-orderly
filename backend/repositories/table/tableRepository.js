@@ -40,7 +40,8 @@ class TableRepository extends Repository {
     pullRecord(tableId, recordId) {
         return that.model.findByIdAndUpdate(
             tableId,
-            {'$pull': {records: {_id: recordId}}}
+            {'$pull': {records: {_id: recordId}}},
+            {'new': true}
         );
     }
 
@@ -79,24 +80,42 @@ class TableRepository extends Repository {
     }
 
     updateField(tableId, fieldId, data) {
-        return this.model.update(
-            {_id: objectId(tableId), 'fields._id': objectId(fieldId)},
-            {'$set': {'fields.$.name': data.name}});
+        return this.model.findById(tableId).then((table) => {
+            const field = table.fields.find((f) => f._id.toString() === fieldId);
+            field.type = data.fieldType || field.type;
+            field.name = data.fieldName || field.name;
+            if (data.fieldType) {
+                let recordIds = data.records.map((r) => r._id);
+                table.records.forEach((record) => {
+                    record.record_data.map((d) => {
+                        if (recordIds.includes(d._id.toString())) {
+                            d.data = '';
+                        }
+                        return d;
+                    });
+                });
+            }
+            return table.save();
+        });
     }
 
     updateFields(tableId, data) {
         return this.model.findById(tableId)
             .then((table) => {
                 table.records.push({record_data: new Array(table.fields.length).fill(data)});
-
                 return table.save();
             });
     }
 
     deleteField(tableId, fieldId) {
-        return this.model.update(
-            {_id: objectId(tableId)},
-            {'$pull': {fields: {_id: objectId(fieldId)}}});
+        return this.model.findById(tableId).then((table) => {
+            const deleteAt = table.fields.indexOf(table.fields.find((f) => f._id.toString() === fieldId));
+            table.fields.splice(deleteAt, 1);
+            table.records.forEach((record) => {
+                record.record_data.splice(deleteAt, 1);
+            });
+            return table.save();
+        });
     }
 
     deleteAllFields(tableId) {

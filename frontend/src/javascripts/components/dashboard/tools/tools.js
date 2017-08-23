@@ -3,6 +3,7 @@ import Header from './header/header';
 import Tabs from './tabs/tabs';
 import View from '../../view/view';
 import {formatFieldsRecords} from "../dashboardService";
+import R from 'ramda';
 
 class Tools extends Component {
     constructor(props) {
@@ -13,9 +14,8 @@ class Tools extends Component {
         this.isRecordActive = this.isRecordActive.bind(this);
         this.selectRecordHandler = this.selectRecordHandler.bind(this);
         this.activateRecordHandler = this.activateRecordHandler.bind(this);
-        this.keyDownRecordHandler = this.keyDownRecordHandler.bind(this);
-        this.keyDownSimpleRecordHandler = this.keyDownSimpleRecordHandler.bind(this);
-        this.changeRecordHandler = this.changeRecordHandler.bind(this);
+        this.keyPressRecordHandler = this.keyPressRecordHandler.bind(this);
+        this.keyPressSimpleRecordHandler = this.keyPressSimpleRecordHandler.bind(this);
         this.blurRecordHandler = this.blurRecordHandler.bind(this);
         this.blurRecordComponentHandler = this.blurRecordComponentHandler.bind(this);
         this.expandRecordHandler = this.expandRecordHandler.bind(this);
@@ -42,31 +42,28 @@ class Tools extends Component {
         this.props.activateRecord(id);
     }
 
-    keyDownRecordHandler(id, e) {
+    keyPressRecordHandler(id) {
         if (!this.isRecordActive(id)) {
-            this.changeRecordHandler(id, '');
+            this.props.changeRecord(this.props.currentTableId, id, '');
             this.props.activateRecord(id);
         }
     }
 
-    keyDownSimpleRecordHandler(id, e) {
-        this.keyDownRecordHandler(id, e);
+    keyPressSimpleRecordHandler(id, e) {
+        this.keyPressRecordHandler(id, e);
         if (this.isRecordActive(id)) {
-            if (e.keyCode === 13) {
-                this.blurRecordComponentHandler(id);
+            if (e.charCode === 13) {
+                this.blurRecordComponentHandler(id, e.target.value);
             }
         }
-    }
-
-    changeRecordHandler(id, value) {
-        this.props.changeRecord(this.props.currentTableId, id, value);
     }
 
     blurRecordHandler(id) {
         this.props.blurRecord(id);
     }
 
-    blurRecordComponentHandler(id) {
+    blurRecordComponentHandler(id, value) {
+        this.props.changeRecord(this.props.currentTableId, id, value);
         this.props.blurRecordComponent(id);
     }
 
@@ -75,28 +72,30 @@ class Tools extends Component {
     }
 
     render() {
-        let currentTable = this.props.tables.filter((t) => t._id === this.props.currentTableId).pop();
+        const currentTable = R.find(R.propEq('_id', this.props.currentTableId))(this.props.tables);
         let fieldsRecords;
         if (currentTable) {
             fieldsRecords = formatFieldsRecords(currentTable.fields, currentTable.records);
         }
-        const fieldEvents = {
+        const recordData = {
             isRecordSelected: this.isRecordSelected,
             isRecordActive: this.isRecordActive,
             selectRecordHandler: this.selectRecordHandler,
             activateRecordHandler: this.activateRecordHandler,
-            keyDownRecordHandler: this.keyDownRecordHandler,
-            keyDownSimpleRecordHandler: this.keyDownSimpleRecordHandler,
-            changeRecordHandler: this.changeRecordHandler,
+            keyPressRecordHandler: this.keyPressRecordHandler,
+            keyPressSimpleRecordHandler: this.keyPressSimpleRecordHandler,
             blurRecordHandler: this.blurRecordHandler,
             blurRecordComponentHandler: this.blurRecordComponentHandler,
             expandRecordHandler: this.expandRecordHandler
-        }
+        };
         return (
             <div onClick={() => {
-                this.props.closeMenu();
+                // this.props.closeMenu();
             }}>
-                <Header base={this.props.base} user={this.props.user}/>
+                <Header base={this.props.base} 
+                        user={this.props.user} 
+                        menu={this.props.menu}
+                        handleClick={this.props.handleClick}  />
                 <Tabs base={this.props.base}
                       activeModal={this.props.activeModal}
                       setTabsModal={this.props.setTabsModal}
@@ -112,7 +111,9 @@ class Tools extends Component {
                       updateTable={this.props.updateTable}
                       deleteTable={this.props.deleteTable}
                       addTableClick={this.props.addTableClick}/>
-                <View currentTable={currentTable} fieldsRecords={fieldsRecords} fieldEvents={fieldEvents}/>
+                <View currentTable={currentTable}
+                      fieldsRecords={fieldsRecords}
+                      recordData={recordData}/>
             </div>
         );
     }

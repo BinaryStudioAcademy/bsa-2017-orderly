@@ -1,10 +1,11 @@
 import React from 'react';
-import { Modal, Input } from 'semantic-ui-react';
+import { Modal, Input, Checkbox } from 'semantic-ui-react';
 import R from 'ramda';
 import { debounce } from 'throttle-debounce';
 
 let renameInput;
 let descriptionInput;
+let isRecordCopy = false;
 
 const checkValidName = debounce(150, (value, tablesNames, checkRenameFunc) => {
 	if (!value || R.contains(R.toLower(value), tablesNames)) checkRenameFunc(true);
@@ -25,7 +26,11 @@ const ModalBody = ({activeModal, renameIsError, tablesNames, checkTableName, tab
 		                                        onChange={(event) => { descriptionInput = event.target.value; }}
 		                                        placeholder={descriptionInput ? descriptionInput : 'Enter description...'}/>)
 		case 'duplicate': return (<Modal.Content>
-									<p>Are you sure you want to duplicate this table?</p>
+									<Checkbox label='Duplicate records'
+									          onChange={(event, data) => {
+									          	isRecordCopy = data.checked;
+									          }}
+									          toggle/>
 								</Modal.Content>)
 		case 'delete': return (<Modal.Content>
 								<p>Are you sure you want to delete this table?</p>
@@ -36,5 +41,6 @@ const ModalBody = ({activeModal, renameIsError, tablesNames, checkTableName, tab
 export {
 	ModalBody,
 	renameInput,
-	descriptionInput
+	descriptionInput,
+	isRecordCopy
 };

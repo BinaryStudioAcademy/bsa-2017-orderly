@@ -22,9 +22,9 @@ const setActive = (tableId) => ({
     tableId: tableId
 });
 
-const addTable = ({name, baseId}) => ({
+const addTable = ({table, baseId}) => ({
     type: 'ADD_TABLE',
-    name: name,
+    table: table,
     baseId: baseId
 });
 
@@ -115,14 +115,6 @@ const blurRecordComponent = (recordId) => {
     };
 }
 
-const changeFieldType = (fieldId, records) => {
-    return {
-        type: 'CHANGE_FIELD_TYPE',
-        fieldId: fieldId,
-        records: records
-    };
-};
-
 export {
     getBaseById,
     getTables,
@@ -143,5 +135,4 @@ export {
     blurRecord,
     blurRecordComponent,
     deleteTable,
-    changeFieldType
 };

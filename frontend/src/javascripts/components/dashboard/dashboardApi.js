@@ -13,8 +13,8 @@ const getTablesByIds = (ids) =>
         .then((response) => response.data)
         .catch(R.tap(console.error));
 
-const addTable = (name) =>
-    axios.post(url + '/tables', {name: name})
+const addTable = (table) =>
+    axios.post(url + '/tables', table)
         .then((response) => response.data)
         .catch(R.tap(console.error));
 
@@ -52,6 +52,24 @@ const deleteTable = (tableId) =>
 		.then((response) => response.data)
 		.catch(R.tap(console.error));
 
+const updateField = (payload) => {
+    return axios.put(url + '/tables/' + payload.tableId + '/fields/' + payload.fieldId, payload)
+        .then((response) => response)
+        .catch(R.tap(console.error));
+};
+
+const deleteFieldRecords = (payload) => {
+    return axios.delete(url + '/tables/' + payload.tableId + '/fields/' + payload.fieldId)
+        .then((response) => response)
+        .catch(R.tap(console.error));
+};
+
+const deleteRecord = (payload) => {
+    return axios.delete(url + '/tables/' + payload.tableId + '/records/' + payload.recordId)
+        .then((response) => response)
+        .catch(R.tap(console.error));
+};
+
 export {
     getBase,
     getTablesByIds,
@@ -60,5 +78,8 @@ export {
 	updateTable,
     addFieldsToTable,
     addRecord,
-	deleteTable
+	deleteTable,
+    updateField,
+    deleteFieldRecords,
+    deleteRecord,
 };

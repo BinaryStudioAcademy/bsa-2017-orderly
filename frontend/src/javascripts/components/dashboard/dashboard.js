@@ -2,13 +2,14 @@ import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, deleteTable,
-    selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent, changeFieldType } from './dashboardActions';
+    selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent} from './dashboardActions';
     import { getCurrentUser } from '../userProfile/userProfileActions';
 import { addField } from '../view/viewActions';
 
 const mapStateToProps = (state, ownProps) => {
     return ({
         base: state.dashboardReducer.base,
+        menu: state.baseStore.showMenuforBase,
         tables: state.dashboardReducer.tables,
         activeModal: state.dashboardReducer.activeModal,
         baseId: ownProps.params.baseId,
@@ -40,7 +41,6 @@ const mapDispatchToProps = {
     changeRecord: changeRecord,
     blurRecord: blurRecord,
     blurRecordComponent: blurRecordComponent,
-    changeFieldType: changeFieldType,
     getUser: getCurrentUser,
 };
 
