@@ -6,11 +6,11 @@ import './homePage.scss';
 
 class HomePageContainer extends React.Component {
   constructor(props) {
-      super(props);
+    super(props);
   }
   componentWillMount() {
-      this.props.getBases();
-      this.props.getUser();
+    this.props.getBases();
+    this.props.getUser();
   }
 
   render() {

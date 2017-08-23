@@ -13,6 +13,7 @@ class BaseName extends Component {
     })
   }
   render(){
+    let input
     return (
       <div>
         <form className='base-name-form'

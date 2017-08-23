@@ -8,13 +8,14 @@ const mapStateToProps = (state) => {
   return ({
     bases: state.baseStore.bases,
     menu: state.baseStore.showMenuforBase,
-    user: state.userProfile.user
+    user: state.userProfile.user,
+    avatar: state.userProfile.file
   });
 }
 
 const mapDispatchToProps = {
    getBases: getAllBases,
-   getUser: getCurrentUser
+   getUser: getCurrentUser,
 }
 
 const HomePage = connect(

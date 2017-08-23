@@ -8,7 +8,7 @@ let HomePageHeader = (props) => {
   return (
     <div className ='home-page-header' >
       <Link to={'/'}><img className='logo' src='../../../images/logo.png'/></Link>
-      <UserProfile user={props.user}/>
+      <UserProfile user={props.user} avatar={props.avatar}/>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 export function getCurrentUser() {
     return {
         type: "GET_CURRENT_USER_REQUESTED"
-    };
+    }
 }
 
 export function changeUserData(_id, data) {
@@ -19,4 +19,18 @@ export function changeUserData(_id, data) {
         },
         _id
     };
+}
+
+export function uploadSuccess(data) {
+  return {
+        type: 'UPLOAD_USER_AVATAR',
+        data
+  };
+}
+
+export function getAvatarByPath (path){
+    return {
+        type: 'GET_USER_AVATAR',
+        path
+    }
 }
