@@ -13,7 +13,7 @@ class Spinner extends React.Component {
     return (
       <div className='spinner-block'>
         <div className='sweet-loading'>
-          <RingLoader size='180'
+          <RingLoader size={180}
             color={'#ffffff'} 
             loading={this.state.loading} 
           />
