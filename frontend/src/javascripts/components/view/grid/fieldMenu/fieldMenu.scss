@@ -1,5 +1,6 @@
 .field__ellipsis {
   float: right;
+  position: relative;
 }
 
 .field__menu {
@@ -13,6 +14,12 @@
   border: .5px solid #AAA;
   border-radius: 5px;
   background-color: #EEE;
+}
+
+.content__body > .field__items:last-child {
+  .field__menu {
+    left: -74px;
+  }
 }
 
 .menu__name {
