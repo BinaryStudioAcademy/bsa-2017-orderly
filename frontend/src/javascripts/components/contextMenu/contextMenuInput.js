@@ -9,7 +9,7 @@ class BaseName extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({ 
-        name: nextProps.base.name
+        name: nextProps.base ? nextProps.base.name : ''
     })
   }
   render(){

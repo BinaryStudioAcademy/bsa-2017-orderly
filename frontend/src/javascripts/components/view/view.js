@@ -53,6 +53,13 @@ class View extends Component {
                     <Icon name={val}/>
                     <span>{this.capitalize(k)}</span>
                 </div>)}
+        if (!this.props.currentTable) {
+            return (
+                <h2 className="view__no-tables">
+                    No tables in this base
+                </h2>
+            )
+        }
         return (
             <div className="view__container">
                 <Icon name="caret down"
