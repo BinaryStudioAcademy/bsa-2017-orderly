@@ -37,10 +37,10 @@ const GridSchema = new Schema({
             },
             "fixed_area": {
                 "type": "Number",
-                "required": true
+                // "required": true
             }
         }
-    ] 
+    ]
 }, { versionKey: false });
 
 GridSchema.pre('findOneAndUpdate', function(next) {
