@@ -66,6 +66,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
+
+
 UserProfilePage = connect(mapStateToProps, mapDispatchToProps)(UserProfilePage)
 
 export default UserProfilePage

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import HomePageTeamBlock from './homePageTeam/homePageTeamBlock';
+import CurrencyField from './../view/grid/fields/currency/currency'
 import HomePageHeader from './homePageHeader';
 import './homePage.scss';
 
@@ -22,6 +23,7 @@ class HomePageContainer extends React.Component {
             menu={this.props.menu}
             showMenu={this.props.showMenu}
           />
+        <CurrencyField />
         </div>
       </div>
     )
