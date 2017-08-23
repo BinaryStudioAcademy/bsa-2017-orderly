@@ -11,8 +11,7 @@ class BaseList extends Component {
 
   }
   render() {
-    const props = this.props;  
-    console.log(this.props)
+    const props = this.props;
       return (
         <div className = 'base-list '  >
           { this.props.bases.map(function(base, current) {

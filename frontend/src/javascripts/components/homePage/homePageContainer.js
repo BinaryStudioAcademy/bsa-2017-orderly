@@ -6,15 +6,14 @@ import './homePage.scss';
 
 class HomePageContainer extends React.Component {
   constructor(props) {
-      super(props);
+    super(props);
   }
   componentWillMount() {
-      this.props.getBases();
-      this.props.getUser();
+    this.props.getBases();
+    this.props.getUser();
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className = "home-page-wrapper">
         <HomePageHeader user={this.props.user}/>

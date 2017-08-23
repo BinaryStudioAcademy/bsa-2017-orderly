@@ -15,7 +15,12 @@ const AddTabBtn = ({base, togglePopup, addPopupIsOpen, addTableClick}) => (
         <Input icon={{ name: 'plus', link: true, onClick: () => {
             if (!input || !input.value) return;
             addTableClick({ table: {
-                name: input.value
+                name: input.value,
+                fields: [{
+                    name: 'Primary field',
+                    type: 'text',
+                }],
+                records: [{record_data: [{data: ''}]}]
             }, baseId: base._id});
             input = '';
         }}}

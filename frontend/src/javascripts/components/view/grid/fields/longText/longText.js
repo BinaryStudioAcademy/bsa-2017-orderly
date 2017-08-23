@@ -25,9 +25,8 @@ class LongText extends Field {
         return (
             <div>
                 <TextArea
-                    onChange={(event) => this.props.onChange(this.props.id, event.target.value)}
-                    onBlur={() => this.props.onBlurComponent(this.props.id)}
-                    value={this.props.value}
+                    onBlur={(event) => this.props.onBlurComponent(this.props.id, event.target.value)}
+                    defaultValue={this.props.value}
                     type='text'
                     autoFocus={true}
                     icon={{ name: 'expand', link: true, onClick: () => {
