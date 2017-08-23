@@ -12,7 +12,7 @@ const initState = {
     renameIsError: true,
     selectedRecordId: null,
     activeRecordId: null,
-    expandRecordIndex: null
+    recordDialogIndex: null
 };
 
 function dashboardReducer(state = initState, action) {
@@ -189,19 +189,41 @@ function dashboardReducer(state = initState, action) {
                             R.dissoc('records', table),
                             {
                                 records: R.map((record) => {
+                                    let changes = null;
+                                    const recordData = R.addIndex(R.map)((recordItem, fieldIndex) => {
+                                        if ((recordItem._id === action.recordId) && (recordItem.data !== action.data)) {
+                                            changes = {
+                                                'field_id': table.fields[fieldIndex]._id,
+                                                'record_id': recordItem._id,
+                                                'changed_from': recordItem.data,
+                                                'changed_to': action.data
+                                            };
+
+                                            let newObj = R.dissoc('data', recordItem);
+                                            newObj.data = action.data;
+                                            return newObj;
+                                        } else {
+                                            return recordItem;
+                                        }
+                                    })(record.record_data);
+
+                                    let history = {};
+                                    if (changes) {
+                                        history = {
+                                            history: R.concat(record.history, [{
+                                                collaborator: action.user,
+                                                changes: changes
+                                            }])
+                                        };
+                                    }
+
                                     return R.mergeAll([
                                         R.dissoc('record_data', record),
                                         {
-                                            record_data: R.map((recordItem) => {
-                                                if (recordItem._id === action.recordId) {
-                                                    let newObj = R.dissoc('data', recordItem);
-                                                    newObj.data = action.data;
-                                                    return newObj;
-                                                } else {
-                                                    return recordItem;
-                                                }
-                                            })(record.record_data)
-                                        }]);
+                                            record_data: recordData
+                                        },
+                                        history
+                                    ]);
                                 })(table.records)
                             }]);
                     }
@@ -230,8 +252,38 @@ function dashboardReducer(state = initState, action) {
         return {...state};
     }
 
-    case 'EXPAND_RECORD': {
-        return {...state, ...{expandRecordIndex: action.index}};
+    case 'OPEN_RECORD_DIALOG': {
+        return {...state, ...{recordDialogIndex: action.index}};
+    }
+
+    case 'PERFORM_ADD_COMMENT': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.tableId) {
+                        return R.mergeAll([
+                            R.dissoc('records', table),
+                            {
+                                records: R.map((record) => {
+                                    if ((record._id === action.recordId) && (action.comment)) {
+                                        return R.mergeAll([
+                                            R.dissoc('comments', record),
+                                            {
+                                                comments: R.concat(record.comments, [{
+                                                    collaborator: action.userId,
+                                                    message: action.comment
+                                                }])
+                                            }
+                                        ]);
+                                    }
+                                    return record;
+                                })(table.records)
+                            }]);
+                    }
+                    return table;
+                })(state.tables)
+            }]);
     }
 
     default:

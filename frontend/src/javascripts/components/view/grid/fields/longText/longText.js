@@ -12,11 +12,6 @@ class LongText extends Field {
         return (
             <div>
                 <div className="table-cell-inner">{this.props.value}</div>
-                <Icon name='expand'
-                    className='expand-icon'
-                    link
-                    onClick={() => this.props.onExpand(this.props.id)}
-                />
             </div>
         );
     }
@@ -28,15 +23,7 @@ class LongText extends Field {
                     onBlur={(event) => this.props.onBlurComponent(this.props.id, event.target.value)}
                     defaultValue={this.props.value}
                     type='text'
-                    autoFocus={this.props.autoFocus}
-                    icon={{ name: 'expand', link: true, onClick: () => {
-                        this.props.onExpand(this.props.id);
-                    }}}
-                />
-                <Icon name='expand'
-                    className='expand-icon'
-                    link
-                    onClick={() => this.props.onExpand(this.props.id)}
+                    autoFocus={this.props.autoFocus2}
                 />
             </div>
         );

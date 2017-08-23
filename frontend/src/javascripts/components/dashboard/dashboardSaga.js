@@ -103,7 +103,25 @@ function* changeTableRecord(action) {
             type: 'PERFORM_CHANGE_RECORD',
             tableId: action.tableId,
             recordId: action.recordId,
-            data: action.data
+            data: action.data,
+            user: action.user
+        });
+        const dashboardReducer = yield select(getDashboardReducer);
+        let table = dashboardReducer.tables.filter((t) => t._id === action.tableId).pop();
+        yield put({type: 'UPDATE_TABLE', tableId: action.tableId, newData: table});
+    } catch (err) {
+        yield put({type: 'UPDATE_TABLE_FAILED', message: err.message});
+    }
+}
+
+function* addNewComment(action) {
+    try {
+        yield put({
+            type: 'PERFORM_ADD_COMMENT',
+            tableId: action.tableId,
+            recordId: action.recordId,
+            comment: action.comment,
+            userId: action.userId
         });
         const dashboardReducer = yield select(getDashboardReducer);
         let table = dashboardReducer.tables.filter((t) => t._id === action.tableId).pop();
@@ -123,6 +141,7 @@ function* dashboardSaga() {
     yield takeEvery('ADD_RECORD', addNewRecord);
     yield takeLatest('CHANGE_RECORD', changeTableRecord);
     yield takeEvery('DELETE_TABLE', removeTable);
+    yield takeEvery('ADD_COMMENT', addNewComment);
 }
 
 export default dashboardSaga;
