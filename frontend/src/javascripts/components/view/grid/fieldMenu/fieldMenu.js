@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Icon } from 'semantic-ui-react';
-import {fieldIcons} from "../../../configuration/fieldTypes";
+import {fieldIcons, fieldNames} from "../../../configuration/fieldTypes";
 import './fieldMenu.scss';
 
 const FieldOptions = ({id, tableId, records, excludeType, changeFieldType, closeMenu}) => {
@@ -15,7 +15,7 @@ const FieldOptions = ({id, tableId, records, excludeType, changeFieldType, close
                          return changeFieldType(tableId, fieldType, id, records)}
                      }>
                     <Icon name={fieldIcon} className="field__icon"/>
-                    <span>{fieldType}</span>
+                    <span>{fieldNames[fieldType]}</span>
                 </div>
             );
         }
