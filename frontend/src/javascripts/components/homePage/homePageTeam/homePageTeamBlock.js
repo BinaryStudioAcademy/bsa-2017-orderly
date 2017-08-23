@@ -16,6 +16,7 @@ class HomePageTeamBlock extends Component {
     const handleClick = props.handleClick;
     const onNewBaseClick = props.onNewBaseClick;
     const handleClickOutside = props.handleClickOutside;
+
   }  
 
 render() {
@@ -23,7 +24,7 @@ render() {
     <div className = "team-wrapper">
         <div className = "team-header">
           <div className ='team-name-wrapper'>
-            <HomePageTeamName/>
+            <HomePageTeamName props={this.props}/>
           </div>
         </div>
         <div className = "team-block-wrapper">

@@ -7,11 +7,13 @@ import './homePage.scss';
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props, 'homePage')
   }
   componentWillMount() {
     this.props.getBases();
     this.props.getUser();
   }
+
 
   render() {
     return (
