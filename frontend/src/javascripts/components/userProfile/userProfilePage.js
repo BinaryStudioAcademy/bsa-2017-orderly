@@ -55,10 +55,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleSubmitForm: (_id, type, formData) => { 
-        if ( type === 'form' ) {
-            dispatch(changeUserData(_id, formData))
-        }
+    handleSubmitForm: (_id, formData) => { 
+        dispatch(changeUserData(_id, formData))
     },
     handleFile: (data, path) => {
         dispatch(uploadSuccess(data))
@@ -66,8 +64,6 @@ const mapDispatchToProps = (dispatch) => {
     getCurrentUser:() => {dispatch(getCurrentUser())}
   }
 }
-
-
 
 
 UserProfilePage = connect(mapStateToProps, mapDispatchToProps)(UserProfilePage)
