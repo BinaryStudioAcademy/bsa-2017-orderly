@@ -19,11 +19,16 @@ constructor(props) {
   }
 
   handleFile = (event) => {
-    const data = new FormData();
-    data.append('file', event.target.files[0]);
-    data.append('userId', this.props.user._id)
     let file = event.target.files[0];
-    this.props.handleFile(data);
+      if (file.size <= 2097152) {
+
+      const data = new FormData();
+      data.append('file', event.target.files[0]);
+      data.append('userId', this.props.user._id)
+      this.props.handleFile(data);
+    } else {
+      alert ('please upload the photo with the size less than 2MB')
+    }
   }
 
   render() {
