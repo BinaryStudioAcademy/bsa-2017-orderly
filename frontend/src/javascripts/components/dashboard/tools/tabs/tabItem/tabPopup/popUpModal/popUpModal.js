@@ -34,13 +34,14 @@ const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsErro
 			        labelPosition='right'
 			        content='Yes'
 					onClick={() => {
+						setTabsModal('')
 						if (!renameIsError && activeModal === 'rename') {
 							updateTable({name: renameInput}, table._id);
 							setTabsModal('');
 							return;
 						}
 						if (activeModal === 'edit description') {
-							updateTable({description: descriptionInput}, table._id)
+							updateTable({description: descriptionInput}, table._id);
 							setTabsModal('');
 							return;
 						}
@@ -54,8 +55,25 @@ const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsErro
 									baseId: base._id
 								})
 							} else {
+								let table = R.pick(['name', 'description'], tableCopy);
+								table.fields = [
+									{
+										description: "description",
+										name: "default",
+										type: "text"
+									}
+								];
+								table.records = [
+									{
+										record_data: [
+											{
+												data: ''
+											}
+										]
+									}
+								];
 								addTableClick({
-									table: R.pick(['name', 'description'], tableCopy),
+									table: table,
 									baseId: base._id
 								})
 							}

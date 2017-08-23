@@ -4,7 +4,7 @@ import R from 'ramda';
 import { debounce } from 'throttle-debounce';
 
 let renameInput;
-let descriptionInput;
+let descriptionInput = '';
 let isRecordCopy = false;
 
 const checkValidName = debounce(150, (value, tablesNames, checkRenameFunc) => {
@@ -23,7 +23,9 @@ const ModalBody = ({activeModal, renameIsError, tablesNames, checkTableName, tab
 			              }}
 			              placeholder={renameInput}/>)
 		case 'edit description': return (<Input fluid
-		                                        onChange={(event) => { descriptionInput = event.target.value; }}
+		                                        onChange={(event) => {
+		                                        	descriptionInput = event.target.value;
+		                                        }}
 		                                        placeholder={descriptionInput ? descriptionInput : 'Enter description...'}/>)
 		case 'duplicate': return (<Modal.Content>
 									<Checkbox label='Duplicate records'
