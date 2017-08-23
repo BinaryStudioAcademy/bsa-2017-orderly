@@ -13,7 +13,8 @@ $cell-padding: 0px;
 .grid__content {
   display: flex;
   position: relative;
-  overflow-x: auto;
+  overflow-x: visible;
+  overflow-x: inherit;
   max-height: 461px;
 }
 

@@ -4,7 +4,8 @@ export const fieldIcons = {
     'number': 'hashtag',
     'select': 'play circle',
 	'autonumber': 'sort numeric ascending',
-    'url': 'chain'
+    'url': 'chain',
+    'date': 'calendar'
 };
 
 export const fieldNames = {
@@ -13,5 +14,6 @@ export const fieldNames = {
     'number': 'Number',
     'select': 'Single select',
 	'autonumber': 'Auto Number',
-	'url': 'URL'
+	'url': 'URL',
+    'date': 'Date'
 };
