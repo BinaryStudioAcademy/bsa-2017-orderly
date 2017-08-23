@@ -70,12 +70,12 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
             onClose={(event) => onOpenRecordDialog('')}
             >
             <Modal.Header>Modal Header</Modal.Header>
-            <Modal.Content image scrolling>
-                <Modal.Description className="modal-fields-block">
+            <Modal.Content image >
+                <Modal.Description className="modal-fields-block content scrolling">
                     {record.record_data.map((recordItem, fieldIndex) => {
                         return (
                             <div key={recordItem._id} className="modal-field-item">
-                                <div>
+                                <div className="modal-field-name">
                                     {fields[fieldIndex].name}
                                 </div>
                                 <Record id={recordItem._id} type={fields[fieldIndex].type}
@@ -84,14 +84,18 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
                         )
                     })}
                 </Modal.Description>
-                <Modal.Description>
-                    <Header>History</Header>
-                    <HistoryList record={record} fields={fields} />
-                    <Header>Comments</Header>
-                    <CommentsBlock record={record}
-                                   user={user}
-                                   tableId={tableId}
-                                   onKeyPressComment={onKeyPressComment}/>
+                <Modal.Description className="modal-sidebar-block content scrolling">
+                    <div className="modal-history">
+                        <Header>History</Header>
+                        <HistoryList record={record} fields={fields} />
+                    </div>
+                    <div className="modal-comments">
+                        <Header>Comments</Header>
+                        <CommentsBlock record={record}
+                                       user={user}
+                                       tableId={tableId}
+                                       onKeyPressComment={onKeyPressComment}/>
+                    </div>
                 </Modal.Description>
             </Modal.Content>
         </Modal>

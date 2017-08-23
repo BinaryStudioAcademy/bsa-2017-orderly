@@ -57,9 +57,15 @@
   }
 }
 .modal {
+  position: relative;
+  padding-bottom: 70px;
+
   .modal-fields-block {
-    min-width: 55%!important;
+    min-width: 54%!important;
+    padding-left: 14px;
+    padding-right: 35px;
   }
+
   .text-line,
   .long-text,
   .number {
@@ -67,34 +73,85 @@
       border: 1px solid #dde1e3;
     }
   }
+
   .table-cell-container {
     margin-bottom: 20px;
   }
+
   .field__item {
     width: 100%;
+    border: 0 solid #AAA;
   }
+
   .table-cell {
     position: inherit;
     width: 100%;
+    border: none;
+
+    .table-cell-wrap{
+      border: none;
+    }
   }
+
   .long-text.active {
     min-height: 150px;
   }
-  .ui.input input {
-   border: none;
+
+  .modal-field-item {
+    margin-bottom: 10px;
+
+    .ui.input input, textarea {
+      resize: none;
+      border: 1px solid #6495ed;
+      border-radius: .28571429rem;
+    }
+
+    .modal-field-name{
+      font-weight: 600;
+      font-size: 1.2em;
+    }
   }
+
+  .modal-sidebar-block {
+    max-width: 44%!important;
+    padding-left: 35px;
+    padding-right: 20px;
+
+    .ui.header {
+      margin: 0;
+    }
+  }
+
   .record-history-item,
   .record-comment-item {
     border-bottom: 1px solid rgba(117, 116, 116, 0.33);
     padding: 10px;
   }
+
   .record-history-changed-from{
     text-decoration: line-through solid red;
   }
+
   .record-history-changed-to{
     text-decoration: underline solid green;
   }
+
+  .modal-comments {
+    margin-top: 15px;
+  }
+
   .user-comment-info {
-    padding: 20px 0;
+    position: absolute;
+    bottom: 20px;
+
+    .ui.input input {
+      border-color: #2185d0;
+      margin-left: 20px;
+    }
+    /*i.icon.comment:before {
+      content: "\f075";
+      background: 0 0 !important;
+      box-sizing: inherit;
+    }*/
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input } from 'semantic-ui-react';
+import { Input, Icon } from 'semantic-ui-react';
 import UserProfileShort from '../../../../userProfile/userProfileShort/userProfileShort';
 
 class CommentsForm extends Component {
@@ -24,6 +24,7 @@ class CommentsForm extends Component {
                 <UserProfileShort user={this.props.user} showAvatar={true}/>
             </span>
                 <Input type='text'
+                       icon='comment'
                     onKeyPress={(event) => this.keyPressCommentHandler(this.props.user._id,
                                                 this.props.record._id, this.props.tableId, event)}
                 />
