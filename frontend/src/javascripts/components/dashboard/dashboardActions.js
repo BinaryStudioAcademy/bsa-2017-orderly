@@ -115,6 +115,13 @@ const blurRecordComponent = (recordId) => {
     };
 }
 
+const getCoworkersList = (coworkers) => {
+    return {
+        type: 'GET_COWORKERS_LIST',
+        coworkers: coworkers
+    };
+}
+
 export {
     getBaseById,
     getTables,
@@ -135,4 +142,5 @@ export {
     blurRecord,
     blurRecordComponent,
     deleteTable,
+    getCoworkersList
 };

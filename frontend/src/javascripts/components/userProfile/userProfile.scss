@@ -1,21 +1,35 @@
 .home-page-header {
-  #user-info {
+  #user-info,
+  .user-profile-logout-wrapper {
     float: right;
     margin-right: 20px;
     margin-top: 10px;
   }
 }
-#user-info 
-  .user-profile-logout-wrapper {
-    padding-left: 30px;
-    overflow: hidden;
-  }
+
 .user-profile-wrapper {
   text-align: center;
   margin-top: 150px;
   padding-left: 50px;
   box-sizing: border-box;
   display: flex;
+}
+
+#user-info {
+  a {
+    position: relative;
+  }
+  .user-status {
+    display: block;
+    position: absolute;
+    right: 5px;
+    bottom: -7px;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.75);
+    background-color: #20c933;
+  }
 }
 .user-profile-wrapper
   .user-profile-photo-wrapper{

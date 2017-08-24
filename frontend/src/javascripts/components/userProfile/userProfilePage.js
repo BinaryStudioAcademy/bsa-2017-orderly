@@ -5,7 +5,7 @@ import UserProfile from './userProfile'
 import UserProfilePhoto from './userProfileComponents/userProfilePhoto';
 import UserProfileForm from './userProfileComponents/userProfileForm';
 import { changeUserData, getCurrentUser, uploadSuccess, getAvatarByPath } from './userProfileActions';
-import { Header } from 'semantic-ui-react';
+import { Header, Icon } from 'semantic-ui-react';
 import '../../../images/logo.png'
 import './userProfile.scss';
 
@@ -27,6 +27,11 @@ class UserProfilePage extends Component {
         <div>
             <div className ='home-page-header' >
                 <Link to={'/'}><img className='logo' src='../../../images/logo.png'/></Link>
+                <span className="user-profile-logout-wrapper header-icon">
+                    <Link to={'/logout'} className="logout" title="Logout">
+                        <Icon name="log out" size="large"/>
+                    </Link>
+                </span>
                 <UserProfile user={this.props.user}/>
             </div>
             <div className='user-profile-wrapper'>
