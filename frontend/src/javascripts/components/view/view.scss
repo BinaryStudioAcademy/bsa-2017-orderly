@@ -1,5 +1,5 @@
-#no-underline {
-  text-decoration: none!important; //WTF
+.view__no-tables {
+  text-align: center;
 }
 
 .view__container {
@@ -45,18 +45,6 @@
   background: #EEE;
 }
 
-//.modal__view-option {
-//  color: black;
-//  padding: 5px;
-//  margin: 0 auto;
-//  border-radius: 4px;
-//  cursor: pointer;
-//}
-//
-//.modal__view-option:hover {
-//  background: #EEE;
-//}
-
 .option__notActive {
   opacity: 0!important;
 }
@@ -83,10 +71,4 @@
 
 .hide {
   display: none;
-}
-
-@media screen and (max-width: 767px) {
-  #view__modal {
-    max-width: 360px;
-  }
 }

@@ -11,6 +11,7 @@ import CurrencyField from './fields/currency/currency';
 import Number from './fields/number/number';
 import AutoNumber from './fields/autoNumber/autoNumber';
 import Url from './fields/url/url';
+import DateField from './fields/date/date';
 import FieldMenu from './fieldMenu/fieldMenu';
 
 const RowNum = ({tableId, recordId, index, deleteRecord}) => {
@@ -38,6 +39,7 @@ const Field = ({id, tableId, type, name, index, records, tableRecords, recordDat
                     changeFieldName={changeFieldName}
                     deleteField={deleteField}
                     records={records}
+                    index={index}
                 />
             </div>
             <div className="field__items">
@@ -125,7 +127,19 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
 		                       onBlurComponent={recordData.blurRecordComponentHandler}
 		                       onActivate={recordData.activateRecordHandler}/>;
 	    	break;
-
+        case 'date':
+        record = <DateField id={id}
+                           value={data}
+                           selected={recordData.isRecordSelected(id)}
+                           onSelect={recordData.selectRecordHandler}
+                           onBlurField={recordData.blurRecordHandler}
+                           onKeyPress={recordData.keyPressSimpleRecordHandler}
+                           active={recordData.isRecordActive(id)}
+                           onBlurComponent={recordData.blurRecordComponentHandler}
+                           onActivate={recordData.activateRecordHandler}
+                  >;
+                  </DateField>
+        break;
         default:
             record = <TextLine id={id}
                                value={data}
@@ -205,13 +219,13 @@ class GridContent extends Component {
                                 />
                             })}
                         </div>
-                        <div className="content__field item__add-field" onClick={this.handleAddField}>
-                            <Icon name="plus" className="field__icon"/>
-                        </div>
                     </div>
                     <div className="content__field item__add-record" onClick={this.handleAddRecord}>
                         <Icon name="plus" className="field__icon"/>
                     </div>
+                </div>
+                <div className="content__field item__add-field" onClick={this.handleAddField}>
+                    <Icon name="plus" className="field__icon"/>
                 </div>
             </div>
         );
