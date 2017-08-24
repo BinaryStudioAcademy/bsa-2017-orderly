@@ -7,6 +7,7 @@ export const fieldIcons = {
     'url': 'chain',
     'currency': 'dollar',
     'date': 'calendar',
+    'email': 'mail outline'
 };
 
 export const fieldNames = {
@@ -18,4 +19,5 @@ export const fieldNames = {
     'url': 'URL',
     'currency': 'Currency',
     'date': 'Date',
+    'email': 'Email',
 };
