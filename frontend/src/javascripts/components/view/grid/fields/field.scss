@@ -1,9 +1,11 @@
+$table-cell-width: 153px;
+
 .table-cell-container{
   position: relative;
 }
 
 .table-cell {
-  width: 148px;
+  width: $table-cell-width;
   height: 31px;
 }
 
