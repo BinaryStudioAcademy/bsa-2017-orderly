@@ -1,42 +1,39 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const GridSchema = new Schema({    
-    "description": {
-        "type": "String"
+const GridSchema = new Schema({
+    type: {
+        type: String,
+        enum: ['grid'],
+        default: 'grid',
+        required: true,
     },
-    "type": {
-        "type": "String",
-        "enum": [ "grid" ],
-        "required": true,
-        "default": "grid",
-        "trim": true
-    },    
-    "name": {
-        "type": "String",
-        "required": true
+    name: {
+        type: String,
+        required: true
     },
-    "fields_config": [
+    description: String,
+    fields_config: [
         {
-            "name": {
-                "type": "String",
-                "required": true,
-                "trim": true
+            name: {
+                type: String,
+                required: true,
+                trim: true
             },
-            "hidden": {
-                "type": "Boolean",
-                "default": false
+            hidden: {
+                type: Boolean,
+                default: false
             },
-            "size": {
-                "type": "Number",
-                "required": true
+            size: {
+                type: Number,
+                required: true
             },
-            "position": {
-                "type": "Number",
-                "required": true
+            position: {
+                type: Number,
+                required: true
             },
-            "fixed_area": {
-                "type": "Number",
+            fixed_area: {
+                type: Number,
                 // "required": true
             }
         }
