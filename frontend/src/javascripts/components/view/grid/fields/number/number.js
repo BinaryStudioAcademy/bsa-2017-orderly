@@ -33,11 +33,12 @@ class Number extends Field {
         if (this.props.active && (event.charCode === 13)) {
             event.target.value = this.processValue(event.target.value);
         }
-        this.props.onKeyPress(id, event);
+        super.keyPressHandler(id, event);
     }
 
-    blurHandler(id, value){
-        this.props.onBlurComponent(id, this.processValue(value));
+    blurHandler(id, event){
+        event.target.value = this.processValue(event.target.value);
+        this.props.onBlurComponent(id, event.target.value);
     }
 
     processValue(value) {
@@ -53,10 +54,10 @@ class Number extends Field {
     renderActiveField() {
         return <Input
             onChange={(event) => {this.changeHandler(event, event.target.value)}}
-            onBlur={(event) => this.blurHandler(this.props.id, event.target.value)}
+            onBlur={(event) => this.blurHandler(this.props.id, event)}
             defaultValue={this.props.value}
             type='text'
-            autoFocus={this.props.autoFocus2}
+            autoFocus={this.props.autoFocus}
         />;
     }
 }

@@ -63,13 +63,12 @@ const Record = ({id, type, data, recordData}) => {
 };
 
 const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPressComment, user, tableId}) => {
-
     return (
         <Modal
             open={true}
             onClose={(event) => onOpenRecordDialog('')}
             >
-            <Modal.Header>Modal Header</Modal.Header>
+            <Modal.Header>Record details</Modal.Header>
             <Modal.Content image >
                 <Modal.Description className="modal-fields-block content scrolling">
                     {record.record_data.map((recordItem, fieldIndex) => {
@@ -84,7 +83,7 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
                         )
                     })}
                 </Modal.Description>
-                <Modal.Description className="modal-sidebar-block content scrolling">
+                <Modal.Description className="modal-sidebar-block">
                     <div className="modal-history">
                         <Header>History</Header>
                         <HistoryList record={record} fields={fields} />

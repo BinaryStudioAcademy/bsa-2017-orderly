@@ -6,9 +6,9 @@ const HistoryList = ({record, fields}) => {
     fields.forEach((field) => fieldsById[field._id] = field);
 
     return (
-        <div>
+        <div className="modal-history-list content scrolling">
             {record.history.map((historyItem) => {
-                return <HistoryItem key={historyItem._id}
+                return <HistoryItem key={historyItem._id || ''}
                                     historyItem={historyItem}
                                     field={fieldsById[ historyItem.changes['field_id'] ] || {}}/>
             })}

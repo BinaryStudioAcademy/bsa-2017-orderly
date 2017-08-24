@@ -59,11 +59,14 @@
 .modal {
   position: relative;
   padding-bottom: 70px;
+  //min-height: 500px!important;
+  //max-height: 80vh;
 
   .modal-fields-block {
     min-width: 54%!important;
     padding-left: 14px;
     padding-right: 35px;
+    margin-top: 10px;
   }
 
   .text-line,
@@ -102,8 +105,17 @@
 
     .ui.input input, textarea {
       resize: none;
-      border: 1px solid #6495ed;
+      border: 2px solid rgba(0,0,0,0.15);
       border-radius: .28571429rem;
+      padding: 16px 9.5px;
+    }
+
+    .ui.input input:hover, textarea:hover {
+      border: 2px solid rgba(0,0,0,0.25);
+    }
+
+    .ui.input input:focus, textarea:focus {
+      border: 2px solid #6495ed;
     }
 
     .modal-field-name{
@@ -116,42 +128,101 @@
     max-width: 44%!important;
     padding-left: 35px;
     padding-right: 20px;
+    //flex-direcrion:column;
+    //justify-content: center;
 
     .ui.header {
-      margin: 0;
+      margin: 10px 0;
     }
   }
 
   .record-history-item,
   .record-comment-item {
     border-bottom: 1px solid rgba(117, 116, 116, 0.33);
-    padding: 10px;
+    padding: 15px 10px;
+  }
+
+  .record-history-item:last-child {
+    border-bottom: none;
+  }
+
+  .modal-history {
+    border-bottom: 2px solid rgba(117, 116, 116, 0.66);
+    padding-bottom: 8px;
+    //overflow-x: hidden;
+  }
+
+  .modal-history-list {
+    max-height: 30vh!important;
+    overflow-x: hidden!important;
+  }
+
+  .record-comment-item:last-child {
+    border-bottom: none;
+  }
+
+  .record-comment-item {
+    word-wrap: break-word;
+  }
+
+  .record-history-header,
+  .record-comment-header {
+    margin-bottom: 8px;
+    font-size: 0.9em;
+  }
+
+  .record-history-field {
+    text-transform: uppercase;
+    font-size: 11px;
+    color: #555555;
+    margin-bottom: 8px;
+  }
+
+  .record-comment-created,
+  .record-history-date {
+    color: #999;
+    margin-top: 8px;
+    font-size: 0.9em;
   }
 
   .record-history-changed-from{
     text-decoration: line-through solid red;
+    font-style: italic;
+    margin-bottom: 4px;
+    margin-left: 10px;
   }
 
   .record-history-changed-to{
-    text-decoration: underline solid green;
+    text-decoration: underline solid #2ce02c;
+    font-style: italic;
+    margin-left: 10px;
   }
 
   .modal-comments {
     margin-top: 15px;
   }
 
+  .comments-block {
+    max-height: 30vh!important;
+  }
+
   .user-comment-info {
     position: absolute;
     bottom: 20px;
+    padding-top: 21px;
+    border-top: 2px solid rgba(117, 116, 116, 0.66);
 
     .ui.input input {
-      border-color: #2185d0;
+      border: 2px solid rgba(0,0,0,0.15);
       margin-left: 20px;
     }
-    /*i.icon.comment:before {
-      content: "\f075";
-      background: 0 0 !important;
-      box-sizing: inherit;
-    }*/
+
+    .ui.input input:hover {
+      border: 2px solid rgba(0,0,0,0.25);
+    }
+
+    .ui.input input:focus {
+      border: 2px solid #6495ed;
+    }
   }
 }
