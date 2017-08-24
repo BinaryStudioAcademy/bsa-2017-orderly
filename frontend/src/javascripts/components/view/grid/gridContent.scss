@@ -1,4 +1,4 @@
-$cell-width: 150px;
+$cell-width: 155px;
 $cell-height: 33px;
 $icon-opacity: 0.6;
 $cell-border: 0.5px solid #AAA;
@@ -13,8 +13,7 @@ $cell-padding: 0px;
 .grid__content {
   display: flex;
   position: relative;
-  overflow-x: visible;
-  overflow-x: inherit;
+  overflow-x: auto;
   max-height: 461px;
 }
 
