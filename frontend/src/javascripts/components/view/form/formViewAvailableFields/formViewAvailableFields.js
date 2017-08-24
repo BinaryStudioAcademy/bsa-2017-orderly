@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Icon} from 'semantic-ui-react';
-import FormViewListOfFields from './formViewListOfFields'
-import './formViewAvailableFields.scss'
+import FormViewListOfFields from './formViewListOfFields';
+import './formViewAvailableFields.scss';
 
 export default class FormAvailableFields extends Component{
     render() {
