@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Icon, Button} from 'semantic-ui-react';
-import {viewIcons} from '../../configuration/viewTypes';
+import {viewIcons} from '../../../configuration/viewTypes';
 import './formViewHeader.scss';
 
 export default class FormViewHeader extends Component{
