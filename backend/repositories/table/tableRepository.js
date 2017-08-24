@@ -124,10 +124,10 @@ class TableRepository extends Repository {
             {'$pull': {fields: {}}});
     }
 
-    addView(tableId, viewId) {
+    addView(tableId, viewId, viewType) {
         return this.model.update(
             {_id: objectId(tableId)},
-            {'$push': {views: viewId}},
+            {'$push': {views: {viewId, type: viewType}}},
             {'new': true}
         );
     }
@@ -135,7 +135,7 @@ class TableRepository extends Repository {
     deleteView(tableId, viewId) {
         return this.model.findById(objectId(tableId))
             .then((table) => {
-                table.views = table.views.filter((v) => v.toString() !== viewId);
+                table.views = table.views.filter((v) => v.viewId.toString() !== viewId);
                 return table.save();
             });
     }

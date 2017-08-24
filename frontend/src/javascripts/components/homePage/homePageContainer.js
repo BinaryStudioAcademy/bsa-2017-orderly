@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import HomePageTeamBlock from './homePageTeam/homePageTeamBlock';
 import HomePageHeader from './homePageHeader';
-import DateField from '../view/grid/fields/date/date'
 import './homePage.scss';
 
 class HomePageContainer extends React.Component {
@@ -24,7 +23,6 @@ class HomePageContainer extends React.Component {
             showMenu={this.props.showMenu}
           />
         </div>
-        <DateField />
       </div>
     )
   }

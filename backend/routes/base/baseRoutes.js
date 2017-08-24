@@ -29,7 +29,7 @@ router.post('/', (req, res) => Promise.all(
     ])
     .then(([base, table, view]) => Promise.all([
         baseRepository.addTableToBase(base._id, table._id),
-        tableRepository.addView(table._id, view._id)
+        tableRepository.addView(table._id, view._id, view.type)
     ]))
     .then(([base, table]) => res.status(200).send(base))
     .catch((err) => res.status(500).send(err))

@@ -1,6 +1,8 @@
 const defaultSize = 150;
 const defaultView = {
     name: 'Grid view',
+    type: 'grid',
+    ref: 'grid',
     fields_config: [
         {name: 'Primary field',  size: defaultSize, position: 1,},
         {name: 'Long text',      size: defaultSize, position: 2,},
