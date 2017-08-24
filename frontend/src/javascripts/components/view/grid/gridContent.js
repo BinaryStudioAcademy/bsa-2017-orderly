@@ -12,6 +12,7 @@ import Number from './fields/number/number';
 import AutoNumber from './fields/autoNumber/autoNumber';
 import Url from './fields/url/url';
 import DateField from './fields/date/date';
+import Email from './fields/email/email';
 import FieldMenu from './fieldMenu/fieldMenu';
 
 const RowNum = ({tableId, recordId, index, deleteRecord}) => {
@@ -58,100 +59,48 @@ const Field = ({id, tableId, type, name, index, records, tableRecords, recordDat
 };
 
 const Record = ({id, type, data, recordData, recordIdx}) => {
+    const fieldPayload = {
+        id: id,
+        value: data,
+        selected: recordData.isRecordSelected(id),
+        active: recordData.isRecordActive(id),
+        onSelect: recordData.selectRecordHandler,
+        onActivate: recordData.activateRecordHandler,
+        onKeyPress: recordData.keyPressRecordHandler,
+        onBlurField: recordData.blurRecordHandler,
+        onBlurComponent: recordData.blurRecordComponentHandler,
+        onExpand: recordData.expandRecordHandler,
+    };
     let record = null;
     switch (type) {
-        case 'longtext':
-            record = <LongText id={id}
-                               value={data}
-                               selected={recordData.isRecordSelected(id)}
-                               active={recordData.isRecordActive(id)}
-                               onSelect={recordData.selectRecordHandler}
-                               onActivate={recordData.activateRecordHandler}
-                               onKeyPress={recordData.keyPressRecordHandler}
-                               onBlurField={recordData.blurRecordHandler}
-                               onBlurComponent={recordData.blurRecordComponentHandler}
-                               onExpand={recordData.expandRecordHandler}
-            >
-            </LongText>;
-            break;
-
-        case 'number':
-            record = <Number   id={id}
-                               value={data}
-                               selected={recordData.isRecordSelected(id)}
-                               active={recordData.isRecordActive(id)}
-                               onSelect={recordData.selectRecordHandler}
-                               onActivate={recordData.activateRecordHandler}
-                               onKeyPress={recordData.keyPressSimpleRecordHandler}
-                               onBlurField={recordData.blurRecordHandler}
-                               onBlurComponent={recordData.blurRecordComponentHandler}
-            >
-            </Number>;
-            break;
-        case 'currency':
-            record = <CurrencyField   id={id}
-                               value={data}
-                               selected={recordData.isRecordSelected(id)}
-                               active={recordData.isRecordActive(id)}
-                               onSelect={recordData.selectRecordHandler}
-                               onActivate={recordData.activateRecordHandler}
-                               onKeyPress={recordData.keyPressSimpleRecordHandler}
-                               onBlurField={recordData.blurRecordHandler}
-                               onBlurComponent={recordData.blurRecordComponentHandler}
-            >
-            </CurrencyField >;
-            break;
-
-	    case 'autonumber':
-	    	record = <AutoNumber id={id}
-		                         value={data}
-		                         recordIdx={recordIdx}
-		                         selected={recordData.isRecordSelected(id)}
-		                         active={recordData.isRecordActive(id)}
-		                         onSelect={recordData.selectRecordHandler}
-		                         onActivate={recordData.activateRecordHandler}
-		                         onKeyPress={recordData.keyPressSimpleRecordHandler}
-		                         onBlurField={recordData.blurRecordHandler}
-		                         onBlurComponent={recordData.blurRecordComponentHandler}
-		    />;
-		    break;
-
-	    case 'url':
-	    	record = <Url      id={id}
-		                       value={data}
-		                       selected={recordData.isRecordSelected(id)}
-		                       onSelect={recordData.selectRecordHandler}
-		                       onBlurField={recordData.blurRecordHandler}
-		                       onKeyPress={recordData.keyPressSimpleRecordHandler}
-		                       active={recordData.isRecordActive(id)}
-		                       onBlurComponent={recordData.blurRecordComponentHandler}
-		                       onActivate={recordData.activateRecordHandler}/>;
-	    	break;
-        case 'date':
-        record = <DateField id={id}
-                           value={data}
-                           selected={recordData.isRecordSelected(id)}
-                           onSelect={recordData.selectRecordHandler}
-                           onBlurField={recordData.blurRecordHandler}
-                           onKeyPress={recordData.keyPressSimpleRecordHandler}
-                           active={recordData.isRecordActive(id)}
-                           onBlurComponent={recordData.blurRecordComponentHandler}
-                           onActivate={recordData.activateRecordHandler}
-                  >;
-                  </DateField>
+    case 'longtext':
+        record = <LongText {...fieldPayload}/>;
         break;
-        default:
-            record = <TextLine id={id}
-                               value={data}
-                               selected={recordData.isRecordSelected(id)}
-                               active={recordData.isRecordActive(id)}
-                               onSelect={recordData.selectRecordHandler}
-                               onActivate={recordData.activateRecordHandler}
-                               onKeyPress={recordData.keyPressSimpleRecordHandler}
-                               onBlurField={recordData.blurRecordHandler}
-                               onBlurComponent={recordData.blurRecordComponentHandler}
-            >
-            </TextLine>;
+
+    case 'number':
+        record = <Number {...fieldPayload}/>;
+        break;
+
+    case 'currency':
+        record = <CurrencyField {...fieldPayload}/>;
+        break;
+
+    case 'autonumber':
+        record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
+        break;
+
+    case 'url':
+        record = <Url {...fieldPayload}/>;
+        break;
+    case 'date':
+        record = <DateField {...fieldPayload}/>;
+        break;
+
+    case 'email':
+        record = <Email {...fieldPayload}/>;
+        break;
+    default:
+        record = <TextLine {...fieldPayload}/>;
     }
 
     return (
