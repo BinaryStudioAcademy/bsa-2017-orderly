@@ -160,7 +160,7 @@ class GridContent extends Component {
                     <div className="grid__content">
                         <div className="content__rows">
                             <div className="rows__selector rows__row">
-                                <Icon name="delete"/>
+                                <Icon name="lock"/>
                             </div>
                             {this.props.currentTable &&
                              this.props.currentTable.records.map((record, ind) => {

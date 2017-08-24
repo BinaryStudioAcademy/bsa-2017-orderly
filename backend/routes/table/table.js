@@ -138,6 +138,15 @@ router.delete('/:id/fields', (request, response) => {
 });
 
 // views -------------------------------------
+router.get('/:id/views/ids/:ids', (request, response, next) => {
+    tableRepository.getByIds(request.params.ids.split(':'))
+        .then((tables) => response.status(200).send(tables))
+        .catch((error) => {
+            response.status(400);
+            next(error);
+        });
+});
+
 router.post('/:id/views', (request, response) => {
     tableRepository.addView(request.params.id, request.body.viewId)
         .then((result) => response.status(200).send(result))
