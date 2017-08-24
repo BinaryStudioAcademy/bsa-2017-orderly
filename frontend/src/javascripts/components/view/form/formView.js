@@ -3,7 +3,7 @@ import FormAvailableFields from './formViewAvailableFields/formViewAvailableFiel
 import FormViewHeader from './formViewHeader/formViewHeader';
 import FormViewContainer from './formViewContainer/formViewContainer';
 import {Button} from 'semantic-ui-react';
-import './formView.scss'
+import './formView.scss';
 
 export default class FormView extends Component{
     render() {
@@ -15,7 +15,7 @@ export default class FormView extends Component{
                         <FormAvailableFields/>
                         <FormViewContainer/>
                     </div>
-                        <Button type='submit'>Sumbit form</Button>
+                        <Button type='submit'>Submit form</Button>
                 </div>
             </div>
         );
