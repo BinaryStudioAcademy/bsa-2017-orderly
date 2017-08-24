@@ -10,6 +10,7 @@ import LongText from './fields/longText/longText';
 import Number from './fields/number/number';
 import AutoNumber from './fields/autoNumber/autoNumber';
 import Url from './fields/url/url';
+import DateField from './fields/date/date';
 import FieldMenu from './fieldMenu/fieldMenu';
 
 const RowNum = ({tableId, recordId, index, deleteRecord}) => {
@@ -112,7 +113,19 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
 		                       onBlurComponent={recordData.blurRecordComponentHandler}
 		                       onActivate={recordData.activateRecordHandler}/>;
 	    	break;
-
+        case 'date':
+        record = <DateField id={id}
+                           value={data}
+                           selected={recordData.isRecordSelected(id)}
+                           onSelect={recordData.selectRecordHandler}
+                           onBlurField={recordData.blurRecordHandler}
+                           onKeyPress={recordData.keyPressSimpleRecordHandler}
+                           active={recordData.isRecordActive(id)}
+                           onBlurComponent={recordData.blurRecordComponentHandler}
+                           onActivate={recordData.activateRecordHandler}
+                  >;
+                  </DateField>
+        break;
         default:
             record = <TextLine id={id}
                                value={data}
