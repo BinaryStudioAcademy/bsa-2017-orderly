@@ -69,7 +69,7 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
         onKeyPress: recordData.keyPressRecordHandler,
         onBlurField: recordData.blurRecordHandler,
         onBlurComponent: recordData.blurRecordComponentHandler,
-        onExpand: recordData.expandRecordHandler,
+        onExpand: recordData.expandRecordHandler
     };
     let record = null;
     switch (type) {
@@ -92,6 +92,7 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
     case 'url':
         record = <Url {...fieldPayload}/>;
         break;
+
     case 'date':
         record = <DateField {...fieldPayload}/>;
         break;
@@ -99,6 +100,7 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
     case 'email':
         record = <Email {...fieldPayload}/>;
         break;
+
     default:
         record = <TextLine {...fieldPayload}/>;
     }
