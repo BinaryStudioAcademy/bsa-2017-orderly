@@ -3,8 +3,10 @@ export const fieldIcons = {
     'longtext': 'align left',
     'number': 'hashtag',
     'select': 'play circle',
-	'autonumber': 'sort numeric ascending',
-    'url': 'chain'
+    'autonumber': 'sort numeric ascending',
+    'url': 'chain',
+    'currency': 'dollar',
+    'date': 'calendar',
 };
 
 export const fieldNames = {
@@ -12,6 +14,8 @@ export const fieldNames = {
     'longtext': 'Long text',
     'number': 'Number',
     'select': 'Single select',
-	'autonumber': 'Auto Number',
-	'url': 'URL'
+    'autonumber': 'Auto Number',
+    'url': 'URL',
+    'currency': 'Currency',
+    'date': 'Date',
 };
