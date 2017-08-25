@@ -103,7 +103,25 @@ function* changeTableRecord(action) {
             type: 'PERFORM_CHANGE_RECORD',
             tableId: action.tableId,
             recordId: action.recordId,
-            data: action.data
+            data: action.data,
+            user: action.user
+        });
+        const dashboardReducer = yield select(getDashboardReducer);
+        let table = dashboardReducer.tables.filter((t) => t._id === action.tableId).pop();
+        yield put({type: 'UPDATE_TABLE', tableId: action.tableId, newData: table});
+    } catch (err) {
+        yield put({type: 'UPDATE_TABLE_FAILED', message: err.message});
+    }
+}
+
+function* addNewComment(action) {
+    try {
+        yield put({
+            type: 'PERFORM_ADD_COMMENT',
+            tableId: action.tableId,
+            recordId: action.recordId,
+            comment: action.comment,
+            userId: action.userId
         });
         const dashboardReducer = yield select(getDashboardReducer);
         let table = dashboardReducer.tables.filter((t) => t._id === action.tableId).pop();
@@ -159,11 +177,12 @@ function* dashboardSaga() {
     yield takeEvery('ADD_RECORD', addNewRecord);
     yield takeLatest('CHANGE_RECORD', changeTableRecord);
     yield takeEvery('DELETE_TABLE', removeTable);
+    yield takeEvery('ADD_COMMENT', addNewComment);
     yield takeEvery('CHANGE_FIELD_TYPE', updateFieldMeta);
     yield takeEvery('CHANGE_FIELD_NAME', updateFieldMeta);
     yield takeEvery('DELETE_FIELD', removeField);
     yield takeEvery('DELETE_RECORD', removeRecord);
-    yield takeEvery(['SET_ACTIVE_TAB', 'SWITCH_TABLE'], sendTableCoworker)
+    yield takeEvery(['SET_ACTIVE_TAB', 'SWITCH_TABLE'], sendTableCoworker);
 }
 
 export default dashboardSaga;

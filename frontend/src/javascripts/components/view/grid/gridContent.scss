@@ -8,13 +8,15 @@ $cell-padding: 0px;
   display: inline-block;
   max-width: calc(100% - 75px);
   float: left;
+  height: 100%;
 }
 
 .grid__content {
   display: flex;
   position: relative;
   overflow-x: auto;
-  max-height: 461px;
+  overflow-y: auto;
+  max-height: 450px;
 }
 
 .content__body {

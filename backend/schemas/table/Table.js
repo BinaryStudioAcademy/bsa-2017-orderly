@@ -27,7 +27,17 @@ const tableSchema = new Schema({
                 },
                 changed_to: {
                     type: String
+                },
+                field_id: {
+                    type: String
+                },
+                record_id: {
+                    type: String
                 }
+            },
+            date: {
+                type: Date,
+                default: Date.now
             }
         }],
         comments: [{
@@ -37,6 +47,10 @@ const tableSchema = new Schema({
             },
             message: {
                 type: String
+            },
+            created: {
+                type: Date,
+                default: Date.now
             }
         }]
     }],

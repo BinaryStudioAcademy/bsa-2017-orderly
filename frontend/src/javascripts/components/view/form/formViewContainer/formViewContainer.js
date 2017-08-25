@@ -4,6 +4,10 @@ import './formViewContainer.scss';
 import logo from '../../../../../images/logo.png';
 
 export default class FormViewContainer extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <div className='formContainer'>
@@ -31,7 +35,9 @@ export default class FormViewContainer extends Component {
                         </div>
                     </div>
 
-                    <FormViewFields/>
+                    <FormViewFields fields={this.props.currentTable.fields}
+                                    included={this.props.included}
+                                    excludeField={this.props.excludeField}/>
                 </div>
             </div>
         );

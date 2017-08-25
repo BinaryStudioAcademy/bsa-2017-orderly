@@ -32,7 +32,6 @@ class View extends Component {
         case 'grid':
             return <Grid
                 currentTable={this.props.currentTable}
-                fieldsRecords={this.props.fieldsRecords}
                 recordData={this.props.recordData}
                 onAddField={this.props.addField}
                 onAddRecord={this.props.addRecord}
@@ -40,6 +39,10 @@ class View extends Component {
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
                 deleteField={this.props.deleteField}
+                onOpenRecordDialog={this.props.openRecordDialog}
+                recordDialogIndex={this.props.recordDialogIndex}
+                onKeyPressComment={this.props.keyPressCommentHandler}
+                user={this.props.user}
             />;
         case 'form':
             return <FormView
