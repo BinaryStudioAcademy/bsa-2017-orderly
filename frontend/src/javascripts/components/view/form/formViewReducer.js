@@ -13,7 +13,6 @@ export default function formReducer(state = initialState, action) {
         return {...state, included: state.included.filter((f) => f !== action.fieldId)};
     }
     case INCLUDE_ALL: {
-        console.log(action.fieldIds);
         return {...state, included: [].concat(action.fieldIds)};
     }
     case EXCLUDE_ALL: {
