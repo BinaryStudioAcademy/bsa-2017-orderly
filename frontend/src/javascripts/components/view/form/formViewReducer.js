@@ -1,4 +1,4 @@
-import {INCLUDE_FIELD, EXCLUDE_FIELD} from "./formViewActions";
+import {INCLUDE_FIELD, EXCLUDE_FIELD, INCLUDE_ALL, EXCLUDE_ALL} from "./formViewActions";
 
 const initialState = {
     included: [],
@@ -11,6 +11,13 @@ export default function formReducer(state = initialState, action) {
     }
     case EXCLUDE_FIELD: {
         return {...state, included: state.included.filter((f) => f !== action.fieldId)};
+    }
+    case INCLUDE_ALL: {
+        console.log(action.fieldIds);
+        return {...state, included: [].concat(action.fieldIds)};
+    }
+    case EXCLUDE_ALL: {
+        return {...state, included: []};
     }
     default:
         return state;

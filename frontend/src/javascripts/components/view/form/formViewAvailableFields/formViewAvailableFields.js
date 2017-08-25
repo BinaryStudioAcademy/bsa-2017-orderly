@@ -13,8 +13,18 @@ export default class FormAvailableFields extends Component {
                     <div className='availableFormFieldsHeader'>
                         <div>Fields</div>
                         <div className='add-remove-options'>
-                            <div className='add-all'>add all</div>
-                            <div className='remove-all'>remove all</div>
+                            <div className='add-all'
+                                 onClick={() => {
+                                     this.props.includeAll(
+                                         this.props.currentTable.fields.map((f) => f._id)
+                                     );
+                                 }}>
+                                add all
+                            </div>
+                            <div className='remove-all'
+                                 onClick={() => this.props.excludeAll()}>
+                                remove all
+                            </div>
                         </div>
                     </div>
                     <FormViewListOfFields fields={this.props.currentTable.fields}

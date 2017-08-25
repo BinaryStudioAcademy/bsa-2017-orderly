@@ -21,7 +21,9 @@ class FormView extends Component {
                     <div className='form-body-wrapper'>
                         <FormAvailableFields currentTable={this.props.currentTable}
                                              included={this.props.formView.included}
-                                             includeField={this.props.includeField}/>
+                                             includeField={this.props.includeField}
+                                             includeAll={this.props.includeAll}
+                                             excludeAll={this.props.excludeAll}/>
                         <FormViewContainer currentTable={this.props.currentTable}
                                            included={this.props.formView.included}
                                            excludeField={this.props.excludeField}/>
