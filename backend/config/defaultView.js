@@ -1,4 +1,4 @@
-const defaultSize = 150;
+const defaultSize = 155;
 const defaultView = {
     name: 'Grid view',
     type: 'grid',
