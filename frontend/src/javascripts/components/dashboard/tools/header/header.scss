@@ -10,6 +10,12 @@
   left: 20px;
   right: 20px;
   }
+  a,
+  a:hover {
+    color: #ffffff;
+    text-decoration: none;
+    border-bottom: 0;
+  }
   .label-header {
     font-weight: 700;
     font-size: 1.2rem;
@@ -20,6 +26,10 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+
+    .header-icon {
+      margin: 8px;
+    }
   }
   .header-base-name {
     font-size: 27px;

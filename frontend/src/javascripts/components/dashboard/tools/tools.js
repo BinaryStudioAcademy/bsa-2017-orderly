@@ -4,6 +4,9 @@ import Tabs from './tabs/tabs';
 import View from '../../view/view';
 import {formatFieldsRecords} from "../dashboardService";
 import R from 'ramda';
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:2020');
 
 class Tools extends Component {
     constructor(props) {
@@ -24,6 +27,13 @@ class Tools extends Component {
     componentWillMount() {
         this.props.getBaseCurrent(this.props.baseId, this.props.currentTableId);
         this.props.getUser();
+    }
+
+    componentDidMount() {
+        const _this = this;
+        socket.on('server-get-coworkers-list', function (coworkers) {
+            _this.props.getCoworkersList(coworkers);
+        });
     }
 
     isRecordSelected(id) {
@@ -110,7 +120,8 @@ class Tools extends Component {
                       checkTableName={this.props.checkTableName}
                       updateTable={this.props.updateTable}
                       deleteTable={this.props.deleteTable}
-                      addTableClick={this.props.addTableClick}/>
+                      addTableClick={this.props.addTableClick}
+                      coworkers={this.props.coworkers}/>
                 <View currentTable={currentTable}
                       fieldsRecords={fieldsRecords}
                       recordData={recordData}/>

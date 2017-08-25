@@ -2,7 +2,8 @@ import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, deleteTable,
-    selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent} from './dashboardActions';
+    selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
+    getCoworkersList} from './dashboardActions';
     import { getCurrentUser } from '../userProfile/userProfileActions';
 import { addField } from '../view/viewActions';
 
@@ -18,7 +19,8 @@ const mapStateToProps = (state, ownProps) => {
         renameIsError: state.dashboardReducer.renameIsError,
         selectedRecordId: state.dashboardReducer.selectedRecordId,
         activeRecordId: state.dashboardReducer.activeRecordId,
-        user: state.userProfile.user,
+        coworkers: state.dashboardReducer.coworkers,
+        user: state.userProfile.user
     });
 }
 
@@ -42,6 +44,7 @@ const mapDispatchToProps = {
     blurRecord: blurRecord,
     blurRecordComponent: blurRecordComponent,
     getUser: getCurrentUser,
+    getCoworkersList: getCoworkersList
 };
 
 const Dashboard = connect(

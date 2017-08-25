@@ -2,11 +2,12 @@ import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable,
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
-    deleteFieldRecords, deleteRecord
+    deleteFieldRecords, deleteRecord, emitTableCoworker
 } from './dashboardApi';
 import {browserHistory} from 'react-router';
 
 const getDashboardReducer = (state) => state.dashboardReducer;
+const getUserProfileReducer = (state) => state.userProfile;
 
 function* fetchBaseById(action) {
     try {
@@ -139,6 +140,15 @@ function* removeRecord(action) {
     }
 }
 
+function* sendTableCoworker(action) {
+    try {
+        const userProfileReducer = yield select(getUserProfileReducer);
+        yield call (emitTableCoworker, userProfileReducer.user, action.tableId);
+    } catch (err) {
+        yield put({type: 'SEND_TABLE_COWORKER_FAILED', message: err.message});
+    }
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -153,6 +163,7 @@ function* dashboardSaga() {
     yield takeEvery('CHANGE_FIELD_NAME', updateFieldMeta);
     yield takeEvery('DELETE_FIELD', removeField);
     yield takeEvery('DELETE_RECORD', removeRecord);
+    yield takeEvery(['SET_ACTIVE_TAB', 'SWITCH_TABLE'], sendTableCoworker)
 }
 
 export default dashboardSaga;

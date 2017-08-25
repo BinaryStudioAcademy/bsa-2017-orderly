@@ -11,7 +11,8 @@ const initState = {
     activeModal: '',
     renameIsError: true,
     selectedRecordId: null,
-    activeRecordId: null
+    activeRecordId: null,
+    coworkers: {}
 };
 
 function dashboardReducer(state = initState, action) {
@@ -108,7 +109,7 @@ function dashboardReducer(state = initState, action) {
             {
                 tables: R.map((table) => {
                     let newObj = R.dissoc('isActive', table);
-                    newObj.isActive = table._id === action._id;
+                    newObj.isActive = table._id === action.tableId;
                     return newObj;
                 })(state.tables)
             }
@@ -277,6 +278,10 @@ function dashboardReducer(state = initState, action) {
                 })(state.tables)
             }
         ]);
+    }
+
+    case 'GET_COWORKERS_LIST': {
+        return {...state, ...{coworkers: action.coworkers}};
     }
 
     default:
