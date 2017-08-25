@@ -10,13 +10,25 @@ class CommentsBlock extends Component {
     }
 
     componentDidMount() {
-        document.body.querySelector('.record-comment-item:last-child').scrollIntoView(false);
-        document.body.querySelector('.record-history-item:last-child').scrollIntoView(false);
+        const lastComment = document.body.querySelector('.record-comment-item:last-child');
+        if (lastComment) {
+            lastComment.scrollIntoView(false);
+        }
+        const lastHistoryItem = document.body.querySelector('.record-history-item:last-child')
+        if (lastHistoryItem) {
+            lastHistoryItem.scrollIntoView(false);
+        }
     }
 
     componentDidUpdate() {
-        document.body.querySelector('.record-comment-item:last-child').scrollIntoView(false);
-        document.body.querySelector('.record-history-item:last-child').scrollIntoView(false);
+        const lastComment = document.body.querySelector('.record-comment-item:last-child');
+        if (lastComment) {
+            lastComment.scrollIntoView(false);
+        }
+        const lastHistoryItem = document.body.querySelector('.record-history-item:last-child')
+        if (lastHistoryItem) {
+            lastHistoryItem.scrollIntoView(false);
+        }
     }
 
     render () {

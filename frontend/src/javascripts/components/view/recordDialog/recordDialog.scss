@@ -7,6 +7,14 @@
   width: 25px;
   min-width: 25px;
   min-height: 25px;
+  border: 0.5px solid #AAA;
+}
+.field__item.row-options-field {
+  .row-control-container:last-child {
+    button {
+      height: 31px;
+    }
+  }
 }
 
 .field__items.row-options-field {
@@ -154,6 +162,7 @@
 
   .modal-history-list {
     max-height: 30vh!important;
+    min-height: 18vh!important;
     overflow-x: hidden!important;
   }
 
@@ -204,6 +213,7 @@
 
   .comments-block {
     max-height: 30vh!important;
+    min-height: 18vh!important;
   }
 
   .user-comment-info {

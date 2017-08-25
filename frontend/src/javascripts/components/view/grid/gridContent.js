@@ -74,7 +74,8 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
     let record = null;
     switch (type) {
         case 'longtext':
-            record = <LongText {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler} }/>;
+            const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler} };
+            record = <LongText {...fieldPayloadLongtext}/>;
             break;
 
         case 'number':
@@ -152,31 +153,39 @@ class GridContent extends Component {
                         </div>
 
                         <div className="content__body">
-                            {this.props.currentTable &&
-                            this.props.currentTable.records.map((record, recordIndex) => {
-                                return (
-                                    <div className="row-control-container" key={record._id}>
-                                        <Button
-                                            className="record-dialog-btn"
-                                            onClick={(event) => this.props.onOpenRecordDialog(recordIndex)}>
-                                            <Icon name='expand'/>
-                                        </Button>
-                                    </div>
-                                )
-                            })}
-                            {(this.props.recordDialogIndex === 0 || this.props.recordDialogIndex > 0) &&
-                            <RecordDialog
-                                record={this.props.currentTable.records[this.props.recordDialogIndex]}
-                                fields={this.props.currentTable.fields}
-                                recordData={this.props.recordData}
-                                recordIndex={this.props.recordDialogIndex}
-                                onOpenRecordDialog={this.props.onOpenRecordDialog}
-                                onKeyPressComment={this.props.onKeyPressComment}
-                                user={this.props.user}
-                                tableId={this.props.currentTable._id}
-                            />
-                            }
+                            <div className="field__items row-options-field">
+                                <div className="content__field row-options-field">
+                                </div>
+                                <div className="field__item row-options-field">
+                                    {this.props.currentTable &&
+                                    this.props.currentTable.records.map((record, recordIndex) => {
+                                        return (
+                                            <div className="row-control-container" key={record._id}>
+                                                <Button
+                                                    className="record-dialog-btn"
+                                                    onClick={(event) => this.props.onOpenRecordDialog(recordIndex)}>
+                                                    <Icon name='expand'/>
+                                                </Button>
+                                            </div>
+                                        )
+                                    })}
+                                    {(this.props.recordDialogIndex === 0 || this.props.recordDialogIndex > 0) &&
+                                    <RecordDialog
+                                        record={this.props.currentTable.records[this.props.recordDialogIndex]}
+                                        fields={this.props.currentTable.fields}
+                                        recordData={this.props.recordData}
+                                        recordIndex={this.props.recordDialogIndex}
+                                        onOpenRecordDialog={this.props.onOpenRecordDialog}
+                                        onKeyPressComment={this.props.onKeyPressComment}
+                                        user={this.props.user}
+                                        tableId={this.props.currentTable._id}
+                                    />
+                                    }
+                                </div>
+                            </div>
+                        </div>
 
+                        <div className="content__body">
                             {this.props.currentTable &&
                             this.props.currentTable.fields.map((field, fieldIndex) => {
                                 return <Field
