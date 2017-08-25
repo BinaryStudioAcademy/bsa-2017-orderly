@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Button} from 'semantic-ui-react';
+import {Icon} from 'semantic-ui-react';
 
 export default class FormViewFields extends Component {
     constructor(props) {
@@ -13,9 +14,12 @@ export default class FormViewFields extends Component {
                     {this.props.fields.map((field, ind) => {
                         if(this.props.included.includes(field._id)) {
                             return (
-                                <div key={ind} className='form-inputs-list-item'
-                                     onClick={() => this.props.excludeField(field._id)}>
-                                    <div className='form-inputs-name'>{field.name}</div>
+                                <div key={ind} className='form-inputs-list-item'>
+                                    <div className='form-inputs-name'>
+                                        <span>{field.name}</span>
+                                        <Icon name="delete" className="form-inputs-delete"
+                                              onClick={() => this.props.excludeField(field._id)}/>
+                                    </div>
                                     <input className='input-form' type='text'/>
                                 </div>
                             );
