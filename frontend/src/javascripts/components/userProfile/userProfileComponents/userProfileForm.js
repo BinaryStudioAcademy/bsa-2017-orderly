@@ -21,14 +21,14 @@ class UserProfileForm extends Component {
 
   componentWillReceiveProps(nextProps) {
       this.setState({ 
-        firstName: nextProps.user.firstName, 
-        lastName: nextProps.user.lastName,
-        gender: nextProps.user.gender,
-        birthday: new Date(Date.parse(nextProps.user.birthday)).customFormat( "#YYYY#-#MM#-#DD#" ),
-        country: nextProps.user.country,
-        city: nextProps.user.city,
-        address: nextProps.user.address,
-        phone: nextProps.user.phone
+        firstName: nextProps.user.firstName ? nextProps.user.firstName : '', 
+        lastName: nextProps.user.lastName ? nextProps.user.lastName : '',
+        gender: nextProps.user.gender ? nextProps.user.gender : '' ,
+        birthday: nextProps.user.birthday ? new Date(Date.parse(nextProps.user.birthday)).customFormat( "#YYYY#-#MM#-#DD#" ) : '',
+        country: nextProps.user.country ? nextProps.user.country : '',
+        city: nextProps.user.city ? nextProps.user.city : '',
+        address: nextProps.user.address ? nextProps.user.address : '',
+        phone: nextProps.user.phone ? nextProps.user.phone : ''
     });
   }
 

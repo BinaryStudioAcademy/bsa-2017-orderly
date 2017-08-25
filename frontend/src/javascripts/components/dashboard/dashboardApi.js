@@ -1,7 +1,9 @@
 import axios from 'axios';
 import R from 'ramda';
+import io from 'socket.io-client';
 
 const url = '/api';
+const socket = io('http://localhost:2020');
 
 const getBase = (_id) =>
     axios.get(url + '/base/' + _id)
@@ -52,6 +54,29 @@ const deleteTable = (tableId) =>
 		.then((response) => response.data)
 		.catch(R.tap(console.error));
 
+const updateField = (payload) => {
+    return axios.put(url + '/tables/' + payload.tableId + '/fields/' + payload.fieldId, payload)
+        .then((response) => response)
+        .catch(R.tap(console.error));
+};
+
+const deleteFieldRecords = (payload) => {
+    return axios.delete(url + '/tables/' + payload.tableId + '/fields/' + payload.fieldId)
+        .then((response) => response)
+        .catch(R.tap(console.error));
+};
+
+const deleteRecord = (payload) => {
+    return axios.delete(url + '/tables/' + payload.tableId + '/records/' + payload.recordId)
+        .then((response) => response)
+        .catch(R.tap(console.error));
+};
+
+const emitTableCoworker = (user, tableId) => {
+    return socket.emit('client-upload-table', user, tableId);
+};
+
+
 export {
     getBase,
     getTablesByIds,
@@ -60,5 +85,9 @@ export {
 	updateTable,
     addFieldsToTable,
     addRecord,
-	deleteTable
+	deleteTable,
+    updateField,
+    deleteFieldRecords,
+    deleteRecord,
+    emitTableCoworker
 };

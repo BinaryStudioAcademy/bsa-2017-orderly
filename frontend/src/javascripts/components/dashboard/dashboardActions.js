@@ -142,6 +142,13 @@ const addComment = (userId, recordId, tableId, comment) => {
     };
 };
 
+const getCoworkersList = (coworkers) => {
+    return {
+        type: 'GET_COWORKERS_LIST',
+        coworkers: coworkers
+    };
+};
+
 export {
     getBaseById,
     getTables,
@@ -164,5 +171,6 @@ export {
     deleteTable,
     changeFieldType,
     openRecordDialog,
-    addComment
+    addComment,
+    getCoworkersList
 };

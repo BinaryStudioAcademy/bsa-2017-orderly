@@ -3,12 +3,13 @@ import { Icon, Button } from 'semantic-ui-react';
 import R from 'ramda';
 import AddTabBtn from './addTabBtn/addTabBtn';
 import TabItem from './tabItem/tabItem';
+import Coworkers from './coworkers/coworkers';
 
 import './tabs.scss';
 
 const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
     addTableClick, switchTableClick, togglePopup, openMenu, closeMenu,
-    activeModal, setTabsModal, checkTableName, updateTable, deleteTable}) => (
+    activeModal, setTabsModal, checkTableName, updateTable, deleteTable, coworkers}) => (
     <div className='tabs_panel' style={{backgroundColor:`${base.color}`}}>
         <div className='btn_block'>
             <div className='tabs_block'>
@@ -26,8 +27,9 @@ const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
             </div>
         </div>
         <div className='history'>
-            <Button className='share_btn' size='mini'>share</Button>
-            <Icon inverted link name='history' size='large'/>
+            <Coworkers coworkers={coworkers}/>
+            <Button className='share_btn header-icon' size='mini'>share</Button>
+            <Icon inverted link className='header-icon' name='history' size='large'/>
         </div>
     </div>
 );

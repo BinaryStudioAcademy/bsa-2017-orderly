@@ -9,10 +9,11 @@ class BaseName extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({ 
-        name: nextProps.base.name
+        name: nextProps.base ? nextProps.base.name : ''
     })
   }
   render(){
+    let input
     return (
       <div>
         <form className='base-name-form'

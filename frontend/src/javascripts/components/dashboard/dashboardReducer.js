@@ -12,7 +12,8 @@ const initState = {
     renameIsError: true,
     selectedRecordId: null,
     activeRecordId: null,
-    recordDialogIndex: null
+    recordDialogIndex: null,
+    coworkers: {}
 };
 
 function dashboardReducer(state = initState, action) {
@@ -30,19 +31,18 @@ function dashboardReducer(state = initState, action) {
         );
     }
 
-    case 'SET_ACTIVE_TAB': {
-        return R.mergeAll([
-            R.dissoc('tables', state),
-            {
-                tables: R.map((table) => {
-                    let tempObj = R.dissoc('isActive', table);
-                    if (table._id === action.tableId) tempObj.isActive = true;
-                    else tempObj.isActive = false;
-                    return tempObj;
-                })(state.tables)
-            }
-        ]);
-    }
+        case 'SET_ACTIVE_TAB': {
+            return R.mergeAll([
+                R.dissoc('tables', state),
+                {
+                    tables: R.map((table) => {
+                        let tempObj = R.dissoc('isActive', table);
+                        tempObj.isActive = table._id === action.tableId;
+                        return tempObj;
+                    })(state.tables)
+                }
+            ]);
+        }
 
     case 'SET_TABS_MODAL': {
         return R.merge(state, {activeModal: action.activeModal});
@@ -104,33 +104,31 @@ function dashboardReducer(state = initState, action) {
         ]);
     }
 
-    case 'SWITCH_TABLE': {
-        return R.mergeAll([
-            R.dissoc('tables', state),
-            {
-                tables: R.map((table) => {
-                    let newObj = R.dissoc('isActive', table);
-                    if (table._id === action._id) newObj.isActive = true;
-                    else newObj.isActive = false;
-                    return newObj;
-                })(state.tables)
-            }
-        ]);
-    }
+        case 'SWITCH_TABLE': {
+            return R.mergeAll([
+                R.dissoc('tables', state),
+                {
+                    tables: R.map((table) => {
+                        let newObj = R.dissoc('isActive', table);
+                        newObj.isActive = table._id === action.tableId;
+                        return newObj;
+                    })(state.tables)
+                }
+            ]);
+        }
 
-    case 'OPEN_EDIT_MENU': {
-        return R.mergeAll([
-            R.dissoc('tables', state),
-            {
-                tables: R.map((table) => {
-                    let newObj = R.dissoc('isMenuOpen', table);
-                    if (table._id === action.tableId) newObj.isMenuOpen = true;
-                    else newObj.isMenuOpen = false;
-                    return newObj;
-                })(state.tables)
-            }
-        ]);
-    }
+        case 'OPEN_EDIT_MENU': {
+            return R.mergeAll([
+                R.dissoc('tables', state),
+                {
+                    tables: R.map((table) => {
+                        let newObj = R.dissoc('isMenuOpen', table);
+                        newObj.isMenuOpen = table._id === action.tableId;
+                        return newObj;
+                    })(state.tables)
+                }
+            ]);
+        }
 
     case 'CLOSE_EDIT_MENU': {
         return R.mergeAll([
@@ -248,8 +246,61 @@ function dashboardReducer(state = initState, action) {
             }]);
     }
 
-    case 'CHANGE_FIELD_TYPE': {
-        return {...state};
+    case 'UPDATE_FIELD_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        let obj = R.dissoc('fields', table);
+                        obj = R.dissoc('records', obj);
+                        obj.fields = action.table.fields;
+                        obj.records = action.table.records;
+                        return obj;
+                    } else {
+                        return table;
+                    }
+                })(state.tables)
+            }
+        ]);
+    }
+
+    case 'DELETE_FIELD_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        let obj = R.dissoc('fields', table);
+                        obj = R.dissoc('records', obj);
+                        obj.fields = action.table.fields;
+                        obj.records = action.table.records;
+                        return obj;
+                    } else {
+                        return table;
+                    }
+                })(state.tables)
+            }
+        ]);
+    }
+
+    case 'DELETE_RECORD_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        let obj = R.dissoc('fields', table);
+                        obj = R.dissoc('records', obj);
+                        obj.fields = action.table.fields;
+                        obj.records = action.table.records;
+                        return obj;
+                    } else {
+                        return table;
+                    }
+                })(state.tables)
+            }
+        ]);
     }
 
     case 'OPEN_RECORD_DIALOG': {
@@ -284,6 +335,10 @@ function dashboardReducer(state = initState, action) {
                     return table;
                 })(state.tables)
             }]);
+    }
+
+    case 'GET_COWORKERS_LIST': {
+        return {...state, ...{coworkers: action.coworkers}};
     }
 
     default:

@@ -1,11 +1,13 @@
 import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable,
-    updateBaseByNewTable, addRecord, updateTable, deleteTable
+    updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
+    deleteFieldRecords, deleteRecord, emitTableCoworker
 } from './dashboardApi';
 import {browserHistory} from 'react-router';
 
 const getDashboardReducer = (state) => state.dashboardReducer;
+const getUserProfileReducer = (state) => state.userProfile;
 
 function* fetchBaseById(action) {
     try {
@@ -89,8 +91,6 @@ function* addNewRecord(action) {
         const payload = {};
         payload.tableId = action.tableId;
         payload.table = yield call(addRecord, payload);
-        console.log('SAGA_------------');
-        console.log(payload);
         yield put({type: 'ADD_RECORD_SUCCEEDED', payload});
     } catch (err) {
         yield put({type: 'ADD_RECORD_FAILED', message: err.message});
@@ -131,6 +131,42 @@ function* addNewComment(action) {
     }
 }
 
+function* updateFieldMeta(action) {
+    try {
+        const updatedTable = yield call(updateField, action);
+        yield put({type: 'UPDATE_FIELD_SUCCEEDED', table: updatedTable.data});
+    } catch (err) {
+        yield put({type: 'UPDATE_FIELD_FAILED', message: err.message});
+    }
+}
+
+function* removeField(action) {
+    try {
+        const deleted = yield call(deleteFieldRecords, action);
+        yield put({type: 'DELETE_FIELD_SUCCEEDED', table: deleted.data});
+    } catch (err) {
+        yield put({type: 'DELETE_FIELD_FAILED', message: err.message});
+    }
+}
+
+function* removeRecord(action) {
+    try {
+        const deleted = yield call(deleteRecord, action);
+        yield put({type: 'DELETE_RECORD_SUCCEEDED', table: deleted.data});
+    } catch (err) {
+        yield put({type: 'DELETE_RECORD_FAILED', message: err.message});
+    }
+}
+
+function* sendTableCoworker(action) {
+    try {
+        const userProfileReducer = yield select(getUserProfileReducer);
+        yield call (emitTableCoworker, userProfileReducer.user, action.tableId);
+    } catch (err) {
+        yield put({type: 'SEND_TABLE_COWORKER_FAILED', message: err.message});
+    }
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -142,6 +178,11 @@ function* dashboardSaga() {
     yield takeLatest('CHANGE_RECORD', changeTableRecord);
     yield takeEvery('DELETE_TABLE', removeTable);
     yield takeEvery('ADD_COMMENT', addNewComment);
+    yield takeEvery('CHANGE_FIELD_TYPE', updateFieldMeta);
+    yield takeEvery('CHANGE_FIELD_NAME', updateFieldMeta);
+    yield takeEvery('DELETE_FIELD', removeField);
+    yield takeEvery('DELETE_RECORD', removeRecord);
+    yield takeEvery(['SET_ACTIVE_TAB', 'SWITCH_TABLE'], sendTableCoworker);
 }
 
 export default dashboardSaga;
