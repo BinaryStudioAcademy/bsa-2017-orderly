@@ -236,3 +236,11 @@
     }
   }
 }
+
+@media screen and (max-width: 1360px) {
+  .modal {
+    .comments-block {
+      max-height: 20vh!important;
+    }
+  }
+}
