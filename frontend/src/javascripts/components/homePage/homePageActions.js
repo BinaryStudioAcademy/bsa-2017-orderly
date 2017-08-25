@@ -5,9 +5,10 @@ export const addNewBase = (teamId) => {
   }
 }
 
-export const toggleTeamPopup = (isShow) => {
+export const toggleTeamPopup = (teamId, isShow) => {
 	return {
 		type: 'TOGGLE_TEAM_POPUP',
+		teamId: teamId,
 		isShow: isShow
 	}
 }
@@ -16,6 +17,13 @@ export const setTeamModal = (typeOfActivity) => {
 	return {
 		type: 'SET_TEAM_MODAL_ACTIVITY',
 		typeOfActivity: typeOfActivity
+	}
+}
+
+export const addNewTeam = (userId) => {
+	return {
+		type: 'ADD_NEW_TEAM',
+		userId: userId
 	}
 }
 

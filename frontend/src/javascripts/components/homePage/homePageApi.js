@@ -38,10 +38,23 @@ const deleteTeam = (teamId) =>
 		.then((response) => response.data)
 		.catch(R.tap(console.error))
 
+const addTeam = (userId) =>
+	axios.post(url + '/team/', { owner: userId,
+											collaborators: [
+												{
+													userId: userId,
+													role: 'owner'
+												}
+											]
+										})
+		.then((response) => response.data)
+		.catch(R.tap(console.error))
+
 export {
 	addBaseToTeam,
 	updateTeam,
 	deleteTeam,
+	addTeam,
 	getBasesByTeam,
     updateBaseById,
     deleteBase,

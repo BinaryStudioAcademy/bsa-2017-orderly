@@ -2,7 +2,10 @@ import R from 'ramda'
 
 
 let initialState = {
-	teamPopupIsShow: false,
+	teamPopupIsShow: {
+		teamId: '',
+		isShow: false
+	},
 	showMenuforBase: 0,
 	teams: [],
 	activeModal: ''
@@ -27,7 +30,13 @@ const baseStore = (state = initialState, action) => {
 			return R.merge(state, {teams: action.teams})
 
 		case 'TOGGLE_TEAM_POPUP':
-			return R.merge(state, {teamPopupIsShow: action.isShow})
+			return R.merge(state,
+				{
+					teamPopupIsShow: {
+						teamId: action.teamId,
+						isShow: action.isShow
+					}
+				})
 
 		case 'SET_TEAM_MODAL_ACTIVITY':
 			return R.merge(state, {activeModal: action.typeOfActivity})
@@ -58,12 +67,21 @@ const baseStore = (state = initialState, action) => {
 			]);
 
 		case 'DELETE_TEAM_SUCCEEDED':
+			console.log(action, 'DELETE_TEAM_SUCCEEDED')
 			return R.mergeAll([
 				R.dissoc('teams', state),
 				{
-					teams: R.reject(R.propEq('_id', action.team))(state.teams)
+					teams: R.reject(R.propEq('_id', action.team._id))(state.teams)
 				}
 			]);
+
+		case 'ADD_NEW_TEAM_SUCCEEDED':
+			return R.mergeAll([
+				R.dissoc('teams', state),
+				{
+					teams: R.concat(state.teams, [action.team])
+				}
+			])
 
 		case 'ADD_NEW_BASE_TO_TEAM_SUCCEEDED':
 			return R.mergeAll([

@@ -5,15 +5,17 @@ import R from 'ramda';
 import TeamModal from './teamModal';
 import './namePopup.scss';
 
-const hidingStyle = (isOpen) => ({
-	display: isOpen ? 'block' : 'none'
+const hidingStyle = (popupIsShow, currentTeamId) => ({
+	display: popupIsShow.isShow && currentTeamId === popupIsShow.teamId ? 'block' : 'none'
 })
 
-const NamePopup = ({ toggleTeamPopup, teamPopupIsShow, setTeamModal,
+
+
+const NamePopup = ({ teamPopupIsShow, setTeamModal,
 	                   activeModal, team, updateTeam, deleteTeam }) => (
 	<div>
 		<List className='team_popup'
-		      style={hidingStyle(teamPopupIsShow)}>
+		      style={hidingStyle(teamPopupIsShow, team._id)}>
 			<List.Item className='list_menu'
 			           onClick={() => {
 			           	setTeamModal('settings')

@@ -28,7 +28,7 @@ const TeamModal = ({activeModal, setTeamModal, team, updateTeam, deleteTeam}) =>
 					onClick={() => {
 						setTeamModal('');
 						if (activeModal === 'rename') {
-							updateTeam({name: renameInput}, team._id)
+							updateTeam({name: renameInput}, team._id);
 							return;
 						}
 						if (activeModal === 'delete') {

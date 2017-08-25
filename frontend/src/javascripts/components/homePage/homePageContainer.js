@@ -20,6 +20,7 @@ class HomePageContainer extends React.Component {
         <div className = 'home-page-body'>
           <HomePageTeamBlock teams={this.props.teams}
                              updateTeam={this.props.updateTeam}
+                             addNewTeam={this.props.addNewTeam}
                              deleteTeam={this.props.deleteTeam}
                              activeModal={this.props.activeModal}
                              setTeamModal={this.props.setTeamModal}

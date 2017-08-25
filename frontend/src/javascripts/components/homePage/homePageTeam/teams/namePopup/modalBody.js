@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Input } from 'semantic-ui-react';
 import R from 'ramda';
 
-let renameInput;
+let renameInput = '';
 
 const ModalBody = ({ activeModal, team }) => {
 	renameInput = team.name;

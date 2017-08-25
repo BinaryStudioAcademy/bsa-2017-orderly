@@ -30,12 +30,14 @@ class HomePageTeamBlock extends Component {
 				<div className="team-block-wrapper">
 					<TeamList handleClick={this.props.handleClick}
 					          activeModal={this.props.activeModal}
+					          addNewTeam={this.props.addNewTeam}
 					          deleteTeam={this.props.deleteTeam}
 					          updateTeam={this.props.updateTeam}
 					          setTeamModal={this.props.setTeamModal}
 					          toggleTeamPopup={this.props.toggleTeamPopup}
 					          teamPopupIsShow={this.props.teamPopupIsShow}
 					          onNewBaseClick={this.props.onNewBaseClick}
+							  user={this.props.user}
 					          menu={this.props.menu}
 					          teams={this.props.teams}/>
 				</div>

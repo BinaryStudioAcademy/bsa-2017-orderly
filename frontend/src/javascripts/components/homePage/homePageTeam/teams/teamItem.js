@@ -3,22 +3,26 @@ import React from 'react';
 import BaseList from '../bases/homePageBaseList';
 import NamePopup from './namePopup/namePopup';
 
+let tempKey = 0;
+
 const TeamItem = (team, menu, handleClick, onNewBaseClick, toggleTeamPopup, teamPopupIsShow,
                   setTeamModal, activeModal, updateTeam, deleteTeam) => {
-	return <div className='relative' key={team._id}>
+	return <div className='team-item relative' key={team._id || ++tempKey}>
 				<div className='team-header'>
 					<div className='team-name-wrapper'
 						 onContextMenu={(event) => {
 						 	event.stopPropagation();
 						 	event.preventDefault();
-						 	toggleTeamPopup(!teamPopupIsShow)
-							setTimeout(toggleTeamPopup, 3000)
+							toggleTeamPopup(team._id, !teamPopupIsShow.isShow)
+							setTimeout(() => {
+								toggleTeamPopup(team._id, false)
+							} , 3000)
 						 }}>{team.name}</div>
 
 				</div>
-				<NamePopup teamPopupIsShow={teamPopupIsShow}
-				           team={team}
+				<NamePopup team={team}
 				           updateTeam={updateTeam}
+				           teamPopupIsShow={teamPopupIsShow}
 				           activeModal={activeModal}
 				           setTeamModal={setTeamModal}
 				           deleteTeam={deleteTeam}
