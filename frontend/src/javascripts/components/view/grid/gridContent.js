@@ -69,7 +69,7 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
         onKeyPress: recordData.keyPressRecordHandler,
         onBlurField: recordData.blurRecordHandler,
         onBlurComponent: recordData.blurRecordComponentHandler,
-        onExpand: recordData.expandRecordHandler,
+        onExpand: recordData.expandRecordHandler
     };
     let record = null;
     switch (type) {
@@ -92,6 +92,7 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
     case 'url':
         record = <Url {...fieldPayload}/>;
         break;
+
     case 'date':
         record = <DateField {...fieldPayload}/>;
         break;
@@ -99,6 +100,7 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
     case 'email':
         record = <Email {...fieldPayload}/>;
         break;
+
     default:
         record = <TextLine {...fieldPayload}/>;
     }
@@ -136,7 +138,7 @@ class GridContent extends Component {
                     <div className="grid__content">
                         <div className="content__rows">
                             <div className="rows__selector rows__row">
-                                <Icon name="delete"/>
+                                <Icon name="lock"/>
                             </div>
                             {this.props.currentTable &&
                              this.props.currentTable.records.map((record, ind) => {

@@ -123,6 +123,22 @@ class TableRepository extends Repository {
             {_id: objectId(tableId)},
             {'$pull': {fields: {}}});
     }
+
+    addView(tableId, viewId, viewType) {
+        return this.model.update(
+            {_id: objectId(tableId)},
+            {'$push': {views: {viewId, type: viewType}}},
+            {'new': true}
+        );
+    }
+
+    deleteView(tableId, viewId) {
+        return this.model.findById(objectId(tableId))
+            .then((table) => {
+                table.views = table.views.filter((v) => v.viewId.toString() !== viewId);
+                return table.save();
+            });
+    }
 }
 
 module.exports = new TableRepository();

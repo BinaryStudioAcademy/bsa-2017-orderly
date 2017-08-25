@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as viewActions from './viewActions';
 import {Icon} from 'semantic-ui-react';
 import Grid from './grid/grid';
+import FormView from './form/formView';
 import {viewIcons} from '../configuration/viewTypes';
 import './view.scss';
 import InDevelopment from '../in_developing/InDeveloping';
@@ -39,6 +40,10 @@ class View extends Component {
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
                 deleteField={this.props.deleteField}
+            />;
+        case 'form':
+            return <FormView
+                currentTable={this.props.currentTable}
             />;
         default:
             return <InDevelopment/>;
