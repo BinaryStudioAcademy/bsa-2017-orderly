@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import GridHeader from './gridHeader';
 import GridContent from './gridContent';
+import './grid.scss';
 
 export default class Grid extends Component{
     render() {
         return (
-            <div>
+            <div className="grid-view">
                 <GridHeader/>
                 <GridContent
                     currentTable={this.props.currentTable}

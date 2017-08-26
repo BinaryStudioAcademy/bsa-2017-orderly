@@ -92,7 +92,7 @@ class View extends Component {
                     })}
                     </div>
                     <hr/>
-                    <div id="modal__add-view">
+                    <div className="add-view__menu">
                         <p className=''>Add view:</p>
                         {viewTypes}
                     </div>

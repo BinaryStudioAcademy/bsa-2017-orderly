@@ -18,14 +18,18 @@ import RecordDialog from '../recordDialog/recordDialog';
 
 const RowNum = ({tableId, recordId, index, deleteRecord}) => {
     return (
-        <div className="rows__row" onContextMenu={(e) => {deleteRecord(e, tableId, recordId)}}>
-            <span>{index+1}</span>
+        <div className="rows__row" onContextMenu={(e) => {
+            deleteRecord(e, tableId, recordId)
+        }}>
+            <span>{index + 1}</span>
         </div>
     )
 };
 
-const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
-                   changeFieldType, changeFieldName, deleteField}) => {
+const Field = ({
+                   id, tableId, type, name, index, records, recordData, showFieldMenu,
+                   changeFieldType, changeFieldName, deleteField
+               }) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -73,37 +77,37 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
     };
     let record = null;
     switch (type) {
-        case 'longtext':
-            const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler} };
-            record = <LongText {...fieldPayloadLongtext}/>;
-            break;
+    case 'longtext':
+        const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler}};
+        record = <LongText {...fieldPayloadLongtext}/>;
+        break;
 
-        case 'number':
-            record = <Number {...fieldPayload}/>;
-            break;
+    case 'number':
+        record = <Number {...fieldPayload}/>;
+        break;
 
-        case 'currency':
-            record = <CurrencyField {...fieldPayload}/>;
-            break;
+    case 'currency':
+        record = <CurrencyField {...fieldPayload}/>;
+        break;
 
-        case 'autonumber':
-            record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
-            break;
+    case 'autonumber':
+        record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
+        break;
 
-        case 'url':
-            record = <Url {...fieldPayload}/>;
-            break;
+    case 'url':
+        record = <Url {...fieldPayload}/>;
+        break;
 
-        case 'date':
-            record = <DateField {...fieldPayload}/>;
-            break;
+    case 'date':
+        record = <DateField {...fieldPayload}/>;
+        break;
 
-        case 'email':
-            record = <Email {...fieldPayload}/>;
-            break;
+    case 'email':
+        record = <Email {...fieldPayload}/>;
+        break;
 
-        default:
-            record = <TextLine {...fieldPayload}/>;
+    default:
+        record = <TextLine {...fieldPayload}/>;
     }
 
     return (
@@ -134,9 +138,9 @@ class GridContent extends Component {
 
     render() {
         return (
-            <div>
-                <div className="wrapper__grid">
-                    <div className="grid__content">
+            <div className="wrapper__grid">
+                <div className="grid__content">
+                    <div className="content__wrapper">
                         <div className="content__rows row-options-field">
                             <div className="rows__selector rows__row">
                                 <Icon name="lock"/>
@@ -144,7 +148,7 @@ class GridContent extends Component {
                             {this.props.currentTable &&
                             this.props.currentTable.records.map((record, recordIndex) => {
                                 return <RowNum key={record._id}
-                                               tableId= {this.props.currentTable._id}
+                                               tableId={this.props.currentTable._id}
                                                recordId={record._id}
                                                index={recordIndex}
                                                deleteRecord={this.handleDeleteRecord}/>
@@ -154,8 +158,7 @@ class GridContent extends Component {
 
                         <div className="content__body">
                             <div className="field__items row-options-field">
-                                <div className="content__field row-options-field">
-                                </div>
+                                <div className="content__field row-options-field"/>
                                 <div className="field__item row-options-field">
                                     {this.props.currentTable &&
                                     this.props.currentTable.records.map((record, recordIndex) => {
@@ -204,13 +207,13 @@ class GridContent extends Component {
                                 />
                             })}
                         </div>
+                        <div className="content__field item__add-field" onClick={this.handleAddField}>
+                            <Icon name="plus" className="field__icon"/>
+                        </div>
                     </div>
                     <div className="content__field item__add-record" onClick={this.handleAddRecord}>
                         <Icon name="plus" className="field__icon"/>
                     </div>
-                </div>
-                <div className="content__field item__add-field" onClick={this.handleAddField}>
-                    <Icon name="plus" className="field__icon"/>
                 </div>
             </div>
         );
