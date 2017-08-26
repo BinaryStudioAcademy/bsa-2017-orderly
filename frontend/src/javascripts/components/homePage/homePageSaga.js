@@ -34,11 +34,11 @@ function* deleteBaseById(action) {
 }
 
 function* updateBase(action) {
-    const baseNeed =  yield call(updateBaseById, action._id, action.typeAction, action.value); 
-    try {  
-       yield put({ type: 'CHANGE_BASE_PARAM_SUCCESS', base: baseNeed});
+    const baseNeed = yield call(updateBaseById, action._id, action.typeAction, action.value);
+    try {
+        yield put({type: 'CHANGE_BASE_PARAM_SUCCESS', base: baseNeed});
     } catch (err) {
-        yield put({ type: 'CHANGE_BASE_PARAM_FAILED', message: err.message});
+        yield put({type: 'CHANGE_BASE_PARAM_FAILED', message: err.message});
     }
 }
 

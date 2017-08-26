@@ -1,7 +1,9 @@
 import axios from 'axios';
 import R from 'ramda';
+import io from 'socket.io-client';
 
 const url = '/api';
+const socket = io('http://localhost:2020');
 
 const getBase = (_id) =>
     axios.get(url + '/base/' + _id)
@@ -31,7 +33,7 @@ const updateTable = ({ _id, body }) =>
 const addFieldsToTable = ({tableId}) => {
     axios.post(url + '/tables/' + tableId + '/fields/', {
         name: 'default',
-        type: 'text',
+        type: 'number',
     })
         .then((response) => response.data)
         .catch(R.tap(console.error));
@@ -70,6 +72,11 @@ const deleteRecord = (payload) => {
         .catch(R.tap(console.error));
 };
 
+const emitTableCoworker = (user, tableId) => {
+    return socket.emit('client-upload-table', user, tableId);
+};
+
+
 export {
     getBase,
     getTablesByIds,
@@ -82,4 +89,5 @@ export {
     updateField,
     deleteFieldRecords,
     deleteRecord,
+    emitTableCoworker
 };

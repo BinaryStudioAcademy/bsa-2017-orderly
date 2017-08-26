@@ -13,6 +13,18 @@ class TableRepository extends Repository {
         that = this;
     }
 
+    getByIds(ids) {
+        return this.model.find({'_id': {$in: ids}})
+            .populate('records.history.collaborator')
+            .populate('records.comments.collaborator');
+    }
+
+    update(id, body) {
+        return this.model.findByIdAndUpdate(id, body, {'new': true})
+            .populate('records.history.collaborator')
+            .populate('records.comments.collaborator');
+    }
+
     getRecords(tableId) {
         return this.model.findById(tableId).select('records');
     }
@@ -81,19 +93,12 @@ class TableRepository extends Repository {
 
     updateField(tableId, fieldId, data) {
         return this.model.findById(tableId).then((table) => {
-            const field = table.fields.find((f) => f._id.toString() === fieldId);
+            const fieldIndex = table.fields.findIndex((f) => f._id.toString() === fieldId);
+            const field = table.fields[fieldIndex];
             field.type = data.fieldType || field.type;
             field.name = data.fieldName || field.name;
             if (data.fieldType) {
-                let recordIds = data.records.map((r) => r._id);
-                table.records.forEach((record) => {
-                    record.record_data.map((d) => {
-                        if (recordIds.includes(d._id.toString())) {
-                            d.data = '';
-                        }
-                        return d;
-                    });
-                });
+                table.records.forEach((record) => (record.record_data[fieldIndex].data = ''));
             }
             return table.save();
         });
@@ -122,6 +127,22 @@ class TableRepository extends Repository {
         return this.model.update(
             {_id: objectId(tableId)},
             {'$pull': {fields: {}}});
+    }
+
+    addView(tableId, viewId, viewType) {
+        return this.model.update(
+            {_id: objectId(tableId)},
+            {'$push': {views: {viewId, type: viewType}}},
+            {'new': true}
+        );
+    }
+
+    deleteView(tableId, viewId) {
+        return this.model.findById(objectId(tableId))
+            .then((table) => {
+                table.views = table.views.filter((v) => v.viewId.toString() !== viewId);
+                return table.save();
+            });
     }
 }
 

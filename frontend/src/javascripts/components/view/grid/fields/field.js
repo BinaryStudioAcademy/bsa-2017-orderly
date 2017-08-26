@@ -32,7 +32,9 @@ class Field extends Component {
     }
 
     keyPressHandler(id, event) {
-        this.props.onKeyPress(id, event);
+        if (this.props.autoFocus) {
+            this.props.onKeyPress(id, event);
+        }
     }
 
     render() {

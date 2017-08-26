@@ -2,11 +2,12 @@ import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable,
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
-    deleteFieldRecords, deleteRecord
+    deleteFieldRecords, deleteRecord, emitTableCoworker
 } from './dashboardApi';
 import {browserHistory} from 'react-router';
 
 const getDashboardReducer = (state) => state.dashboardReducer;
+const getUserProfileReducer = (state) => state.userProfile;
 
 function* fetchBaseById(action) {
     try {
@@ -102,7 +103,25 @@ function* changeTableRecord(action) {
             type: 'PERFORM_CHANGE_RECORD',
             tableId: action.tableId,
             recordId: action.recordId,
-            data: action.data
+            data: action.data,
+            user: action.user
+        });
+        const dashboardReducer = yield select(getDashboardReducer);
+        let table = dashboardReducer.tables.filter((t) => t._id === action.tableId).pop();
+        yield put({type: 'UPDATE_TABLE', tableId: action.tableId, newData: table});
+    } catch (err) {
+        yield put({type: 'UPDATE_TABLE_FAILED', message: err.message});
+    }
+}
+
+function* addNewComment(action) {
+    try {
+        yield put({
+            type: 'PERFORM_ADD_COMMENT',
+            tableId: action.tableId,
+            recordId: action.recordId,
+            comment: action.comment,
+            userId: action.userId
         });
         const dashboardReducer = yield select(getDashboardReducer);
         let table = dashboardReducer.tables.filter((t) => t._id === action.tableId).pop();
@@ -139,6 +158,15 @@ function* removeRecord(action) {
     }
 }
 
+function* sendTableCoworker(action) {
+    try {
+        const userProfileReducer = yield select(getUserProfileReducer);
+        yield call (emitTableCoworker, userProfileReducer.user, action.tableId);
+    } catch (err) {
+        yield put({type: 'SEND_TABLE_COWORKER_FAILED', message: err.message});
+    }
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -149,10 +177,12 @@ function* dashboardSaga() {
     yield takeEvery('ADD_RECORD', addNewRecord);
     yield takeLatest('CHANGE_RECORD', changeTableRecord);
     yield takeEvery('DELETE_TABLE', removeTable);
+    yield takeEvery('ADD_COMMENT', addNewComment);
     yield takeEvery('CHANGE_FIELD_TYPE', updateFieldMeta);
     yield takeEvery('CHANGE_FIELD_NAME', updateFieldMeta);
     yield takeEvery('DELETE_FIELD', removeField);
     yield takeEvery('DELETE_RECORD', removeRecord);
+    yield takeEvery(['SET_ACTIVE_TAB', 'SWITCH_TABLE'], sendTableCoworker);
 }
 
 export default dashboardSaga;

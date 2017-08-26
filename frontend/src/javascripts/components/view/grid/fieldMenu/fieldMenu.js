@@ -3,7 +3,7 @@ import { Icon } from 'semantic-ui-react';
 import {fieldIcons, fieldNames} from "../../../configuration/fieldTypes";
 import './fieldMenu.scss';
 
-const FieldOptions = ({id, tableId, records, excludeType, changeFieldType, closeMenu}) => {
+const FieldOptions = ({id, tableId, excludeType, changeFieldType, closeMenu}) => {
     let fieldOptions = [];
     for (let [fieldType, fieldIcon, _] of Object.entries(fieldIcons)) {
         if (fieldType !== excludeType) {
@@ -12,7 +12,7 @@ const FieldOptions = ({id, tableId, records, excludeType, changeFieldType, close
                      className="menu__field-option"
                      onClick={() => {
                          closeMenu();
-                         return changeFieldType(tableId, fieldType, id, records)}
+                         return changeFieldType(tableId, fieldType, id)}
                      }>
                     <Icon name={fieldIcon} className="field__icon"/>
                     <span>{fieldNames[fieldType]}</span>
@@ -104,7 +104,6 @@ export default class FieldMenu extends Component {
                     <FieldOptions id={this.props.id}
                                   excludeType={this.props.type}
                                   changeFieldType={this.props.changeFieldType}
-                                  records={this.props.records}
                                   tableId={this.props.tableId}
                                   closeMenu={this.handleClickOnMenu}/>
                 </div>

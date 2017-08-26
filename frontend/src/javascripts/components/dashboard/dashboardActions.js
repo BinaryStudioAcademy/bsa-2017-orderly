@@ -92,12 +92,13 @@ const activateRecord = (recordId) => {
     };
 }
 
-const changeRecord = (tableId, recordId, data) => {
+const changeRecord = (tableId, recordId, data, user) => {
     return {
         type: 'CHANGE_RECORD',
         tableId: tableId,
         recordId: recordId,
-        data: data
+        data: data,
+        user: user
     };
 }
 
@@ -114,6 +115,39 @@ const blurRecordComponent = (recordId) => {
         recordId: recordId
     };
 }
+
+const changeFieldType = (fieldId, records) => {
+    return {
+        type: 'CHANGE_FIELD_TYPE',
+        fieldId: fieldId,
+        records: records
+    };
+};
+
+const openRecordDialog = (index) => {
+    return {
+        type: 'OPEN_RECORD_DIALOG',
+        index: index,
+
+    };
+};
+
+const addComment = (userId, recordId, tableId, comment) => {
+    return {
+        type: 'ADD_COMMENT',
+        userId: userId,
+        recordId: recordId,
+        tableId: tableId,
+        comment: comment
+    };
+};
+
+const getCoworkersList = (coworkers) => {
+    return {
+        type: 'GET_COWORKERS_LIST',
+        coworkers: coworkers
+    };
+};
 
 export {
     getBaseById,
@@ -135,4 +169,8 @@ export {
     blurRecord,
     blurRecordComponent,
     deleteTable,
+    changeFieldType,
+    openRecordDialog,
+    addComment,
+    getCoworkersList
 };
