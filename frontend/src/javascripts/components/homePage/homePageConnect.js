@@ -1,7 +1,8 @@
 import HomePageContainer from './homePageContainer';
 import { connect } from 'react-redux';
 import { getTeamsByUser, getBasesByTeam, toggleTeamPopup,
-		setTeamModal, updateTeam, deleteTeam, addNewTeam } from './homePageActions';
+		setTeamModal, updateTeam, deleteTeam, addNewTeam,
+		getCollaborators} from './homePageActions';
 import { getCurrentUser } from '../userProfile/userProfileActions';
 
 
@@ -22,7 +23,8 @@ const mapDispatchToProps = {
 	setTeamModal: setTeamModal,
 	updateTeam: updateTeam,
 	deleteTeam: deleteTeam,
-	addNewTeam: addNewTeam
+	addNewTeam: addNewTeam,
+	getCollaborators: getCollaborators
 }
 
 const HomePage = connect(

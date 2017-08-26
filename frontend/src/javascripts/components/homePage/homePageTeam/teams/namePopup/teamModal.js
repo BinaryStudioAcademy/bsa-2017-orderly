@@ -1,14 +1,14 @@
 import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
-import R from 'ramda';
 
 import { setName } from '../../../homePageService';
 import { ModalBody, renameInput } from './modalBody';
 
-const TeamModal = ({activeModal, setTeamModal, team, updateTeam, deleteTeam}) => (
-	<Modal size='mini'
+const TeamModal = ({activeModal, setTeamModal, team, updateTeam, deleteTeam, currentClickedTeamId}) => (
+	<Modal className='team_modal'
+	       size='mini'
 	       onClose={() => { setTeamModal(''); }}
-	       open={Boolean(activeModal)}
+	       open={Boolean(activeModal) && currentClickedTeamId === team._id}
 	       dimmer={false}>
 		<Modal.Header>
 			{setName(activeModal)}

@@ -28,6 +28,11 @@ const getBasesByTeam = (teamId) =>
 		.then((response) => response.data)
 		.catch(R.tap(console.error))
 
+const getCollaborators = (usersIds) =>
+	axios.get(url + '/user/ids/' + usersIds.join(':'))
+		.then((response) => response.data)
+		.catch(R.tap(console.error))
+
 const updateTeam = (data, teamId) =>
 	axios.put(url + '/team/' + teamId, data)
 		.then((response) => response.data)
@@ -58,5 +63,6 @@ export {
 	getBasesByTeam,
     updateBaseById,
     deleteBase,
+	getCollaborators,
 	getTeamsByUserId
 };

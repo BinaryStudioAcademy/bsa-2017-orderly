@@ -13,6 +13,14 @@ export const toggleTeamPopup = (teamId, isShow) => {
 	}
 }
 
+export const getCollaborators = (teamId, usersIds) => {
+	return  {
+		type: 'GET_COLLABORATORS',
+		teamId: teamId,
+		usersIds: usersIds
+	}
+}
+
 export const setTeamModal = (typeOfActivity) => {
 	return {
 		type: 'SET_TEAM_MODAL_ACTIVITY',

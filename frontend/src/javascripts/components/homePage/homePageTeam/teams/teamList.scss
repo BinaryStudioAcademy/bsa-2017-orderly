@@ -10,28 +10,6 @@
 
     .team-item {
       margin-top: 50px;
-
-      .team-header {
-        margin-bottom: 10px;
-        margin-left: 10px;
-        padding-bottom: 5px;
-        font-size: 18px;
-        display: flex;
-        border-bottom: 2px solid #EFEFEF;
-
-
-        .team-name-wrapper {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          width: 150px;
-
-          &:hover {
-            cursor: pointer;
-            opacity: .8;
-          }
-        }
-      }
     }
 
     .add-header {

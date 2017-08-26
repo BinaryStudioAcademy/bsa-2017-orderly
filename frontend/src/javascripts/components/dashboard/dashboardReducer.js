@@ -9,6 +9,7 @@ const initState = {
     }],
     addPopupIsOpen: false,
     activeModal: '',
+    tableIdActiveModal: '',
     renameIsError: true,
     selectedRecordId: null,
     activeRecordId: null,
@@ -46,6 +47,10 @@ function dashboardReducer(state = initState, action) {
 
     case 'SET_TABS_MODAL': {
         return R.merge(state, {activeModal: action.activeModal});
+    }
+
+    case 'SET_TABLE_ID_TO_ACTIVE_MODAL': {
+    	return R.merge(state, {tableIdActiveModal: action.tableId});
     }
 
     case 'CHECK_TABLE_NAME': {

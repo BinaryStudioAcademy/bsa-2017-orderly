@@ -1,7 +1,7 @@
 import { call, put, takeEvery} from 'redux-saga/effects';
 import { addBaseToTeam, updateBaseById, updateTeam,
 		deleteBase, getTeamsByUserId, getBasesByTeam,
-		deleteTeam, addTeam} from './homePageApi';
+		deleteTeam, addTeam, getCollaborators} from './homePageApi';
 
 
 function* gettingBasesByTeam(action) {
@@ -72,9 +72,20 @@ function* deletingTeam(action) {
 function* addingTeam(action) {
 	try {
 		const addedTeam = yield call(addTeam, action.userId);
-		yield put({ type: 'ADD_NEW_TEAM_SUCCEEDED', team: addedTeam})
+		yield put({ type: 'ADD_NEW_TEAM_SUCCEEDED', team: addedTeam});
 	} catch (err) {
 		yield put({ type: 'ADD_NEW_TEAM_FAILED', message: err.message });
+	}
+}
+
+function* gettingCollaborators(action) {
+	try {
+		const payload = {};
+		payload.teamId = action.teamId;
+		payload.collaborators = yield call(getCollaborators, action.usersIds);
+		yield put({ type: 'GET_COLLABORATORS_SUCCEEDED', payload });
+	} catch (err) {
+		yield put ({ type: 'GET_COLLABORATORS_FAILED', message: err.message })
 	}
 }
 
@@ -87,6 +98,7 @@ function* homePageSaga() {
     yield takeEvery('UPDATE_TEAM', updatingTeam);
     yield takeEvery('DELETE_TEAM', deletingTeam);
     yield takeEvery('ADD_NEW_TEAM', addingTeam);
+    yield takeEvery('GET_COLLABORATORS', gettingCollaborators)
 }
 
 export default homePageSaga;

@@ -1,5 +1,7 @@
 import R from 'ramda'
 
+import { createCollaboratorsObject } from './homePageService';
+
 
 let initialState = {
 	teamPopupIsShow: {
@@ -8,7 +10,8 @@ let initialState = {
 	},
 	showMenuforBase: 0,
 	teams: [],
-	activeModal: ''
+	activeModal: '',
+	collaborators: {}  //{teamId: {userId: {ObjectUser}}}
 }
 const baseStore = (state = initialState, action) => {
 
@@ -28,6 +31,19 @@ const baseStore = (state = initialState, action) => {
 
 		case 'GET_TEAMS_BY_USER_SUCCEEDED':
 			return R.merge(state, {teams: action.teams})
+
+		case 'GET_COLLABORATORS_SUCCEEDED':
+			const teamId = action.payload.teamId;
+			const collaborators = action.payload.collaborators;
+			return R.mergeAll([
+				R.dissoc('collaborators', state),
+				{
+					collaborators: R.merge(
+						state.collaborators,
+						createCollaboratorsObject(teamId, collaborators)
+					)
+				}
+			])
 
 		case 'TOGGLE_TEAM_POPUP':
 			return R.merge(state,
@@ -59,10 +75,10 @@ const baseStore = (state = initialState, action) => {
 			return R.mergeAll([
 				R.dissoc('teams', state),
 				{
-					teams: R.concat(
-						R.reject(R.propEq('_id', action.team._id))(state.teams),
-						[action.team ]
-					)
+					teams: R.map(team => {
+						if (team._id === action.team._id) return action.team
+						else return team
+					})(state.teams)
 				}
 			]);
 

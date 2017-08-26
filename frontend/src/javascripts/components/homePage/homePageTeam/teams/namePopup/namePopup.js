@@ -9,8 +9,6 @@ const hidingStyle = (popupIsShow, currentTeamId) => ({
 	display: popupIsShow.isShow && currentTeamId === popupIsShow.teamId ? 'block' : 'none'
 })
 
-
-
 const NamePopup = ({ teamPopupIsShow, setTeamModal,
 	                   activeModal, team, updateTeam, deleteTeam }) => (
 	<div>
@@ -25,7 +23,7 @@ const NamePopup = ({ teamPopupIsShow, setTeamModal,
 			</List.Item>
 			<List.Item className='list_menu'
 			           onClick={() => {
-			           	setTeamModal('rename')
+				           setTeamModal('rename')
 			}}>
 				<List.Icon name='pencil'/>
 				<List.Content>Rename team</List.Content>
@@ -39,6 +37,7 @@ const NamePopup = ({ teamPopupIsShow, setTeamModal,
 			</List.Item>
 		</List>
 		<TeamModal team={team}
+		           currentClickedTeamId={teamPopupIsShow.teamId}
 		           updateTeam={updateTeam}
 		           deleteTeam={deleteTeam}
 		           setTeamModal={setTeamModal}

@@ -1,17 +1,20 @@
 import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
+import { browserHistory } from 'react-router';
 import R from 'ramda';
 
 import { setName } from '../../../../../dashboardService';
 import { ModalBody, renameInput, descriptionInput, isRecordCopy } from './modalContent';
 
 
-const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsError,
-	                    checkTableName, updateTable, deleteTable, addTableClick, base}) =>  (
-	<Modal size='mini'
+const PopUpModal = ({table, tables, activeModal, setTabsModal, tablesNames, renameIsError, tableIdActiveModal,
+	                    checkTableName, updateTable, deleteTable, addTableClick, base, setTableIdToActiveModal,
+	                    switchTableClick}) =>  (
+	<Modal className='table_modal'
+	       size='mini'
 		   dimmer={false}
 		   onClose={() => { setTabsModal(''); }}
-		   open={Boolean(activeModal)}>
+		   open={Boolean(activeModal) && tableIdActiveModal === table._id}>
 		<Modal.Header>
 			{setName(activeModal)}
 		</Modal.Header>
@@ -21,7 +24,7 @@ const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsErro
 			           tablesNames={tablesNames}
 			           checkTableName={checkTableName}
 			           activeModal={activeModal}
-						table={table}/>
+					   table={table}/>
 		</Modal.Content>
 		<Modal.Actions>
 			<Button negative onClick={ () => {
@@ -83,6 +86,9 @@ const PopUpModal = ({table, activeModal, setTabsModal, tablesNames, renameIsErro
 						if (activeModal === 'delete') {
 							deleteTable(table._id);
 							setTabsModal('');
+							console.log(tables[0]._id, 'first table')
+							switchTableClick(tables[0]._id)
+							browserHistory.push(`/dashboard/${base._id}/${tables[0]._id}`)
 							return;
 						}
 					}}/>

@@ -19,6 +19,7 @@ class HomePageContainer extends React.Component {
         <HomePageHeader user={this.props.user}/>
         <div className = 'home-page-body'>
           <HomePageTeamBlock teams={this.props.teams}
+                             getCollaborators={this.props.getCollaborators}
                              updateTeam={this.props.updateTeam}
                              addNewTeam={this.props.addNewTeam}
                              deleteTeam={this.props.deleteTeam}

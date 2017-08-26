@@ -101,6 +101,8 @@ class Tools extends Component {
                         menu={this.props.menu}
                         handleClick={this.props.handleClick}  />
                 <Tabs base={this.props.base}
+                      tableIdActiveModal={this.props.tableIdActiveModal}
+                      setTableIdToActiveModal={this.props.setTableIdToActiveModal}
                       activeModal={this.props.activeModal}
                       setTabsModal={this.props.setTabsModal}
                       tables={this.props.tables}
