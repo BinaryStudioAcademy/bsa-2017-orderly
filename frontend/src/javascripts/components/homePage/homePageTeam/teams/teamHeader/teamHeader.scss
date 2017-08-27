@@ -6,6 +6,7 @@
   display: flex;
   justify-content: space-between;
   border-bottom: 2px solid #EFEFEF;
+  align-items: center;
 
   .team-name-wrapper {
     overflow: hidden;
@@ -20,14 +21,29 @@
   }
 
   .share_block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
+    &:hover {
+      cursor: pointer;
+    }
+
+    .team_collaborators {
+      display: flex;
+    }
 
     .share_btn {
+      background: #0BC549;
+      color: #ffffff;
+      font-size: 12px;
+      border-radius: 20px;
+      padding: 3px 12px;
 
-      .team_collaborators {
 
-      }
+
     }
+
   }
 
 }

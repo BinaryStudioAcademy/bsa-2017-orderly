@@ -82,6 +82,13 @@ export const showContextMenu = (data, type, _id) => {
   }
 }
 
+export const showUserPopup = (userAndTeamId) => {
+	return {
+		type: 'SHOW_USER_POPUP',
+		userId: userAndTeamId
+	}
+}
+
 export const deleteBase = (data, type, _id) => {
   return {
     type: 'DELETE_BASE',

@@ -10,7 +10,6 @@ class TeamHeader extends Component {
 	}
 
 	componentDidMount() {
-		console.log(this.props.team, 'inside component will mount')
 		this.props.getCollaborators(this.props.team._id, R.pluck('userId', this.props.team.collaborators))
 	}
 
@@ -26,16 +25,13 @@ class TeamHeader extends Component {
 						     this.props.toggleTeamPopup(this.props.team._id, false)
 					     } , 3000)
 				     }}>{this.props.team.name}</div>
-				<ShareBlock team={this.props.team}/>
+				<ShareBlock collaborators={this.props.collaborators}
+				            isShowUserPopup={this.props.isShowUserPopup}
+				            showUserPopup={this.props.showUserPopup}
+				            team={this.props.team}/>
 			</div>
 		)
 	}
 }
-
-// const TeamHeader = ({ toggleTeamPopup, team, teamPopupIsShow }) => {
-// 	return (
-//
-// 	)
-// }
 
 export default TeamHeader;

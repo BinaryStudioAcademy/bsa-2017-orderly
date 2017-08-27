@@ -2,9 +2,12 @@ import React from 'react';
 
 import Collaborators from './collaborators';
 
-const ShareBlock = ({team}) => (
+const ShareBlock = ({team, collaborators, showUserPopup, isShowUserPopup}) => (
 	<div className='share_block'>
-		<Collaborators team={team}/>
+		<Collaborators collaborators={collaborators}
+		               isShowUserPopup={isShowUserPopup}
+	                   showUserPopup={showUserPopup}
+		               team={team}/>
 		<div className='share_btn'>SHARE</div>
 	</div>
 )

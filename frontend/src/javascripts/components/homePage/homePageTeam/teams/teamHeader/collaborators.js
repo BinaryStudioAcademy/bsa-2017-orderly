@@ -1,13 +1,21 @@
 import React from 'react';
 import R from 'ramda';
 
-let temporaryKey = 0;
+import CollaboratorItem from './collaboratorItem';
 
-const Collaborators = ({team}) => (
-	<div className='team_collaborators'>
-		{R.map( collaborator => <span key={collaborator._id || ++temporaryKey}>{collaborator.email}</span>)(team.collaborators || [])}
-	</div>
-)
+const Collaborators = ({ team, collaborators, showUserPopup, isShowUserPopup }) => {
+	if (R.isEmpty(collaborators)) return (<div></div>)
+	else return (
+		<div className='team_collaborators'>
+			{R.map(user =>
+				CollaboratorItem(team, user, collaborators[team._id][user.userId], showUserPopup,
+								isShowUserPopup)
+				)(team.collaborators || [])}
+		</div>
+
+	)
+}
+
 
 export default Collaborators;
 

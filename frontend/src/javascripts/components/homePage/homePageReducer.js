@@ -11,7 +11,8 @@ let initialState = {
 	showMenuforBase: 0,
 	teams: [],
 	activeModal: '',
-	collaborators: {}  //{teamId: {userId: {ObjectUser}}}
+	collaborators: {},  //{teamId: {userId: {ObjectUser}}}
+	isShowUserPopup: ['', '']   // arr[0] - teamId, arr[1] - userId
 }
 const baseStore = (state = initialState, action) => {
 
@@ -28,6 +29,9 @@ const baseStore = (state = initialState, action) => {
 					})(state.teams)
 				}
 			]);
+
+		case 'SHOW_USER_POPUP':
+			return R.merge(state, {isShowUserPopup: action.userId})
 
 		case 'GET_TEAMS_BY_USER_SUCCEEDED':
 			return R.merge(state, {teams: action.teams})
