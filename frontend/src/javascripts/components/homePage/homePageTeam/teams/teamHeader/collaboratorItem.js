@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image } from 'semantic-ui-react';
 import avatar from '../../../../../../images/avatar.png';
+import { debounce } from 'throttle-debounce';
 
 import { getRolesColor } from '../../../homePageService';
 import './collabolatorItem.scss';
@@ -10,13 +11,20 @@ const hidingPopupStyle = (isShowUserPopup, teamId, userId) => ({
 			 && isShowUserPopup[1] === userId ? 'block' : 'none'
 })
 
+const showPopup = debounce(200, (showFunc, settings) => {
+	showFunc(settings)
+})
+
 const CollaboratorItem = (team, teamUser, collaborator, showUserPopup, isShowUserPopup) => (
 	<span className='collaboration_item' key={teamUser.userId}>
 		<Image src={ collaborator.avatar ? `http://localhost:2020/files/${collaborator.avatar}` : avatar}
 		       className='collaborator_logo'
-		       onClick={() => {
-		       	    if (isShowUserPopup[0]) showUserPopup(['', ''])
-			        else showUserPopup([team._id, teamUser.userId])
+		       onMouseOver={() => {
+			       if (isShowUserPopup[0]) showUserPopup(['', ''])
+			       else showPopup(showUserPopup, [team._id, teamUser.userId])
+		       }}
+		       onMouseLeave={() => {
+			       showUserPopup(['', ''])
 		       }}
 		       avatar/>
 		<div style={{backgroundColor: 'green'}}	className='logo_user_status'/>

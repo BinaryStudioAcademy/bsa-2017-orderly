@@ -107,12 +107,11 @@ const baseStore = (state = initialState, action) => {
 			return R.mergeAll([
 				R.dissoc('teams', state),
 				{
-					teams: R.concat(
-						R.reject(R.propEq('_id', action.team._id))(state.teams),
-						[action.team]
-					)
+					teams: R.map( team => {
+						if (team._id === action.team._id) return action.team
+						else return team
+					})(state.teams)
 				}
-
 			])
 
 		case 'OPEN_CONTEXT_MENU':
