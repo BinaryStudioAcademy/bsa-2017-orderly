@@ -2,13 +2,15 @@ import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, deleteTable,
-    selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent, changeFieldType } from './dashboardActions';
-    import { getCurrentUser } from '../userProfile/userProfileActions';
+    selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
+    changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal } from './dashboardActions';
+import { getCurrentUser } from '../userProfile/userProfileActions';
 import { addField } from '../view/viewActions';
 
 const mapStateToProps = (state, ownProps) => {
     return ({
         base: state.dashboardReducer.base,
+        menu: state.baseStore.showMenuforBase,
         tables: state.dashboardReducer.tables,
         activeModal: state.dashboardReducer.activeModal,
         baseId: ownProps.params.baseId,
@@ -17,7 +19,10 @@ const mapStateToProps = (state, ownProps) => {
         renameIsError: state.dashboardReducer.renameIsError,
         selectedRecordId: state.dashboardReducer.selectedRecordId,
         activeRecordId: state.dashboardReducer.activeRecordId,
-        user: state.userProfile.user
+        recordDialogIndex: state.dashboardReducer.recordDialogIndex,
+        coworkers: state.dashboardReducer.coworkers,
+	    tableIdActiveModal: state.dashboardReducer.tableIdActiveModal,
+	    user: state.userProfile.user
     });
 }
 
@@ -32,7 +37,7 @@ const mapDispatchToProps = {
     setTabsModal: setTabsModal,
     checkTableName: checkTableName,
     updateTable: updateTable,
-	deleteTable: deleteTable,
+    deleteTable: deleteTable,
     addField: addField,
     addRecord: addRecord,
     selectRecord: selectRecord,
@@ -41,7 +46,11 @@ const mapDispatchToProps = {
     blurRecord: blurRecord,
     blurRecordComponent: blurRecordComponent,
     changeFieldType: changeFieldType,
-    getUser: getCurrentUser
+    openRecordDialog: openRecordDialog,
+    addComment: addComment,
+    getUser: getCurrentUser,
+    getCoworkersList: getCoworkersList,
+	setTableIdToActiveModal: setTableIdToActiveModal
 };
 
 const Dashboard = connect(

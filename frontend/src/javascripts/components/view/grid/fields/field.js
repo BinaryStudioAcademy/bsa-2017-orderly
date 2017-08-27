@@ -8,7 +8,7 @@ class Field extends Component {
         super(props);
         this.className = className;
 
-        this.keyDownHandler = this.keyDownHandler.bind(this);
+        this.keyPressHandler = this.keyPressHandler.bind(this);
     }
 
     fieldSelectedClass() {
@@ -31,8 +31,10 @@ class Field extends Component {
         return this.props.value;
     }
 
-    keyDownHandler(id, event) {
-        this.props.onKeyDown(id, event);
+    keyPressHandler(id, event) {
+        if (this.props.autoFocus) {
+            this.props.onKeyPress(id, event);
+        }
     }
 
     render() {
@@ -40,7 +42,7 @@ class Field extends Component {
             <div
                 className={"table-cell " + this.className + this.fieldSelectedClass() + this.fieldActiveClass()}
                 onClick={() => this.props.onSelect(this.props.id)}
-                onKeyDown={(event) => this.keyDownHandler(this.props.id, event)}
+                onKeyPress={(event) => this.keyPressHandler(this.props.id, event)}
                 onBlur={() => this.props.onBlurField(this.props.id)}
                 tabIndex="0"
             >

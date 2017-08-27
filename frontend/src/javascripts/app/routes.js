@@ -12,7 +12,6 @@ import SignUp from '../components/auth/signUp/signUp';
 import Login from '../components/auth/login/login';
 import Logout from '../components/auth/logout/logout';
 import Auth from '../components/auth/auth';
-import View from '../components/view/view';
 
 export default (
     <Route path="/" component={App}>
@@ -22,7 +21,6 @@ export default (
         <Route path="/signup" component={SignUp}/>
         <Route path="/login" component={Login}/>
         <Route path="/logout" component={Logout}/>
-        <Route path="/view" component={View}/>
         <Route path="404" component={NotFound}/>
         <Redirect from="*" to="404"/>
     </Route>

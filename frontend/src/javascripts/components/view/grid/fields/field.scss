@@ -1,9 +1,11 @@
+$table-cell-width: 153px;
+
 .table-cell-container{
   position: relative;
 }
 
 .table-cell {
-  width: 148px;
+  width: $table-cell-width;
   height: 31px;
 }
 
@@ -19,4 +21,8 @@
 .table-cell .table-cell-wrap {
   width: 100%;
   height: 100%;
+
+  .ui.input {
+    width: 100%;
+  }
 }

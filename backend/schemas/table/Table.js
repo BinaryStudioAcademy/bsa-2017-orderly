@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const tableSchema = new Schema({
     name: {
@@ -17,7 +18,7 @@ const tableSchema = new Schema({
         }],
         history: [{
             collaborator: {
-                type: Schema.Types.ObjectId,
+                type: ObjectId,
                 ref: 'User'
             },
             changes: {
@@ -26,16 +27,30 @@ const tableSchema = new Schema({
                 },
                 changed_to: {
                     type: String
+                },
+                field_id: {
+                    type: String
+                },
+                record_id: {
+                    type: String
                 }
+            },
+            date: {
+                type: Date,
+                default: Date.now
             }
         }],
         comments: [{
             collaborator: {
-                type: Schema.Types.ObjectId,
+                type: ObjectId,
                 ref: 'User'
             },
             message: {
                 type: String
+            },
+            created: {
+                type: Date,
+                default: Date.now
             }
         }]
     }],
@@ -54,9 +69,34 @@ const tableSchema = new Schema({
         }
     }],
     views: [{
-        type: Schema.Types.ObjectId,
-        ref: 'View'
+        type: {
+            type: String,
+            enum: ['grid', 'form', 'gallery', 'kanban'],
+            required: true
+        },
+        viewId: ObjectId,
+        ref: {
+            type: String,
+            enum: ['grid', 'form', 'gallery', 'kanban'],
+        }
     }]
 }, {versionKey: false});
 
 module.exports = mongoose.model('table', tableSchema);
+
+// gridViews: [{
+//     type: Schema.Types.ObjectId,
+//     ref: 'grid'
+// }],
+//     formViews: [{
+//     type: Schema.Types.ObjectId,
+//     ref: 'form'
+// }],
+//     galleryViews: [{
+//     type: Schema.Types.ObjectId,
+//     ref: 'gallery'
+// }],
+//     kanbanViews: [{
+//     type: Schema.Types.ObjectId,
+//     ref: 'kanban'
+// }],

@@ -24,7 +24,7 @@ const UserSchema = new Schema({
     },
     "avatar" : {
         "type": String,
-        "default": "avatar"
+        "trim": true
     },
     "country" : {
         "type": String,
