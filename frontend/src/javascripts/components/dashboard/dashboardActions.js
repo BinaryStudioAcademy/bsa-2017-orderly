@@ -28,9 +28,9 @@ const addTable = ({table, baseId}) => ({
     baseId: baseId
 });
 
-const switchTable = (_id) => ({
+const switchTable = (tableId) => ({
     type: 'SWITCH_TABLE',
-    _id: _id
+    tableId: tableId
 });
 
 const openMenu = (tableId) => ({
