@@ -3,9 +3,8 @@ import Header from './header/header';
 import Tabs from './tabs/tabs';
 import View from '../../view/view';
 import R from 'ramda';
-import io from 'socket.io-client';
 
-const socket = io('http://localhost:2020');
+import socket from '../../../app/socketIO';
 
 class Tools extends Component {
     constructor(props) {

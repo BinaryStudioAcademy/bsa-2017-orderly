@@ -24,7 +24,7 @@ const CollaboratorItem = (team, teamUser, collaborator, showUserPopup, isShowUse
 			       else showPopup(showUserPopup, [team._id, teamUser.userId])
 		       }}
 		       onMouseLeave={() => {
-			       showUserPopup(['', ''])
+			       showPopup(showUserPopup, ['', ''])
 		       }}
 		       avatar/>
 		<div style={{backgroundColor: 'green'}}	className='logo_user_status'/>

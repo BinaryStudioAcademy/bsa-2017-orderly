@@ -12,7 +12,8 @@ let initialState = {
 	teams: [],
 	activeModal: '',
 	collaborators: {},  //{teamId: {userId: {ObjectUser}}}
-	isShowUserPopup: ['', '']   // arr[0] - teamId, arr[1] - userId
+	isShowUserPopup: ['', ''],   // arr[0] - teamId, arr[1] - userId
+	activeShareModal: ''
 }
 const baseStore = (state = initialState, action) => {
 
@@ -29,6 +30,9 @@ const baseStore = (state = initialState, action) => {
 					})(state.teams)
 				}
 			]);
+
+		case 'CHANGE_SHARE_MODAL':
+			return R.merge(state, {activeShareModal: action.teamId})
 
 		case 'SHOW_USER_POPUP':
 			return R.merge(state, {isShowUserPopup: action.userId})

@@ -2,7 +2,7 @@ import HomePageContainer from './homePageContainer';
 import { connect } from 'react-redux';
 import { getTeamsByUser, getBasesByTeam, toggleTeamPopup,
 		setTeamModal, updateTeam, deleteTeam, addNewTeam,
-		getCollaborators, showUserPopup} from './homePageActions';
+		getCollaborators, showUserPopup, changeActiveShareModal} from './homePageActions';
 import { getCurrentUser } from '../userProfile/userProfileActions';
 
 
@@ -14,7 +14,8 @@ const mapStateToProps = (state) => ({
 	teamPopupIsShow: state.baseStore.teamPopupIsShow,
 	activeModal: state.baseStore.activeModal,
 	collaborators: state.baseStore.collaborators,
-	isShowUserPopup: state.baseStore.isShowUserPopup
+	isShowUserPopup: state.baseStore.isShowUserPopup,
+	activeShareModal: state.baseStore.activeShareModal
   });
 
 const mapDispatchToProps = {
@@ -27,7 +28,8 @@ const mapDispatchToProps = {
 	deleteTeam: deleteTeam,
 	addNewTeam: addNewTeam,
 	getCollaborators: getCollaborators,
-	showUserPopup: showUserPopup
+	showUserPopup: showUserPopup,
+	changeActiveShareModal: changeActiveShareModal
 }
 
 const HomePage = connect(

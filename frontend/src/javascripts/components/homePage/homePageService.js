@@ -1,5 +1,7 @@
 import R from 'ramda';
 
+const ROLES = ['owner', 'creator', 'editOnly', 'readOnly']
+
 const setName = (activeModal) => {
 	switch (activeModal) {
 		case 'settings': return 'Team settings'
@@ -26,8 +28,21 @@ const getRolesColor = (role) => {
 	}
 }
 
+const getRolesForDropdown = () => {
+	let idx = 0;
+	return R.map( role => {
+		let roleName = R.toLower(role)
+		return {
+			key: ++idx,
+			value: role,
+			text: R.toUpper(roleName.charAt(0)) + roleName.slice(1)
+		}
+	})(ROLES)
+}
+
 export {
 	setName,
 	createCollaboratorsObject,
-	getRolesColor
+	getRolesColor,
+	getRolesForDropdown
 }

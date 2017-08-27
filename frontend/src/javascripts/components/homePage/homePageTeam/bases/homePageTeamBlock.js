@@ -29,6 +29,8 @@ class HomePageTeamBlock extends Component {
 			<div className="team-wrapper">
 				<div className="team-block-wrapper">
 					<TeamList handleClick={this.props.handleClick}
+					          activeShareModal={this.props.activeShareModal}
+					          changeActiveShareModal={this.props.changeActiveShareModal}
 					          isShowUserPopup={this.props.isShowUserPopup}
 					          showUserPopup={this.props.showUserPopup}
 					          collaborators={this.props.collaborators}

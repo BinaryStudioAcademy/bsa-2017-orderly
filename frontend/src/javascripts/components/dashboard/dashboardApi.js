@@ -1,9 +1,8 @@
 import axios from 'axios';
 import R from 'ramda';
-import io from 'socket.io-client';
 
+import socket from '../../app/socketIO';
 const url = '/api';
-const socket = io('http://localhost:2020');
 
 const getBase = (_id) =>
     axios.get(url + '/base/' + _id)

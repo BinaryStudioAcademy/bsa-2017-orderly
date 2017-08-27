@@ -26,6 +26,8 @@ class TeamHeader extends Component {
 					     } , 3000)
 				     }}>{this.props.team.name}</div>
 				<ShareBlock collaborators={this.props.collaborators}
+				            activeShareModal={this.props.activeShareModal}
+				            changeActiveShareModal={this.props.changeActiveShareModal}
 				            isShowUserPopup={this.props.isShowUserPopup}
 				            showUserPopup={this.props.showUserPopup}
 				            team={this.props.team}/>

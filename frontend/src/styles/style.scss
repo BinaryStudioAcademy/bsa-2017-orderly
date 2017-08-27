@@ -5,9 +5,6 @@ body {
 .relative {
   position: relative;
 }
-.modal.team_modal {
-  padding-bottom: 0;
-}
-.modal.table_modal {
+.modal.team_modal, .modal.table_modal, .modal.share_modal {
   padding-bottom: 0;
 }

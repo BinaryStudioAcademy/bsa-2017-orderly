@@ -82,6 +82,13 @@ export const showContextMenu = (data, type, _id) => {
   }
 }
 
+export const changeActiveShareModal = (teamId) => {
+	return {
+		type: 'CHANGE_SHARE_MODAL',
+		teamId: teamId
+	}
+}
+
 export const showUserPopup = (userAndTeamId) => {
 	return {
 		type: 'SHOW_USER_POPUP',
