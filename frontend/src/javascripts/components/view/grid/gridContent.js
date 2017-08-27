@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
-import {Icon} from 'semantic-ui-react';
+import {Button, Icon} from 'semantic-ui-react';
 import * as gridActions from './gridActions';
 import {fieldIcons} from "../../configuration/fieldTypes";
 import './gridContent.scss';
@@ -12,7 +12,9 @@ import Number from './fields/number/number';
 import AutoNumber from './fields/autoNumber/autoNumber';
 import Url from './fields/url/url';
 import DateField from './fields/date/date';
+import Email from './fields/email/email';
 import FieldMenu from './fieldMenu/fieldMenu';
+import RecordDialog from '../recordDialog/recordDialog';
 
 const RowNum = ({tableId, recordId, index, deleteRecord}) => {
     return (
@@ -22,7 +24,7 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
     )
 };
 
-const Field = ({id, tableId, type, name, index, records, tableRecords, recordData, showFieldMenu,
+const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
                    changeFieldType, changeFieldName, deleteField}) => {
     return (
         <div className="field__items">
@@ -38,13 +40,12 @@ const Field = ({id, tableId, type, name, index, records, tableRecords, recordDat
                     changeFieldType={changeFieldType}
                     changeFieldName={changeFieldName}
                     deleteField={deleteField}
-                    records={records}
                     index={index}
                 />
             </div>
             <div className="field__items">
-                {tableRecords &&
-                 tableRecords.map((record, idx) => {
+                {records &&
+                records.map((record, idx) => {
                     return <Record key={record.record_data[index]._id}
                                    id={record.record_data[index]._id}
                                    recordIdx={idx}
@@ -58,100 +59,51 @@ const Field = ({id, tableId, type, name, index, records, tableRecords, recordDat
 };
 
 const Record = ({id, type, data, recordData, recordIdx}) => {
+    const fieldPayload = {
+        id: id,
+        value: data,
+        selected: recordData.isRecordSelected(id),
+        active: recordData.isRecordActive(id),
+        onSelect: recordData.selectRecordHandler,
+        onActivate: recordData.activateRecordHandler,
+        onKeyPress: recordData.keyPressSimpleRecordHandler,
+        onBlurField: recordData.blurRecordHandler,
+        onBlurComponent: recordData.blurRecordComponentHandler,
+        autoFocus: true
+    };
     let record = null;
     switch (type) {
         case 'longtext':
-            record = <LongText id={id}
-                               value={data}
-                               selected={recordData.isRecordSelected(id)}
-                               active={recordData.isRecordActive(id)}
-                               onSelect={recordData.selectRecordHandler}
-                               onActivate={recordData.activateRecordHandler}
-                               onKeyPress={recordData.keyPressRecordHandler}
-                               onBlurField={recordData.blurRecordHandler}
-                               onBlurComponent={recordData.blurRecordComponentHandler}
-                               onExpand={recordData.expandRecordHandler}
-            >
-            </LongText>;
+            const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler} };
+            record = <LongText {...fieldPayloadLongtext}/>;
             break;
 
         case 'number':
-            record = <Number   id={id}
-                               value={data}
-                               selected={recordData.isRecordSelected(id)}
-                               active={recordData.isRecordActive(id)}
-                               onSelect={recordData.selectRecordHandler}
-                               onActivate={recordData.activateRecordHandler}
-                               onKeyPress={recordData.keyPressSimpleRecordHandler}
-                               onBlurField={recordData.blurRecordHandler}
-                               onBlurComponent={recordData.blurRecordComponentHandler}
-            >
-            </Number>;
+            record = <Number {...fieldPayload}/>;
             break;
+
         case 'currency':
-            record = <CurrencyField   id={id}
-                               value={data}
-                               selected={recordData.isRecordSelected(id)}
-                               active={recordData.isRecordActive(id)}
-                               onSelect={recordData.selectRecordHandler}
-                               onActivate={recordData.activateRecordHandler}
-                               onKeyPress={recordData.keyPressSimpleRecordHandler}
-                               onBlurField={recordData.blurRecordHandler}
-                               onBlurComponent={recordData.blurRecordComponentHandler}
-            >
-            </CurrencyField >;
+            record = <CurrencyField {...fieldPayload}/>;
             break;
 
-	    case 'autonumber':
-	    	record = <AutoNumber id={id}
-		                         value={data}
-		                         recordIdx={recordIdx}
-		                         selected={recordData.isRecordSelected(id)}
-		                         active={recordData.isRecordActive(id)}
-		                         onSelect={recordData.selectRecordHandler}
-		                         onActivate={recordData.activateRecordHandler}
-		                         onKeyPress={recordData.keyPressSimpleRecordHandler}
-		                         onBlurField={recordData.blurRecordHandler}
-		                         onBlurComponent={recordData.blurRecordComponentHandler}
-		    />;
-		    break;
+        case 'autonumber':
+            record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
+            break;
 
-	    case 'url':
-	    	record = <Url      id={id}
-		                       value={data}
-		                       selected={recordData.isRecordSelected(id)}
-		                       onSelect={recordData.selectRecordHandler}
-		                       onBlurField={recordData.blurRecordHandler}
-		                       onKeyPress={recordData.keyPressSimpleRecordHandler}
-		                       active={recordData.isRecordActive(id)}
-		                       onBlurComponent={recordData.blurRecordComponentHandler}
-		                       onActivate={recordData.activateRecordHandler}/>;
-	    	break;
+        case 'url':
+            record = <Url {...fieldPayload}/>;
+            break;
+
         case 'date':
-        record = <DateField id={id}
-                           value={data}
-                           selected={recordData.isRecordSelected(id)}
-                           onSelect={recordData.selectRecordHandler}
-                           onBlurField={recordData.blurRecordHandler}
-                           onKeyPress={recordData.keyPressSimpleRecordHandler}
-                           active={recordData.isRecordActive(id)}
-                           onBlurComponent={recordData.blurRecordComponentHandler}
-                           onActivate={recordData.activateRecordHandler}
-                  >;
-                  </DateField>
-        break;
+            record = <DateField {...fieldPayload}/>;
+            break;
+
+        case 'email':
+            record = <Email {...fieldPayload}/>;
+            break;
+
         default:
-            record = <TextLine id={id}
-                               value={data}
-                               selected={recordData.isRecordSelected(id)}
-                               active={recordData.isRecordActive(id)}
-                               onSelect={recordData.selectRecordHandler}
-                               onActivate={recordData.activateRecordHandler}
-                               onKeyPress={recordData.keyPressSimpleRecordHandler}
-                               onBlurField={recordData.blurRecordHandler}
-                               onBlurComponent={recordData.blurRecordComponentHandler}
-            >
-            </TextLine>;
+            record = <TextLine {...fieldPayload}/>;
     }
 
     return (
@@ -185,32 +137,65 @@ class GridContent extends Component {
             <div>
                 <div className="wrapper__grid">
                     <div className="grid__content">
-                        <div className="content__rows">
+                        <div className="content__rows row-options-field">
                             <div className="rows__selector rows__row">
-                                <Icon name="delete"/>
+                                <Icon name="lock"/>
                             </div>
                             {this.props.currentTable &&
-                             this.props.currentTable.records.map((record, ind) => {
+                            this.props.currentTable.records.map((record, recordIndex) => {
                                 return <RowNum key={record._id}
                                                tableId= {this.props.currentTable._id}
                                                recordId={record._id}
-                                               index={ind}
+                                               index={recordIndex}
                                                deleteRecord={this.handleDeleteRecord}/>
-                             })
+                            })
                             }
                         </div>
+
                         <div className="content__body">
-                            {this.props.fieldsRecords &&
-                            this.props.fieldsRecords.map((field, fieldIndex) => {
+                            <div className="field__items row-options-field">
+                                <div className="content__field row-options-field">
+                                </div>
+                                <div className="field__item row-options-field">
+                                    {this.props.currentTable &&
+                                    this.props.currentTable.records.map((record, recordIndex) => {
+                                        return (
+                                            <div className="row-control-container" key={record._id}>
+                                                <Button
+                                                    className="record-dialog-btn"
+                                                    onClick={(event) => this.props.onOpenRecordDialog(recordIndex)}>
+                                                    <Icon name='expand'/>
+                                                </Button>
+                                            </div>
+                                        )
+                                    })}
+                                    {(this.props.recordDialogIndex === 0 || this.props.recordDialogIndex > 0) &&
+                                    <RecordDialog
+                                        record={this.props.currentTable.records[this.props.recordDialogIndex]}
+                                        fields={this.props.currentTable.fields}
+                                        recordData={this.props.recordData}
+                                        recordIndex={this.props.recordDialogIndex}
+                                        onOpenRecordDialog={this.props.onOpenRecordDialog}
+                                        onKeyPressComment={this.props.onKeyPressComment}
+                                        user={this.props.user}
+                                        tableId={this.props.currentTable._id}
+                                    />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="content__body">
+                            {this.props.currentTable &&
+                            this.props.currentTable.fields.map((field, fieldIndex) => {
                                 return <Field
                                     key={field._id}
                                     id={field._id}
                                     name={field.name}
                                     type={field.type}
                                     index={fieldIndex}
-                                    records={field.records}
+                                    records={this.props.currentTable.records}
                                     recordData={this.props.recordData}
-                                    tableRecords={this.props.currentTable.records}
                                     showFieldMenu={this.props.showFieldMenu}
                                     changeFieldType={this.props.changeFieldType}
                                     changeFieldName={this.props.changeFieldName}
@@ -243,3 +228,18 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GridContent);
+
+
+// {this.props.fieldsRecords &&
+// this.props.fieldsRecords.map((field, ind) => {
+//     return (
+//         <div className="content__field item__row-selector">
+//             <span className="item__row_num">{ind}</span>
+//         </div>
+//     )
+// })}
+
+
+//<div className="content__field item__row-selector">
+//    <input type="checkbox"/>
+//</div>

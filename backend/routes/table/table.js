@@ -4,8 +4,7 @@ const R = require('ramda');
 const tableRepository = require('../../repositories/table/tableRepository');
 const { defaultTable } = require('../../config/defaultTable');
 
-
-// tables
+// tables -------------------------------------
 router.post('/', (request, response, next) => {
     let newTable = request.body || defaultTable;
     tableRepository.add(R.merge(newTable, request.body))
@@ -61,7 +60,7 @@ router.delete('/:id', (request, response, next) => {
         });
 });
 
-// records
+// records -------------------------------------
 router.get('/:id/records', (request, response) => {
     tableRepository.getRecords(request.params.id)
         .then((records) => response.status(200).send(records))
@@ -95,7 +94,7 @@ router.delete('/:id/records/:recordId', (request, response) => {
         .catch((err) => response.sendStatus(500).send(err));
 });
 
-// field
+// fields -------------------------------------
 router.get('/:id/fields', (request, response) => {
     tableRepository.getFields(request.params.id)
         .then((fields) => response.status(200).send(fields))
@@ -136,6 +135,28 @@ router.delete('/:id/fields', (request, response) => {
     tableRepository.deleteAllFields(request.params.id)
         .then((result) => response.send(result))
         .catch((err) => response.sendStatus(500).send(err));
+});
+
+// views -------------------------------------
+router.get('/:id/views/ids/:ids', (request, response, next) => {
+    tableRepository.getByIds(request.params.ids.split(':'))
+        .then((tables) => response.status(200).send(tables))
+        .catch((error) => {
+            response.status(400);
+            next(error);
+        });
+});
+
+router.post('/:id/views', (request, response) => {
+    tableRepository.addView(request.params.id, request.body.viewId)
+        .then((result) => response.status(200).send(result))
+        .catch((err) => response.status(500).send(err));
+});
+
+router.delete('/:id/views/:viewId', (request, response) => {
+    tableRepository.deleteView(request.params.id, request.params.viewId)
+        .then((result) => response.status(200).send(result))
+        .catch((err) => response.status(500).send(err));
 });
 
 module.exports = router;

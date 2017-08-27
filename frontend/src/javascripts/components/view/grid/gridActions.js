@@ -10,13 +10,12 @@ export function toggleFieldMenu() {
     };
 }
 
-export function changeFieldType(tableId, fieldType, fieldId, records) {
+export function changeFieldType(tableId, fieldType, fieldId) {
     return {
         type: CHANGE_FIELD_TYPE,
         tableId: tableId,
         fieldType: fieldType,
-        fieldId: fieldId,
-        records: records,
+        fieldId: fieldId
     };
 }
 
