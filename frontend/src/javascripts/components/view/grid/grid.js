@@ -1,15 +1,36 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 import GridHeader from './gridHeader';
 import GridContent from './gridContent';
+import * as gridActions from './gridActions';
 import './grid.scss';
 
-export default class Grid extends Component{
+class Grid extends Component{
+    constructor(props) {
+        super(props);
+    }
+
+    handleSort = (payload) => {
+        this.props.sortRecords(this.props.currentTable, payload.fieldId, payload.sortOption);
+    };
+
+    handleFilter = (payload) => {
+        this.props.filterRecords(this.props.currentTable, payload.fieldId, payload.condition, payload.filterQuery);
+    };
+
     render() {
         return (
             <div className="grid-view">
-                <GridHeader/>
+                <GridHeader
+                    currentTable={this.props.currentTable}
+                    sortRecords={this.handleSort}
+                    filterRecords={this.handleFilter}
+                />
                 <GridContent
                     currentTable={this.props.currentTable}
+                    sortedRecords={this.props.sortedRecords}
+                    filteredRecords={this.props.filteredRecords}
                     recordData={this.props.recordData}
                     onAddField={this.props.onAddField}
                     onAddRecord={this.props.onAddRecord}
@@ -26,3 +47,16 @@ export default class Grid extends Component{
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        sortedRecords: state.grid.sortedRecords,
+        filteredRecords: state.grid.filteredRecords,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(gridActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Grid);

@@ -3,30 +3,6 @@ import { Icon } from 'semantic-ui-react';
 import {fieldIcons, fieldNames} from "../../../configuration/fieldTypes";
 import './fieldMenu.scss';
 
-const FieldOptions = ({id, tableId, excludeType, changeFieldType, closeMenu}) => {
-    let fieldOptions = [];
-    for (let [fieldType, fieldIcon, _] of Object.entries(fieldIcons)) {
-        if (fieldType !== excludeType) {
-            fieldOptions.push(
-                <div key={fieldType}
-                     className="menu__field-option"
-                     onClick={() => {
-                         closeMenu();
-                         return changeFieldType(tableId, fieldType, id)}
-                     }>
-                    <Icon name={fieldIcon} className="field__icon"/>
-                    <span>{fieldNames[fieldType]}</span>
-                </div>
-            );
-        }
-    }
-    return (
-        <div>
-            {fieldOptions}
-        </div>
-    );
-};
-
 export default class FieldMenu extends Component {
     constructor(props) {
         super(props);
@@ -111,3 +87,28 @@ export default class FieldMenu extends Component {
         );
     }
 }
+
+
+const FieldOptions = ({id, tableId, excludeType, changeFieldType, closeMenu}) => {
+    let fieldOptions = [];
+    for (let [fieldType, fieldIcon, _] of Object.entries(fieldIcons)) {
+        if (fieldType !== excludeType) {
+            fieldOptions.push(
+                <div key={fieldType}
+                     className="menu__field-option"
+                     onClick={() => {
+                         closeMenu();
+                         return changeFieldType(tableId, fieldType, id)}
+                     }>
+                    <Icon name={fieldIcon} className="field__icon"/>
+                    <span>{fieldNames[fieldType]}</span>
+                </div>
+            );
+        }
+    }
+    return (
+        <div>
+            {fieldOptions}
+        </div>
+    );
+};

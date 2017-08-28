@@ -1,9 +1,27 @@
 import React, {Component} from 'react';
 import {Icon, Button} from 'semantic-ui-react';
 import {viewIcons} from '../../configuration/viewTypes';
+import FilterMenu from './headerMenu/filterMenu';
+import SortMenu from './headerMenu/sortMenu';
 import './gridHeader.scss';
 
 export default class GridHeader extends Component{
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            activeMenu: null,
+        };
+    }
+
+    toggleMenu = (menu) => {
+        if (this.state.activeMenu === menu) {
+            this.setState({activeMenu: null});
+        } else {
+            this.setState({activeMenu: menu});
+        }
+    };
+
     render() {
         return (
             <div className="view__header">
@@ -16,7 +34,7 @@ export default class GridHeader extends Component{
                         <Icon name='hide'/>
                         <span className="menu__text">Hide fields</span>
                     </Button>
-                    <Button basic>
+                    <Button basic onClick={() => this.toggleMenu('filter')}>
                         <Icon name='filter'/>
                         <span className="menu__text">Filter</span>
                     </Button>
@@ -24,7 +42,7 @@ export default class GridHeader extends Component{
                         <Icon name='browser'/>
                         <span className="menu__text">Group</span>
                     </Button>
-                    <Button basic>
+                    <Button basic onClick={() => this.toggleMenu('sort')}>
                         <Icon name='sort content ascending'/>
                         <span className="menu__text">Sort</span>
                     </Button>
@@ -32,6 +50,16 @@ export default class GridHeader extends Component{
                     <Button basic icon='ellipsis horizontal'/>
                 </Button.Group>
                 <Icon name="search" id="header__search" size='large'/>
+                <SortMenu
+                    isActive={this.state.activeMenu === 'sort'}
+                    currentTable={this.props.currentTable}
+                    sortRecords={this.props.sortRecords}
+                />
+                <FilterMenu
+                    isActive={this.state.activeMenu === 'filter'}
+                    currentTable={this.props.currentTable}
+                    filterRecords={this.props.filterRecords}
+                />
             </div>
         );
     }

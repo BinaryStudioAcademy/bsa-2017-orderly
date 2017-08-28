@@ -152,8 +152,7 @@ class GridContent extends Component {
                                                recordId={record._id}
                                                index={recordIndex}
                                                deleteRecord={this.handleDeleteRecord}/>
-                            })
-                            }
+                            })}
                         </div>
 
                         <div className="content__body">
@@ -231,18 +230,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GridContent);
-
-
-// {this.props.fieldsRecords &&
-// this.props.fieldsRecords.map((field, ind) => {
-//     return (
-//         <div className="content__field item__row-selector">
-//             <span className="item__row_num">{ind}</span>
-//         </div>
-//     )
-// })}
-
-
-//<div className="content__field item__row-selector">
-//    <input type="checkbox"/>
-//</div>

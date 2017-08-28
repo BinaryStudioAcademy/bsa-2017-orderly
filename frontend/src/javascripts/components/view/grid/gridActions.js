@@ -1,14 +1,9 @@
-export const TOGGLE_FIELD_MENU = 'TOGGLE_FIELD_MENU';
 export const CHANGE_FIELD_TYPE = 'CHANGE_FIELD_TYPE';
 export const CHANGE_FIELD_NAME = 'CHANGE_FIELD_NAME';
 export const DELETE_FIELD = 'DELETE_FIELD';
 export const DELETE_RECORD = 'DELETE_RECORD';
-
-export function toggleFieldMenu() {
-    return {
-        type: TOGGLE_FIELD_MENU
-    };
-}
+export const SORT_RECORDS = 'SORT_RECORDS';
+export const FILTER_RECORDS = 'FILTER_RECORDS';
 
 export function changeFieldType(tableId, fieldType, fieldId) {
     return {
@@ -41,5 +36,24 @@ export function deleteRecord(tableId, recordId) {
         type: DELETE_RECORD,
         tableId: tableId,
         recordId: recordId
+    };
+}
+
+export function sortRecords(table, fieldId, sortOption) {
+    return {
+        type: SORT_RECORDS,
+        table: table,
+        fieldId: fieldId,
+        sortOption: sortOption
+    };
+}
+
+export function filterRecords(table, fieldId, condition, filterQuery) {
+    return {
+        type: FILTER_RECORDS,
+        table: table,
+        fieldId: fieldId,
+        condition: condition,
+        filterQuery: filterQuery,
     };
 }

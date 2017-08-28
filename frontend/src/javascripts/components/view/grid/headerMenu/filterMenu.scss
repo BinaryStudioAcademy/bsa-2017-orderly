@@ -1,0 +1,25 @@
+.filter__menu {
+  display: block;
+  max-width: 50rem;
+  background-color: #FFF;
+  border: 1px solid #AAA;
+  border-radius: 4px;
+  padding: 5px 10px;
+  z-index: 5;
+  position: absolute;
+  top: 160px;
+  left: 275px;
+}
+
+.menu__item {
+  margin: 5px;
+}
+
+.item__conditions {
+  display: inline-flex;
+  //width: 150px;
+}
+
+.hide {
+  display: none;
+}
