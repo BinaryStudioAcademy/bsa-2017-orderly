@@ -22,15 +22,20 @@ const setActive = (tableId) => ({
     tableId: tableId
 });
 
+const setTableIdToActiveModal = (tableId) => ({
+    type: 'SET_TABLE_ID_TO_ACTIVE_MODAL',
+    tableId: tableId
+})
+
 const addTable = ({table, baseId}) => ({
     type: 'ADD_TABLE',
     table: table,
     baseId: baseId
 });
 
-const switchTable = (_id) => ({
+const switchTable = (tableId) => ({
     type: 'SWITCH_TABLE',
-    _id: _id
+    tableId: tableId
 });
 
 const openMenu = (tableId) => ({
@@ -161,6 +166,7 @@ export {
     setTabsModal,
     checkTableName,
     addTableToBaseById,
+	setTableIdToActiveModal,
     updateTable,
     addRecord,
     selectRecord,

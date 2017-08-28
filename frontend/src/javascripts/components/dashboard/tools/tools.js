@@ -3,9 +3,8 @@ import Header from './header/header';
 import Tabs from './tabs/tabs';
 import View from '../../view/view';
 import R from 'ramda';
-import io from 'socket.io-client';
 
-const socket = io('http://localhost:2020');
+import socket from '../../../app/socketIO';
 
 class Tools extends Component {
     constructor(props) {
@@ -101,6 +100,8 @@ class Tools extends Component {
                         menu={this.props.menu}
                         handleClick={this.props.handleClick}  />
                 <Tabs base={this.props.base}
+                      tableIdActiveModal={this.props.tableIdActiveModal}
+                      setTableIdToActiveModal={this.props.setTableIdToActiveModal}
                       activeModal={this.props.activeModal}
                       setTabsModal={this.props.setTabsModal}
                       tables={this.props.tables}

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const userRepository = require('../../repositories/user/userRepository');
-const { defaultTable } = require('../../config/defaultTable');
+const { defaultTable } = require('../../config/defaultEntities');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');

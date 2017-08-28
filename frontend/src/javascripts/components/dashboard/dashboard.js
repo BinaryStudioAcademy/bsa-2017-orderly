@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, deleteTable,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
-    changeFieldType, openRecordDialog, addComment, getCoworkersList } from './dashboardActions';
+    changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal } from './dashboardActions';
 import { getCurrentUser } from '../userProfile/userProfileActions';
 import { addField } from '../view/viewActions';
 
@@ -21,7 +21,8 @@ const mapStateToProps = (state, ownProps) => {
         activeRecordId: state.dashboardReducer.activeRecordId,
         recordDialogIndex: state.dashboardReducer.recordDialogIndex,
         coworkers: state.dashboardReducer.coworkers,
-        user: state.userProfile.user
+	    tableIdActiveModal: state.dashboardReducer.tableIdActiveModal,
+	    user: state.userProfile.user
     });
 }
 
@@ -48,7 +49,8 @@ const mapDispatchToProps = {
     openRecordDialog: openRecordDialog,
     addComment: addComment,
     getUser: getCurrentUser,
-    getCoworkersList: getCoworkersList
+    getCoworkersList: getCoworkersList,
+	setTableIdToActiveModal: setTableIdToActiveModal
 };
 
 const Dashboard = connect(
