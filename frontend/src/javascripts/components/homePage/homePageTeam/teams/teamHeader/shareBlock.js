@@ -74,7 +74,7 @@ const ShareBlock = ({team, collaborators, showUserPopup, isShowUserPopup, active
 						if (!R.isEmpty(collaborators)) {
 							const collaborator = collaborators[team._id][user.userId]
 							return (
-							<div className='member_wrapper'>
+							<div key={user.userId} className='member_wrapper'>
 								<div className='popup_mainpart'>
 									<img
 										src={ collaborator.avatar ? `http://localhost:2020/files/${collaborator.avatar}` : avatar}
