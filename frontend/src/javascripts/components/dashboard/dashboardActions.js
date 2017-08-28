@@ -22,6 +22,11 @@ const setActive = (tableId) => ({
     tableId: tableId
 });
 
+const setTableIdToActiveModal = (tableId) => ({
+    type: 'SET_TABLE_ID_TO_ACTIVE_MODAL',
+    tableId: tableId
+})
+
 const addTable = ({table, baseId}) => ({
     type: 'ADD_TABLE',
     table: table,
@@ -161,6 +166,7 @@ export {
     setTabsModal,
     checkTableName,
     addTableToBaseById,
+	setTableIdToActiveModal,
     updateTable,
     addRecord,
     selectRecord,

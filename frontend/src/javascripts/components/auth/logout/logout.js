@@ -2,9 +2,8 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
 import * as LogoutActions from './logoutActions';
-import io from 'socket.io-client';
 
-const socket = io('http://localhost:2020');
+import socket from '../../../app/socketIO';
 
 class Logout extends React.Component {
 
