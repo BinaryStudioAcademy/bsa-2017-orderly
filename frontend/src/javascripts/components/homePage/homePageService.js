@@ -40,8 +40,16 @@ const getRolesForDropdown = () => {
 	})(ROLES)
 }
 
+const filterFunc = R.curry((value, user) =>
+	R.test(new RegExp(value, 'i'), user.email)
+	|| (user.firstName && R.test(new RegExp(value, 'i'), user.firstName))
+	|| (user.lastName && R.test(new RegExp(value, 'i'), user.lastName))
+)
+
+
 export {
 	setName,
+	filterFunc,
 	createCollaboratorsObject,
 	getRolesColor,
 	getRolesForDropdown

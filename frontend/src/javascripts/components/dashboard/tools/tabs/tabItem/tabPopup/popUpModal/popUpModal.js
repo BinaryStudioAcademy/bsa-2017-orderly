@@ -86,7 +86,6 @@ const PopUpModal = ({table, tables, activeModal, setTabsModal, tablesNames, rena
 						if (activeModal === 'delete') {
 							deleteTable(table._id);
 							setTabsModal('');
-							console.log(tables[0]._id, 'first table')
 							switchTableClick(tables[0]._id)
 							browserHistory.push(`/dashboard/${base._id}/${tables[0]._id}`)
 							return;

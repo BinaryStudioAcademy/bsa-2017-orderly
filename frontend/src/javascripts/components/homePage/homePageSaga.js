@@ -1,7 +1,9 @@
 import { call, put, takeEvery} from 'redux-saga/effects';
+import R from 'ramda';
 import { addBaseToTeam, updateBaseById, updateTeam,
 		deleteBase, getTeamsByUserId, getBasesByTeam,
-		deleteTeam, addTeam, getCollaborators} from './homePageApi';
+		deleteTeam, addTeam, getCollaborators, getAllUsers,
+		addCollaborator, deleteCollaborator, updateCollaboratorRole} from './homePageApi';
 
 
 function* gettingBasesByTeam(action) {
@@ -89,6 +91,61 @@ function* gettingCollaborators(action) {
 	}
 }
 
+function* gettingUsers() {
+	try {
+		const users = yield call(getAllUsers);
+		yield put({ type: 'GET_ALL_USERS_SUCCEEDED', users: users })
+	} catch (err) {
+		yield put({ type: 'GET_ALL_USERS_FAILED', message: err.message});
+	}
+}
+
+function* addingCollaborator(action) {
+	try {
+		const addObject = {
+			teamId: action.teamId,
+			userId: action.userId,
+			role: action.role
+		}
+		const team = yield call(addCollaborator, addObject)
+		yield put({ type: 'UPDATE_TEAM_SUCCEEDED', team: team })
+		yield put({
+			type: 'GET_COLLABORATORS',
+			teamId: action.teamId,
+			usersIds: R.pluck('userId', team.collaborators)
+		})
+	} catch (err) {
+		yield put({ type: 'UPDATE_TEAM_FAILED', message: err.message});
+	}
+}
+
+function* deletingCollaborators(action) {
+	try {
+		const deleteObject = {
+			teamId: action.teamId,
+			userId: action.userId
+		}
+		const team = yield call(deleteCollaborator, deleteObject);
+		yield put({ type: 'UPDATE_TEAM_SUCCEEDED', team: team })
+	} catch (err) {
+		yield put({ type: 'UPDATE_TEAM_FAILED', message: err.message});
+	}
+}
+
+function* updatingCollaboratorRole(action) {
+	try {
+		const updatingObject = {
+			teamId: action.teamId,
+			userId: action.userId,
+			role: action.role
+		}
+		const team = yield call(updateCollaboratorRole, updatingObject)
+		yield put({ type: 'UPDATE_TEAM_SUCCEEDED', team: team })
+	} catch (err) {
+		yield put({ type: 'UPDATE_TEAM_FAILED', message: err.message});
+	}
+}
+
 function* homePageSaga() {
     yield takeEvery('ADD_NEW_BASE', addingBase);
     yield takeEvery('CHANGE_BASE_PARAM', updateBase);
@@ -98,7 +155,11 @@ function* homePageSaga() {
     yield takeEvery('UPDATE_TEAM', updatingTeam);
     yield takeEvery('DELETE_TEAM', deletingTeam);
     yield takeEvery('ADD_NEW_TEAM', addingTeam);
-    yield takeEvery('GET_COLLABORATORS', gettingCollaborators)
+    yield takeEvery('GET_COLLABORATORS', gettingCollaborators);
+    yield takeEvery('GET_ALL_USERS', gettingUsers);
+	yield takeEvery('ADD_COLLABORATOR', addingCollaborator);
+	yield takeEvery('DELETE_COLLABORATOR', deletingCollaborators);
+	yield takeEvery('UPDATE_COLLABORATOR_ROLE', updatingCollaboratorRole);
 }
 
 export default homePageSaga;

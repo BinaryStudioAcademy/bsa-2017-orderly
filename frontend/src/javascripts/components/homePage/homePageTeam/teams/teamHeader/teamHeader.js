@@ -9,8 +9,10 @@ class TeamHeader extends Component {
 		super(props)
 	}
 
-	componentDidMount() {
-		this.props.getCollaborators(this.props.team._id, R.pluck('userId', this.props.team.collaborators))
+	componentWillMount() {
+		if (R.isEmpty(this.props.collaborators)) {
+			this.props.getCollaborators(this.props.team._id, R.pluck('userId', this.props.team.collaborators))
+		}
 	}
 
 	render() {
@@ -26,6 +28,11 @@ class TeamHeader extends Component {
 					     } , 3000)
 				     }}>{this.props.team.name}</div>
 				<ShareBlock collaborators={this.props.collaborators}
+				            updateCollaboratorRole={this.props.updateCollaboratorRole}
+				            deleteCollaborator={this.props.deleteCollaborator}
+				            addCollaborator={this.props.addCollaborator}
+			                allUsers={this.props.allUsers}
+				            getAllUsers={this.props.getAllUsers}
 				            activeShareModal={this.props.activeShareModal}
 				            changeActiveShareModal={this.props.changeActiveShareModal}
 				            isShowUserPopup={this.props.isShowUserPopup}
