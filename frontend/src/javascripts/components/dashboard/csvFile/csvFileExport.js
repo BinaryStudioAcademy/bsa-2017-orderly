@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Icon } from 'semantic-ui-react';
 import { CSVLink } from 'react-csv';
 import './csvFile.scss'
 
@@ -45,7 +46,7 @@ class ExportCSV extends Component {
         return(
             <div className='download-csv'>
                 <CSVLink filename={"my-file.csv"} data={this.state.csvRow} separator={";"}>
-                    CSV ⬇
+                    <Icon link name='download' size='large' />
                 </CSVLink>
             </div>
         )
