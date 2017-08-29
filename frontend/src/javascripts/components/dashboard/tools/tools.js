@@ -98,8 +98,11 @@ class Tools extends Component {
                 <Header base={this.props.base} 
                         user={this.props.user} 
                         menu={this.props.menu}
-                        handleClick={this.props.handleClick}  />
+                        handleClick={this.props.handleClick}
+                        />
                 <Tabs base={this.props.base}
+                      currentTableId={this.props.currentTableId}
+                      tables={this.props.tables}
                       tableIdActiveModal={this.props.tableIdActiveModal}
                       setTableIdToActiveModal={this.props.setTableIdToActiveModal}
                       activeModal={this.props.activeModal}
@@ -116,7 +119,8 @@ class Tools extends Component {
                       updateTable={this.props.updateTable}
                       deleteTable={this.props.deleteTable}
                       addTableClick={this.props.addTableClick}
-                      coworkers={this.props.coworkers}/>
+                      coworkers={this.props.coworkers}
+                        />
                 <View currentTable={currentTable}
                       recordData={recordData}
                       openRecordDialog={this.props.openRecordDialog}
