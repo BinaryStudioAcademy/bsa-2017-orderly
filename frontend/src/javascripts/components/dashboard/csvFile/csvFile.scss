@@ -9,3 +9,15 @@
         text-decoration: none;
     }
 }
+.dropzone-wrapper {
+    vertical-align: middle;
+    position: relative;
+    height: auto;
+    .dropzone {
+        padding-top: 30%;
+        i.large.icon {
+            color: white;
+        }
+    }
+
+}

@@ -5,6 +5,7 @@ import AddTabBtn from './addTabBtn/addTabBtn';
 import TabItem from './tabItem/tabItem';
 import Coworkers from './coworkers/coworkers';
 import ExportCSV from '../../csvFile/csvFileExport'
+import ImportCSV from '../../csvFile/csvFileImport'
 import './tabs.scss';
 
 const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
@@ -31,9 +32,8 @@ const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
             <Coworkers coworkers={coworkers}/>
             <Button className='share_btn header-icon' size='mini'>share</Button>
             <Icon inverted link className='header-icon' name='history' size='large'/>
-            <ExportCSV currentTableId={currentTableId}
-                tables={tables}
-                />
+            <ImportCSV currentTableId={currentTableId} tables={tables}/>
+            <ExportCSV currentTableId={currentTableId} tables={tables} />
         </div>
     </div>
 );
