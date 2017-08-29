@@ -1,7 +1,18 @@
 require('../../db/dbConnect');
 const Repository = require('../generalRepository');
 const Table = require('../../schemas/table/Table');
+const Grid = require('../../schemas/view/gridSchema');
+const Form = require('../../schemas/view/formSchema');
+const Gallery = require('../../schemas/view/gallerySchema');
+const Kanban = require('../../schemas/view/kanbanSchema');
 const objectId = require('mongoose').Types.ObjectId;
+
+const typeToSchema = {
+    'grid': Grid,
+    'form': Form,
+    'gallery': Gallery,
+    'kanban': Kanban,
+};
 
 let that;
 
@@ -16,7 +27,8 @@ class TableRepository extends Repository {
     getByIds(ids) {
         return this.model.find({'_id': {$in: ids}})
             .populate('records.history.collaborator')
-            .populate('records.comments.collaborator');
+            .populate('records.comments.collaborator')
+            .populate('views.view');
     }
 
     update(id, body) {
@@ -129,20 +141,33 @@ class TableRepository extends Repository {
             {'$pull': {fields: {}}});
     }
 
+    getViews(tableId) {
+        return this.model.findById(tableId).select('views');
+    }
+
+    getView(tableId, viewId) {
+        return this.model.findById(tableId, {views: viewId});
+    }
+
+    getFromView(viewId, viewType){
+        const viewModel = typeToSchema[viewType];
+        return viewModel.findById(objectId(viewId));
+    }
+
     addView(tableId, viewId, viewType) {
         return this.model.update(
             {_id: objectId(tableId)},
-            {'$push': {views: {viewId, type: viewType}}},
+            {'$push': {views: {view: viewId, type: viewType}}},
             {'new': true}
         );
     }
 
     deleteView(tableId, viewId) {
-        return this.model.findById(objectId(tableId))
-            .then((table) => {
-                table.views = table.views.filter((v) => v.viewId.toString() !== viewId);
-                return table.save();
-            });
+        return this.model.findByIdAndUpdate(
+            tableId,
+            {'$pull': {views: {_id: viewId}}},
+            {'new': true}
+        );
     }
 }
 

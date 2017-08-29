@@ -12,8 +12,15 @@ import InDevelopment from '../in_developing/InDeveloping';
 class View extends Component {
     constructor(props) {
         super(props);
-        this.props = props;
     }
+
+    // componentWillReceiveProps(nextProps){
+    //     if (nextProps.currentTable) {
+    //         if (!this.props.view.currentView) {
+    //             this.props.changeView(nextProps.currentTable.views[0].view._id);
+    //         }
+    //     }
+    // }
 
     capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1);
 
@@ -27,7 +34,8 @@ class View extends Component {
     };
 
     viewSelector(listOfViews) {
-        const activeView = listOfViews.filter((v) => v.id === this.props.view.currentView).pop();
+        const activeView = listOfViews.filter((v) => v.view._id === this.props.view.currentView).pop();
+        console.log(activeView);
         switch (activeView.type) {
         case 'grid':
             return <Grid
@@ -76,17 +84,17 @@ class View extends Component {
                       onClick={this.handleToggleSelector}/>
                 <div className={this.props.view.showSelector ? 'view__selector' : 'hide'}>
                     <div className="selector__options">
-                    {this.props.view.views.map((view, ind) => {
+                    {this.props.currentTable.views.map((view, ind) => {
                         return (
                             <div key={ind}
                                  className="selector__option"
-                                 onClick={() => this.handleChangeView(view.id)}>
+                                 onClick={() => this.handleChangeView(view.view._id)}>
                                 <Icon
                                     name="checkmark"
-                                    className={view.id === this.props.view.currentView
+                                    className={view._id === this.props.view.currentView
                                         ? '' : 'option__notActive'}/>
                                 <Icon name={viewIcons[view.type]}/>
-                                {view.name}
+                                {view.view.name}
                             </div>
                         )
                     })}
@@ -97,7 +105,7 @@ class View extends Component {
                         {viewTypes}
                     </div>
                 </div>
-                {this.viewSelector(this.props.view.views)}
+                {this.viewSelector(this.props.currentTable.views)}
             </div>
         );
     }
@@ -114,4 +122,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(viewActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(View);
+function mergeProps(state, actions, ownProps) {
+    return {onLoad: ownProps.currentView ? null: () => actions.changeView(ownProps.currentView) }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(View);

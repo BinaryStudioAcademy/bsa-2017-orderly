@@ -8,7 +8,7 @@ const MOCK_VIEWS = [
 ];
 
 const initialState = {
-    currentView: 1,
+    currentView: null,
     showSelector: false,
     currentField: 0,
     showFieldMenu: false,
