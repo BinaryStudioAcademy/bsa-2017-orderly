@@ -19,15 +19,22 @@ constructor(props) {
   }
 
   handleFile = (event) => {
+    
+    let hasExtension = (inputID, exts) => {
+      return (new RegExp('(' + exts.join('|').replace(/\./g, '\\.') + ')$')).test(event.target.files[0].name);
+    }
+    
     let file = event.target.files[0];
-      if (file.size <= 2097152) {
+    const data = new FormData();
+    data.append('file', event.target.files[0]);
+    data.append('userId', this.props.user._id)
 
-      const data = new FormData();
-      data.append('file', event.target.files[0]);
-      data.append('userId', this.props.user._id)
-      this.props.handleFile(data);
-    } else {
+    if (file.size > 2097152 ) {
       alert ('please upload the photo with the size less than 2MB')
+    } else if (!hasExtension(file, ['.jpg', '.gif', '.png'])) {
+      alert("Sorry, " + event.target.files[0].name + " is invalid, allowed extensions are: .jpg, .png, and .gif");
+    } else {
+      this.props.handleFile(data);
     }
   }
 
