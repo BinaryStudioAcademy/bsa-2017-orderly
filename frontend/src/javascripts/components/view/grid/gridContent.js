@@ -13,6 +13,7 @@ import AutoNumber from './fields/autoNumber/autoNumber';
 import Url from './fields/url/url';
 import DateField from './fields/date/date';
 import Email from './fields/email/email';
+import Phone from './fields/phone/phone';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
@@ -100,6 +101,9 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
 
         case 'email':
             record = <Email {...fieldPayload}/>;
+            break;
+        case 'phone':
+            record = <Phone {...fieldPayload}/>;
             break;
 
         default:
