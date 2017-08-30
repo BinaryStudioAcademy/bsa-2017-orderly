@@ -14,13 +14,11 @@ class View extends Component {
         super(props);
     }
 
-    // componentWillReceiveProps(nextProps){
-    //     if (nextProps.currentTable) {
-    //         if (!this.props.view.currentView) {
-    //             this.props.changeView(nextProps.currentTable.views[0].view._id);
-    //         }
-    //     }
-    // }
+    componentWillMount(){
+        if (!this.props.view.currentView) {
+            this.props.changeView(this.props.currentTable.views[0].view._id);
+        }
+    }
 
     capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1);
 
@@ -34,8 +32,7 @@ class View extends Component {
     };
 
     viewSelector(listOfViews) {
-        const activeView = listOfViews.filter((v) => v.view._id === this.props.view.currentView).pop();
-        console.log(activeView);
+        const activeView = listOfViews.find((v) => v.view._id === this.props.view.currentView);
         switch (activeView.type) {
         case 'grid':
             return <Grid
@@ -121,9 +118,5 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(viewActions, dispatch);
 }
-
-// function mergeProps(state, actions, ownProps) {
-//     return {onLoad: ownProps.currentView ? null: () => actions.changeView(ownProps.currentView) }
-// }
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);
