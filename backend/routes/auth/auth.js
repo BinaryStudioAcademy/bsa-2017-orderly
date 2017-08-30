@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const validator = require('validator');
 const passport = require('passport');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 const userRepository = require('../../repositories/user/userRepository');
 
 /**
@@ -145,6 +147,104 @@ router.post('/login', (req, res, next) => {
             user: userData
         });
     })(req, res, next);
+});
+
+router.post('/forgot', (req, res, next) => {
+    crypto.randomBytes(20, function(err, buf) {
+        const token = buf.toString('hex');
+
+        userRepository.get({email: req.body.email})
+            .then((user) => {
+
+                user.resetPasswordToken = token;
+                user.resetPasswordExpires = Date.now() + 3600000;
+
+                user.save((err) => {
+                    if (err) {
+                        return res.status(400).json({
+                            error: 'Database is not available.'
+                        });
+                    }
+
+                    smtpTrans = nodemailer.createTransport({
+                        service: 'Gmail',
+                        auth: {
+                            user: 'orderly.bsa@gmail.com',
+                            pass: 'bsa2017orderly'
+                        }
+                    });
+                    const host = req.headers.origin ? req.headers.origin : req.headers.host;
+                    let mailOptions = {
+                        to: user.email,
+                        from: 'Orderly',
+                        subject: 'no-reply (Reset Password)',
+                        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                        'http://' + host + '/reset/' + token + '\n\n' +
+                        'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                    };
+                    smtpTrans.sendMail(mailOptions, () => {
+                        return res.status(200).json({
+                            message: `An e-mail has been sent to ${user.email} with further instructions.`
+                        });
+                    });
+                });
+            })
+            .catch((err) => res.status(400).json({
+                error: 'The email you entered does not belong to any account.'
+            }));
+    });
+});
+
+router.post('/reset/:token', (req, res, next) => {
+    userRepository.get({
+        resetPasswordToken: req.params.token,
+        resetPasswordExpires: {$gt: Date.now()}
+    })
+        .then((user) => {
+            if (typeof req.body.password !== 'string' || req.body.password.trim().length < 6) {
+                return res.status(400).json({
+                    error: 'Password must have at least 6 characters.'
+                });
+            }
+
+            user.password = req.body.password;
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
+
+            user.save((err) => {
+                req.body.email = user.email;
+
+                passport.authenticate('local-login', (err, token, userData) => {
+
+                    smtpTrans = nodemailer.createTransport({
+                        service: 'Gmail',
+                        auth: {
+                            user: 'orderly.bsa@gmail.com',
+                            pass: 'bsa2017orderly'
+                        }
+                    });
+                    const mailOptions = {
+                        to: 'user.email',
+                        from: 'Orderly',
+                        subject: 'no-reply (Your password has been changed)',
+                        text: 'Hello,\n\n' +
+                        'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+                    };
+                    smtpTrans.sendMail(mailOptions);
+
+                    return res.json({
+                        success: true,
+                        message: 'Your password has been successfully changed.',
+                        token,
+                        user: userData
+                    });
+                })(req, res, next);
+            });
+        })
+        .catch((err) => res.status(400).json({
+            error: 'Password reset token is invalid or has expired.'
+        }));
 });
 
 module.exports = router;

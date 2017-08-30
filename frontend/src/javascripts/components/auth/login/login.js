@@ -52,11 +52,11 @@ class Login extends React.Component {
                         </Header>
                         <div id="form_heading">
                             <h3>Sign in</h3>
-                            <a href="#">Forgot password?</a>
+                            <Link to={'/forgot'}>Forgot password?</Link>
                         </div>
                         <Grid.Row>
                             <Grid.Column>
-                                <Form action="/" /*method="get"*/ size="big"
+                                <Form action="/" size="big"
                                     onSubmit={this.processForm}
                                     onChange={this.changeUserData}>
                                     {(!R.isEmpty(this.props.login.errors) ||
