@@ -1,6 +1,6 @@
 import { FORGOT_PASSWORD, FORGOT_PASSWORD_ERROR, FORGOT_PASSWORD_RESPONSE } from './forgotActions';
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { forgot } from './forgotPassApi';
+import { forgot } from './forgotApi';
 
 function* fetchForgotPassword(action) {
     try {
