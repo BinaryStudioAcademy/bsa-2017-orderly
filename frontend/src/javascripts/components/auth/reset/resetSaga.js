@@ -8,19 +8,15 @@ function* fetchResetPassword(action) {
         const response = yield call(reset, {token: action.token, password: action.password});
         yield put({ type: RESET_PASSWORD_RESPONSE, data: response });
         yield call(loginService.login, response);
+        yield call(loginService.redirectLoggedInUser);
     } catch (err) {
         console.warn(err);
         yield put({ type: RESET_PASSWORD_ERROR, message: err.message });
     }
 }
 
-function* redirectUser() {
-    yield call(loginService.redirectLoggedInUser);
-}
-
 function* resetSaga() {
     yield takeEvery(RESET_PASSWORD, fetchResetPassword);
-    yield takeEvery(REDIRECT_USER, redirectUser);
 }
 
 export default resetSaga;

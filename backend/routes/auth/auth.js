@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const validator = require('validator');
 const passport = require('passport');
-const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const userRepository = require('../../repositories/user/userRepository');
+const emailService = require ('../../services/emailService');
 
 /**
  * Validate the sign up form
@@ -18,7 +18,7 @@ function validateSignupForm(payload) {
         errors.email = 'Please provide a correct email address.';
     }
 
-    if (!payload || typeof payload.password !== 'string' || payload.password.trim().length < 6) {
+    if (!isValidSignupPassword(payload)) {
         isFormValid = false;
         errors.password = 'Password must have at least 6 characters.';
     }
@@ -44,6 +44,9 @@ function validateSignupForm(payload) {
     };
 }
 
+function isValidSignupPassword(payload) {
+    return (payload && typeof payload.password === 'string' && payload.password.trim().length >= 6);
+}
 /**
  * Validate the login form
  */
@@ -156,33 +159,20 @@ router.post('/forgot', (req, res, next) => {
         userRepository.get({email: req.body.email})
             .then((user) => {
 
-                user.resetPasswordToken = token;
-                user.resetPasswordExpires = Date.now() + 3600000;
+                user.reset_password_token = token;
+                user.reset_password_expires = Date.now() + 3600000; // One hour
 
                 user.save((err) => {
                     if (err) {
                         return res.status(400).json({
-                            error: 'Database is not available.'
+                            error: 'Internal error'
                         });
                     }
 
-                    smtpTrans = nodemailer.createTransport({
-                        service: 'Gmail',
-                        auth: {
-                            user: 'orderly.bsa@gmail.com',
-                            pass: 'bsa2017orderly'
-                        }
-                    });
                     const host = req.headers.origin ? req.headers.origin : req.headers.host;
-                    let mailOptions = {
-                        to: user.email,
-                        from: 'Orderly',
-                        subject: 'no-reply (Orderly password reset)',
-                        text: 'To reset your Orderly password, please click this link:\n\n' +
-                        host + '/reset/' + token + '\n\n' +
-                        'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-                    };
-                    smtpTrans.sendMail(mailOptions, () => {
+                    const resetLink = host + '/reset/' + token;
+
+                    emailService.sendResetPasswordLink(user.email, resetLink, () => {
                         return res.status(200).json({
                             message: `Please check your email. We sent an email to ${user.email}, which contains a link to reset your password.`
                         });
@@ -197,45 +187,31 @@ router.post('/forgot', (req, res, next) => {
 
 router.post('/reset/:token', (req, res, next) => {
     userRepository.get({
-        resetPasswordToken: req.params.token,
-        resetPasswordExpires: {$gt: Date.now()}
+        reset_password_token: req.params.token,
+        reset_password_expires: {$gt: Date.now()}
     })
         .then((user) => {
-            if (typeof req.body.password !== 'string' || req.body.password.trim().length < 6) {
+            if (!isValidSignupPassword(req.body)) {
                 return res.status(400).json({
                     error: 'Password must have at least 6 characters.'
                 });
             }
 
             user.password = req.body.password;
-            user.resetPasswordToken = undefined;
-            user.resetPasswordExpires = undefined;
+            user.reset_password_token = undefined;
+            user.reset_password_expires = undefined;
 
             user.save((err) => {
                 req.body.email = user.email;
 
                 passport.authenticate('local-login', (err, token, userData) => {
 
-                    smtpTrans = nodemailer.createTransport({
-                        service: 'Gmail',
-                        auth: {
-                            user: 'orderly.bsa@gmail.com',
-                            pass: 'bsa2017orderly'
-                        }
-                    });
-                    const mailOptions = {
-                        to: 'user.email',
-                        from: 'Orderly',
-                        subject: 'no-reply (Your password has been changed)',
-                        text: 'Hello,\n\n' +
-                        'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
-                    };
-                    smtpTrans.sendMail(mailOptions);
+                    emailService.sendPasswordChangedNotification(user.email);
 
                     return res.json({
                         success: true,
                         message: 'Your password has been successfully changed.',
-                        token,
+                        token: token,
                         user: userData
                     });
                 })(req, res, next);

@@ -4,7 +4,7 @@ import { forgot } from './forgotApi';
 
 function* fetchForgotPassword(action) {
     try {
-        const response = yield call(forgot, {email: action.email});
+        const response = yield call(forgot, action.email);
         yield put({ type: FORGOT_PASSWORD_RESPONSE, data: response });
     } catch (err) {
         console.warn(err);
