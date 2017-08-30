@@ -8,6 +8,10 @@ class UserRepository extends Repository {
         this.model = User;
     }
 
+    getByIds(ids) {
+        return this.model.find({'_id': {$in: ids}})
+    }
+
     setCurrentUser(user) {
         currentUser = user;
     }

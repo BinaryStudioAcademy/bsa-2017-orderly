@@ -13,27 +13,28 @@ class UserProfile extends Component {
         }
     }
     componentWillReceiveProps(nextProps) {
-        this.setState({ 
-        avatar: nextProps.user.avatar ? nextProps.user.avatar : '' 
-        })
+        if (nextProps.user) {
+            this.setState({ 
+            avatar: nextProps.user.avatar ? nextProps.user.avatar : '' 
+            })
+        }
     }
 
     render() {
+        let username = '';
+        if (this.props.user) {
+            username = this.props.user.firstName + ' ' + this.props.user.lastName;
+        }
         return (
-            <div id="user-info">
-                <Link to={'/user-page'}>
-                    <Image  src={ this.state.avatar != '' ? 
-                        `http://localhost:2020/files/${this.props.user.avatar}` 
-                        : avatar} 
-                    avatar />
-                    {this.props.user && <span>{this.props.user.firstName + ' ' + this.props.user.lastName}</span>}
+            <span id="user-info" className="header-icon">
+                <Link to={'/user-page'} title={username}>
+                    <Image  src={ this.state.avatar != '' ?
+                        `http://localhost:2020/files/${this.props.user.avatar}`
+                        : avatar}
+                            avatar />
+                    <span className="user-status"></span>
                 </Link>
-                <div className="user-profile-logout-wrapper">
-                    <Link to={'/logout'} className="logout">
-                        <Icon name="log out"/>Logout
-                    </Link>
-                </div>
-            </div>
+            </span>
         );
     }
 }

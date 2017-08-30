@@ -8,6 +8,10 @@ class BaseRepository extends Repository {
         this.model = Base;
     }
 
+    remove(id) {
+        return this.model.findByIdAndRemove(id);
+    }
+
     addTableToBase(baseId, tableId) {
         return this.model.findByIdAndUpdate(
             baseId,

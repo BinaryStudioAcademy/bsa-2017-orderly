@@ -13,8 +13,8 @@ class TextLine extends Field {
             onBlur={(event) => this.props.onBlurComponent(this.props.id, event.target.value)}
             defaultValue={this.props.value}
             type='text'
-            autoFocus={true}
-        />;
+            autoFocus={this.props.autoFocus}
+        />
     }
 }
 

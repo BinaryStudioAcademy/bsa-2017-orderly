@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import Header from './header/header';
 import Tabs from './tabs/tabs';
 import View from '../../view/view';
-import {formatFieldsRecords} from "../dashboardService";
 import R from 'ramda';
+
+import socket from '../../../app/socketIO';
 
 class Tools extends Component {
     constructor(props) {
@@ -18,12 +19,19 @@ class Tools extends Component {
         this.keyPressSimpleRecordHandler = this.keyPressSimpleRecordHandler.bind(this);
         this.blurRecordHandler = this.blurRecordHandler.bind(this);
         this.blurRecordComponentHandler = this.blurRecordComponentHandler.bind(this);
-        this.expandRecordHandler = this.expandRecordHandler.bind(this);
+        this.keyPressCommentHandler = this.keyPressCommentHandler.bind(this);
     }
 
     componentWillMount() {
         this.props.getBaseCurrent(this.props.baseId, this.props.currentTableId);
         this.props.getUser();
+    }
+
+    componentDidMount() {
+        const _this = this;
+        socket.on('server-get-coworkers-list', function (coworkers) {
+            _this.props.getCoworkersList(coworkers);
+        });
     }
 
     isRecordSelected(id) {
@@ -44,7 +52,7 @@ class Tools extends Component {
 
     keyPressRecordHandler(id) {
         if (!this.isRecordActive(id)) {
-            this.props.changeRecord(this.props.currentTableId, id, '');
+            this.props.changeRecord(this.props.currentTableId, id, '', this.props.user);
             this.props.activateRecord(id);
         }
     }
@@ -63,20 +71,16 @@ class Tools extends Component {
     }
 
     blurRecordComponentHandler(id, value) {
-        this.props.changeRecord(this.props.currentTableId, id, value);
+        this.props.changeRecord(this.props.currentTableId, id, value, this.props.user);
         this.props.blurRecordComponent(id);
     }
 
-    expandRecordHandler(id) {
-        //this.props.expandRecord(id);
+    keyPressCommentHandler(userId, recordId, tableId, comment) {
+        this.props.addComment(userId, recordId, tableId, comment);
     }
 
     render() {
         const currentTable = R.find(R.propEq('_id', this.props.currentTableId))(this.props.tables);
-        let fieldsRecords;
-        if (currentTable) {
-            fieldsRecords = formatFieldsRecords(currentTable.fields, currentTable.records);
-        }
         const recordData = {
             isRecordSelected: this.isRecordSelected,
             isRecordActive: this.isRecordActive,
@@ -86,7 +90,6 @@ class Tools extends Component {
             keyPressSimpleRecordHandler: this.keyPressSimpleRecordHandler,
             blurRecordHandler: this.blurRecordHandler,
             blurRecordComponentHandler: this.blurRecordComponentHandler,
-            expandRecordHandler: this.expandRecordHandler
         };
         return (
             <div onClick={() => {
@@ -97,6 +100,8 @@ class Tools extends Component {
                         menu={this.props.menu}
                         handleClick={this.props.handleClick}  />
                 <Tabs base={this.props.base}
+                      tableIdActiveModal={this.props.tableIdActiveModal}
+                      setTableIdToActiveModal={this.props.setTableIdToActiveModal}
                       activeModal={this.props.activeModal}
                       setTabsModal={this.props.setTabsModal}
                       tables={this.props.tables}
@@ -110,10 +115,14 @@ class Tools extends Component {
                       checkTableName={this.props.checkTableName}
                       updateTable={this.props.updateTable}
                       deleteTable={this.props.deleteTable}
-                      addTableClick={this.props.addTableClick}/>
+                      addTableClick={this.props.addTableClick}
+                      coworkers={this.props.coworkers}/>
                 <View currentTable={currentTable}
-                      fieldsRecords={fieldsRecords}
-                      recordData={recordData}/>
+                      recordData={recordData}
+                      openRecordDialog={this.props.openRecordDialog}
+                      recordDialogIndex={this.props.recordDialogIndex}
+                      keyPressCommentHandler={this.keyPressCommentHandler}
+                      user={this.props.user}/>
             </div>
         );
     }

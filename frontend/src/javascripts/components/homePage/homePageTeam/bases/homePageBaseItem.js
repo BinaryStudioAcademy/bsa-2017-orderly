@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
 import { Link } from 'react-router';
-import ContextMenuIcon from '../../contextMenu/contextMenuIcon';
+import ContextMenuIcon from '../../../contextMenu/contextMenuIcon';
 import './homePageBaseItem.scss'
 
 class BaseItem extends Component {

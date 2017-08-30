@@ -9,7 +9,6 @@ export default class Grid extends Component{
                 <GridHeader/>
                 <GridContent
                     currentTable={this.props.currentTable}
-                    fieldsRecords={this.props.fieldsRecords}
                     recordData={this.props.recordData}
                     onAddField={this.props.onAddField}
                     onAddRecord={this.props.onAddRecord}
@@ -17,6 +16,10 @@ export default class Grid extends Component{
                     showFieldMenu={this.props.showFieldMenu}
                     changeFieldType={this.props.changeFieldType}
                     changeFieldName={this.props.changeFieldName}
+                    onOpenRecordDialog={this.props.onOpenRecordDialog}
+                    recordDialogIndex={this.props.recordDialogIndex}
+                    onKeyPressComment={this.props.onKeyPressComment}
+                    user={this.props.user}
                 />
             </div>
         );
