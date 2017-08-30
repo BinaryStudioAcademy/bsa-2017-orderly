@@ -69,6 +69,24 @@ router.post('/:teamId/base', (req, res) => Promise.all(
     .catch((err) => res.status(500).send(err))
 );
 
+router.put('/:teamId/collaborators', (req, res) => {
+	teamRepository.addCollaboratorToTeam(req.params.teamId, req.body)
+		.then(team => res.status(200).send(team))
+		.catch(err => res.status(500).send(err))
+})
+
+router.delete('/:teamId/collaborators/:userId', (req, res) => {
+	teamRepository.removeCollaborators(req.params.teamId, req.params.userId)
+		.then(team => res.status(200).send(team))
+		.catch(err => res.status(500).send(err))
+})
+
+router.put('/:teamId/collaborators/:userId', (req, res) => {
+	teamRepository.updateMemberRole(req.params.teamId, req.params.userId, req.body.role)
+		.then(team => res.status(200).send(team))
+		.catch(err => res.status(500).send(err))
+})
+
 router.get('/user/:userId', (req, res) => {
     teamRepository.getByOwner(req.params.userId)
         .then((result) => {

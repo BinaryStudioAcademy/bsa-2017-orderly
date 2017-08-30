@@ -13,7 +13,8 @@ let initialState = {
 	activeModal: '',
 	collaborators: {},  //{teamId: {userId: {ObjectUser}}}
 	isShowUserPopup: ['', ''],   // arr[0] - teamId, arr[1] - userId
-	activeShareModal: ''
+	activeShareModal: '',
+	allUsers: []
 }
 const baseStore = (state = initialState, action) => {
 
@@ -30,6 +31,9 @@ const baseStore = (state = initialState, action) => {
 					})(state.teams)
 				}
 			]);
+
+		case 'GET_ALL_USERS_SUCCEEDED':
+			return R.merge(state, {allUsers: action.users})
 
 		case 'CHANGE_SHARE_MODAL':
 			return R.merge(state, {activeShareModal: action.teamId})
@@ -91,7 +95,6 @@ const baseStore = (state = initialState, action) => {
 			]);
 
 		case 'DELETE_TEAM_SUCCEEDED':
-			console.log(action, 'DELETE_TEAM_SUCCEEDED')
 			return R.mergeAll([
 				R.dissoc('teams', state),
 				{
