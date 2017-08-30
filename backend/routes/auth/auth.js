@@ -177,15 +177,14 @@ router.post('/forgot', (req, res, next) => {
                     let mailOptions = {
                         to: user.email,
                         from: 'Orderly',
-                        subject: 'no-reply (Reset Password)',
-                        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                        'http://' + host + '/reset/' + token + '\n\n' +
+                        subject: 'no-reply (Orderly password reset)',
+                        text: 'To reset your Orderly password, please click this link:\n\n' +
+                        host + '/reset/' + token + '\n\n' +
                         'If you did not request this, please ignore this email and your password will remain unchanged.\n'
                     };
                     smtpTrans.sendMail(mailOptions, () => {
                         return res.status(200).json({
-                            message: `An e-mail has been sent to ${user.email} with further instructions.`
+                            message: `Please check your email. We sent an email to ${user.email}, which contains a link to reset your password.`
                         });
                     });
                 });
