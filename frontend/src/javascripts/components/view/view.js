@@ -122,8 +122,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(viewActions, dispatch);
 }
 
-function mergeProps(state, actions, ownProps) {
-    return {onLoad: ownProps.currentView ? null: () => actions.changeView(ownProps.currentView) }
-}
+// function mergeProps(state, actions, ownProps) {
+//     return {onLoad: ownProps.currentView ? null: () => actions.changeView(ownProps.currentView) }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(View);
+export default connect(mapStateToProps, mapDispatchToProps)(View);

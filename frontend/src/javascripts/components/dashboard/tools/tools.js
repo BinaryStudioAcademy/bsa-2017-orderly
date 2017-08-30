@@ -117,12 +117,14 @@ class Tools extends Component {
                       deleteTable={this.props.deleteTable}
                       addTableClick={this.props.addTableClick}
                       coworkers={this.props.coworkers}/>
+                {currentTable &&
                 <View currentTable={currentTable}
                       recordData={recordData}
                       openRecordDialog={this.props.openRecordDialog}
                       recordDialogIndex={this.props.recordDialogIndex}
                       keyPressCommentHandler={this.keyPressCommentHandler}
                       user={this.props.user}/>
+                }
             </div>
         );
     }
