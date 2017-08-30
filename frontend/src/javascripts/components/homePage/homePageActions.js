@@ -5,6 +5,10 @@ export const addNewBase = (teamId) => {
   }
 }
 
+export const getAllUsers = () => ({
+	type: 'GET_ALL_USERS',
+})
+
 export const toggleTeamPopup = (teamId, isShow) => {
 	return {
 		type: 'TOGGLE_TEAM_POPUP',
@@ -18,6 +22,32 @@ export const getCollaborators = (teamId, usersIds) => {
 		type: 'GET_COLLABORATORS',
 		teamId: teamId,
 		usersIds: usersIds
+	}
+}
+
+export const addCollaborator = (teamId, userId, role) => {
+	return {
+		type: 'ADD_COLLABORATOR',
+		teamId: teamId,
+		userId: userId,
+		role: role
+	}
+}
+
+export const updateCollaboratorRole = (teamId, userId, role) => {
+	return {
+		type: 'UPDATE_COLLABORATOR_ROLE',
+		teamId: teamId,
+		userId: userId,
+		role:role
+	}
+}
+
+export const deleteCollaborator = (teamId, userId) => {
+	return {
+		type: 'DELETE_COLLABORATOR',
+		teamId: teamId,
+		userId: userId
 	}
 }
 

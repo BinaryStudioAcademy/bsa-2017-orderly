@@ -19,6 +19,11 @@ class HomePageContainer extends React.Component {
         <HomePageHeader user={this.props.user}/>
         <div className = 'home-page-body'>
           <HomePageTeamBlock teams={this.props.teams}
+                             updateCollaboratorRole={this.props.updateCollaboratorRole}
+                             deleteCollaborator={this.props.deleteCollaborator}
+                             addCollaborator={this.props.addCollaborator}
+                             allUsers={this.props.allUsers}
+                             getAllUsers={this.props.getAllUsers}
                              activeShareModal={this.props.activeShareModal}
                              changeActiveShareModal={this.props.changeActiveShareModal}
                              isShowUserPopup={this.props.isShowUserPopup}

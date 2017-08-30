@@ -23,6 +23,32 @@ class TeamRepository extends Repository {
 		    {'new': true}
 	    );
     }
+
+	addCollaboratorToTeam(teamId, user) {
+		return this.model.findByIdAndUpdate(
+    		teamId,
+		    {'$push': { collaborators:user}},
+		    {'new': true}
+	    );
+	}
+
+	removeCollaborators(teamId, userId) {
+		return this.model.findByIdAndUpdate(
+			teamId,
+			{'$pull': {collaborators: {userId: userId}}},
+			{'new': true}
+		)
+	}
+
+	updateMemberRole(teamId, userId, role) {
+		return this.model.findOneAndUpdate({
+    		_id: teamId,
+		    'collaborators.userId': userId
+			},
+	        {$set: {'collaborators.$.role' : role}},
+			{'new': true}
+	    )
+	}
 }
 
 module.exports = new TeamRepository();
