@@ -1,4 +1,3 @@
-export const CHANGE_VIEW = 'CHANGE_VIEW';
 export const TOGGLE_SELECTOR = 'TOGGLE_SELECTOR';
 export const GET_FIELDS = 'GET_FIELDS';
 export const ADD_FIELD = 'ADD_FIELD';
@@ -9,13 +8,6 @@ export const TOGGLE_FIELD_MENU = 'TOGGLE_FIELD_MENU';
 export function toggleSelector() {
     return {
         type: TOGGLE_SELECTOR
-    };
-}
-
-export function changeView(viewId) {
-    return {
-        type: CHANGE_VIEW,
-        viewId
     };
 }
 

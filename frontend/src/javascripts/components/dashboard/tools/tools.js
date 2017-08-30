@@ -35,11 +35,11 @@ class Tools extends Component {
     }
 
     isRecordSelected(id) {
-        return this.props.selectedRecordId == id;
+        return this.props.selectedRecordId === id;
     }
 
     isRecordActive(id) {
-        return this.props.activeRecordId == id;
+        return this.props.activeRecordId === id;
     }
 
     selectRecordHandler(id) {
@@ -95,10 +95,10 @@ class Tools extends Component {
             <div onClick={() => {
                 // this.props.closeMenu();
             }}>
-                <Header base={this.props.base} 
-                        user={this.props.user} 
+                <Header base={this.props.base}
+                        user={this.props.user}
                         menu={this.props.menu}
-                        handleClick={this.props.handleClick}  />
+                        handleClick={this.props.handleClick}/>
                 <Tabs base={this.props.base}
                       tableIdActiveModal={this.props.tableIdActiveModal}
                       setTableIdToActiveModal={this.props.setTableIdToActiveModal}
@@ -119,6 +119,8 @@ class Tools extends Component {
                       coworkers={this.props.coworkers}/>
                 {currentTable &&
                 <View currentTable={currentTable}
+                      currentView={currentTable.views[0].view._id}
+                      changeView={this.props.changeView}
                       recordData={recordData}
                       openRecordDialog={this.props.openRecordDialog}
                       recordDialogIndex={this.props.recordDialogIndex}

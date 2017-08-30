@@ -14,12 +14,6 @@ class View extends Component {
         super(props);
     }
 
-    componentWillMount(){
-        if (!this.props.view.currentView) {
-            this.props.changeView(this.props.currentTable.views[0].view._id);
-        }
-    }
-
     capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1);
 
     handleToggleSelector = () => {
@@ -37,7 +31,7 @@ class View extends Component {
     };
 
     viewSelector(listOfViews) {
-        const activeView = listOfViews.find((v) => v.view._id === this.props.view.currentView);
+        const activeView = listOfViews.find((v) => v.view._id === this.props.currentView);
         switch (activeView.type) {
         case 'grid':
             return <Grid
@@ -65,12 +59,13 @@ class View extends Component {
 
     render() {
         let viewTypes = [];
-        for (let [viewName, viewIcon] of Object.entries(viewIcons)){
+        for (let [viewName, viewIcon] of Object.entries(viewIcons)) {
             viewTypes.push(
                 <div key={viewName} className="add-view__option" onClick={() => this.handleAddView(viewName)}>
                     <Icon name={viewIcon}/>
                     <span>{this.capitalize(viewName)}</span>
-                </div>)}
+                </div>)
+        }
         if (!this.props.currentTable) {
             return (
                 <h2 className="view__no-tables">
@@ -86,20 +81,20 @@ class View extends Component {
                       onClick={this.handleToggleSelector}/>
                 <div className={this.props.view.showSelector ? 'view__selector' : 'hide'}>
                     <div className="selector__options">
-                    {this.props.currentTable.views.map((view, ind) => {
-                        return (
-                            <div key={ind}
-                                 className="selector__option"
-                                 onClick={() => this.handleChangeView(view.view._id)}>
-                                <Icon
-                                    name="checkmark"
-                                    className={view._id === this.props.view.currentView
-                                        ? '' : 'option__notActive'}/>
-                                <Icon name={viewIcons[view.type]}/>
-                                {view.view.name}
-                            </div>
-                        )
-                    })}
+                        {this.props.currentTable.views.map((view, ind) => {
+                            return (
+                                <div key={ind}
+                                     className="selector__option"
+                                     onClick={() => this.handleChangeView(view.view._id)}>
+                                    <Icon
+                                        name="checkmark"
+                                        className={view._id === this.props.currentView
+                                            ? '' : 'option__notActive'}/>
+                                    <Icon name={viewIcons[view.type]}/>
+                                    {view.view.name}
+                                </div>
+                            )
+                        })}
                     </div>
                     <hr/>
                     <div className="add-view__menu">
@@ -116,7 +111,6 @@ class View extends Component {
 function mapStateToProps(state) {
     return {
         view: state.view,
-        dashboard: state.dashboardReducer
     };
 }
 
