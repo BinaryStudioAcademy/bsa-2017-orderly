@@ -31,6 +31,11 @@ class View extends Component {
         this.handleToggleSelector();
     };
 
+    handleAddView = (viewType) => {
+        console.log(this.props.currentTable);
+        console.log(viewType);
+    };
+
     viewSelector(listOfViews) {
         const activeView = listOfViews.find((v) => v.view._id === this.props.view.currentView);
         switch (activeView.type) {
@@ -60,11 +65,11 @@ class View extends Component {
 
     render() {
         let viewTypes = [];
-        for (let [k, val] of Object.entries(viewIcons)){
+        for (let [viewName, viewIcon] of Object.entries(viewIcons)){
             viewTypes.push(
-                <div key={k} className="add-view__option" onClick={() => this.handleAddView()}>
-                    <Icon name={val}/>
-                    <span>{this.capitalize(k)}</span>
+                <div key={viewName} className="add-view__option" onClick={() => this.handleAddView(viewName)}>
+                    <Icon name={viewIcon}/>
+                    <span>{this.capitalize(viewName)}</span>
                 </div>)}
         if (!this.props.currentTable) {
             return (
