@@ -156,11 +156,11 @@ class TableRepository extends Repository {
     }
 
     addView(tableId, viewId, viewType) {
-        return this.model.update(
-            {_id: objectId(tableId)},
+        return this.model.findByIdAndUpdate(
+            tableId,
             {'$push': {views: {view: viewId, type: viewType}}},
             {'new': true}
-        );
+        ).populate('views.view');
     }
 
     deleteView(tableId, viewId) {

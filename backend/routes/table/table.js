@@ -12,11 +12,8 @@ router.post('/', (request, response, next) => {
         [
             tableRepository.add(R.merge(newTable, request.body)),
             gridRepository.add(defaultView())
-        ]
-    )
-        .then(([table, view]) => {
-            tableRepository.addView(table._id, view._id, view.type);
-        })
+        ])
+        .then(([table, view]) => tableRepository.addView(table._id, view._id, view.type))
         .then((table) => response.status(201).send(table))
         .catch((error) => {
             response.status(400);
