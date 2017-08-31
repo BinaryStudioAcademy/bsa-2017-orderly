@@ -4,6 +4,7 @@ export const DELETE_FIELD = 'DELETE_FIELD';
 export const DELETE_RECORD = 'DELETE_RECORD';
 export const SORT_RECORDS = 'SORT_RECORDS';
 export const FILTER_RECORDS = 'FILTER_RECORDS';
+export const REMOVE_FILTER = 'REMOVE_FILTER';
 
 export function changeFieldType(tableId, fieldType, fieldId) {
     return {
@@ -55,5 +56,11 @@ export function filterRecords(table, fieldId, condition, filterQuery) {
         fieldId: fieldId,
         condition: condition,
         filterQuery: filterQuery,
+    };
+}
+
+export function removeFilter() {
+    return {
+        type: REMOVE_FILTER
     };
 }

@@ -48,8 +48,7 @@ const Field = ({
                 />
             </div>
             <div className="field__items">
-                {records &&
-                records.map((record, idx) => {
+                {records.map((record, idx) => {
                     return <Record key={record.record_data[index]._id}
                                    id={record.record_data[index]._id}
                                    recordIdx={idx}
@@ -137,6 +136,7 @@ class GridContent extends Component {
     };
 
     render() {
+        const records = this.props.filteredRecords || this.props.currentTable.records;
         return (
             <div className="wrapper__grid">
                 <div className="grid__content">
@@ -145,8 +145,7 @@ class GridContent extends Component {
                             <div className="rows__selector rows__row">
                                 <Icon name="lock"/>
                             </div>
-                            {this.props.currentTable &&
-                            this.props.currentTable.records.map((record, recordIndex) => {
+                            {records.map((record, recordIndex) => {
                                 return <RowNum key={record._id}
                                                tableId={this.props.currentTable._id}
                                                recordId={record._id}
@@ -159,8 +158,7 @@ class GridContent extends Component {
                             <div className="field__items row-options-field">
                                 <div className="content__field row-options-field"/>
                                 <div className="field__item row-options-field">
-                                    {this.props.currentTable &&
-                                    this.props.currentTable.records.map((record, recordIndex) => {
+                                    {records.map((record, recordIndex) => {
                                         return (
                                             <div className="row-control-container" key={record._id}>
                                                 <Button
@@ -188,15 +186,14 @@ class GridContent extends Component {
                         </div>
 
                         <div className="content__body">
-                            {this.props.currentTable &&
-                            this.props.currentTable.fields.map((field, fieldIndex) => {
+                            {this.props.currentTable.fields.map((field, fieldIndex) => {
                                 return <Field
                                     key={field._id}
                                     id={field._id}
                                     name={field.name}
                                     type={field.type}
                                     index={fieldIndex}
-                                    records={this.props.currentTable.records}
+                                    records={records}
                                     recordData={this.props.recordData}
                                     showFieldMenu={this.props.showFieldMenu}
                                     changeFieldType={this.props.changeFieldType}
@@ -221,7 +218,7 @@ class GridContent extends Component {
 
 function mapStateToProps(state) {
     return {
-        gridReducer: state.gridReducer
+        filteredRecords: state.grid.filteredRecords
     };
 }
 

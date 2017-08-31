@@ -59,6 +59,7 @@ export default class GridHeader extends Component{
                     isActive={this.state.activeMenu === 'filter'}
                     currentTable={this.props.currentTable}
                     filterRecords={this.props.filterRecords}
+                    removeFilter={this.props.removeFilter}
                 />
             </div>
         );

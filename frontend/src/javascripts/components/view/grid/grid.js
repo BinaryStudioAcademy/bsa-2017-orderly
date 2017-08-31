@@ -19,6 +19,10 @@ class Grid extends Component{
         this.props.filterRecords(this.props.currentTable, payload.fieldId, payload.condition, payload.filterQuery);
     };
 
+    handleRemoveFilter = () => {
+        this.props.removeFilter();
+    };
+
     render() {
         return (
             <div className="grid-view">
@@ -26,6 +30,7 @@ class Grid extends Component{
                     currentTable={this.props.currentTable}
                     sortRecords={this.handleSort}
                     filterRecords={this.handleFilter}
+                    removeFilter={this.handleRemoveFilter}
                 />
                 <GridContent
                     currentTable={this.props.currentTable}

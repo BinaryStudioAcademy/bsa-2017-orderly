@@ -20,15 +20,18 @@ export default class FilterMenu extends Component {
         }
     };
 
+    clearFilter = () => {
+        this.props.removeFilter();
+    };
+
     render() {
         return (
             <div className={this.props.isActive ? "filter__menu" : "hide"}>
-                <Icon className="menu__item" name="x"/>
+                <Icon className="menu__item" name="x" onClick={() => this.clearFilter()}/>
                 <Icon name="checkmark" className="menu__item" onClick={() => this.preformFilter()}/>
                 <span className="menu__item">Where</span>
                 <select className="menu__item item__select" onChange={(e) => this.setState({fieldId: e.target.value})}>
-                    {this.props.currentTable.fields &&
-                    this.props.currentTable.fields.map((field, ind) => {
+                    {this.props.currentTable.fields.map((field, ind) => {
                         return (
                             <option key={ind} value={field._id}>{field.name}</option>
                         );
