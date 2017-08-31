@@ -20,14 +20,15 @@ import RecordDialog from '../recordDialog/recordDialog';
 
 const RowNum = ({tableId, recordId, index, deleteRecord}) => {
     return (
-        <div className="rows__row" onContextMenu={(e) => {deleteRecord(e, tableId, recordId)}}>
-            <span>{index+1}</span>
+        <div className="rows__row" onContextMenu={(e) => deleteRecord(e, tableId, recordId)}>
+            <span>{index + 1}</span>
         </div>
     )
 };
 
 const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
-                   changeFieldType, changeFieldName, deleteField}) => {
+                changeFieldType, changeFieldName, deleteField, searchMatchedRecordItemIdList,
+                searchFoundIndex}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -48,19 +49,21 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
             <div className="field__items">
                 {records &&
                 records.map((record, idx) => {
-                    return <Record key={record.record_data[index]._id}
+                    return <RecordItem key={record.record_data[index]._id}
                                    id={record.record_data[index]._id}
                                    recordIdx={idx}
                                    type={type}
                                    data={record.record_data[index].data}
-                                   recordData={recordData}/>
+                                   recordData={recordData}
+                                   searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
+                                   searchFoundIndex={searchFoundIndex}/>
                 })}
             </div>
         </div>
     );
 };
 
-const Record = ({id, type, data, recordData, recordIdx}) => {
+const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordItemIdList, searchFoundIndex}) => {
     const fieldPayload = {
         id: id,
         value: data,
@@ -107,8 +110,19 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
             record = <TextLine {...fieldPayload}/>;
     }
 
+    let recordClassName = '';
+    if (searchMatchedRecordItemIdList && searchMatchedRecordItemIdList.indexOf(id) === searchFoundIndex) {
+        recordClassName = 'field__item found foundCursor';
+    } else {
+        if (searchMatchedRecordItemIdList && searchMatchedRecordItemIdList.indexOf(id) !== -1) {
+            recordClassName = 'field__item found';
+        } else {
+            recordClassName = 'field__item';
+        }
+    }
+
     return (
-        <div className="field__item">
+        <div className={recordClassName}>
             {record}
         </div>
     );
@@ -121,11 +135,11 @@ class GridContent extends Component {
     }
 
     handleAddField = () => {
-        this.props.onAddField(this.props.currentTable._id);
+        this.props.addField(this.props.currentTable._id);
     };
 
     handleAddRecord = () => {
-        this.props.onAddRecord(this.props.currentTable._id);
+        this.props.addRecord(this.props.currentTable._id);
     };
 
     handleDeleteRecord = (event, tableId, recordId) => {
@@ -134,32 +148,29 @@ class GridContent extends Component {
     };
 
     render() {
+        const records = this.props.filteredRecords || this.props.currentTable.records;
         return (
-            <div>
+            <div className="view__body">
                 <div className="wrapper__grid">
                     <div className="grid__content">
                         <div className="content__rows row-options-field">
                             <div className="rows__selector rows__row">
                                 <Icon name="lock"/>
                             </div>
-                            {this.props.currentTable &&
-                            this.props.currentTable.records.map((record, recordIndex) => {
+                            {records.map((record, recordIndex) => {
                                 return <RowNum key={record._id}
-                                               tableId= {this.props.currentTable._id}
+                                               tableId={this.props.currentTable._id}
                                                recordId={record._id}
                                                index={recordIndex}
                                                deleteRecord={this.handleDeleteRecord}/>
-                            })
-                            }
+                            })}
                         </div>
 
                         <div className="content__body">
                             <div className="field__items row-options-field">
-                                <div className="content__field row-options-field">
-                                </div>
+                                <div className="content__field row-options-field"/>
                                 <div className="field__item row-options-field">
-                                    {this.props.currentTable &&
-                                    this.props.currentTable.records.map((record, recordIndex) => {
+                                    {records.map((record, recordIndex) => {
                                         return (
                                             <div className="row-control-container" key={record._id}>
                                                 <Button
@@ -187,21 +198,22 @@ class GridContent extends Component {
                         </div>
 
                         <div className="content__body">
-                            {this.props.currentTable &&
-                            this.props.currentTable.fields.map((field, fieldIndex) => {
+                            {this.props.currentTable.fields.map((field, fieldIndex) => {
                                 return <Field
                                     key={field._id}
                                     id={field._id}
                                     name={field.name}
                                     type={field.type}
                                     index={fieldIndex}
-                                    records={this.props.currentTable.records}
+                                    records={records}
                                     recordData={this.props.recordData}
                                     showFieldMenu={this.props.showFieldMenu}
                                     changeFieldType={this.props.changeFieldType}
                                     changeFieldName={this.props.changeFieldName}
                                     deleteField={this.props.deleteField}
                                     tableId={this.props.currentTable._id}
+                                    searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                                    searchFoundIndex={this.props.searchFoundIndex}
                                 />
                             })}
                         </div>
@@ -220,7 +232,7 @@ class GridContent extends Component {
 
 function mapStateToProps(state) {
     return {
-        gridReducer: state.gridReducer
+        filteredRecords: state.grid.filteredRecords
     };
 }
 
@@ -229,18 +241,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GridContent);
-
-
-// {this.props.fieldsRecords &&
-// this.props.fieldsRecords.map((field, ind) => {
-//     return (
-//         <div className="content__field item__row-selector">
-//             <span className="item__row_num">{ind}</span>
-//         </div>
-//     )
-// })}
-
-
-//<div className="content__field item__row-selector">
-//    <input type="checkbox"/>
-//</div>

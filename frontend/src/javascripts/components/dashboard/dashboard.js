@@ -1,11 +1,12 @@
 import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
-    setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, deleteTable,
+    setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, addField, deleteTable,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
-    changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal } from './dashboardActions';
+    changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
+    changeSearch, changeSearchFoundIndex, toggleSearch,
+    changeView, sortRecords, filterRecords, removeFilter } from './dashboardActions';
 import { getCurrentUser } from '../userProfile/userProfileActions';
-import { addField } from '../view/viewActions';
 
 const mapStateToProps = (state, ownProps) => {
     return ({
@@ -17,14 +18,17 @@ const mapStateToProps = (state, ownProps) => {
         currentTableId: ownProps.params.tableId,
         addPopupIsOpen: state.dashboardReducer.addPopupIsOpen,
         renameIsError: state.dashboardReducer.renameIsError,
-        selectedRecordId: state.dashboardReducer.selectedRecordId,
-        activeRecordId: state.dashboardReducer.activeRecordId,
+        selectedRecordItemId: state.dashboardReducer.selectedRecordItemId,
+        activeRecordItemId: state.dashboardReducer.activeRecordItemId,
         recordDialogIndex: state.dashboardReducer.recordDialogIndex,
+        searchMatchedRecordItemIdList: state.dashboardReducer.searchMatchedRecordItemIdList,
+        searchFoundIndex: state.dashboardReducer.searchFoundIndex,
+        searchBlockOpen: state.dashboardReducer.searchBlockOpen,
         coworkers: state.dashboardReducer.coworkers,
-	    tableIdActiveModal: state.dashboardReducer.tableIdActiveModal,
-	    user: state.userProfile.user
+        tableIdActiveModal: state.dashboardReducer.tableIdActiveModal,
+        user: state.userProfile.user
     });
-}
+};
 
 const mapDispatchToProps = {
     addTableClick: addTable,
@@ -50,7 +54,14 @@ const mapDispatchToProps = {
     addComment: addComment,
     getUser: getCurrentUser,
     getCoworkersList: getCoworkersList,
-	setTableIdToActiveModal: setTableIdToActiveModal
+	setTableIdToActiveModal: setTableIdToActiveModal,
+    changeSearch: changeSearch,
+    changeSearchFoundIndex: changeSearchFoundIndex,
+    toggleSearch: toggleSearch,
+    changeView: changeView,
+    sortRecords: sortRecords,
+    filterRecords: filterRecords,
+    removeFilter: removeFilter
 };
 
 const Dashboard = connect(
