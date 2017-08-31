@@ -5,7 +5,7 @@ import {
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, addField, deleteTable,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
     changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
-    changeView, sortRecords, filterRecords, removeFilter
+    changeView, sortRecords, filterRecords, removeFilter, changeFieldName, deleteRecord, deleteField
 } from './dashboardActions';
 import {getCurrentUser} from '../userProfile/userProfileActions';
 
@@ -24,7 +24,8 @@ const mapStateToProps = (state, ownProps) => {
         recordDialogIndex: state.dashboardReducer.recordDialogIndex,
         coworkers: state.dashboardReducer.coworkers,
         tableIdActiveModal: state.dashboardReducer.tableIdActiveModal,
-        user: state.userProfile.user
+        user: state.userProfile.user,
+        filteredRecords: state.dashboardReducer.filteredRecords
     });
 };
 
@@ -56,7 +57,10 @@ const mapDispatchToProps = {
     changeView: changeView,
     sortRecords: sortRecords,
     filterRecords: filterRecords,
-    removeFilter: removeFilter
+    removeFilter: removeFilter,
+    changeFieldName: changeFieldName,
+    deleteField: deleteField,
+    deleteRecord: deleteRecord,
 };
 
 const Dashboard = connect(

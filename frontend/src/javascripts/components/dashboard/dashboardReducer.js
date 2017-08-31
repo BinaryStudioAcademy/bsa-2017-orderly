@@ -16,6 +16,7 @@ const initState = {
     recordDialogIndex: null,
     coworkers: {},
     currentView: null,
+    filteredRecords: null,
 };
 
 function dashboardReducer(state = initState, action) {

@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from "redux";
 import {Button, Icon} from 'semantic-ui-react';
-import * as gridActions from './gridActions';
 import {fieldIcons} from "../../configuration/fieldTypes";
 import './gridContent.scss';
 import TextLine from './fields/textLine/textLine';
@@ -113,7 +110,7 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
     );
 };
 
-class GridContent extends Component {
+export default class GridContent extends Component {
     constructor(props) {
         super(props);
         this.props = props;
@@ -196,6 +193,7 @@ class GridContent extends Component {
                                     changeFieldType={this.props.changeFieldType}
                                     changeFieldName={this.props.changeFieldName}
                                     deleteField={this.props.deleteField}
+                                    deleteRecord={this.props.deleteRecord}
                                     tableId={this.props.currentTable._id}
                                 />
                             })}
@@ -212,15 +210,3 @@ class GridContent extends Component {
         );
     }
 }
-
-function mapStateToProps(state) {
-    return {
-        filteredRecords: state.grid.filteredRecords
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(gridActions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(GridContent);
