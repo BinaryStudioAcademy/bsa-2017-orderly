@@ -5,7 +5,7 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
     changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
     changeSearch, changeSearchFoundIndex, toggleSearch, changeFieldName, deleteRecord, deleteField,
-    changeView, sortRecords, filterRecords, removeFilter } from './dashboardActions';
+    changeView, sortRecords, filterRecords, removeFilter, uploadAttachment } from './dashboardActions';
 import { getCurrentUser } from '../userProfile/userProfileActions';
 
 const mapStateToProps = (state, ownProps) => {

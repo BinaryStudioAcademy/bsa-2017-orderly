@@ -27,7 +27,6 @@ class Attachment extends Field {
 	handleClose = () => this.setState({imageModalOpen: false})
 
 	handleFile = (event) => {
-		console.log(event.target.files, 'filessssssssss')
 		const file = event.target.files[0];
 		let type;
 		if (R.test(/^image/, file.type)) type = 'image';

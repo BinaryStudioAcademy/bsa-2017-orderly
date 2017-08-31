@@ -217,6 +217,7 @@ export default class GridContent extends Component {
                                     deleteField={this.props.deleteField}
                                     deleteRecord={this.props.deleteRecord}
                                     tableId={this.props.currentTable._id}
+                                    uploadAttachment={this.props.uploadAttachment}
                                     searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                                     searchFoundIndex={this.props.searchFoundIndex}
                                 />
