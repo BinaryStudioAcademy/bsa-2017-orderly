@@ -43,6 +43,28 @@ const deleteTeam = (teamId) =>
 		.then((response) => response.data)
 		.catch(R.tap(console.error))
 
+const getAllUsers = () =>
+	axios.get(url + '/user')
+		.then(response => response.data)
+		.catch(R.tap(console.error))
+
+const addCollaborator = (data) =>
+	axios.put(url + '/team/' + data.teamId + '/collaborators/',
+				R.dissoc('teamId', data))
+		.then(response => response.data)
+		.catch(R.tap(console.error))
+
+const deleteCollaborator = ({ teamId, userId }) =>
+	axios.delete(url + '/team/' + teamId + '/collaborators/' + userId)
+		.then(response => response.data)
+		.catch(R.tap(console.error))
+
+const updateCollaboratorRole = ({ teamId, userId, role }) =>
+	axios.put(url + '/team/' + teamId + '/collaborators/' + userId,
+				{role: role})
+		.then(response => response.data)
+		.catch(R.tap(console.error))
+
 const addTeam = (userId) =>
 	axios.post(url + '/team/', { owner: userId,
 											collaborators: [
@@ -59,10 +81,14 @@ export {
 	addBaseToTeam,
 	updateTeam,
 	deleteTeam,
+	getAllUsers,
 	addTeam,
 	getBasesByTeam,
     updateBaseById,
     deleteBase,
 	getCollaborators,
+	deleteCollaborator,
+	updateCollaboratorRole,
+	addCollaborator,
 	getTeamsByUserId
 };

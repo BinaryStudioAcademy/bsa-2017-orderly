@@ -13,6 +13,8 @@ import AutoNumber from './fields/autoNumber/autoNumber';
 import Url from './fields/url/url';
 import DateField from './fields/date/date';
 import Email from './fields/email/email';
+import Percent from './fields/percent/percent';
+import Phone from './fields/phone/phone';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
@@ -77,31 +79,30 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
             const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler} };
             record = <LongText {...fieldPayloadLongtext}/>;
             break;
-
         case 'number':
             record = <Number {...fieldPayload}/>;
             break;
-
         case 'currency':
             record = <CurrencyField {...fieldPayload}/>;
             break;
-
         case 'autonumber':
             record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
             break;
-
         case 'url':
             record = <Url {...fieldPayload}/>;
             break;
-
         case 'date':
             record = <DateField {...fieldPayload}/>;
             break;
-
         case 'email':
             record = <Email {...fieldPayload}/>;
             break;
-
+        case 'phone':
+            record = <Phone {...fieldPayload}/>;
+            break;
+        case 'percent':
+            record = <Percent {...fieldPayload}/>;
+            break;
         default:
             record = <TextLine {...fieldPayload}/>;
     }
