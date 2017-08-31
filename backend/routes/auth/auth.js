@@ -1,7 +1,9 @@
 const router = require('express').Router();
 const validator = require('validator');
 const passport = require('passport');
+const crypto = require('crypto');
 const userRepository = require('../../repositories/user/userRepository');
+const emailService = require ('../../services/emailService');
 
 /**
  * Validate the sign up form
@@ -16,7 +18,7 @@ function validateSignupForm(payload) {
         errors.email = 'Please provide a correct email address.';
     }
 
-    if (!payload || typeof payload.password !== 'string' || payload.password.trim().length < 6) {
+    if (!isValidSignupPassword(payload)) {
         isFormValid = false;
         errors.password = 'Password must have at least 6 characters.';
     }
@@ -42,6 +44,9 @@ function validateSignupForm(payload) {
     };
 }
 
+function isValidSignupPassword(payload) {
+    return (payload && typeof payload.password === 'string' && payload.password.trim().length >= 6);
+}
 /**
  * Validate the login form
  */
@@ -145,6 +150,76 @@ router.post('/login', (req, res, next) => {
             user: userData
         });
     })(req, res, next);
+});
+
+router.post('/forgot', (req, res, next) => {
+    crypto.randomBytes(20, function(err, buf) {
+        const token = buf.toString('hex');
+
+        userRepository.get({email: req.body.email})
+            .then((user) => {
+
+                user.reset_password_token = token;
+                user.reset_password_expires = Date.now() + 3600000; // One hour
+
+                user.save((err) => {
+                    if (err) {
+                        return res.status(400).json({
+                            error: 'Internal error'
+                        });
+                    }
+
+                    const host = req.headers.origin ? req.headers.origin : req.headers.host;
+                    const resetLink = host + '/reset/' + token;
+
+                    emailService.sendResetPasswordLink(user.email, resetLink, () => {
+                        return res.status(200).json({
+                            message: `Please check your email. We sent an email to ${user.email}, which contains a link to reset your password.`
+                        });
+                    });
+                });
+            })
+            .catch((err) => res.status(400).json({
+                error: 'The email you entered does not belong to any account.'
+            }));
+    });
+});
+
+router.post('/reset/:token', (req, res, next) => {
+    userRepository.get({
+        reset_password_token: req.params.token,
+        reset_password_expires: {$gt: Date.now()}
+    })
+        .then((user) => {
+            if (!isValidSignupPassword(req.body)) {
+                return res.status(400).json({
+                    error: 'Password must have at least 6 characters.'
+                });
+            }
+
+            user.password = req.body.password;
+            user.reset_password_token = undefined;
+            user.reset_password_expires = undefined;
+
+            user.save((err) => {
+                req.body.email = user.email;
+
+                passport.authenticate('local-login', (err, token, userData) => {
+
+                    emailService.sendPasswordChangedNotification(user.email);
+
+                    return res.json({
+                        success: true,
+                        message: 'Your password has been successfully changed.',
+                        token: token,
+                        user: userData
+                    });
+                })(req, res, next);
+            });
+        })
+        .catch((err) => res.status(400).json({
+            error: 'Password reset token is invalid or has expired.'
+        }));
 });
 
 module.exports = router;
