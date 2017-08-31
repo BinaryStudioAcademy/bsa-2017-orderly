@@ -24,8 +24,8 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
 };
 
 const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
-                changeFieldType, changeFieldName, deleteField, searchMatchedRecordItemIdList,
-                searchFoundIndex}) => {
+                   changeFieldType, changeFieldName, deleteField, searchMatchedRecordItemIdList,
+                   searchFoundIndex}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -47,13 +47,13 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                 {records &&
                 records.map((record, idx) => {
                     return <RecordItem key={record.record_data[index]._id}
-                                   id={record.record_data[index]._id}
-                                   recordIdx={idx}
-                                   type={type}
-                                   data={record.record_data[index].data}
-                                   recordData={recordData}
-                                   searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
-                                   searchFoundIndex={searchFoundIndex}/>
+                                       id={record.record_data[index]._id}
+                                       recordIdx={idx}
+                                       type={type}
+                                       data={record.record_data[index].data}
+                                       recordData={recordData}
+                                       searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
+                                       searchFoundIndex={searchFoundIndex}/>
                 })}
             </div>
         </div>
@@ -75,36 +75,36 @@ const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordI
     };
     let record = null;
     switch (type) {
-        case 'longtext':
-            const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler} };
-            record = <LongText {...fieldPayloadLongtext}/>;
-            break;
-        case 'number':
-            record = <Number {...fieldPayload}/>;
-            break;
-        case 'currency':
-            record = <CurrencyField {...fieldPayload}/>;
-            break;
-        case 'autonumber':
-            record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
-            break;
-        case 'url':
-            record = <Url {...fieldPayload}/>;
-            break;
-        case 'date':
-            record = <DateField {...fieldPayload}/>;
-            break;
-        case 'email':
-            record = <Email {...fieldPayload}/>;
-            break;
-        case 'phone':
-            record = <Phone {...fieldPayload}/>;
-            break;
-        case 'percent':
-            record = <Percent {...fieldPayload}/>;
-            break;
-        default:
-            record = <TextLine {...fieldPayload}/>;
+    case 'longtext':
+        const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler}};
+        record = <LongText {...fieldPayloadLongtext}/>;
+        break;
+    case 'number':
+        record = <Number {...fieldPayload}/>;
+        break;
+    case 'currency':
+        record = <CurrencyField {...fieldPayload}/>;
+        break;
+    case 'autonumber':
+        record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
+        break;
+    case 'url':
+        record = <Url {...fieldPayload}/>;
+        break;
+    case 'date':
+        record = <DateField {...fieldPayload}/>;
+        break;
+    case 'email':
+        record = <Email {...fieldPayload}/>;
+        break;
+    case 'phone':
+        record = <Phone {...fieldPayload}/>;
+        break;
+    case 'percent':
+        record = <Percent {...fieldPayload}/>;
+        break;
+    default:
+        record = <TextLine {...fieldPayload}/>;
     }
 
     let recordClassName = '';
@@ -147,9 +147,9 @@ export default class GridContent extends Component {
     render() {
         const records = this.props.filteredRecords || this.props.currentTable.records;
         return (
-            <div className="view__body">
-                <div className="wrapper__grid">
-                    <div className="grid__content">
+            <div className="wrapper__grid">
+                <div className="grid__content">
+                    <div className="content__wrapper">
                         <div className="content__rows row-options-field">
                             <div className="rows__selector rows__row">
                                 <Icon name="lock"/>
@@ -215,13 +215,14 @@ export default class GridContent extends Component {
                                 />
                             })}
                         </div>
+
+                        <div className="content__field item__add-field" onClick={this.handleAddField}>
+                            <Icon name="plus" className="field__icon"/>
+                        </div>
                     </div>
                     <div className="content__field item__add-record" onClick={this.handleAddRecord}>
                         <Icon name="plus" className="field__icon"/>
                     </div>
-                </div>
-                <div className="content__field item__add-field" onClick={this.handleAddField}>
-                    <Icon name="plus" className="field__icon"/>
                 </div>
             </div>
         );

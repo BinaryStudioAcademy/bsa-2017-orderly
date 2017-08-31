@@ -8,17 +8,15 @@ $cell-padding: 0px;
 
 .wrapper__grid {
   display: inline-block;
-  max-width: calc(100% - 75px);
-  float: left;
-  height: 100%;
+  width: 100vw;
+  height: 73.3vh;
+  overflow: auto;
+  border-top: 2px solid rgba(170, 170, 170, 0.5);
 }
 
-.grid__content {
+.content__wrapper {
   display: flex;
   position: relative;
-  overflow-x: auto;
-  overflow-y: auto;
-  max-height: 450px;
 }
 
 .content__body {
@@ -105,7 +103,7 @@ $cell-padding: 0px;
   border-left: 0;
   border-top: 0;
   min-height: 33.5px;
-  height: 33px;
+  height: 33.5px;
 }
 
 .item__add-record {
