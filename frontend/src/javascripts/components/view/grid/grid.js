@@ -27,7 +27,7 @@ export default class Grid extends Component{
                     currentTable={this.props.currentTable}
                     tables={this.props.tables}
                     sortRecords={this.handleSort}
-                    filterRecords={this.handleFilter}
+                    filterRecords={this.props.filterRecords}
                     removeFilter={this.handleRemoveFilter}
                 />
                 <GridContent

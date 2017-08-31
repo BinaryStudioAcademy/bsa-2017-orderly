@@ -360,9 +360,12 @@ function dashboardReducer(state = initState, action) {
     }
 
     case 'FILTER_RECORDS': {
-        const index = action.table.fields.findIndex((f) => f._id === action.fieldId);
-        const filtered = action.table.records.filter((r) => r.record_data[index].data.includes(action.filterQuery));
-        return {...state, filteredRecords: filtered};
+        console.log('DASH REDUCER FILTER RECORDS');
+        console.log(action);
+        console.log('-------------------------');
+        // const index = action.table.fields.findIndex((f) => f._id === action.fieldId);
+        // const filtered = action.table.records.filter((r) => r.record_data[index].data.includes(action.filterQuery));
+        return {...state};
     }
 
     case 'REMOVE_FILTER': {
