@@ -122,6 +122,7 @@ class Tools extends Component {
                       openRecordDialog={this.props.openRecordDialog}
                       recordDialogIndex={this.props.recordDialogIndex}
                       keyPressCommentHandler={this.keyPressCommentHandler}
+                      uploadAttachment={this.props.uploadAttachment}
                       user={this.props.user}/>
             </div>
         );

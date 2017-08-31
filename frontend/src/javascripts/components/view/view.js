@@ -42,6 +42,7 @@ class View extends Component {
                 onOpenRecordDialog={this.props.openRecordDialog}
                 recordDialogIndex={this.props.recordDialogIndex}
                 onKeyPressComment={this.props.keyPressCommentHandler}
+                uploadAttachment={this.props.uploadAttachment}
                 user={this.props.user}
             />;
         case 'form':

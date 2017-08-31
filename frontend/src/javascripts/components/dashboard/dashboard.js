@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, deleteTable,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
-    changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal } from './dashboardActions';
+    changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
+	uploadAttachment} from './dashboardActions';
 import { getCurrentUser } from '../userProfile/userProfileActions';
 import { addField } from '../view/viewActions';
 
@@ -50,7 +51,8 @@ const mapDispatchToProps = {
     addComment: addComment,
     getUser: getCurrentUser,
     getCoworkersList: getCoworkersList,
-	setTableIdToActiveModal: setTableIdToActiveModal
+	setTableIdToActiveModal: setTableIdToActiveModal,
+	uploadAttachment: uploadAttachment
 };
 
 const Dashboard = connect(

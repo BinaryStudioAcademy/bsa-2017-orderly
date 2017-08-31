@@ -1,0 +1,97 @@
+.attachment {
+  outline: none;
+}
+.image_modal_content.content {
+  display: flex !important;
+  justify-content: center;
+  .image_modal {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 500px;
+  }
+}
+
+.attachment_default {
+  padding-left: 5px;
+  padding-top: 2px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  .image_icon {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.attachment_cell {
+  position: relative;
+  padding-left: 30px;
+
+  .attachment_selected {
+    min-width: 200px;
+    background-color: #fff;
+    position: absolute;
+    z-index: 999;
+    border: 2px solid #6495ed;
+    padding: 5px;
+    border-radius: 5px;
+    top: -12px;
+    left: -28px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    &:after {
+      content: '+';
+      position: absolute;
+      z-index: 900;
+      font-size: 3rem;
+      color: #8C8C8C;
+      left: 13px;
+
+    }
+
+    input[type='file'] {
+      z-index: 1002 !important;
+    }
+
+
+    .add_file_btn {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      width: 40px !important;
+      height: 40px;
+      text-transform: none;
+      text-shadow: none;
+      outline: none;
+      font-size: 3rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #cbcbcb;
+      color: #cbcbcb;
+      text-align: center;
+      opacity: .8;
+      margin-right: 10px;
+      cursor: pointer;
+
+    }
+
+    .attachment_file {
+      z-index: 1004;
+      border-radius: 5px;
+      margin-right: 10px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+

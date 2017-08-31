@@ -154,6 +154,16 @@ const getCoworkersList = (coworkers) => {
     };
 };
 
+const uploadAttachment = (data, typeOfFile, record_dataId, tableId) => {
+    return {
+        type: 'UPLOAD_FILES',
+        data: data,
+        typeOfFile: typeOfFile,
+	    record_dataId: record_dataId,
+	    tableId: tableId
+    }
+}
+
 export {
     getBaseById,
     getTables,
@@ -178,5 +188,6 @@ export {
     changeFieldType,
     openRecordDialog,
     addComment,
-    getCoworkersList
+    getCoworkersList,
+	uploadAttachment
 };

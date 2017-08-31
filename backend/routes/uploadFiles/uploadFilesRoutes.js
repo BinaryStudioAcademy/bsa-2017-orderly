@@ -1,21 +1,36 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 const userRepository = require('../../repositories/user/userRepository');
-const { defaultTable } = require('../../config/defaultEntities');
+const tableRepository = require('../../repositories/table/tableRepository');
 const multer = require('multer');
-const fs = require('fs');
 const path = require('path');
+const mkdirp = require('mkdirp')
+
 
 const storage = multer.diskStorage({
-  destination: './files',
-  filename(req, file, cb) {
-    const splittedFilename = file.originalname.split('.');
-    const [fileName, fileType] = splittedFilename;
-    const finalName = `${fileName}-${Date.now()}.${fileType}`;
-    req.finalName = finalName;
-    
-    cb(null, finalName);
-  },
-});
+	destination: (req, file, cb) => {
+		if (file.fieldname === 'attachment') {
+			const dir = `files/attachment/${req.params.record_dataId}/${req.params.type}`
+			mkdirp.sync(dir)
+			cb(null, dir)
+		}
+		if (file.fieldname === 'file') {
+			cb(null, './files')
+		}
+	},
+	filename: (req, file, cb) => {
+		if (file.fieldname === 'attachment') {
+			cb(null, file.originalname)
+		}
+		if (file.fieldname === 'file') {
+			const splittedFilename = file.originalname.split('.');
+			const [fileName, fileType] = splittedFilename;
+			const finalName = `${fileName}-${Date.now()}.${fileType}`;
+			req.finalName = finalName;
+			cb(null, finalName);
+		}
+	}
+})
 
 const upload = multer({ storage });
 
@@ -29,19 +44,13 @@ router.post('/', upload.single('file'), (request, response) => {
     .catch((error) => response.status(400).send(`Can not add image. ${error}`));
 });
 
-router.get('/:path', (request, response) => {
-  var filename = path.basename(request.params.path);
-  fs.readFile(`./files/${filename}`, function(err, data) {
-    if (err){
-     response.statusCode = 404;
-      response.end();
-      return;
-    }
-    response.writeHead(200, {'Content-Type': 'image/png'});
-    response.end(data);
-});
+router.post('/attachment/:record_dataId/:type/:tableId', upload.single('attachment'), (req, res) => {
+	tableRepository.updateRecordById(req.params.tableId, req.params.record_dataId, req.file.originalname)
+		.then(table => res.status(200).send(table))
+		.catch(err => res.status(400).send(err))
 })
 
-
+router.use('/', express.static('files'))
+router.use('/attachment', express.static('files'))
 
 module.exports = router;

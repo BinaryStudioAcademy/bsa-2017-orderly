@@ -2,6 +2,7 @@ require('../../db/dbConnect');
 const Repository = require('../generalRepository');
 const Table = require('../../schemas/table/Table');
 const objectId = require('mongoose').Types.ObjectId;
+const R = require('ramda');
 
 let that;
 
@@ -135,6 +136,20 @@ class TableRepository extends Repository {
             {'$push': {views: {viewId, type: viewType}}},
             {'new': true}
         );
+    }
+
+
+    updateRecordById(tableId, record_dataId, fileName) {
+		return this.model.findById(tableId)
+			.then(table => R.map( record => {
+				record.record_data = R.map(data => {
+					if (data._id == record_dataId) return {_id: data._id, data: fileName}
+					else return data
+				})(record.record_data)
+				return record
+				})(table.records)
+            )
+			.then(newRecords => this.model.findByIdAndUpdate(tableId, {records: newRecords}, {'new': true}))
     }
 
     deleteView(tableId, viewId) {

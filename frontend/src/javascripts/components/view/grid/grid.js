@@ -19,6 +19,7 @@ export default class Grid extends Component{
                     onOpenRecordDialog={this.props.onOpenRecordDialog}
                     recordDialogIndex={this.props.recordDialogIndex}
                     onKeyPressComment={this.props.onKeyPressComment}
+                    uploadAttachment={this.props.uploadAttachment}
                     user={this.props.user}
                 />
             </div>

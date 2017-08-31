@@ -13,6 +13,7 @@ import AutoNumber from './fields/autoNumber/autoNumber';
 import Url from './fields/url/url';
 import DateField from './fields/date/date';
 import Email from './fields/email/email';
+import Attachment from './fields/attachment/attachment';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
@@ -25,7 +26,7 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
 };
 
 const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
-                   changeFieldType, changeFieldName, deleteField}) => {
+                   changeFieldType, changeFieldName, deleteField, uploadAttachment}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -47,9 +48,11 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                 {records &&
                 records.map((record, idx) => {
                     return <Record key={record.record_data[index]._id}
+                                   uploadAttachment={uploadAttachment}
                                    id={record.record_data[index]._id}
                                    recordIdx={idx}
                                    type={type}
+                                   tableId={tableId}
                                    data={record.record_data[index].data}
                                    recordData={recordData}/>
                 })}
@@ -58,10 +61,12 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
     );
 };
 
-const Record = ({id, type, data, recordData, recordIdx}) => {
+const Record = ({id, type, data, recordData, recordIdx, uploadAttachment, tableId}) => {
     const fieldPayload = {
         id: id,
         value: data,
+        tableId: tableId,
+	    uploadAttachment: uploadAttachment,
         selected: recordData.isRecordSelected(id),
         active: recordData.isRecordActive(id),
         onSelect: recordData.selectRecordHandler,
@@ -100,6 +105,10 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
 
         case 'email':
             record = <Email {...fieldPayload}/>;
+            break;
+
+        case 'attachment':
+            record = <Attachment {...fieldPayload}/>;
             break;
 
         default:
@@ -194,6 +203,7 @@ class GridContent extends Component {
                                     name={field.name}
                                     type={field.type}
                                     index={fieldIndex}
+                                    uploadAttachment={this.props.uploadAttachment}
                                     records={this.props.currentTable.records}
                                     recordData={this.props.recordData}
                                     showFieldMenu={this.props.showFieldMenu}

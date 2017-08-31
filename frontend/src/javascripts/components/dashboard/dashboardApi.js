@@ -75,6 +75,10 @@ const emitTableCoworker = (user, tableId) => {
     return socket.emit('client-upload-table', user, tableId);
 };
 
+const uploadFile = ({data, typeOfFile, record_dataId, tableId}) =>
+	axios.post(`/files/attachment/${record_dataId}/${typeOfFile}/${tableId}`, data)
+		.then(response => response.data)
+		.catch(error => error.data)
 
 export {
     getBase,
@@ -88,5 +92,6 @@ export {
     updateField,
     deleteFieldRecords,
     deleteRecord,
+	uploadFile,
     emitTableCoworker
 };
