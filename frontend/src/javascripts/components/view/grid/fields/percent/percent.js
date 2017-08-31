@@ -2,23 +2,23 @@ import React from 'react';
 import { Input } from 'semantic-ui-react';
 import NumberFormat from 'react-number-format';
 import Field from '../field';
-import './currency.scss';
+import './percent.scss';
 
-class CurrencyField  extends Field {
+class Percent extends Field {
   constructor(props) {
     super(props);
     this.state = { 
-        currency: '' 
+        percent: '' 
     }
 }
   
   renderActiveField() {
     return (
-        <NumberFormat className="currency-input" 
-            thousandSeparator={true} prefix={'$'} 
-            value={this.state.currency}
-            onChange={(event) => this.setState({currency: event.target.value})}
-            decimalPrecision={2}
+        <NumberFormat className='percent-input' 
+            thousandSeparator={true} suffix={'%'} 
+            value={this.state.percent}
+            onChange={(event) => this.setState({percent: event.target.value})}
+            decimalPrecision={1}
             onBlur={(event) => this.props.onBlurComponent(this.props.id, event.target.value)}
             autoFocus={true}
         />
@@ -26,4 +26,4 @@ class CurrencyField  extends Field {
   }  
 }  
 
-export default CurrencyField;
+export default Percent;

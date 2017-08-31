@@ -1,0 +1,23 @@
+.download-csv {
+    padding: 10px 5px 5px 5px;
+    a {
+        color: white;
+        font-weight: bold;
+    }
+    a:hover {
+        color: white;
+        text-decoration: none;
+    }
+}
+.dropzone-wrapper {
+    vertical-align: middle;
+    position: relative;
+    height: auto;
+    .dropzone {
+        padding-top: 30%;
+        i.large.icon {
+            color: white;
+        }
+    }
+
+}
