@@ -128,14 +128,6 @@ const blurRecordComponent = (recordId) => {
     };
 };
 
-const changeFieldType = (fieldId, records) => {
-    return {
-        type: 'CHANGE_FIELD_TYPE',
-        fieldId: fieldId,
-        records: records
-    };
-};
-
 const openRecordDialog = (index) => {
     return {
         type: 'OPEN_RECORD_DIALOG',
@@ -198,10 +190,10 @@ export function sortRecords(table, fieldId, sortOption) {
     };
 }
 
-export function filterRecords(table, fieldId, condition, filterQuery) {
+export function filterRecords(tableId, fieldId, condition, filterQuery) {
     return {
         type: 'FILTER_RECORDS',
-        table: table,
+        tableId : tableId,
         fieldId: fieldId,
         condition: condition,
         filterQuery: filterQuery,
@@ -211,6 +203,39 @@ export function filterRecords(table, fieldId, condition, filterQuery) {
 export function removeFilter() {
     return {
         type: 'REMOVE_FILTER'
+    };
+}
+
+export function changeFieldType(tableId, fieldType, fieldId) {
+    return {
+        type: 'CHANGE_FIELD_TYPE',
+        tableId: tableId,
+        fieldType: fieldType,
+        fieldId: fieldId
+    };
+}
+export function changeFieldName(tableId, fieldId, fieldName) {
+    return {
+        type: 'CHANGE_FIELD_NAME',
+        tableId: tableId,
+        fieldId: fieldId,
+        fieldName: fieldName,
+    };
+}
+
+export function deleteField(tableId, fieldId) {
+    return {
+        type: 'DELETE_FIELD',
+        tableId: tableId,
+        fieldId: fieldId,
+    };
+}
+
+export function deleteRecord(tableId, recordId) {
+    return {
+        type: 'DELETE_RECORD',
+        tableId: tableId,
+        recordId: recordId
     };
 }
 
@@ -245,7 +270,6 @@ export {
     blurRecord,
     blurRecordComponent,
     deleteTable,
-    changeFieldType,
     openRecordDialog,
     addComment,
     getCoworkersList,

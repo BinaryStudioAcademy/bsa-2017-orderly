@@ -40,13 +40,15 @@ class View extends Component {
                 recordData={this.props.recordData}
                 addRecord={this.props.addRecord}
                 addField={this.props.addField}
+                deleteField={this.props.deleteField}
+                deleteRecord={this.props.deleteRecord}
                 sortRecords={this.props.sortRecords}
                 filterRecords={this.props.filterRecords}
+                filteredRecords={this.props.filteredRecords}
                 removeFilter={this.props.removeFilter}
                 showFieldMenu={this.props.showFieldMenu}
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
-                deleteField={this.props.deleteField}
                 onOpenRecordDialog={this.props.openRecordDialog}
                 recordDialogIndex={this.props.recordDialogIndex}
                 onKeyPressComment={this.props.keyPressCommentHandler}

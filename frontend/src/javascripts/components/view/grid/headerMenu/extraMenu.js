@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Icon} from 'semantic-ui-react';
 import ExportCSV from '../../../dashboard/csvFile/csvFileExport';
 import ImportCSV from '../../../dashboard/csvFile/csvFileImport';
 import './extraMenu.scss';
@@ -22,5 +21,3 @@ export default class ExtraMenu extends Component {
         );
     }
 }
-
-// <Icon name="checkmark" link onClick={() => this.preformFilter()}/>

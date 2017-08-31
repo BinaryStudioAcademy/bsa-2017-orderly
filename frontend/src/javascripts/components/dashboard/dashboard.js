@@ -4,8 +4,8 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, addField, deleteTable,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
     changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
-    changeSearch, changeSearchFoundIndex, toggleSearch,
-    changeView, sortRecords, filterRecords, removeFilter, uploadAttachment } from './dashboardActions';
+    changeSearch, changeSearchFoundIndex, toggleSearch, changeFieldName, deleteRecord, deleteField,
+    changeView, sortRecords, filterRecords, removeFilter } from './dashboardActions';
 import { getCurrentUser } from '../userProfile/userProfileActions';
 
 const mapStateToProps = (state, ownProps) => {
@@ -26,7 +26,8 @@ const mapStateToProps = (state, ownProps) => {
         searchBlockOpen: state.dashboardReducer.searchBlockOpen,
         coworkers: state.dashboardReducer.coworkers,
         tableIdActiveModal: state.dashboardReducer.tableIdActiveModal,
-        user: state.userProfile.user
+        user: state.userProfile.user,
+        filteredRecords: state.dashboardReducer.filteredRecords
     });
 };
 
@@ -62,6 +63,9 @@ const mapDispatchToProps = {
     sortRecords: sortRecords,
     filterRecords: filterRecords,
     removeFilter: removeFilter,
+    changeFieldName: changeFieldName,
+    deleteField: deleteField,
+    deleteRecord: deleteRecord,
 	uploadAttachment: uploadAttachment
 };
 
