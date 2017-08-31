@@ -154,6 +154,33 @@ const getCoworkersList = (coworkers) => {
     };
 };
 
+const changeSearch = (query, tableId) => {
+    return {
+        type: 'CHANGE_SEARCH',
+        query: query,
+        tableId: tableId
+    };
+};
+
+const changeSearchFoundIndex = (value) => {
+    return {
+        type: 'CHANGE_SEARCH_FOUND_INDEX',
+        value: value
+    };
+};
+
+const closeSearch = () => {
+    return {
+        type: 'CLOSE_SEARCH'
+    };
+};
+
+const toggleSearch = () => {
+    return {
+        type: 'TOGGLE_SEARCH'
+    };
+};
+
 export {
     getBaseById,
     getTables,
@@ -178,5 +205,9 @@ export {
     changeFieldType,
     openRecordDialog,
     addComment,
-    getCoworkersList
+    getCoworkersList,
+    changeSearch,
+    changeSearchFoundIndex,
+    closeSearch,
+    toggleSearch
 };

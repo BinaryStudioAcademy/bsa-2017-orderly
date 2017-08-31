@@ -11,10 +11,13 @@ const initState = {
     activeModal: '',
     tableIdActiveModal: '',
     renameIsError: true,
-    selectedRecordId: null,
-    activeRecordId: null,
+    selectedRecordItemId: null,
+    activeRecordItemId: null,
     recordDialogIndex: null,
-    coworkers: {}
+    coworkers: {},
+    searchMatchedRecordItemIdList: [],
+    searchFoundIndex: '',
+    searchBlockOpen: false
 };
 
 function dashboardReducer(state = initState, action) {
@@ -177,10 +180,10 @@ function dashboardReducer(state = initState, action) {
     }
 
     case 'SELECT_RECORD':
-        return {...state, ...{selectedRecordId: action.recordId}};
+        return {...state, ...{selectedRecordItemId: action.recordId}};
 
     case 'ACTIVATE_RECORD':
-        return {...state, ...{activeRecordId: action.recordId}};
+        return {...state, ...{activeRecordItemId: action.recordId}};
 
     case 'PERFORM_CHANGE_RECORD': {
         return R.mergeAll([
@@ -236,11 +239,11 @@ function dashboardReducer(state = initState, action) {
     }
 
     case 'BLUR_RECORD': {
-        return {...state, ...{selectedRecordId: null}};
+        return {...state, ...{selectedRecordItemId: null}};
     }
 
     case 'BLUR_RECORD_COMPONENT': {
-        return {...state, ...{activeRecordId: null}};
+        return {...state, ...{activeRecordItemId: null}};
     }
 
     case 'DELETE_TABLE_SUCCEEDED': {
@@ -344,6 +347,44 @@ function dashboardReducer(state = initState, action) {
 
     case 'GET_COWORKERS_LIST': {
         return {...state, ...{coworkers: action.coworkers}};
+    }
+
+    case 'CHANGE_SEARCH': {
+        let searchMatchedRecordItemIdList = [];
+
+        if (action.query !== '') {
+            state.tables.forEach((table) => {
+                if (table._id === action.tableId) {
+                    table.records.forEach((record) => {
+                        record.record_data.forEach((recordItem) => {
+                            if (recordItem.data.indexOf(action.query) !== -1) {
+                                searchMatchedRecordItemIdList.push(recordItem._id);
+                            }
+                        })
+                    })
+                }
+            });
+        }
+        return{...state, ...{searchMatchedRecordItemIdList: searchMatchedRecordItemIdList, searchFoundIndex: 0}};
+    }
+
+    case 'CHANGE_SEARCH_FOUND_INDEX': {
+        if (action.value >= state.searchMatchedRecordItemIdList.length) {
+            action.value -= state.searchMatchedRecordItemIdList.length
+        }
+        if (action.value < 0) {
+            action.value += state.searchMatchedRecordItemIdList.length
+        }
+
+        return {...state, ...{searchFoundIndex: action.value}};
+    }
+
+    case 'CLOSE_SEARCH': {
+        return{...state, ...{searchMatchedRecordItemIdList: [], searchFoundIndex: '', searchBlockOpen: !state.searchBlockOpen}};
+    }
+
+    case 'TOGGLE_SEARCH': {
+        return{...state, ...{searchBlockOpen: !state.searchBlockOpen}};
     }
 
     default:

@@ -43,6 +43,13 @@ class View extends Component {
                 recordDialogIndex={this.props.recordDialogIndex}
                 onKeyPressComment={this.props.keyPressCommentHandler}
                 user={this.props.user}
+                onChangeSearch={this.props.onChangeSearch}
+                searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                searchFoundIndex={this.props.searchFoundIndex}
+                onChangeSearchFoundIndex={this.props.onChangeSearchFoundIndex}
+                onCloseSearch={this.props.onCloseSearch}
+                onToggleSearch={this.props.onToggleSearch}
+                searchBlockOpen={this.props.searchBlockOpen}
             />;
         case 'form':
             return <FormView

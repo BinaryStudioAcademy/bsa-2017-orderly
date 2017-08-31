@@ -35,11 +35,11 @@ class Tools extends Component {
     }
 
     isRecordSelected(id) {
-        return this.props.selectedRecordId == id;
+        return this.props.selectedRecordItemId == id;
     }
 
     isRecordActive(id) {
-        return this.props.activeRecordId == id;
+        return this.props.activeRecordItemId == id;
     }
 
     selectRecordHandler(id) {
@@ -89,7 +89,7 @@ class Tools extends Component {
             keyPressRecordHandler: this.keyPressRecordHandler,
             keyPressSimpleRecordHandler: this.keyPressSimpleRecordHandler,
             blurRecordHandler: this.blurRecordHandler,
-            blurRecordComponentHandler: this.blurRecordComponentHandler,
+            blurRecordComponentHandler: this.blurRecordComponentHandler
         };
         return (
             <div onClick={() => {
@@ -122,7 +122,14 @@ class Tools extends Component {
                       openRecordDialog={this.props.openRecordDialog}
                       recordDialogIndex={this.props.recordDialogIndex}
                       keyPressCommentHandler={this.keyPressCommentHandler}
-                      user={this.props.user}/>
+                      user={this.props.user}
+                      onChangeSearch={this.props.changeSearch}
+                      searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                      searchFoundIndex={this.props.searchFoundIndex}
+                      onChangeSearchFoundIndex={this.props.changeSearchFoundIndex}
+                      onCloseSearch={this.props.closeSearch}
+                      onToggleSearch={this.props.toggleSearch}
+                      searchBlockOpen={this.props.searchBlockOpen}/>
             </div>
         );
     }

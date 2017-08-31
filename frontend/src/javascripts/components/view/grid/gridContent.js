@@ -25,7 +25,8 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
 };
 
 const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
-                   changeFieldType, changeFieldName, deleteField}) => {
+                changeFieldType, changeFieldName, deleteField, searchMatchedRecordItemIdList,
+                searchFoundIndex}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -46,19 +47,21 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
             <div className="field__items">
                 {records &&
                 records.map((record, idx) => {
-                    return <Record key={record.record_data[index]._id}
+                    return <RecordItem key={record.record_data[index]._id}
                                    id={record.record_data[index]._id}
                                    recordIdx={idx}
                                    type={type}
                                    data={record.record_data[index].data}
-                                   recordData={recordData}/>
+                                   recordData={recordData}
+                                   searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
+                                   searchFoundIndex={searchFoundIndex}/>
                 })}
             </div>
         </div>
     );
 };
 
-const Record = ({id, type, data, recordData, recordIdx}) => {
+const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordItemIdList, searchFoundIndex}) => {
     const fieldPayload = {
         id: id,
         value: data,
@@ -106,8 +109,19 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
             record = <TextLine {...fieldPayload}/>;
     }
 
+    let recordClassName = '';
+    if (searchMatchedRecordItemIdList && searchMatchedRecordItemIdList.indexOf(id) === searchFoundIndex) {
+        recordClassName = 'field__item found foundCursor';
+    } else {
+        if (searchMatchedRecordItemIdList && searchMatchedRecordItemIdList.indexOf(id) !== -1) {
+            recordClassName = 'field__item found';
+        } else {
+            recordClassName = 'field__item';
+        }
+    }
+
     return (
-        <div className="field__item">
+        <div className={recordClassName}>
             {record}
         </div>
     );
@@ -201,6 +215,8 @@ class GridContent extends Component {
                                     changeFieldName={this.props.changeFieldName}
                                     deleteField={this.props.deleteField}
                                     tableId={this.props.currentTable._id}
+                                    searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                                    searchFoundIndex={this.props.searchFoundIndex}
                                 />
                             })}
                         </div>

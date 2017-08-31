@@ -1,6 +1,6 @@
 .view__header {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
   padding: 5px 0;
   border-bottom: 1px solid #EEE;
 }
@@ -17,16 +17,20 @@
   white-space: nowrap;
 }
 
-#header__search {
-  position: fixed;
-  right: 0;
-  margin-right: 20px;
-  padding-bottom: 25px;
-  opacity: 0.6;
-}
-
 @media screen and (max-width: 650px) {
   .menu__text {
     display: none;
+  }
+}
+#search-container {
+  width: 340px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  .search-btn {
+    background-color: #fff !important;
+    padding: 11px 10px;
+    margin: 0 20px 0 10px;
   }
 }

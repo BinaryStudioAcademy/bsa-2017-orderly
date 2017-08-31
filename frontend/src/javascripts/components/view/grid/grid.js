@@ -6,7 +6,14 @@ export default class Grid extends Component{
     render() {
         return (
             <div>
-                <GridHeader/>
+                <GridHeader onChangeSearch={this.props.onChangeSearch}
+                            currentTableId={this.props.currentTable._id}
+                            searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                            searchFoundIndex={this.props.searchFoundIndex}
+                            onChangeSearchFoundIndex={this.props.onChangeSearchFoundIndex}
+                            onCloseSearch={this.props.onCloseSearch}
+                            onToggleSearch={this.props.onToggleSearch}
+                            searchBlockOpen={this.props.searchBlockOpen}/>
                 <GridContent
                     currentTable={this.props.currentTable}
                     recordData={this.props.recordData}
@@ -20,6 +27,8 @@ export default class Grid extends Component{
                     recordDialogIndex={this.props.recordDialogIndex}
                     onKeyPressComment={this.props.onKeyPressComment}
                     user={this.props.user}
+                    searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                    searchFoundIndex={this.props.searchFoundIndex}
                 />
             </div>
         );

@@ -50,6 +50,12 @@ $cell-padding: 0px;
   text-overflow: ellipsis;
   position: relative;
 }
+.field__item.found {
+  background-color: #f8ecce;
+}
+.field__item.foundCursor {
+  background-color: #ffd66e;
+}
 
 .field__icon {
   opacity: $icon-opacity!important;
@@ -84,4 +90,10 @@ $cell-padding: 0px;
 
 .item__add-field:hover, .item__add-record:hover {
   background-color: #EEE;
+}
+
+#search-block {
+  i {
+    cursor: pointer;
+  }
 }

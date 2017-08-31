@@ -1,0 +1,40 @@
+#search-block {
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    outline: 0;
+    padding: .5rem;
+    border-radius: 2px;
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  span:last-child {
+    padding-top: 8px;
+
+    .found-counts {
+      font-size: 11px;
+      opacity: 0.75;
+      user-select: none;
+    }
+
+    i {
+      width: 20px;
+      height: 22px;
+      cursor: pointer;
+      opacity: 0.6;
+    }
+
+    i:hover {
+      opacity: 1;
+    }
+
+    i.close.icon {
+      position: absolute;
+      right: 64px;
+      top: 9px;
+    }
+  }
+}
