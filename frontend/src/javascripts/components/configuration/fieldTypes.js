@@ -8,6 +8,7 @@ export const fieldIcons = {
     'currency': 'dollar',
     'date': 'calendar',
     'email': 'mail outline',
+    'percent': 'percent'
     'phone': 'phone'
 };
 
@@ -21,5 +22,6 @@ export const fieldNames = {
     'currency': 'Currency',
     'date': 'Date',
     'email': 'Email',
+    'percent': 'Percent'
     'phone': 'Phone'
 };
