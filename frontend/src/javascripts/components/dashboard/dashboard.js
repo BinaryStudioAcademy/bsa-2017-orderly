@@ -4,7 +4,7 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, deleteTable,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
     changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
-    changeSearch, changeSearchFoundIndex, closeSearch, toggleSearch } from './dashboardActions';
+    changeSearch, changeSearchFoundIndex, toggleSearch } from './dashboardActions';
 import { getCurrentUser } from '../userProfile/userProfileActions';
 import { addField } from '../view/viewActions';
 
@@ -57,7 +57,6 @@ const mapDispatchToProps = {
 	setTableIdToActiveModal: setTableIdToActiveModal,
     changeSearch: changeSearch,
     changeSearchFoundIndex: changeSearchFoundIndex,
-    closeSearch: closeSearch,
     toggleSearch: toggleSearch
 };
 

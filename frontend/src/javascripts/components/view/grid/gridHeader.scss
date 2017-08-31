@@ -22,11 +22,12 @@
     display: none;
   }
 }
-#search-container {
-  width: 340px;
+#search-wrapper {
+  position: relative;
+  width: 350px;
   display: flex;
   justify-content: space-between;
-  position: relative;
+  //border: 2px solid rgba(0, 0, 0, 0.12);
 
   .search-btn {
     background-color: #fff !important;

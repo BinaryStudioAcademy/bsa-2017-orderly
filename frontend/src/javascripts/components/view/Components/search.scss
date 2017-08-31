@@ -1,14 +1,17 @@
 #search-block {
   display: flex;
   justify-content: space-between;
+  width: 279px;
+  padding-right: 20px;
+  border: 2px solid rgba(0, 0, 0, 0.12);
 
   input {
-    border: 2px solid rgba(0, 0, 0, 0.12);
+    width: 176px;
     outline: 0;
     padding: .5rem;
-    border-radius: 2px;
     font-size: 13px;
     line-height: 18px;
+    border: none;
   }
 
   span:last-child {
@@ -33,7 +36,7 @@
 
     i.close.icon {
       position: absolute;
-      right: 64px;
+      right: 73px;
       top: 9px;
     }
   }

@@ -32,15 +32,15 @@ export default class GridHeader extends Component{
                         <Button basic icon='ellipsis horizontal'/>
                     </Button.Group>
                 </div>
-                <div id="search-container">
-                    <span>
+                <div id="search-wrapper">
+                    <span id="search-container">
                         {this.props.searchBlockOpen &&
                         <Search onChangeSearch={this.props.onChangeSearch}
                                 currentTableId={this.props.currentTableId}
                                 searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                                 searchFoundIndex={this.props.searchFoundIndex}
                                 onChangeSearchFoundIndex={this.props.onChangeSearchFoundIndex}
-                                onCloseSearch={this.props.onCloseSearch}/>}
+                                onToggleSearch={this.props.onToggleSearch}/>}
                     </span>
                     <Button
                         className="search-btn"

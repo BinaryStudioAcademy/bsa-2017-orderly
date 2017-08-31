@@ -169,12 +169,6 @@ const changeSearchFoundIndex = (value) => {
     };
 };
 
-const closeSearch = () => {
-    return {
-        type: 'CLOSE_SEARCH'
-    };
-};
-
 const toggleSearch = () => {
     return {
         type: 'TOGGLE_SEARCH'
@@ -208,6 +202,5 @@ export {
     getCoworkersList,
     changeSearch,
     changeSearchFoundIndex,
-    closeSearch,
     toggleSearch
 };

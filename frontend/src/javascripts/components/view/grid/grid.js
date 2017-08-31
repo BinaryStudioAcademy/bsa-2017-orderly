@@ -11,7 +11,6 @@ export default class Grid extends Component{
                             searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                             searchFoundIndex={this.props.searchFoundIndex}
                             onChangeSearchFoundIndex={this.props.onChangeSearchFoundIndex}
-                            onCloseSearch={this.props.onCloseSearch}
                             onToggleSearch={this.props.onToggleSearch}
                             searchBlockOpen={this.props.searchBlockOpen}/>
                 <GridContent

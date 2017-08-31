@@ -127,7 +127,6 @@ class Tools extends Component {
                       searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                       searchFoundIndex={this.props.searchFoundIndex}
                       onChangeSearchFoundIndex={this.props.changeSearchFoundIndex}
-                      onCloseSearch={this.props.closeSearch}
                       onToggleSearch={this.props.toggleSearch}
                       searchBlockOpen={this.props.searchBlockOpen}/>
             </div>

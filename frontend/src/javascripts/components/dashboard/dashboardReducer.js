@@ -357,7 +357,7 @@ function dashboardReducer(state = initState, action) {
                 if (table._id === action.tableId) {
                     table.records.forEach((record) => {
                         record.record_data.forEach((recordItem) => {
-                            if (recordItem.data.indexOf(action.query) !== -1) {
+                            if (recordItem.data.toLowerCase().indexOf(action.query.toLowerCase()) !== -1) {
                                 searchMatchedRecordItemIdList.push(recordItem._id);
                             }
                         })
@@ -379,12 +379,8 @@ function dashboardReducer(state = initState, action) {
         return {...state, ...{searchFoundIndex: action.value}};
     }
 
-    case 'CLOSE_SEARCH': {
-        return{...state, ...{searchMatchedRecordItemIdList: [], searchFoundIndex: '', searchBlockOpen: !state.searchBlockOpen}};
-    }
-
     case 'TOGGLE_SEARCH': {
-        return{...state, ...{searchBlockOpen: !state.searchBlockOpen}};
+        return{...state, ...{searchMatchedRecordItemIdList: [], searchFoundIndex: '', searchBlockOpen: !state.searchBlockOpen}};
     }
 
     default:

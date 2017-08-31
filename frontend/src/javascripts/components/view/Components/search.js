@@ -9,12 +9,22 @@ export default class Search extends Component {
         this.keyDownHandler = this.keyDownHandler.bind(this);
     }
 
+    componentDidMount() {
+        window.addEventListener("keydown",function (e) {
+            if (e.keyCode === 114 || (e.ctrlKey && e.keyCode === 70)) {
+                e.preventDefault();
+                this.props.onToggleSearch();
+            }
+        });
+    }
+
     keyDownHandler(event) {
-        if (event.keyCode === 13) {
+        if (event.keyCode === 13 || event.keyCode === 114) {
+            event.preventDefault();
             this.props.onChangeSearchFoundIndex(this.props.searchFoundIndex + 1)
         }
         if (event.keyCode === 27) {
-            this.props.onCloseSearch();
+            this.props.onToggleSearch();
             event.target.focus = false;
         }
     }
@@ -28,6 +38,7 @@ export default class Search extends Component {
                         placeholder='Find in view'
                         onChange={(event) => this.props.onChangeSearch(event.target.value, this.props.currentTableId)}
                         onKeyDown={(event) => this.keyDownHandler(event)}
+                        autoFocus="true"
                     />
                 </span>
                 <span>
@@ -38,15 +49,15 @@ export default class Search extends Component {
                         {this.props.searchMatchedRecordItemIdList.length}
                     </span>}
                     {(this.props.searchMatchedRecordItemIdList.length !==0) &&
-                    <Icon name='chevron up'
+                    <Icon name='chevron down'
                           onClick={(event) => this.props.onChangeSearchFoundIndex(this.props.searchFoundIndex + 1)}
                     />}
                     {(this.props.searchMatchedRecordItemIdList.length !==0) &&
-                    <Icon name='chevron down'
+                    <Icon name='chevron up'
                           onClick={(event) => this.props.onChangeSearchFoundIndex(this.props.searchFoundIndex - 1)}
                     />}
                     <Icon name='close'
-                          onClick={() => this.props.onCloseSearch()}
+                          onClick={() => this.props.onToggleSearch()}
                     />
                 </span>
             </div>
