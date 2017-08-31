@@ -14,7 +14,7 @@ class BaseList extends Component {
 		if (this.props.bases) {
 			return (
 				<div className='base-list'>
-					{ this.props.bases.map(function (base) {
+					{ this.props.bases && this.props.bases.map(function (base) {
 						return (
 							<div key={base._id || ++temporaryKey}>
 								<BaseItem className="base-list-item"
