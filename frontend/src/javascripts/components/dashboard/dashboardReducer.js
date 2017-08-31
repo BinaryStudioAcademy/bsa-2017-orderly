@@ -17,7 +17,8 @@ const initState = {
     coworkers: {},
     searchMatchedRecordItemIdList: [],
     searchFoundIndex: '',
-    searchBlockOpen: false
+    searchBlockOpen: false,
+    currentView: null
 };
 
 function dashboardReducer(state = initState, action) {
@@ -35,29 +36,29 @@ function dashboardReducer(state = initState, action) {
         );
     }
 
-        case 'SET_ACTIVE_TAB': {
-            return R.mergeAll([
-                R.dissoc('tables', state),
-                {
-                    tables: R.map((table) => {
-                        let tempObj = R.dissoc('isActive', table);
-                        tempObj.isActive = table._id === action.tableId;
-                        return tempObj;
-                    })(state.tables)
-                }
-            ]);
-        }
+    case 'SET_ACTIVE_TAB': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    let tempObj = R.dissoc('isActive', table);
+                    tempObj.isActive = table._id === action.tableId;
+                    return tempObj;
+                })(state.tables)
+            }
+        ]);
+    }
 
     case 'SET_TABS_MODAL': {
         return R.merge(state, {activeModal: action.activeModal});
     }
 
     case 'SET_TABLE_ID_TO_ACTIVE_MODAL': {
-    	return R.merge(state, {tableIdActiveModal: action.tableId});
+        return R.merge(state, {tableIdActiveModal: action.tableId});
     }
 
     case 'CHECK_TABLE_NAME': {
-        return R.merge(state, {renameIsError: action.renameIsError})
+        return R.merge(state, {renameIsError: action.renameIsError});
     }
 
     case 'GET_TABLES_BY_IDS_SUCCEEDED': {
@@ -112,31 +113,31 @@ function dashboardReducer(state = initState, action) {
         ]);
     }
 
-        case 'SWITCH_TABLE': {
-            return R.mergeAll([
-                R.dissoc('tables', state),
-                {
-                    tables: R.map((table) => {
-                        let newObj = R.dissoc('isActive', table);
-                        newObj.isActive = table._id === action.tableId;
-                        return newObj;
-                    })(state.tables)
-                }
-            ]);
-        }
+    case 'SWITCH_TABLE': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    let newObj = R.dissoc('isActive', table);
+                    newObj.isActive = table._id === action.tableId;
+                    return newObj;
+                })(state.tables)
+            }
+        ]);
+    }
 
-        case 'OPEN_EDIT_MENU': {
-            return R.mergeAll([
-                R.dissoc('tables', state),
-                {
-                    tables: R.map((table) => {
-                        let newObj = R.dissoc('isMenuOpen', table);
-                        newObj.isMenuOpen = table._id === action.tableId;
-                        return newObj;
-                    })(state.tables)
-                }
-            ]);
-        }
+    case 'OPEN_EDIT_MENU': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    let newObj = R.dissoc('isMenuOpen', table);
+                    newObj.isMenuOpen = table._id === action.tableId;
+                    return newObj;
+                })(state.tables)
+            }
+        ]);
+    }
 
     case 'CLOSE_EDIT_MENU': {
         return R.mergeAll([
@@ -381,6 +382,27 @@ function dashboardReducer(state = initState, action) {
 
     case 'TOGGLE_SEARCH': {
         return{...state, ...{searchMatchedRecordItemIdList: [], searchFoundIndex: '', searchBlockOpen: !state.searchBlockOpen}};
+    }
+
+    case 'CHANGE_VIEW': {
+        return {...state, currentView: action.viewId};
+    }
+
+    case 'SORT_RECORDS': {
+        console.log('DASH REDUCER SORT RECORDS');
+        console.log(action);
+        console.log('-------------------------');
+        return {...state};
+    }
+
+    case 'FILTER_RECORDS': {
+        const index = action.table.fields.findIndex((f) => f._id === action.fieldId);
+        const filtered = action.table.records.filter((r) => r.record_data[index].data.includes(action.filterQuery));
+        return {...state, filteredRecords: filtered};
+    }
+
+    case 'REMOVE_FILTER': {
+        return {...state, filteredRecords: null};
     }
 
     default:

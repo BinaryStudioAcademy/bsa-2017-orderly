@@ -4,7 +4,8 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, deleteTable,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
     changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
-    changeSearch, changeSearchFoundIndex, toggleSearch } from './dashboardActions';
+    changeSearch, changeSearchFoundIndex, toggleSearch,
+    changeView, sortRecords, filterRecords, removeFilter } from './dashboardActions';
 import { getCurrentUser } from '../userProfile/userProfileActions';
 import { addField } from '../view/viewActions';
 
@@ -25,8 +26,8 @@ const mapStateToProps = (state, ownProps) => {
         searchFoundIndex: state.dashboardReducer.searchFoundIndex,
         searchBlockOpen: state.dashboardReducer.searchBlockOpen,
         coworkers: state.dashboardReducer.coworkers,
-	    tableIdActiveModal: state.dashboardReducer.tableIdActiveModal,
-	    user: state.userProfile.user
+        tableIdActiveModal: state.dashboardReducer.tableIdActiveModal,
+        user: state.userProfile.user
     });
 };
 
@@ -57,7 +58,11 @@ const mapDispatchToProps = {
 	setTableIdToActiveModal: setTableIdToActiveModal,
     changeSearch: changeSearch,
     changeSearchFoundIndex: changeSearchFoundIndex,
-    toggleSearch: toggleSearch
+    toggleSearch: toggleSearch,
+    changeView: changeView,
+    sortRecords: sortRecords,
+    filterRecords: filterRecords,
+    removeFilter: removeFilter
 };
 
 const Dashboard = connect(

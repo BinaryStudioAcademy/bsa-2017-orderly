@@ -25,7 +25,7 @@ const setActive = (tableId) => ({
 const setTableIdToActiveModal = (tableId) => ({
     type: 'SET_TABLE_ID_TO_ACTIVE_MODAL',
     tableId: tableId
-})
+});
 
 const addTable = ({table, baseId}) => ({
     type: 'ADD_TABLE',
@@ -52,29 +52,29 @@ const addTableToBaseById = (baseId) => {
         type: 'ADD_TABLE_TO_BASE',
         baseId
     };
-}
+};
 
 const setTabsModal = (activeModal) => {
     return {
         type: 'SET_TABS_MODAL',
         activeModal: activeModal
-    }
-}
+    };
+};
 
 const updateTable = (newData, tableId) => {
     return {
         type: 'UPDATE_TABLE',
         newData,
         tableId
-    }
-}
+    };
+};
 
 const checkTableName = (renameIsError) => {
     return {
         type: 'CHECK_TABLE_NAME',
         renameIsError: renameIsError
-    }
-}
+    };
+};
 
 const addRecord = (tableId) => {
     return {
@@ -83,19 +83,26 @@ const addRecord = (tableId) => {
     };
 };
 
+export function addField(tableId) {
+    return {
+        type: 'ADD_FIELD',
+        tableId: tableId
+    };
+}
+
 const selectRecord = (recordId) => {
     return {
         type: 'SELECT_RECORD',
         recordId: recordId
     };
-}
+};
 
 const activateRecord = (recordId) => {
     return {
         type: 'ACTIVATE_RECORD',
         recordId: recordId
     };
-}
+};
 
 const changeRecord = (tableId, recordId, data, user) => {
     return {
@@ -105,21 +112,21 @@ const changeRecord = (tableId, recordId, data, user) => {
         data: data,
         user: user
     };
-}
+};
 
 const blurRecord = (recordId) => {
     return {
         type: 'BLUR_RECORD',
         recordId: recordId
     };
-}
+};
 
 const blurRecordComponent = (recordId) => {
     return {
         type: 'BLUR_RECORD_COMPONENT',
         recordId: recordId
     };
-}
+};
 
 const changeFieldType = (fieldId, records) => {
     return {
@@ -175,6 +182,38 @@ const toggleSearch = () => {
     };
 };
 
+export function changeView(viewId) {
+    return {
+        type: 'CHANGE_VIEW',
+        viewId
+    };
+}
+
+export function sortRecords(table, fieldId, sortOption) {
+    return {
+        type: 'SORT_RECORDS',
+        table: table,
+        fieldId: fieldId,
+        sortOption: sortOption
+    };
+}
+
+export function filterRecords(table, fieldId, condition, filterQuery) {
+    return {
+        type: 'FILTER_RECORDS',
+        table: table,
+        fieldId: fieldId,
+        condition: condition,
+        filterQuery: filterQuery,
+    };
+}
+
+export function removeFilter() {
+    return {
+        type: 'REMOVE_FILTER'
+    };
+}
+
 export {
     getBaseById,
     getTables,
@@ -187,7 +226,7 @@ export {
     setTabsModal,
     checkTableName,
     addTableToBaseById,
-	setTableIdToActiveModal,
+    setTableIdToActiveModal,
     updateTable,
     addRecord,
     selectRecord,
