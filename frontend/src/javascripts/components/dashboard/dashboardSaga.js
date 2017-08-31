@@ -174,6 +174,7 @@ function* dashboardSaga() {
     yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
     yield takeEvery('ADD_FIELD', addNewField);
     yield takeEvery('UPDATE_TABLE', changeTable);
+    yield takeEvery('CSV_PARSED', changeTable);
     yield takeEvery('ADD_RECORD', addNewRecord);
     yield takeLatest('CHANGE_RECORD', changeTableRecord);
     yield takeEvery('DELETE_TABLE', removeTable);
