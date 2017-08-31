@@ -15,7 +15,12 @@ export default class FilterMenu extends Component {
     }
 
     preformFilter = () => {
-        this.props.filterRecords(this.state)
+        this.props.filterRecords(
+            this.props.currentTable._id,
+            this.state.fieldId,
+            this.state.condition,
+            this.state.filterQuery,
+        );
     };
 
     clearFilter = () => {

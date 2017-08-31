@@ -7,21 +7,11 @@ const Gallery = require('../../schemas/view/gallerySchema');
 const Kanban = require('../../schemas/view/kanbanSchema');
 const objectId = require('mongoose').Types.ObjectId;
 
-const typeToSchema = {
-    'grid': Grid,
-    'form': Form,
-    'gallery': Gallery,
-    'kanban': Kanban,
-};
-
-let that;
-
 class TableRepository extends Repository {
 
     constructor() {
         super();
         this.model = Table;
-        that = this;
     }
 
     getByIds(ids) {
@@ -55,7 +45,7 @@ class TableRepository extends Repository {
     }
 
     addRecord(tableId, record) {
-        return that.model.findByIdAndUpdate(
+        return this.model.findByIdAndUpdate(
             tableId,
             {'$push': {records: record}},
             {'new': true}
@@ -63,7 +53,7 @@ class TableRepository extends Repository {
     }
 
     pullRecord(tableId, recordId) {
-        return that.model.findByIdAndUpdate(
+        return this.model.findByIdAndUpdate(
             tableId,
             {'$pull': {records: {_id: recordId}}},
             {'new': true}
@@ -150,7 +140,7 @@ class TableRepository extends Repository {
         return this.model.findById(tableId, {views: viewId});
     }
 
-    getFromView(viewId, viewType){
+    static getFromView(viewId, viewType){
         const viewModel = typeToSchema[viewType];
         return viewModel.findById(objectId(viewId));
     }
@@ -170,6 +160,24 @@ class TableRepository extends Repository {
             {'new': true}
         );
     }
+
+    filterRecords(tableId, fieldId, payload) {
+        console.log('TABLE REPO');
+        console.log(tableId);
+        console.log(fieldId);
+        console.log(payload);
+        console.log('------------------------');
+        return new Promise((resolve) => {
+            return resolve('OK');
+        });
+    }
 }
+
+const typeToSchema = {
+    'grid': Grid,
+    'form': Form,
+    'gallery': Gallery,
+    'kanban': Kanban,
+};
 
 module.exports = new TableRepository();

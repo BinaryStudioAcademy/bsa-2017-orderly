@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
 import GridHeader from './gridHeader';
 import GridContent from './gridContent';
-import * as gridActions from './gridActions';
 import './grid.scss';
 
-class Grid extends Component{
+export default class Grid extends Component{
     constructor(props) {
         super(props);
     }
@@ -36,13 +33,17 @@ class Grid extends Component{
                             currentTable={this.props.currentTable}
                             tables={this.props.tables}
                             sortRecords={this.handleSort}
-                            filterRecords={this.handleFilter}
-                            removeFilter={this.handleRemoveFilter}/>
+                            filterRecords={this.props.filterRecords}
+                            removeFilter={this.handleRemoveFilter}
+                />
                 <GridContent
                     currentTable={this.props.currentTable}
                     recordData={this.props.recordData}
                     addRecord={this.props.addRecord}
                     addField={this.props.addField}
+                    deleteField={this.props.deleteField}
+                    deleteRecord={this.props.deleteRecord}
+                    filteredRecords={this.props.filteredRecords}
                     fieldEvents={this.props.fieldEvents}
                     showFieldMenu={this.props.showFieldMenu}
                     changeFieldType={this.props.changeFieldType}
@@ -58,19 +59,3 @@ class Grid extends Component{
         );
     }
 }
-
-function mapStateToProps(state) {
-    return {
-        sortedRecords: state.grid.sortedRecords,
-        filteredRecords: state.grid.filteredRecords,
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(gridActions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Grid);
-
-// sortedRecords={this.props.sortedRecords}
-// filteredRecords={this.props.filteredRecords}

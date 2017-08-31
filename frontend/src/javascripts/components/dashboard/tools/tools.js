@@ -35,11 +35,11 @@ class Tools extends Component {
     }
 
     isRecordSelected(id) {
-        return this.props.selectedRecordItemId == id;
+        return this.props.selectedRecordItemId === id;
     }
 
     isRecordActive(id) {
-        return this.props.activeRecordItemId == id;
+        return this.props.activeRecordItemId === id;
     }
 
     selectRecordHandler(id) {
@@ -133,9 +133,14 @@ class Tools extends Component {
                       currentView={currentTable.views[0].view._id}
                       addRecord={this.props.addRecord}
                       addField={this.props.addField}
+                      changeFieldType={this.props.changeFieldType}
+                      changeFieldName={this.props.changeFieldName}
+                      deleteField={this.props.deleteField}
+                      deleteRecord={this.props.deleteRecord}
                       changeView={this.props.changeView}
                       sortRecords={this.props.sortRecords}
                       filterRecords={this.props.filterRecords}
+                      filteredRecords={this.props.filteredRecords}
                       removeFilter={this.props.removeFilter}/>
                 }
             </div>

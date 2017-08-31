@@ -174,5 +174,13 @@ router.delete('/:id/views/:viewId', (request, response) => {
         .catch((err) => response.status(500).send(err));
 });
 
+// filter table -------------------------------------
+
+router.get('/:id/fields/:fieldId/filter', (request, response) => {
+    tableRepository.filterRecords(request.params.id, request.params.fieldId, request)
+        .then((table) => response.status(200).send(table))
+        .catch((error) => response.status(500).send(error));
+});
+
 module.exports = router;
 
