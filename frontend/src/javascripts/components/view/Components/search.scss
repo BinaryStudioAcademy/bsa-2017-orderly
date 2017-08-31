@@ -1,8 +1,8 @@
 #search-block {
   display: flex;
   justify-content: space-between;
-  width: 279px;
-  padding-right: 20px;
+  width: 289px;
+  padding-right: 25px;
   border: 2px solid rgba(0, 0, 0, 0.12);
 
   input {
@@ -15,19 +15,21 @@
   }
 
   span:last-child {
-    padding-top: 8px;
+    padding-top: 4px;
 
     .found-counts {
       font-size: 11px;
+      margin-right: 6px;
       opacity: 0.75;
       user-select: none;
     }
 
     i {
       width: 20px;
-      height: 22px;
+      height: 14px;
       cursor: pointer;
       opacity: 0.6;
+      margin: 0;
     }
 
     i:hover {
@@ -36,8 +38,9 @@
 
     i.close.icon {
       position: absolute;
-      right: 73px;
-      top: 9px;
+      right: 76px;
+      top: 11px;
+      font-size: 14px;
     }
   }
 }

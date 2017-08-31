@@ -148,7 +148,7 @@ class GridContent extends Component {
 
     render() {
         return (
-            <div>
+            <div className="view__body">
                 <div className="wrapper__grid">
                     <div className="grid__content">
                         <div className="content__rows row-options-field">

@@ -34,8 +34,8 @@ export default class Search extends Component {
             <div id="search-block">
                 <span>
                     <Input
-                        size='small'
-                        placeholder='Find in view'
+                        size="small"
+                        placeholder="Find in view"
                         onChange={(event) => this.props.onChangeSearch(event.target.value, this.props.currentTableId)}
                         onKeyDown={(event) => this.keyDownHandler(event)}
                         autoFocus="true"
@@ -49,14 +49,14 @@ export default class Search extends Component {
                         {this.props.searchMatchedRecordItemIdList.length}
                     </span>}
                     {(this.props.searchMatchedRecordItemIdList.length !==0) &&
-                    <Icon name='chevron down'
+                    <Icon name="chevron down" size="small"
                           onClick={(event) => this.props.onChangeSearchFoundIndex(this.props.searchFoundIndex + 1)}
                     />}
                     {(this.props.searchMatchedRecordItemIdList.length !==0) &&
-                    <Icon name='chevron up'
+                    <Icon name="chevron up" size="small"
                           onClick={(event) => this.props.onChangeSearchFoundIndex(this.props.searchFoundIndex - 1)}
                     />}
-                    <Icon name='close'
+                    <Icon name="close" size="small"
                           onClick={() => this.props.onToggleSearch()}
                     />
                 </span>

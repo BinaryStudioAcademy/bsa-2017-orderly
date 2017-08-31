@@ -2,7 +2,10 @@
   display: flex;
   justify-content: space-between;
   padding: 5px 0;
-  border-bottom: 1px solid #EEE;
+}
+
+.view__body {
+  border-top: 2px solid rgba(170, 170, 170, 0.5);
 }
 
 #header__caret {
@@ -24,14 +27,25 @@
 }
 #search-wrapper {
   position: relative;
-  width: 350px;
+  width: 360px;
   display: flex;
   justify-content: space-between;
-  //border: 2px solid rgba(0, 0, 0, 0.12);
 
   .search-btn {
     background-color: #fff !important;
     padding: 11px 10px;
     margin: 0 20px 0 10px;
+  }
+}
+.content__body:last-child {
+  .field__items:first-child {
+    .content__field {
+      border-left: 0;
+    }
+    .field__items {
+      .field__item {
+        border-left: 0;
+      }
+    }
   }
 }

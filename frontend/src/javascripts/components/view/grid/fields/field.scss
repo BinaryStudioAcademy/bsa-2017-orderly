@@ -1,4 +1,4 @@
-$table-cell-width: 153px;
+$table-cell-width: 155px;
 
 .table-cell-container{
   position: relative;
@@ -6,7 +6,7 @@ $table-cell-width: 153px;
 
 .table-cell {
   width: $table-cell-width;
-  height: 31px;
+  height: 32px;
 }
 
 .table-cell.selected,
@@ -16,6 +16,11 @@ $table-cell-width: 153px;
   position: absolute;
   background-color: #fff;
   z-index: 1;
+}
+
+.table-cell.selected .table-cell-wrap .table-cell-inner,
+.table-cell.active .table-cell-wrap .table-cell-inner {
+  padding: 2px 8px;
 }
 
 .table-cell .table-cell-wrap {
