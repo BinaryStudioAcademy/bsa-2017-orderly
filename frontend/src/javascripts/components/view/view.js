@@ -36,6 +36,7 @@ class View extends Component {
         case 'grid':
             return <Grid
                 currentTable={this.props.currentTable}
+                tables={this.props.tables}
                 recordData={this.props.recordData}
                 addRecord={this.props.addRecord}
                 addField={this.props.addField}

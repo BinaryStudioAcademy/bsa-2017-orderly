@@ -8,7 +8,7 @@
   padding: 5px 10px;
   z-index: 5;
   position: absolute;
-  top: 162px;
+  top: 159px;
   left: 470px;
 }
 
@@ -27,6 +27,8 @@
 }
 
 .option__choices {
+  display: flex;
+  justify-content: space-between;
   width: 116px;
   border: 1px solid #AAA;
   border-radius: 4px;

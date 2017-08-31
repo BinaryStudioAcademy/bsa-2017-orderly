@@ -32,8 +32,6 @@ const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
             <Coworkers coworkers={coworkers}/>
             <Button className='share_btn header-icon' size='mini'>share</Button>
             <Icon inverted link className='header-icon' name='history' size='large'/>
-            <ImportCSV currentTableId={currentTableId} tables={tables}/>
-            <ExportCSV currentTableId={currentTableId} tables={tables} />
         </div>
     </div>
 );

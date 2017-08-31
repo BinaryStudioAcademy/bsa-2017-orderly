@@ -28,6 +28,7 @@ class Grid extends Component{
             <div className="grid-view">
                 <GridHeader
                     currentTable={this.props.currentTable}
+                    tables={this.props.tables}
                     sortRecords={this.handleSort}
                     filterRecords={this.handleFilter}
                     removeFilter={this.handleRemoveFilter}

@@ -3,6 +3,7 @@ import {Icon, Button} from 'semantic-ui-react';
 import {viewIcons} from '../../configuration/viewTypes';
 import FilterMenu from './headerMenu/filterMenu';
 import SortMenu from './headerMenu/sortMenu';
+import ExtraMenu from './headerMenu/extraMenu';
 import './gridHeader.scss';
 
 export default class GridHeader extends Component{
@@ -47,7 +48,7 @@ export default class GridHeader extends Component{
                         <span className="menu__text">Sort</span>
                     </Button>
                     <Button basic icon='external'/>
-                    <Button basic icon='ellipsis horizontal'/>
+                    <Button basic icon='ellipsis horizontal' onClick={() => this.toggleMenu('extra')}/>
                 </Button.Group>
                 <Icon name="search" id="header__search" size='large'/>
                 <SortMenu
@@ -60,6 +61,11 @@ export default class GridHeader extends Component{
                     currentTable={this.props.currentTable}
                     filterRecords={this.props.filterRecords}
                     removeFilter={this.props.removeFilter}
+                />
+                <ExtraMenu
+                    currentTableId={this.props.currentTable._id}
+                    tables={this.props.tables}
+                    isActive={this.state.activeMenu === 'extra'}
                 />
             </div>
         );
