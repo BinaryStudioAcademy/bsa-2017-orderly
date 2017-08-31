@@ -1,13 +1,12 @@
 import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
-    setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, deleteTable,
+    setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, addField, deleteTable,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
     changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
     changeSearch, changeSearchFoundIndex, toggleSearch,
     changeView, sortRecords, filterRecords, removeFilter } from './dashboardActions';
 import { getCurrentUser } from '../userProfile/userProfileActions';
-import { addField } from '../view/viewActions';
 
 const mapStateToProps = (state, ownProps) => {
     return ({

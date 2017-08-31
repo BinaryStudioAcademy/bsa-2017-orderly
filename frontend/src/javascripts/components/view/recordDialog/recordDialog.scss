@@ -24,7 +24,7 @@
 
   .row-control-container:first-child {
     border-top: 0;
-    height: 32.4px;
+    height: 32px;
   }
 
   .row-control-container:last-child {
@@ -76,7 +76,7 @@
         -webkit-justify-content: center;
         -ms-flex-pack: center;
         justify-content: center;
-        border:   2px solid rgba(204, 204, 204, 0.5);
+        border: 2px solid rgba(204, 204, 204, 0.25);
       }
       .expand.icon:hover {
         border: 2px solid #ccc;

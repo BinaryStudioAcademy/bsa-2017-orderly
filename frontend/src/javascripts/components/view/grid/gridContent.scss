@@ -98,12 +98,14 @@ $cell-padding: 0px;
 
 .item__add-field {
   width: 75px;
+  min-width: 75px;
   text-align: center;
   cursor: pointer;
   border: $cell-border-top;
   border-left: 0;
   border-top: 0;
   min-height: 33.5px;
+  height: 33px;
 }
 
 .item__add-record {
@@ -112,6 +114,7 @@ $cell-padding: 0px;
   text-align: left;
   cursor: pointer;
   border: $cell-border-top;
+  margin-bottom: 70px;
 }
 
 .item__add-field:hover, .item__add-record:hover {

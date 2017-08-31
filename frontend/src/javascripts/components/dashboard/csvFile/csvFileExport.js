@@ -12,7 +12,7 @@ class ExportCSV extends Component {
         }
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.tables[0].records) {
+        if (nextProps.tables && nextProps.tables[0].records) {
             var lookup = {};
             for (var i = 0, len = nextProps.tables.length; i < len; i++) {
                 lookup[nextProps.tables[i]._id] = nextProps.tables[i];
