@@ -37,8 +37,11 @@ class View extends Component {
             return <Grid
                 currentTable={this.props.currentTable}
                 recordData={this.props.recordData}
-                onAddField={this.props.addField}
-                onAddRecord={this.props.addRecord}
+                addRecord={this.props.addRecord}
+                addField={this.props.addField}
+                sortRecords={this.props.sortRecords}
+                filterRecords={this.props.filterRecords}
+                removeFilter={this.props.removeFilter}
                 showFieldMenu={this.props.showFieldMenu}
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
@@ -79,7 +82,7 @@ class View extends Component {
                       id="header__caret"
                       size="large"
                       onClick={this.handleToggleSelector}/>
-                <div className={this.props.view.showSelector ? 'view__selector' : 'hide'}>
+                <div className={this.props.showSelector ? 'view__selector' : 'hide'}>
                     <div className="selector__options">
                         {this.props.currentTable.views.map((view, ind) => {
                             return (
@@ -110,7 +113,7 @@ class View extends Component {
 
 function mapStateToProps(state) {
     return {
-        view: state.view,
+        showSelector: state.view.showSelector,
     };
 }
 

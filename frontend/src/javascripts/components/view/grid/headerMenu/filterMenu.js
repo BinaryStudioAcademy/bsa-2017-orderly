@@ -8,16 +8,14 @@ export default class FilterMenu extends Component {
         super(props);
 
         this.state = {
-            fieldId: null,
+            fieldId: props.currentTable.fields[0]._id,
             condition: 'contains',
             filterQuery: ''
         };
     }
 
     preformFilter = () => {
-        if (this.state.fieldId) {
-            this.props.filterRecords(this.state)
-        }
+        this.props.filterRecords(this.state)
     };
 
     clearFilter = () => {
@@ -27,10 +25,11 @@ export default class FilterMenu extends Component {
     render() {
         return (
             <div className={this.props.isActive ? "filter__menu" : "hide"}>
-                <Icon className="menu__item" name="x" onClick={() => this.clearFilter()}/>
-                <Icon name="checkmark" className="menu__item" onClick={() => this.preformFilter()}/>
+                <Icon className="menu__item" name="x" link onClick={() => this.clearFilter()}/>
+                <Icon name="checkmark" className="menu__item" link onClick={() => this.preformFilter()}/>
                 <span className="menu__item">Where</span>
-                <select className="menu__item item__select" onChange={(e) => this.setState({fieldId: e.target.value})}>
+                <select className="menu__item item__select"
+                        onChange={(e) => this.setState({fieldId: e.target.value})}>
                     {this.props.currentTable.fields.map((field, ind) => {
                         return (
                             <option key={ind} value={field._id}>{field.name}</option>
@@ -43,7 +42,7 @@ export default class FilterMenu extends Component {
                     })}
                 </select>
                 {!this.state.condition.includes('empty') &&
-                <input className="menu__item" type="text" onChange={(e) => this.setState({filterQuery: e.target.value})}/>}
+                <input className="menu__item item__input" type="text" onChange={(e) => this.setState({filterQuery: e.target.value})}/>}
             </div>
         );
     }

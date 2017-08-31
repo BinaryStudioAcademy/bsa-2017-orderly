@@ -1,5 +1,6 @@
 .filter__menu {
-  display: block;
+  display: flex;
+  align-items: baseline;
   max-width: 50rem;
   background-color: #FFF;
   border: 1px solid #AAA;
@@ -17,9 +18,12 @@
 
 .item__conditions {
   display: inline-flex;
-  //width: 150px;
 }
 
+.item__input {
+  min-width: 100px;
+  width: 100%;
+}
 .hide {
   display: none;
 }

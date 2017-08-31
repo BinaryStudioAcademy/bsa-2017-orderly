@@ -18,18 +18,14 @@ import RecordDialog from '../recordDialog/recordDialog';
 
 const RowNum = ({tableId, recordId, index, deleteRecord}) => {
     return (
-        <div className="rows__row" onContextMenu={(e) => {
-            deleteRecord(e, tableId, recordId)
-        }}>
+        <div className="rows__row" onContextMenu={(e) => deleteRecord(e, tableId, recordId)}>
             <span>{index + 1}</span>
         </div>
     )
 };
 
-const Field = ({
-                   id, tableId, type, name, index, records, recordData, showFieldMenu,
-                   changeFieldType, changeFieldName, deleteField
-               }) => {
+const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
+                   changeFieldType, changeFieldName, deleteField}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -76,37 +72,37 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
     };
     let record = null;
     switch (type) {
-    case 'longtext':
-        const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler}};
-        record = <LongText {...fieldPayloadLongtext}/>;
-        break;
+        case 'longtext':
+            const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler}};
+            record = <LongText {...fieldPayloadLongtext}/>;
+            break;
 
-    case 'number':
-        record = <Number {...fieldPayload}/>;
-        break;
+        case 'number':
+            record = <Number {...fieldPayload}/>;
+            break;
 
-    case 'currency':
-        record = <CurrencyField {...fieldPayload}/>;
-        break;
+        case 'currency':
+            record = <CurrencyField {...fieldPayload}/>;
+            break;
 
-    case 'autonumber':
-        record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
-        break;
+        case 'autonumber':
+            record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
+            break;
 
-    case 'url':
-        record = <Url {...fieldPayload}/>;
-        break;
+        case 'url':
+            record = <Url {...fieldPayload}/>;
+            break;
 
-    case 'date':
-        record = <DateField {...fieldPayload}/>;
-        break;
+        case 'date':
+            record = <DateField {...fieldPayload}/>;
+            break;
 
-    case 'email':
-        record = <Email {...fieldPayload}/>;
-        break;
+        case 'email':
+            record = <Email {...fieldPayload}/>;
+            break;
 
-    default:
-        record = <TextLine {...fieldPayload}/>;
+        default:
+            record = <TextLine {...fieldPayload}/>;
     }
 
     return (
@@ -123,11 +119,11 @@ class GridContent extends Component {
     }
 
     handleAddField = () => {
-        this.props.onAddField(this.props.currentTable._id);
+        this.props.addField(this.props.currentTable._id);
     };
 
     handleAddRecord = () => {
-        this.props.onAddRecord(this.props.currentTable._id);
+        this.props.addRecord(this.props.currentTable._id);
     };
 
     handleDeleteRecord = (event, tableId, recordId) => {

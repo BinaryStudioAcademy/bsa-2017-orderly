@@ -351,6 +351,23 @@ function dashboardReducer(state = initState, action) {
         return {...state, currentView: action.viewId};
     }
 
+    case 'SORT_RECORDS': {
+        console.log('DASH REDUCER SORT RECORDS');
+        console.log(action);
+        console.log('-------------------------');
+        return {...state};
+    }
+
+    case 'FILTER_RECORDS': {
+        const index = action.table.fields.findIndex((f) => f._id === action.fieldId);
+        const filtered = action.table.records.filter((r) => r.record_data[index].data.includes(action.filterQuery));
+        return {...state, filteredRecords: filtered};
+    }
+
+    case 'REMOVE_FILTER': {
+        return {...state, filteredRecords: null};
+    }
+
     default:
         return state;
     }

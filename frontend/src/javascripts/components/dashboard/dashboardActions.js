@@ -83,6 +83,13 @@ const addRecord = (tableId) => {
     };
 };
 
+export function addField(tableId) {
+    return {
+        type: 'ADD_FIELD',
+        tableId: tableId
+    };
+}
+
 const selectRecord = (recordId) => {
     return {
         type: 'SELECT_RECORD',
@@ -158,6 +165,31 @@ export function changeView(viewId) {
     return {
         type: 'CHANGE_VIEW',
         viewId
+    };
+}
+
+export function sortRecords(table, fieldId, sortOption) {
+    return {
+        type: 'SORT_RECORDS',
+        table: table,
+        fieldId: fieldId,
+        sortOption: sortOption
+    };
+}
+
+export function filterRecords(table, fieldId, condition, filterQuery) {
+    return {
+        type: 'FILTER_RECORDS',
+        table: table,
+        fieldId: fieldId,
+        condition: condition,
+        filterQuery: filterQuery,
+    };
+}
+
+export function removeFilter() {
+    return {
+        type: 'REMOVE_FILTER'
     };
 }
 

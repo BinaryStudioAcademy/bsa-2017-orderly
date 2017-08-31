@@ -2,13 +2,12 @@ import Tools from './tools/tools';
 import {connect} from 'react-redux';
 import {
     getBaseById, addTable, switchTable, closeMenu, checkTableName,
-    setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, deleteTable,
+    setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, addField, deleteTable,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
     changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
-    changeView
+    changeView, sortRecords, filterRecords, removeFilter
 } from './dashboardActions';
 import {getCurrentUser} from '../userProfile/userProfileActions';
-import {addField} from '../view/viewActions';
 
 const mapStateToProps = (state, ownProps) => {
     return ({
@@ -41,8 +40,8 @@ const mapDispatchToProps = {
     checkTableName: checkTableName,
     updateTable: updateTable,
     deleteTable: deleteTable,
-    addField: addField,
     addRecord: addRecord,
+    addField: addField,
     selectRecord: selectRecord,
     activateRecord: activateRecord,
     changeRecord: changeRecord,
@@ -55,6 +54,9 @@ const mapDispatchToProps = {
     getCoworkersList: getCoworkersList,
     setTableIdToActiveModal: setTableIdToActiveModal,
     changeView: changeView,
+    sortRecords: sortRecords,
+    filterRecords: filterRecords,
+    removeFilter: removeFilter
 };
 
 const Dashboard = connect(

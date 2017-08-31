@@ -40,27 +40,27 @@ export function deleteRecord(tableId, recordId) {
     };
 }
 
-export function sortRecords(table, fieldId, sortOption) {
-    return {
-        type: SORT_RECORDS,
-        table: table,
-        fieldId: fieldId,
-        sortOption: sortOption
-    };
-}
-
-export function filterRecords(table, fieldId, condition, filterQuery) {
-    return {
-        type: FILTER_RECORDS,
-        table: table,
-        fieldId: fieldId,
-        condition: condition,
-        filterQuery: filterQuery,
-    };
-}
-
-export function removeFilter() {
-    return {
-        type: REMOVE_FILTER
-    };
-}
+// export function sortRecords(table, fieldId, sortOption) {
+//     return {
+//         type: SORT_RECORDS,
+//         table: table,
+//         fieldId: fieldId,
+//         sortOption: sortOption
+//     };
+// }
+//
+// export function filterRecords(table, fieldId, condition, filterQuery) {
+//     return {
+//         type: FILTER_RECORDS,
+//         table: table,
+//         fieldId: fieldId,
+//         condition: condition,
+//         filterQuery: filterQuery,
+//     };
+// }
+//
+// export function removeFilter() {
+//     return {
+//         type: REMOVE_FILTER
+//     };
+// }

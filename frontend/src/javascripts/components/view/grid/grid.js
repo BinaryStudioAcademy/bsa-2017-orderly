@@ -34,11 +34,9 @@ class Grid extends Component{
                 />
                 <GridContent
                     currentTable={this.props.currentTable}
-                    sortedRecords={this.props.sortedRecords}
-                    filteredRecords={this.props.filteredRecords}
                     recordData={this.props.recordData}
-                    onAddField={this.props.onAddField}
-                    onAddRecord={this.props.onAddRecord}
+                    addRecord={this.props.addRecord}
+                    addField={this.props.addField}
                     fieldEvents={this.props.fieldEvents}
                     showFieldMenu={this.props.showFieldMenu}
                     changeFieldType={this.props.changeFieldType}
@@ -65,3 +63,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Grid);
+
+// sortedRecords={this.props.sortedRecords}
+// filteredRecords={this.props.filteredRecords}

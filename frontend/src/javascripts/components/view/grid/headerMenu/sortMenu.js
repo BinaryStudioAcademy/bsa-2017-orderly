@@ -8,43 +8,38 @@ export default class SortMenu extends Component {
         super(props);
 
         this.state = {
-            fieldId: null,
-            fieldType: 'text',
-            sortOption: 'asc',
+            fieldId: this.props.currentTable.fields[0]._id,
+            fieldType: this.props.currentTable.fields[0].type,
+            sortOption: 'text-asc',
         };
     }
 
     preformSort = () => {
-        if (this.state.fieldId) {
-            this.props.sortRecords(this.state)
-        }
+        this.props.sortRecords(this.state)
     };
 
     render() {
         return (
             <div className={this.props.isActive ? "sort__menu" : "hide"}>
-                <Icon className="menu__item" name="x"/>
-                <Icon name="checkmark" className="menu__item" onClick={() => this.preformSort()}/>
-                <span className="menu__item">Sort by</span>
+                <Icon className="menu__item" name="x" link/>
+                <Icon className="menu__item" name="checkmark" link onClick={() => this.preformSort()}/>
+                <span className="menu__item item__label-sort-by">Sort by</span>
                 <select className="menu__item item__select" onChange={(e) => {
-                    let setType;
                     let [fieldId, fieldType] = e.target.value.split(',');
+                    let setType = 'number';
                     if (textTypes.includes(fieldType)){
                         setType = 'text';
-                    } else {
-                        setType = 'number';
                     }
                     this.setState({
                         fieldId: fieldId,
                         fieldType: setType
                     });
                 }}>
-                    {this.props.currentTable.fields &&
-                    this.props.currentTable.fields.map((field, ind) => {
-                        return (
-                            <option key={ind} value={[field._id, field.type]}>{field.name}</option>
-                        );
-                    })}
+                {this.props.currentTable.fields.map((field, ind) => {
+                    return (
+                        <option key={ind} value={[field._id, field.type]}>{field.name}</option>
+                    );
+                })}
                 </select>
                 <span className="menu__item">from</span>
                 <div className="menu__item option__choices">

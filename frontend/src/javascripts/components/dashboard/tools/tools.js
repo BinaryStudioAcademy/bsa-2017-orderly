@@ -120,7 +120,12 @@ class Tools extends Component {
                 {currentTable &&
                 <View currentTable={currentTable}
                       currentView={currentTable.views[0].view._id}
+                      addRecord={this.props.addRecord}
+                      addField={this.props.addField}
                       changeView={this.props.changeView}
+                      sortRecords={this.props.sortRecords}
+                      filterRecords={this.props.filterRecords}
+                      removeFilter={this.props.removeFilter}
                       recordData={recordData}
                       openRecordDialog={this.props.openRecordDialog}
                       recordDialogIndex={this.props.recordDialogIndex}
