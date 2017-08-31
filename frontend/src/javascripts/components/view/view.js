@@ -38,6 +38,7 @@ class View extends Component {
                 showFieldMenu={this.props.showFieldMenu}
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
+                changeFieldOptions={this.props.changeFieldOptions}
                 deleteField={this.props.deleteField}
                 onOpenRecordDialog={this.props.openRecordDialog}
                 recordDialogIndex={this.props.recordDialogIndex}

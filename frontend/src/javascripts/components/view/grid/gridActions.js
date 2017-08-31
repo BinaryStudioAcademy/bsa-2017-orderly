@@ -3,6 +3,7 @@ export const CHANGE_FIELD_TYPE = 'CHANGE_FIELD_TYPE';
 export const CHANGE_FIELD_NAME = 'CHANGE_FIELD_NAME';
 export const DELETE_FIELD = 'DELETE_FIELD';
 export const DELETE_RECORD = 'DELETE_RECORD';
+export const CHANGE_FIELD_OPTIONS = 'CHANGE_FIELD_OPTIONS';
 
 export function toggleFieldMenu() {
     return {
@@ -15,6 +16,14 @@ export function changeFieldType(tableId, fieldType, fieldId) {
         type: CHANGE_FIELD_TYPE,
         tableId: tableId,
         fieldType: fieldType,
+        fieldId: fieldId
+    };
+}
+export function changeFieldOptions(tableId, fieldOptions, fieldId) {
+    return {
+        type: CHANGE_FIELD_OPTIONS,
+        tableId: tableId,
+        fieldOptions: fieldOptions,
         fieldId: fieldId
     };
 }

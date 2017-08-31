@@ -25,7 +25,7 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
 };
 
 const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
-                   changeFieldType, changeFieldName, deleteField}) => {
+                   changeFieldType, changeFieldName, changeFieldOptions, deleteField}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -39,6 +39,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                     type={type}
                     changeFieldType={changeFieldType}
                     changeFieldName={changeFieldName}
+                    changeFieldOptions={changeFieldOptions}
                     deleteField={deleteField}
                     index={index}
                 />
@@ -198,6 +199,7 @@ class GridContent extends Component {
                                     recordData={this.props.recordData}
                                     showFieldMenu={this.props.showFieldMenu}
                                     changeFieldType={this.props.changeFieldType}
+                                    changeFieldOptions={this.props.changeFieldOptions}
                                     changeFieldName={this.props.changeFieldName}
                                     deleteField={this.props.deleteField}
                                     tableId={this.props.currentTable._id}
@@ -219,7 +221,7 @@ class GridContent extends Component {
 
 function mapStateToProps(state) {
     return {
-        gridReducer: state.gridReducer
+        gridReducer: state.grid
     };
 }
 

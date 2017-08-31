@@ -1,3 +1,94 @@
+.fields-menu-options-container{
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid rgba(34,36,38,.15);
+    height: 37px;
+    width: 80%;
+    text-align: center;
+    padding-top: 8px;
+  .ui.dropdown{
+    width: 150px !important;
+    position: relative;
+  }
+  .ui.dropdown .menu {
+    width: 170px !important;
+    left: -10px !important;
+  }
+}
+.label-text-wrapper {
+  .label-text{
+    opacity: .75;
+    margin-bottom: 5px;
+    font-size: 14px;
+    margin-left: 2px;
+    margin-top: 5px;
+    font-weight: 700;
+  }
+ 
+  .ui.dropdown>.text {
+    padding: 5px;
+  }
+
+  .option-input{
+    padding: 7px;
+    width: 80%;
+    border: 1px solid rgba(34, 36, 38, 0.15);
+    border-radius: 2px 0px 0px 2px;
+  }
+  .option-list{
+    padding-left: 10px;
+    margin: 0px;
+  }
+  .option-list-item{
+    list-style: none;
+    padding: 5px;
+  }
+  .option-input-btn{
+    padding: 8px;
+    border: none;
+  }
+  .delete-option{
+    width: 15px;
+    display: inline-block;
+    margin-left: 5px;
+    color: rgba(209,96,96,.95);
+    font-weight: 900;
+    padding: 0px 3px 2px 3px;
+    cursor: pointer;
+    text-align: center;
+    height: 15px;
+  }
+}
+.explanation-text-wrapper {
+    padding-left: 4px;
+    padding-right: 4px;
+  .explanation-text {
+    opacity: .75;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+    margin-top: 7px;
+    font-size: 13px;
+  }
+}
+.button-wrapper{
+  margin-left: 136px;
+  margin-top: 10px;
+  .save-btn{
+    background-color: #2d7ff9;
+    color: white;
+    cursor: pointer;
+    padding: 3px 0px 3px 0px;
+    border-radius: 3px;
+    font-weight: 500;
+    width: 60px;
+    text-align: center;
+  }
+  .save-btn:hover {
+    background-color: #2750ae;  
+  }
+}
+
+
 .field__ellipsis {
   float: right;
   position: relative;
@@ -9,11 +100,11 @@
   z-index: 2;
   margin-top: -5px;
   margin-left: -105px;
-  width: 200px;
+  width: 235px;
   padding: 10px;
   border: .5px solid #AAA;
   border-radius: 5px;
-  background-color: #EEE;
+  background-color: #f6f6f6;
 }
 
 .content__body > .field__items:last-child {
@@ -34,13 +125,7 @@
 }
 
 .menu__field-option {
-  margin: 5px auto;
-  border-radius: 5px;
   cursor: pointer;
-}
-
-.menu__field-option:hover {
-  background-color: #DDD;
 }
 
 .hide {
