@@ -24,7 +24,8 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
 };
 
 const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
-                   changeFieldType, changeFieldName, deleteField}) => {
+                changeFieldType, changeFieldName, deleteField, searchMatchedRecordItemIdList,
+                searchFoundIndex}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -43,20 +44,23 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                 />
             </div>
             <div className="field__items">
-                {records.map((record, idx) => {
-                    return <Record key={record.record_data[index]._id}
+                {records &&
+                records.map((record, idx) => {
+                    return <RecordItem key={record.record_data[index]._id}
                                    id={record.record_data[index]._id}
                                    recordIdx={idx}
                                    type={type}
                                    data={record.record_data[index].data}
-                                   recordData={recordData}/>
+                                   recordData={recordData}
+                                   searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
+                                   searchFoundIndex={searchFoundIndex}/>
                 })}
             </div>
         </div>
     );
 };
 
-const Record = ({id, type, data, recordData, recordIdx}) => {
+const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordItemIdList, searchFoundIndex}) => {
     const fieldPayload = {
         id: id,
         value: data,
@@ -72,7 +76,7 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
     let record = null;
     switch (type) {
         case 'longtext':
-            const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler}};
+            const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler} };
             record = <LongText {...fieldPayloadLongtext}/>;
             break;
         case 'number':
@@ -103,8 +107,19 @@ const Record = ({id, type, data, recordData, recordIdx}) => {
             record = <TextLine {...fieldPayload}/>;
     }
 
+    let recordClassName = '';
+    if (searchMatchedRecordItemIdList && searchMatchedRecordItemIdList.indexOf(id) === searchFoundIndex) {
+        recordClassName = 'field__item found foundCursor';
+    } else {
+        if (searchMatchedRecordItemIdList && searchMatchedRecordItemIdList.indexOf(id) !== -1) {
+            recordClassName = 'field__item found';
+        } else {
+            recordClassName = 'field__item';
+        }
+    }
+
     return (
-        <div className="field__item">
+        <div className={recordClassName}>
             {record}
         </div>
     );
@@ -132,9 +147,9 @@ export default class GridContent extends Component {
     render() {
         const records = this.props.filteredRecords || this.props.currentTable.records;
         return (
-            <div className="wrapper__grid">
-                <div className="grid__content">
-                    <div className="content__wrapper">
+            <div className="view__body">
+                <div className="wrapper__grid">
+                    <div className="grid__content">
                         <div className="content__rows row-options-field">
                             <div className="rows__selector rows__row">
                                 <Icon name="lock"/>
@@ -195,16 +210,18 @@ export default class GridContent extends Component {
                                     deleteField={this.props.deleteField}
                                     deleteRecord={this.props.deleteRecord}
                                     tableId={this.props.currentTable._id}
+                                    searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                                    searchFoundIndex={this.props.searchFoundIndex}
                                 />
                             })}
-                        </div>
-                        <div className="content__field item__add-field" onClick={this.handleAddField}>
-                            <Icon name="plus" className="field__icon"/>
                         </div>
                     </div>
                     <div className="content__field item__add-record" onClick={this.handleAddRecord}>
                         <Icon name="plus" className="field__icon"/>
                     </div>
+                </div>
+                <div className="content__field item__add-field" onClick={this.handleAddField}>
+                    <Icon name="plus" className="field__icon"/>
                 </div>
             </div>
         );

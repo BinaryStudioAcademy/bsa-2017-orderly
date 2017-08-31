@@ -7,7 +7,7 @@ import Number from '../grid/fields/number/number';
 import HistoryList from './components/history/historyList';
 import CommentsBlock from './components/comments/commentsBlock';
 
-const Record = ({id, type, data, recordData}) => {
+const Recordtem = ({id, type, data, recordData}) => {
     let record = null;
     switch (type) {
         case 'longtext':
@@ -77,7 +77,7 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
                                 <div className="modal-field-name">
                                     {fields[fieldIndex].name}
                                 </div>
-                                <Record id={recordItem._id} type={fields[fieldIndex].type}
+                                <Recordtem id={recordItem._id} type={fields[fieldIndex].type}
                                         data={recordItem.data} recordData={recordData} />
                             </div>
                         )

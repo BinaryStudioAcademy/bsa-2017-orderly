@@ -153,6 +153,27 @@ const getCoworkersList = (coworkers) => {
     };
 };
 
+const changeSearch = (query, tableId) => {
+    return {
+        type: 'CHANGE_SEARCH',
+        query: query,
+        tableId: tableId
+    };
+};
+
+const changeSearchFoundIndex = (value) => {
+    return {
+        type: 'CHANGE_SEARCH_FOUND_INDEX',
+        value: value
+    };
+};
+
+const toggleSearch = () => {
+    return {
+        type: 'TOGGLE_SEARCH'
+    };
+};
+
 export function changeView(viewId) {
     return {
         type: 'CHANGE_VIEW',
@@ -241,5 +262,8 @@ export {
     deleteTable,
     openRecordDialog,
     addComment,
-    getCoworkersList
+    getCoworkersList,
+    changeSearch,
+    changeSearchFoundIndex,
+    toggleSearch
 };

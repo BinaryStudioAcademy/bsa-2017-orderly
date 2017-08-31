@@ -23,12 +23,18 @@ export default class Grid extends Component{
     render() {
         return (
             <div className="grid-view">
-                <GridHeader
-                    currentTable={this.props.currentTable}
-                    tables={this.props.tables}
-                    sortRecords={this.handleSort}
-                    filterRecords={this.props.filterRecords}
-                    removeFilter={this.handleRemoveFilter}
+                <GridHeader onChangeSearch={this.props.onChangeSearch}
+                            currentTableId={this.props.currentTable._id}
+                            searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                            searchFoundIndex={this.props.searchFoundIndex}
+                            onChangeSearchFoundIndex={this.props.onChangeSearchFoundIndex}
+                            onToggleSearch={this.props.onToggleSearch}
+                            searchBlockOpen={this.props.searchBlockOpen}
+                            currentTable={this.props.currentTable}
+                            tables={this.props.tables}
+                            sortRecords={this.handleSort}
+                            filterRecords={this.props.filterRecords}
+                            removeFilter={this.handleRemoveFilter}
                 />
                 <GridContent
                     currentTable={this.props.currentTable}
@@ -46,6 +52,8 @@ export default class Grid extends Component{
                     recordDialogIndex={this.props.recordDialogIndex}
                     onKeyPressComment={this.props.onKeyPressComment}
                     user={this.props.user}
+                    searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                    searchFoundIndex={this.props.searchFoundIndex}
                 />
             </div>
         );
