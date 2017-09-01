@@ -53,6 +53,8 @@ class View extends Component {
                 onOpenRecordDialog={this.props.openRecordDialog}
                 recordDialogIndex={this.props.recordDialogIndex}
                 onKeyPressComment={this.props.keyPressCommentHandler}
+                deleteFile={this.props.deleteFile}
+                uploadAttachment={this.props.uploadAttachment}
                 user={this.props.user}
                 onChangeSearch={this.props.onChangeSearch}
                 searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}

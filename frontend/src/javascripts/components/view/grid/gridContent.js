@@ -13,6 +13,7 @@ import SingleSelect from './fields/singleSelect/singleSelect';
 import Email from './fields/email/email';
 import Percent from './fields/percent/percent';
 import Phone from './fields/phone/phone';
+import Attachment from './fields/attachment/attachment';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
@@ -25,7 +26,8 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
 };
 
 const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
-                   changeFieldType, changeFieldName, changeFieldOptions, deleteField, currentField,  searchMatchedRecordItemIdList, searchFoundIndex}) => {
+                   changeFieldType, changeFieldName, changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
+                   searchFoundIndex, uploadAttachment, deleteFile}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -50,6 +52,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                 records.map((record, idx) => {
                     return <Record key={record.record_data[index]._id}
                                    id={record.record_data[index]._id}
+                                   uploadAttachment={uploadAttachment}
                                    recordIdx={idx}
                                    type={type}
                                    data={record.record_data[index].data}
@@ -57,6 +60,8 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                                    currentField={currentField}
                                    searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
                                    searchFoundIndex={searchFoundIndex}
+                                   deleteFile={deleteFile}
+                                   tableId={tableId}
                                    />
                 })}
             </div>
@@ -64,12 +69,15 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
     );
 };
 
-const Record = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList, searchFoundIndex}) => {
-
+const RecordItem = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList, searchFoundIndex, uploadAttachment, tableId,
+	                    deleteFile}) => {
     const fieldPayload = {
         id: id,
         value: data,
+        tableId: tableId,
         currentField: currentField,
+	    uploadAttachment: uploadAttachment,
+	    deleteFile: deleteFile,
         selected: recordData.isRecordSelected(id),
         active: recordData.isRecordActive(id),
         onSelect: recordData.selectRecordHandler,
@@ -88,9 +96,11 @@ const Record = ({id, type, data, recordData, recordIdx, currentField, searchMatc
         case 'number':
             record = <Number {...fieldPayload}/>;
             break;
+
         case 'select':
             record = <SingleSelect {...fieldPayload}/>;
             break;
+
         case 'currency':
             record = <CurrencyField {...fieldPayload}/>;
             break;
@@ -112,9 +122,14 @@ const Record = ({id, type, data, recordData, recordIdx, currentField, searchMatc
         case 'percent':
             record = <Percent {...fieldPayload}/>;
             break;
-        default:
+            
+	    case 'attachment':
+		    record = <Attachment {...fieldPayload}/>;
+		    break;
+	    default:
             record = <TextLine {...fieldPayload}/>;
-   }
+    }
+
 
     let recordClassName = '';
     if (searchMatchedRecordItemIdList && searchMatchedRecordItemIdList.indexOf(id) === searchFoundIndex) {
@@ -222,6 +237,8 @@ export default class GridContent extends Component {
                                     deleteField={this.props.deleteField}
                                     deleteRecord={this.props.deleteRecord}
                                     tableId={this.props.currentTable._id}
+                                    uploadAttachment={this.props.uploadAttachment}
+                                    deleteFile={this.props.deleteFile}
                                     searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                                     searchFoundIndex={this.props.searchFoundIndex}
                                 />

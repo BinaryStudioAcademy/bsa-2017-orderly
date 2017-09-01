@@ -6,6 +6,7 @@ const Form = require('../../schemas/view/formSchema');
 const Gallery = require('../../schemas/view/gallerySchema');
 const Kanban = require('../../schemas/view/kanbanSchema');
 const objectId = require('mongoose').Types.ObjectId;
+const R = require('ramda');
 
 class TableRepository extends Repository {
 
@@ -152,6 +153,31 @@ class TableRepository extends Repository {
             {'$push': {views: {view: viewId, type: viewType}}},
             {'new': true}
         ).populate('views.view');
+    }
+
+
+    updateRecordById(tableId, record_dataId, fileName, isDelete) {
+
+	    return this.model.findById(tableId)
+			.then(table => R.map( record => {
+				record.record_data = R.map(data => {
+					if (data._id == record_dataId) {
+						if (!data._id) return {_id: data._id, data: fileName}
+						if (isDelete) {
+							// eval(require('locus'))
+							return {_id: data._id, data: fileName}
+						} else {
+							let dataArray = data.data.split(',')
+							dataArray.push(fileName)
+							return {_id: data._id, data: dataArray.join(',')}
+						}
+					}
+					else return data
+				})(record.record_data)
+				return record
+				})(table.records)
+            )
+			.then(newRecords => this.model.findByIdAndUpdate(tableId, {records: newRecords}, {'new': true}))
     }
 
     deleteView(tableId, viewId) {
