@@ -10,6 +10,8 @@ const bgImage = (urlImage) => ({
 	backgroundImage: `url(${urlImage})`
 })
 
+let tempKey = 0;
+
 class Attachment extends Field {
 	constructor(props) {
 		super(props, 'attachment')
@@ -18,10 +20,10 @@ class Attachment extends Field {
 		}
 	}
 
-	handleOpen = (event) => {
+	handleOpen = (event, fileName) => {
 		event.preventDefault()
 		event.stopPropagation()
-		this.setState({imageModalOpen: true})
+		this.setState({imageModalOpen: fileName})
 	}
 
 	handleClose = () => this.setState({imageModalOpen: false})
@@ -42,8 +44,12 @@ class Attachment extends Field {
 	renderField() {
 		return (
 			<div className='attachment_default'>
-				<div style={bgImage(`http://localhost:2020/files/attachment/${this.props.id}/image/${this.props.value}`)}
-					 className='image_icon'/>
+				<div className='preview_wrapper'>
+					{R.map(fileName => <div key={++tempKey * 34}
+					                        style={bgImage(`http://localhost:2020/files/attachment/${this.props.id}/image/${fileName}`)}
+					                        className='image_icon'/>)(this.props.value.split(',') || [])}
+				</div>
+
 			</div>
 		)
 	}
@@ -68,20 +74,28 @@ class Attachment extends Field {
 					           accept="image/*"
 					           onChange={this.handleFile}
 					           className="add_file_btn"/>
-					<Image size='mini'
-					       onClick={this.handleOpen}
-					       className='attachment_file'
-					       src={`http://localhost:2020/files/attachment/${this.props.id}/image/${this.props.value}`} />
+					<div className='images_wrapper'>
+						{R.map(fileName => <div key={++tempKey} className='around_image'><Image
+												  size='mini'
+                                                  onClick={ event => {
+                                                  	this.handleOpen(event, fileName)
+                                                  }}
+						                          className='attachment_file'
+						                               src={`http://localhost:2020/files/attachment/${this.props.id}/image/${fileName}`} /></div>)
+						(this.props.value.split(',') || [])}
+					</div>
+
+
 				</div>
 				<Modal
-					open={this.state.imageModalOpen}
+					open={Boolean(this.state.imageModalOpen)}
 					onClose={this.handleClose}
 					basic
 					closeOnDimmerClick={true}
 					size='small'
 				>
 					<Modal.Content className='image_modal_content'>
-				       <div style={bgImage(`http://localhost:2020/files/attachment/${this.props.id}/image/${this.props.value}`)}
+				       <div style={bgImage(`http://localhost:2020/files/attachment/${this.props.id}/image/${this.state.imageModalOpen}`)}
 				            className='image_modal'/>
 					</Modal.Content>
 					<Modal.Actions>

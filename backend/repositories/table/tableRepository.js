@@ -159,7 +159,12 @@ class TableRepository extends Repository {
 		return this.model.findById(tableId)
 			.then(table => R.map( record => {
 				record.record_data = R.map(data => {
-					if (data._id == record_dataId) return {_id: data._id, data: fileName}
+					if (data._id == record_dataId) {
+						if (!data._id) return {_id: data._id, data: fileName}
+						let dataArray = data.data.split(',')
+						dataArray.push(fileName)
+						return {_id: data._id, data: dataArray.join(',')}
+					}
 					else return data
 				})(record.record_data)
 				return record

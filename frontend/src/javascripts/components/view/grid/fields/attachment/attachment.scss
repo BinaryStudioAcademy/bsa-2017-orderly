@@ -16,17 +16,27 @@
 .attachment_default {
   padding-left: 5px;
   padding-top: 2px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
-  .image_icon {
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 28px;
-    height: 28px;
+  .preview_wrapper {
+    width: 1000px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .image_icon {
+      margin-right: 5px;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 28px;
+      height: 28px;
+    }
   }
+
+
+
 }
 
 .attachment_cell {
@@ -34,7 +44,6 @@
   padding-left: 30px;
 
   .attachment_selected {
-    min-width: 200px;
     background-color: #fff;
     position: absolute;
     z-index: 999;
@@ -42,7 +51,7 @@
     padding: 5px;
     border-radius: 5px;
     top: -12px;
-    left: -28px;
+    left: -8px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -60,7 +69,6 @@
     input[type='file'] {
       z-index: 1002 !important;
     }
-
 
     .add_file_btn {
       position: relative;
@@ -83,14 +91,25 @@
 
     }
 
-    .attachment_file {
-      z-index: 1004;
-      border-radius: 5px;
-      margin-right: 10px;
+    .images_wrapper {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
 
-      &:hover {
-        cursor: pointer;
+      .around_image {
+        width: 45px;
+
+        .attachment_file {
+          z-index: 1004;
+          border-radius: 5px;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
       }
+
+
     }
   }
 }
