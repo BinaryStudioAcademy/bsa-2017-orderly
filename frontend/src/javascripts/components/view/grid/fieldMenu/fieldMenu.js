@@ -82,8 +82,9 @@ export default class FieldMenu extends Component {
 
     handleOptionsSubmit = (event) => {
         event.preventDefault();
-        this.state.fieldOptionsSS.push(newOption);
-        this.setState({fieldOptionsSS: this.state.fieldOptionsSS});
+        let newArray = this.state.fieldOptionsSS;
+        newArray.push(newOption);
+        this.setState({fieldOptionsSS: newArray});
         this.refs.select.refs.input.value = '';
     }
 
