@@ -25,7 +25,6 @@ export default class GridHeader extends Component{
     };
 
     render() {
-        console.log(this.props)
         return (
             <div className="view__header">
                 <div id="header__view-type">

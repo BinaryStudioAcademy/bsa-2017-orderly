@@ -42,7 +42,6 @@ class ImportCSV extends Component {
   }
 
   render(){
-    console.log(this.props)
     return (
       <div className='dropzone-wrapper'>
         <Dropzone className='dropzone' multiple={false} onDrop={this.onDrop.bind(this)}>
