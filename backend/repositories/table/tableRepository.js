@@ -1,28 +1,31 @@
 require('../../db/dbConnect');
 const Repository = require('../generalRepository');
 const Table = require('../../schemas/table/Table');
+const Grid = require('../../schemas/view/gridSchema');
+const Form = require('../../schemas/view/formSchema');
+const Gallery = require('../../schemas/view/gallerySchema');
+const Kanban = require('../../schemas/view/kanbanSchema');
 const objectId = require('mongoose').Types.ObjectId;
-
-let that;
 
 class TableRepository extends Repository {
 
     constructor() {
         super();
         this.model = Table;
-        that = this;
     }
 
     getByIds(ids) {
         return this.model.find({'_id': {$in: ids}})
             .populate('records.history.collaborator')
-            .populate('records.comments.collaborator');
+            .populate('records.comments.collaborator')
+            .populate('views.view');
     }
 
     update(id, body) {
         return this.model.findByIdAndUpdate(id, body, {'new': true})
             .populate('records.history.collaborator')
-            .populate('records.comments.collaborator');
+            .populate('records.comments.collaborator')
+            .populate('views.view');
     }
 
     getRecords(tableId) {
@@ -42,7 +45,7 @@ class TableRepository extends Repository {
     }
 
     addRecord(tableId, record) {
-        return that.model.findByIdAndUpdate(
+        return this.model.findByIdAndUpdate(
             tableId,
             {'$push': {records: record}},
             {'new': true}
@@ -50,7 +53,7 @@ class TableRepository extends Repository {
     }
 
     pullRecord(tableId, recordId) {
-        return that.model.findByIdAndUpdate(
+        return this.model.findByIdAndUpdate(
             tableId,
             {'$pull': {records: {_id: recordId}}},
             {'new': true}
@@ -130,21 +133,52 @@ class TableRepository extends Repository {
             {'$pull': {fields: {}}});
     }
 
+    getViews(tableId) {
+        return this.model.findById(tableId).select('views');
+    }
+
+    getView(tableId, viewId) {
+        return this.model.findById(tableId, {views: viewId});
+    }
+
+    static getFromView(viewId, viewType){
+        const viewModel = typeToSchema[viewType];
+        return viewModel.findById(objectId(viewId));
+    }
+
     addView(tableId, viewId, viewType) {
-        return this.model.update(
-            {_id: objectId(tableId)},
-            {'$push': {views: {viewId, type: viewType}}},
+        return this.model.findByIdAndUpdate(
+            tableId,
+            {'$push': {views: {view: viewId, type: viewType}}},
+            {'new': true}
+        ).populate('views.view');
+    }
+
+    deleteView(tableId, viewId) {
+        return this.model.findByIdAndUpdate(
+            tableId,
+            {'$pull': {views: {_id: viewId}}},
             {'new': true}
         );
     }
 
-    deleteView(tableId, viewId) {
-        return this.model.findById(objectId(tableId))
-            .then((table) => {
-                table.views = table.views.filter((v) => v.viewId.toString() !== viewId);
-                return table.save();
-            });
+    filterRecords(tableId, fieldId, payload) {
+        console.log('TABLE REPO');
+        console.log(tableId);
+        console.log(fieldId);
+        console.log(payload);
+        console.log('------------------------');
+        return new Promise((resolve) => {
+            return resolve('OK');
+        });
     }
 }
+
+const typeToSchema = {
+    'grid': Grid,
+    'form': Form,
+    'gallery': Gallery,
+    'kanban': Kanban,
+};
 
 module.exports = new TableRepository();

@@ -6,11 +6,11 @@ const tableSchema = new Schema({
     name: {
         type: String,
         required: true,
-	    default: 'new table'
+        default: 'new table'
     },
     description: {
         type: String,
-	    default: ''
+        default: ''
     },
     records: [{
         record_data: [{
@@ -75,29 +75,12 @@ const tableSchema = new Schema({
             enum: ['grid', 'form', 'gallery', 'kanban'],
             required: true
         },
-        viewId: ObjectId,
-        ref: {
-            type: String,
-            enum: ['grid', 'form', 'gallery', 'kanban'],
-        }
+        view: {
+            type: ObjectId,
+            refPath: 'views.type',
+            required: true
+        },
     }]
 }, {versionKey: false});
 
 module.exports = mongoose.model('table', tableSchema);
-
-// gridViews: [{
-//     type: Schema.Types.ObjectId,
-//     ref: 'grid'
-// }],
-//     formViews: [{
-//     type: Schema.Types.ObjectId,
-//     ref: 'form'
-// }],
-//     galleryViews: [{
-//     type: Schema.Types.ObjectId,
-//     ref: 'gallery'
-// }],
-//     kanbanViews: [{
-//     type: Schema.Types.ObjectId,
-//     ref: 'kanban'
-// }],
