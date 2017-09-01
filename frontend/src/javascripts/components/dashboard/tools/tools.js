@@ -130,6 +130,7 @@ class Tools extends Component {
                       user={this.props.user}/>
                 {currentTable &&
                 <View currentTable={currentTable}
+                      tables={this.props.tables}
                       recordData={recordData}
                       openRecordDialog={this.props.openRecordDialog}
                       recordDialogIndex={this.props.recordDialogIndex}
