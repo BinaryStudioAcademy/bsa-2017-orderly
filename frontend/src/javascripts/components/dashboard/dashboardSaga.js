@@ -2,7 +2,7 @@ import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable,
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
-    deleteFieldRecords, deleteRecord
+    deleteFieldRecords, deleteRecord, filterRecords
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -185,6 +185,15 @@ function* disconnectSocket() {
     }
 }
 
+function* filterTableRecords(action) {
+    try {
+        const filtered = yield call(filterRecords, action);
+        yield put({type: 'FILTER_TABLE_SUCCEEDED', table: filtered.data});
+    } catch (err) {
+        yield put({type: 'FILTER_TABLE_FAILED', message: err.message});
+    }
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -192,6 +201,7 @@ function* dashboardSaga() {
     yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
     yield takeEvery('ADD_FIELD', addNewField);
     yield takeEvery('UPDATE_TABLE', changeTable);
+    yield takeEvery('CSV_PARSED', changeTable);
     yield takeEvery('ADD_RECORD', addNewRecord);
     yield takeLatest('CHANGE_RECORD', changeTableRecord);
     yield takeEvery('DELETE_TABLE', removeTable);
@@ -203,6 +213,7 @@ function* dashboardSaga() {
     yield takeEvery('SET_ACTIVE_TAB', sendTableCoworker);
     yield takeEvery(['SWITCH_TABLE', 'SET_ACTIVE_TAB'], sendSwitchTableCoworker);
     yield takeEvery('DISCONNECT_SOCKET', disconnectSocket);
+    yield takeEvery('FILTER_RECORDS', filterTableRecords);
 }
 
 export default dashboardSaga;

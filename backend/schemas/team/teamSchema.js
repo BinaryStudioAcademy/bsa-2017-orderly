@@ -10,7 +10,7 @@ const teamSchema = new Schema({
     },
     name: {
         type: String,
-        required: true,
+        default: 'New Team',
     },
     collaborators: [
         {

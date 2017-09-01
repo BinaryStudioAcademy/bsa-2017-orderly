@@ -45,11 +45,11 @@ class Tools extends Component {
     }
 
     isRecordSelected(id) {
-        return this.props.selectedRecordId == id;
+        return this.props.selectedRecordItemId === id;
     }
 
     isRecordActive(id) {
-        return this.props.activeRecordId == id;
+        return this.props.activeRecordItemId === id;
     }
 
     selectRecordHandler(id) {
@@ -99,22 +99,24 @@ class Tools extends Component {
             keyPressRecordHandler: this.keyPressRecordHandler,
             keyPressSimpleRecordHandler: this.keyPressSimpleRecordHandler,
             blurRecordHandler: this.blurRecordHandler,
-            blurRecordComponentHandler: this.blurRecordComponentHandler,
+            blurRecordComponentHandler: this.blurRecordComponentHandler
         };
         return (
             <div onClick={() => {
                 // this.props.closeMenu();
             }}>
-                <Header base={this.props.base} 
-                        user={this.props.user} 
+                <Header base={this.props.base}
+                        user={this.props.user}
                         menu={this.props.menu}
-                        handleClick={this.props.handleClick}  />
+                        handleClick={this.props.handleClick}/>
                 <Tabs base={this.props.base}
+                      currentTableId={this.props.currentTableId}
+                      tables={this.props.tables}
+                      tableIdActiveModal={this.props.tableIdActiveModal}
+                      setTableIdToActiveModal={this.props.setTableIdToActiveModal}
                       activeModal={this.props.activeModal}
                       setTabsModal={this.props.setTabsModal}
-                      tables={this.props.tables}
                       addPopupIsOpen={this.props.addPopupIsOpen}
-                      currentTableId={this.props.currentTableId}
                       openMenu={this.props.openMenu}
                       closeMenu={this.props.closeMenu}
                       switchTableClick={this.props.switchTableClick}
@@ -126,12 +128,32 @@ class Tools extends Component {
                       addTableClick={this.props.addTableClick}
                       coworkers={this.props.coworkers}
                       user={this.props.user}/>
+                {currentTable &&
                 <View currentTable={currentTable}
                       recordData={recordData}
                       openRecordDialog={this.props.openRecordDialog}
                       recordDialogIndex={this.props.recordDialogIndex}
                       keyPressCommentHandler={this.keyPressCommentHandler}
-                      user={this.props.user}/>
+                      user={this.props.user}
+                      onChangeSearch={this.props.changeSearch}
+                      searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                      searchFoundIndex={this.props.searchFoundIndex}
+                      onChangeSearchFoundIndex={this.props.changeSearchFoundIndex}
+                      onToggleSearch={this.props.toggleSearch}
+                      searchBlockOpen={this.props.searchBlockOpen}
+                      currentView={currentTable.views[0].view._id}
+                      addRecord={this.props.addRecord}
+                      addField={this.props.addField}
+                      changeFieldType={this.props.changeFieldType}
+                      changeFieldName={this.props.changeFieldName}
+                      deleteField={this.props.deleteField}
+                      deleteRecord={this.props.deleteRecord}
+                      changeView={this.props.changeView}
+                      sortRecords={this.props.sortRecords}
+                      filterRecords={this.props.filterRecords}
+                      filteredRecords={this.props.filteredRecords}
+                      removeFilter={this.props.removeFilter}/>
+                }
             </div>
         );
     }

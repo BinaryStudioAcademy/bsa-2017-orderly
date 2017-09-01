@@ -22,7 +22,6 @@ class Workflow extends Component {
 	render() {
 		return (
 			<div>
-				{console.log(this.props.currentTable, 'props in workflow')}
 				<h2>{this.props.currentTable ? this.props.currentTable.name : 'no tabs name'}</h2>
 			</div>
 		)

@@ -2,8 +2,7 @@ const router = require('express').Router();
 const baseRepository = require('../../repositories/base/baseRepository');
 const tableRepository = require('../../repositories/table/tableRepository');
 const gridViewRepository = require('../../repositories/view/gridRepositories');
-const {defaultTable} = require('../../config/defaultTable');
-const {defaultView} = require('../../config/defaultView');
+const {defaultTable, defaultView} = require('../../config/defaultEntities');
 
 router.get('/', (req, res) => {
     baseRepository.getAll().then((bases) => {
@@ -24,8 +23,8 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => Promise.all(
     [
         baseRepository.add(req.body),
-        tableRepository.add(defaultTable),
-        gridViewRepository.add(defaultView),
+        tableRepository.add(defaultTable()),
+        gridViewRepository.add(defaultView()),
     ])
     .then(([base, table, view]) => Promise.all([
         baseRepository.addTableToBase(base._id, table._id),
@@ -36,12 +35,9 @@ router.post('/', (req, res) => Promise.all(
 );
 
 router.delete('/:id', (req, res) => {
-    baseRepository.remove(req.params.id).then((result) => {
-        res.status(200).send(result);
-    }).catch((err) => {
-        res.status(500).send(err);
-    });
-
+    baseRepository.remove(req.params.id)
+        .then((result) => res.status(200).send(result))
+        .catch((err) => res.status(500).send(err));
 });
 
 router.put('/:id', function (req, res) {

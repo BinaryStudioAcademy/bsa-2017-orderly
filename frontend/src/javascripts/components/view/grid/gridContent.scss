@@ -1,33 +1,40 @@
 $cell-width: 155px;
 $cell-height: 33px;
 $icon-opacity: 0.6;
-$cell-border: 0.5px solid #AAA;
+$cell-border: 0.5px solid rgba(170, 170, 170, 0.5);
+$cell-border-top: 0.5px solid rgba(170, 170, 170, 0.5);
+$cell-border-left: 0.5px solid rgba(170, 170, 170, 0.15);
 $cell-padding: 0px;
 
 .wrapper__grid {
   display: inline-block;
-  max-width: calc(100% - 75px);
-  float: left;
-  height: 100%;
+  width: 100vw;
+  height: 73.3vh;
+  overflow: auto;
+  border-top: 2px solid rgba(170, 170, 170, 0.5);
 }
 
-.grid__content {
+.content__wrapper {
   display: flex;
   position: relative;
-  overflow-x: auto;
-  overflow-y: auto;
-  max-height: 450px;
 }
 
 .content__body {
   display: flex;
   flex-direction: row;
 }
+.content__body {
+  .field__items.row-options-field {
+    .content__field.row-options-field {
+      border-left: $cell-border-top;
+    }
+  }
 
+}
 .content__field {
   display: inline-block;
-  border: $cell-border;
-  padding: 5px;
+  border-left: $cell-border-left;
+  padding: 7px 5px 5px 5px;
   margin: 0;
   width: $cell-width;
   min-width: $cell-width;
@@ -39,9 +46,14 @@ $cell-padding: 0px;
   flex-direction: column;
 }
 
+.content__body:last-child {
+  border-right: $cell-border-top;
+}
+
 .field__item {
   display: inline-block;
-  border: $cell-border;
+  border-top: $cell-border-top;
+  border-left: $cell-border-left;
   padding: $cell-padding;
   margin: 0;
   width: $cell-width;
@@ -49,6 +61,12 @@ $cell-padding: 0px;
   min-height: $cell-height;
   text-overflow: ellipsis;
   position: relative;
+}
+.field__item.found {
+  background-color: #f8ecce;
+}
+.field__item.foundCursor {
+  background-color: #ffd66e;
 }
 
 .field__icon {
@@ -61,18 +79,31 @@ $cell-padding: 0px;
 }
 
 .rows__row {
-  width: 30px;
-  border: $cell-border;
+  width: 37px;
+  border-top: $cell-border-top;
+  border-left: $cell-border-top;
   height: 33px;
-  padding: 4px;
+  padding: 6px 4px 4px 1px;
   text-align: center;
+}
+.rows__row:first-child {
+  border-top: 0;
+}
+.rows__row.rows__selector {
+  height: 33px;
+  padding: 7px 4px 4px 4px;
 }
 
 .item__add-field {
-  min-width: auto;
   width: 75px;
+  min-width: 75px;
   text-align: center;
   cursor: pointer;
+  border: $cell-border-top;
+  border-left: 0;
+  border-top: 0;
+  min-height: 33.5px;
+  height: 33.5px;
 }
 
 .item__add-record {
@@ -80,8 +111,16 @@ $cell-padding: 0px;
   padding-left: 7px;
   text-align: left;
   cursor: pointer;
+  border: $cell-border-top;
+  margin-bottom: 70px;
 }
 
 .item__add-field:hover, .item__add-record:hover {
   background-color: #EEE;
+}
+
+#search-block {
+  i {
+    cursor: pointer;
+  }
 }
