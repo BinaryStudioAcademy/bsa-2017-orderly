@@ -9,7 +9,7 @@ class UserProfile extends Component {
         super(props);
         this.props = props;
         this.state = {
-            avatar: ''
+            avatar: this.props.user && this.props.user.avatar ? this.props.user.avatar : ''
         }
     }
     componentWillReceiveProps(nextProps) {
@@ -40,4 +40,4 @@ class UserProfile extends Component {
 }
 
 
-export default UserProfile
+export default UserProfile;

@@ -9,9 +9,11 @@ import Number from './fields/number/number';
 import AutoNumber from './fields/autoNumber/autoNumber';
 import Url from './fields/url/url';
 import DateField from './fields/date/date';
+import SingleSelect from './fields/singleSelect/singleSelect';
 import Email from './fields/email/email';
 import Percent from './fields/percent/percent';
 import Phone from './fields/phone/phone';
+import Attachment from './fields/attachment/attachment';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
@@ -24,8 +26,8 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
 };
 
 const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
-                   changeFieldType, changeFieldName, deleteField, searchMatchedRecordItemIdList,
-                   searchFoundIndex}) => {
+                   changeFieldType, changeFieldName, changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
+                   searchFoundIndex, uploadAttachment, deleteFile}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -39,31 +41,43 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                     type={type}
                     changeFieldType={changeFieldType}
                     changeFieldName={changeFieldName}
+                    changeFieldOptions={changeFieldOptions}
                     deleteField={deleteField}
                     index={index}
+                    currentField={currentField}
                 />
             </div>
             <div className="field__items">
                 {records &&
                 records.map((record, idx) => {
                     return <RecordItem key={record.record_data[index]._id}
-                                       id={record.record_data[index]._id}
-                                       recordIdx={idx}
-                                       type={type}
-                                       data={record.record_data[index].data}
-                                       recordData={recordData}
-                                       searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
-                                       searchFoundIndex={searchFoundIndex}/>
+                                   id={record.record_data[index]._id}
+                                   uploadAttachment={uploadAttachment}
+                                   recordIdx={idx}
+                                   type={type}
+                                   data={record.record_data[index].data}
+                                   recordData={recordData}
+                                   currentField={currentField}
+                                   searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
+                                   searchFoundIndex={searchFoundIndex}
+                                   deleteFile={deleteFile}
+                                   tableId={tableId}
+                                   />
                 })}
             </div>
         </div>
     );
 };
 
-const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordItemIdList, searchFoundIndex}) => {
+const RecordItem = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList, searchFoundIndex, uploadAttachment, tableId,
+	                    deleteFile}) => {
     const fieldPayload = {
         id: id,
         value: data,
+        tableId: tableId,
+        currentField: currentField,
+	    uploadAttachment: uploadAttachment,
+	    deleteFile: deleteFile,
         selected: recordData.isRecordSelected(id),
         active: recordData.isRecordActive(id),
         onSelect: recordData.selectRecordHandler,
@@ -75,36 +89,45 @@ const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordI
     };
     let record = null;
     switch (type) {
-    case 'longtext':
-        const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler}};
-        record = <LongText {...fieldPayloadLongtext}/>;
-        break;
-    case 'number':
-        record = <Number {...fieldPayload}/>;
-        break;
-    case 'currency':
-        record = <CurrencyField {...fieldPayload}/>;
-        break;
-    case 'autonumber':
-        record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
-        break;
-    case 'url':
-        record = <Url {...fieldPayload}/>;
-        break;
-    case 'date':
-        record = <DateField {...fieldPayload}/>;
-        break;
-    case 'email':
-        record = <Email {...fieldPayload}/>;
-        break;
-    case 'phone':
-        record = <Phone {...fieldPayload}/>;
-        break;
-    case 'percent':
-        record = <Percent {...fieldPayload}/>;
-        break;
-    default:
-        record = <TextLine {...fieldPayload}/>;
+        case 'longtext':
+            const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler} };
+            record = <LongText {...fieldPayloadLongtext}/>;
+            break;
+        case 'number':
+            record = <Number {...fieldPayload}/>;
+            break;
+
+        case 'select':
+            record = <SingleSelect {...fieldPayload}/>;
+            break;
+
+        case 'currency':
+            record = <CurrencyField {...fieldPayload}/>;
+            break;
+        case 'autonumber':
+            record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
+            break;
+        case 'url':
+            record = <Url {...fieldPayload}/>;
+            break;
+        case 'date':
+            record = <DateField {...fieldPayload}/>;
+            break;
+        case 'email':
+            record = <Email {...fieldPayload}/>;
+            break;
+        case 'phone':
+            record = <Phone {...fieldPayload}/>;
+            break;
+        case 'percent':
+            record = <Percent {...fieldPayload}/>;
+            break;
+
+	    case 'attachment':
+		    record = <Attachment {...fieldPayload}/>;
+		    break;
+	    default:
+            record = <TextLine {...fieldPayload}/>;
     }
 
     let recordClassName = '';
@@ -156,68 +179,70 @@ export default class GridContent extends Component {
                     <div className="content__wrapper">
                         <div className="wrapper__table">
                             <div className="content__rows row-options-field">
-                                <div className="rows__selector rows__row">
-                                    <Icon name="lock"/>
-                                </div>
-                                {records.map((record, recordIndex) => {
-                                    return <RowNum key={record._id}
-                                                   tableId={this.props.currentTable._id}
-                                                   recordId={record._id}
-                                                   index={recordIndex}
-                                                   deleteRecord={this.handleDeleteRecord}/>
-                                })}
+                            <div className="rows__selector rows__row">
+                                <Icon name="lock"/>
                             </div>
-                            <div className="content__body">
-                                <div className="field__items row-options-field">
-                                    <div className="content__field row-options-field"/>
-                                    <div className="field__item row-options-field">
-                                        {records.map((record, recordIndex) => {
-                                            return (
-                                                <div className="row-control-container" key={record._id}>
-                                                    <Button
-                                                        className="record-dialog-btn"
-                                                        onClick={(event) => this.props.onOpenRecordDialog(recordIndex)}>
-                                                        <Icon name='expand'/>
-                                                    </Button>
-                                                </div>
-                                            )
-                                        })}
-                                        {(this.props.recordDialogIndex === 0 || this.props.recordDialogIndex > 0) &&
-                                        <RecordDialog
-                                            record={this.props.currentTable.records[this.props.recordDialogIndex]}
-                                            fields={this.props.currentTable.fields}
-                                            recordData={this.props.recordData}
-                                            recordIndex={this.props.recordDialogIndex}
-                                            onOpenRecordDialog={this.props.onOpenRecordDialog}
-                                            onKeyPressComment={this.props.onKeyPressComment}
-                                            user={this.props.user}
-                                            tableId={this.props.currentTable._id}
-                                        />
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="content__body body__fields">
-                                {this.props.currentTable.fields.map((field, fieldIndex) => {
-                                    return <Field
-                                        key={field._id}
-                                        id={field._id}
-                                        name={field.name}
-                                        type={field.type}
-                                        index={fieldIndex}
-                                        records={records}
+                            {records.map((record, recordIndex) => {
+                                return <RowNum key={record._id}
+                                               tableId={this.props.currentTable._id}
+                                               recordId={record._id}
+                                               index={recordIndex}
+                                               deleteRecord={this.handleDeleteRecord}/>
+                            })}
+                        </div>
+
+                        <div className="content__body">
+                            <div className="field__items row-options-field">
+                                <div className="content__field row-options-field"/>
+                                <div className="field__item row-options-field">
+                                    {records.map((record, recordIndex) => {
+                                        return (
+                                            <div className="row-control-container" key={record._id}>
+                                                <Button
+                                                    className="record-dialog-btn"
+                                                    onClick={(event) => this.props.onOpenRecordDialog(recordIndex)}>
+                                                    <Icon name='expand'/>
+                                                </Button>
+                                            </div>
+                                        )
+                                    })}
+                                    {(this.props.recordDialogIndex === 0 || this.props.recordDialogIndex > 0) &&
+                                    <RecordDialog
+                                        record={this.props.currentTable.records[this.props.recordDialogIndex]}
+                                        fields={this.props.currentTable.fields}
                                         recordData={this.props.recordData}
-                                        showFieldMenu={this.props.showFieldMenu}
-                                        changeFieldType={this.props.changeFieldType}
-                                        changeFieldName={this.props.changeFieldName}
-                                        deleteField={this.props.deleteField}
-                                        deleteRecord={this.props.deleteRecord}
+                                        recordIndex={this.props.recordDialogIndex}
+                                        onOpenRecordDialog={this.props.onOpenRecordDialog}
+                                        onKeyPressComment={this.props.onKeyPressComment}
+                                        user={this.props.user}
                                         tableId={this.props.currentTable._id}
-                                        searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
-                                        searchFoundIndex={this.props.searchFoundIndex}
                                     />
-                                })}
+                                    }
+                                </div>
                             </div>
+                        </div>
+
+                        <div className="content__bodybody__fields">
+                            {this.props.currentTable.fields.map((field, fieldIndex) => {
+                                return <Field
+                                    key={field._id}
+                                    currentField = {field}id={field._id}
+                                    name={field.name}
+                                    type={field.type}
+                                    index={fieldIndex}
+                                    records={records}
+                                    recordData={this.props.recordData}
+                                    showFieldMenu={this.props.showFieldMenu}
+                                    changeFieldType={this.props.changeFieldType}
+                                    changeFieldOptions={this.props.changeFieldOptions}changeFieldName={this.props.changeFieldName}
+                                    deleteField={this.props.deleteField}
+                                    deleteRecord={this.props.deleteRecord}
+                                    tableId={this.props.currentTable._id}uploadAttachment={this.props.uploadAttachment}
+                                    deleteFile={this.props.deleteFile}
+                                    searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                                    searchFoundIndex={this.props.searchFoundIndex}
+                                />
+                            })}</div>
                         </div>
                         <div className="content__field item__add-record"
                              onClick={this.handleAddRecord}>

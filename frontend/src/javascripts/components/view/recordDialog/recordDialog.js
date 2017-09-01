@@ -1,11 +1,12 @@
 import React from 'react';
-import { Modal, Header } from 'semantic-ui-react';
+import { Modal, Header, Icon } from 'semantic-ui-react';
 import './recordDialog.scss';
 import TextLine from '../grid/fields/textLine/textLine';
 import LongText from '../grid/fields/longText/longText';
 import Number from '../grid/fields/number/number';
 import HistoryList from './components/history/historyList';
 import CommentsBlock from './components/comments/commentsBlock';
+import {fieldIcons, fieldNames} from "../../configuration/fieldTypes";
 
 const Recordtem = ({id, type, data, recordData}) => {
     let record = null;
@@ -75,6 +76,7 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
                         return (
                             <div key={recordItem._id} className="modal-field-item">
                                 <div className="modal-field-name">
+                                    <Icon name={fieldIcons[ fields[fieldIndex].type ]} className="field__icon"/>
                                     {fields[fieldIndex].name}
                                 </div>
                                 <Recordtem id={recordItem._id} type={fields[fieldIndex].type}
@@ -85,11 +87,17 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
                 </Modal.Description>
                 <Modal.Description className="modal-sidebar-block">
                     <div className="modal-history">
-                        <Header>History</Header>
+                        <Header>
+                            <Icon name="history" className="history-icon"/>
+                            History
+                        </Header>
                         <HistoryList record={record} fields={fields} />
                     </div>
                     <div className="modal-comments">
-                        <Header>Comments</Header>
+                        <Header>
+                            <Icon name="commenting outline" className="comments-icon"/>
+                            Comments
+                        </Header>
                         <CommentsBlock record={record}
                                        user={user}
                                        tableId={tableId}

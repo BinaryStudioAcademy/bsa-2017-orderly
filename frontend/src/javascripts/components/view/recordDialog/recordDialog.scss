@@ -89,7 +89,7 @@
   padding-bottom: 70px;
 
   .modal-fields-block {
-    min-width: 54%!important;
+    min-width: 49%!important;
     padding-left: 14px;
     padding-right: 35px;
     margin-top: 10px;
@@ -150,12 +150,23 @@
   }
 
   .modal-sidebar-block {
-    max-width: 44%!important;
+    max-width: 49%!important;
     padding-left: 35px;
-    padding-right: 20px;
+    padding-right: 14px;
 
     .ui.header {
-      margin: 10px 0;
+      //margin: 10px 0;
+      margin-bottom: 10px;
+    }
+
+    .history-icon {
+      font-size: 16px!important;
+      line-height: 12px!important;
+    }
+
+    .comments-icon {
+      font-size: 18px!important;
+      line-height: 14px!important;
     }
   }
 
@@ -163,6 +174,8 @@
   .record-comment-item {
     border-bottom: 1px solid rgba(117, 116, 116, 0.33);
     padding: 15px 10px;
+    padding-right: 0;
+    margin-right: 15px;
   }
 
   .record-history-item:last-child {
@@ -170,8 +183,13 @@
   }
 
   .modal-history {
-    border-bottom: 2px solid rgba(117, 116, 116, 0.66);
-    padding-bottom: 8px;
+    border: 2px solid rgba(243, 232, 84, 0.63);
+    //border: 2px solid rgba(117, 116, 116, 0.15);
+    border-radius: 7px;
+    padding: 15px;
+
+    //border-bottom: 2px solid rgba(117, 116, 116, 0.66);
+    //padding-bottom: 8px;
   }
 
   .modal-history-list {
@@ -223,6 +241,10 @@
 
   .modal-comments {
     margin-top: 15px;
+    border: 2px solid rgba(84, 243, 222, 0.5);
+    //border: 2px solid rgba(117, 116, 116, 0.15);
+    border-radius: 7px;
+    padding: 15px;
   }
 
   .comments-block {
@@ -234,7 +256,7 @@
     position: absolute;
     bottom: 20px;
     padding-top: 21px;
-    border-top: 2px solid rgba(117, 116, 116, 0.66);
+    //border-top: 2px solid rgba(117, 116, 116, 0.66);
 
     .ui.input input {
       border: 2px solid rgba(0,0,0,0.15);

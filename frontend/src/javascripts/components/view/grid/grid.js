@@ -17,6 +17,7 @@ export default class Grid extends Component{
     };
 
     render() {
+        
         return (
             <div className="grid-view">
                 <GridHeader onChangeSearch={this.props.onChangeSearch}
@@ -44,9 +45,13 @@ export default class Grid extends Component{
                     showFieldMenu={this.props.showFieldMenu}
                     changeFieldType={this.props.changeFieldType}
                     changeFieldName={this.props.changeFieldName}
+                    changeFieldOptions={this.props.changeFieldOptions}
                     onOpenRecordDialog={this.props.onOpenRecordDialog}
                     recordDialogIndex={this.props.recordDialogIndex}
                     onKeyPressComment={this.props.onKeyPressComment}
+                    currentTable={this.props.currentTable}
+                    uploadAttachment={this.props.uploadAttachment}
+                    deleteFile={this.props.deleteFile}
                     user={this.props.user}
                     searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                     searchFoundIndex={this.props.searchFoundIndex}

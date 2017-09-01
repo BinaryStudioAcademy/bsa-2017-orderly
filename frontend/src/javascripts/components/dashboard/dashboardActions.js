@@ -146,10 +146,17 @@ const addComment = (userId, recordId, tableId, comment) => {
     };
 };
 
-const getCoworkersList = (coworkers) => {
+const getCoworkersList = (coworkersByTables, tableId) => {
     return {
         type: 'GET_COWORKERS_LIST',
-        coworkers: coworkers
+        coworkersByTables: coworkersByTables,
+        tableId: tableId
+    };
+};
+
+const disconnectSocket = () => {
+    return {
+        type: 'DISCONNECT_SOCKET'
     };
 };
 
@@ -222,6 +229,14 @@ export function changeFieldName(tableId, fieldId, fieldName) {
         fieldName: fieldName,
     };
 }
+export function changeFieldOptions(tableId, fieldId, fieldOptions) {
+    return {
+        type: 'CHANGE_FIELD_OPTIONS',
+        tableId: tableId,
+        fieldId: fieldId,
+        fieldOption: fieldOptions
+    };
+}
 
 export function deleteField(tableId, fieldId) {
     return {
@@ -237,6 +252,26 @@ export function deleteRecord(tableId, recordId) {
         tableId: tableId,
         recordId: recordId
     };
+}
+
+const uploadAttachment = (data, typeOfFile, record_dataId, tableId) => {
+	return {
+		type: 'UPLOAD_FILES',
+		data: data,
+		typeOfFile: typeOfFile,
+		record_dataId: record_dataId,
+		tableId: tableId
+	}
+}
+
+const deleteFile = (typeOfFile, record_dataId, tableId, fileNamesStr) => {
+    return {
+        type: 'DELETE_FILE',
+        typeOfFile: typeOfFile,
+        record_dataId: record_dataId,
+        tableId: tableId,
+        fileNamesStr: fileNamesStr
+    }
 }
 
 export {
@@ -263,7 +298,10 @@ export {
     openRecordDialog,
     addComment,
     getCoworkersList,
+    disconnectSocket,
     changeSearch,
     changeSearchFoundIndex,
-    toggleSearch
+    toggleSearch,
+	uploadAttachment,
+	deleteFile
 };

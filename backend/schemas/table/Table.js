@@ -66,7 +66,8 @@ const tableSchema = new Schema({
         description: {
             type: String,
             default: 'description'
-        }
+        },
+        options:[]
     }],
     views: [{
         type: {

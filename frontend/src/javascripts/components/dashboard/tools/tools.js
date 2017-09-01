@@ -3,8 +3,7 @@ import Header from './header/header';
 import Tabs from './tabs/tabs';
 import View from '../../view/view';
 import R from 'ramda';
-
-import socket from '../../../app/socketIO';
+import {onGetCoworkersList} from '../../../app/socket';
 
 class Tools extends Component {
     constructor(props) {
@@ -29,8 +28,19 @@ class Tools extends Component {
 
     componentDidMount() {
         const _this = this;
-        socket.on('server-get-coworkers-list', function (coworkers) {
-            _this.props.getCoworkersList(coworkers);
+        onGetCoworkersList((coworkersByTables) => {
+            _this.props.getCoworkersList(coworkersByTables, _this.props.currentTableId);
+        });
+
+        this.context.router.listenBefore((location, done) => {
+            if (!location.pathname.startsWith('/dashboard/' + _this.props.baseId + '/')) {
+                _this.props.disconnectSocket();
+            }
+            done(location);
+        });
+
+        window.addEventListener("beforeunload", (event) => {
+            _this.props.disconnectSocket();
         });
     }
 
@@ -116,13 +126,17 @@ class Tools extends Component {
                       updateTable={this.props.updateTable}
                       deleteTable={this.props.deleteTable}
                       addTableClick={this.props.addTableClick}
-                      coworkers={this.props.coworkers}/>
+                      coworkers={this.props.coworkers}
+                      user={this.props.user}/>
                 {currentTable &&
                 <View currentTable={currentTable}
+                      tables={this.props.tables}
                       recordData={recordData}
                       openRecordDialog={this.props.openRecordDialog}
                       recordDialogIndex={this.props.recordDialogIndex}
                       keyPressCommentHandler={this.keyPressCommentHandler}
+                      uploadAttachment={this.props.uploadAttachment}
+                      deleteFile={this.props.deleteFile}
                       user={this.props.user}
                       onChangeSearch={this.props.changeSearch}
                       searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
@@ -135,6 +149,7 @@ class Tools extends Component {
                       addField={this.props.addField}
                       changeFieldType={this.props.changeFieldType}
                       changeFieldName={this.props.changeFieldName}
+                      changeFieldOptions={this.props.changeFieldOptions}
                       deleteField={this.props.deleteField}
                       deleteRecord={this.props.deleteRecord}
                       changeView={this.props.changeView}
@@ -147,5 +162,9 @@ class Tools extends Component {
         );
     }
 }
+
+Tools.contextTypes = {
+    router: React.PropTypes.object.isRequired
+};
 
 export default Tools;

@@ -1,7 +1,6 @@
 .single-select-container {
   box-sizing: border-box;
-}
-.single-select-container
-    .ui.selection.dropdown{
-      border-radius: 0 !important;
+  width: 150px;
+  padding: 4px;
+  color: rgba(0,0,0,.87);
 }

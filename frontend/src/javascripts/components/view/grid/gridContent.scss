@@ -29,11 +29,13 @@ $cell-padding: 0px;
 .content__body {
   display: flex;
   flex-direction: row;
+  border-bottom: $cell-border-top;
 }
 .content__body {
   .field__items.row-options-field {
     .content__field.row-options-field {
       border-left: $cell-border-top;
+      border-bottom: $cell-border-top;
     }
   }
 }
@@ -113,7 +115,7 @@ $cell-padding: 0px;
   border-right: $cell-border;
   border-bottom: $cell-border;
   min-height: 33.5px;
-  height: 33.5px;
+  //height: 33.5px;
 }
 
 .item__add-record {
@@ -133,4 +135,7 @@ $cell-padding: 0px;
   i {
     cursor: pointer;
   }
+}
+.content__body .field__items.row-options-field .content__field.row-options-field {
+  border-bottom: 0;
 }
