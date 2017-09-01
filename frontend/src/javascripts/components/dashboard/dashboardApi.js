@@ -1,7 +1,6 @@
 import axios from 'axios';
 import R from 'ramda';
 
-import socket from '../../app/socketIO';
 const url = '/api';
 
 const getBase = (_id) =>

@@ -2,8 +2,9 @@ import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable, deleteFile,
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
-    deleteFieldRecords, deleteRecord, emitTableCoworker, filterRecords, uploadFile
+    deleteFieldRecords, deleteRecord, filterRecords, uploadFile
 } from './dashboardApi';
+import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
 
 const getDashboardReducer = (state) => state.dashboardReducer;
@@ -167,6 +168,23 @@ function* sendTableCoworker(action) {
     }
 }
 
+function* sendSwitchTableCoworker(action) {
+    try {
+        const userProfileReducer = yield select(getUserProfileReducer);
+        yield call (emitSwitchTableCoworker, userProfileReducer.user, action.tableId);
+    } catch (err) {
+        yield put({type: 'SEND_TABLE_COWORKER_FAILED', message: err.message});
+    }
+}
+
+function* disconnectSocket() {
+    try {
+        yield call(disconnect);
+    } catch (err) {
+        yield put({type: 'DISCONNECT_SOCKET_FAILED', message: err.message});
+    }
+}
+
 function* filterTableRecords(action) {
     try {
         const filtered = yield call(filterRecords, action);
@@ -210,7 +228,9 @@ function* dashboardSaga() {
     yield takeEvery('CHANGE_FIELD_NAME', updateFieldMeta);
     yield takeEvery('DELETE_FIELD', removeField);
     yield takeEvery('DELETE_RECORD', removeRecord);
-    yield takeEvery(['SET_ACTIVE_TAB', 'SWITCH_TABLE'], sendTableCoworker);
+    yield takeEvery('SET_ACTIVE_TAB', sendTableCoworker);
+    yield takeEvery(['SWITCH_TABLE', 'SET_ACTIVE_TAB'], sendSwitchTableCoworker);
+    yield takeEvery('DISCONNECT_SOCKET', disconnectSocket);
     yield takeEvery('FILTER_RECORDS', filterTableRecords);
     yield takeEvery('UPLOAD_FILES', uploadingFiles);
     yield takeEvery('DELETE_FILE', deletingFile)
