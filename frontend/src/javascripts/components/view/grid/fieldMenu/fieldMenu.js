@@ -62,10 +62,18 @@ export default class FieldMenu extends Component {
         }
     };
 
-    handleSumbit = (e) => {
-        this.props.changeFieldType(this.props.tableId, this.state.fieldType, this.props.id);
-        this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName);
-        this.props.changeFieldOptions(this.props.tableId, this.state.fieldOptionsSS, this.props.id);
+    handleSumbit = () => {
+        if (  this.state.fieldType!=this.props.currentField.type) {
+            this.props.changeFieldType(this.props.tableId, this.state.fieldType, this.props.id)
+        }
+        if (  this.state.currentName!=this.props.currentField.name) {
+            this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
+        }
+        console.log("this.state.fieldOptionsSS", this.state.fieldOptionsSS)
+        console.log("this.props.currentField.options", this.props.currentField.options)
+        // if (  this.state.fieldOptionsSS !== this.props.currentField.options) {
+            this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS)
+        //}
         this.handleClickOnMenu();
     }
     handleDeleteField = () => {
@@ -94,7 +102,6 @@ export default class FieldMenu extends Component {
     render() {
         const { currentValue } = this.state;
         let type = this.props.type;
-        
         return(
             <div ref="fieldMenu" className='field__ellipsis'>
                 <div ref={(node) => this.node = node } >
@@ -127,7 +134,7 @@ export default class FieldMenu extends Component {
                         </div>
                         <SingleSelectType
                             fieldOptionsSS={this.state.fieldOptionsSS}
-                            handleOptionsSubmit={this.handleOptionsSubmit}
+                            handleOptionsSubmit={this.handleOptionsSubmit.bind(this)}
                             handleOptionsChange={this.handleOptionsChange}
                             handleOptionsDelete={this.handleOptionsDelete}
                             type={this.state.fieldType}
