@@ -26,7 +26,7 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
 
 const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
                    changeFieldType, changeFieldName, deleteField, searchMatchedRecordItemIdList,
-                   searchFoundIndex, uploadAttachment}) => {
+                   searchFoundIndex, uploadAttachment, deleteFile}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -49,6 +49,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                 records.map((record, idx) => {
                     return <RecordItem key={record.record_data[index]._id}
                                    uploadAttachment={uploadAttachment}
+                                   deleteFile={deleteFile}
                                    id={record.record_data[index]._id}
                                    recordIdx={idx}
                                    type={type}tableId={tableId}
@@ -62,12 +63,14 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
     );
 };
 
-const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordItemIdList, searchFoundIndex, uploadAttachment, tableId}) => {
+const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordItemIdList, searchFoundIndex, uploadAttachment, tableId,
+	                    deleteFile}) => {
     const fieldPayload = {
         id: id,
         value: data,
         tableId: tableId,
 	    uploadAttachment: uploadAttachment,
+	    deleteFile: deleteFile,
         selected: recordData.isRecordSelected(id),
         active: recordData.isRecordActive(id),
         onSelect: recordData.selectRecordHandler,
@@ -218,6 +221,7 @@ export default class GridContent extends Component {
                                     deleteRecord={this.props.deleteRecord}
                                     tableId={this.props.currentTable._id}
                                     uploadAttachment={this.props.uploadAttachment}
+                                    deleteFile={this.props.deleteFile}
                                     searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                                     searchFoundIndex={this.props.searchFoundIndex}
                                 />

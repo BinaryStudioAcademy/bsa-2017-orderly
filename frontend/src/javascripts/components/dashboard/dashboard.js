@@ -5,7 +5,7 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
     changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
     changeSearch, changeSearchFoundIndex, toggleSearch, changeFieldName, deleteRecord, deleteField,
-    changeView, sortRecords, filterRecords, removeFilter, uploadAttachment } from './dashboardActions';
+    changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile } from './dashboardActions';
 import { getCurrentUser } from '../userProfile/userProfileActions';
 
 const mapStateToProps = (state, ownProps) => {
@@ -66,7 +66,8 @@ const mapDispatchToProps = {
     changeFieldName: changeFieldName,
     deleteField: deleteField,
     deleteRecord: deleteRecord,
-	uploadAttachment: uploadAttachment
+	uploadAttachment: uploadAttachment,
+	deleteFile: deleteFile
 };
 
 const Dashboard = connect(

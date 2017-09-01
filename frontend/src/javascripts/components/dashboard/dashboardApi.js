@@ -84,7 +84,12 @@ const emitTableCoworker = (user, tableId) => {
 const uploadFile = ({data, typeOfFile, record_dataId, tableId}) =>
 	axios.post(`/files/attachment/${record_dataId}/${typeOfFile}/${tableId}`, data)
 		.then(response => response.data)
-		.catch(error => error.data)
+		.catch(R.tap(console.error))
+
+const deleteFile = ({typeOfFile, record_dataId, tableId, fileNamesStr}) =>
+	axios.delete(`/files/attachment/${record_dataId}/${typeOfFile}/${tableId}/${fileNamesStr}`)
+		.then(response => response.data)
+		.catch(R.tap(console.error))
 
 export {
     getBase,
@@ -100,5 +105,6 @@ export {
     deleteRecord,
     filterRecords,
 	uploadFile,
+	deleteFile,
     emitTableCoworker
 };

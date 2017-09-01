@@ -155,15 +155,21 @@ class TableRepository extends Repository {
     }
 
 
-    updateRecordById(tableId, record_dataId, fileName) {
-		return this.model.findById(tableId)
+    updateRecordById(tableId, record_dataId, fileName, isDelete) {
+
+	    return this.model.findById(tableId)
 			.then(table => R.map( record => {
 				record.record_data = R.map(data => {
 					if (data._id == record_dataId) {
 						if (!data._id) return {_id: data._id, data: fileName}
-						let dataArray = data.data.split(',')
-						dataArray.push(fileName)
-						return {_id: data._id, data: dataArray.join(',')}
+						if (isDelete) {
+							// eval(require('locus'))
+							return {_id: data._id, data: fileName}
+						} else {
+							let dataArray = data.data.split(',')
+							dataArray.push(fileName)
+							return {_id: data._id, data: dataArray.join(',')}
+						}
 					}
 					else return data
 				})(record.record_data)

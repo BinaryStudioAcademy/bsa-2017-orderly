@@ -249,6 +249,16 @@ const uploadAttachment = (data, typeOfFile, record_dataId, tableId) => {
 	}
 }
 
+const deleteFile = (typeOfFile, record_dataId, tableId, fileNamesStr) => {
+    return {
+        type: 'DELETE_FILE',
+        typeOfFile: typeOfFile,
+        record_dataId: record_dataId,
+        tableId: tableId,
+        fileNamesStr: fileNamesStr
+    }
+}
+
 export {
     getBaseById,
     getTables,
@@ -276,5 +286,6 @@ export {
     changeSearch,
     changeSearchFoundIndex,
     toggleSearch,
-	uploadAttachment
+	uploadAttachment,
+	deleteFile
 };

@@ -124,6 +124,7 @@ class Tools extends Component {
                       recordDialogIndex={this.props.recordDialogIndex}
                       keyPressCommentHandler={this.keyPressCommentHandler}
                       uploadAttachment={this.props.uploadAttachment}
+                      deleteFile={this.props.deleteFile}
                       user={this.props.user}
                       onChangeSearch={this.props.changeSearch}
                       searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}

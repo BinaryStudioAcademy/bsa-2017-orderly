@@ -50,6 +50,12 @@ router.post('/attachment/:record_dataId/:type/:tableId', upload.single('attachme
 		.catch(err => res.status(400).send(err))
 })
 
+router.delete('/attachment/:record_dataId/:type/:tableId/:fileNamesStr', (req, res) => {
+	tableRepository.updateRecordById(req.params.tableId, req.params.record_dataId, req.params.fileNamesStr, true)
+		.then(table => res.status(200).send(table))
+		.catch(err => res.status(400).send(err))
+})
+
 router.use('/', express.static('files'))
 router.use('/attachment', express.static('files'))
 

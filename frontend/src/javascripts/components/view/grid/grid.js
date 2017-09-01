@@ -52,6 +52,7 @@ export default class Grid extends Component{
                     recordDialogIndex={this.props.recordDialogIndex}
                     onKeyPressComment={this.props.onKeyPressComment}
                     uploadAttachment={this.props.uploadAttachment}
+                    deleteFile={this.props.deleteFile}
                     user={this.props.user}
                     searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                     searchFoundIndex={this.props.searchFoundIndex}

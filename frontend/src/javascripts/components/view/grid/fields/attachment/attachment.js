@@ -1,6 +1,6 @@
 import React from 'react';
 import FileInput from 'react-file-input';
-import { Image, Modal } from 'semantic-ui-react';
+import { Image, Modal, Button, Icon } from 'semantic-ui-react';
 import R from 'ramda';
 
 import Field from '../field';
@@ -27,6 +27,11 @@ class Attachment extends Field {
 	}
 
 	handleClose = () => this.setState({imageModalOpen: false})
+
+	deleteFile = (fileName) => {
+		const newValue = R.reject(item => item === fileName)(this.props.value.split(',')).join(',')
+		this.props.deleteFile('image', this.props.id, this.props.tableId, newValue)
+	}
 
 	handleFile = (event) => {
 		const file = event.target.files[0];
@@ -99,6 +104,16 @@ class Attachment extends Field {
 				            className='image_modal'/>
 					</Modal.Content>
 					<Modal.Actions>
+						<p>Would you want to delete this file?</p>
+						<Button onClick={this.handleClose} basic color='red' inverted>
+							<Icon name='remove' /> No
+						</Button>
+						<Button onClick={() => {
+							this.deleteFile(this.state.imageModalOpen)
+							this.handleClose()
+						}} color='green' inverted>
+							<Icon name='checkmark' /> Yes
+						</Button>
 					</Modal.Actions>
 				</Modal>
 			</div>

@@ -1,6 +1,6 @@
 import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
-    getTablesByIds, getBase, addTable, addFieldsToTable,
+    getTablesByIds, getBase, addTable, addFieldsToTable, deleteFile,
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
     deleteFieldRecords, deleteRecord, emitTableCoworker, filterRecords, uploadFile
 } from './dashboardApi';
@@ -181,8 +181,17 @@ function* uploadingFiles(action) {
 		const changedTable = yield call(uploadFile, action);
 		yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable})
 	} catch (err) {
-		yield put({type: 'UPLOAD_FILES_FAILED'})
+		yield put({type: 'UPLOAD_FILES_FAILED', message: err.message})
 	}
+}
+
+function* deletingFile(action) {
+    try {
+        const changedTable = yield call(deleteFile, action);
+        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable})
+    } catch (err) {
+        yield put({type: 'DELETE_FILE_FAILED', message: err.message})
+    }
 }
 
 function* dashboardSaga() {
@@ -203,7 +212,8 @@ function* dashboardSaga() {
     yield takeEvery('DELETE_RECORD', removeRecord);
     yield takeEvery(['SET_ACTIVE_TAB', 'SWITCH_TABLE'], sendTableCoworker);
     yield takeEvery('FILTER_RECORDS', filterTableRecords);
-    yield takeEvery('UPLOAD_FILES', uploadingFiles)
+    yield takeEvery('UPLOAD_FILES', uploadingFiles);
+    yield takeEvery('DELETE_FILE', deletingFile)
 }
 
 export default dashboardSaga;
