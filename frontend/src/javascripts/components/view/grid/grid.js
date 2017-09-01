@@ -21,6 +21,7 @@ export default class Grid extends Component{
     };
 
     render() {
+        
         return (
             <div className="grid-view">
                 <GridHeader onChangeSearch={this.props.onChangeSearch}

@@ -9,6 +9,7 @@ export default class ExtraMenu extends Component {
     }
 
     render() {
+        
         return (
             <div className={this.props.isActive ? "extra__menu" : "hide"}>
                 <div className="extra-menu__item">
