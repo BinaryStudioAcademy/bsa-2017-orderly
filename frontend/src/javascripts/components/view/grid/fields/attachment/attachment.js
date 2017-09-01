@@ -52,7 +52,7 @@ class Attachment extends Field {
 				<div className='preview_wrapper'>
 					{R.map(fileName => <div key={++tempKey * 34}
 					                        style={bgImage(`http://localhost:2020/files/attachment/${this.props.id}/image/${fileName}`)}
-					                        className='image_icon'/>)(this.props.value.split(',') || [])}
+					                        className='image_icon'/>)(R.reject(R.isEmpty)(this.props.value.split(',')) || [])}
 				</div>
 
 			</div>
@@ -80,14 +80,16 @@ class Attachment extends Field {
 					           onChange={this.handleFile}
 					           className="add_file_btn"/>
 					<div className='images_wrapper'>
-						{R.map(fileName => <div key={++tempKey} className='around_image'><Image
+						{console.log(R.reject(R.isEmpty)(this.props.value.split(',')), 'dfdfdfdfddd!!!!!!!!!!!!')}
+						{R.map(fileName => <div key={++tempKey} className='around_image'>
+												<Image
 												  size='mini'
                                                   onClick={ event => {
                                                   	this.handleOpen(event, fileName)
                                                   }}
 						                          className='attachment_file'
 						                               src={`http://localhost:2020/files/attachment/${this.props.id}/image/${fileName}`} /></div>)
-						(this.props.value.split(',') || [])}
+						(R.reject(R.isEmpty)(this.props.value.split(',')) || [])}
 					</div>
 
 
