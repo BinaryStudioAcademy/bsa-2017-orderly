@@ -10,6 +10,7 @@ export const fieldIcons = {
     'email': 'mail outline',
     'percent': 'percent',
     'phone': 'phone',
+	'attachment': 'file outline'
 };
 
 export const fieldNames = {
@@ -24,4 +25,5 @@ export const fieldNames = {
     'email': 'Email',
     'percent': 'Percent',
     'phone': 'Phone',
+	'attachment': 'Attachment'
 };

@@ -239,6 +239,26 @@ export function deleteRecord(tableId, recordId) {
     };
 }
 
+const uploadAttachment = (data, typeOfFile, record_dataId, tableId) => {
+	return {
+		type: 'UPLOAD_FILES',
+		data: data,
+		typeOfFile: typeOfFile,
+		record_dataId: record_dataId,
+		tableId: tableId
+	}
+}
+
+const deleteFile = (typeOfFile, record_dataId, tableId, fileNamesStr) => {
+    return {
+        type: 'DELETE_FILE',
+        typeOfFile: typeOfFile,
+        record_dataId: record_dataId,
+        tableId: tableId,
+        fileNamesStr: fileNamesStr
+    }
+}
+
 export {
     getBaseById,
     getTables,
@@ -265,5 +285,7 @@ export {
     getCoworkersList,
     changeSearch,
     changeSearchFoundIndex,
-    toggleSearch
+    toggleSearch,
+	uploadAttachment,
+	deleteFile
 };
