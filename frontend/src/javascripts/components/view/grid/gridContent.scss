@@ -29,7 +29,6 @@ $cell-padding: 0px;
 .content__body {
   display: flex;
   flex-direction: row;
-  border-bottom: $cell-border-top;
 }
 .content__body {
   .field__items.row-options-field {
@@ -84,6 +83,14 @@ $cell-padding: 0px;
 
 .field__icon {
   opacity: $icon-opacity!important;
+}
+
+.field__name {
+  display: inline-block;
+  height: 15px;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .field__change-type {

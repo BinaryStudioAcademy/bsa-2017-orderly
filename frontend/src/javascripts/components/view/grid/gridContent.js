@@ -32,7 +32,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
         <div className="field__items">
             <div className="content__field">
                 <Icon name={fieldIcons[type]} className="field__icon"/>
-                <span>{name}</span>
+                <span className="field__name">{name}</span>
                 <FieldMenu
                     onClick={showFieldMenu}
                     id={id}
@@ -179,9 +179,7 @@ export default class GridContent extends Component {
                     <div className="content__wrapper">
                         <div className="wrapper__table">
                             <div className="content__rows row-options-field">
-                            <div className="rows__selector rows__row">
-                                <Icon name="lock"/>
-                            </div>
+                            <div className="rows__selector rows__row"/>
                             {records.map((record, recordIndex) => {
                                 return <RowNum key={record._id}
                                                tableId={this.props.currentTable._id}
@@ -193,7 +191,9 @@ export default class GridContent extends Component {
 
                         <div className="content__body">
                             <div className="field__items row-options-field">
-                                <div className="content__field row-options-field"/>
+                                <div className="content__field row-options-field">
+                                    <Icon name="lock"/>
+                                </div>
                                 <div className="field__item row-options-field">
                                     {records.map((record, recordIndex) => {
                                         return (
