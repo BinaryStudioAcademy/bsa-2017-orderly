@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, addField, deleteTable,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
-    changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
+    changeFieldType, changeFieldOptions,  openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
     changeSearch, changeSearchFoundIndex, toggleSearch, changeView, sortRecords, filterRecords, removeFilter,
     changeFieldName, deleteRecord, deleteField} from './dashboardActions';
 import { getCurrentUser } from '../userProfile/userProfileActions';
@@ -64,6 +64,7 @@ const mapDispatchToProps = {
     filterRecords: filterRecords,
     removeFilter: removeFilter,
     changeFieldName: changeFieldName,
+    changeFieldOptions: changeFieldOptions,
     deleteField: deleteField,
     deleteRecord: deleteRecord,
 };

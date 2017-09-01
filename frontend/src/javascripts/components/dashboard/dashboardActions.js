@@ -222,6 +222,14 @@ export function changeFieldName(tableId, fieldId, fieldName) {
         fieldName: fieldName,
     };
 }
+export function changeFieldOptions(tableId, fieldOptions, fieldId) {
+    return {
+        type: 'CHANGE_FIELD_OPTIONS',
+        tableId: tableId,
+        fieldOption: fieldOptions,
+        fieldId: fieldId
+    };
+}
 
 export function deleteField(tableId, fieldId) {
     return {

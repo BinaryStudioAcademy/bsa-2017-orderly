@@ -2,10 +2,6 @@ import React from 'react';
 import './singleSelect.scss';
 import Field from '../field';
 
-const options = [
-    { key: 'An', value: 'AT', text: 'Ananas' }
-];
-
 class SingleSelect  extends Field {
   constructor(props) {
     super(props);
