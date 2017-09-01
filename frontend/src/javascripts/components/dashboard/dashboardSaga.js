@@ -220,12 +220,14 @@ function* dashboardSaga() {
     yield takeEvery('ADD_FIELD', addNewField);
     yield takeEvery('UPDATE_TABLE', changeTable);
     yield takeEvery('CSV_PARSED', changeTable);
+    yield takeEvery('CHANGE_FIELD_TYPE', changeTable);
     yield takeEvery('ADD_RECORD', addNewRecord);
     yield takeLatest('CHANGE_RECORD', changeTableRecord);
     yield takeEvery('DELETE_TABLE', removeTable);
     yield takeEvery('ADD_COMMENT', addNewComment);
     yield takeEvery('CHANGE_FIELD_TYPE', updateFieldMeta);
     yield takeEvery('CHANGE_FIELD_NAME', updateFieldMeta);
+    yield takeEvery('CHANGE_FIELD_OPTIONS', updateFieldMeta);
     yield takeEvery('DELETE_FIELD', removeField);
     yield takeEvery('DELETE_RECORD', removeRecord);
     yield takeEvery('SET_ACTIVE_TAB', sendTableCoworker);

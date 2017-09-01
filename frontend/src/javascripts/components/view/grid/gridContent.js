@@ -9,6 +9,7 @@ import Number from './fields/number/number';
 import AutoNumber from './fields/autoNumber/autoNumber';
 import Url from './fields/url/url';
 import DateField from './fields/date/date';
+import SingleSelect from './fields/singleSelect/singleSelect';
 import Email from './fields/email/email';
 import Percent from './fields/percent/percent';
 import Phone from './fields/phone/phone';
@@ -25,7 +26,7 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
 };
 
 const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
-                   changeFieldType, changeFieldName, deleteField, searchMatchedRecordItemIdList,
+                   changeFieldType, changeFieldName, changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
                    searchFoundIndex, uploadAttachment, deleteFile}) => {
     return (
         <div className="field__items">
@@ -40,35 +41,41 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                     type={type}
                     changeFieldType={changeFieldType}
                     changeFieldName={changeFieldName}
+                    changeFieldOptions={changeFieldOptions}
                     deleteField={deleteField}
                     index={index}
+                    currentField={currentField}
                 />
             </div>
             <div className="field__items">
                 {records &&
                 records.map((record, idx) => {
                     return <RecordItem key={record.record_data[index]._id}
-                                   uploadAttachment={uploadAttachment}
-                                   deleteFile={deleteFile}
                                    id={record.record_data[index]._id}
+                                   uploadAttachment={uploadAttachment}
                                    recordIdx={idx}
-                                   type={type}tableId={tableId}
+                                   type={type}
                                    data={record.record_data[index].data}
                                    recordData={recordData}
+                                   currentField={currentField}
                                    searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
-                                   searchFoundIndex={searchFoundIndex}/>
+                                   searchFoundIndex={searchFoundIndex}
+                                   deleteFile={deleteFile}
+                                   tableId={tableId}
+                                   />
                 })}
             </div>
         </div>
     );
 };
 
-const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordItemIdList, searchFoundIndex, uploadAttachment, tableId,
+const RecordItem = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList, searchFoundIndex, uploadAttachment, tableId,
 	                    deleteFile}) => {
     const fieldPayload = {
         id: id,
         value: data,
         tableId: tableId,
+        currentField: currentField,
 	    uploadAttachment: uploadAttachment,
 	    deleteFile: deleteFile,
         selected: recordData.isRecordSelected(id),
@@ -89,6 +96,11 @@ const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordI
         case 'number':
             record = <Number {...fieldPayload}/>;
             break;
+
+        case 'select':
+            record = <SingleSelect {...fieldPayload}/>;
+            break;
+
         case 'currency':
             record = <CurrencyField {...fieldPayload}/>;
             break;
@@ -110,12 +122,14 @@ const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordI
         case 'percent':
             record = <Percent {...fieldPayload}/>;
             break;
+            
 	    case 'attachment':
 		    record = <Attachment {...fieldPayload}/>;
 		    break;
 	    default:
             record = <TextLine {...fieldPayload}/>;
     }
+
 
     let recordClassName = '';
     if (searchMatchedRecordItemIdList && searchMatchedRecordItemIdList.indexOf(id) === searchFoundIndex) {
@@ -134,6 +148,7 @@ const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordI
         </div>
     );
 };
+
 
 export default class GridContent extends Component {
     constructor(props) {
@@ -179,7 +194,7 @@ export default class GridContent extends Component {
                                 <div className="field__item row-options-field">
                                     {records.map((record, recordIndex) => {
                                         return (
-                                            <div className="row-control-container" key={record._id}>
+                                            <div className="row-control-container" key={record._id} >
                                                 <Button
                                                     className="record-dialog-btn"
                                                     onClick={(event) => this.props.onOpenRecordDialog(recordIndex)}>
@@ -208,6 +223,7 @@ export default class GridContent extends Component {
                             {this.props.currentTable.fields.map((field, fieldIndex) => {
                                 return <Field
                                     key={field._id}
+                                    currentField = {field}
                                     id={field._id}
                                     name={field.name}
                                     type={field.type}
@@ -216,6 +232,7 @@ export default class GridContent extends Component {
                                     recordData={this.props.recordData}
                                     showFieldMenu={this.props.showFieldMenu}
                                     changeFieldType={this.props.changeFieldType}
+                                    changeFieldOptions={this.props.changeFieldOptions}
                                     changeFieldName={this.props.changeFieldName}
                                     deleteField={this.props.deleteField}
                                     deleteRecord={this.props.deleteRecord}
@@ -240,3 +257,4 @@ export default class GridContent extends Component {
         );
     }
 }
+

@@ -49,6 +49,7 @@ class View extends Component {
                 showFieldMenu={this.props.showFieldMenu}
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
+                changeFieldOptions={this.props.changeFieldOptions}
                 onOpenRecordDialog={this.props.openRecordDialog}
                 recordDialogIndex={this.props.recordDialogIndex}
                 onKeyPressComment={this.props.keyPressCommentHandler}
