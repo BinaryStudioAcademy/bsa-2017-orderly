@@ -12,10 +12,6 @@ export default class Grid extends Component{
         this.props.sortRecords(this.props.currentTable, payload.fieldId, payload.sortOption);
     };
 
-    handleFilter = (payload) => {
-        this.props.filterRecords(this.props.currentTable, payload.fieldId, payload.condition, payload.filterQuery);
-    };
-
     handleRemoveFilter = () => {
         this.props.removeFilter();
     };
