@@ -12,6 +12,7 @@ import DateField from './fields/date/date';
 import Email from './fields/email/email';
 import Percent from './fields/percent/percent';
 import Phone from './fields/phone/phone';
+import Attachment from './fields/attachment/attachment';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
@@ -25,7 +26,7 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
 
 const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
                    changeFieldType, changeFieldName, deleteField, searchMatchedRecordItemIdList,
-                   searchFoundIndex}) => {
+                   searchFoundIndex, uploadAttachment, deleteFile}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -47,23 +48,29 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                 {records &&
                 records.map((record, idx) => {
                     return <RecordItem key={record.record_data[index]._id}
-                                       id={record.record_data[index]._id}
-                                       recordIdx={idx}
-                                       type={type}
-                                       data={record.record_data[index].data}
-                                       recordData={recordData}
-                                       searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
-                                       searchFoundIndex={searchFoundIndex}/>
+                                   uploadAttachment={uploadAttachment}
+                                   deleteFile={deleteFile}
+                                   id={record.record_data[index]._id}
+                                   recordIdx={idx}
+                                   type={type}tableId={tableId}
+                                   data={record.record_data[index].data}
+                                   recordData={recordData}
+                                   searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
+                                   searchFoundIndex={searchFoundIndex}/>
                 })}
             </div>
         </div>
     );
 };
 
-const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordItemIdList, searchFoundIndex}) => {
+const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordItemIdList, searchFoundIndex, uploadAttachment, tableId,
+	                    deleteFile}) => {
     const fieldPayload = {
         id: id,
         value: data,
+        tableId: tableId,
+	    uploadAttachment: uploadAttachment,
+	    deleteFile: deleteFile,
         selected: recordData.isRecordSelected(id),
         active: recordData.isRecordActive(id),
         onSelect: recordData.selectRecordHandler,
@@ -75,36 +82,39 @@ const RecordItem = ({id, type, data, recordData, recordIdx, searchMatchedRecordI
     };
     let record = null;
     switch (type) {
-    case 'longtext':
-        const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler}};
-        record = <LongText {...fieldPayloadLongtext}/>;
-        break;
-    case 'number':
-        record = <Number {...fieldPayload}/>;
-        break;
-    case 'currency':
-        record = <CurrencyField {...fieldPayload}/>;
-        break;
-    case 'autonumber':
-        record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
-        break;
-    case 'url':
-        record = <Url {...fieldPayload}/>;
-        break;
-    case 'date':
-        record = <DateField {...fieldPayload}/>;
-        break;
-    case 'email':
-        record = <Email {...fieldPayload}/>;
-        break;
-    case 'phone':
-        record = <Phone {...fieldPayload}/>;
-        break;
-    case 'percent':
-        record = <Percent {...fieldPayload}/>;
-        break;
-    default:
-        record = <TextLine {...fieldPayload}/>;
+        case 'longtext':
+            const fieldPayloadLongtext = {...fieldPayload, ...{onKeyPress: recordData.keyPressRecordHandler} };
+            record = <LongText {...fieldPayloadLongtext}/>;
+            break;
+        case 'number':
+            record = <Number {...fieldPayload}/>;
+            break;
+        case 'currency':
+            record = <CurrencyField {...fieldPayload}/>;
+            break;
+        case 'autonumber':
+            record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
+            break;
+        case 'url':
+            record = <Url {...fieldPayload}/>;
+            break;
+        case 'date':
+            record = <DateField {...fieldPayload}/>;
+            break;
+        case 'email':
+            record = <Email {...fieldPayload}/>;
+            break;
+        case 'phone':
+            record = <Phone {...fieldPayload}/>;
+            break;
+        case 'percent':
+            record = <Percent {...fieldPayload}/>;
+            break;
+	    case 'attachment':
+		    record = <Attachment {...fieldPayload}/>;
+		    break;
+	    default:
+            record = <TextLine {...fieldPayload}/>;
     }
 
     let recordClassName = '';
@@ -210,6 +220,8 @@ export default class GridContent extends Component {
                                     deleteField={this.props.deleteField}
                                     deleteRecord={this.props.deleteRecord}
                                     tableId={this.props.currentTable._id}
+                                    uploadAttachment={this.props.uploadAttachment}
+                                    deleteFile={this.props.deleteFile}
                                     searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                                     searchFoundIndex={this.props.searchFoundIndex}
                                 />
