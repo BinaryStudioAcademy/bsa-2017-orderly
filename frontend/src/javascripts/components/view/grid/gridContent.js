@@ -222,11 +222,12 @@ export default class GridContent extends Component {
                             </div>
                         </div>
 
-                        <div className="content__bodybody__fields">
+                        <div className="content__body body__fields">
                             {this.props.currentTable.fields.map((field, fieldIndex) => {
                                 return <Field
                                     key={field._id}
-                                    currentField = {field}id={field._id}
+                                    currentField = {field}
+                                    id={field._id}
                                     name={field.name}
                                     type={field.type}
                                     index={fieldIndex}
@@ -234,10 +235,12 @@ export default class GridContent extends Component {
                                     recordData={this.props.recordData}
                                     showFieldMenu={this.props.showFieldMenu}
                                     changeFieldType={this.props.changeFieldType}
-                                    changeFieldOptions={this.props.changeFieldOptions}changeFieldName={this.props.changeFieldName}
+                                    changeFieldOptions={this.props.changeFieldOptions}
+                                    changeFieldName={this.props.changeFieldName}
                                     deleteField={this.props.deleteField}
                                     deleteRecord={this.props.deleteRecord}
-                                    tableId={this.props.currentTable._id}uploadAttachment={this.props.uploadAttachment}
+                                    tableId={this.props.currentTable._id}
+                                    uploadAttachment={this.props.uploadAttachment}
                                     deleteFile={this.props.deleteFile}
                                     searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                                     searchFoundIndex={this.props.searchFoundIndex}

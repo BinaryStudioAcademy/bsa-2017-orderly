@@ -9,7 +9,7 @@ $cell-padding: 0px;
 .wrapper__grid {
   display: inline-block;
   width: 100vw;
-  height: 73.3vh;
+  height: 72vh;
   overflow: auto;
   border-top: 2px solid rgba(170, 170, 170, 0.5);
 }
@@ -115,7 +115,7 @@ $cell-padding: 0px;
   border-right: $cell-border;
   border-bottom: $cell-border;
   min-height: 33.5px;
-  //height: 33.5px;
+  height: 33.5px;
 }
 
 .item__add-record {
