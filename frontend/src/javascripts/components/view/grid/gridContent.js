@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
+<<<<<<< HEAD
 import {connect} from 'react-redux';
+=======
+>>>>>>> demo_3
 import {Button, Icon} from 'semantic-ui-react';
 import {fieldIcons} from "../../configuration/fieldTypes";
 import './gridContent.scss';
@@ -66,6 +69,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
 };
 
 const Record = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList, searchFoundIndex}) => {
+
     const fieldPayload = {
         id: id,
         value: data,
@@ -114,6 +118,7 @@ const Record = ({id, type, data, recordData, recordIdx, currentField, searchMatc
             break;
         default:
             record = <TextLine {...fieldPayload}/>;
+   }
 
     let recordClassName = '';
     if (searchMatchedRecordItemIdList && searchMatchedRecordItemIdList.indexOf(id) === searchFoundIndex) {
@@ -123,7 +128,7 @@ const Record = ({id, type, data, recordData, recordIdx, currentField, searchMatc
             recordClassName = 'field__item found';
         } else {
             recordClassName = 'field__item';
-        }    
+        }
     }
 
     return (
@@ -131,9 +136,10 @@ const Record = ({id, type, data, recordData, recordIdx, currentField, searchMatc
             {record}
         </div>
     );
-    }
-}
-class GridContent extends Component {
+};
+
+
+export default class GridContent extends Component {
     constructor(props) {
         super(props);
         this.props = props;
@@ -167,8 +173,7 @@ class GridContent extends Component {
                                                tableId={this.props.currentTable._id}
                                                recordId={record._id}
                                                index={recordIndex}
-                                               deleteRecord={this.handleDeleteRecord}
-                                               />
+                                               deleteRecord={this.handleDeleteRecord}/>
                             })}
                         </div>
 
@@ -240,15 +245,3 @@ class GridContent extends Component {
     }
 }
 
-
-function mapStateToProps(state) {
-    return {
-        gridReducer: state.grid
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(gridActions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(GridContent);
