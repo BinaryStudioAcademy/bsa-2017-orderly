@@ -63,9 +63,9 @@ export default class FieldMenu extends Component {
     };
 
     handleSumbit = () => {
-        if (  this.state.fieldType!=this.props.currentField.type) {
+        //if (  this.state.fieldType!=this.props.currentField.type) {
             this.props.changeFieldType(this.props.tableId, this.state.fieldType, this.props.id)
-        }
+        //}
         if (  this.state.currentName!=this.props.currentField.name) {
             this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
         }

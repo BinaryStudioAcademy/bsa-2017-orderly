@@ -50,7 +50,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
             <div className="field__items">
                 {records &&
                 records.map((record, idx) => {
-                    return <Record key={record.record_data[index]._id}
+                    return <RecordItem key={record.record_data[index]._id}
                                    id={record.record_data[index]._id}
                                    uploadAttachment={uploadAttachment}
                                    recordIdx={idx}
