@@ -133,10 +133,14 @@ export default class GridContent extends Component {
 
     handleAddField = () => {
         this.props.addField(this.props.currentTable._id);
+        setTimeout(() => {
+            this.wrapperGrid.scrollLeft = this.wrapperGrid.scrollWidth;
+        }, 500);
     };
 
     handleAddRecord = () => {
         this.props.addRecord(this.props.currentTable._id);
+        this.wrapperGrid.scrollTop = this.wrapperGrid.scrollHeight;
     };
 
     handleDeleteRecord = (event, tableId, recordId) => {
@@ -147,7 +151,7 @@ export default class GridContent extends Component {
     render() {
         const records = this.props.filteredRecords || this.props.currentTable.records;
         return (
-            <div className="wrapper__grid">
+            <div className="wrapper__grid" ref={(div) => this.wrapperGrid = div}>
                 <div className="grid__content">
                     <div className="content__wrapper">
                         <div className="wrapper__table">
@@ -215,11 +219,13 @@ export default class GridContent extends Component {
                                 })}
                             </div>
                         </div>
-                        <div className="content__field item__add-record" onClick={this.handleAddRecord}>
+                        <div className="content__field item__add-record"
+                             onClick={this.handleAddRecord}>
                             <Icon name="plus" className="field__icon"/>
                         </div>
                     </div>
-                    <div className="content__field item__add-field" onClick={this.handleAddField}>
+                    <div className="content__field item__add-field"
+                         onClick={this.handleAddField}>
                         <Icon name="plus" className="field__icon"/>
                     </div>
                 </div>
