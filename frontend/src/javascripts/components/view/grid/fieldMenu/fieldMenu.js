@@ -10,10 +10,6 @@ let newOption;
 export default class FieldMenu extends Component {
     constructor(props) {
         super(props);
-        const id = props.id;
-        const tableId = props.tableId;
-        const changeFieldType = props.changeFieldType;
-        const changeFieldOptions = props.changeFieldOptions;
 
         this.state = {
             isActive: false,
@@ -63,15 +59,15 @@ export default class FieldMenu extends Component {
     };
 
     handleSumbit = () => {
-        //if (  this.state.fieldType!=this.props.currentField.type) {
+        if (  this.state.fieldType!=this.props.currentField.type) {
             this.props.changeFieldType(this.props.tableId, this.state.fieldType, this.props.id)
-        // }
+        }
         if (  this.state.currentName!=this.props.currentField.name) {
             this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
         }
-        // if (  this.state.fieldOptionsSS !== this.props.currentField.options) {
+        if (  this.state.fieldOptionsSS !== this.props.currentField.options) {
             this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS)
-        //}
+        }
         this.handleClickOnMenu();
     }
     handleDeleteField = () => {
@@ -80,7 +76,7 @@ export default class FieldMenu extends Component {
 
     handleOptionsSubmit = (event) => {
         event.preventDefault();
-        let newArray = this.state.fieldOptionsSS;
+        let newArray =[...this.state.fieldOptionsSS]
         newArray.push(newOption);
         this.setState({fieldOptionsSS: newArray});
         this.refs.select.refs.input.value = '';
