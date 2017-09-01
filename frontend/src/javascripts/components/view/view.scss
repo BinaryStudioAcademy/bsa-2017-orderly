@@ -25,6 +25,7 @@
   left: 40px;
   background-color: #FFF;
   border: 1px solid rgba(0,0,0, 0.3);
+  border-radius: 4px;
 }
 
 .selector__options {
@@ -54,7 +55,7 @@
   margin-top: 7px!important;
 }
 
-#modal__add-view {
+.add-view__menu {
   text-align: center;
   display: flex;
   flex-direction: row;

@@ -71,10 +71,15 @@ const deleteRecord = (payload) => {
         .catch(R.tap(console.error));
 };
 
+const filterRecords = (payload) => {
+    return axios.get(url + '/tables/' + payload.tableId + '/fields/' + payload.fieldId + '/filter', payload)
+        .then((response) => response)
+        .catch(R.tap(console.error));
+};
+
 const emitTableCoworker = (user, tableId) => {
     return socket.emit('client-upload-table', user, tableId);
 };
-
 
 export {
     getBase,
@@ -88,5 +93,6 @@ export {
     updateField,
     deleteFieldRecords,
     deleteRecord,
-    emitTableCoworker
+    filterRecords,
+    emitTableCoworker,
 };

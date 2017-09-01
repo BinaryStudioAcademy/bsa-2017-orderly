@@ -67,10 +67,7 @@ const tableSchema = new Schema({
             type: String,
             default: 'description'
         },
-        options:[{
-            name: String,
-            value: String
-        }]
+        options:[]
     }],
     views: [{
         type: {

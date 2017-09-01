@@ -12,7 +12,6 @@ import InDevelopment from '../in_developing/InDeveloping';
 class View extends Component {
     constructor(props) {
         super(props);
-        this.props = props;
     }
 
     capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1);
@@ -26,15 +25,26 @@ class View extends Component {
         this.handleToggleSelector();
     };
 
+    handleAddView = (viewType) => {
+        console.log(this.props.currentTable);
+        console.log(viewType);
+    };
+
     viewSelector(listOfViews) {
-        const activeView = listOfViews.filter((v) => v.id === this.props.view.currentView).pop();
+        const activeView = listOfViews.find((v) => v.view._id === this.props.currentView);
         switch (activeView.type) {
         case 'grid':
             return <Grid
                 currentTable={this.props.currentTable}
+                tables={this.props.tables}
                 recordData={this.props.recordData}
-                onAddField={this.props.addField}
-                onAddRecord={this.props.addRecord}
+                addRecord={this.props.addRecord}
+                addField={this.props.addField}
+                deleteRecord={this.props.deleteRecord}
+                sortRecords={this.props.sortRecords}
+                filterRecords={this.props.filterRecords}
+                filteredRecords={this.props.filteredRecords}
+                removeFilter={this.props.removeFilter}
                 showFieldMenu={this.props.showFieldMenu}
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
@@ -44,6 +54,12 @@ class View extends Component {
                 recordDialogIndex={this.props.recordDialogIndex}
                 onKeyPressComment={this.props.keyPressCommentHandler}
                 user={this.props.user}
+                onChangeSearch={this.props.onChangeSearch}
+                searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                searchFoundIndex={this.props.searchFoundIndex}
+                onChangeSearchFoundIndex={this.props.onChangeSearchFoundIndex}
+                onToggleSearch={this.props.onToggleSearch}
+                searchBlockOpen={this.props.searchBlockOpen}
             />;
         case 'form':
             return <FormView
@@ -56,12 +72,13 @@ class View extends Component {
 
     render() {
         let viewTypes = [];
-        for (let [k, val] of Object.entries(viewIcons)){
+        for (let [viewName, viewIcon] of Object.entries(viewIcons)) {
             viewTypes.push(
-                <div key={k} className="add-view__option" onClick={() => this.handleAddView()}>
-                    <Icon name={val}/>
-                    <span>{this.capitalize(k)}</span>
-                </div>)}
+                <div key={viewName} className="add-view__option" onClick={() => this.handleAddView(viewName)}>
+                    <Icon name={viewIcon}/>
+                    <span>{this.capitalize(viewName)}</span>
+                </div>)
+        }
         if (!this.props.currentTable) {
             return (
                 <h2 className="view__no-tables">
@@ -75,30 +92,30 @@ class View extends Component {
                       id="header__caret"
                       size="large"
                       onClick={this.handleToggleSelector}/>
-                <div className={this.props.view.showSelector ? 'view__selector' : 'hide'}>
+                <div className={this.props.showSelector ? 'view__selector' : 'hide'}>
                     <div className="selector__options">
-                    {this.props.view.views.map((view, ind) => {
-                        return (
-                            <div key={ind}
-                                 className="selector__option"
-                                 onClick={() => this.handleChangeView(view.id)}>
-                                <Icon
-                                    name="checkmark"
-                                    className={view.id === this.props.view.currentView
-                                        ? '' : 'option__notActive'}/>
-                                <Icon name={viewIcons[view.type]}/>
-                                {view.name}
-                            </div>
-                        )
-                    })}
+                        {this.props.currentTable.views.map((view, ind) => {
+                            return (
+                                <div key={ind}
+                                     className="selector__option"
+                                     onClick={() => this.handleChangeView(view.view._id)}>
+                                    <Icon
+                                        name="checkmark"
+                                        className={view._id === this.props.currentView
+                                            ? '' : 'option__notActive'}/>
+                                    <Icon name={viewIcons[view.type]}/>
+                                    {view.view.name}
+                                </div>
+                            )
+                        })}
                     </div>
                     <hr/>
-                    <div id="modal__add-view">
+                    <div className="add-view__menu">
                         <p className=''>Add view:</p>
                         {viewTypes}
                     </div>
                 </div>
-                {this.viewSelector(this.props.view.views)}
+                {this.viewSelector(this.props.currentTable.views)}
             </div>
         );
     }
@@ -106,8 +123,7 @@ class View extends Component {
 
 function mapStateToProps(state) {
     return {
-        view: state.view,
-        dashboard: state.dashboardReducer
+        showSelector: state.view.showSelector,
     };
 }
 

@@ -3,6 +3,7 @@ import { Icon, Dropdown, Input, Button } from 'semantic-ui-react';
 import { fieldIcons, fieldNames, fieldText } from "../../../configuration/fieldTypes";
 import { TextType, NumberType } from "./fieldMenuOptions";
 import {  SingleSelectType } from "./fieldMenuSingleSelect";
+import fieldOptions from './fieldOptions'
 import './fieldMenu.scss';
 
 let newOption;
@@ -18,10 +19,16 @@ export default class FieldMenu extends Component {
             isActive: false,
             currentName: this.props.name,
             fieldType: '',
-            fieldOptionsSS:[]
+            fieldOptionsSS:[],
+            //currentValue: {}
         };
     }
-
+    componentWillReceiveProps(nextProps) {
+      this.setState({ 
+        fieldOptionsSS: nextProps.currentField.options,
+        //currentValue: {key:"text", text:"bla", value:"bla"}
+    });
+  }
     handleClickOnMenu = () => {
         if (this.refs.fieldMenu) {
             if (!this.state.isActive) {
@@ -74,37 +81,19 @@ export default class FieldMenu extends Component {
 
     handleOptionsChange = (event) => {
       newOption = event.target.value;
+      //this.setState({ currentValue: value });
     }
 
     handleOptionsDelete = (optionToBeDeleted) => {
-      let optionDel = this.state.options.filter((option) =>{
+      let optionDel = this.state.fieldOptionsSS.filter((option) =>{
           return option != optionToBeDeleted
       });
       this.setState({fieldOptionsSS: optionDel});
     }
 
     render() {
+        const { currentValue } = this.state;
         let type = this.props.type;
-        let fieldOptions = [];
-        let num = 0;
-        for (let [fieldType, fieldIcon, _] of Object.entries(fieldIcons)) {
-        if (fieldType !== this.props.type) {
-            fieldOptions.push(
-                {
-                    key: fieldType,
-                    text: new Object(
-                        <div key={fieldType}
-                             className="menu__field-option"
-                             >
-                            <Icon name={fieldIcon} className="field__icon"/>
-                            <span>{fieldNames[fieldType]}</span>
-                        </div>
-                        ),
-                    value: ++num
-                }
-            )
-        }
-    }
         
         return(
             <div ref="fieldMenu" className='field__ellipsis'>
@@ -127,6 +116,7 @@ export default class FieldMenu extends Component {
                     <div>
                         <div className="fields-menu-options-container"> 
                             <Dropdown options={fieldOptions}
+                                value={currentValue}
                                 placeholder='Choose field type'
                                 onChange = {(e, data) => this.setState({ fieldType: data.options[data.value-1].key})}
                             />
@@ -140,7 +130,10 @@ export default class FieldMenu extends Component {
                             handleOptionsSubmit={this.handleOptionsSubmit}
                             handleOptionsChange={this.handleOptionsChange}
                             handleOptionsDelete={this.handleOptionsDelete}
+                            type={this.state.fieldType}
                             ref='select'
+                            currentField={this.props.currentField}
+
                         />
                         <div className='button-wrapper' 
                                 onClick={this.handleSumbit}
@@ -153,3 +146,28 @@ export default class FieldMenu extends Component {
         );
     }
 }
+
+
+const FieldOptions = ({id, tableId, excludeType, changeFieldType, closeMenu}) => {
+    let fieldOptions = [];
+    for (let [fieldType, fieldIcon, _] of Object.entries(fieldIcons)) {
+        if (fieldType !== excludeType) {
+            fieldOptions.push(
+                <div key={fieldType}
+                     className="menu__field-option"
+                     onClick={() => {
+                         closeMenu();
+                         return changeFieldType(tableId, fieldType, id)}
+                     }>
+                    <Icon name={fieldIcon} className="field__icon"/>
+                    <span>{fieldNames[fieldType]}</span>
+                </div>
+            );
+        }
+    }
+    return (
+        <div>
+            {fieldOptions}
+        </div>
+    );
+};

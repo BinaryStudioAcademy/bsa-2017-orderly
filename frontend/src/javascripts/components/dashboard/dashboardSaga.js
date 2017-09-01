@@ -2,7 +2,7 @@ import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable,
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
-    deleteFieldRecords, deleteRecord, emitTableCoworker
+    deleteFieldRecords, deleteRecord, emitTableCoworker, filterRecords
 } from './dashboardApi';
 import {browserHistory} from 'react-router';
 
@@ -167,6 +167,15 @@ function* sendTableCoworker(action) {
     }
 }
 
+function* filterTableRecords(action) {
+    try {
+        const filtered = yield call(filterRecords, action);
+        yield put({type: 'FILTER_TABLE_SUCCEEDED', table: filtered.data});
+    } catch (err) {
+        yield put({type: 'FILTER_TABLE_FAILED', message: err.message});
+    }
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -175,15 +184,18 @@ function* dashboardSaga() {
     yield takeEvery('ADD_FIELD', addNewField);
     yield takeEvery('UPDATE_TABLE', changeTable);
     yield takeEvery('CSV_PARSED', changeTable);
+    yield takeEvery('CHANGE_FIELD_TYPE', changeTable);
     yield takeEvery('ADD_RECORD', addNewRecord);
     yield takeLatest('CHANGE_RECORD', changeTableRecord);
     yield takeEvery('DELETE_TABLE', removeTable);
     yield takeEvery('ADD_COMMENT', addNewComment);
     yield takeEvery('CHANGE_FIELD_TYPE', updateFieldMeta);
     yield takeEvery('CHANGE_FIELD_NAME', updateFieldMeta);
+    yield takeEvery('CHANGE_FIELD_OPTIONS', updateFieldMeta);
     yield takeEvery('DELETE_FIELD', removeField);
     yield takeEvery('DELETE_RECORD', removeRecord);
     yield takeEvery(['SET_ACTIVE_TAB', 'SWITCH_TABLE'], sendTableCoworker);
+    yield takeEvery('FILTER_RECORDS', filterTableRecords);
 }
 
 export default dashboardSaga;

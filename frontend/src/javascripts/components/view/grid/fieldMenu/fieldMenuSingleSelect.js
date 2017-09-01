@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 export class SingleSelectType extends Component {
 
   render(){
+      
+    if (this.props.type=='select') {
     return (
       <div className='label-text-wrapper'>
           <form onSubmit = {this.props.handleOptionsSubmit} >
@@ -24,6 +26,9 @@ export class SingleSelectType extends Component {
           </ul>
       </div>
     )
+    } else {
+      return <div></div>
+    }
   }
 }
 

@@ -37,7 +37,7 @@ class Reset extends React.Component {
                         </div>
                         <Grid.Row>
                             <Grid.Column>
-                                <Form action="/" size="big"
+                                <Form action="/" size="big" className="resetForm"
                                       onSubmit={this.processForm}>
                                     <div className="field input">
                                         <Form.Input

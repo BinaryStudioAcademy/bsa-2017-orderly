@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from './csvActions';
 import Dropzone from 'react-dropzone';
 import Papa from 'papaparse';
+import './csvFile.scss'
 
 class ImportCSV extends Component {
   onDrop(file){
@@ -41,11 +42,11 @@ class ImportCSV extends Component {
   }
 
   render(){
-    console.log(this.props)
     return (
       <div className='dropzone-wrapper'>
         <Dropzone className='dropzone' multiple={false} onDrop={this.onDrop.bind(this)}>
-          <Icon link name='upload' size='large' />
+          <Icon link name='download' size="large"/>
+            <span>Import from CSV</span>
         </Dropzone>
       </div>
     );

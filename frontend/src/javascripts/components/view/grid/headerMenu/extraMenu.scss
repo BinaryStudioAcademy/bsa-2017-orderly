@@ -1,0 +1,29 @@
+.extra__menu {
+  display: flex;
+  flex-flow: column;
+  align-items: left;
+  color: #FFF;
+  background-color: #333;
+  border: 1px solid #AAA;
+  border-radius: 4px;
+  padding: 5px;
+  z-index: 5;
+  position: absolute;
+  top: 159px;
+  left: 590px;
+}
+
+.extra-menu__item {
+  width: 100%;
+  cursor: pointer;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.extra-menu__item:last-child {
+  margin-bottom: 0;
+}
+
+.hide {
+  display: none;
+}

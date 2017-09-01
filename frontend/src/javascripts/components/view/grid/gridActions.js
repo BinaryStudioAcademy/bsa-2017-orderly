@@ -23,7 +23,7 @@ export function changeFieldOptions(tableId, fieldOptions, fieldId) {
     return {
         type: CHANGE_FIELD_OPTIONS,
         tableId: tableId,
-        fieldOptions: fieldOptions,
+        fieldOption: fieldOptions,
         fieldId: fieldId
     };
 }

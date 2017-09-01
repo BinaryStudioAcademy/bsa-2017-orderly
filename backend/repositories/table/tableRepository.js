@@ -97,6 +97,7 @@ class TableRepository extends Repository {
             const field = table.fields[fieldIndex];
             field.type = data.fieldType || field.type;
             field.name = data.fieldName || field.name;
+            field.options = data.fieldOption || field.options;
             if (data.fieldType) {
                 table.records.forEach((record) => (record.record_data[fieldIndex].data = ''));
             }
