@@ -17,6 +17,7 @@ $cell-padding: 0px;
 .content__wrapper {
   display: flex;
   position: relative;
+  border-bottom: $cell-border-top;
 }
 
 .content__body {
@@ -108,7 +109,8 @@ $cell-padding: 0px;
 }
 
 .item__add-record {
-  width: 100%;
+  min-width: 0;
+  width: 38px;
   padding-left: 7px;
   text-align: left;
   cursor: pointer;
