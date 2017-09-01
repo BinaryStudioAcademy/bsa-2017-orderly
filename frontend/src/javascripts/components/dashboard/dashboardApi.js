@@ -1,9 +1,7 @@
 import axios from 'axios';
 import R from 'ramda';
-import io from 'socket.io-client';
 
 const url = '/api';
-const socket = io('http://localhost:2020');
 
 const getBase = (_id) =>
     axios.get(url + '/base/' + _id)
@@ -72,10 +70,6 @@ const deleteRecord = (payload) => {
         .catch(R.tap(console.error));
 };
 
-const emitTableCoworker = (user, tableId) => {
-    return socket.emit('client-upload-table', user, tableId);
-};
-
 
 export {
     getBase,
@@ -88,6 +82,5 @@ export {
 	deleteTable,
     updateField,
     deleteFieldRecords,
-    deleteRecord,
-    emitTableCoworker
+    deleteRecord
 };

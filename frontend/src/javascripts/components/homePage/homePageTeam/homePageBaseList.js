@@ -14,16 +14,16 @@ class BaseList extends Component {
     const props = this.props;
       return (
         <div className = 'base-list '  >
-          { this.props.bases.map(function(base, current) {
+          { this.props.bases && this.props.bases.map(function(base, current) {
             return (
               <div key={base._id+1}>
-                <BaseItem className = "base-list-item"  
-                  handleClick = {props.handleClick}  
+                <BaseItem className = "base-list-item"
+                  handleClick = {props.handleClick}
                   base = {base}
                   menu={props.menu}
                 />
               </div>
-           )}) 
+           )})
           }
             <div className='btn-add-base' onClick = {() => props.onNewBaseClick("#234FED")}>+</div>
         </div>
@@ -31,4 +31,4 @@ class BaseList extends Component {
     }
 }
 
-export default BaseList
+export default BaseList;

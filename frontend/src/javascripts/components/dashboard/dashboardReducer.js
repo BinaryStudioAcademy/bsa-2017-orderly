@@ -338,7 +338,10 @@ function dashboardReducer(state = initState, action) {
     }
 
     case 'GET_COWORKERS_LIST': {
-        return {...state, ...{coworkers: action.coworkers}};
+        if (action.coworkersByTables[action.tableId]) {
+            return {...state, ...{coworkers: action.coworkersByTables[action.tableId]}};
+        }
+        return state;
     }
 
     default:

@@ -28,9 +28,9 @@ const addTable = ({table, baseId}) => ({
     baseId: baseId
 });
 
-const switchTable = (_id) => ({
+const switchTable = (tableId) => ({
     type: 'SWITCH_TABLE',
-    _id: _id
+    tableId: tableId
 });
 
 const openMenu = (tableId) => ({
@@ -142,10 +142,17 @@ const addComment = (userId, recordId, tableId, comment) => {
     };
 };
 
-const getCoworkersList = (coworkers) => {
+const getCoworkersList = (coworkersByTables, tableId) => {
     return {
         type: 'GET_COWORKERS_LIST',
-        coworkers: coworkers
+        coworkersByTables: coworkersByTables,
+        tableId: tableId
+    };
+};
+
+const disconnectSocket = () => {
+    return {
+        type: 'DISCONNECT_SOCKET'
     };
 };
 
@@ -172,5 +179,6 @@ export {
     changeFieldType,
     openRecordDialog,
     addComment,
-    getCoworkersList
+    getCoworkersList,
+    disconnectSocket
 };
