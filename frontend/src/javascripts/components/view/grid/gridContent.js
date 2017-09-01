@@ -1,8 +1,4 @@
 import React, {Component} from 'react';
-<<<<<<< HEAD
-import {connect} from 'react-redux';
-=======
->>>>>>> demo_3
 import {Button, Icon} from 'semantic-ui-react';
 import {fieldIcons} from "../../configuration/fieldTypes";
 import './gridContent.scss';

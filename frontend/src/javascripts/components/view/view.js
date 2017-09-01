@@ -40,10 +40,7 @@ class View extends Component {
                 recordData={this.props.recordData}
                 addRecord={this.props.addRecord}
                 addField={this.props.addField}
-<<<<<<< HEAD
-=======
                 deleteField={this.props.deleteField}
->>>>>>> demo_3
                 deleteRecord={this.props.deleteRecord}
                 sortRecords={this.props.sortRecords}
                 filterRecords={this.props.filterRecords}
@@ -52,11 +49,7 @@ class View extends Component {
                 showFieldMenu={this.props.showFieldMenu}
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
-<<<<<<< HEAD
                 changeFieldOptions={this.props.changeFieldOptions}
-                deleteField={this.props.deleteField}
-=======
->>>>>>> demo_3
                 onOpenRecordDialog={this.props.openRecordDialog}
                 recordDialogIndex={this.props.recordDialogIndex}
                 onKeyPressComment={this.props.keyPressCommentHandler}

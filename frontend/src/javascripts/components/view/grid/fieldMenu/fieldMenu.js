@@ -6,10 +6,7 @@ import {  SingleSelectType } from "./fieldMenuSingleSelect";
 import fieldOptions from './fieldOptions'
 import './fieldMenu.scss';
 
-<<<<<<< HEAD
 let newOption;
-=======
->>>>>>> demo_3
 export default class FieldMenu extends Component {
     constructor(props) {
         super(props);
