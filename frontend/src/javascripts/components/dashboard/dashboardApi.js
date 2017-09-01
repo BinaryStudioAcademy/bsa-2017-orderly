@@ -72,7 +72,8 @@ const deleteRecord = (payload) => {
 };
 
 const filterRecords = (payload) => {
-    return axios.get(url + '/tables/' + payload.tableId + '/fields/' + payload.fieldId + '/filter', payload)
+    return axios.get(url + '/tables/' + payload.tableId + '/fields/' + payload.fieldId
+        + '/filter/' + payload.condition + '/' + payload.filterQuery)
         .then((response) => response)
         .catch(R.tap(console.error));
 };

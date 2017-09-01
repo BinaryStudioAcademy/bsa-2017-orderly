@@ -150,77 +150,76 @@ export default class GridContent extends Component {
             <div className="wrapper__grid">
                 <div className="grid__content">
                     <div className="content__wrapper">
-                        <div className="content__rows row-options-field">
-                            <div className="rows__selector rows__row">
-                                <Icon name="lock"/>
+                        <div className="wrapper__table">
+                            <div className="content__rows row-options-field">
+                                <div className="rows__selector rows__row">
+                                    <Icon name="lock"/>
+                                </div>
+                                {records.map((record, recordIndex) => {
+                                    return <RowNum key={record._id}
+                                                   tableId={this.props.currentTable._id}
+                                                   recordId={record._id}
+                                                   index={recordIndex}
+                                                   deleteRecord={this.handleDeleteRecord}/>
+                                })}
                             </div>
-                            {records.map((record, recordIndex) => {
-                                return <RowNum key={record._id}
-                                               tableId={this.props.currentTable._id}
-                                               recordId={record._id}
-                                               index={recordIndex}
-                                               deleteRecord={this.handleDeleteRecord}/>
-                            })}
-                        </div>
-
-                        <div className="content__body">
-                            <div className="field__items row-options-field">
-                                <div className="content__field row-options-field"/>
-                                <div className="field__item row-options-field">
-                                    {records.map((record, recordIndex) => {
-                                        return (
-                                            <div className="row-control-container" key={record._id}>
-                                                <Button
-                                                    className="record-dialog-btn"
-                                                    onClick={(event) => this.props.onOpenRecordDialog(recordIndex)}>
-                                                    <Icon name='expand'/>
-                                                </Button>
-                                            </div>
-                                        )
-                                    })}
-                                    {(this.props.recordDialogIndex === 0 || this.props.recordDialogIndex > 0) &&
-                                    <RecordDialog
-                                        record={this.props.currentTable.records[this.props.recordDialogIndex]}
-                                        fields={this.props.currentTable.fields}
-                                        recordData={this.props.recordData}
-                                        recordIndex={this.props.recordDialogIndex}
-                                        onOpenRecordDialog={this.props.onOpenRecordDialog}
-                                        onKeyPressComment={this.props.onKeyPressComment}
-                                        user={this.props.user}
-                                        tableId={this.props.currentTable._id}
-                                    />
-                                    }
+                            <div className="content__body">
+                                <div className="field__items row-options-field">
+                                    <div className="content__field row-options-field"/>
+                                    <div className="field__item row-options-field">
+                                        {records.map((record, recordIndex) => {
+                                            return (
+                                                <div className="row-control-container" key={record._id}>
+                                                    <Button
+                                                        className="record-dialog-btn"
+                                                        onClick={(event) => this.props.onOpenRecordDialog(recordIndex)}>
+                                                        <Icon name='expand'/>
+                                                    </Button>
+                                                </div>
+                                            )
+                                        })}
+                                        {(this.props.recordDialogIndex === 0 || this.props.recordDialogIndex > 0) &&
+                                        <RecordDialog
+                                            record={this.props.currentTable.records[this.props.recordDialogIndex]}
+                                            fields={this.props.currentTable.fields}
+                                            recordData={this.props.recordData}
+                                            recordIndex={this.props.recordDialogIndex}
+                                            onOpenRecordDialog={this.props.onOpenRecordDialog}
+                                            onKeyPressComment={this.props.onKeyPressComment}
+                                            user={this.props.user}
+                                            tableId={this.props.currentTable._id}
+                                        />
+                                        }
+                                    </div>
                                 </div>
                             </div>
+                            <div className="content__body body__fields">
+                                {this.props.currentTable.fields.map((field, fieldIndex) => {
+                                    return <Field
+                                        key={field._id}
+                                        id={field._id}
+                                        name={field.name}
+                                        type={field.type}
+                                        index={fieldIndex}
+                                        records={records}
+                                        recordData={this.props.recordData}
+                                        showFieldMenu={this.props.showFieldMenu}
+                                        changeFieldType={this.props.changeFieldType}
+                                        changeFieldName={this.props.changeFieldName}
+                                        deleteField={this.props.deleteField}
+                                        deleteRecord={this.props.deleteRecord}
+                                        tableId={this.props.currentTable._id}
+                                        searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                                        searchFoundIndex={this.props.searchFoundIndex}
+                                    />
+                                })}
+                            </div>
                         </div>
-
-                        <div className="content__body">
-                            {this.props.currentTable.fields.map((field, fieldIndex) => {
-                                return <Field
-                                    key={field._id}
-                                    id={field._id}
-                                    name={field.name}
-                                    type={field.type}
-                                    index={fieldIndex}
-                                    records={records}
-                                    recordData={this.props.recordData}
-                                    showFieldMenu={this.props.showFieldMenu}
-                                    changeFieldType={this.props.changeFieldType}
-                                    changeFieldName={this.props.changeFieldName}
-                                    deleteField={this.props.deleteField}
-                                    deleteRecord={this.props.deleteRecord}
-                                    tableId={this.props.currentTable._id}
-                                    searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
-                                    searchFoundIndex={this.props.searchFoundIndex}
-                                />
-                            })}
-                        </div>
-
-                        <div className="content__field item__add-field" onClick={this.handleAddField}>
+                        <div className="content__field item__add-record" onClick={this.handleAddRecord}>
                             <Icon name="plus" className="field__icon"/>
                         </div>
                     </div>
-                    <div className="content__field item__add-record" onClick={this.handleAddRecord}>
+                    <div className="content__field item__add-field" onClick={this.handleAddField}>
                         <Icon name="plus" className="field__icon"/>
                     </div>
                 </div>

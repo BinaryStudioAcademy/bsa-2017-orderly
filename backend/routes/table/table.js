@@ -176,8 +176,12 @@ router.delete('/:id/views/:viewId', (request, response) => {
 
 // filter table -------------------------------------
 
-router.get('/:id/fields/:fieldId/filter', (request, response) => {
-    tableRepository.filterRecords(request.params.id, request.params.fieldId, request)
+router.get('/:id/fields/:fieldId/filter/:condition/:query', (request, response) => {
+    tableRepository.filterRecords(
+        request.params.id,
+        request.params.fieldId,
+        request.params.condition,
+        request.params.query)
         .then((table) => response.status(200).send(table))
         .catch((error) => response.status(500).send(error));
 });
