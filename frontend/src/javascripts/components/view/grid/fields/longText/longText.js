@@ -12,11 +12,6 @@ class LongText extends Field {
         return (
             <div>
                 <div className="table-cell-inner">{this.props.value}</div>
-                <Icon name='expand'
-                    className='expand-icon'
-                    link
-                    onClick={() => this.props.onExpand(this.props.id)}
-                />
             </div>
         );
     }
@@ -25,19 +20,10 @@ class LongText extends Field {
         return (
             <div>
                 <TextArea
-                    onChange={(event) => this.props.onChange(this.props.id, event.target.value)}
-                    onBlur={() => this.props.onBlurComponent(this.props.id)}
-                    value={this.props.value}
+                    onBlur={(event) => this.props.onBlurComponent(this.props.id, event.target.value)}
+                    defaultValue={this.props.value}
                     type='text'
-                    autoFocus={true}
-                    icon={{ name: 'expand', link: true, onClick: () => {
-                        this.props.onExpand(this.props.id);
-                    }}}
-                />
-                <Icon name='expand'
-                    className='expand-icon'
-                    link
-                    onClick={() => this.props.onExpand(this.props.id)}
+                    autoFocus={this.props.autoFocus}
                 />
             </div>
         );

@@ -30,7 +30,7 @@ class Repository {
     }
 
     remove(id) {
-        return this.model.remove({_id: id}).exec();
+        return this.model.remove({_id: id});
     }
 }
 

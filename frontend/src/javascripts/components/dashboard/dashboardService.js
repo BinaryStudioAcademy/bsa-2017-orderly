@@ -26,4 +26,4 @@ const setName = (activeModal) => {
 export {
     formatFieldsRecords,
     setName
-}
+};
