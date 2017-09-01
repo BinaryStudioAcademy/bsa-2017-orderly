@@ -17,17 +17,18 @@ $cell-padding: 0px;
 .content__wrapper {
   display: flex;
   position: relative;
-  border-bottom: $cell-border-top;
 }
 
 .content__body {
   display: flex;
   flex-direction: row;
+  border-bottom: $cell-border-top;
 }
 .content__body {
   .field__items.row-options-field {
     .content__field.row-options-field {
       border-left: $cell-border-top;
+      border-bottom: $cell-border-top;
     }
   }
 
@@ -114,7 +115,6 @@ $cell-padding: 0px;
   text-align: left;
   cursor: pointer;
   border: $cell-border-top;
-  border-top: 0;
   margin-bottom: 70px;
 }
 
@@ -126,4 +126,7 @@ $cell-padding: 0px;
   i {
     cursor: pointer;
   }
+}
+.content__body .field__items.row-options-field .content__field.row-options-field {
+  border-bottom: 0;
 }
