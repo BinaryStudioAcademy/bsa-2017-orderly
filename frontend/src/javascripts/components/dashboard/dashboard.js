@@ -3,15 +3,10 @@ import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, addField, deleteTable,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
-<<<<<<< HEAD
-    changeFieldType, changeFieldOptions,  openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
-    changeSearch, changeSearchFoundIndex, toggleSearch, changeView, sortRecords, filterRecords, removeFilter,
-    changeFieldName, deleteRecord, deleteField} from './dashboardActions';
-=======
-    changeFieldType, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
+    changeFieldType, changeFieldOptions, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
     changeSearch, changeSearchFoundIndex, toggleSearch, changeFieldName, deleteRecord, deleteField,
     changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket } from './dashboardActions';
->>>>>>> demo_3
+
 import { getCurrentUser } from '../userProfile/userProfileActions';
 
 const mapStateToProps = (state, ownProps) => {
