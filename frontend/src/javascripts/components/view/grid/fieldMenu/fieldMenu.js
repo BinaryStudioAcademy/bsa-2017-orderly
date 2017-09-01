@@ -69,8 +69,6 @@ export default class FieldMenu extends Component {
         if (  this.state.currentName!=this.props.currentField.name) {
             this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
         }
-        console.log("this.state.fieldOptionsSS", this.state.fieldOptionsSS)
-        console.log("this.props.currentField.options", this.props.currentField.options)
         // if (  this.state.fieldOptionsSS !== this.props.currentField.options) {
             this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS)
         //}
