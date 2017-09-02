@@ -17,6 +17,24 @@ const GridSchema = new Schema({
         type: Number,
         required: true
     },
+    filters: {
+        conjunction: {
+            type: String,
+            enum: ['and', 'or'],
+            default: 'and',
+        },
+        filterSet: [
+            {
+                fieldId: {
+                    type: Schema.Types.ObjectId,
+                    model: 'table',
+                    path: 'table.fields'
+                },
+                condition: String,
+                value: String,
+            }
+        ]
+    },
     fields_config: [
         {
             hidden: {
