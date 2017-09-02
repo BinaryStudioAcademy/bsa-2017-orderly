@@ -69,9 +69,6 @@ export default class FieldMenu extends Component {
         //}
         //if (  this.state.fieldOptionsSS !== this.props.currentField.options) {
             if (this.state.currentValue == 'select') {
-                if (  this.state.currentValue!==this.props.currentField.type) {
-                    this.props.changeFieldType(this.props.tableId, this.state.fieldType, this.props.id)
-                }
                 //if (  this.state.currentName!==this.props.currentField.name) { 
                     this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
                 //}
@@ -82,7 +79,6 @@ export default class FieldMenu extends Component {
             if (this.state.currentValue == 'number') {
                 this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
                 //if (  this.state.currentValue!==this.props.currentField.type) {
-                    this.props.changeFieldType(this.props.tableId, this.state.fieldType, this.props.id) 
                // }
                 this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsNum, this.state.currentValue)
             }
@@ -94,6 +90,7 @@ export default class FieldMenu extends Component {
     }
     handleChangeType =(event) => {
         this.setState({ fieldType: event.value, currentValue: event.value})
+        this.props.changeFieldType(this.props.tableId, this.props.id, event.value)
     }
 
     handleOptionsSubmit = (event) => {

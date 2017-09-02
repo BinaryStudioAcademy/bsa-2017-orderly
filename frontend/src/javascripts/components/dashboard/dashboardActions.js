@@ -213,12 +213,12 @@ export function removeFilter() {
     };
 }
 
-export function changeFieldType(tableId, fieldType, fieldId) {
+export function changeFieldType(tableId, fieldId, fieldType) {
     return {
         type: 'CHANGE_FIELD_TYPE',
         tableId: tableId,
-        fieldType: fieldType,
-        fieldId: fieldId
+        fieldId: fieldId,
+        fieldType: fieldType
     };
 }
 export function changeFieldName(tableId, fieldId, fieldName) {
