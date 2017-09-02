@@ -91,6 +91,12 @@ const deleteFile = ({typeOfFile, record_dataId, tableId, fileNamesStr}) =>
 		.then(response => response.data)
 		.catch(R.tap(console.error))
 
+const addView = ({tableId, viewType}) => {
+    return axios.patch(url + '/tables/' + tableId, {data: 'IN PROGRESS'})
+        .then((response) => response.data)
+        .catch(R.tap(console.error));
+};
+
 export {
     getBase,
     getTablesByIds,
@@ -106,5 +112,6 @@ export {
     filterRecords,
 	uploadFile,
 	deleteFile,
-    emitTableCoworker
+    emitTableCoworker,
+    addView,
 };

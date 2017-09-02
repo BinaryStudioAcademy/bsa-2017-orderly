@@ -188,6 +188,14 @@ export function changeView(viewId) {
     };
 }
 
+export function addView(tableId, viewType) {
+    return {
+        type: 'ADD_VIEW',
+        tableId: tableId,
+        viewType: viewType,
+    };
+}
+
 export function sortRecords(table, fieldId, sortOption) {
     return {
         type: 'SORT_RECORDS',

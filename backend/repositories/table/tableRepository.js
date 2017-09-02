@@ -155,7 +155,6 @@ class TableRepository extends Repository {
         ).populate('views.view');
     }
 
-
     updateRecordById(tableId, record_dataId, fileName, isDelete) {
 
 	    return this.model.findById(tableId)
