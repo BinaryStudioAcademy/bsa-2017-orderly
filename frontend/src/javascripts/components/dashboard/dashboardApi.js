@@ -30,8 +30,8 @@ const updateTable = ({ _id, body }) =>
 
 const addFieldsToTable = ({tableId}) => {
     axios.post(url + '/tables/' + tableId + '/fields/', {
-        name: 'default',
-        type: 'number',
+        name: 'Text line',
+        type: 'text',
     })
         .then((response) => response.data)
         .catch(R.tap(console.error));
