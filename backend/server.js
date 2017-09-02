@@ -6,7 +6,6 @@ const app = express();
 const router = express.Router();
 const passport = require('passport');
 const favicon = require('serve-favicon');
-const socketIo = require('socket.io');
 const cors = require('cors');
 const port = 2020;
 
@@ -48,11 +47,7 @@ const server = app.listen(port, () => {
     console.log('Server is started on localhost:2020');
 });
 
-const io = socketIo.listen(server);
+const io = require('socket.io').listen(server);
 const coworkers = require("./socketModules/coworkersSocket")(io);
 
 module.exports = app;
-
-
-
-

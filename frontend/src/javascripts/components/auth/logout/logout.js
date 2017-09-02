@@ -3,12 +3,9 @@ import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
 import * as LogoutActions from './logoutActions';
 
-import socket from '../../../app/socketIO';
-
 class Logout extends React.Component {
 
     componentWillMount(){
-        socket.disconnect();
         // Redirect to login page if user is logged in
         this.props.logout();
     }

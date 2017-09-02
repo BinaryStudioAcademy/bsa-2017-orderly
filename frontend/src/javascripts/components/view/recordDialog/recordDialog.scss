@@ -1,30 +1,49 @@
 .content__field.row-options-field {
-  width: 25px;
-  min-width: 25px;
+  width: 27px;
+  min-width: 27px;
 }
 
 .field__item.row-options-field {
-  width: 25px;
-  min-width: 25px;
-  min-height: 25px;
-  border: 0.5px solid #AAA;
+  width: 35px;
+  min-width: 35px;
+  min-height: 27px;
+  border-right: 0;
+  border-left: 0;
+}
+.content__body:first-child {
+  .field__item.row-options-field {
+    border-left: 0;
+  }
 }
 .field__item.row-options-field {
+  .row-control-container {
+    border-top: 0.5px solid rgba(170, 170, 170, 0.5);
+    border-left: 0.5px solid rgba(170, 170, 170, 0.5);
+    height: 33px;
+  }
+
+  .row-control-container:first-child {
+    border-top: 0;
+    height: 32px;
+  }
+
   .row-control-container:last-child {
-    button {
-      height: 31px;
-    }
+      border-bottom: 0;
   }
 }
 
 .field__items.row-options-field {
+  .content__field.row-options-field {
+    min-height: 33px;
+    border-right: 0;
+  }
   .row-options-field {
     .record-dialog-btn {
       position: relative;
       width: 25px;
-      height: 33px;
+      height: 31px;
       padding: 0 !important;
-      margin: 0;
+      margin: 0 0 0 5px;
       cursor: pointer;
       border-left: none;
       text-decoration: none;
@@ -44,9 +63,6 @@
         left: 3px;
         margin: 0;
         background-color: #fff;
-      }
-      .expand.icon /*.hover*/ {
-        border: 2px solid #ccc;
         display: -webkit-box !important;
         display: -webkit-flex !important;
         display: -ms-flexbox !important;
@@ -60,6 +76,10 @@
         -webkit-justify-content: center;
         -ms-flex-pack: center;
         justify-content: center;
+        border: 2px solid rgba(204, 204, 204, 0.25);
+      }
+      .expand.icon:hover {
+        border: 2px solid #ccc;
       }
     }
   }
@@ -67,11 +87,9 @@
 .modal {
   position: relative;
   padding-bottom: 70px;
-  //min-height: 500px!important;
-  //max-height: 80vh;
 
   .modal-fields-block {
-    min-width: 54%!important;
+    min-width: 49%!important;
     padding-left: 14px;
     padding-right: 35px;
     margin-top: 10px;
@@ -81,7 +99,6 @@
   .long-text,
   .number {
     .table-cell-wrap {
-      border: 1px solid #dde1e3;
     }
   }
 
@@ -91,7 +108,7 @@
 
   .field__item {
     width: 100%;
-    border: 0 solid #AAA;
+    border: 0;
   }
 
   .table-cell {
@@ -133,14 +150,23 @@
   }
 
   .modal-sidebar-block {
-    max-width: 44%!important;
+    max-width: 49%!important;
     padding-left: 35px;
-    padding-right: 20px;
-    //flex-direcrion:column;
-    //justify-content: center;
+    padding-right: 14px;
 
     .ui.header {
-      margin: 10px 0;
+      //margin: 10px 0;
+      margin-bottom: 10px;
+    }
+
+    .history-icon {
+      font-size: 16px!important;
+      line-height: 12px!important;
+    }
+
+    .comments-icon {
+      font-size: 18px!important;
+      line-height: 14px!important;
     }
   }
 
@@ -148,6 +174,8 @@
   .record-comment-item {
     border-bottom: 1px solid rgba(117, 116, 116, 0.33);
     padding: 15px 10px;
+    padding-right: 0;
+    margin-right: 15px;
   }
 
   .record-history-item:last-child {
@@ -155,9 +183,13 @@
   }
 
   .modal-history {
-    border-bottom: 2px solid rgba(117, 116, 116, 0.66);
-    padding-bottom: 8px;
-    //overflow-x: hidden;
+    border: 2px solid rgba(243, 232, 84, 0.63);
+    //border: 2px solid rgba(117, 116, 116, 0.15);
+    border-radius: 7px;
+    padding: 15px;
+
+    //border-bottom: 2px solid rgba(117, 116, 116, 0.66);
+    //padding-bottom: 8px;
   }
 
   .modal-history-list {
@@ -209,6 +241,10 @@
 
   .modal-comments {
     margin-top: 15px;
+    border: 2px solid rgba(84, 243, 222, 0.5);
+    //border: 2px solid rgba(117, 116, 116, 0.15);
+    border-radius: 7px;
+    padding: 15px;
   }
 
   .comments-block {
@@ -220,7 +256,7 @@
     position: absolute;
     bottom: 20px;
     padding-top: 21px;
-    border-top: 2px solid rgba(117, 116, 116, 0.66);
+    //border-top: 2px solid rgba(117, 116, 116, 0.66);
 
     .ui.input input {
       border: 2px solid rgba(0,0,0,0.15);

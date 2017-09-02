@@ -13,16 +13,16 @@ const GridSchema = new Schema({
         required: true
     },
     description: String,
+    fixed_area: {
+        type: Number,
+        required: true
+    },
     fields_config: [
         {
-            name: {
-                type: String,
-                required: true,
-                trim: true
-            },
             hidden: {
                 type: Boolean,
-                default: false
+                default: false,
+                required: true
             },
             size: {
                 type: Number,
@@ -32,10 +32,6 @@ const GridSchema = new Schema({
                 type: Number,
                 required: true
             },
-            fixed_area: {
-                type: Number,
-                // "required": true
-            }
         }
     ]
 }, { versionKey: false });

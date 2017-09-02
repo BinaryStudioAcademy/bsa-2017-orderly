@@ -4,13 +4,14 @@ import R from 'ramda';
 import AddTabBtn from './addTabBtn/addTabBtn';
 import TabItem from './tabItem/tabItem';
 import Coworkers from './coworkers/coworkers';
-
+import ExportCSV from '../../csvFile/csvFileExport'
+import ImportCSV from '../../csvFile/csvFileImport'
 import './tabs.scss';
 
 const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
     addTableClick, switchTableClick, togglePopup, openMenu, closeMenu,
     activeModal, setTabsModal, checkTableName, updateTable, deleteTable,
-    coworkers, tableIdActiveModal, setTableIdToActiveModal}) => (
+    coworkers, user, tableIdActiveModal, setTableIdToActiveModal}) => (
     <div className='tabs_panel' style={{backgroundColor:`${base.color}`}}>
         <div className='btn_block'>
             <div className='tabs_block'>
@@ -28,7 +29,7 @@ const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
             </div>
         </div>
         <div className='history'>
-            <Coworkers coworkers={coworkers}/>
+            <Coworkers coworkers={coworkers} currentUser={user}/>
             <Button className='share_btn header-icon' size='mini'>share</Button>
             <Icon inverted link className='header-icon' name='history' size='large'/>
         </div>

@@ -25,7 +25,7 @@ const setActive = (tableId) => ({
 const setTableIdToActiveModal = (tableId) => ({
     type: 'SET_TABLE_ID_TO_ACTIVE_MODAL',
     tableId: tableId
-})
+});
 
 const addTable = ({table, baseId}) => ({
     type: 'ADD_TABLE',
@@ -52,29 +52,29 @@ const addTableToBaseById = (baseId) => {
         type: 'ADD_TABLE_TO_BASE',
         baseId
     };
-}
+};
 
 const setTabsModal = (activeModal) => {
     return {
         type: 'SET_TABS_MODAL',
         activeModal: activeModal
-    }
-}
+    };
+};
 
 const updateTable = (newData, tableId) => {
     return {
         type: 'UPDATE_TABLE',
         newData,
         tableId
-    }
-}
+    };
+};
 
 const checkTableName = (renameIsError) => {
     return {
         type: 'CHECK_TABLE_NAME',
         renameIsError: renameIsError
-    }
-}
+    };
+};
 
 const addRecord = (tableId) => {
     return {
@@ -83,19 +83,26 @@ const addRecord = (tableId) => {
     };
 };
 
+export function addField(tableId) {
+    return {
+        type: 'ADD_FIELD',
+        tableId: tableId
+    };
+}
+
 const selectRecord = (recordId) => {
     return {
         type: 'SELECT_RECORD',
         recordId: recordId
     };
-}
+};
 
 const activateRecord = (recordId) => {
     return {
         type: 'ACTIVATE_RECORD',
         recordId: recordId
     };
-}
+};
 
 const changeRecord = (tableId, recordId, data, user) => {
     return {
@@ -105,27 +112,19 @@ const changeRecord = (tableId, recordId, data, user) => {
         data: data,
         user: user
     };
-}
+};
 
 const blurRecord = (recordId) => {
     return {
         type: 'BLUR_RECORD',
         recordId: recordId
     };
-}
+};
 
 const blurRecordComponent = (recordId) => {
     return {
         type: 'BLUR_RECORD_COMPONENT',
         recordId: recordId
-    };
-}
-
-const changeFieldType = (fieldId, records) => {
-    return {
-        type: 'CHANGE_FIELD_TYPE',
-        fieldId: fieldId,
-        records: records
     };
 };
 
@@ -147,12 +146,133 @@ const addComment = (userId, recordId, tableId, comment) => {
     };
 };
 
-const getCoworkersList = (coworkers) => {
+const getCoworkersList = (coworkersByTables, tableId) => {
     return {
         type: 'GET_COWORKERS_LIST',
-        coworkers: coworkers
+        coworkersByTables: coworkersByTables,
+        tableId: tableId
     };
 };
+
+const disconnectSocket = () => {
+    return {
+        type: 'DISCONNECT_SOCKET'
+    };
+};
+
+const changeSearch = (query, tableId) => {
+    return {
+        type: 'CHANGE_SEARCH',
+        query: query,
+        tableId: tableId
+    };
+};
+
+const changeSearchFoundIndex = (value) => {
+    return {
+        type: 'CHANGE_SEARCH_FOUND_INDEX',
+        value: value
+    };
+};
+
+const toggleSearch = () => {
+    return {
+        type: 'TOGGLE_SEARCH'
+    };
+};
+
+export function changeView(viewId) {
+    return {
+        type: 'CHANGE_VIEW',
+        viewId
+    };
+}
+
+export function sortRecords(table, fieldId, sortOption) {
+    return {
+        type: 'SORT_RECORDS',
+        table: table,
+        fieldId: fieldId,
+        sortOption: sortOption
+    };
+}
+
+export function filterRecords(tableId, fieldId, condition, filterQuery) {
+    return {
+        type: 'FILTER_RECORDS',
+        tableId : tableId,
+        fieldId: fieldId,
+        condition: condition,
+        filterQuery: filterQuery,
+    };
+}
+
+export function removeFilter() {
+    return {
+        type: 'REMOVE_FILTER'
+    };
+}
+
+export function changeFieldType(tableId, fieldType, fieldId) {
+    return {
+        type: 'CHANGE_FIELD_TYPE',
+        tableId: tableId,
+        fieldType: fieldType,
+        fieldId: fieldId
+    };
+}
+export function changeFieldName(tableId, fieldId, fieldName) {
+    return {
+        type: 'CHANGE_FIELD_NAME',
+        tableId: tableId,
+        fieldId: fieldId,
+        fieldName: fieldName,
+    };
+}
+export function changeFieldOptions(tableId, fieldId, fieldOptions) {
+    return {
+        type: 'CHANGE_FIELD_OPTIONS',
+        tableId: tableId,
+        fieldId: fieldId,
+        fieldOption: fieldOptions
+    };
+}
+
+export function deleteField(tableId, fieldId) {
+    return {
+        type: 'DELETE_FIELD',
+        tableId: tableId,
+        fieldId: fieldId,
+    };
+}
+
+export function deleteRecord(tableId, recordId) {
+    return {
+        type: 'DELETE_RECORD',
+        tableId: tableId,
+        recordId: recordId
+    };
+}
+
+const uploadAttachment = (data, typeOfFile, record_dataId, tableId) => {
+	return {
+		type: 'UPLOAD_FILES',
+		data: data,
+		typeOfFile: typeOfFile,
+		record_dataId: record_dataId,
+		tableId: tableId
+	}
+}
+
+const deleteFile = (typeOfFile, record_dataId, tableId, fileNamesStr) => {
+    return {
+        type: 'DELETE_FILE',
+        typeOfFile: typeOfFile,
+        record_dataId: record_dataId,
+        tableId: tableId,
+        fileNamesStr: fileNamesStr
+    }
+}
 
 export {
     getBaseById,
@@ -166,7 +286,7 @@ export {
     setTabsModal,
     checkTableName,
     addTableToBaseById,
-	setTableIdToActiveModal,
+    setTableIdToActiveModal,
     updateTable,
     addRecord,
     selectRecord,
@@ -175,8 +295,13 @@ export {
     blurRecord,
     blurRecordComponent,
     deleteTable,
-    changeFieldType,
     openRecordDialog,
     addComment,
-    getCoworkersList
+    getCoworkersList,
+    disconnectSocket,
+    changeSearch,
+    changeSearchFoundIndex,
+    toggleSearch,
+	uploadAttachment,
+	deleteFile
 };

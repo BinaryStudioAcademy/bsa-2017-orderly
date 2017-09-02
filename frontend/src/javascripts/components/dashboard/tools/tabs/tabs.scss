@@ -23,7 +23,7 @@
     }
 
     .tabs_block {
-      margin-bottom: -13px;
+      margin-bottom: -5px;
     }
     .add_btn {
       display: inline-block;
@@ -33,13 +33,16 @@
 
   .history {
     margin-right: 5px;
+    display: flex;
 
     .header-icon {
       margin: 8px;
+      margin-top: 0;
     }
 
     .share_btn {
       min-width: 66px;
+      margin-top: 0;
     }
   }
 }
