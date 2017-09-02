@@ -9,7 +9,7 @@ $cell-padding: 0px;
 .wrapper__grid {
   display: inline-block;
   width: 100vw;
-  height: 72vh;
+  height: 74.7vh;
   overflow: auto;
   border-top: 2px solid rgba(170, 170, 170, 0.5);
 }
@@ -83,11 +83,12 @@ $cell-padding: 0px;
 
 .field__icon {
   opacity: $icon-opacity!important;
+  vertical-align: top;
 }
 
 .field__name {
   display: inline-block;
-  height: 15px;
+  height: 17px;
   width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
