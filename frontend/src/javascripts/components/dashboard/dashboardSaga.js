@@ -195,20 +195,20 @@ function* filterTableRecords(action) {
 }
 
 function* uploadingFiles(action) {
-	try {
-		const changedTable = yield call(uploadFile, action);
-		yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable})
-	} catch (err) {
-		yield put({type: 'UPLOAD_FILES_FAILED', message: err.message})
-	}
+    try {
+        const changedTable = yield call(uploadFile, action);
+        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
+    } catch (err) {
+        yield put({type: 'UPLOAD_FILES_FAILED', message: err.message});
+    }
 }
 
 function* deletingFile(action) {
     try {
         const changedTable = yield call(deleteFile, action);
-        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable})
+        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
     } catch (err) {
-        yield put({type: 'DELETE_FILE_FAILED', message: err.message})
+        yield put({type: 'DELETE_FILE_FAILED', message: err.message});
     }
 }
 
@@ -235,7 +235,7 @@ function* dashboardSaga() {
     yield takeEvery('DISCONNECT_SOCKET', disconnectSocket);
     yield takeEvery('FILTER_RECORDS', filterTableRecords);
     yield takeEvery('UPLOAD_FILES', uploadingFiles);
-    yield takeEvery('DELETE_FILE', deletingFile)
+    yield takeEvery('DELETE_FILE', deletingFile);
 }
 
 export default dashboardSaga;
