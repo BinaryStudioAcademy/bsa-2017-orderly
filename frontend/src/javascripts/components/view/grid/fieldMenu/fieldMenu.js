@@ -17,12 +17,14 @@ export default class FieldMenu extends Component {
             currentName: this.props.name,
             fieldType: '',
             fieldOptionsSS:[],
+            fieldOptionsNum: null,
             currentValue: null
         };
     }
     componentWillReceiveProps(nextProps) {
       this.setState({ 
-        fieldOptionsSS: nextProps.currentField.options,
+        fieldOptionsSS: nextProps.currentField.options.select,
+        fieldOptionsNum: nextProps.currentField.options.number,
         currentValue: nextProps.currentField.type
     });
 
@@ -68,7 +70,10 @@ export default class FieldMenu extends Component {
             this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
         }
         if (  this.state.fieldOptionsSS !== this.props.currentField.options) {
-            this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS)
+            let changedOption;
+            if (this.state.fieldType == 'select') {
+                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS)
+            }
         }
         this.handleClickOnMenu();
     }
@@ -93,8 +98,6 @@ export default class FieldMenu extends Component {
         }
         if (this.state.currentValue == 'number') {
             newOption = event.value;
-            // let newArray =[...this.state.fieldOptionsSS]
-            // newArray.push(newOption);
             this.setState({fieldOptionsSS: newOption});
             console.log(event.value)
         }

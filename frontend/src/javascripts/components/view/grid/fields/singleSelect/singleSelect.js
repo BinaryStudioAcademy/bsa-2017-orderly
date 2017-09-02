@@ -12,7 +12,7 @@ class SingleSelect  extends Field {
                 onBlur={(event) => this.props.onBlurComponent(this.props.id, event.target.value)}
                 autoFocus={true}
             >
-                {this.props.currentField.options.map((option, i) => {
+                {this.props.currentField.options.select.map((option, i) => {
                     return ( 
                     <option key={i}>{option}</option>
                     )})}
