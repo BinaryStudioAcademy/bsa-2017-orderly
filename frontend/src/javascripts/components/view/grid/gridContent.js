@@ -32,7 +32,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
         <div className="field__items">
             <div className="content__field">
                 <Icon name={fieldIcons[type]} className="field__icon"/>
-                <span>{name}</span>
+                <span className="field__name">{name}</span>
                 <FieldMenu
                     onClick={showFieldMenu}
                     id={id}
@@ -122,14 +122,13 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         case 'percent':
             record = <Percent {...fieldPayload}/>;
             break;
-            
+
 	    case 'attachment':
 		    record = <Attachment {...fieldPayload}/>;
 		    break;
 	    default:
             record = <TextLine {...fieldPayload}/>;
     }
-
 
     let recordClassName = '';
     if (searchMatchedRecordItemIdList && searchMatchedRecordItemIdList.indexOf(id) === searchFoundIndex) {
@@ -149,7 +148,6 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
     );
 };
 
-
 export default class GridContent extends Component {
     constructor(props) {
         super(props);
@@ -158,10 +156,14 @@ export default class GridContent extends Component {
 
     handleAddField = () => {
         this.props.addField(this.props.currentTable._id);
+        setTimeout(() => {
+            this.wrapperGrid.scrollLeft = this.wrapperGrid.scrollWidth;
+        }, 500);
     };
 
     handleAddRecord = () => {
         this.props.addRecord(this.props.currentTable._id);
+        this.wrapperGrid.scrollTop = this.wrapperGrid.scrollHeight;
     };
 
     handleDeleteRecord = (event, tableId, recordId) => {
@@ -172,13 +174,12 @@ export default class GridContent extends Component {
     render() {
         const records = this.props.filteredRecords || this.props.currentTable.records;
         return (
-            <div className="wrapper__grid">
+            <div className="wrapper__grid" ref={(div) => this.wrapperGrid = div}>
                 <div className="grid__content">
                     <div className="content__wrapper">
-                        <div className="content__rows row-options-field">
-                            <div className="rows__selector rows__row">
-                                <Icon name="lock"/>
-                            </div>
+                        <div className="wrapper__table">
+                            <div className="content__rows row-options-field">
+                            <div className="rows__selector rows__row"/>
                             {records.map((record, recordIndex) => {
                                 return <RowNum key={record._id}
                                                tableId={this.props.currentTable._id}
@@ -190,11 +191,13 @@ export default class GridContent extends Component {
 
                         <div className="content__body">
                             <div className="field__items row-options-field">
-                                <div className="content__field row-options-field"/>
+                                <div className="content__field row-options-field">
+                                    <Icon name="lock"/>
+                                </div>
                                 <div className="field__item row-options-field">
                                     {records.map((record, recordIndex) => {
                                         return (
-                                            <div className="row-control-container" key={record._id} >
+                                            <div className="row-control-container" key={record._id}>
                                                 <Button
                                                     className="record-dialog-btn"
                                                     onClick={(event) => this.props.onOpenRecordDialog(recordIndex)}>
@@ -219,7 +222,7 @@ export default class GridContent extends Component {
                             </div>
                         </div>
 
-                        <div className="content__body">
+                        <div className="content__body body__fields">
                             {this.props.currentTable.fields.map((field, fieldIndex) => {
                                 return <Field
                                     key={field._id}
@@ -242,14 +245,15 @@ export default class GridContent extends Component {
                                     searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                                     searchFoundIndex={this.props.searchFoundIndex}
                                 />
-                            })}
+                            })}</div>
                         </div>
-
-                        <div className="content__field item__add-field" onClick={this.handleAddField}>
+                        <div className="content__field item__add-record"
+                             onClick={this.handleAddRecord}>
                             <Icon name="plus" className="field__icon"/>
                         </div>
                     </div>
-                    <div className="content__field item__add-record" onClick={this.handleAddRecord}>
+                    <div className="content__field item__add-field"
+                         onClick={this.handleAddField}>
                         <Icon name="plus" className="field__icon"/>
                     </div>
                 </div>
@@ -257,4 +261,3 @@ export default class GridContent extends Component {
         );
     }
 }
-

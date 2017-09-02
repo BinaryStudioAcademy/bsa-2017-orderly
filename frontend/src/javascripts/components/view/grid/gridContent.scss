@@ -9,20 +9,26 @@ $cell-padding: 0px;
 .wrapper__grid {
   display: inline-block;
   width: 100vw;
-  height: 73.3vh;
+  height: 72vh;
   overflow: auto;
   border-top: 2px solid rgba(170, 170, 170, 0.5);
 }
 
-.content__wrapper {
+.grid__content {
   display: flex;
-  position: relative;
+}
+
+.content__wrapper {
+  display: inline-table;
+}
+
+.wrapper__table {
+  display: flex;
 }
 
 .content__body {
   display: flex;
   flex-direction: row;
-  border-bottom: $cell-border-top;
 }
 .content__body {
   .field__items.row-options-field {
@@ -31,8 +37,8 @@ $cell-padding: 0px;
       border-bottom: $cell-border-top;
     }
   }
-
 }
+
 .content__field {
   display: inline-block;
   border-left: $cell-border-left;
@@ -50,6 +56,10 @@ $cell-padding: 0px;
 
 .content__body:last-child {
   border-right: $cell-border-top;
+}
+
+.body__fields {
+  border-right: $cell-border;
 }
 
 .field__item {
@@ -73,6 +83,14 @@ $cell-padding: 0px;
 
 .field__icon {
   opacity: $icon-opacity!important;
+}
+
+.field__name {
+  display: inline-block;
+  height: 15px;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .field__change-type {
@@ -101,20 +119,18 @@ $cell-padding: 0px;
   min-width: 75px;
   text-align: center;
   cursor: pointer;
-  border: $cell-border-top;
-  //border-left: 0;
-  border-top: 0;
+  border-right: $cell-border;
+  border-bottom: $cell-border;
   min-height: 33.5px;
-  //height: 33.5px;
+  height: 33.5px;
 }
 
 .item__add-record {
-  min-width: 0;
-  width: 38px;
+  width: 100%;
   padding-left: 7px;
   text-align: left;
   cursor: pointer;
-  border: $cell-border-top;
+  border: $cell-border;
   margin-bottom: 70px;
 }
 
