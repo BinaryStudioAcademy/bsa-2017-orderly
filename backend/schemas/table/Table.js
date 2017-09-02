@@ -69,7 +69,7 @@ const tableSchema = new Schema({
         },
         options:{
             select:[],
-            number:[]
+            number: Number
         }
     }],
     views: [{

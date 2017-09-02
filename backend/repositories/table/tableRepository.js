@@ -101,9 +101,16 @@ class TableRepository extends Repository {
             const field = table.fields[fieldIndex];
             field.type = data.fieldType || field.type;
             field.name = data.fieldName || field.name;
-            if (field.type == 'select') {
-                field.options.select = data.fieldOption || field.options.select;
+            
+            if (data.type == 'CHANGE_FIELD_OPTIONS') {
+                if (data.currentValue === 'select' ) {
+                    field.options.select = data.fieldOption || field.options.select;
+                }
+                if (data.currentValue === 'number') {
+                    field.options.number = data.fieldOption || field.options.number;
+                }
             }
+            
             if (data.fieldType) {
                 table.records.forEach((record) => (record.record_data[fieldIndex].data = ''));
             }

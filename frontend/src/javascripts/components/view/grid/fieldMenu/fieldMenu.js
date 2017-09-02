@@ -17,7 +17,7 @@ export default class FieldMenu extends Component {
             currentName: this.props.name,
             fieldType: '',
             fieldOptionsSS:[],
-            fieldOptionsNum: null,
+            // fieldOptionsNum: null,
             currentValue: null
         };
     }
@@ -63,18 +63,30 @@ export default class FieldMenu extends Component {
     };
 
     handleSumbit = () => {
-        if (  this.state.fieldType!=this.props.currentField.type) {
-            this.props.changeFieldType(this.props.tableId, this.state.fieldType, this.props.id)
-        }
-        if (  this.state.currentName!=this.props.currentField.name) {
-            this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
-        }
-        if (  this.state.fieldOptionsSS !== this.props.currentField.options) {
-            let changedOption;
-            if (this.state.fieldType == 'select') {
-                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS)
+        //if (  this.state.fieldType!==this.props.currentField.type) {
+        //}
+        //if (  this.state.currentName!==this.props.currentField.name) {
+        //}
+        //if (  this.state.fieldOptionsSS !== this.props.currentField.options) {
+            if (this.state.currentValue == 'select') {
+                if (  this.state.currentValue!==this.props.currentField.type) {
+                    this.props.changeFieldType(this.props.tableId, this.state.fieldType, this.props.id)
+                }
+                //if (  this.state.currentName!==this.props.currentField.name) { 
+                    this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
+                //}
+                if (this.state.fieldOptionsSS !== this.props.currentField.options.select) {
+                    this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS, this.state.currentValue)
+                }
             }
-        }
+            if (this.state.currentValue == 'number') {
+                this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
+                //if (  this.state.currentValue!==this.props.currentField.type) {
+                    this.props.changeFieldType(this.props.tableId, this.state.fieldType, this.props.id) 
+               // }
+                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsNum, this.state.currentValue)
+            }
+        //}
         this.handleClickOnMenu();
     }
     handleDeleteField = () => {
@@ -97,10 +109,12 @@ export default class FieldMenu extends Component {
             newOption = event.target.value;
         }
         if (this.state.currentValue == 'number') {
-            newOption = event.value;
-            this.setState({fieldOptionsSS: newOption});
-            console.log(event.value)
+            let newOptionNum = event.value;
+            // let newArrayNum =[...this.state.fieldOptionsNum]
+            // newArrayNum.push(newOptionNum);
+            this.setState({fieldOptionsNum: newOptionNum });
         }
+           //console.log(this.state)
     }
 
     handleOptionsDelete = (optionToBeDeleted) => {
@@ -150,9 +164,10 @@ export default class FieldMenu extends Component {
                             ref='select'
                             currentField={this.props.currentField}
                         />
-                        <NumberType type={this.state.currentValue}  
-                                    handleOptionsChange={this.handleOptionsChange} 
-                                    handleOptionsSubmit={this.handleOptionsSubmit}
+                        <NumberType 
+                                type={this.state.currentValue}
+                                handleOptionsChange={this.handleOptionsChange} 
+                                    
                         />
                         <TextType type={this.state.currentValue} />
                         <div className='button-wrapper' 

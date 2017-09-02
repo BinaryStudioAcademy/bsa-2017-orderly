@@ -10,20 +10,9 @@
     border:none !important;
     height: 35px !important;
   }
-  .ui.dropdown{
-    width: 150px !important;
-    position: relative;
-  }
-  .ui.dropdown .menu {
-    width: 170px !important;
-    left: -10px !important;
-  }
-  .ui.dropdown .menu>.item {
-    padding: 7px !important;
-  }
-  .ui.dropdown .menu>.item:last-child {
-     padding-bottom: 10px !important;
-  }
+}
+.Select-clear-zone {
+    display:none !important;
 }
 .label-text-wrapper {
   .label-text{

@@ -1,17 +1,25 @@
 import React from 'react';
-import { Input } from 'semantic-ui-react';
 import Field from '../field';
-import './number.scss';
+import { Input } from 'semantic-ui-react';
+import './number.scss'
 
 class Number extends Field {
     constructor(props){
         super(props, 'text-line');
+        this.state = { 
+            precision: null 
+        }
 
         this.changeHandler = this.changeHandler.bind(this);
         this.keyPressHandler = this.keyPressHandler.bind(this);
         this.blurHandler = this.blurHandler.bind(this);
         this.processValue = this.processValue.bind(this);
         this.defaultValue = this.props.value;
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({ 
+            precision: nextProps.currentField.options.number
+            });
     }
 
     changeHandler(event, value) {
@@ -43,7 +51,7 @@ class Number extends Field {
 
     processValue(value) {
         const isInteger = false;
-        const precisionValue = 2;
+        const precisionValue = this.state.precision;
         if (!isInteger) {
             let n = +value;
             return n.toFixed(precisionValue);
@@ -52,6 +60,7 @@ class Number extends Field {
     }
 
     renderActiveField() {
+        console.log(this.props.currentField.options.number)
         return <Input
             onChange={(event) => {this.changeHandler(event, event.target.value)}}
             onBlur={(event) => this.blurHandler(this.props.id, event)}

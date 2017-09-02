@@ -229,12 +229,13 @@ export function changeFieldName(tableId, fieldId, fieldName) {
         fieldName: fieldName,
     };
 }
-export function changeFieldOptions(tableId, fieldId, fieldOptions) {
+export function changeFieldOptions(tableId, fieldId, fieldOptions, value) {
     return {
         type: 'CHANGE_FIELD_OPTIONS',
         tableId: tableId,
         fieldId: fieldId,
-        fieldOption: fieldOptions
+        fieldOption: fieldOptions,
+        currentValue: value
     };
 }
 
