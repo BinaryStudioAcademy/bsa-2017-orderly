@@ -25,8 +25,8 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
     )
 };
 
-const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
-                   changeFieldType, changeFieldName, changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
+const Field = ({id, tableId, type, name, index, records, recordData, changeFieldType, changeFieldName,
+                   changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
                    searchFoundIndex, uploadAttachment, deleteFile}) => {
     return (
         <div className="field__items">
@@ -34,7 +34,6 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                 <Icon name={fieldIcons[type]} className="field__icon"/>
                 <span className="field__name">{name}</span>
                 <FieldMenu
-                    onClick={showFieldMenu}
                     id={id}
                     tableId={tableId}
                     name={name}
@@ -61,16 +60,15 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                                    searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
                                    searchFoundIndex={searchFoundIndex}
                                    deleteFile={deleteFile}
-                                   tableId={tableId}
-                                   />
+                                   tableId={tableId}/>
                 })}
             </div>
         </div>
     );
 };
 
-const RecordItem = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList, searchFoundIndex, uploadAttachment, tableId,
-	                    deleteFile}) => {
+const RecordItem = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList,
+                        searchFoundIndex, uploadAttachment, tableId, deleteFile}) => {
     const fieldPayload = {
         id: id,
         value: data,
@@ -233,7 +231,6 @@ export default class GridContent extends Component {
                                     index={fieldIndex}
                                     records={records}
                                     recordData={this.props.recordData}
-                                    showFieldMenu={this.props.showFieldMenu}
                                     changeFieldType={this.props.changeFieldType}
                                     changeFieldOptions={this.props.changeFieldOptions}
                                     changeFieldName={this.props.changeFieldName}
