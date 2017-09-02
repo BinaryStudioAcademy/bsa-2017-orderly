@@ -5,7 +5,6 @@ import { Icon } from 'semantic-ui-react';
 let fieldOptions = [];
     let num = 0;
     for (let [fieldType, fieldIcon, _] of Object.entries(fieldIcons)) {
-    //if (fieldType !== this.props.type) {
         fieldOptions.push(
             {
                 value: fieldType, 
@@ -19,7 +18,6 @@ let fieldOptions = [];
                     )
             }
         )
-   // }
 }
 
 export default fieldOptions

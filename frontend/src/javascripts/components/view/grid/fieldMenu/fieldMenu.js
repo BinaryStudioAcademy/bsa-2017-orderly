@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Icon, Input, Button } from 'semantic-ui-react';
 import Select from 'react-select';
 import { fieldIcons, fieldNames, fieldText } from "../../../configuration/fieldTypes";
-import { TextType, NumberType } from "./fieldMenuOptions";
+import { TextType, NumberType, CustomOptinos } from "./fieldMenuOptions";
 import {  SingleSelectType } from "./fieldMenuSingleSelect";
 import fieldOptions from './fieldOptions'
 import 'react-select/dist/react-select.css';
@@ -12,7 +12,6 @@ let newOption;
 export default class FieldMenu extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             isActive: false,
             currentName: this.props.name,
@@ -89,7 +88,16 @@ export default class FieldMenu extends Component {
     }
 
     handleOptionsChange = (event) => {
-      newOption = event.target.value;
+        if (this.state.currentValue == 'select') {
+            newOption = event.target.value;
+        }
+        if (this.state.currentValue == 'number') {
+            newOption = event.value;
+            // let newArray =[...this.state.fieldOptionsSS]
+            // newArray.push(newOption);
+            this.setState({fieldOptionsSS: newOption});
+            console.log(event.value)
+        }
     }
 
     handleOptionsDelete = (optionToBeDeleted) => {
@@ -100,10 +108,6 @@ export default class FieldMenu extends Component {
     }
 
     render() {
-         let currentType = fieldOptions.filter((option)=>{
-            return option.key == this.props.currentField.type
-        })
-        let value = currentType[0];
         return(
             <div ref="fieldMenu" className='field__ellipsis'>
                 <div ref={(node) => this.node = node } >
@@ -132,18 +136,22 @@ export default class FieldMenu extends Component {
                             
                         </div>
                         <div className="explanation-text-wrapper">
-                            <div className="explanation-text">{this.state.fieldType!=''?fieldText[this.state.fieldType]:''}</div> 
+                            <div className="explanation-text">{fieldText[this.state.currentValue]}</div> 
                         </div>
                         <SingleSelectType
                             fieldOptionsSS={this.state.fieldOptionsSS}
-                            handleOptionsSubmit={this.handleOptionsSubmit.bind(this)}
+                            handleOptionsSubmit={this.handleOptionsSubmit}
                             handleOptionsChange={this.handleOptionsChange}
                             handleOptionsDelete={this.handleOptionsDelete}
-                            type={this.state.fieldType}
+                            type={this.state.currentValue}
                             ref='select'
                             currentField={this.props.currentField}
-
                         />
+                        <NumberType type={this.state.currentValue}  
+                                    handleOptionsChange={this.handleOptionsChange} 
+                                    handleOptionsSubmit={this.handleOptionsSubmit}
+                        />
+                        <TextType type={this.state.currentValue} />
                         <div className='button-wrapper' 
                                 onClick={this.handleSumbit}
                             >
