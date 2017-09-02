@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import { Icon, Dropdown, Input, Button } from 'semantic-ui-react';
+import { Icon, Input, Button } from 'semantic-ui-react';
+import Select from 'react-select';
 import { fieldIcons, fieldNames, fieldText } from "../../../configuration/fieldTypes";
 import { TextType, NumberType } from "./fieldMenuOptions";
 import {  SingleSelectType } from "./fieldMenuSingleSelect";
 import fieldOptions from './fieldOptions'
+import 'react-select/dist/react-select.css';
 import './fieldMenu.scss';
 
 let newOption;
@@ -16,14 +18,15 @@ export default class FieldMenu extends Component {
             currentName: this.props.name,
             fieldType: '',
             fieldOptionsSS:[],
-            //currentValue: {}
+            currentValue: null
         };
     }
     componentWillReceiveProps(nextProps) {
       this.setState({ 
         fieldOptionsSS: nextProps.currentField.options,
-        //currentValue: {key:"text", text:"bla", value:"bla"}
+        currentValue: nextProps.currentField.type
     });
+
   }
     handleClickOnMenu = () => {
         if (this.refs.fieldMenu) {
@@ -73,6 +76,9 @@ export default class FieldMenu extends Component {
     handleDeleteField = () => {
         this.props.deleteField(this.props.tableId, this.props.id)
     }
+    handleChangeType =(event) => {
+        this.setState({ fieldType: event.value, currentValue: event.value})
+    }
 
     handleOptionsSubmit = (event) => {
         event.preventDefault();
@@ -84,7 +90,6 @@ export default class FieldMenu extends Component {
 
     handleOptionsChange = (event) => {
       newOption = event.target.value;
-      //this.setState({ currentValue: value });
     }
 
     handleOptionsDelete = (optionToBeDeleted) => {
@@ -95,8 +100,10 @@ export default class FieldMenu extends Component {
     }
 
     render() {
-        const { currentValue } = this.state;
-        let type = this.props.type;
+         let currentType = fieldOptions.filter((option)=>{
+            return option.key == this.props.currentField.type
+        })
+        let value = currentType[0];
         return(
             <div ref="fieldMenu" className='field__ellipsis'>
                 <div ref={(node) => this.node = node } >
@@ -117,10 +124,10 @@ export default class FieldMenu extends Component {
                     }
                     <div>
                         <div className="fields-menu-options-container"> 
-                            <Dropdown options={fieldOptions}
-                                value={currentValue}
+                            <Select options={fieldOptions}
+                                value={this.state.currentValue}
                                 placeholder='Choose field type'
-                                onChange = {(e, data) => this.setState({ fieldType: data.options[data.value-1].key})}
+                                onChange = {this.handleChangeType}
                             />
                             
                         </div>
@@ -148,28 +155,3 @@ export default class FieldMenu extends Component {
         );
     }
 }
-
-
-const FieldOptions = ({id, tableId, excludeType, changeFieldType, closeMenu}) => {
-    let fieldOptions = [];
-    for (let [fieldType, fieldIcon, _] of Object.entries(fieldIcons)) {
-        if (fieldType !== excludeType) {
-            fieldOptions.push(
-                <div key={fieldType}
-                     className="menu__field-option"
-                     onClick={() => {
-                         closeMenu();
-                         return changeFieldType(tableId, fieldType, id)}
-                     }>
-                    <Icon name={fieldIcon} className="field__icon"/>
-                    <span>{fieldNames[fieldType]}</span>
-                </div>
-            );
-        }
-    }
-    return (
-        <div>
-            {fieldOptions}
-        </div>
-    );
-};
