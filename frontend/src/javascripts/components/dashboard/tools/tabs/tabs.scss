@@ -15,27 +15,32 @@
 
 
     .tabs_block {
-      margin-bottom: -4px;
+      margin-bottom: 3px;
     }
     .add_btn {
       display: inline-block;
       margin-left: 5px;
-      margin-top: 5px;
+      margin-bottom: 4px;
+      font-size: 10px;
     }
   }
 
   .history {
     margin-right: 5px;
     display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+
 
     .header-icon {
-      margin: 8px;
-      margin-top: 0;
+      font-size: 16px;
+      margin-top: 3px;
     }
 
-    .share_btn {
-      min-width: 66px;
-      margin-top: 0;
+    .ui.circular.label.share_btn {
+      padding: 6px 12px !important;
+      margin-right: 8px;
     }
   }
 }

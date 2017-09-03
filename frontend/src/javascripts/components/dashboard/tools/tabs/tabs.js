@@ -1,11 +1,9 @@
 import React from 'react';
-import { Icon, Button } from 'semantic-ui-react';
+import { Icon, Label } from 'semantic-ui-react';
 import R from 'ramda';
 import AddTabBtn from './addTabBtn/addTabBtn';
 import TabItem from './tabItem/tabItem';
 import Coworkers from './coworkers/coworkers';
-import ExportCSV from '../../csvFile/csvFileExport'
-import ImportCSV from '../../csvFile/csvFileImport'
 import './tabs.scss';
 
 const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
@@ -30,8 +28,14 @@ const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
         </div>
         <div className='history'>
             <Coworkers coworkers={coworkers} currentUser={user}/>
-            <Button className='share_btn header-icon' size='mini'>share</Button>
-            <Icon inverted link className='header-icon' name='history' size='large'/>
+            <Label color={'grey'}
+                   className='share_btn'
+                   as='a'
+                   circular>SHARE</Label>
+            <Icon inverted link
+                className='header-icon'
+                name='history'
+                size='large'/>
         </div>
     </div>
 );
