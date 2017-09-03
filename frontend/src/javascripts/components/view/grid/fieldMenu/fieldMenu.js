@@ -3,7 +3,7 @@ import { Icon, Input, Button } from 'semantic-ui-react';
 import Select from 'react-select';
 import { fieldIcons, fieldNames, fieldText } from "../../../configuration/fieldTypes";
 import { TextType, NumberType, CurrencyType, DateType,  PercentType, CustomOptions } from "./fieldMenuOptions";
-import {  SingleSelectType } from "./fieldMenuSingleSelect";
+import {  SingleSelectType } from "./fieldMenuSelect";
 import fieldOptions from './fieldOptions'
 import 'react-select/dist/react-select.css';
 import './fieldMenu.scss';
@@ -58,6 +58,16 @@ export default class FieldMenu extends Component {
             }
             this.handleClickOnMenu();
         }
+        if( this.state.currentName !== this.props.name) {
+            if ( event.target.closest(".menu__name") === null) {
+              if (this.node) {
+                if (this.node.contains(e.target)) {
+                  return;
+                }
+              }
+            this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
+            }
+        }
     };
 
     handleChangeName = (e) => {
@@ -67,11 +77,8 @@ export default class FieldMenu extends Component {
             })
         }
     };
-
-    handleSumbit = () => {
-        if (this.state.currentName != this.props.name) {
-            this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
-        }
+    
+    handleSumbit = (e) => {
         switch (this.state.currentValue) {
             case 'select':
                 this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS, this.state.currentValue)
@@ -192,8 +199,6 @@ export default class FieldMenu extends Component {
                             type={this.state.currentValue}
                             handleOptionsChange={this.handleOptionsChange}
                         />
-                        
-                        <TextType type={this.state.currentValue} />
                         <div className='button-wrapper' 
                                 onClick={this.handleSumbit}
                             >

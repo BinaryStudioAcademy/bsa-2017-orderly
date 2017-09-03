@@ -29,11 +29,11 @@ export const fieldNames = {
 };
 
 export const fieldText   = {
-    'text': 'A single line of text. You can optionally prefill each new cell with a default value',
+    'text': 'A single line of text. You can fill it with letters, numbers and symbols.',
     'longtext': 'A long text field that can span multiple lines.',
     'number': 'Only numeric and decimal data are allowed. You can optionally choose the precision of a numeric value.',
     'select': 'Single select allows you to select a single option from predefined options in a dropdown.',
-    'autonumber': 'Auto Number',
+    'autonumber': 'Auto-number is prefilled column with unique numbers that are generated automatically when a new record is inserted into a table.',
     'url': 'A valid URL (e.g. http://academy.binary-studio.com/).',
     'currency': 'You can optionally choose the currency, the default one is $ United States Dollar.',
     'date': 'Enter a date (e.g 11/12/2017) or pick one from a calendar.',

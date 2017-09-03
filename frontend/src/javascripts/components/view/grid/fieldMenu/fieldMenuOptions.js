@@ -2,23 +2,8 @@ import React, { Component } from 'react';
 import { Input, Dropdown, Checkbox } from 'semantic-ui-react';
 import { numOptions, currencySymbols, dateFormats, percentOptions } from "../../../configuration/fieldCustomOptions";
 import Select from 'react-select';
-import SingleSelectType from './fieldMenuSingleSelect'
+import SingleSelectType from './fieldMenuSelect'
 import Toggle from 'react-toggle'
-
-export class TextType extends Component {
-  render(){
-    if (this.props.type=='text') {
-      return (
-        <div className='label-text-wrapper'>
-          <div className='label-text'>Default text </div>
-            <Input placeholder="Enter default text" />
-        </div>
-      )
-    } else {
-        return <div></div>
-    }
-  }
-}
 
 export class NumberType extends Component {
   constructor(props) {
