@@ -60,7 +60,6 @@ class Number extends Field {
     }
 
     renderActiveField() {
-        console.log(this.props.currentField.options.number)
         return <Input
             onChange={(event) => {this.changeHandler(event, event.target.value)}}
             onBlur={(event) => this.blurHandler(this.props.id, event)}
