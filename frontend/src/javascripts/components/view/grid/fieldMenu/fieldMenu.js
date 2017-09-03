@@ -79,6 +79,9 @@ export default class FieldMenu extends Component {
     };
     
     handleSumbit = (e) => {
+        if( this.state.currentName !== this.props.name) {
+            this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
+        }
         switch (this.state.currentValue) {
             case 'select':
                 this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS, this.state.currentValue)
