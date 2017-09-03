@@ -15,7 +15,7 @@ class CurrencyField  extends Field {
  componentWillReceiveProps(nextProps) {
         this.setState({ 
             prefix: nextProps.currentField.options.currency
-            });
+        });
     }
   
   renderActiveField() {

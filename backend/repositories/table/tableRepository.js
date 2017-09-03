@@ -109,6 +109,12 @@ class TableRepository extends Repository {
                 if (data.currentValue === 'number') {
                     field.options.number = data.fieldOption || field.options.number;
                 }
+                if( data.currentValue === 'currency') {
+                    field.options.currency = data.fieldOption || field.options.currency;
+                }
+                if( data.currentValue === 'date') {
+                    field.options.date = data.fieldOption || field.options.date;
+                }
             }
             
             if (data.fieldType) {

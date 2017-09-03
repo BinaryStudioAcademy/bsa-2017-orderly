@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Input, Dropdown } from 'semantic-ui-react';
-import { numOptions, currencySymbols } from "../../../configuration/fieldCustomOptions";
+import { numOptions, currencySymbols, dateFormats } from "../../../configuration/fieldCustomOptions";
 import Select from 'react-select';
 import SingleSelectType from './fieldMenuSingleSelect'
 
@@ -57,13 +57,38 @@ export class CurrencyType extends Component {
     if (this.props.type=='currency') {
       return (
         <div className='label-text-wrapper'>
-          <div className='label-text'>Choose Precision</div>
+          <div className='label-text'>Choose currency</div>
             <Select selection options={currencySymbols}
                   value={this.state.moneyPrefix}
                   onChange = {(event) => {
-                    this.setState({moneyPrefix: event.value});
-                    console.log(this.props)
-    
+                    this.setState({moneyPrefix: event.value});    
+                    this.props.handleOptionsChange(event);
+                  }}
+              />
+        </div>
+      )
+    } else {
+        return <div></div>
+    }
+  }
+}
+
+export class DateType extends Component {
+  constructor(props) {
+        super(props);
+        this.state = {
+            format: ''
+        }
+    }
+  render(){
+    if (this.props.type =='date') {
+      return (
+        <div className='label-text-wrapper'>
+          <div className='label-text'>Date format</div>
+            <Select selection options={dateFormats}
+                  value={this.state.format}
+                  onChange = {(event) => {
+                    this.setState({format: event.value});    
                     this.props.handleOptionsChange(event);
                   }}
               />

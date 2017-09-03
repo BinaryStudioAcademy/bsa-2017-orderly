@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Icon, Input, Button } from 'semantic-ui-react';
 import Select from 'react-select';
 import { fieldIcons, fieldNames, fieldText } from "../../../configuration/fieldTypes";
-import { TextType, NumberType, CurrencyType } from "./fieldMenuOptions";
+import { TextType, NumberType, CurrencyType, DateType } from "./fieldMenuOptions";
 import {  SingleSelectType } from "./fieldMenuSingleSelect";
 import fieldOptions from './fieldOptions'
 import 'react-select/dist/react-select.css';
@@ -19,6 +19,7 @@ export default class FieldMenu extends Component {
             fieldOptionsSS:[],
             fieldOptionsNum:'',
             fieldOptionsCur:'',
+            fieldOptionsDate:'',
             currentValue: ''
         };
     }
@@ -27,6 +28,7 @@ export default class FieldMenu extends Component {
         fieldOptionsSS: nextProps.currentField.options.select,
         fieldOptionsNum: nextProps.currentField.options.number,
         fieldOptionsCur: nextProps.currentField.options.currency,
+        fieldOptionsDate: nextProps.currentField.options.date,
         currentValue: nextProps.currentField.type
     });
 
@@ -77,6 +79,9 @@ export default class FieldMenu extends Component {
         if (this.state.currentValue == 'currency' ) {
             this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsCur, this.state.currentValue)
         }
+        if (this.state.currentValue == 'date' ) {
+            this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsDate, this.state.currentValue)
+        }
         
         this.handleClickOnMenu();
     }
@@ -108,6 +113,10 @@ export default class FieldMenu extends Component {
         if (this.state.currentValue == 'currency') {
             newOption = event.value;
             this.setState({fieldOptionsCur: newOption });
+        }
+        if (this.state.currentValue == 'date') {
+            newOption = event.value;
+            this.setState({fieldOptionsDate: newOption });
             console.log(newOption)
         }
 
@@ -161,12 +170,16 @@ export default class FieldMenu extends Component {
                             currentField={this.props.currentField}
                         />
                         <NumberType 
-                                type={this.state.currentValue}
-                                handleOptionsChange={this.handleOptionsChange} 
+                            type={this.state.currentValue}
+                            handleOptionsChange={this.handleOptionsChange} 
                         />
                         <CurrencyType
-                                type={this.state.currentValue}
-                                handleOptionsChange={this.handleOptionsChange} 
+                            type={this.state.currentValue}
+                            handleOptionsChange={this.handleOptionsChange} 
+                        />
+                        <DateType
+                            type={this.state.currentValue}
+                            handleOptionsChange={this.handleOptionsChange} 
                         />
                         <TextType type={this.state.currentValue} />
                         <div className='button-wrapper' 

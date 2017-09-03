@@ -10,12 +10,19 @@ class DateField extends Field {
     constructor(props){
         super(props, 'date');
         this.state = { 
-            date: '' 
+            date: '',
+            format:'#MM#/#DD#/#YYYY#'
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({ 
+            format: nextProps.currentField.options.date
+        });
+    }
+
     handleChange(event){
-        this.setState({date: new Date(Date.parse(event._d)).customFormat("#MM#/#DD#/#YYYY# #hh#:#mm# #AMPM#")});
+        this.setState({date: new Date(Date.parse(event._d)).customFormat(this.state.format)});
     }
 
     renderActiveField() {
@@ -23,8 +30,9 @@ class DateField extends Field {
         <div className="date-input-wrapper"> 
             <Datetime
                 value={this.state.date}
+                timeFormat={false}
                 onChangeEvent={this.handleChange.bind(this)}       
-                onBlur={(event) => {this.props.onBlurComponent(this.props.id, new Date(Date.parse(event._d)).customFormat( "#MM#/#DD#/#YYYY# #hh#:#mm# #AMPM#" ))}}   
+                onBlur={(event) => {this.props.onBlurComponent(this.props.id, new Date(Date.parse(event._d)).customFormat(this.state.format))}}   
                 autoFocus={true}
             />
         </div>

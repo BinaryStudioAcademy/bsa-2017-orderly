@@ -69,8 +69,10 @@ const tableSchema = new Schema({
         },
         options:{
             select:[],
-            number: Number
-        }
+            number: { type: Number, default: '2' },
+            currency: { type: String,  default:'$' },
+            date: { type: String,  default:'#MM#/#DD#/#YYYY#' }
+            }
     }],
     views: [{
         type: {
