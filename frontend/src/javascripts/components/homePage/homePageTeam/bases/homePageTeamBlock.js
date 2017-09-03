@@ -23,9 +23,6 @@ class HomePageTeamBlock extends Component {
 		}
 	}
 
-
-
-
 	render() {
 		return (
 			<div className="team-wrapper">

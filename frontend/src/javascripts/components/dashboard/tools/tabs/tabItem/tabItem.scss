@@ -3,12 +3,43 @@
   display: inline-block;
 
   .pr-30 {
-    padding-right: 30px !important;
+    padding-right: 30px;
   }
 
   .desc_button {
     position: absolute;
-    top: 9px;
+    top: 2px;
     right: 7px;
   }
+
+  input[type='radio'] {
+    display: none;
+  }
+
+  label {
+    color: #c1c1c1;
+    font-weight: 500;
+    margin-right: 3px;
+    padding: 6px 8px 7px;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 5px 5px 0 0;
+  }
+
+  input[type='radio']:checked + label {
+    background-color: #fff;
+    color: #000;
+
+    &:hover {
+      color: #000;
+    }
+  }
+
+  input[type='radio'] + label {
+
+    &:hover {
+      cursor: pointer;
+      color: #ffffff;
+    }
+  }
+
 }
