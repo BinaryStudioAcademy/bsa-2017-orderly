@@ -28,7 +28,6 @@ export class NumberType extends Component {
         }
     }
   render(){
-    if (this.props.type=='number') {
       return (
         <div className='label-text-wrapper'>
           <div className='label-text'>Choose Precision</div>
@@ -41,9 +40,6 @@ export class NumberType extends Component {
               />
         </div>
       )
-    } else {
-        return <div></div>
-    }
   }
 }
 
@@ -55,7 +51,6 @@ export class PercentType extends Component {
         }
     }
   render(){
-    if (this.props.type=='percent') {
       return (
         <div className='label-text-wrapper'>
           <div className='label-text'>Choose Precision</div>
@@ -68,9 +63,6 @@ export class PercentType extends Component {
               />
         </div>
       )
-    } else {
-        return <div></div>
-    }
   }
 }
 
@@ -82,7 +74,6 @@ export class CurrencyType extends Component {
         }
     }
   render(){
-    if (this.props.type=='currency') {
       return (
         <div className='label-text-wrapper'>
           <div className='label-text'>Choose currency</div>
@@ -95,9 +86,6 @@ export class CurrencyType extends Component {
               />
         </div>
       )
-    } else {
-        return <div></div>
-    }
   }
 }
 
@@ -111,7 +99,6 @@ export class DateType extends Component {
 
     }
   render(){
-    if (this.props.type =='date') {
       return (
         <div className='label-text-wrapper'>
           <div className='label-text'>Date format</div>
@@ -132,8 +119,26 @@ export class DateType extends Component {
               </div>
         </div>
       )
-    } else {
-        return <div></div>
-    }
+  }
+}
+
+
+export const CustomOptions = ({type, handleOptionsChange}) => {
+  switch (type) {
+    case 'number': 
+      return <NumberType type={type} handleOptionsChange={handleOptionsChange}
+      />
+    break;
+    case 'currency': 
+      return <CurrencyType type={type} handleOptionsChange={handleOptionsChange} />
+    break;
+    case 'date': 
+      return <DateType type={type} handleOptionsChange={handleOptionsChange} />
+    break;
+    case 'percent': 
+      return <PercentType type={type} handleOptionsChange={handleOptionsChange} />
+    break;
+    default:
+      return <div></div>
   }
 }

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Icon, Input, Button } from 'semantic-ui-react';
 import Select from 'react-select';
 import { fieldIcons, fieldNames, fieldText } from "../../../configuration/fieldTypes";
-import { TextType, NumberType, CurrencyType, DateType,  PercentType } from "./fieldMenuOptions";
+import { TextType, NumberType, CurrencyType, DateType,  PercentType, CustomOptions } from "./fieldMenuOptions";
 import {  SingleSelectType } from "./fieldMenuSingleSelect";
 import fieldOptions from './fieldOptions'
 import 'react-select/dist/react-select.css';
@@ -188,22 +188,11 @@ export default class FieldMenu extends Component {
                             ref='select'
                             currentField={this.props.currentField}
                         />
-                        <NumberType 
-                            type={this.state.currentValue}
-                            handleOptionsChange={this.handleOptionsChange} 
-                        />
-                        <CurrencyType
-                            type={this.state.currentValue}
-                            handleOptionsChange={this.handleOptionsChange} 
-                        />
-                        <DateType
-                            type={this.state.currentValue}
-                            handleOptionsChange={this.handleOptionsChange} 
-                        />
-                        <PercentType
+                        <CustomOptions 
                             type={this.state.currentValue}
                             handleOptionsChange={this.handleOptionsChange}
                         />
+                        
                         <TextType type={this.state.currentValue} />
                         <div className='button-wrapper' 
                                 onClick={this.handleSumbit}
