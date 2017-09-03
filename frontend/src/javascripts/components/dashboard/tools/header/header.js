@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Icon, Image, Label } from 'semantic-ui-react';
-import { browserHistory } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import UserProfile from '../../../userProfile/userProfile';
 import avatar from '../../../../../images/avatar.png';
 import ContextMenuIcon from '../../../contextMenu/contextMenuIcon';
@@ -35,10 +35,15 @@ class Header extends Component {
                     />
                 </div>
                 <div className='info'>
-                    <Icon link name='help circle' size='large'/>
-                    <Icon link name='grid layout' size='large'/>
-                    <Icon link name='bell' size='large' />
+                    <Icon link className="header-icon" name='help circle' size='large'/>
+                    <Icon link className="header-icon" name='grid layout' size='large'/>
+                    <Icon link className="header-icon" name='bell' size='large' />
                     <UserProfile user={this.props.user}/>
+                    <span className="user-profile-logout-wrapper header-icon">
+                        <Link to={'/logout'} className="logout" title="Logout">
+                            <Icon name="log out" size="large"/>
+                        </Link>
+                    </span>
                 </div>
             </header>
         )

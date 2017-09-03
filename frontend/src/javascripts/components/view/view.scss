@@ -1,5 +1,5 @@
-#no-underline {
-  text-decoration: none!important; //WTF
+.view__no-tables {
+  text-align: center;
 }
 
 .view__container {
@@ -12,15 +12,26 @@
   cursor: pointer;
 }
 
+#view__modal {
+  max-width: 360px;
+}
+
 .view__selector {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   width: 350px;
   height: 200px;
   padding: 10px;
   left: 40px;
   background-color: #FFF;
   border: 1px solid rgba(0,0,0, 0.3);
+  border-radius: 4px;
+}
+
+.selector__options {
+  height: 80%;
+  overflow-y: auto;
+
 }
 
 .selector__option {
@@ -37,6 +48,26 @@
 
 .option__notActive {
   opacity: 0!important;
+}
+
+.selector__add-view {
+  float: left;
+  margin-top: 7px!important;
+}
+
+.add-view__menu {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.add-view__option {
+  cursor: pointer;
+}
+
+.add-view__option:hover {
+  color: #AAA;
 }
 
 .hide {

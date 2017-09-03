@@ -1,0 +1,26 @@
+.popup_mainpart {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+  background-color: #fff;
+
+  .popup_logo {
+    background: no-repeat center;
+    width: 45px;
+    height: 45px;
+    margin: 5px 10px;
+  }
+  .user_data {
+    text-align: left;
+    margin: auto 10px;
+
+    .user_name {
+      font-size: 16px;
+    }
+    .user_email {
+      color: #808080;
+      font-size: 12px;
+    }
+  }
+}
