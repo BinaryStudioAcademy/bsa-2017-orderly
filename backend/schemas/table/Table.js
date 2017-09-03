@@ -75,7 +75,8 @@ const tableSchema = new Schema({
                 format: { type: String,  default:'#MM#/#DD#/#YYYY#' },
                 time: { type: Boolean, default: false }
                 },
-            percent: { type: Number, default: '1' }
+            percent: { type: Number, default: '1' },
+            multiple:[]
             }
     }],
     views: [{

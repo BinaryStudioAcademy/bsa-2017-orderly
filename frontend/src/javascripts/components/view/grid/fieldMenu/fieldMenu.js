@@ -3,7 +3,7 @@ import { Icon, Input, Button } from 'semantic-ui-react';
 import Select from 'react-select';
 import { fieldIcons, fieldNames, fieldText } from "../../../configuration/fieldTypes";
 import { TextType, NumberType, CurrencyType, DateType,  PercentType, CustomOptions } from "./fieldMenuOptions";
-import {  SingleSelectType } from "./fieldMenuSelect";
+import {  SingleSelectType, MultipleSelectType  } from "./fieldMenuSelect";
 import fieldOptions from './fieldOptions'
 import 'react-select/dist/react-select.css';
 import './fieldMenu.scss';
@@ -17,6 +17,7 @@ export default class FieldMenu extends Component {
             currentName: this.props.name,
             fieldType: '',
             fieldOptionsSS:[],
+            fieldOptionsMS:[],
             fieldOptionsNum:'',
             fieldOptionsCur:'',
             fieldOptionsDate:'',
@@ -27,6 +28,7 @@ export default class FieldMenu extends Component {
     componentWillReceiveProps(nextProps) {
       this.setState({ 
         fieldOptionsSS: nextProps.currentField.options.select,
+        fieldOptionsMS:nextProps.currentField.options.multiple,
         fieldOptionsNum: nextProps.currentField.options.number,
         fieldOptionsCur: nextProps.currentField.options.currency,
         fieldOptionsDate: nextProps.currentField.options.date,
@@ -98,6 +100,9 @@ export default class FieldMenu extends Component {
             case 'percent':
                 this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsPercent, this.state.currentValue)
             break;
+            case 'multiple':
+                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsMS, this.state.currentValue)
+            break;
         }
         
         this.handleClickOnMenu();
@@ -112,16 +117,25 @@ export default class FieldMenu extends Component {
     handleOptionsSubmit = (event) => {
         event.preventDefault();
         if (this.state.currentValue == 'select') {
-            let newArray =[...this.state.fieldOptionsSS]
+            let newArray =[...this.state.fieldOptionsSS];
             newArray.push(newOption);
             this.setState({fieldOptionsSS: newArray});
             this.refs.select.refs.input.value = '';
+        }
+        if (this.state.currentValue == 'multiple') {
+            let newArray =[...this.state.fieldOptionsMS];
+            newArray.push(newOption);
+            this.setState({fieldOptionsMS: newArray});
+            this.refs.multiple.refs.input.value = '';
         }
     }
 
     handleOptionsChange = (event, type) => {
         switch (this.state.currentValue) {
             case 'select':
+                newOption = event.target.value;
+            break;
+            case 'multiple':
                 newOption = event.target.value;
             break;
             case 'number':
@@ -152,10 +166,18 @@ export default class FieldMenu extends Component {
     }
 
     handleOptionsDelete = (optionToBeDeleted) => {
-      let optionDel = this.state.fieldOptionsSS.filter((option) =>{
-          return option != optionToBeDeleted
-      });
-      this.setState({fieldOptionsSS: optionDel});
+        if (this.state.currentValue == 'select') {
+            let optionDel = this.state.fieldOptionsSS.filter((option) =>{
+                return option != optionToBeDeleted
+            });
+            this.setState({fieldOptionsSS: optionDel});
+        }
+        if (this.state.currentValue == 'multiple') {
+            let optionDel = this.state.fieldOptionsMS.filter((option) =>{
+                return option != optionToBeDeleted
+            });
+            this.setState({fieldOptionsMS: optionDel});
+        }
     }
 
     render() {
@@ -196,6 +218,15 @@ export default class FieldMenu extends Component {
                             handleOptionsDelete={this.handleOptionsDelete}
                             type={this.state.currentValue}
                             ref='select'
+                            currentField={this.props.currentField}
+                        />
+                        <MultipleSelectType
+                            fieldOptionsMS={this.state.fieldOptionsMS}
+                            handleOptionsSubmit={this.handleOptionsSubmit}
+                            handleOptionsChange={this.handleOptionsChange}
+                            handleOptionsDelete={this.handleOptionsDelete}
+                            type={this.state.currentValue}
+                            ref='multiple'
                             currentField={this.props.currentField}
                         />
                         <CustomOptions 
