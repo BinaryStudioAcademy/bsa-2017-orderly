@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Icon, Input, Button } from 'semantic-ui-react';
 import Select from 'react-select';
 import { fieldIcons, fieldNames, fieldText } from "../../../configuration/fieldTypes";
-import { TextType, NumberType, CustomOptinos } from "./fieldMenuOptions";
+import { TextType, NumberType, CurrencyType } from "./fieldMenuOptions";
 import {  SingleSelectType } from "./fieldMenuSingleSelect";
 import fieldOptions from './fieldOptions'
 import 'react-select/dist/react-select.css';
@@ -17,14 +17,16 @@ export default class FieldMenu extends Component {
             currentName: this.props.name,
             fieldType: '',
             fieldOptionsSS:[],
-            // fieldOptionsNum: null,
-            currentValue: null
+            fieldOptionsNum:'',
+            fieldOptionsCur:'',
+            currentValue: ''
         };
     }
     componentWillReceiveProps(nextProps) {
       this.setState({ 
         fieldOptionsSS: nextProps.currentField.options.select,
         fieldOptionsNum: nextProps.currentField.options.number,
+        fieldOptionsCur: nextProps.currentField.options.currency,
         currentValue: nextProps.currentField.type
     });
 
@@ -63,42 +65,36 @@ export default class FieldMenu extends Component {
     };
 
     handleSumbit = () => {
-        //if (  this.state.fieldType!==this.props.currentField.type) {
-        //}
-        //if (  this.state.currentName!==this.props.currentField.name) {
-        //}
-        //if (  this.state.fieldOptionsSS !== this.props.currentField.options) {
-            if (this.state.currentValue == 'select') {
-                //if (  this.state.currentName!==this.props.currentField.name) { 
-                    this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
-                //}
-                if (this.state.fieldOptionsSS !== this.props.currentField.options.select) {
-                    this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS, this.state.currentValue)
-                }
-            }
-            if (this.state.currentValue == 'number') {
-                this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
-                //if (  this.state.currentValue!==this.props.currentField.type) {
-               // }
-                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsNum, this.state.currentValue)
-            }
-        //}
+        if (this.state.currentName != this.props.name) {
+            this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
+        }
+        if (this.state.currentValue == 'select' ) {
+            this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS, this.state.currentValue)
+        }
+        if (this.state.currentValue == 'number' ) {
+            this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsNum, this.state.currentValue)
+        }
+        if (this.state.currentValue == 'currency' ) {
+            this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsCur, this.state.currentValue)
+        }
+        
         this.handleClickOnMenu();
     }
     handleDeleteField = () => {
         this.props.deleteField(this.props.tableId, this.props.id)
     }
     handleChangeType =(event) => {
-        this.setState({ fieldType: event.value, currentValue: event.value})
         this.props.changeFieldType(this.props.tableId, this.props.id, event.value)
     }
-
+    
     handleOptionsSubmit = (event) => {
         event.preventDefault();
-        let newArray =[...this.state.fieldOptionsSS]
-        newArray.push(newOption);
-        this.setState({fieldOptionsSS: newArray});
-        this.refs.select.refs.input.value = '';
+        if (this.state.currentValue == 'select') {
+            let newArray =[...this.state.fieldOptionsSS]
+            newArray.push(newOption);
+            this.setState({fieldOptionsSS: newArray});
+            this.refs.select.refs.input.value = '';
+        }
     }
 
     handleOptionsChange = (event) => {
@@ -106,12 +102,15 @@ export default class FieldMenu extends Component {
             newOption = event.target.value;
         }
         if (this.state.currentValue == 'number') {
-            let newOptionNum = event.value;
-            // let newArrayNum =[...this.state.fieldOptionsNum]
-            // newArrayNum.push(newOptionNum);
-            this.setState({fieldOptionsNum: newOptionNum });
+            newOption = event.value;
+            this.setState({fieldOptionsNum: newOption });
         }
-           //console.log(this.state)
+        if (this.state.currentValue == 'currency') {
+            newOption = event.value;
+            this.setState({fieldOptionsCur: newOption });
+            console.log(newOption)
+        }
+
     }
 
     handleOptionsDelete = (optionToBeDeleted) => {
@@ -164,7 +163,10 @@ export default class FieldMenu extends Component {
                         <NumberType 
                                 type={this.state.currentValue}
                                 handleOptionsChange={this.handleOptionsChange} 
-                                    
+                        />
+                        <CurrencyType
+                                type={this.state.currentValue}
+                                handleOptionsChange={this.handleOptionsChange} 
                         />
                         <TextType type={this.state.currentValue} />
                         <div className='button-wrapper' 

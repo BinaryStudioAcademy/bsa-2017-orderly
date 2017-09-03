@@ -8,14 +8,20 @@ class CurrencyField  extends Field {
   constructor(props) {
     super(props);
     this.state = { 
-        currency: '' 
+        currency: '',
+        prefix: '$' 
     }
 }
+ componentWillReceiveProps(nextProps) {
+        this.setState({ 
+            prefix: nextProps.currentField.options.currency
+            });
+    }
   
   renderActiveField() {
     return (
         <NumberFormat className="currency-input" 
-            thousandSeparator={true} prefix={'$'} 
+            thousandSeparator={true} prefix={`${this.state.prefix} `} 
             value={this.state.currency}
             onChange={(event) => this.setState({currency: event.target.value})}
             decimalPrecision={2}

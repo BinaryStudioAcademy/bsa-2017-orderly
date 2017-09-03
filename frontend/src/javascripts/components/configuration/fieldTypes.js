@@ -5,7 +5,7 @@ export const fieldIcons = {
     'select': 'play circle',
     'autonumber': 'sort numeric ascending',
     'url': 'chain',
-    'currency': 'dollar',
+    'currency': 'currency',
     'date': 'calendar',
     'email': 'mail outline',
     'percent': 'percent',
@@ -38,11 +38,11 @@ export const fieldText   = {
     'currency': '',
     'date': 'Enter a date (e.g 11/12/2013) or pick one from a calendar.',
     'email': 'A valid email address(e.g. andrew@gmail.com)',
-    // 'attachment': 'Attachment allow you to add images, documents or other files which can then be viewed or downloaded.',
-    // 'checkbox': 'A single checkbox that can be checked or unchecked.',
+    'attachment': 'Attachment allow you to add images, documents or other files which can then be viewed or downloaded.',
+    //'checkbox': 'A single checkbox that can be checked or unchecked.',
     // 'multiple': 'Multiple select allows you to select one or more predefined options listed below.',
-    // 'percent': '',
-    // 'phone': 'A telephone number (e.g. (067) 771-71-48).'
+    'percent': '',
+    'phone': 'A telephone number (e.g. (067) 771-71-48).'
 
 };
 
