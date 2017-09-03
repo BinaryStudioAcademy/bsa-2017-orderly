@@ -119,6 +119,9 @@ class TableRepository extends Repository {
                     case 'percent':
                         field.options.percent = data.fieldOption || field.options.percent;
                         break;
+                    case 'multiple':
+                        field.options.multiple = data.fieldOption || field.options.multiple;
+                        break;
                 }
             }
             

@@ -3,6 +3,7 @@ export const fieldIcons = {
     'longtext': 'align left',
     'number': 'hashtag',
     'select': 'play circle',
+    'multiple':'list ul',
     'autonumber': 'sort numeric ascending',
     'url': 'chain',
     'currency': 'currency',
@@ -10,7 +11,7 @@ export const fieldIcons = {
     'email': 'mail outline',
     'percent': 'percent',
     'phone': 'phone',
-	'attachment': 'file outline'
+    'attachment': 'file outline'
 };
 
 export const fieldNames = {
@@ -18,6 +19,7 @@ export const fieldNames = {
     'longtext': 'Long text',
     'number': 'Number',
     'select': 'Single select',
+    'multiple': 'Multiple select',
     'autonumber': 'Auto Number',
     'url': 'URL',
     'currency': 'Currency',
@@ -25,7 +27,7 @@ export const fieldNames = {
     'email': 'Email',
     'percent': 'Percent',
     'phone': 'Phone',
-	'attachment': 'Attachment'
+    'attachment': 'Attachment',
 };
 
 export const fieldText   = {
@@ -40,7 +42,7 @@ export const fieldText   = {
     'email': 'A valid email address(e.g. andrew@gmail.com)',
     'attachment': 'Attachment allow you to add images, documents or other files which can then be viewed or downloaded.',
     //'checkbox': 'A single checkbox that can be checked or unchecked.',
-    // 'multiple': 'Multiple select allows you to select one or more predefined options listed below.',
+    'multiple': 'Multiple select allows you to select one or more predefined options listed below.',
     'percent': 'You can optionally choose the precision of percent value.',
     'phone': 'A telephone number (e.g. (067) 771-71-48).'
 

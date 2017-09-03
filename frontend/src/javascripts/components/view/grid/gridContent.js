@@ -14,6 +14,7 @@ import Email from './fields/email/email';
 import Percent from './fields/percent/percent';
 import Phone from './fields/phone/phone';
 import Attachment from './fields/attachment/attachment';
+import MultipleSelect from './fields/multiple/multiple';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
@@ -124,10 +125,13 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         case 'percent':
             record = <Percent {...fieldPayload}/>;
             break;
-            
 	    case 'attachment':
 		    record = <Attachment {...fieldPayload}/>;
 		    break;
+        case 'multiple':
+            record = <MultipleSelect {...fieldPayload}/>;
+            break;
+
 	    default:
             record = <TextLine {...fieldPayload}/>;
     }

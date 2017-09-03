@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import { Icon } from 'semantic-ui-react';
 
 let fieldOptions = [];
-    let num = 0;
     for (let [fieldType, fieldIcon, _] of Object.entries(fieldIcons)) {
         fieldOptions.push(
             {
