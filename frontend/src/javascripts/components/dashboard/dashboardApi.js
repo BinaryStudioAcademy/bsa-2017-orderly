@@ -92,7 +92,13 @@ const deleteFile = ({typeOfFile, record_dataId, tableId, fileNamesStr}) =>
 		.catch(R.tap(console.error))
 
 const addView = ({tableId, viewType}) => {
-    return axios.patch(url + '/tables/' + tableId, {data: 'IN PROGRESS'})
+    return axios.post(url + '/tables/' + tableId + '/views', {tableId, viewType})
+        .then((response) => response.data)
+        .catch(R.tap(console.error));
+};
+
+const deleteView = ({tableId, viewId, viewType}) => {
+    return axios.delete(url + '/tables/' + tableId + '/views/' + viewId, {tableId, viewId, viewType})
         .then((response) => response.data)
         .catch(R.tap(console.error));
 };
@@ -114,4 +120,5 @@ export {
 	deleteFile,
     emitTableCoworker,
     addView,
+    deleteView,
 };

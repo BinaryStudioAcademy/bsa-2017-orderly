@@ -26,11 +26,7 @@ const GridSchema = new Schema({
         },
         filterSet: [
             {
-                fieldId: {
-                    type: ObjectId,
-                    model: 'table',
-                    path: 'fields'
-                },
+                fieldId: ObjectId,
                 condition: String,
                 value: String,
             }
@@ -38,14 +34,10 @@ const GridSchema = new Schema({
     },
     fields_config: [
         {
-            field: {
-                type: ObjectId,
-                refPath: 'tables.fields'
-            },
+            field: ObjectId,
             hidden: {
                 type: Boolean,
                 default: false,
-                required: true
             },
             size: {
                 type: Number,

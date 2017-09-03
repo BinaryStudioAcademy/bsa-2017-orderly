@@ -14,8 +14,6 @@ export default class View extends Component {
         }
     }
 
-    capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1);
-
     handleClickOnMenu = () => {
         if (this.refs.viewCaret) {
             if (!this.state.isActive) {
@@ -47,8 +45,7 @@ export default class View extends Component {
     };
 
     handleAddView = (viewType) => {
-        console.log(this.props.currentTable);
-        console.log(viewType);
+        this.props.addView(this.props.currentTable._id, viewType);
     };
 
     viewSelector(listOfViews) {
@@ -91,6 +88,8 @@ export default class View extends Component {
             return <InDeveloping/>;
         }
     }
+
+    capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1);
 
     render() {
         let viewTypes = [];

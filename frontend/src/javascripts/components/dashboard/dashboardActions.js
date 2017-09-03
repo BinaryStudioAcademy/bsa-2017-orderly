@@ -196,6 +196,15 @@ export function addView(tableId, viewType) {
     };
 }
 
+export function deleteView(tableId, viewId, viewType) {
+    return {
+        type: 'DELETE_VIEW',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+    };
+}
+
 export function sortRecords(table, fieldId, sortOption) {
     return {
         type: 'SORT_RECORDS',

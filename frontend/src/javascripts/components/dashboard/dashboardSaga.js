@@ -2,7 +2,7 @@ import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable, deleteFile,
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
-    deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView,
+    deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView, deleteView
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -212,13 +212,22 @@ function* deletingFile(action) {
     }
 }
 
-function* addNewView(action) {
+function* addTableView(action) {
     try {
         const payload = {};
         payload.tableId = action.tableId;
         payload.viewType = action.viewType;
         payload.table = yield call(addView, payload);
-        yield put({type: 'ADD_VIEW_SUCCEEDED', payload});
+        yield put({type: 'ADD_VIEW_SUCCEEDED', ...payload});
+    } catch (err) {
+        yield put({type: 'ADD_VIEW_FAILED', message: err.message});
+    }
+}
+
+function* deleteTableView(action) {
+    try {
+        const table = yield call(deleteView, action);
+        yield put({type: 'ADD_VIEW_SUCCEEDED', table});
     } catch (err) {
         yield put({type: 'ADD_VIEW_FAILED', message: err.message});
     }
@@ -227,7 +236,8 @@ function* addNewView(action) {
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
-    yield takeEvery('ADD_VIEW', addNewView);
+    yield takeEvery('ADD_VIEW', addTableView);
+    yield takeEvery('DELETE_VIEW', deleteTableView);
     yield takeEvery('GET_BASE_SUCCEEDED', fetchTablesByBase);
     yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
     yield takeEvery('ADD_FIELD', addNewField);

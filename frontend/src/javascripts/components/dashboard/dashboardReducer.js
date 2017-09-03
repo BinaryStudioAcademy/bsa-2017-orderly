@@ -45,7 +45,7 @@ function dashboardReducer(state = initState, action) {
                     let tempObj = R.dissoc('isActive', table);
                     tempObj.isActive = table._id === action.tableId;
                     return tempObj;
-                })(state.tables)
+                })(state.tables),
             }
         ]);
     }
@@ -116,14 +116,15 @@ function dashboardReducer(state = initState, action) {
 
     case 'SWITCH_TABLE': {
         return R.mergeAll([
-            R.dissoc('tables', state),
+            R.dissoc('tables', R.dissoc('currentView', state)),
             {
                 tables: R.map((table) => {
                     let newObj = R.dissoc('isActive', table);
                     newObj.isActive = table._id === action.tableId;
                     return newObj;
-                })(state.tables)
-            }
+                })(state.tables),
+                currentView: null,
+            },
         ]);
     }
 
@@ -392,13 +393,8 @@ function dashboardReducer(state = initState, action) {
         return {...state, currentView: action.viewId};
     }
 
-    case 'SORT_RECORDS': {
-        console.log('DASH REDUCER SORT RECORDS');
-        console.log(action);
-        console.log('-------------------------');
-        return {...state};
-    }
-
+    case 'ADD_VIEW_SUCCEEDED':
+    case 'DELETE_VIEW_SUCCEEDED':
     case 'FILTER_RECORDS_SUCCEEDED': {
         return R.mergeAll([
             R.dissoc('tables', state),
@@ -409,6 +405,13 @@ function dashboardReducer(state = initState, action) {
                 })(state.tables)
             }
         ]);
+    }
+
+    case 'SORT_RECORDS': {
+        console.log('DASH REDUCER SORT RECORDS');
+        console.log(action);
+        console.log('-------------------------');
+        return {...state};
     }
 
     case 'REMOVE_FILTER': {

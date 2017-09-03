@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const FormSchema = new Schema({
     type: {
@@ -16,9 +17,9 @@ const FormSchema = new Schema({
     description: String,
     logo: String,
     fields_config: [{
+        field: ObjectId,
         name: {
             type: String,
-            required: true,
             trim: true
         },
         position: {
