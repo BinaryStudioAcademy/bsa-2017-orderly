@@ -1,33 +1,129 @@
 import React, { Component } from 'react';
-import { Input, Dropdown } from 'semantic-ui-react';
+import { Input, Dropdown, Checkbox } from 'semantic-ui-react';
+import { numOptions, currencySymbols, dateFormats, percentOptions } from "../../../configuration/fieldCustomOptions";
+import Select from 'react-select';
+import SingleSelectType from './fieldMenuSelect'
+import Toggle from 'react-toggle'
 
-const numOptions = [
-    { key: '0', value: '0', text: '1' },
-    { key: '1', value: '1', text: '1.0' },
-    { key: '2', value: '2', text: '1.00' },
-    { key: '3', value: '3', text: '1.000' },
-    { key: '4', value: '4', text: '1.0000' },
-    { key: '5', value: '5', text: '1.00000' }
-];
-
-export class TextType extends Component {
+export class NumberType extends Component {
+  constructor(props) {
+        super(props);
+        this.state = {
+            precision: ''
+        }
+    }
   render(){
-    return (
-      <div className='label-text-wrapper'>
-        <div className='label-text'>Default text </div>
-          <Input placeholder="Enter default text" />
-      </div>
-    )
+      return (
+        <div className='label-text-wrapper'>
+          <div className='label-text'>Choose Precision</div>
+            <Select selection options={numOptions}
+                  value={this.state.precision}
+                  onChange = {(event) => {
+                    this.setState({precision: event.value});
+                    this.props.handleOptionsChange(event);
+                  }}
+              />
+        </div>
+      )
   }
 }
 
-export class NumberType extends Component {
+export class PercentType extends Component {
+  constructor(props) {
+        super(props);
+        this.state = {
+            precision: ''
+        }
+    }
   render(){
-    return (
-      <div className='label-text-wrapper'>
-        <div className='label-text'>Choose Precision</div>
-          <Dropdown selection options={numOptions} />
-      </div>
-    )
+      return (
+        <div className='label-text-wrapper'>
+          <div className='label-text'>Choose Precision</div>
+            <Select selection options={percentOptions}
+                  value={this.state.precision}
+                  onChange = {(event) => {
+                    this.setState({precision: event.value});
+                    this.props.handleOptionsChange(event);
+                  }}
+              />
+        </div>
+      )
+  }
+}
+
+export class CurrencyType extends Component {
+  constructor(props) {
+        super(props);
+        this.state = {
+            moneyPrefix: ''
+        }
+    }
+  render(){
+      return (
+        <div className='label-text-wrapper'>
+          <div className='label-text'>Choose currency</div>
+            <Select selection options={currencySymbols}
+                  value={this.state.moneyPrefix}
+                  onChange = {(event) => {
+                    this.setState({moneyPrefix: event.value});    
+                    this.props.handleOptionsChange(event);
+                  }}
+              />
+        </div>
+      )
+  }
+}
+
+export class DateType extends Component {
+  constructor(props) {
+        super(props);
+        this.state = {
+            format: '',
+            time: false
+        }
+
+    }
+  render(){
+      return (
+        <div className='label-text-wrapper'>
+          <div className='label-text'>Date format</div>
+            <Select selection options={dateFormats}
+                  value={this.state.format}
+                  onChange = {(event) => {
+                    this.setState({format: event.value});    
+                    this.props.handleOptionsChange(event, 'format');
+                  }}
+              />
+              <div className='options-checkbox'>
+                <Checkbox checked={this.state.time} toggle label='Include a time field'
+                onChange = {(event, data) => {
+                   this.setState({time:!this.state.time})
+                   this.props.handleOptionsChange(data, 'time');
+                 }}
+                  />
+              </div>
+        </div>
+      )
+  }
+}
+
+
+export const CustomOptions = ({type, handleOptionsChange}) => {
+  switch (type) {
+    case 'number': 
+      return <NumberType type={type} handleOptionsChange={handleOptionsChange}
+      />
+    break;
+    case 'currency': 
+      return <CurrencyType type={type} handleOptionsChange={handleOptionsChange} />
+    break;
+    case 'date': 
+      return <DateType type={type} handleOptionsChange={handleOptionsChange} />
+    break;
+    case 'percent': 
+      return <PercentType type={type} handleOptionsChange={handleOptionsChange} />
+    break;
+    default:
+      return <div></div>
   }
 }

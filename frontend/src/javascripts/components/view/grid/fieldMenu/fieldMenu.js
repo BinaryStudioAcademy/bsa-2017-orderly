@@ -1,29 +1,39 @@
 import React, {Component} from 'react';
-import { Icon, Dropdown, Input, Button } from 'semantic-ui-react';
+import { Icon, Input, Button } from 'semantic-ui-react';
+import Select from 'react-select';
 import { fieldIcons, fieldNames, fieldText } from "../../../configuration/fieldTypes";
-import { TextType, NumberType } from "./fieldMenuOptions";
-import {  SingleSelectType } from "./fieldMenuSingleSelect";
+import { TextType, NumberType, CurrencyType, DateType,  PercentType, CustomOptions } from "./fieldMenuOptions";
+import {  SingleSelectType } from "./fieldMenuSelect";
 import fieldOptions from './fieldOptions'
+import 'react-select/dist/react-select.css';
 import './fieldMenu.scss';
 
 let newOption;
 export default class FieldMenu extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             isActive: false,
             currentName: this.props.name,
             fieldType: '',
             fieldOptionsSS:[],
-            //currentValue: {}
+            fieldOptionsNum:'',
+            fieldOptionsCur:'',
+            fieldOptionsDate:'',
+            fieldOptionsPercent:'',
+            currentValue: ''
         };
     }
     componentWillReceiveProps(nextProps) {
       this.setState({ 
-        fieldOptionsSS: nextProps.currentField.options,
-        //currentValue: {key:"text", text:"bla", value:"bla"}
+        fieldOptionsSS: nextProps.currentField.options.select,
+        fieldOptionsNum: nextProps.currentField.options.number,
+        fieldOptionsCur: nextProps.currentField.options.currency,
+        fieldOptionsDate: nextProps.currentField.options.date,
+        fieldOptionsPercent: nextProps.currentField.options.percent,
+        currentValue: nextProps.currentField.type
     });
+
   }
     handleClickOnMenu = () => {
         if (this.refs.fieldMenu) {
@@ -48,6 +58,16 @@ export default class FieldMenu extends Component {
             }
             this.handleClickOnMenu();
         }
+        if( this.state.currentName !== this.props.name) {
+            if ( event.target.closest(".menu__name") === null) {
+              if (this.node) {
+                if (this.node.contains(e.target)) {
+                  return;
+                }
+              }
+            this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
+            }
+        }
     };
 
     handleChangeName = (e) => {
@@ -57,34 +77,78 @@ export default class FieldMenu extends Component {
             })
         }
     };
-
-    handleSumbit = () => {
-        if (  this.state.fieldType!=this.props.currentField.type) {
-            this.props.changeFieldType(this.props.tableId, this.state.fieldType, this.props.id)
-        }
-        if (  this.state.currentName!=this.props.currentField.name) {
+    
+    handleSumbit = (e) => {
+        if( this.state.currentName !== this.props.name) {
             this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
         }
-        if (  this.state.fieldOptionsSS !== this.props.currentField.options) {
-            this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS)
+        switch (this.state.currentValue) {
+            case 'select':
+                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS, this.state.currentValue)
+            break;
+            case 'number':
+                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsNum, this.state.currentValue)
+            break;
+            case 'currency':
+                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsCur, this.state.currentValue)
+            break;
+            case 'date':
+                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsDate, this.state.currentValue)
+            break;
+            case 'percent':
+                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsPercent, this.state.currentValue)
+            break;
         }
+        
         this.handleClickOnMenu();
     }
     handleDeleteField = () => {
         this.props.deleteField(this.props.tableId, this.props.id)
     }
-
+    handleChangeType =(event) => {
+        this.props.changeFieldType(this.props.tableId, this.props.id, event.value)
+    }
+    
     handleOptionsSubmit = (event) => {
         event.preventDefault();
-        let newArray =[...this.state.fieldOptionsSS]
-        newArray.push(newOption);
-        this.setState({fieldOptionsSS: newArray});
-        this.refs.select.refs.input.value = '';
+        if (this.state.currentValue == 'select') {
+            let newArray =[...this.state.fieldOptionsSS]
+            newArray.push(newOption);
+            this.setState({fieldOptionsSS: newArray});
+            this.refs.select.refs.input.value = '';
+        }
     }
 
-    handleOptionsChange = (event) => {
-      newOption = event.target.value;
-      //this.setState({ currentValue: value });
+    handleOptionsChange = (event, type) => {
+        switch (this.state.currentValue) {
+            case 'select':
+                newOption = event.target.value;
+            break;
+            case 'number':
+                newOption = event.value;
+                this.setState({fieldOptionsNum: newOption });
+            break;
+            case 'currency':
+                newOption = event.value;
+                this.setState({fieldOptionsCur: newOption });
+            break;
+            case 'date':
+                if (type=='format') {   
+                newOption = { format: event.value, time: this.state.fieldOptionsDate.time }
+                this.setState({fieldOptionsDate: newOption });
+                }
+                if (type=='time') {
+                    let newTimeOption = { format: this.state.fieldOptionsDate.format, time: event.checked }
+                    this.setState({fieldOptionsDate: newTimeOption });
+                }
+            break;
+            case 'percent':
+                newOption = event.value;
+                this.setState({fieldOptionsPercent: newOption });
+
+            break;
+        }
+
     }
 
     handleOptionsDelete = (optionToBeDeleted) => {
@@ -95,8 +159,6 @@ export default class FieldMenu extends Component {
     }
 
     render() {
-        const { currentValue } = this.state;
-        let type = this.props.type;
         return(
             <div ref="fieldMenu" className='field__ellipsis'>
                 <div ref={(node) => this.node = node } >
@@ -117,25 +179,28 @@ export default class FieldMenu extends Component {
                     }
                     <div>
                         <div className="fields-menu-options-container"> 
-                            <Dropdown options={fieldOptions}
-                                value={currentValue}
+                            <Select options={fieldOptions}
+                                value={this.state.currentValue}
                                 placeholder='Choose field type'
-                                onChange = {(e, data) => this.setState({ fieldType: data.options[data.value-1].key})}
+                                onChange = {this.handleChangeType}
                             />
                             
                         </div>
                         <div className="explanation-text-wrapper">
-                            <div className="explanation-text">{this.state.fieldType!=''?fieldText[this.state.fieldType]:''}</div> 
+                            <div className="explanation-text">{fieldText[this.state.currentValue]}</div> 
                         </div>
                         <SingleSelectType
                             fieldOptionsSS={this.state.fieldOptionsSS}
-                            handleOptionsSubmit={this.handleOptionsSubmit.bind(this)}
+                            handleOptionsSubmit={this.handleOptionsSubmit}
                             handleOptionsChange={this.handleOptionsChange}
                             handleOptionsDelete={this.handleOptionsDelete}
-                            type={this.state.fieldType}
+                            type={this.state.currentValue}
                             ref='select'
                             currentField={this.props.currentField}
-
+                        />
+                        <CustomOptions 
+                            type={this.state.currentValue}
+                            handleOptionsChange={this.handleOptionsChange}
                         />
                         <div className='button-wrapper' 
                                 onClick={this.handleSumbit}
@@ -148,28 +213,3 @@ export default class FieldMenu extends Component {
         );
     }
 }
-
-
-const FieldOptions = ({id, tableId, excludeType, changeFieldType, closeMenu}) => {
-    let fieldOptions = [];
-    for (let [fieldType, fieldIcon, _] of Object.entries(fieldIcons)) {
-        if (fieldType !== excludeType) {
-            fieldOptions.push(
-                <div key={fieldType}
-                     className="menu__field-option"
-                     onClick={() => {
-                         closeMenu();
-                         return changeFieldType(tableId, fieldType, id)}
-                     }>
-                    <Icon name={fieldIcon} className="field__icon"/>
-                    <span>{fieldNames[fieldType]}</span>
-                </div>
-            );
-        }
-    }
-    return (
-        <div>
-            {fieldOptions}
-        </div>
-    );
-};

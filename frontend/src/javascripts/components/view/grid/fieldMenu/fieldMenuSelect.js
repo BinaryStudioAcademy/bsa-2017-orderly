@@ -13,7 +13,8 @@ export class SingleSelectType extends Component {
             <input type="submit" value = '+' className='option-input-btn'/>
           </form>
           <ul className='option-list'>
-          { this.props.fieldOptionsSS.map((option, current) => {
+          { 
+            this.props.fieldOptionsSS.map((option, current) => {
             return (
               <li className='option-list-item' key={current}>{option}
                   <div onClick = {this.props.handleOptionsDelete.bind(null, option)} 
@@ -22,7 +23,8 @@ export class SingleSelectType extends Component {
                   </div>
               </li>
             )
-        })}
+        })
+          }
           </ul>
       </div>
     )
