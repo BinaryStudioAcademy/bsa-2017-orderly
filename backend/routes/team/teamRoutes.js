@@ -5,7 +5,7 @@ const teamRepository = require('../../repositories/team/teamRepository');
 const baseRepository = require('../../repositories/base/baseRepository');
 const tableRepository = require('../../repositories/table/tableRepository');
 const gridViewRepository = require('../../repositories/view/gridRepositories');
-const {defaultTeam, defaultTable, defaultView} = require('../../config/defaultEntities');
+const {defaultTeam, defaultTable, defaultGridView} = require('../../config/defaultEntities');
 
 router.get('/', (req, res) => {
     teamRepository.getAll().then((teams) => {
@@ -56,7 +56,7 @@ router.post('/:teamId/base', (req, res) => Promise.all(
     [
         baseRepository.add(req.body),
         tableRepository.add(defaultTable()),
-        gridViewRepository.add(defaultView()),
+        gridViewRepository.add(defaultGridView()),
     ])
     .then(([base, table, view]) => Promise.all(
         [

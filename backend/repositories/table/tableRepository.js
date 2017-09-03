@@ -15,6 +15,13 @@ class TableRepository extends Repository {
         this.model = Table;
     }
 
+    getById(id) {
+        return this.model.findById(id)
+            .populate('records.history.collaborator')
+            .populate('records.comments.collaborator')
+            .populate('views.view');
+    }
+
     getByIds(ids) {
         return this.model.find({'_id': {$in: ids}})
             .populate('records.history.collaborator')
@@ -27,6 +34,18 @@ class TableRepository extends Repository {
             .populate('records.history.collaborator')
             .populate('records.comments.collaborator')
             .populate('views.view');
+    }
+
+    remove(id) {
+        return this.model.findById(id).then((table) => {
+            let removeTableViews = [];
+            for (let view of table.views) {
+                removeTableViews.push(this.getFromView(view.view, view.type).then((v) => v.remove()));
+            }
+            Promise.all(removeTableViews).then(() => {
+                return table.remove();
+            });
+        });
     }
 
     getRecords(tableId) {
@@ -142,19 +161,41 @@ class TableRepository extends Repository {
         return this.model.findById(tableId, {views: viewId});
     }
 
-    static getFromView(viewId, viewType){
+    getFromView(viewId, viewType){
         const viewModel = typeToSchema[viewType];
         return viewModel.findById(objectId(viewId));
     }
 
     addView(tableId, viewId, viewType) {
-        return this.model.findByIdAndUpdate(
-            tableId,
-            {'$push': {views: {view: viewId, type: viewType}}},
-            {'new': true}
-        ).populate('views.view');
+        return this.getFromView(viewId, viewType).then((view) => {
+            switch (viewType) {
+            case 'grid':
+            case 'form':
+                this.getFields(tableId).then((fields) => {
+                    fields.fields.map((f, ind) => {
+                        switch (viewType) {
+                        case 'grid':
+                            console.log('IN GRID CASE');
+                            view.fields_config.push({field: f._id, size: 155, position: ind + 1});
+                            break;
+                        case 'form':
+                            console.log('IN FORM CASE');
+                            view.fields_config.push({field: f._id, position: ind + 1, included: false});
+                            break;
+                        }
+                    });
+                    view.save();
+                });
+                break;
+            }
+        }).then(() => {
+            return this.model.findByIdAndUpdate(
+                tableId,
+                {'$push': {views: {view: viewId, type: viewType}}},
+                {'new': true}
+            ).populate('views.view');
+        });
     }
-
 
     updateRecordById(tableId, record_dataId, fileName, isDelete) {
 
@@ -180,22 +221,23 @@ class TableRepository extends Repository {
 			.then(newRecords => this.model.findByIdAndUpdate(tableId, {records: newRecords}, {'new': true}))
     }
 
-    deleteView(tableId, viewId) {
-        return this.model.findByIdAndUpdate(
-            tableId,
-            {'$pull': {views: {_id: viewId}}},
-            {'new': true}
-        );
+    deleteView(tableId, viewId, viewType) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            return view.remove().then(() => {
+                return this.model.findByIdAndUpdate(
+                    tableId,
+                    {'$pull': {views: {view: viewId}}},
+                    {'new': true}
+                );
+            });
+        });
     }
 
-    filterRecords(tableId, fieldId, payload) {
-        console.log('TABLE REPO');
-        console.log(tableId);
-        console.log(fieldId);
-        console.log(payload);
-        console.log('------------------------');
-        return new Promise((resolve) => {
-            return resolve('OK');
+    filterRecords(tableId, fieldId, condition, query) {
+        return this.model.findById(tableId).then((table) => {
+            const index = table.fields.findIndex((f) => f._id.toString() === fieldId);
+            table.records = table.records.filter((r) => r.record_data[index].data.includes(query));
+            return table;
         });
     }
 }

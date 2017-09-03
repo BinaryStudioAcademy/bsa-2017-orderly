@@ -1,3 +1,4 @@
+
 import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
@@ -5,7 +6,9 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
     changeFieldType, changeFieldOptions, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
     changeSearch, changeSearchFoundIndex, toggleSearch, changeFieldName, deleteRecord, deleteField,
-    changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket } from './dashboardActions';
+    changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
+    addView, deleteView
+} from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
 
@@ -17,6 +20,7 @@ const mapStateToProps = (state, ownProps) => {
         activeModal: state.dashboardReducer.activeModal,
         baseId: ownProps.params.baseId,
         currentTableId: ownProps.params.tableId,
+        currentView: state.dashboardReducer.currentView,
         addPopupIsOpen: state.dashboardReducer.addPopupIsOpen,
         renameIsError: state.dashboardReducer.renameIsError,
         selectedRecordItemId: state.dashboardReducer.selectedRecordItemId,
@@ -70,7 +74,9 @@ const mapDispatchToProps = {
     deleteRecord: deleteRecord,
 	uploadAttachment: uploadAttachment,
 	deleteFile: deleteFile,
-    disconnectSocket: disconnectSocket
+    disconnectSocket: disconnectSocket,
+    addView: addView,
+    deleteView: deleteView,
 };
 
 const Dashboard = connect(
