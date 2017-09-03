@@ -155,7 +155,6 @@ class TableRepository extends Repository {
         ).populate('views.view');
     }
 
-
     updateRecordById(tableId, record_dataId, fileName, isDelete) {
 
 	    return this.model.findById(tableId)
@@ -188,14 +187,11 @@ class TableRepository extends Repository {
         );
     }
 
-    filterRecords(tableId, fieldId, payload) {
-        console.log('TABLE REPO');
-        console.log(tableId);
-        console.log(fieldId);
-        console.log(payload);
-        console.log('------------------------');
-        return new Promise((resolve) => {
-            return resolve('OK');
+    filterRecords(tableId, fieldId, condition, query) {
+        return this.model.findById(tableId).then((table) => {
+            const index = table.fields.findIndex((f) => f._id.toString() === fieldId);
+            table.records = table.records.filter((r) => r.record_data[index].data.includes(query));
+            return table;
         });
     }
 }

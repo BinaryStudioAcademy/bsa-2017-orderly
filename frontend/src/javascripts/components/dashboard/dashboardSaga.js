@@ -2,7 +2,7 @@ import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable, deleteFile,
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
-    deleteFieldRecords, deleteRecord, filterRecords, uploadFile
+    deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView,
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -195,26 +195,39 @@ function* filterTableRecords(action) {
 }
 
 function* uploadingFiles(action) {
-	try {
-		const changedTable = yield call(uploadFile, action);
-		yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable})
-	} catch (err) {
-		yield put({type: 'UPLOAD_FILES_FAILED', message: err.message})
-	}
+    try {
+        const changedTable = yield call(uploadFile, action);
+        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
+    } catch (err) {
+        yield put({type: 'UPLOAD_FILES_FAILED', message: err.message});
+    }
 }
 
 function* deletingFile(action) {
     try {
         const changedTable = yield call(deleteFile, action);
-        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable})
+        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
     } catch (err) {
-        yield put({type: 'DELETE_FILE_FAILED', message: err.message})
+        yield put({type: 'DELETE_FILE_FAILED', message: err.message});
+    }
+}
+
+function* addNewView(action) {
+    try {
+        const payload = {};
+        payload.tableId = action.tableId;
+        payload.viewType = action.viewType;
+        payload.table = yield call(addView, payload);
+        yield put({type: 'ADD_VIEW_SUCCEEDED', payload});
+    } catch (err) {
+        yield put({type: 'ADD_VIEW_FAILED', message: err.message});
     }
 }
 
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
+    yield takeEvery('ADD_VIEW', addNewView);
     yield takeEvery('GET_BASE_SUCCEEDED', fetchTablesByBase);
     yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
     yield takeEvery('ADD_FIELD', addNewField);
@@ -235,7 +248,7 @@ function* dashboardSaga() {
     yield takeEvery('DISCONNECT_SOCKET', disconnectSocket);
     yield takeEvery('FILTER_RECORDS', filterTableRecords);
     yield takeEvery('UPLOAD_FILES', uploadingFiles);
-    yield takeEvery('DELETE_FILE', deletingFile)
+    yield takeEvery('DELETE_FILE', deletingFile);
 }
 
 export default dashboardSaga;

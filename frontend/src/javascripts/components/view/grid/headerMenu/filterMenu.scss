@@ -1,3 +1,11 @@
+.filter__button {
+  padding: 0 !important;
+}
+
+.button__items {
+  padding: 10px 20px;
+}
+
 .filter__menu {
   display: flex;
   align-items: baseline;
@@ -14,6 +22,10 @@
 
 .menu__item {
   margin: 5px;
+}
+
+.item__select {
+  max-width: 150px;
 }
 
 .item__conditions {

@@ -30,8 +30,8 @@ const updateTable = ({ _id, body }) =>
 
 const addFieldsToTable = ({tableId}) => {
     axios.post(url + '/tables/' + tableId + '/fields/', {
-        name: 'default',
-        type: 'number',
+        name: 'Text line',
+        type: 'text',
     })
         .then((response) => response.data)
         .catch(R.tap(console.error));
@@ -71,7 +71,8 @@ const deleteRecord = (payload) => {
 };
 
 const filterRecords = (payload) => {
-    return axios.get(url + '/tables/' + payload.tableId + '/fields/' + payload.fieldId + '/filter', payload)
+    return axios.get(url + '/tables/' + payload.tableId + '/fields/' + payload.fieldId
+        + '/filter/' + payload.condition + '/' + payload.filterQuery)
         .then((response) => response)
         .catch(R.tap(console.error));
 };
@@ -90,6 +91,12 @@ const deleteFile = ({typeOfFile, record_dataId, tableId, fileNamesStr}) =>
 		.then(response => response.data)
 		.catch(R.tap(console.error))
 
+const addView = ({tableId, viewType}) => {
+    return axios.patch(url + '/tables/' + tableId, {data: 'IN PROGRESS'})
+        .then((response) => response.data)
+        .catch(R.tap(console.error));
+};
+
 export {
     getBase,
     getTablesByIds,
@@ -105,5 +112,6 @@ export {
     filterRecords,
 	uploadFile,
 	deleteFile,
-    emitTableCoworker
+    emitTableCoworker,
+    addView,
 };
