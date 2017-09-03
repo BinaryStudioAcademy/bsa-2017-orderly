@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Icon, Input, Button } from 'semantic-ui-react';
 import Select from 'react-select';
 import { fieldIcons, fieldNames, fieldText } from "../../../configuration/fieldTypes";
-import { TextType, NumberType, CurrencyType, DateType } from "./fieldMenuOptions";
+import { TextType, NumberType, CurrencyType, DateType,  PercentType } from "./fieldMenuOptions";
 import {  SingleSelectType } from "./fieldMenuSingleSelect";
 import fieldOptions from './fieldOptions'
 import 'react-select/dist/react-select.css';
@@ -20,6 +20,7 @@ export default class FieldMenu extends Component {
             fieldOptionsNum:'',
             fieldOptionsCur:'',
             fieldOptionsDate:'',
+            fieldOptionsPercent:'',
             currentValue: ''
         };
     }
@@ -29,6 +30,7 @@ export default class FieldMenu extends Component {
         fieldOptionsNum: nextProps.currentField.options.number,
         fieldOptionsCur: nextProps.currentField.options.currency,
         fieldOptionsDate: nextProps.currentField.options.date,
+        fieldOptionsPercent: nextProps.currentField.options.percent,
         currentValue: nextProps.currentField.type
     });
 
@@ -70,17 +72,22 @@ export default class FieldMenu extends Component {
         if (this.state.currentName != this.props.name) {
             this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
         }
-        if (this.state.currentValue == 'select' ) {
-            this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS, this.state.currentValue)
-        }
-        if (this.state.currentValue == 'number' ) {
-            this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsNum, this.state.currentValue)
-        }
-        if (this.state.currentValue == 'currency' ) {
-            this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsCur, this.state.currentValue)
-        }
-        if (this.state.currentValue == 'date' ) {
-            this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsDate, this.state.currentValue)
+        switch (this.state.currentValue) {
+            case 'select':
+                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsSS, this.state.currentValue)
+            break;
+            case 'number':
+                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsNum, this.state.currentValue)
+            break;
+            case 'currency':
+                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsCur, this.state.currentValue)
+            break;
+            case 'date':
+                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsDate, this.state.currentValue)
+            break;
+            case 'percent':
+                this.props.changeFieldOptions(this.props.tableId, this.props.id, this.state.fieldOptionsPercent, this.state.currentValue)
+            break;
         }
         
         this.handleClickOnMenu();
@@ -103,26 +110,33 @@ export default class FieldMenu extends Component {
     }
 
     handleOptionsChange = (event, type) => {
-        if (this.state.currentValue == 'select') {
-            newOption = event.target.value;
-        }
-        if (this.state.currentValue == 'number') {
-            newOption = event.value;
-            this.setState({fieldOptionsNum: newOption });
-        }
-        if (this.state.currentValue == 'currency') {
-            newOption = event.value;
-            this.setState({fieldOptionsCur: newOption });
-        }
-        if (this.state.currentValue == 'date') {
-            if (type=='format') {   
+        switch (this.state.currentValue) {
+            case 'select':
+                newOption = event.target.value;
+            break;
+            case 'number':
+                newOption = event.value;
+                this.setState({fieldOptionsNum: newOption });
+            break;
+            case 'currency':
+                newOption = event.value;
+                this.setState({fieldOptionsCur: newOption });
+            break;
+            case 'date':
+                if (type=='format') {   
                 newOption = { format: event.value, time: this.state.fieldOptionsDate.time }
                 this.setState({fieldOptionsDate: newOption });
-            }
-            if (type=='time') {
-                let newTimeOption = { format: this.state.fieldOptionsDate.format, time: event.checked }
-                this.setState({fieldOptionsDate: newTimeOption });
-            }
+                }
+                if (type=='time') {
+                    let newTimeOption = { format: this.state.fieldOptionsDate.format, time: event.checked }
+                    this.setState({fieldOptionsDate: newTimeOption });
+                }
+            break;
+            case 'percent':
+                newOption = event.value;
+                this.setState({fieldOptionsPercent: newOption });
+
+            break;
         }
 
     }
@@ -185,6 +199,10 @@ export default class FieldMenu extends Component {
                         <DateType
                             type={this.state.currentValue}
                             handleOptionsChange={this.handleOptionsChange} 
+                        />
+                        <PercentType
+                            type={this.state.currentValue}
+                            handleOptionsChange={this.handleOptionsChange}
                         />
                         <TextType type={this.state.currentValue} />
                         <div className='button-wrapper' 

@@ -103,17 +103,22 @@ class TableRepository extends Repository {
             field.name = data.fieldName || field.name;
             
             if (data.type == 'CHANGE_FIELD_OPTIONS') {
-                if (data.currentValue === 'select' ) {
-                    field.options.select = data.fieldOption || field.options.select;
-                }
-                if (data.currentValue === 'number') {
-                    field.options.number = data.fieldOption || field.options.number;
-                }
-                if( data.currentValue === 'currency') {
-                    field.options.currency = data.fieldOption || field.options.currency;
-                }
-                if( data.currentValue === 'date') {
-                    field.options.date = data.fieldOption || field.options.date;
+                switch (data.currentValue) {
+                    case 'select':
+                        field.options.select = data.fieldOption || field.options.select;
+                        break;
+                    case 'number':
+                        field.options.number = data.fieldOption || field.options.number;
+                        break;
+                    case 'currency':
+                        field.options.currency = data.fieldOption || field.options.currency;
+                        break;
+                    case 'date':
+                        field.options.date = data.fieldOption || field.options.date;
+                        break;
+                    case 'percent':
+                        field.options.percent = data.fieldOption || field.options.percent;
+                        break;
                 }
             }
             

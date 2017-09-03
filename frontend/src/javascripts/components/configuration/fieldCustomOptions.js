@@ -6,6 +6,14 @@ export const numOptions = [
     { value: '4', label: '1.0000' },
     { value: '5', label: '1.00000' }
 ];
+export const percentOptions = [
+    { value: '0', label: '1%' },
+    { value: '1', label: '1.0%' },
+    { value: '2', label: '1.00%' },
+    { value: '3', label: '1.000%' },
+    { value: '4', label: '1.0000%' },
+    { value: '5', label: '1.00000%' }
+];
 
 export const currencySymbols = [
     { value: '$', label: '$ United States Dollar' },

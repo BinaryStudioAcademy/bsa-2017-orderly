@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Input, Dropdown, Checkbox } from 'semantic-ui-react';
-import { numOptions, currencySymbols, dateFormats } from "../../../configuration/fieldCustomOptions";
+import { numOptions, currencySymbols, dateFormats, percentOptions } from "../../../configuration/fieldCustomOptions";
 import Select from 'react-select';
 import SingleSelectType from './fieldMenuSingleSelect'
 import Toggle from 'react-toggle'
@@ -33,6 +33,33 @@ export class NumberType extends Component {
         <div className='label-text-wrapper'>
           <div className='label-text'>Choose Precision</div>
             <Select selection options={numOptions}
+                  value={this.state.precision}
+                  onChange = {(event) => {
+                    this.setState({precision: event.value});
+                    this.props.handleOptionsChange(event);
+                  }}
+              />
+        </div>
+      )
+    } else {
+        return <div></div>
+    }
+  }
+}
+
+export class PercentType extends Component {
+  constructor(props) {
+        super(props);
+        this.state = {
+            precision: ''
+        }
+    }
+  render(){
+    if (this.props.type=='percent') {
+      return (
+        <div className='label-text-wrapper'>
+          <div className='label-text'>Choose Precision</div>
+            <Select selection options={percentOptions}
                   value={this.state.precision}
                   onChange = {(event) => {
                     this.setState({precision: event.value});

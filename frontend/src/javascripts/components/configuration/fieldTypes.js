@@ -35,13 +35,13 @@ export const fieldText   = {
     'select': 'Single select allows you to select a single option from predefined options in a dropdown.',
     'autonumber': 'Auto Number',
     'url': 'A valid URL (e.g. http://academy.binary-studio.com/).',
-    'currency': 'You can optionally choose the currency, the default one is $ United States Dollar',
+    'currency': 'You can optionally choose the currency, the default one is $ United States Dollar.',
     'date': 'Enter a date (e.g 11/12/2017) or pick one from a calendar.',
     'email': 'A valid email address(e.g. andrew@gmail.com)',
     'attachment': 'Attachment allow you to add images, documents or other files which can then be viewed or downloaded.',
     //'checkbox': 'A single checkbox that can be checked or unchecked.',
     // 'multiple': 'Multiple select allows you to select one or more predefined options listed below.',
-    'percent': '',
+    'percent': 'You can optionally choose the precision of percent value.',
     'phone': 'A telephone number (e.g. (067) 771-71-48).'
 
 };
