@@ -13,21 +13,14 @@
     justify-content: space-between;
     align-items: center;
 
-    .ui.inverted.button.active:focus {
-      background-color: #fff !important;
-      box-shadow: none !important;
-    }
-
-    a:hover {
-      border-bottom: none;
-    }
 
     .tabs_block {
-      margin-bottom: -5px;
+      margin-bottom: -4px;
     }
     .add_btn {
       display: inline-block;
-      margin-left: 10px;
+      margin-left: 5px;
+      margin-top: 5px;
     }
   }
 
