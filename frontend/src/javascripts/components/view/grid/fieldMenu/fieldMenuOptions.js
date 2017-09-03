@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Input, Dropdown } from 'semantic-ui-react';
+import { Input, Dropdown, Checkbox } from 'semantic-ui-react';
 import { numOptions, currencySymbols, dateFormats } from "../../../configuration/fieldCustomOptions";
 import Select from 'react-select';
 import SingleSelectType from './fieldMenuSingleSelect'
+import Toggle from 'react-toggle'
 
 export class TextType extends Component {
   render(){
@@ -77,8 +78,10 @@ export class DateType extends Component {
   constructor(props) {
         super(props);
         this.state = {
-            format: ''
+            format: '',
+            time: false
         }
+
     }
   render(){
     if (this.props.type =='date') {
@@ -89,9 +92,17 @@ export class DateType extends Component {
                   value={this.state.format}
                   onChange = {(event) => {
                     this.setState({format: event.value});    
-                    this.props.handleOptionsChange(event);
+                    this.props.handleOptionsChange(event, 'format');
                   }}
               />
+              <div className='options-checkbox'>
+                <Checkbox checked={this.state.time} toggle label='Include a time field'
+                onChange = {(event, data) => {
+                   this.setState({time:!this.state.time})
+                   this.props.handleOptionsChange(data, 'time');
+                 }}
+                  />
+              </div>
         </div>
       )
     } else {

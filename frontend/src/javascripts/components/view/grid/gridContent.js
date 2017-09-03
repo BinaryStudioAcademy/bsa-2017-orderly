@@ -54,6 +54,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                                    id={record.record_data[index]._id}
                                    uploadAttachment={uploadAttachment}
                                    recordIdx={idx}
+                                   currentRecord={record.record_data[index]}
                                    type={type}
                                    data={record.record_data[index].data}
                                    recordData={recordData}
@@ -70,10 +71,11 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
 };
 
 const RecordItem = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList, searchFoundIndex, uploadAttachment, tableId,
-	                    deleteFile}) => {
+	                    deleteFile, currentRecord}) => {
     const fieldPayload = {
         id: id,
         value: data,
+        currentRecord: currentRecord,
         tableId: tableId,
         currentField: currentField,
 	    uploadAttachment: uploadAttachment,

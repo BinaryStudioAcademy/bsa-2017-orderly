@@ -11,6 +11,18 @@
     height: 35px !important;
   }
 }
+  .options-checkbox {
+    margin-top: 10px;
+    .ui.toggle.checkbox label {
+      color: rgba(0,0,0,.65)!important;
+    }
+    .ui.toggle.checkbox .box:after, .ui.toggle.checkbox label:after {
+      z-index:0 !important;
+    }
+    .ui.toggle.checkbox .box:before, .ui.toggle.checkbox label:before {
+      z-index:0 !important;
+    }
+  }
 .Select-clear-zone {
     display:none !important;
 }

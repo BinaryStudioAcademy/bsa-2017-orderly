@@ -24,10 +24,8 @@ export const currencySymbols = [
 export const dateFormats = [
     { value: '#MM#/#DD#/#YY#', label: '08/28/17' },
     { value: '#MM#/#DD#/#YYYY#', label: '08/28/2017' },
+    { value: '#DD#/#MM#/#YYYY#', label: '28-08-2017' },
     { value: '#YYYY#-#MM#-#DD#', label: '2017-08-28' },
     { value: '#DD#-#MMM#-#YYYY#', label: '28-Aug-2017' },
-    { value: '#MMM# #DD#, #YYYY#', label: `Aug 28, 2017` },
-    { value: '#MMMM# #DD#, #YYYY#', label: `August 28, 2017` },
-    { value: '#DDD#, #MMMM# #DD#', label: `Mon, August 28` },
-    
+    { value: '#MMM# #DD#, #YYYY#', label: `Aug 28, 2017` }   
 ];

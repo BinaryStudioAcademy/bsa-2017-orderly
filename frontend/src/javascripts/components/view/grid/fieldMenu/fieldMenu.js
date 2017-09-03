@@ -102,7 +102,7 @@ export default class FieldMenu extends Component {
         }
     }
 
-    handleOptionsChange = (event) => {
+    handleOptionsChange = (event, type) => {
         if (this.state.currentValue == 'select') {
             newOption = event.target.value;
         }
@@ -115,9 +115,14 @@ export default class FieldMenu extends Component {
             this.setState({fieldOptionsCur: newOption });
         }
         if (this.state.currentValue == 'date') {
-            newOption = event.value;
-            this.setState({fieldOptionsDate: newOption });
-            console.log(newOption)
+            if (type=='format') {   
+                newOption = { format: event.value, time: this.state.fieldOptionsDate.time }
+                this.setState({fieldOptionsDate: newOption });
+            }
+            if (type=='time') {
+                let newTimeOption = { format: this.state.fieldOptionsDate.format, time: event.checked }
+                this.setState({fieldOptionsDate: newTimeOption });
+            }
         }
 
     }

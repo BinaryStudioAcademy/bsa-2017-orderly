@@ -71,7 +71,10 @@ const tableSchema = new Schema({
             select:[],
             number: { type: Number, default: '2' },
             currency: { type: String,  default:'$' },
-            date: { type: String,  default:'#MM#/#DD#/#YYYY#' }
+            date: { 
+                format: { type: String,  default:'#MM#/#DD#/#YYYY#' },
+                time: { type: Boolean, default: false }
+                }
             }
     }],
     views: [{
