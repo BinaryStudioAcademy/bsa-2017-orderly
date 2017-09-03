@@ -18,7 +18,10 @@
     box-shadow: none !important;
   }
   .Select-value {
-    margin-top: 3px !important;
+    margin-top: 1.5px !important;
     margin-left: 2px !important;
+  }
+  .Select-placeholder{
+    margin-top: -3px !important;
   }
 }

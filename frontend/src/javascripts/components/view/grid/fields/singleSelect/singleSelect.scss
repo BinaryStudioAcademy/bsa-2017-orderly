@@ -1,6 +1,29 @@
-.single-select-container {
-  box-sizing: border-box;
-  width: 150px;
-  padding: 4px;
-  color: rgba(0,0,0,.87);
+.single-select-container{
+    text-align: left;
+    .Select-control {
+    box-shadow: none;
+    border:none !important;
+    border-radius: none !important;
+    height: auto !important;
+  }
+  .Select {
+    height: 30px !important;
+  }
+  .Select-input {
+    border:none !important;
+    height: 28px !important;
+  }
+  .is-focused:not(.is-open) > .Select-control {
+    border:none !important;
+    box-shadow: none !important;
+  }
+  .Select-value {
+    padding-left: 8px !important;
+    padding-right: 5px !important;
+    margin-left: 0px !important;
+    margin-top: -3px !important;
+  }
+  .Select-placeholder{
+    margin-top: -3px !important;
+  }
 }
