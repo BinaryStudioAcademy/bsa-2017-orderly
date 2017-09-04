@@ -128,24 +128,66 @@
   .modal-field-item {
     margin-bottom: 10px;
 
-    .ui.input input, textarea {
+    .modal-field-name {
+      font-weight: 600;
+      font-size: 1.2em;
+    }
+
+    .table-cell.active {
+      outline: none;
+    }
+    .ui.input input, input, textarea {
+      width: 100%;
       resize: none;
       border: 2px solid rgba(0,0,0,0.15);
       border-radius: .28571429rem;
       padding: 16px 9.5px;
     }
 
-    .ui.input input:hover, textarea:hover {
+    .ui.input input:hover,
+    textarea:hover,
+    .attachment_selected:hover {
       border: 2px solid rgba(0,0,0,0.25);
     }
 
-    .ui.input input:focus, textarea:focus {
+    .ui.input input:focus,
+    textarea:focus,
+    .attachment_selected:focus {
       border: 2px solid #6495ed;
     }
 
-    .modal-field-name{
-      font-weight: 600;
-      font-size: 1.2em;
+    .attachment_cell {
+      height: 100%;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+
+    .attachment_selected {
+      top: 0;
+      left: 0;
+      border: 2px solid rgba(0,0,0,0.15);
+    }
+
+    .autonumber-wrapper {
+      border: 2px solid rgba(0, 0, 0, 0.15);
+      border-radius: .28571429rem;
+      padding: 16px 9.5px;
+      position: relative;
+    }
+
+    .autonumber-wrapper:hover {
+      border: 2px solid rgba(0,0,0,0.25);
+    }
+
+    .autonumber-wrapper:focus {
+      border: 2px solid #6495ed;
+    }
+
+    .autonumber {
+      position: absolute;
+      top: 7px;
+      float: none;
+      padding: 0;
     }
   }
 

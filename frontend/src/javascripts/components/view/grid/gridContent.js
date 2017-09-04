@@ -213,6 +213,9 @@ export default class GridContent extends Component {
                                         onKeyPressComment={this.props.onKeyPressComment}
                                         user={this.props.user}
                                         tableId={this.props.currentTable._id}
+                                        uploadAttachment={this.props.uploadAttachment}
+                                        deleteFile={this.props.deleteFile}
+                                        recordIdx={this.props.recordDialogIndex}
                                     />
                                     }
                                 </div>
