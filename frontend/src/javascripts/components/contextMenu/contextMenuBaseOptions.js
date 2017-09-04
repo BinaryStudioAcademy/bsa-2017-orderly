@@ -14,7 +14,7 @@ let BaseOptions = (props) => {
           <Icon name='info circle' key = {id++} className='icon' color='black' size='small'/>
           Description
         </li>
-        <li className = 'base-options-list-item'>
+        <li className = 'base-options-list-item' onClick={()=> props.handleClick(props.teamId, 'clone', props.base._id, props.base )}>
           <Icon name='copy' key = {id++} className='icon' color='black' size='small'/>
           Duplicate base
         </li>

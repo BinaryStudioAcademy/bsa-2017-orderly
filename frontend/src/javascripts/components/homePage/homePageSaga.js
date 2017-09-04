@@ -3,7 +3,7 @@ import R from 'ramda';
 import { addBaseToTeam, updateBaseById, updateTeam,
 		deleteBase, getTeamsByUserId, getBasesByTeam,
 		deleteTeam, addTeam, getCollaborators, getAllUsers,
-		addCollaborator, deleteCollaborator, updateCollaboratorRole} from './homePageApi';
+		addCollaborator, deleteCollaborator, updateCollaboratorRole, cloneBaseToTeam} from './homePageApi';
 
 
 function* gettingBasesByTeam(action) {
@@ -23,6 +23,15 @@ function* addingBase(action) {
         yield put({ type: 'ADD_NEW_BASE_TO_TEAM_SUCCEEDED', team: team });
     } catch (err) {
         yield put({ type: 'ADD_NEW_BASE_TO_TEAM_FAILED', message: err.message});
+    }
+}
+
+function* cloneBase(action) {
+    try {
+        const team = yield yield call(cloneBaseToTeam, action);
+        yield put({ type: 'CLONE_NEW_BASE_TO_TEAM_SUCCEEDED', team: team.data });
+    } catch (err) {
+        yield put({ type: 'CLONE_NEW_BASE_TO_TEAM_FAILED', message: err.message});
     }
 }
 
@@ -160,6 +169,7 @@ function* homePageSaga() {
 	yield takeEvery('ADD_COLLABORATOR', addingCollaborator);
 	yield takeEvery('DELETE_COLLABORATOR', deletingCollaborators);
 	yield takeEvery('UPDATE_COLLABORATOR_ROLE', updatingCollaboratorRole);
+	yield takeEvery('CLONE_BASE', cloneBase);
 }
 
 export default homePageSaga;

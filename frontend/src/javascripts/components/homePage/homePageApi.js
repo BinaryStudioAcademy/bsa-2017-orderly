@@ -8,6 +8,11 @@ const addBaseToTeam = (teamId) =>
 		.then((response) => response.data)
 		.catch(R.tap(console.error));
 
+const cloneBaseToTeam = (payload) =>
+	axios.post(url + '/team/' + payload.teamId + '/baseClone', payload)
+		.then((response) => response.data)
+		.catch(R.tap(console.error))
+
 const deleteBase = (_id) =>
     axios.delete(url + '/base/' + _id)
         .then((response) => response.data)
@@ -37,6 +42,7 @@ const updateTeam = (data, teamId) =>
 	axios.put(url + '/team/' + teamId, data)
 		.then((response) => response.data)
 		.catch(R.tap(console.error))
+
 
 const deleteTeam = (teamId) =>
 	axios.delete(url + '/team/' + teamId)
@@ -90,5 +96,6 @@ export {
 	deleteCollaborator,
 	updateCollaboratorRole,
 	addCollaborator,
-	getTeamsByUserId
+	getTeamsByUserId,
+	cloneBaseToTeam
 };

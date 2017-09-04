@@ -5,6 +5,15 @@ export const addNewBase = (teamId) => {
   }
 }
 
+export const cloneBase = (teamId, baseId, base) => {
+  return {
+    type: 'CLONE_BASE',
+    teamId: teamId,
+    baseId: baseId,
+    base: base
+  }
+}
+
 export const getAllUsers = () => ({
 	type: 'GET_ALL_USERS',
 })

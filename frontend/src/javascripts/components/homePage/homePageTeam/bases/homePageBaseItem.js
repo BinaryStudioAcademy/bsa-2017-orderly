@@ -27,7 +27,8 @@ class BaseItem extends Component {
                 <ContextMenuIcon 
                   handleClick = {this.props.handleClick}
                   base = {this.props.base}
-                  menu={this.props.menu}             
+                  menu={this.props.menu}  
+                  teamId={this.props.teamId}           
                   />
               </div>
             </div>

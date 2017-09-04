@@ -13,7 +13,7 @@ class ContextMenu extends Component {
         <BaseName handleClick = {this.props.handleClick} base = {this.props.base} />
         <BaseColor handleClick = {this.props.handleClick} base = {this.props.base} />
         <BaseIcon handleClick = {this.props.handleClick}  base = {this.props.base} />
-        <BaseOptions handleClick = {this.props.handleClick}  base = {this.props.base} />
+        <BaseOptions handleClick = {this.props.handleClick}  base = {this.props.base} teamId={this.props.teamId}/>
       </div>
     )
   }

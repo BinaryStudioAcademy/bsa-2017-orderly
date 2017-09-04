@@ -1,6 +1,6 @@
 const R = require('ramda');
 const router = require('express').Router();
-
+const baseClone = require('../../services/baseCloneService')
 const teamRepository = require('../../repositories/team/teamRepository');
 const baseRepository = require('../../repositories/base/baseRepository');
 const tableRepository = require('../../repositories/table/tableRepository');
@@ -68,6 +68,17 @@ router.post('/:teamId/base', (req, res) => Promise.all(
     .then((team) => res.status(200).send(team))
     .catch((err) => res.status(500).send(err))
 );
+
+router.post('/:teamId/baseClone', (req, res) => {
+    let baseCloned = baseClone.objectClone(req.params.base);
+    Promise.all(
+        [
+            baseRepository.add(baseCloned),
+            teamRepository.cloneBaseToTeam(req.params.teamId, baseCloned._id)
+        ])
+    .then((team) => res.status(200).send(team))
+    .catch((err) => res.status(500).send(err))
+});
 
 router.put('/:teamId/collaborators', (req, res) => {
 	teamRepository.addCollaboratorToTeam(req.params.teamId, req.body)
