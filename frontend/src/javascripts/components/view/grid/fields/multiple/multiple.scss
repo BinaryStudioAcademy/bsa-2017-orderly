@@ -1,4 +1,4 @@
-.single-select-container{
+.multiple-select-container{
     text-align: left;
     .Select-control {
     box-shadow: none;
@@ -18,10 +18,8 @@
     box-shadow: none !important;
   }
   .Select-value {
-    padding-left: 8px !important;
-    padding-right: 5px !important;
-    margin-left: 0px !important;
-    margin-top: -3px !important;
+    margin-top: 1.5px !important;
+    margin-left: 2px !important;
   }
   .Select-placeholder{
     margin-top: -3px !important;
