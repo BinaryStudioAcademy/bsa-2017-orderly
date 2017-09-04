@@ -70,11 +70,11 @@ router.post('/:teamId/base', (req, res) => Promise.all(
 );
 
 router.post('/:teamId/baseClone', (req, res) => {
-    let baseCloned = baseClone.objectClone(req.params.base);
+    let baseCloned = baseClone.objectClone(req.body.base);
     Promise.all(
         [
             baseRepository.add(baseCloned),
-            teamRepository.cloneBaseToTeam(req.params.teamId, baseCloned._id)
+            teamRepository.cloneBaseToTeam(req.body.teamId, baseCloned)
         ])
     .then((team) => res.status(200).send(team))
     .catch((err) => res.status(500).send(err))

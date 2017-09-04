@@ -7,15 +7,16 @@ const objectClone = (objectToCopy) => {
         if (typeof(copiedObjectWithId.length) == 'undefined') { 
           delete copiedObjectWithId._id;
           for (let key in copiedObjectWithId) {
-            objectIdDel(copiedObjectWithId[key]);
+            objectClone(copiedObjectWithId[key]);
           }
         }
         else {
           for (let i = 0; i < copiedObjectWithId.length; i++) {
-            objectIdDel(copiedObjectWithId[i]);
+            objectClone(copiedObjectWithId[i]);
           }
         }
   }
+  console.log(copiedObjectWithId)
 } 
 
 module.exports = {objectClone};
