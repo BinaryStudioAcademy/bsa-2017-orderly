@@ -14,10 +14,16 @@ class GridRepository extends Repository {
     }
 
     updateField(viewId, fieldId, gridFieldData) {
-        return this.model.findOneAndUpdate(
-            {_id: viewId, 'fields_config._id': fieldId},
-            {$set: {'fields_config.$': gridFieldData}},
-            {'new': true});
+        return this.model.findById(viewId)
+            .then((view) => {
+                const config = view.fields_config.find((f) => f._id.toString() === fieldId);
+                config.name = gridFieldData.name || config.name;
+                config.size = gridFieldData.size || config.size;
+                config.position = gridFieldData.position || config.position;
+                config.hidden = gridFieldData.hidden || config.hidden;
+                console.log(view);
+                return view.save();
+            });
     }
 
     deleteField(viewId, fieldId) {

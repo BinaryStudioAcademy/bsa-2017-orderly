@@ -139,7 +139,7 @@ class ShareModal extends Component {
 								>Add member</Button>
 							</div>
 						</div>
-						<div className='modal_main_link'></div>
+						<div className='modal_main_link'/>
 					</div>
 					<div className='team_members'>
 						<h4>Team members</h4>

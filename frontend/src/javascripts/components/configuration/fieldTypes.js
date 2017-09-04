@@ -7,7 +7,10 @@ export const fieldIcons = {
     'url': 'chain',
     'currency': 'dollar',
     'date': 'calendar',
-    'email': 'mail outline'
+    'email': 'mail outline',
+    'percent': 'percent',
+    'phone': 'phone',
+	'attachment': 'file outline'
 };
 
 export const fieldNames = {
@@ -20,4 +23,27 @@ export const fieldNames = {
     'currency': 'Currency',
     'date': 'Date',
     'email': 'Email',
+    'percent': 'Percent',
+    'phone': 'Phone',
+	'attachment': 'Attachment'
 };
+
+export const fieldText   = {
+    'text': 'A single line of text. You can optionally prefill each new cell with a default value',
+    'longtext': 'A long text field that can span multiple lines.',
+    'number': '',
+    'select': 'Single select allows you to select a single option from predefined options in a dropdown.',
+    'autonumber': 'Auto Number',
+    'url': 'A valid URL (e.g. http://academy.binary-studio.com/).',
+    'currency': '',
+    'date': 'Enter a date (e.g 11/12/2013) or pick one from a calendar.',
+    'email': 'A valid email address(e.g. andrew@gmail.com)',
+    // 'attachment': 'Attachment allow you to add images, documents or other files which can then be viewed or downloaded.',
+    // 'checkbox': 'A single checkbox that can be checked or unchecked.',
+    // 'multiple': 'Multiple select allows you to select one or more predefined options listed below.',
+    // 'percent': '',
+    // 'phone': 'A telephone number (e.g. (067) 771-71-48).'
+
+};
+
+

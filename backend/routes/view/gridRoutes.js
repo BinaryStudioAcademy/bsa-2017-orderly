@@ -43,12 +43,6 @@ router.put('/:viewId/fields/:fieldId', (request, response) => {
         .catch((error) => response.status(400).send(`Can not update grid view field. ${error}`));
 });
 
-router.put('/:viewId/fields/:fieldId', (request, response) => {
-    gridRepository.updateField(request.params.viewId, request.params.fieldId, request.body)
-        .then((data) => response.status(200).send(data))
-        .catch((error) => response.status(400).send(`Can not update grid view field. ${error}`));
-});
-
 router.delete('/:viewId/fields/:fieldId', (request, response) => {
     gridRepository.deleteField(request.params.viewId, request.params.fieldId)
         .then((data) => response.status(200).send(data))

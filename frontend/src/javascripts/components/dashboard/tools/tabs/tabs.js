@@ -1,16 +1,15 @@
 import React from 'react';
-import { Icon, Button } from 'semantic-ui-react';
+import { Icon, Label } from 'semantic-ui-react';
 import R from 'ramda';
 import AddTabBtn from './addTabBtn/addTabBtn';
 import TabItem from './tabItem/tabItem';
 import Coworkers from './coworkers/coworkers';
-
 import './tabs.scss';
 
 const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
     addTableClick, switchTableClick, togglePopup, openMenu, closeMenu,
     activeModal, setTabsModal, checkTableName, updateTable, deleteTable,
-    coworkers, tableIdActiveModal, setTableIdToActiveModal}) => (
+    coworkers, user, tableIdActiveModal, setTableIdToActiveModal}) => (
     <div className='tabs_panel' style={{backgroundColor:`${base.color}`}}>
         <div className='btn_block'>
             <div className='tabs_block'>
@@ -28,9 +27,15 @@ const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
             </div>
         </div>
         <div className='history'>
-            <Coworkers coworkers={coworkers}/>
-            <Button className='share_btn header-icon' size='mini'>share</Button>
-            <Icon inverted link className='header-icon' name='history' size='large'/>
+            <Coworkers coworkers={coworkers} currentUser={user}/>
+            <Label color={'grey'}
+                   className='share_btn'
+                   as='a'
+                   circular>SHARE</Label>
+            <Icon inverted link
+                className='header-icon'
+                name='history'
+                size='large'/>
         </div>
     </div>
 );

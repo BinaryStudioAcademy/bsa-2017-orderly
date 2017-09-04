@@ -1,7 +1,6 @@
 import axios from 'axios';
 import R from 'ramda';
 
-import socket from '../../app/socketIO';
 const url = '/api';
 
 const getBase = (_id) =>
@@ -71,10 +70,25 @@ const deleteRecord = (payload) => {
         .catch(R.tap(console.error));
 };
 
+const filterRecords = (payload) => {
+    return axios.get(url + '/tables/' + payload.tableId + '/fields/' + payload.fieldId + '/filter', payload)
+        .then((response) => response)
+        .catch(R.tap(console.error));
+};
+
 const emitTableCoworker = (user, tableId) => {
     return socket.emit('client-upload-table', user, tableId);
 };
 
+const uploadFile = ({data, typeOfFile, record_dataId, tableId}) =>
+	axios.post(`/files/attachment/${record_dataId}/${typeOfFile}/${tableId}`, data)
+		.then(response => response.data)
+		.catch(R.tap(console.error))
+
+const deleteFile = ({typeOfFile, record_dataId, tableId, fileNamesStr}) =>
+	axios.delete(`/files/attachment/${record_dataId}/${typeOfFile}/${tableId}/${fileNamesStr}`)
+		.then(response => response.data)
+		.catch(R.tap(console.error))
 
 export {
     getBase,
@@ -88,5 +102,8 @@ export {
     updateField,
     deleteFieldRecords,
     deleteRecord,
+    filterRecords,
+	uploadFile,
+	deleteFile,
     emitTableCoworker
 };

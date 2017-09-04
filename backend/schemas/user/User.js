@@ -40,7 +40,9 @@ const UserSchema = new Schema({
     },
     "phone" : Number,
     "gender" : String,
-    "birthday": Date
+    "birthday": Date,
+    "reset_password_token": String,
+    "reset_password_expires": Date
 }, {versionKey: false});
 
 UserSchema.pre('findOneAndUpdate', function(next) {

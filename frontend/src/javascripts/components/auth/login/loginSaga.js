@@ -2,11 +2,13 @@ import { LOGIN_USER, LOGIN_USER_RESPONSE, LOGIN_USER_ERROR, REDIRECT_LOGGED_IN_U
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { login } from './loginApi';
 import { loginService } from './loginService';
+import { connect } from '../../../app/socket';
 
 function* fetchLogin(action) {
     try {
         const response = yield call(login, {email: action.email, password: action.password});
         yield put({ type: LOGIN_USER_RESPONSE, data: response });
+        yield call(connect);
         yield call(loginService.login, response);
     } catch (err) {
         console.warn(err);

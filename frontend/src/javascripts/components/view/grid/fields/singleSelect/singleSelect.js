@@ -1,15 +1,25 @@
 import React from 'react';
 import './singleSelect.scss';
-import { Dropdown } from 'semantic-ui-react';
+import Field from '../field';
 
-const options = [
-    { key: 'An', value: 'AT', text: 'Ananas' }
-];
+class SingleSelect  extends Field {
+  constructor(props) {
+    super(props);
+    }
+    renderActiveField() {
+        return (
+            <select className='single-select-container'
+                onBlur={(event) => this.props.onBlurComponent(this.props.id, event.target.value)}
+                autoFocus={true}
+            >
+                {this.props.currentField.options.map((option, i) => {
+                    return ( 
+                    <option key={i}>{option}</option>
+                    )})}
+            </select>
 
-const SingleSelect = () => (
-    <div className="single-select-container"> 
-        <Dropdown search selection options={options} />
-    </div>
-);
+        )
+    }
+}
 
 export default SingleSelect;

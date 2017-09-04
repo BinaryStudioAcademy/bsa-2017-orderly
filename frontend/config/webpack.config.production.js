@@ -14,7 +14,7 @@ const GLOBALS = {
 
 module.exports = merge(config, {
     debug: false,
-    devtool: 'inline-eval-cheap-source-map',
+    devtool: 'cheap-module-eval-source-map',
     entry: {
         application: 'production',
         vendor: ['react', 'react-dom', 'react-redux', 'react-router', 'react-router-redux', 'redux']
