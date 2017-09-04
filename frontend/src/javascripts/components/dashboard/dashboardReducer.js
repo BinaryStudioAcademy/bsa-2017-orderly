@@ -158,7 +158,11 @@ function dashboardReducer(state = initState, action) {
             R.dissoc('tables', state),
             {
                 tables: R.map((table) => {
-                    if (table._id === action.changedTable._id) return action.changedTable;
+                    if (table._id === action.changedTable._id) {
+                        const changedTable = action.changedTable;
+                        changedTable.isActive = true;
+	                    return changedTable;
+                    }
                     return table;
                 })(state.tables)
             }
