@@ -45,6 +45,7 @@ export default class View extends Component {
     };
 
     handleAddView = (viewType) => {
+    	debugger
         this.props.addView(this.props.currentTable._id, viewType);
     };
 
@@ -84,6 +85,8 @@ export default class View extends Component {
             return <FormView
                 currentTable={this.props.currentTable}
             />;
+        case 'kanban':
+            return <div>Kanban</div>
         default:
             return <InDeveloping/>;
         }

@@ -189,36 +189,37 @@ class TableRepository extends Repository {
         return viewModel.findById(objectId(viewId));
     }
 
-    addView(tableId, viewId, viewType) {
-        return this.getFromView(viewId, viewType).then((view) => {
-            switch (viewType) {
-            case 'grid':
-            case 'form':
-                this.getFields(tableId).then((fields) => {
-                    fields.fields.map((f, ind) => {
-                        switch (viewType) {
-                        case 'grid':
-                            console.log('IN GRID CASE');
-                            view.fields_config.push({field: f._id, size: 155, position: ind + 1});
-                            break;
-                        case 'form':
-                            console.log('IN FORM CASE');
-                            view.fields_config.push({field: f._id, position: ind + 1, included: false});
-                            break;
-                        }
-                    });
-                    view.save();
-                });
-                break;
-            }
-        }).then(() => {
-            return this.model.findByIdAndUpdate(
-                tableId,
-                {'$push': {views: {view: viewId, type: viewType}}},
-                {'new': true}
-            ).populate('views.view');
-        });
-    }
+	addView(tableId, viewId, viewType) {
+		return this.getFromView(viewId, viewType)
+			.then((view) => {
+				switch (viewType) {
+					case 'grid':
+					case 'form':
+						this.getFields(tableId).then((fields) => {
+							fields.fields.map((f, ind) => {
+								switch (viewType) {
+									case 'grid':
+										console.log('IN GRID CASE')
+										view.fields_config.push({field: f._id, size: 155, position: ind + 1})
+										break
+									case 'form':
+										console.log('IN FORM CASE')
+										view.fields_config.push({field: f._id, position: ind + 1, included: false})
+										break
+								}
+							})
+							view.save()
+						})
+						break
+				}
+			}).then(() => {
+				return this.model.findByIdAndUpdate(
+					tableId,
+					{'$push': {views: {view: viewId, type: viewType}}},
+					{'new': true}
+				).populate('views.view')
+			})
+	}
 
     updateRecordById(tableId, record_dataId, fileName, isDelete) {
 
