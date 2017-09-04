@@ -8,7 +8,7 @@ class CurrencyField  extends Field {
   constructor(props) {
     super(props);
     this.state = { 
-        currency: '' 
+        currency: this.props.value
     }
 }
   
@@ -20,7 +20,7 @@ class CurrencyField  extends Field {
             onChange={(event) => this.setState({currency: event.target.value})}
             decimalPrecision={2}
             onBlur={(event) => this.props.onBlurComponent(this.props.id, event.target.value)}
-            autoFocus={true}
+            autoFocus={this.props.autoFocus}
         />
     )
   }  

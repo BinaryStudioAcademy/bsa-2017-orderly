@@ -6,9 +6,12 @@
     line-height: 24px;
     margin: 0;
     font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
-    border: 1px solid rgba(34,36,38,.15);
+    //border: 1px solid rgba(34,36,38,.15);
     color: rgba(0,0,0,.87);
     transition: box-shadow .1s ease,border-color .1s ease;
     box-shadow: none;
-    padding: .67857143em 1em;
+    //padding: .67857143em 1em;
+    outline: none;
+    border: none;
+    padding: 0 8px 0;
 }

@@ -14,6 +14,7 @@ import Email from './fields/email/email';
 import Percent from './fields/percent/percent';
 import Phone from './fields/phone/phone';
 import Attachment from './fields/attachment/attachment';
+import Checkbox from './fields/checkbox/checkbox';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
@@ -85,6 +86,7 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         onKeyPress: recordData.keyPressSimpleRecordHandler,
         onBlurField: recordData.blurRecordHandler,
         onBlurComponent: recordData.blurRecordComponentHandler,
+        onChangeCheckbox: recordData.changeCheckboxHandler,
         autoFocus: true
     };
     let record = null;
@@ -96,11 +98,9 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         case 'number':
             record = <Number {...fieldPayload}/>;
             break;
-
         case 'select':
             record = <SingleSelect {...fieldPayload}/>;
             break;
-
         case 'currency':
             record = <CurrencyField {...fieldPayload}/>;
             break;
@@ -122,10 +122,13 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         case 'percent':
             record = <Percent {...fieldPayload}/>;
             break;
-            
 	    case 'attachment':
 		    record = <Attachment {...fieldPayload}/>;
 		    break;
+        case 'checkbox':
+            const fieldPayloadCheckbox = {...fieldPayload, ...{onActivate: () => {}} };
+            record = <Checkbox {...fieldPayloadCheckbox}/>;
+            break;
 	    default:
             record = <TextLine {...fieldPayload}/>;
     }

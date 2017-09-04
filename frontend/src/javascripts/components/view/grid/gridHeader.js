@@ -68,11 +68,7 @@ export default class GridHeader extends Component{
                         <Button basic icon='ellipsis horizontal' onClick={() => this.toggleMenu('extra')}/>
                     </Button.Group>
                 </div>
-                <SortMenu
-                    isActive={this.state.activeMenu === 'sort'}
-                    currentTable={this.props.currentTable}
-                    sortRecords={this.props.sortRecords}
-                />
+
                 <FilterMenu
                     isActive={this.state.activeMenu === 'filter'}
                     currentTable={this.props.currentTable}

@@ -15,12 +15,12 @@ class Percent extends Field {
   renderActiveField() {
     return (
         <NumberFormat className='percent-input' 
-            thousandSeparator={true} suffix={'%'} 
+            thousandSeparator={true} suffix={'%'}
             value={this.state.percent}
             onChange={(event) => this.setState({percent: event.target.value})}
             decimalPrecision={1}
             onBlur={(event) => this.props.onBlurComponent(this.props.id, event.target.value)}
-            autoFocus={true}
+            autoFocus={this.props.autoFocus}
         />
     )
   }  

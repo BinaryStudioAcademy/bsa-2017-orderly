@@ -10,7 +10,8 @@ export const fieldIcons = {
     'email': 'mail outline',
     'percent': 'percent',
     'phone': 'phone',
-	'attachment': 'file outline'
+	'attachment': 'file outline',
+    'checkbox': 'checkmark box'
 };
 
 export const fieldNames = {
@@ -25,7 +26,8 @@ export const fieldNames = {
     'email': 'Email',
     'percent': 'Percent',
     'phone': 'Phone',
-	'attachment': 'Attachment'
+	'attachment': 'Attachment',
+    'checkbox': 'Checkbox',
 };
 
 export const fieldText   = {
@@ -38,12 +40,11 @@ export const fieldText   = {
     'currency': '',
     'date': 'Enter a date (e.g 11/12/2013) or pick one from a calendar.',
     'email': 'A valid email address(e.g. andrew@gmail.com)',
-    // 'attachment': 'Attachment allow you to add images, documents or other files which can then be viewed or downloaded.',
-    // 'checkbox': 'A single checkbox that can be checked or unchecked.',
-    // 'multiple': 'Multiple select allows you to select one or more predefined options listed below.',
-    // 'percent': '',
-    // 'phone': 'A telephone number (e.g. (067) 771-71-48).'
-
+    'attachment': 'Attachment allow you to add images, documents or other files which can then be viewed or downloaded.',
+    'checkbox': 'A single checkbox that can be checked or unchecked.',
+    'multiple': 'Multiple select allows you to select one or more predefined options listed below.',
+    'percent': '',
+    'phone': 'A telephone number (e.g. (067)771-71-48).'
 };
 
 

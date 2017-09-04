@@ -13,6 +13,7 @@ import Email from '../grid/fields/email/email';
 import Percent from '../grid/fields/percent/percent';
 import Phone from '../grid/fields/phone/phone';
 import Attachment from '../grid/fields/attachment/attachment';
+import Checkbox from '../grid/fields/checkbox/checkbox';
 import HistoryList from './components/history/historyList';
 import CommentsBlock from './components/comments/commentsBlock';
 import {fieldIcons, fieldNames} from "../../configuration/fieldTypes";
@@ -31,6 +32,7 @@ const Recordtem = ({id, type, data, recordData, uploadAttachment, deleteFile, cu
         onKeyPress: recordData.keyPressSimpleRecordHandler,
         onBlurField: recordData.blurRecordHandler,
         onBlurComponent: recordData.blurRecordComponentHandler,
+        onChangeCheckbox: recordData.changeCheckboxHandler,
         autoFocus: false
     };
     let record = null;
@@ -42,11 +44,9 @@ const Recordtem = ({id, type, data, recordData, uploadAttachment, deleteFile, cu
         case 'number':
             record = <Number {...fieldPayload}/>;
             break;
-
         case 'select':
             record = <SingleSelect {...fieldPayload}/>;
             break;
-
         case 'currency':
             record = <CurrencyField {...fieldPayload}/>;
             break;
@@ -68,9 +68,12 @@ const Recordtem = ({id, type, data, recordData, uploadAttachment, deleteFile, cu
         case 'percent':
             record = <Percent {...fieldPayload}/>;
             break;
-
         case 'attachment':
             record = <Attachment {...fieldPayload}/>;
+            break;
+        case 'checkbox':
+            const fieldPayloadCheckbox = {...fieldPayload, ...{onSelect: recordData.selectRecordHandler} };
+            record = <Checkbox {...fieldPayloadCheckbox}/>;
             break;
         default:
             record = <TextLine {...fieldPayload}/>;
@@ -90,8 +93,8 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
             open={true}
             onClose={(event) => onOpenRecordDialog('')}
             >
-            <Modal.Header>Record details</Modal.Header>
-            <Modal.Content image >
+            <Modal.Header className="record-details">Record details</Modal.Header>
+            <Modal.Content image className="modal-content">
                 <Modal.Description className="modal-fields-block content scrolling">
                     {record.record_data.map((recordItem, fieldIndex) => {
                         return (

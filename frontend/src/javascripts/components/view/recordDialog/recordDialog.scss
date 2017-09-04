@@ -88,11 +88,23 @@
   position: relative;
   padding-bottom: 70px;
 
+  .modal-content {
+    padding-right: 0!important;
+  }
+
+  .record-details {
+    border-bottom: 2px solid rgba(34,36,38,.25)!important;
+  }
+
   .modal-fields-block {
     width: 49%!important;
     padding-left: 14px;
-    padding-right: 35px;
+    padding-right: 5px;
     margin-top: 10px;
+  }
+
+  .table-cell.date.active {
+    z-index: 1000;
   }
 
   .text-line,
@@ -136,7 +148,9 @@
     .table-cell.active {
       outline: none;
     }
-    .ui.input input, input, textarea {
+    .ui.input input,
+    input,
+    textarea {
       width: 100%;
       resize: none;
       border: 2px solid rgba(0,0,0,0.15);
@@ -145,12 +159,14 @@
     }
 
     .ui.input input:hover,
+    input:hover,
     textarea:hover,
     .attachment_selected:hover {
       border: 2px solid rgba(0,0,0,0.25);
     }
 
     .ui.input input:focus,
+    input:focus,
     textarea:focus,
     .attachment_selected:focus {
       border: 2px solid #6495ed;
@@ -189,12 +205,25 @@
       float: none;
       padding: 0;
     }
+    .checkbox-block {
+        width: 26px;
+        height: 26px;
+
+      i.checkbox-square {
+        top: 0;
+        left: 0;
+      }
+      i.checkbox-checked {
+        top: 5px;
+        left: 6px;
+      }
+    }
   }
 
   .modal-sidebar-block {
     width: 49%!important;
     padding-left: 35px;
-    padding-right: 14px;
+    padding-right: 10px;
 
     .ui.header {
       //margin: 10px 0;
@@ -225,10 +254,11 @@
   }
 
   .modal-history {
-    border: 2px solid rgba(243, 232, 84, 0.63);
-    //border: 2px solid rgba(117, 116, 116, 0.15);
+    //border: 2px solid rgba(243, 232, 84, 0.63);
+    border: 2px solid rgba(117, 116, 116, 0.15);
     border-radius: 7px;
     padding: 15px;
+    padding-right: 5px;
 
     //border-bottom: 2px solid rgba(117, 116, 116, 0.66);
     //padding-bottom: 8px;
@@ -283,10 +313,11 @@
 
   .modal-comments {
     margin-top: 15px;
-    border: 2px solid rgba(84, 243, 222, 0.5);
-    //border: 2px solid rgba(117, 116, 116, 0.15);
+    //border: 2px solid rgba(84, 243, 222, 0.5);
+    border: 2px solid rgba(117, 116, 116, 0.15);
     border-radius: 7px;
     padding: 15px;
+    padding-right: 5px;
   }
 
   .comments-block {
