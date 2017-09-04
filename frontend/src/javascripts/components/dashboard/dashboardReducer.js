@@ -46,7 +46,7 @@ function dashboardReducer(state = initState, action) {
                     tempObj.isActive = table._id === action.tableId;
                     return tempObj;
                 })(state.tables),
-            }
+            },
         ]);
     }
 

@@ -1,4 +1,3 @@
-
 import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
@@ -32,7 +31,7 @@ const mapStateToProps = (state, ownProps) => {
         coworkers: state.dashboardReducer.coworkers,
         tableIdActiveModal: state.dashboardReducer.tableIdActiveModal,
         user: state.userProfile.user,
-        filteredRecords: state.dashboardReducer.filteredRecords
+        filteredRecords: state.dashboardReducer.filteredRecords,
     });
 };
 
@@ -60,7 +59,7 @@ const mapDispatchToProps = {
     addComment: addComment,
     getUser: getCurrentUser,
     getCoworkersList: getCoworkersList,
-	setTableIdToActiveModal: setTableIdToActiveModal,
+    setTableIdToActiveModal: setTableIdToActiveModal,
     changeSearch: changeSearch,
     changeSearchFoundIndex: changeSearchFoundIndex,
     toggleSearch: toggleSearch,
@@ -72,8 +71,8 @@ const mapDispatchToProps = {
     changeFieldOptions: changeFieldOptions,
     deleteField: deleteField,
     deleteRecord: deleteRecord,
-	uploadAttachment: uploadAttachment,
-	deleteFile: deleteFile,
+    uploadAttachment: uploadAttachment,
+    deleteFile: deleteFile,
     disconnectSocket: disconnectSocket,
     addView: addView,
     deleteView: deleteView,
