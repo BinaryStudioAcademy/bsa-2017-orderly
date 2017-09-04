@@ -120,7 +120,30 @@ class TableRepository extends Repository {
             const field = table.fields[fieldIndex];
             field.type = data.fieldType || field.type;
             field.name = data.fieldName || field.name;
-            field.options = data.fieldOption || field.options;
+            
+            if (data.type == 'CHANGE_FIELD_OPTIONS') {
+                switch (data.currentValue) {
+                    case 'select':
+                        field.options.select = data.fieldOption || field.options.select;
+                        break;
+                    case 'number':
+                        field.options.number = data.fieldOption || field.options.number;
+                        break;
+                    case 'currency':
+                        field.options.currency = data.fieldOption || field.options.currency;
+                        break;
+                    case 'date':
+                        field.options.date = data.fieldOption || field.options.date;
+                        break;
+                    case 'percent':
+                        field.options.percent = data.fieldOption || field.options.percent;
+                        break;
+                    case 'multiple':
+                        field.options.multiple = data.fieldOption || field.options.multiple;
+                        break;
+                }
+            }
+            
             if (data.fieldType) {
                 table.records.forEach((record) => (record.record_data[fieldIndex].data = ''));
             }
