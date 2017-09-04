@@ -4,22 +4,27 @@
     border: 1px solid rgba(34,36,38,.15);
     height: 37px;
     width: 80%;
-    text-align: center;
     padding-top: 8px;
-  .ui.dropdown{
-    width: 150px !important;
-    position: relative;
+  .Select-control {
+    margin-top: -8px;
+    border:none !important;
+    height: 35px !important;
   }
-  .ui.dropdown .menu {
-    width: 170px !important;
-    left: -10px !important;
+}
+  .options-checkbox {
+    margin-top: 10px;
+    .ui.toggle.checkbox label {
+      color: rgba(0,0,0,.65)!important;
+    }
+    .ui.toggle.checkbox .box:after, .ui.toggle.checkbox label:after {
+      z-index:0 !important;
+    }
+    .ui.toggle.checkbox .box:before, .ui.toggle.checkbox label:before {
+      z-index:0 !important;
+    }
   }
-  .ui.dropdown .menu>.item {
-    padding: 7px !important;
-  }
-  .ui.dropdown .menu>.item:last-child {
-     padding-bottom: 10px !important;
-  }
+.Select-clear-zone {
+    display:none !important;
 }
 .label-text-wrapper {
   .label-text{

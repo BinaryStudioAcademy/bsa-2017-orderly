@@ -14,6 +14,7 @@ import Email from './fields/email/email';
 import Percent from './fields/percent/percent';
 import Phone from './fields/phone/phone';
 import Attachment from './fields/attachment/attachment';
+import MultipleSelect from './fields/multiple/multiple';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
@@ -53,6 +54,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
                                    id={record.record_data[index]._id}
                                    uploadAttachment={uploadAttachment}
                                    recordIdx={idx}
+                                   currentRecord={record.record_data[index]}
                                    type={type}
                                    data={record.record_data[index].data}
                                    recordData={recordData}
@@ -68,14 +70,15 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
 };
 
 const RecordItem = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList,
-                        searchFoundIndex, uploadAttachment, tableId, deleteFile}) => {
+                     searchFoundIndex, uploadAttachment, tableId, deleteFile, currentRecord}) => {
     const fieldPayload = {
         id: id,
         value: data,
+        currentRecord: currentRecord,
         tableId: tableId,
         currentField: currentField,
-	    uploadAttachment: uploadAttachment,
-	    deleteFile: deleteFile,
+	      uploadAttachment: uploadAttachment,
+	      deleteFile: deleteFile,
         selected: recordData.isRecordSelected(id),
         active: recordData.isRecordActive(id),
         onSelect: recordData.selectRecordHandler,
@@ -94,11 +97,9 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         case 'number':
             record = <Number {...fieldPayload}/>;
             break;
-
         case 'select':
             record = <SingleSelect {...fieldPayload}/>;
             break;
-
         case 'currency':
             record = <CurrencyField {...fieldPayload}/>;
             break;
@@ -120,11 +121,13 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         case 'percent':
             record = <Percent {...fieldPayload}/>;
             break;
-
-	    case 'attachment':
-		    record = <Attachment {...fieldPayload}/>;
-		    break;
-	    default:
+	      case 'attachment':
+		        record = <Attachment {...fieldPayload}/>;
+		        break;
+        case 'multiple':
+            record = <MultipleSelect {...fieldPayload}/>;
+            break;
+	      default:
             record = <TextLine {...fieldPayload}/>;
     }
 
