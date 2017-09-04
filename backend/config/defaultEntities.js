@@ -32,25 +32,26 @@ const defaultTable = () => {
     };
 };
 
-const defaultView = (defaultSize = 155) => {
+const defaultGridView = () => {
     return {
         type: 'grid',
         name: 'Grid view',
         description: 'Default grid view',
         fixed_area: 1,
-        fields_config: [
-            {size: defaultSize, position: 1, hidden: false},
-            {size: defaultSize, position: 2, hidden: false},
-            {size: defaultSize, position: 3, hidden: false},
-            {size: defaultSize, position: 4, hidden: false},
-            {size: defaultSize, position: 5, hidden: false},
-            {size: defaultSize, position: 6, hidden: false},
-        ]
+    };
+};
+
+const defaultFormView = () => {
+    return {
+        type: 'form',
+        name: 'Form view',
+        description: 'Default form view',
     };
 };
 
 module.exports = {
     defaultTeam,
     defaultTable,
-    defaultView
+    defaultGridView,
+    defaultFormView,
 };

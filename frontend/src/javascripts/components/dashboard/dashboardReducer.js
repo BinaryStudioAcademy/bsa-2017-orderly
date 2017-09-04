@@ -45,8 +45,8 @@ function dashboardReducer(state = initState, action) {
                     let tempObj = R.dissoc('isActive', table);
                     tempObj.isActive = table._id === action.tableId;
                     return tempObj;
-                })(state.tables)
-            }
+                })(state.tables),
+            },
         ]);
     }
 
@@ -116,14 +116,15 @@ function dashboardReducer(state = initState, action) {
 
     case 'SWITCH_TABLE': {
         return R.mergeAll([
-            R.dissoc('tables', state),
+            R.dissoc('tables', R.dissoc('currentView', state)),
             {
                 tables: R.map((table) => {
                     let newObj = R.dissoc('isActive', table);
                     newObj.isActive = table._id === action.tableId;
                     return newObj;
-                })(state.tables)
-            }
+                })(state.tables),
+                currentView: null,
+            },
         ]);
     }
 
@@ -396,19 +397,28 @@ function dashboardReducer(state = initState, action) {
         return {...state, currentView: action.viewId};
     }
 
+    case 'ADD_VIEW_SUCCEEDED':
+    case 'DELETE_VIEW_SUCCEEDED':
+    case 'FILTER_RECORDS_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        const newTable = action.table;
+                        newTable.isActive = true;
+                        return newTable;
+                    }
+                    return table;
+                })(state.tables)
+            }
+        ]);
+    }
+
     case 'SORT_RECORDS': {
         console.log('DASH REDUCER SORT RECORDS');
         console.log(action);
         console.log('-------------------------');
-        return {...state};
-    }
-
-    case 'FILTER_RECORDS': {
-        console.log('DASH REDUCER FILTER RECORDS');
-        console.log(action);
-        console.log('-------------------------');
-        // const index = action.table.fields.findIndex((f) => f._id === action.fieldId);
-        // const filtered = action.table.records.filter((r) => r.record_data[index].data.includes(action.filterQuery));
         return {...state};
     }
 

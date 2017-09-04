@@ -188,7 +188,7 @@ export default class FieldMenu extends Component {
                         <Icon name="ellipsis vertical" className="field__change-type"/>
                     </div>
                 </div>
-                <div className ={this.props.showFieldMenu === this.props.fieldId && this.state.isActive ? "field__menu" : "hide"}>
+                <div className ={this.state.isActive ? "field__menu" : "hide"}>
                     <Input className="menu__name"
                            value={this.state.currentName}
                            onChange={this.handleChangeName}
