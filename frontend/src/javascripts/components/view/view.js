@@ -45,7 +45,6 @@ export default class View extends Component {
     };
 
     handleAddView = (viewType) => {
-    	debugger
         this.props.addView(this.props.currentTable._id, viewType);
     };
 

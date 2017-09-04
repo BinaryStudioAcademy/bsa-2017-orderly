@@ -195,6 +195,7 @@ class TableRepository extends Repository {
 				switch (viewType) {
 					case 'grid':
 					case 'form':
+					case 'kanban':
 						this.getFields(tableId).then((fields) => {
 							fields.fields.map((f, ind) => {
 								switch (viewType) {
@@ -206,6 +207,10 @@ class TableRepository extends Repository {
 										console.log('IN FORM CASE')
 										view.fields_config.push({field: f._id, position: ind + 1, included: false})
 										break
+									case 'kanban':
+											console.log('IN KANBAN CASE')
+											view.fields_config.push({field: f._id})
+											break
 								}
 							})
 							view.save()
