@@ -25,10 +25,10 @@ class TeamRepository extends Repository {
             );
     }
     
-    cloneBaseToTeam(teamId, base) {
+    cloneBaseToTeam(teamId, baseId) {
         return this.model.findByIdAndUpdate(
                 teamId,
-                {'$push': {bases: base._id}},
+                {'$push': {bases: baseId}},
                 {'new': true}
             );
     }
