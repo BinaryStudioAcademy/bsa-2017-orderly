@@ -6,7 +6,7 @@
   padding: 10px 20px;
 }
 
-.grid__extra-menu {
+.form__extra-menu {
   display: flex;
   flex-flow: column;
   align-items: left;
@@ -18,7 +18,7 @@
   z-index: 5;
   position: absolute;
   top: 159px;
-  left: 590px;
+  left: 393px;
 }
 
 .extra-menu__item {
@@ -53,4 +53,22 @@
 
 .item__disabled:hover {
   background-color: #333;
+}
+
+.item__disabled .span__tooltip{
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  left: 125px;
+  top: 0;
+  position: absolute;
+  z-index: 5;
+}
+
+.item__disabled:hover .span__tooltip {
+  visibility: visible;
 }

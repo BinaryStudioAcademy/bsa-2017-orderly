@@ -182,8 +182,8 @@ router.post('/:id/views', (request, response) => {
     }
 });
 
-router.delete('/:id/views/:viewId', (request, response) => {
-    tableRepository.deleteView(request.params.id, request.params.viewId, request.body.viewType)
+router.delete('/:id/views/:viewId/:viewType', (request, response) => {
+    tableRepository.deleteView(request.params.id, request.params.viewId, request.params.viewType)
         .then((result) => response.status(200).send(result))
         .catch((err) => response.status(500).send(err));
 });
