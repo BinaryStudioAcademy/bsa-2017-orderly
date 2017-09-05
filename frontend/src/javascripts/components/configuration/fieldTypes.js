@@ -11,7 +11,8 @@ export const fieldIcons = {
     'email': 'mail outline',
     'percent': 'percent',
     'phone': 'phone',
-    'attachment': 'file outline'
+    'attachment': 'file outline',
+    'checkbox': 'checkmark box'
 };
 
 export const fieldNames = {
@@ -28,6 +29,7 @@ export const fieldNames = {
     'percent': 'Percent',
     'phone': 'Phone',
     'attachment': 'Attachment',
+    'checkbox': 'Checkbox'
 };
 
 export const fieldText   = {
@@ -41,7 +43,7 @@ export const fieldText   = {
     'date': 'Enter a date (e.g 11/12/2017) or pick one from a calendar.',
     'email': 'A valid email address(e.g. andrew@gmail.com)',
     'attachment': 'Attachment allow you to add images, documents or other files which can then be viewed or downloaded.',
-    //'checkbox': 'A single checkbox that can be checked or unchecked.',
+    'checkbox': 'A single checkbox that can be checked or unchecked.',
     'multiple': 'Multiple select allows you to select one or more predefined options listed below.',
     'percent': 'You can optionally choose the precision of percent value.',
     'phone': 'A telephone number (e.g. (067) 771-71-48).'

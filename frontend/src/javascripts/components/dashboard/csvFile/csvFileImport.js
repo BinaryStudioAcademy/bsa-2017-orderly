@@ -46,7 +46,7 @@ class ImportCSV extends Component {
       <div className='dropzone-wrapper'>
         <Dropzone className='dropzone' multiple={false} onDrop={this.onDrop.bind(this)}>
           <Icon link name='download' size="large"/>
-            <span>Import from CSV</span>
+            <span className='item__span'>Import from CSV</span>
         </Dropzone>
       </div>
     );

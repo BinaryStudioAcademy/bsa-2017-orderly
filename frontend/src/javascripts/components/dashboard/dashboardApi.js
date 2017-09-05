@@ -29,15 +29,14 @@ const updateTable = ({ _id, body }) =>
 		.catch(R.tap(console.error));
 
 const addFieldsToTable = ({tableId}) => {
-    axios.post(url + '/tables/' + tableId + '/fields/', {
+    return axios.post(url + '/tables/' + tableId + '/fields/', {
         name: 'Text line',
         type: 'text',
     })
-        .then((response) => response.data)
-        .catch(R.tap(console.error));
-
-    return axios.put(url + '/tables/' + tableId + '/records/', {data: ''})
-        .then((table) => table.data)
+        .then(() => {
+            return axios.put(url + '/tables/' + tableId + '/records/', {data: ''})
+                .then((table) => table.data);
+        })
         .catch(R.tap(console.error));
 };
 
@@ -98,7 +97,7 @@ const addView = ({tableId, viewType}) => {
 };
 
 const deleteView = ({tableId, viewId, viewType}) => {
-    return axios.delete(url + '/tables/' + tableId + '/views/' + viewId, {tableId, viewId, viewType})
+    return axios.delete(url + '/tables/' + tableId + '/views/' + viewId + '/' + viewType)
         .then((response) => response.data)
         .catch(R.tap(console.error));
 };

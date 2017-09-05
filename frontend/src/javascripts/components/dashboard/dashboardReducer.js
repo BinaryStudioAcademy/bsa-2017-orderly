@@ -5,7 +5,8 @@ const initState = {
     tables: [{
         _id: 0,
         name: '',
-        isActive: false
+        isActive: false,
+        currentView: null,
     }],
     addPopupIsOpen: false,
     activeModal: '',
@@ -18,7 +19,6 @@ const initState = {
     searchMatchedRecordItemIdList: [],
     searchFoundIndex: '',
     searchBlockOpen: false,
-    currentView: null,
     filteredRecords: null,
 };
 
@@ -44,6 +44,7 @@ function dashboardReducer(state = initState, action) {
                 tables: R.map((table) => {
                     let tempObj = R.dissoc('isActive', table);
                     tempObj.isActive = table._id === action.tableId;
+                    tempObj.currentView = table.views[0].view._id;
                     return tempObj;
                 })(state.tables),
             },
@@ -67,6 +68,7 @@ function dashboardReducer(state = initState, action) {
             R.dissoc('tables', state),
             {
                 tables: R.map(R.compose(
+                    (table) => R.assoc('currentView', R.path(['views', '0', 'view', '_id'], table), table),
                     R.assoc('addPopupIsOpen', false),
                     R.assoc('isMenuOpen', false))
                 )(action.tables)
@@ -116,14 +118,14 @@ function dashboardReducer(state = initState, action) {
 
     case 'SWITCH_TABLE': {
         return R.mergeAll([
-            R.dissoc('tables', R.dissoc('currentView', state)),
+            R.dissoc('tables', state),
             {
                 tables: R.map((table) => {
-                    let newObj = R.dissoc('isActive', table);
+                    let newObj = R.omit(['isActive', 'currentView'], table);
                     newObj.isActive = table._id === action.tableId;
+                    newObj.currentView = table.views[0].view._id;
                     return newObj;
                 })(state.tables),
-                currentView: null,
             },
         ]);
     }
@@ -161,7 +163,8 @@ function dashboardReducer(state = initState, action) {
                     if (table._id === action.changedTable._id) {
                         const changedTable = action.changedTable;
                         changedTable.isActive = true;
-	                    return changedTable;
+                        changedTable.currentView = table.currentView;
+                        return changedTable;
                     }
                     return table;
                 })(state.tables)
@@ -394,11 +397,57 @@ function dashboardReducer(state = initState, action) {
     }
 
     case 'CHANGE_VIEW': {
-        return {...state, currentView: action.viewId};
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.tableId) {
+                        let obj = R.dissoc('currentView', table);
+                        obj.currentView = action.viewId;
+                        return obj;
+                    } else {
+                        return table;
+                    }
+                })(state.tables)
+            }
+        ]);
     }
 
-    case 'ADD_VIEW_SUCCEEDED':
-    case 'DELETE_VIEW_SUCCEEDED':
+    case 'ADD_VIEW_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        const viewsCount = action.table.views.length;
+                        const newTable = action.table;
+                        newTable.isActive = true;
+                        newTable.currentView = action.table.views[viewsCount - 1].view._id;
+                        return newTable;
+                    }
+                    return table;
+                })(state.tables)
+            }
+        ]);
+    }
+
+    case 'DELETE_VIEW_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        const newTable = action.table;
+                        newTable.isActive = true;
+                        newTable.currentView = action.table.views[0].view._id;
+                        return newTable;
+                    }
+                    return table;
+                })(state.tables)
+            }
+        ]);
+    }
+
     case 'FILTER_RECORDS_SUCCEEDED': {
         return R.mergeAll([
             R.dissoc('tables', state),

@@ -17,7 +17,6 @@ export default class Grid extends Component {
     };
 
     render() {
-
         return (
             <div className="grid-view">
                 <GridHeader
@@ -33,6 +32,8 @@ export default class Grid extends Component {
                     sortRecords={this.handleSort}
                     filterRecords={this.props.filterRecords}
                     removeFilter={this.handleRemoveFilter}
+                    deleteView={this.props.deleteView}
+                    viewsCount={this.props.viewsCount}
                 />
                 <GridContent
                     currentTable={this.props.currentTable}

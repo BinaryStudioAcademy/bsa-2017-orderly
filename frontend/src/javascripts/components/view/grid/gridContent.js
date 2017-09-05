@@ -15,6 +15,7 @@ import Percent from './fields/percent/percent';
 import Phone from './fields/phone/phone';
 import Attachment from './fields/attachment/attachment';
 import MultipleSelect from './fields/multiple/multiple';
+import Checkbox from './fields/checkbox/checkbox';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
@@ -70,15 +71,15 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
 };
 
 const RecordItem = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList,
-                        searchFoundIndex, uploadAttachment, tableId, deleteFile, currentRecord}) => {
+                     searchFoundIndex, uploadAttachment, tableId, deleteFile, currentRecord}) => {
     const fieldPayload = {
         id: id,
         value: data,
         currentRecord: currentRecord,
         tableId: tableId,
         currentField: currentField,
-	    uploadAttachment: uploadAttachment,
-	    deleteFile: deleteFile,
+	      uploadAttachment: uploadAttachment,
+	      deleteFile: deleteFile,
         selected: recordData.isRecordSelected(id),
         active: recordData.isRecordActive(id),
         onSelect: recordData.selectRecordHandler,
@@ -86,6 +87,7 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         onKeyPress: recordData.keyPressSimpleRecordHandler,
         onBlurField: recordData.blurRecordHandler,
         onBlurComponent: recordData.blurRecordComponentHandler,
+        onChangeCheckbox: recordData.changeCheckboxHandler,
         autoFocus: true
     };
     let record = null;
@@ -97,11 +99,9 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         case 'number':
             record = <Number {...fieldPayload}/>;
             break;
-
         case 'select':
             record = <SingleSelect {...fieldPayload}/>;
             break;
-
         case 'currency':
             record = <CurrencyField {...fieldPayload}/>;
             break;
@@ -123,14 +123,20 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         case 'percent':
             record = <Percent {...fieldPayload}/>;
             break;
-            
+	      case 'attachment':
+		        record = <Attachment {...fieldPayload}/>;
+		        break;
+
 	    case 'attachment':
 		    record = <Attachment {...fieldPayload}/>;
 		    break;
         case 'multiple':
             record = <MultipleSelect {...fieldPayload}/>;
             break;
-
+        case 'checkbox':
+            const fieldPayloadCheckbox = {...fieldPayload, ...{onActivate: () => {}} };
+            record = <Checkbox {...fieldPayloadCheckbox}/>;
+            break;
 	    default:
             record = <TextLine {...fieldPayload}/>;
     }
@@ -221,6 +227,9 @@ export default class GridContent extends Component {
                                         onKeyPressComment={this.props.onKeyPressComment}
                                         user={this.props.user}
                                         tableId={this.props.currentTable._id}
+                                        uploadAttachment={this.props.uploadAttachment}
+                                        deleteFile={this.props.deleteFile}
+                                        recordIdx={this.props.recordDialogIndex}
                                     />
                                     }
                                 </div>
@@ -266,3 +275,4 @@ export default class GridContent extends Component {
         );
     }
 }
+

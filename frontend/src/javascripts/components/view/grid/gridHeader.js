@@ -37,7 +37,10 @@ export default class GridHeader extends Component{
                         <Button basic icon='external'/>
                         <ExtraMenu
                             currentTableId={this.props.currentTable._id}
-                            tables={this.props.tables}/>
+                            tables={this.props.tables}
+                            deleteView={this.props.deleteView}
+                            viewsCount={this.props.viewsCount}
+                        />
                     </Button.Group>
                 </div>
                 <div id="search-wrapper">

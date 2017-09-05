@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Icon, Button} from 'semantic-ui-react';
 import {viewIcons} from '../../../configuration/viewTypes';
+import ExtraMenu from './headerMenu/extraMenu';
 import './formViewHeader.scss';
 
 export default class FormViewHeader extends Component{
@@ -20,7 +21,10 @@ export default class FormViewHeader extends Component{
                         <Icon name='eye'/>
                         <span className="menu__text">Preview</span>
                     </Button>
-                    <Button basic icon='ellipsis horizontal'/>
+                    <ExtraMenu
+                        deleteView={this.props.deleteView}
+                        viewsCount={this.props.viewsCount}
+                    />
                 </Button.Group>
                 <Icon name="search" id="header__search" size='large'/>
             </div>
