@@ -54,3 +54,21 @@
 .item__disabled:hover {
   background-color: #333;
 }
+
+.item__disabled .span__tooltip-grid {
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  left: 155px;
+  top: 75px;
+  position: absolute;
+  z-index: 5;
+}
+
+.item__disabled:hover .span__tooltip-grid {
+  visibility: visible;
+}
