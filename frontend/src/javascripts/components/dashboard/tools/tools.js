@@ -18,6 +18,7 @@ class Tools extends Component {
         this.blurRecordHandler = this.blurRecordHandler.bind(this);
         this.blurRecordComponentHandler = this.blurRecordComponentHandler.bind(this);
         this.keyPressCommentHandler = this.keyPressCommentHandler.bind(this);
+        this.changeCheckboxHandler = this.changeCheckboxHandler.bind(this);
     }
 
     componentWillMount() {
@@ -88,6 +89,10 @@ class Tools extends Component {
         this.props.addComment(userId, recordId, tableId, comment);
     }
 
+    changeCheckboxHandler(id, value) {
+        this.props.changeRecord(this.props.currentTableId, id, value, this.props.user);
+    }
+
     render() {
         const currentTable = R.find(R.propEq('_id', this.props.currentTableId))(this.props.tables);
         const recordData = {
@@ -98,7 +103,8 @@ class Tools extends Component {
             keyPressRecordHandler: this.keyPressRecordHandler,
             keyPressSimpleRecordHandler: this.keyPressSimpleRecordHandler,
             blurRecordHandler: this.blurRecordHandler,
-            blurRecordComponentHandler: this.blurRecordComponentHandler
+            blurRecordComponentHandler: this.blurRecordComponentHandler,
+            changeCheckboxHandler: this.changeCheckboxHandler
         };
         return (
             <div onClick={() => {
