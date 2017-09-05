@@ -44,6 +44,7 @@ function dashboardReducer(state = initState, action) {
                 tables: R.map((table) => {
                     let tempObj = R.dissoc('isActive', table);
                     tempObj.isActive = table._id === action.tableId;
+                    tempObj.currentView = table.views[0].view._id;
                     return tempObj;
                 })(state.tables),
             },
@@ -117,11 +118,12 @@ function dashboardReducer(state = initState, action) {
 
     case 'SWITCH_TABLE': {
         return R.mergeAll([
-            R.dissoc('tables', R.dissoc('currentView', state)),
+            R.dissoc('tables', state),
             {
                 tables: R.map((table) => {
-                    let newObj = R.dissoc('isActive', table);
+                    let newObj = R.omit(['isActive', 'currentView'], table);
                     newObj.isActive = table._id === action.tableId;
+                    newObj.currentView = table.views[0].view._id;
                     return newObj;
                 })(state.tables),
             },
@@ -161,6 +163,7 @@ function dashboardReducer(state = initState, action) {
                     if (table._id === action.changedTable._id) {
                         const changedTable = action.changedTable;
                         changedTable.isActive = true;
+                        changedTable.currentView = table.currentView;
                         return changedTable;
                     }
                     return table;
@@ -410,8 +413,41 @@ function dashboardReducer(state = initState, action) {
         ]);
     }
 
-    case 'ADD_VIEW_SUCCEEDED':
-    case 'DELETE_VIEW_SUCCEEDED':
+    case 'ADD_VIEW_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        const viewsCount = action.table.views.length;
+                        const newTable = action.table;
+                        newTable.isActive = true;
+                        newTable.currentView = action.table.views[viewsCount - 1].view._id;
+                        return newTable;
+                    }
+                    return table;
+                })(state.tables)
+            }
+        ]);
+    }
+
+    case 'DELETE_VIEW_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        const newTable = action.table;
+                        newTable.isActive = true;
+                        newTable.currentView = action.table.views[0].view._id;
+                        return newTable;
+                    }
+                    return table;
+                })(state.tables)
+            }
+        ]);
+    }
+
     case 'FILTER_RECORDS_SUCCEEDED': {
         return R.mergeAll([
             R.dissoc('tables', state),

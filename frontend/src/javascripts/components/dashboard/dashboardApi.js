@@ -97,7 +97,7 @@ const addView = ({tableId, viewType}) => {
 };
 
 const deleteView = ({tableId, viewId, viewType}) => {
-    return axios.delete(url + '/tables/' + tableId + '/views/' + viewId, {tableId, viewId, viewType})
+    return axios.delete(url + '/tables/' + tableId + '/views/' + viewId + '/' + viewType)
         .then((response) => response.data)
         .catch(R.tap(console.error));
 };

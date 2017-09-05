@@ -227,9 +227,9 @@ function* addTableView(action) {
 function* deleteTableView(action) {
     try {
         const table = yield call(deleteView, action);
-        yield put({type: 'ADD_VIEW_SUCCEEDED', table});
+        yield put({type: 'DELETE_VIEW_SUCCEEDED', table});
     } catch (err) {
-        yield put({type: 'ADD_VIEW_FAILED', message: err.message});
+        yield put({type: 'DELETE_VIEW_FAILED', message: err.message});
     }
 }
 

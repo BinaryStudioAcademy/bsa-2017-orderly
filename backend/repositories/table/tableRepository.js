@@ -250,7 +250,10 @@ class TableRepository extends Repository {
                     tableId,
                     {'$pull': {views: {view: viewId}}},
                     {'new': true}
-                );
+                )
+                    .populate('records.history.collaborator')
+                    .populate('records.comments.collaborator')
+                    .populate('views.view');
             });
         });
     }
