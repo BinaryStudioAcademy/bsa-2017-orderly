@@ -126,6 +126,10 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
 	      case 'attachment':
 		        record = <Attachment {...fieldPayload}/>;
 		        break;
+
+	    case 'attachment':
+		    record = <Attachment {...fieldPayload}/>;
+		    break;
         case 'multiple':
             record = <MultipleSelect {...fieldPayload}/>;
             break;
@@ -243,6 +247,7 @@ export default class GridContent extends Component {
                                     index={fieldIndex}
                                     records={records}
                                     recordData={this.props.recordData}
+                                    showFieldMenu={this.props.showFieldMenu}
                                     changeFieldType={this.props.changeFieldType}
                                     changeFieldOptions={this.props.changeFieldOptions}
                                     changeFieldName={this.props.changeFieldName}
