@@ -8,17 +8,22 @@ class Percent extends Field {
   constructor(props) {
     super(props);
     this.state = { 
-        percent: '' 
+        percent: '',
+        precision: '' 
     }
 }
-  
+    componentWillReceiveProps(nextProps) {
+        this.setState({ 
+            precision: nextProps.currentField.options.percent
+            });
+    }
   renderActiveField() {
     return (
         <NumberFormat className='percent-input' 
             thousandSeparator={true} suffix={'%'}
             value={this.state.percent}
             onChange={(event) => this.setState({percent: event.target.value})}
-            decimalPrecision={1}
+            decimalPrecision={this.state.precision}
             onBlur={(event) => this.props.onBlurComponent(this.props.id, event.target.value)}
             autoFocus={this.props.autoFocus}
         />

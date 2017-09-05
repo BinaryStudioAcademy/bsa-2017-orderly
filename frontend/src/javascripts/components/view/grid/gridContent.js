@@ -14,6 +14,7 @@ import Email from './fields/email/email';
 import Percent from './fields/percent/percent';
 import Phone from './fields/phone/phone';
 import Attachment from './fields/attachment/attachment';
+import MultipleSelect from './fields/multiple/multiple';
 import Checkbox from './fields/checkbox/checkbox';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
@@ -55,6 +56,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                                    id={record.record_data[index]._id}
                                    uploadAttachment={uploadAttachment}
                                    recordIdx={idx}
+                                   currentRecord={record.record_data[index]}
                                    type={type}
                                    data={record.record_data[index].data}
                                    recordData={recordData}
@@ -71,10 +73,11 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
 };
 
 const RecordItem = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList, searchFoundIndex, uploadAttachment, tableId,
-	                    deleteFile}) => {
+	                    deleteFile, currentRecord}) => {
     const fieldPayload = {
         id: id,
         value: data,
+        currentRecord: currentRecord,
         tableId: tableId,
         currentField: currentField,
 	    uploadAttachment: uploadAttachment,
@@ -125,6 +128,9 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
 	    case 'attachment':
 		    record = <Attachment {...fieldPayload}/>;
 		    break;
+        case 'multiple':
+            record = <MultipleSelect {...fieldPayload}/>;
+            break;
         case 'checkbox':
             const fieldPayloadCheckbox = {...fieldPayload, ...{onActivate: () => {}} };
             record = <Checkbox {...fieldPayloadCheckbox}/>;
