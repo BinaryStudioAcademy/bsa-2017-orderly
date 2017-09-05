@@ -24,7 +24,6 @@ class BaseRepository extends Repository {
         for ( let table in tables) {
             newTables[table] = tables[table]._id
         }
-        console.log(newTables)
         return this.model.findByIdAndUpdate(
             baseId,
             {tables: newTables}

@@ -27,20 +27,6 @@ function* addingBase(action) {
     }
 }
 
-// function* cloneTables(action) {
-//     try {
-//         const payload = {};
-//         payload.tables = yield call(getViewsByIds, action.tablesId);
-//         payload.base = action.table;
-
-//         let team = yield call(cloneBaseToTeam, payload);
-
-//         yield put({ type: 'ADD_NEW_BASE_TO_TEAM_SUCCEEDED', team: team});
-//     } catch (err) {
-//         yield put({ type: 'CLONE_NEW_BASE_TO_TEAM_FAILED', message: err.message});
-//     }
-// }
-
 function* cloneBase(action) {
     try {
         const payload = {};
