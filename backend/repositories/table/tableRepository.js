@@ -107,6 +107,9 @@ class TableRepository extends Repository {
     }
 
     addField(tableId, field) {
+        this.model.findById(tableId).populate('views.view').then((t) => {
+            console.log(t);
+        });
         return this.model.findByIdAndUpdate(
             tableId,
             {'$push': {fields: field}},
@@ -240,7 +243,7 @@ class TableRepository extends Repository {
 				return record
 				})(table.records)
             )
-			.then(newRecords => this.model.findByIdAndUpdate(tableId, {records: newRecords}, {'new': true}))
+			.then(newRecords => this.model.findByIdAndUpdate(tableId, {records: newRecords}, {'new': true}).populate('views.view'))
     }
 
     deleteView(tableId, viewId, viewType) {
