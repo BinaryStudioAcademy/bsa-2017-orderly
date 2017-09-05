@@ -96,6 +96,8 @@ export default class View extends Component {
                 deleteView={() => this.handleDeleteView()}
                 viewsCount={viewsCount}
             />;
+        case 'kanban':
+            return <div>Kanban</div>
         default:
             return <InDeveloping/>;
         }
