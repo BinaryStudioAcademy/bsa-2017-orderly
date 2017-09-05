@@ -13,15 +13,17 @@ import Email from '../grid/fields/email/email';
 import Percent from '../grid/fields/percent/percent';
 import Phone from '../grid/fields/phone/phone';
 import Attachment from '../grid/fields/attachment/attachment';
+import MultipleSelect from '../grid/fields/multiple/multiple';
 import Checkbox from '../grid/fields/checkbox/checkbox';
 import HistoryList from './components/history/historyList';
 import CommentsBlock from './components/comments/commentsBlock';
 import {fieldIcons, fieldNames} from "../../configuration/fieldTypes";
 
-const Recordtem = ({id, type, data, recordData, uploadAttachment, deleteFile, currentField, recordIdx}) => {
+const Recordtem = ({id, type, data, tableId, recordData, uploadAttachment, deleteFile, currentField, recordIdx}) => {
     const fieldPayload = {
         id: id,
         value: data,
+        tableId: tableId,
         currentField: currentField,
         uploadAttachment: uploadAttachment,
         deleteFile: deleteFile,
@@ -71,6 +73,9 @@ const Recordtem = ({id, type, data, recordData, uploadAttachment, deleteFile, cu
         case 'attachment':
             record = <Attachment {...fieldPayload}/>;
             break;
+        case 'multiple':
+            record = <MultipleSelect {...fieldPayload}/>;
+            break;
         case 'checkbox':
             const fieldPayloadCheckbox = {...fieldPayload, ...{onSelect: recordData.selectRecordHandler} };
             record = <Checkbox {...fieldPayloadCheckbox}/>;
@@ -107,6 +112,7 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
                                         data={recordItem.data} recordData={recordData}
                                         uploadAttachment={uploadAttachment} deleteFile={deleteFile}
                                         currentField={fields[fieldIndex]} recordIdx={recordIdx}
+                                        tableId={tableId}
                                 />
                             </div>
                         )

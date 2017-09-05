@@ -72,8 +72,8 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
     );
 };
 
-const RecordItem = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList, searchFoundIndex, uploadAttachment, tableId,
-	                    deleteFile, currentRecord}) => {
+const RecordItem = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList,
+                     searchFoundIndex, uploadAttachment, tableId, deleteFile, currentRecord}) => {
     const fieldPayload = {
         id: id,
         value: data,

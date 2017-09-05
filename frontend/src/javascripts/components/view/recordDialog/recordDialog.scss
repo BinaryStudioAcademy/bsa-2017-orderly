@@ -176,12 +176,16 @@
       height: 100%;
       display: inline-block;
       margin-bottom: 15px;
-    }
 
-    .attachment_selected {
-      top: 0;
-      left: 0;
-      border: 2px solid rgba(0,0,0,0.15);
+      .attachment_selected {
+        top: 0;
+        left: 0;
+        border: 2px solid rgba(0, 0, 0, 0.15);
+      }
+
+      .add_file_btn {
+        z-index: 0!important;
+      }
     }
 
     .autonumber-wrapper {
@@ -216,6 +220,120 @@
       i.checkbox-checked {
         top: 5px;
         left: 6px;
+      }
+    }
+
+    .single-select-container {
+      height: 32px;
+
+      .Select {
+        height: 32px !important;
+      }
+      .Select-control {
+        height: 32px !important;
+        position: relative;
+        border: 2px solid rgba(0, 0, 0, 0.15)!important;
+
+        .Select-multi-value-wrapper {
+          width: 100%;
+          height: 32px;
+          display: block;
+          position: absolute;
+          top: 7px;
+
+          .Select-input {
+            width: 100%;
+            height: 32px!important;
+            display: block;
+
+            input {
+              width: 100% !important;
+              height: 100%;
+              display: block;
+              padding: 0;
+              border: none;
+              outline: none;
+            }
+          }
+
+          .Select-placeholder {
+            top: -3px;
+          }
+        }
+
+        .Select-arrow-zone {
+          height: 32px!important;
+          position: absolute;
+          top: 5px;
+          right: 0;
+        }
+      }
+
+      .Select-value-label {
+        width: 100%;
+        height: 32px;
+        display: block;
+      }
+    }
+
+    .multiple-select-container {
+      height: 32px;
+
+      .Select {
+        height: 32px !important;
+      }
+      .Select-control {
+        height: 32px !important;
+        position: relative;
+        border: 2px solid rgba(0, 0, 0, 0.15)!important;
+
+        .Select-multi-value-wrapper {
+          width: 100%;
+          height: 32px;
+          display: block;
+          position: absolute;
+          top: 12px;
+
+          .Select-value {
+            height: 24px;
+          }
+          .Select-value-label {
+            width: inherit;
+            height: inherit;
+            display: inherit;
+          }
+          .Select-placeholder {
+            top: -6px;
+            height: 32px;
+          }
+
+          .Select-input {
+            width: 100%;
+            height: 32px!important;
+            display: block;
+
+            input {
+              width: 100% !important;
+              height: 100%;
+              display: block;
+              padding: 0;
+              border: none;
+              outline: none;
+            }
+          }
+        }
+
+        .Select-arrow-zone {
+          height: 32px!important;
+          position: absolute;
+          top: 12px;
+          right: 0;
+        }
+      }
+      .Select-value-label {
+        width: 100%;
+        height: 32px;
+        display: block;
       }
     }
   }
