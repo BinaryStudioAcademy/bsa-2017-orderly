@@ -1,0 +1,41 @@
+.filter__button {
+  padding: 0 !important;
+}
+
+.button__items {
+  padding: 10px 20px;
+}
+
+.filter__menu {
+  display: flex;
+  align-items: baseline;
+  max-width: 50rem;
+  background-color: #FFF;
+  border: 1px solid #AAA;
+  border-radius: 4px;
+  padding: 5px 10px;
+  z-index: 5;
+  position: absolute;
+  top: 159px;
+  left: 275px;
+}
+
+.menu__item {
+  margin: 5px;
+}
+
+.item__select {
+  max-width: 150px;
+}
+
+.item__conditions {
+  display: inline-flex;
+}
+
+.item__input {
+  min-width: 100px;
+  width: 100%;
+}
+.hide {
+  display: none;
+}

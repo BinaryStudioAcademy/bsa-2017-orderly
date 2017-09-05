@@ -11,8 +11,9 @@ import Dashboard from '../components/dashboard/dashboard';
 import SignUp from '../components/auth/signUp/signUp';
 import Login from '../components/auth/login/login';
 import Logout from '../components/auth/logout/logout';
+import Forgot from '../components/auth/forgot/forgot';
+import Reset from '../components/auth/reset/reset';
 import Auth from '../components/auth/auth';
-import View from '../components/view/view';
 
 export default (
     <Route path="/" component={App}>
@@ -22,7 +23,8 @@ export default (
         <Route path="/signup" component={SignUp}/>
         <Route path="/login" component={Login}/>
         <Route path="/logout" component={Logout}/>
-        <Route path="/view" component={View}/>
+        <Route path="/forgot" component={Forgot}/>
+        <Route path="/reset/:token" component={Reset}/>
         <Route path="404" component={NotFound}/>
         <Redirect from="*" to="404"/>
     </Route>

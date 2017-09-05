@@ -5,8 +5,9 @@ import login from '../components/auth/login/loginReducer';
 import dashboardReducer from '../components/dashboard/dashboardReducer';
 import userProfile from '../components/userProfile/userProfileReducer';
 import baseStore from '../components/homePage/homePageReducer';
-import view from '../components/view/viewReducer';
-import grid from '../components/view/grid/gridReducer';
+import formView from '../components/view/form/formViewReducer';
+import forgot from '../components/auth/forgot/forgotReducer';
+import reset from '../components/auth/reset/resetReducer';
 
 export default combineReducers({
     routing,
@@ -14,7 +15,8 @@ export default combineReducers({
     login,
     dashboardReducer,
     userProfile,
-    view,
     baseStore,
-    grid
+    formView,
+    forgot,
+    reset
 });

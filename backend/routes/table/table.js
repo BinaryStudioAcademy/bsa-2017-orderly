@@ -2,13 +2,19 @@ const router = require('express').Router();
 const R = require('ramda');
 
 const tableRepository = require('../../repositories/table/tableRepository');
-const { defaultTable } = require('../../config/defaultTable');
+const gridRepository = require('../../repositories/view/gridRepositories');
+const formRepository = require('../../repositories/view/formRepositories');
+const {defaultTable, defaultGridView, defaultFormView} = require('../../config/defaultEntities');
 
-
-// tables
+// tables -------------------------------------
 router.post('/', (request, response, next) => {
-    let newTable = request.body || defaultTable;
-    tableRepository.add(R.merge(newTable, request.body))
+    let newTable = request.body || defaultTable();
+    return Promise.all(
+        [
+            tableRepository.add(R.merge(newTable, request.body)),
+            gridRepository.add(defaultGridView())
+        ])
+        .then(([table, view]) => tableRepository.addView(table._id, view._id, view.type))
         .then((table) => response.status(201).send(table))
         .catch((error) => {
             response.status(400);
@@ -61,7 +67,7 @@ router.delete('/:id', (request, response, next) => {
         });
 });
 
-// records
+// records -------------------------------------
 router.get('/:id/records', (request, response) => {
     tableRepository.getRecords(request.params.id)
         .then((records) => response.status(200).send(records))
@@ -95,7 +101,7 @@ router.delete('/:id/records/:recordId', (request, response) => {
         .catch((err) => response.sendStatus(500).send(err));
 });
 
-// field
+// fields -------------------------------------
 router.get('/:id/fields', (request, response) => {
     tableRepository.getFields(request.params.id)
         .then((fields) => response.status(200).send(fields))
@@ -136,6 +142,62 @@ router.delete('/:id/fields', (request, response) => {
     tableRepository.deleteAllFields(request.params.id)
         .then((result) => response.send(result))
         .catch((err) => response.sendStatus(500).send(err));
+});
+
+// views -------------------------------------
+router.get('/:id/views/:viewId', (request, response) => {
+    tableRepository.getView(request.params.id, request.params.viewId)
+        .then((tables) => response.status(200).send(tables))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.get('/:id/views/', (request, response) => {
+    tableRepository.getViews(request.params.id)
+        .then((tables) => response.status(200).send(tables))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.get('/:id/views/:viewId/:viewType', (request, response) => {
+    tableRepository.getFromView(request.params.viewId, request.params.viewType)
+        .then((tables) => response.status(200).send(tables))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.post('/:id/views', (request, response) => {
+    switch (request.body.viewType) {
+    case 'grid':
+        gridRepository.add(defaultGridView()).then((view) => {
+            tableRepository.addView(request.body.tableId, view._id, view.type)
+                .then((result) => response.status(200).send(result));
+        })
+            .catch((err) => response.status(500).send(err));
+        break;
+    case 'form':
+        formRepository.add(defaultFormView()).then((view) => {
+            tableRepository.addView(request.body.tableId, view._id, view.type)
+                .then((result) => response.status(200).send(result));
+        })
+            .catch((err) => response.status(500).send(err));
+        break;
+    }
+});
+
+router.delete('/:id/views/:viewId/:viewType', (request, response) => {
+    tableRepository.deleteView(request.params.id, request.params.viewId, request.params.viewType)
+        .then((result) => response.status(200).send(result))
+        .catch((err) => response.status(500).send(err));
+});
+
+// filter table -------------------------------------
+
+router.get('/:id/fields/:fieldId/filter/:condition/:query', (request, response) => {
+    tableRepository.filterRecords(
+        request.params.id,
+        request.params.fieldId,
+        request.params.condition,
+        request.params.query)
+        .then((table) => response.status(200).send(table))
+        .catch((error) => response.status(500).send(error));
 });
 
 module.exports = router;

@@ -2,23 +2,23 @@ import React, {Component} from 'react';
 import Header from './header/header';
 import Tabs from './tabs/tabs';
 import View from '../../view/view';
-import {formatFieldsRecords} from "../dashboardService";
+import R from 'ramda';
+import {onGetCoworkersList} from '../../../app/socket';
 
 class Tools extends Component {
     constructor(props) {
         super(props);
         this.props = props;
-
         this.isRecordSelected = this.isRecordSelected.bind(this);
         this.isRecordActive = this.isRecordActive.bind(this);
         this.selectRecordHandler = this.selectRecordHandler.bind(this);
         this.activateRecordHandler = this.activateRecordHandler.bind(this);
-        this.keyDownRecordHandler = this.keyDownRecordHandler.bind(this);
-        this.keyDownSimpleRecordHandler = this.keyDownSimpleRecordHandler.bind(this);
-        this.changeRecordHandler = this.changeRecordHandler.bind(this);
+        this.keyPressRecordHandler = this.keyPressRecordHandler.bind(this);
+        this.keyPressSimpleRecordHandler = this.keyPressSimpleRecordHandler.bind(this);
         this.blurRecordHandler = this.blurRecordHandler.bind(this);
         this.blurRecordComponentHandler = this.blurRecordComponentHandler.bind(this);
-        this.expandRecordHandler = this.expandRecordHandler.bind(this);
+        this.keyPressCommentHandler = this.keyPressCommentHandler.bind(this);
+        this.changeCheckboxHandler = this.changeCheckboxHandler.bind(this);
     }
 
     componentWillMount() {
@@ -26,12 +26,30 @@ class Tools extends Component {
         this.props.getUser();
     }
 
+    componentDidMount() {
+        const _this = this;
+        onGetCoworkersList((coworkersByTables) => {
+            _this.props.getCoworkersList(coworkersByTables, _this.props.currentTableId);
+        });
+
+        this.context.router.listenBefore((location, done) => {
+            if (!location.pathname.startsWith('/dashboard/' + _this.props.baseId + '/')) {
+                _this.props.disconnectSocket();
+            }
+            done(location);
+        });
+
+        window.addEventListener("beforeunload", (event) => {
+            _this.props.disconnectSocket();
+        });
+    }
+
     isRecordSelected(id) {
-        return this.props.selectedRecordId == id;
+        return this.props.selectedRecordItemId === id;
     }
 
     isRecordActive(id) {
-        return this.props.activeRecordId == id;
+        return this.props.activeRecordItemId === id;
     }
 
     selectRecordHandler(id) {
@@ -42,67 +60,68 @@ class Tools extends Component {
         this.props.activateRecord(id);
     }
 
-    keyDownRecordHandler(id, e) {
+    keyPressRecordHandler(id) {
         if (!this.isRecordActive(id)) {
-            this.changeRecordHandler(id, '');
+            this.props.changeRecord(this.props.currentTableId, id, '', this.props.user);
             this.props.activateRecord(id);
         }
     }
 
-    keyDownSimpleRecordHandler(id, e) {
-        this.keyDownRecordHandler(id, e);
+    keyPressSimpleRecordHandler(id, e) {
+        this.keyPressRecordHandler(id, e);
         if (this.isRecordActive(id)) {
-            if (e.keyCode === 13) {
-                this.blurRecordComponentHandler(id);
+            if (e.charCode === 13) {
+                this.blurRecordComponentHandler(id, e.target.value);
             }
         }
-    }
-
-    changeRecordHandler(id, value) {
-        this.props.changeRecord(this.props.currentTableId, id, value);
     }
 
     blurRecordHandler(id) {
         this.props.blurRecord(id);
     }
 
-    blurRecordComponentHandler(id) {
+    blurRecordComponentHandler(id, value) {
+        this.props.changeRecord(this.props.currentTableId, id, value, this.props.user);
         this.props.blurRecordComponent(id);
     }
 
-    expandRecordHandler(id) {
-        //this.props.expandRecord(id);
+    keyPressCommentHandler(userId, recordId, tableId, comment) {
+        this.props.addComment(userId, recordId, tableId, comment);
+    }
+
+    changeCheckboxHandler(id, value) {
+        this.props.changeRecord(this.props.currentTableId, id, value, this.props.user);
     }
 
     render() {
-        let currentTable = this.props.tables.filter((t) => t._id === this.props.currentTableId).pop();
-        let fieldsRecords;
-        if (currentTable) {
-            fieldsRecords = formatFieldsRecords(currentTable.fields, currentTable.records);
-        }
-        const fieldEvents = {
+        const currentTable = R.find(R.propEq('_id', this.props.currentTableId))(this.props.tables);
+        const recordData = {
             isRecordSelected: this.isRecordSelected,
             isRecordActive: this.isRecordActive,
             selectRecordHandler: this.selectRecordHandler,
             activateRecordHandler: this.activateRecordHandler,
-            keyDownRecordHandler: this.keyDownRecordHandler,
-            keyDownSimpleRecordHandler: this.keyDownSimpleRecordHandler,
-            changeRecordHandler: this.changeRecordHandler,
+            keyPressRecordHandler: this.keyPressRecordHandler,
+            keyPressSimpleRecordHandler: this.keyPressSimpleRecordHandler,
             blurRecordHandler: this.blurRecordHandler,
             blurRecordComponentHandler: this.blurRecordComponentHandler,
-            expandRecordHandler: this.expandRecordHandler
-        }
+            changeCheckboxHandler: this.changeCheckboxHandler
+        };
         return (
             <div onClick={() => {
-                this.props.closeMenu();
+                // this.props.closeMenu();
             }}>
-                <Header base={this.props.base} user={this.props.user}/>
+                <Header base={this.props.base}
+                        user={this.props.user}
+                        menu={this.props.menu}
+                        handleClick={this.props.handleClick}/>
                 <Tabs base={this.props.base}
+                      currentTableId={this.props.currentTableId}
+                      tables={this.props.tables}
+                      tableIdActiveModal={this.props.tableIdActiveModal}
+                      setTableIdToActiveModal={this.props.setTableIdToActiveModal}
                       activeModal={this.props.activeModal}
                       setTabsModal={this.props.setTabsModal}
-                      tables={this.props.tables}
                       addPopupIsOpen={this.props.addPopupIsOpen}
-                      currentTableId={this.props.currentTableId}
                       openMenu={this.props.openMenu}
                       closeMenu={this.props.closeMenu}
                       switchTableClick={this.props.switchTableClick}
@@ -111,11 +130,49 @@ class Tools extends Component {
                       checkTableName={this.props.checkTableName}
                       updateTable={this.props.updateTable}
                       deleteTable={this.props.deleteTable}
-                      addTableClick={this.props.addTableClick}/>
-                <View currentTable={currentTable} fieldsRecords={fieldsRecords} fieldEvents={fieldEvents}/>
+                      addTableClick={this.props.addTableClick}
+                      coworkers={this.props.coworkers}
+                      user={this.props.user}/>
+                {currentTable &&
+                <View currentTable={currentTable}
+                      tables={this.props.tables}
+                      recordData={recordData}
+                      openRecordDialog={this.props.openRecordDialog}
+                      recordDialogIndex={this.props.recordDialogIndex}
+                      keyPressCommentHandler={this.keyPressCommentHandler}
+                      uploadAttachment={this.props.uploadAttachment}
+                      deleteFile={this.props.deleteFile}
+                      user={this.props.user}
+                      onChangeSearch={this.props.changeSearch}
+                      searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                      searchFoundIndex={this.props.searchFoundIndex}
+                      onChangeSearchFoundIndex={this.props.changeSearchFoundIndex}
+                      onToggleSearch={this.props.toggleSearch}
+                      searchBlockOpen={this.props.searchBlockOpen}
+                      currentView={currentTable.currentView}
+                      addRecord={this.props.addRecord}
+                      addField={this.props.addField}
+                      changeFieldType={this.props.changeFieldType}
+                      changeFieldName={this.props.changeFieldName}
+                      changeFieldOptions={this.props.changeFieldOptions}
+                      deleteField={this.props.deleteField}
+                      deleteRecord={this.props.deleteRecord}
+                      changeView={this.props.changeView}
+                      sortRecords={this.props.sortRecords}
+                      filterRecords={this.props.filterRecords}
+                      filteredRecords={this.props.filteredRecords}
+                      removeFilter={this.props.removeFilter}
+                      addView={this.props.addView}
+                      deleteView={this.props.deleteView}
+                />
+                }
             </div>
         );
     }
 }
+
+Tools.contextTypes = {
+    router: React.PropTypes.object.isRequired
+};
 
 export default Tools;

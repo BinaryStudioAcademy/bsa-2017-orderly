@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const baseRepository = require('../../repositories/base/baseRepository');
 const tableRepository = require('../../repositories/table/tableRepository');
-const { defaultTable } = require('../../config/defaultTable');
+const {defaultTable} = require('../../config/defaultEntities');
 
 router.get('/', (req, res) => {
     baseRepository.getAll().then((bases) => {
@@ -20,24 +20,22 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => Promise.all(
-	[baseRepository.add(req.body),
-	tableRepository.add(defaultTable)
-])
-	.then( ([base, table]) => baseRepository.addTableToBase(base._id, table._id))
-	.then( (result) => res.status(200).send(result))
-	.catch( (err) => res.status(500).send(err))
+    [
+        baseRepository.add(req.body),
+        tableRepository.add(defaultTable()),
+    ])
+    .then(([base, table]) => baseRepository.addTableToBase(base._id, table._id))
+    .then((base) => res.status(200).send(base))
+    .catch((err) => res.status(500).send(err))
 );
 
 router.delete('/:id', (req, res) => {
-    baseRepository.remove(req.params.id).then((result) => {
-        res.status(200).send(result);
-    }).catch((err) => {
-        res.status(500).send(err);
-    });
-
+    baseRepository.remove(req.params.id)
+        .then((result) => res.status(200).send(result))
+        .catch((err) => res.status(500).send(err));
 });
 
-router.put('/:id', function (req, res) {
+router.put('/:id', (req, res) => {
     baseRepository.update(req.params.id, req.body).then((result) => {
         res.status(result ? 200 : 400).send(result);
     }).catch((err) => {

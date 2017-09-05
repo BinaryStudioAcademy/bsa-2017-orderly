@@ -24,7 +24,7 @@ const UserSchema = new Schema({
     },
     "avatar" : {
         "type": String,
-        "default": "avatar"
+        "trim": true
     },
     "country" : {
         "type": String,
@@ -40,7 +40,9 @@ const UserSchema = new Schema({
     },
     "phone" : Number,
     "gender" : String,
-    "birthday": Date
+    "birthday": Date,
+    "reset_password_token": String,
+    "reset_password_expires": Date
 }, {versionKey: false});
 
 UserSchema.pre('findOneAndUpdate', function(next) {

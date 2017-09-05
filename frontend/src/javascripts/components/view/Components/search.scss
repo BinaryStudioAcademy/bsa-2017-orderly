@@ -1,0 +1,46 @@
+#search-block {
+  display: flex;
+  justify-content: space-between;
+  width: 299px;
+  padding-right: 25px;
+  border: 2px solid rgba(0, 0, 0, 0.12);
+
+  input {
+    width: 176px;
+    outline: 0;
+    padding: .5rem;
+    font-size: 13px;
+    line-height: 18px;
+    border: none;
+  }
+
+  span:last-child {
+    padding-top: 4px;
+
+    .found-counts {
+      font-size: 11px;
+      margin-right: 6px;
+      opacity: 0.75;
+      user-select: none;
+    }
+
+    i {
+      width: 20px;
+      height: 14px;
+      cursor: pointer;
+      opacity: 0.6;
+      margin: 0;
+    }
+
+    i:hover {
+      opacity: 1;
+    }
+
+    i.close.icon {
+      position: absolute;
+      right: 76px;
+      top: 11px;
+      font-size: 14px;
+    }
+  }
+}

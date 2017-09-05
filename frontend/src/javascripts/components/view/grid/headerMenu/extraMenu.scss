@@ -1,0 +1,56 @@
+.extra__button {
+  padding: 0 !important;
+}
+
+.button__items {
+  padding: 10px 20px;
+}
+
+.grid__extra-menu {
+  display: flex;
+  flex-flow: column;
+  align-items: left;
+  color: #FFF;
+  background-color: #333;
+  border: 1px solid #AAA;
+  border-radius: 4px;
+  padding: 5px;
+  z-index: 5;
+  position: absolute;
+  top: 159px;
+  left: 590px;
+}
+
+.extra-menu__item {
+  text-align: left;
+  border-radius: 4px;
+  width: 100%;
+  cursor: pointer;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.extra-menu__item:last-child {
+  margin-bottom: 0;
+}
+
+.extra-menu__item:hover {
+  background-color: #555;
+}
+
+.item__span {
+  vertical-align: baseline;
+}
+
+.hide {
+  display: none;
+}
+
+.item__disabled {
+  color: #BBB;
+  cursor: default;
+}
+
+.item__disabled:hover {
+  background-color: #333;
+}

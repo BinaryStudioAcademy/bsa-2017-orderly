@@ -1,0 +1,47 @@
+.url {
+  .ui {
+    height: 100%;
+  }
+}
+.url.selected {
+  width: 100%;
+  line-height: 14px;
+
+  &:focus {
+    outline: none;
+  }
+
+  .url_link {
+    background-color: #fff;
+    position: absolute;
+    display: block;
+    margin-top: 7px;
+    margin-left: 9px;
+    color: #4183c4;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+.table-cell-wrap{
+  position: relative;
+}
+
+.url {
+  .table-cell-wrap {
+    .table-cell-inner {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 4px 10px;
+      height: 100%;
+      width: 100%;
+      line-height: 24px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
