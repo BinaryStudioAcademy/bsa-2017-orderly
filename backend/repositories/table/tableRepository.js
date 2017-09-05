@@ -121,7 +121,7 @@ class TableRepository extends Repository {
             field.type = data.fieldType || field.type;
             field.name = data.fieldName || field.name;
             
-            if (data.type == 'CHANGE_FIELD_OPTIONS') {
+            if (data.type === 'CHANGE_FIELD_OPTIONS') {
                 switch (data.currentValue) {
                     case 'select':
                         field.options.select = data.fieldOption || field.options.select;
@@ -221,8 +221,7 @@ class TableRepository extends Repository {
     }
 
     updateRecordById(tableId, record_dataId, fileName, isDelete) {
-
-	    return this.model.findById(tableId)
+        return this.model.findById(tableId)
 			.then(table => R.map( record => {
 				record.record_data = R.map(data => {
 					if (data._id == record_dataId) {

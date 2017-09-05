@@ -39,8 +39,8 @@ export default class View extends Component {
         }
     };
 
-    handleChangeView = (id) => {
-        this.props.changeView(id);
+    handleChangeView = (viewId) => {
+        this.props.changeView(this.props.currentTable._id, viewId);
         this.handleClickOnMenu();
     };
 
