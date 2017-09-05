@@ -9,7 +9,7 @@ const viewReps = {
     form: require('../../repositories/view/formRepositories'),
     kanban: require('../../repositories/view/kanbanRepositories'),
     gallery: require('../../repositories/view/galleryRepositories')
-}
+};
 
 // tables -------------------------------------
 router.post('/', (request, response, next) => {
@@ -17,7 +17,7 @@ router.post('/', (request, response, next) => {
     return Promise.all(
         [
             tableRepository.add(R.merge(newTable, request.body)),
-	        viewReps['grid'].add(defaultViews['grid'])
+            viewReps['grid'].add(defaultViews['grid'])
         ])
         .then(([table, view]) => tableRepository.addView(table._id, view._id, view.type))
         .then((table) => response.status(201).send(table))
@@ -169,12 +169,11 @@ router.get('/:id/views/:viewId/:viewType', (request, response) => {
 });
 
 router.post('/:id/views', (request, response) => {
-    const typeOfView = request.body.viewType
-	viewReps[typeOfView].add(defaultViews[typeOfView])
+    const typeOfView = request.body.viewType;
+    viewReps[typeOfView].add(defaultViews[typeOfView])
 		.then((view) => tableRepository.addView(request.body.tableId, view._id, view.type))
 		.then((result) => response.status(200).send(result))
-		.catch((err) => response.status(500).send(err))
-
+		.catch((err) => response.status(500).send(err));
 });
 
 router.delete('/:id/views/:viewId/:viewType', (request, response) => {

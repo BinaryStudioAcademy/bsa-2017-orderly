@@ -126,24 +126,24 @@ class TableRepository extends Repository {
             
             if (data.type === 'CHANGE_FIELD_OPTIONS') {
                 switch (data.currentValue) {
-                    case 'select':
-                        field.options.select = data.fieldOption || field.options.select;
-                        break;
-                    case 'number':
-                        field.options.number = data.fieldOption || field.options.number;
-                        break;
-                    case 'currency':
-                        field.options.currency = data.fieldOption || field.options.currency;
-                        break;
-                    case 'date':
-                        field.options.date = data.fieldOption || field.options.date;
-                        break;
-                    case 'percent':
-                        field.options.percent = data.fieldOption || field.options.percent;
-                        break;
-                    case 'multiple':
-                        field.options.multiple = data.fieldOption || field.options.multiple;
-                        break;
+                case 'select':
+                    field.options.select = data.fieldOption || field.options.select;
+                    break;
+                case 'number':
+                    field.options.number = data.fieldOption || field.options.number;
+                    break;
+                case 'currency':
+                    field.options.currency = data.fieldOption || field.options.currency;
+                    break;
+                case 'date':
+                    field.options.date = data.fieldOption || field.options.date;
+                    break;
+                case 'percent':
+                    field.options.percent = data.fieldOption || field.options.percent;
+                    break;
+                case 'multiple':
+                    field.options.multiple = data.fieldOption || field.options.multiple;
+                    break;
                 }
             }
             
@@ -192,42 +192,39 @@ class TableRepository extends Repository {
         return viewModel.findById(objectId(viewId));
     }
 
-	addView(tableId, viewId, viewType) {
-		return this.getFromView(viewId, viewType)
-			.then((view) => {
-				switch (viewType) {
-					case 'grid':
-					case 'form':
-					case 'kanban':
-						this.getFields(tableId).then((fields) => {
-							fields.fields.map((f, ind) => {
-								switch (viewType) {
-									case 'grid':
-										console.log('IN GRID CASE')
-										view.fields_config.push({field: f._id, size: 155, position: ind + 1})
-										break
-									case 'form':
-										console.log('IN FORM CASE')
-										view.fields_config.push({field: f._id, position: ind + 1, included: false})
-										break
-									case 'kanban':
-											console.log('IN KANBAN CASE')
-											view.fields_config.push({field: f._id})
-											break
-								}
-							})
-							view.save()
-						})
-						break
-				}
-			}).then(() => {
-				return this.model.findByIdAndUpdate(
-					tableId,
-					{'$push': {views: {view: viewId, type: viewType}}},
-					{'new': true}
-				).populate('views.view')
-			})
-	}
+    addView(tableId, viewId, viewType) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            switch (viewType) {
+            case 'grid':
+            case 'form':
+            case 'kanban':
+                this.getFields(tableId).then((fields) => {
+                    fields.fields.map((f, ind) => {
+                        switch (viewType) {
+                        case 'grid':
+                            view.fields_config.push({field: f._id, size: 155, position: ind + 1});
+                            break;
+                        case 'form':
+                            view.fields_config.push({field: f._id, position: ind + 1, included: false});
+                            break;
+                        case 'kanban':
+                            console.log('IN KANBAN CASE');
+                            view.fields_config.push({field: f._id});
+                            break;
+                        }
+                    });
+                    view.save();
+                });
+                break;
+            }
+        }).then(() => {
+            return this.model.findByIdAndUpdate(
+                tableId,
+                {'$push': {views: {view: viewId, type: viewType}}},
+                {'new': true}
+            ).populate('views.view');
+        });
+    }
 
     updateRecordById(tableId, record_dataId, fileName, isDelete) {
         return this.model.findById(tableId)
