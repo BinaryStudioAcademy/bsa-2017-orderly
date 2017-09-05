@@ -9,12 +9,18 @@ class AutoNumber extends Field {
 	}
 
 	renderActiveField() {
-		return <span className='autonumber'
-            onBlur={(event) => this.blurHandler(this.props.id, event)}
-        >{this.props.recordIdx + 1}</span>;
+		return (
+			<div className="autonumber-wrapper">
+				<span className='autonumber'>{this.props.recordIdx + 1}</span>
+			</div>
+		)
 	}
 	renderField() {
-		return <span className='autonumber'>{this.props.recordIdx + 1}</span>
+        return (
+			<div className="autonumber-wrapper">
+				<span className='autonumber'>{this.props.recordIdx + 1}</span>
+			</div>
+        )
 	}
 }
 

@@ -9,15 +9,6 @@ export default class Search extends Component {
         this.keyDownHandler = this.keyDownHandler.bind(this);
     }
 
-    componentDidMount() {
-        window.addEventListener("keydown",function (e) {
-            if (e.keyCode === 114 || (e.ctrlKey && e.keyCode === 70)) {
-                e.preventDefault();
-                this.props.onToggleSearch();
-            }
-        });
-    }
-
     keyDownHandler(event) {
         if (event.keyCode === 13 || event.keyCode === 114) {
             event.preventDefault();

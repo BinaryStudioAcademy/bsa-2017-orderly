@@ -18,11 +18,11 @@ class SingleSelect  extends Field {
         let i = 0;
         for (let option in propsOptions) {
         options.push({
-                value: i++, 
+                value: i++,
                 label: propsOptions[option],
             })
         }
-        this.setState({ 
+        this.setState({
             options: options
         });
     }

@@ -7,7 +7,7 @@ class Phone extends Field {
   constructor(props) {
     super(props);
     this.state = { 
-        phone: '' 
+        phone: this.props.value
     }
 }
   
@@ -19,7 +19,7 @@ class Phone extends Field {
             value={this.state.phone}
             onChange={(event) => this.setState({phone: event.target.value})}
             onBlur={(event) => this.props.onBlurComponent(this.props.id, event.target.value)}
-            autoFocus={true}
+            autoFocus={this.props.autoFocus}
         />
     )
   }  

@@ -16,7 +16,10 @@ class FormView extends Component {
     render() {
         return (
             <div className='form-view-wrapper-page'>
-                <FormViewHeader/>
+                <FormViewHeader
+                    deleteView={this.props.deleteView}
+                    viewsCount={this.props.viewsCount}
+                />
                 <div className='form-mega-wrapper'>
                     <div className='form-body-wrapper'>
                         <FormAvailableFields currentTable={this.props.currentTable}

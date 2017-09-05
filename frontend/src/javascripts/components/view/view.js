@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Icon} from 'semantic-ui-react';
+import R from 'ramda';
 import Grid from './grid/grid';
 import FormView from './form/formView';
 import {viewIcons} from '../configuration/viewTypes';
@@ -39,16 +40,23 @@ export default class View extends Component {
         }
     };
 
-    handleChangeView = (id) => {
-        this.props.changeView(id);
+    handleChangeView = (viewId) => {
+        this.props.changeView(this.props.currentTable._id, viewId);
         this.handleClickOnMenu();
     };
 
     handleAddView = (viewType) => {
         this.props.addView(this.props.currentTable._id, viewType);
+        this.handleClickOnMenu();
+    };
+
+    handleDeleteView = () => {
+        const view = this.props.currentTable.views.find((v) => v.view._id === this.props.currentView);
+        this.props.deleteView(this.props.currentTable._id, this.props.currentView, view.type);
     };
 
     viewSelector(listOfViews) {
+        const viewsCount = listOfViews.length;
         const activeView = listOfViews.find((v) => v.view._id === this.props.currentView);
         switch (activeView.type) {
         case 'grid':
@@ -79,10 +87,14 @@ export default class View extends Component {
                 onChangeSearchFoundIndex={this.props.onChangeSearchFoundIndex}
                 onToggleSearch={this.props.onToggleSearch}
                 searchBlockOpen={this.props.searchBlockOpen}
+                deleteView={() => this.handleDeleteView()}
+                viewsCount={viewsCount}
             />;
         case 'form':
             return <FormView
                 currentTable={this.props.currentTable}
+                deleteView={() => this.handleDeleteView()}
+                viewsCount={viewsCount}
             />;
         default:
             return <InDeveloping/>;

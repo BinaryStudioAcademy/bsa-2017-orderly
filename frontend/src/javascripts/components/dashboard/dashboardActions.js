@@ -181,9 +181,10 @@ const toggleSearch = () => {
     };
 };
 
-export function changeView(viewId) {
+export function changeView(tableId, viewId) {
     return {
         type: 'CHANGE_VIEW',
+        tableId,
         viewId
     };
 }
