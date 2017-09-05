@@ -9,7 +9,6 @@ class Tools extends Component {
     constructor(props) {
         super(props);
         this.props = props;
-
         this.isRecordSelected = this.isRecordSelected.bind(this);
         this.isRecordActive = this.isRecordActive.bind(this);
         this.selectRecordHandler = this.selectRecordHandler.bind(this);
@@ -150,7 +149,7 @@ class Tools extends Component {
                       onChangeSearchFoundIndex={this.props.changeSearchFoundIndex}
                       onToggleSearch={this.props.toggleSearch}
                       searchBlockOpen={this.props.searchBlockOpen}
-                      currentView={currentTable.views[0].view._id}
+                      currentView={currentTable.currentView}
                       addRecord={this.props.addRecord}
                       addField={this.props.addField}
                       changeFieldType={this.props.changeFieldType}
@@ -162,7 +161,9 @@ class Tools extends Component {
                       sortRecords={this.props.sortRecords}
                       filterRecords={this.props.filterRecords}
                       filteredRecords={this.props.filteredRecords}
-                      removeFilter={this.props.removeFilter}/>
+                      removeFilter={this.props.removeFilter}
+                      addView={this.props.addView}
+                />
                 }
             </div>
         );

@@ -21,7 +21,6 @@ class GridRepository extends Repository {
                 config.size = gridFieldData.size || config.size;
                 config.position = gridFieldData.position || config.position;
                 config.hidden = gridFieldData.hidden || config.hidden;
-                console.log(view);
                 return view.save();
             });
     }

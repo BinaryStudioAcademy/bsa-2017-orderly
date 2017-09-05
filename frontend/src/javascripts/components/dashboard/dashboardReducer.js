@@ -5,7 +5,8 @@ const initState = {
     tables: [{
         _id: 0,
         name: '',
-        isActive: false
+        isActive: false,
+        currentView: null,
     }],
     addPopupIsOpen: false,
     activeModal: '',
@@ -18,7 +19,6 @@ const initState = {
     searchMatchedRecordItemIdList: [],
     searchFoundIndex: '',
     searchBlockOpen: false,
-    currentView: null,
     filteredRecords: null,
 };
 
@@ -45,8 +45,8 @@ function dashboardReducer(state = initState, action) {
                     let tempObj = R.dissoc('isActive', table);
                     tempObj.isActive = table._id === action.tableId;
                     return tempObj;
-                })(state.tables)
-            }
+                })(state.tables),
+            },
         ]);
     }
 
@@ -67,6 +67,7 @@ function dashboardReducer(state = initState, action) {
             R.dissoc('tables', state),
             {
                 tables: R.map(R.compose(
+                    (table) => R.assoc('currentView', R.path(['views', '0', 'view', '_id'], table), table),
                     R.assoc('addPopupIsOpen', false),
                     R.assoc('isMenuOpen', false))
                 )(action.tables)
@@ -116,14 +117,14 @@ function dashboardReducer(state = initState, action) {
 
     case 'SWITCH_TABLE': {
         return R.mergeAll([
-            R.dissoc('tables', state),
+            R.dissoc('tables', R.dissoc('currentView', state)),
             {
                 tables: R.map((table) => {
                     let newObj = R.dissoc('isActive', table);
                     newObj.isActive = table._id === action.tableId;
                     return newObj;
-                })(state.tables)
-            }
+                })(state.tables),
+            },
         ]);
     }
 
@@ -160,7 +161,7 @@ function dashboardReducer(state = initState, action) {
                     if (table._id === action.changedTable._id) {
                         const changedTable = action.changedTable;
                         changedTable.isActive = true;
-	                    return changedTable;
+                        return changedTable;
                     }
                     return table;
                 })(state.tables)
@@ -393,22 +394,44 @@ function dashboardReducer(state = initState, action) {
     }
 
     case 'CHANGE_VIEW': {
-        return {...state, currentView: action.viewId};
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.tableId) {
+                        let obj = R.dissoc('currentView', table);
+                        obj.currentView = action.viewId;
+                        return obj;
+                    } else {
+                        return table;
+                    }
+                })(state.tables)
+            }
+        ]);
+    }
+
+    case 'ADD_VIEW_SUCCEEDED':
+    case 'DELETE_VIEW_SUCCEEDED':
+    case 'FILTER_RECORDS_SUCCEEDED': {
+        return R.mergeAll([
+            R.dissoc('tables', state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        const newTable = action.table;
+                        newTable.isActive = true;
+                        return newTable;
+                    }
+                    return table;
+                })(state.tables)
+            }
+        ]);
     }
 
     case 'SORT_RECORDS': {
         console.log('DASH REDUCER SORT RECORDS');
         console.log(action);
         console.log('-------------------------');
-        return {...state};
-    }
-
-    case 'FILTER_RECORDS': {
-        console.log('DASH REDUCER FILTER RECORDS');
-        console.log(action);
-        console.log('-------------------------');
-        // const index = action.table.fields.findIndex((f) => f._id === action.fieldId);
-        // const filtered = action.table.records.filter((r) => r.record_data[index].data.includes(action.filterQuery));
         return {...state};
     }
 

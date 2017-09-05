@@ -181,10 +181,28 @@ const toggleSearch = () => {
     };
 };
 
-export function changeView(viewId) {
+export function changeView(tableId, viewId) {
     return {
         type: 'CHANGE_VIEW',
+        tableId,
         viewId
+    };
+}
+
+export function addView(tableId, viewType) {
+    return {
+        type: 'ADD_VIEW',
+        tableId: tableId,
+        viewType: viewType,
+    };
+}
+
+export function deleteView(tableId, viewId, viewType) {
+    return {
+        type: 'DELETE_VIEW',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
     };
 }
 

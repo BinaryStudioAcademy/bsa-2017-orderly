@@ -1,33 +1,51 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as viewActions from './viewActions';
 import {Icon} from 'semantic-ui-react';
 import Grid from './grid/grid';
 import FormView from './form/formView';
 import {viewIcons} from '../configuration/viewTypes';
+import InDeveloping from '../in_developing/InDeveloping';
 import './view.scss';
-import InDevelopment from '../in_developing/InDeveloping';
 
-class View extends Component {
+export default class View extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isActive: false,
+        }
     }
 
-    capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1);
+    handleClickOnMenu = () => {
+        if (this.refs.viewCaret) {
+            if (!this.state.isActive) {
+                document.addEventListener('click', this.handleOutsideClick, false);
+            } else {
+                document.removeEventListener('click', this.handleOutsideClick, false);
+            }
 
-    handleToggleSelector = () => {
-        this.props.toggleSelector();
+            this.setState((menuState) => ({
+                isActive: !menuState.isActive,
+            }));
+        }
     };
 
-    handleChangeView = (id) => {
-        this.props.changeView(id);
-        this.handleToggleSelector();
+    handleOutsideClick = (e) => {
+        if (e.target.closest(".view__caret") === null) {
+            if (this.node) {
+                if (this.node.contains(e.target)) {
+                    return;
+                }
+            }
+            this.handleClickOnMenu();
+        }
+    };
+
+    handleChangeView = (viewId) => {
+        this.props.changeView(this.props.currentTable._id, viewId);
+        this.handleClickOnMenu();
     };
 
     handleAddView = (viewType) => {
-        console.log(this.props.currentTable);
-        console.log(viewType);
+        this.props.addView(this.props.currentTable._id, viewType);
     };
 
     viewSelector(listOfViews) {
@@ -46,7 +64,6 @@ class View extends Component {
                 filterRecords={this.props.filterRecords}
                 filteredRecords={this.props.filteredRecords}
                 removeFilter={this.props.removeFilter}
-                showFieldMenu={this.props.showFieldMenu}
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
                 changeFieldOptions={this.props.changeFieldOptions}
@@ -68,9 +85,11 @@ class View extends Component {
                 currentTable={this.props.currentTable}
             />;
         default:
-            return <InDevelopment/>;
+            return <InDeveloping/>;
         }
     }
+
+    capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1);
 
     render() {
         let viewTypes = [];
@@ -90,31 +109,35 @@ class View extends Component {
         }
         return (
             <div className="view__container">
-                <Icon name="caret down"
-                      id="header__caret"
-                      size="large"
-                      onClick={this.handleToggleSelector}/>
-                <div className={this.props.showSelector ? 'view__selector' : 'hide'}>
-                    <div className="selector__options">
-                        {this.props.currentTable.views.map((view, ind) => {
-                            return (
-                                <div key={ind}
-                                     className="selector__option"
-                                     onClick={() => this.handleChangeView(view.view._id)}>
-                                    <Icon
-                                        name="checkmark"
-                                        className={view._id === this.props.currentView
-                                            ? '' : 'option__notActive'}/>
-                                    <Icon name={viewIcons[view.type]}/>
-                                    {view.view.name}
-                                </div>
-                            )
-                        })}
+                <div ref='viewCaret' className="view__caret">
+                    <div ref={(node) => this.node = node }
+                         onClick={(e) => this.handleClickOnMenu(e)}>
+                        <Icon name="caret down"
+                              id="header__caret"
+                              size="large"/>
                     </div>
-                    <hr/>
-                    <div className="add-view__menu">
-                        <p className=''>Add view:</p>
-                        {viewTypes}
+                    <div className={this.state.isActive ? 'view__selector' : 'hide'}>
+                        <div className="selector__options">
+                            {this.props.currentTable.views.map((view, ind) => {
+                                return (
+                                    <div key={ind}
+                                         className="selector__option"
+                                         onClick={() => this.handleChangeView(view.view._id)}>
+                                        <Icon
+                                            name="checkmark"
+                                            className={view.view._id === this.props.currentView
+                                                ? '' : 'option__notActive'}/>
+                                        <Icon name={viewIcons[view.type]}/>
+                                        {view.view.name}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <hr/>
+                        <div className="add-view__menu">
+                            <p className=''>Add view:</p>
+                            {viewTypes}
+                        </div>
                     </div>
                 </div>
                 {this.viewSelector(this.props.currentTable.views)}
@@ -122,15 +145,3 @@ class View extends Component {
         );
     }
 }
-
-function mapStateToProps(state) {
-    return {
-        showSelector: state.view.showSelector,
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(viewActions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(View);
