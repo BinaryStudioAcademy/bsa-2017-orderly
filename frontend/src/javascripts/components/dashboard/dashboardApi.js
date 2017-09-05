@@ -120,4 +120,5 @@ export {
     emitTableCoworker,
     addView,
     deleteView,
+    getViewsByIds
 };

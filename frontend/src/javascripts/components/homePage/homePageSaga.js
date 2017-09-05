@@ -4,7 +4,7 @@ import R from 'ramda';
 import { addBaseToTeam, updateBaseById, updateTeam,
 		deleteBase, getTeamsByUserId, getBasesByTeam,
 		deleteTeam, addTeam, getCollaborators, getAllUsers,
-		addCollaborator, deleteCollaborator, updateCollaboratorRole, cloneBaseToTeam} from './homePageApi';
+		addCollaborator, deleteCollaborator, updateCollaboratorRole, cloneBaseToTeam, getViewsByIds} from './homePageApi';
 
 
 function* gettingBasesByTeam(action) {
@@ -26,6 +26,20 @@ function* addingBase(action) {
         yield put({ type: 'ADD_NEW_BASE_TO_TEAM_FAILED', message: err.message});
     }
 }
+
+// function* cloneTables(action) {
+//     try {
+//         const payload = {};
+//         payload.tables = yield call(getViewsByIds, action.tablesId);
+//         payload.base = action.table;
+
+//         let team = yield call(cloneBaseToTeam, payload);
+
+//         yield put({ type: 'ADD_NEW_BASE_TO_TEAM_SUCCEEDED', team: team});
+//     } catch (err) {
+//         yield put({ type: 'CLONE_NEW_BASE_TO_TEAM_FAILED', message: err.message});
+//     }
+// }
 
 function* cloneBase(action) {
     try {
