@@ -67,7 +67,17 @@ const tableSchema = new Schema({
             type: String,
             default: 'description'
         },
-        options:[]
+        options:{
+            select:[],
+            number: { type: Number, default: '2' },
+            currency: { type: String,  default:'$' },
+            date: { 
+                format: { type: String,  default:'#MM#/#DD#/#YYYY#' },
+                time: { type: Boolean, default: false }
+                },
+            percent: { type: Number, default: '1' },
+            multiple:[]
+            }
     }],
     views: [{
         type: {
