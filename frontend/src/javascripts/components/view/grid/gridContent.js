@@ -78,8 +78,8 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         currentRecord: currentRecord,
         tableId: tableId,
         currentField: currentField,
-	      uploadAttachment: uploadAttachment,
-	      deleteFile: deleteFile,
+        uploadAttachment: uploadAttachment,
+        deleteFile: deleteFile,
         selected: recordData.isRecordSelected(id),
         active: recordData.isRecordActive(id),
         onSelect: recordData.selectRecordHandler,
@@ -123,10 +123,6 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         case 'percent':
             record = <Percent {...fieldPayload}/>;
             break;
-	      case 'attachment':
-		        record = <Attachment {...fieldPayload}/>;
-		        break;
-
 	    case 'attachment':
 		    record = <Attachment {...fieldPayload}/>;
 		    break;
