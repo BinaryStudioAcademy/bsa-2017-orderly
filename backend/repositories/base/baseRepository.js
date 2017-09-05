@@ -19,6 +19,17 @@ class BaseRepository extends Repository {
             {'new': true}
         );
     }
+    addTablesToBase(baseId, tables) {
+        let newTables = []
+        for ( let table in tables) {
+            newTables[table] = tables[table]._id
+        }
+        console.log(newTables)
+        return this.model.findByIdAndUpdate(
+            baseId,
+            {tables: newTables}
+        )
+    }
 }
 
 module.exports = new BaseRepository();

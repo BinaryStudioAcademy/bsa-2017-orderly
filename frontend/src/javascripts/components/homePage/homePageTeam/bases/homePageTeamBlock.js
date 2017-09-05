@@ -49,7 +49,8 @@ class HomePageTeamBlock extends Component {
 					          onNewBaseClick={this.props.onNewBaseClick}
 							  user={this.props.user}
 					          menu={this.props.menu}
-					          teams={this.props.teams}/>
+					          teams={this.props.teams}
+					          />
 				</div>
 			</div>
 		)

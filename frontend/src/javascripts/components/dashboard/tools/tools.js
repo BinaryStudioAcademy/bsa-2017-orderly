@@ -106,6 +106,7 @@ class Tools extends Component {
                 // this.props.closeMenu();
             }}>
                 <Header base={this.props.base}
+                        tables={this.props.tables}
                         user={this.props.user}
                         menu={this.props.menu}
                         handleClick={this.props.handleClick}/>

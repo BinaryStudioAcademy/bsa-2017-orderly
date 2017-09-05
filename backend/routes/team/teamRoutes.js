@@ -1,6 +1,6 @@
 const R = require('ramda');
 const router = require('express').Router();
-const objectClone = require('../../services/baseCloneService')
+const baseService = require('../../services/baseCloneService')
 const teamRepository = require('../../repositories/team/teamRepository');
 const baseRepository = require('../../repositories/base/baseRepository');
 const tableRepository = require('../../repositories/table/tableRepository');
@@ -70,12 +70,19 @@ router.post('/:teamId/base', (req, res) => Promise.all(
 );
 
 router.post('/:teamId/baseClone', (req, res) => {
-    let baseCloned = objectClone(req.body.base, null, null);
-    console.log('heyyyy', req.body)
-    Promise.all(
-        [ baseRepository.add(baseCloned) ])
-    .then(([base, table]) => teamRepository.cloneBaseToTeam(req.params.teamId, base._id))
+    let baseCloned = baseService.baseCopy(req.body.base);
+    let tablesCloned = baseService.tablesCopy(req.body.tables);
+    let promiseArray = [];
+    let i = 0
+    promiseArray[i] = baseRepository.add(baseCloned);
+    for ( let table in tablesCloned ) {
+         promiseArray[++i] = tableRepository.add(tablesCloned[table])
+    }
+    Promise.all(promiseArray)
+    .then(([base, ...table]) => baseRepository.addTablesToBase(base._id, table))
+    .then((base) => teamRepository.addBaseToTeam(req.body.teamId, base._id))
     .then((team) => res.status(200).send(team))
+    //.catch(err => {console.log(err)})
     .catch((err) => res.status(500).send(err))
 });
 

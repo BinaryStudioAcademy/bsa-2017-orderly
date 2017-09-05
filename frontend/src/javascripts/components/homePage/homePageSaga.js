@@ -1,4 +1,5 @@
 import { call, put, takeEvery} from 'redux-saga/effects';
+import { getTablesByIds } from '../dashboard/dashboardApi';
 import R from 'ramda';
 import { addBaseToTeam, updateBaseById, updateTeam,
 		deleteBase, getTeamsByUserId, getBasesByTeam,
@@ -28,8 +29,14 @@ function* addingBase(action) {
 
 function* cloneBase(action) {
     try {
-        const team = yield yield call(cloneBaseToTeam, action);
-        yield put({ type: 'CLONE_NEW_BASE_TO_TEAM_SUCCEEDED', team: team.data });
+        const payload = {};
+        payload.tables = yield call(getTablesByIds, action.tables);
+        payload.base = action.base;
+        payload.teamId = action.teamId;
+
+        let team = yield call(cloneBaseToTeam, payload);
+
+        yield put({ type: 'ADD_NEW_BASE_TO_TEAM_SUCCEEDED', team: team});
     } catch (err) {
         yield put({ type: 'CLONE_NEW_BASE_TO_TEAM_FAILED', message: err.message});
     }

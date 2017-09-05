@@ -24,14 +24,6 @@ class TeamRepository extends Repository {
                 {'new': true}
             );
     }
-    
-    cloneBaseToTeam(teamId, baseId) {
-        return this.model.findByIdAndUpdate(
-                teamId,
-                {'$push': {bases: baseId}},
-                {'new': true}
-            );
-    }
 
 
 	addCollaboratorToTeam(teamId, user) {

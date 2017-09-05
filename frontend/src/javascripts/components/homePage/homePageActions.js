@@ -10,7 +10,8 @@ export const cloneBase = (teamId, baseId, base) => {
     type: 'CLONE_BASE',
     teamId: teamId,
     baseId: baseId,
-    base: base
+    base: base,
+    tables: base.tables
   }
 }
 
