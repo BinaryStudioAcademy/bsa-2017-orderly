@@ -33,30 +33,29 @@ const defaultTable = () => {
 };
 
 const defaultViews = {
-	grid: {
-		type: 'grid',
-		name: 'Grid view',
-		description: 'Default grid view',
-		fixed_area: 1,
-	},
-	form: {
-		type: 'form',
-		name: 'Form view',
-		description: 'Default form view',
-	},
-	kanban: {
-		type: 'kanban',
-		name: 'Kanban view'
-	},
-	gallery: {
-		type: 'gallery',
-		name: 'Gallery view'
-	}
-}
-
+    grid: {
+        type: 'grid',
+        name: 'Grid view',
+        description: 'Default grid view',
+        fixed_area: 1,
+    },
+    form: {
+        type: 'form',
+        name: 'Form view',
+        description: 'Default form view',
+    },
+    kanban: {
+        type: 'kanban',
+        name: 'Kanban view'
+    },
+    gallery: {
+        type: 'gallery',
+        name: 'Gallery view'
+    }
+};
 
 module.exports = {
     defaultTeam,
     defaultTable,
-	defaultViews
+    defaultViews,
 };
