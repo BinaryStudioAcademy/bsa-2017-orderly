@@ -2,7 +2,8 @@ const router = require('express').Router();
 const R = require('ramda');
 const tableRepository = require('../../repositories/table/tableRepository');
 const gridRepository = require('../../repositories/view/gridRepositories');
-const {defaultTable, defaultView} = require('../../config/defaultEntities');
+const formRepository = require('../../repositories/view/formRepositories');
+const {defaultTable, defaultGridView, defaultFormView} = require('../../config/defaultEntities');
 
 // tables -------------------------------------
 router.post('/', (request, response, next) => {
@@ -10,7 +11,7 @@ router.post('/', (request, response, next) => {
     return Promise.all(
         [
             tableRepository.add(R.merge(newTable, request.body)),
-            gridRepository.add(defaultView())
+            gridRepository.add(defaultGridView())
         ])
         .then(([table, view]) => tableRepository.addView(table._id, view._id, view.type))
         .then((table) => response.status(201).send(table))
@@ -162,21 +163,38 @@ router.get('/:id/views/:viewId/:viewType', (request, response) => {
 });
 
 router.post('/:id/views', (request, response) => {
-    tableRepository.addView(request.params.id, request.body)
-        .then((result) => response.status(200).send(result))
-        .catch((err) => response.status(500).send(err));
+    switch (request.body.viewType) {
+    case 'grid':
+        gridRepository.add(defaultGridView()).then((view) => {
+            tableRepository.addView(request.body.tableId, view._id, view.type)
+                .then((result) => response.status(200).send(result));
+        })
+            .catch((err) => response.status(500).send(err));
+        break;
+    case 'form':
+        formRepository.add(defaultFormView()).then((view) => {
+            tableRepository.addView(request.body.tableId, view._id, view.type)
+                .then((result) => response.status(200).send(result));
+        })
+            .catch((err) => response.status(500).send(err));
+        break;
+    }
 });
 
 router.delete('/:id/views/:viewId', (request, response) => {
-    tableRepository.deleteView(request.params.id, request.params.viewId)
+    tableRepository.deleteView(request.params.id, request.params.viewId, request.body.viewType)
         .then((result) => response.status(200).send(result))
         .catch((err) => response.status(500).send(err));
 });
 
 // filter table -------------------------------------
 
-router.get('/:id/fields/:fieldId/filter', (request, response) => {
-    tableRepository.filterRecords(request.params.id, request.params.fieldId, request)
+router.get('/:id/fields/:fieldId/filter/:condition/:query', (request, response) => {
+    tableRepository.filterRecords(
+        request.params.id,
+        request.params.fieldId,
+        request.params.condition,
+        request.params.query)
         .then((table) => response.status(200).send(table))
         .catch((error) => response.status(500).send(error));
 });

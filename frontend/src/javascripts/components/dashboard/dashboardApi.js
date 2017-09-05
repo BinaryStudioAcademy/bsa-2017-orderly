@@ -29,15 +29,14 @@ const updateTable = ({ _id, body }) =>
 		.catch(R.tap(console.error));
 
 const addFieldsToTable = ({tableId}) => {
-    axios.post(url + '/tables/' + tableId + '/fields/', {
-        name: 'default',
-        type: 'number',
+    return axios.post(url + '/tables/' + tableId + '/fields/', {
+        name: 'Text line',
+        type: 'text',
     })
-        .then((response) => response.data)
-        .catch(R.tap(console.error));
-
-    return axios.put(url + '/tables/' + tableId + '/records/', {data: ''})
-        .then((table) => table.data)
+        .then(() => {
+            return axios.put(url + '/tables/' + tableId + '/records/', {data: ''})
+                .then((table) => table.data);
+        })
         .catch(R.tap(console.error));
 };
 
@@ -71,7 +70,8 @@ const deleteRecord = (payload) => {
 };
 
 const filterRecords = (payload) => {
-    return axios.get(url + '/tables/' + payload.tableId + '/fields/' + payload.fieldId + '/filter', payload)
+    return axios.get(url + '/tables/' + payload.tableId + '/fields/' + payload.fieldId
+        + '/filter/' + payload.condition + '/' + payload.filterQuery)
         .then((response) => response)
         .catch(R.tap(console.error));
 };
@@ -90,6 +90,18 @@ const deleteFile = ({typeOfFile, record_dataId, tableId, fileNamesStr}) =>
 		.then(response => response.data)
 		.catch(R.tap(console.error))
 
+const addView = ({tableId, viewType}) => {
+    return axios.post(url + '/tables/' + tableId + '/views', {tableId, viewType})
+        .then((response) => response.data)
+        .catch(R.tap(console.error));
+};
+
+const deleteView = ({tableId, viewId, viewType}) => {
+    return axios.delete(url + '/tables/' + tableId + '/views/' + viewId, {tableId, viewId, viewType})
+        .then((response) => response.data)
+        .catch(R.tap(console.error));
+};
+
 export {
     getBase,
     getTablesByIds,
@@ -105,5 +117,7 @@ export {
     filterRecords,
 	uploadFile,
 	deleteFile,
-    emitTableCoworker
+    emitTableCoworker,
+    addView,
+    deleteView,
 };
