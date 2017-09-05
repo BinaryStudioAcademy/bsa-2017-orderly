@@ -8,11 +8,6 @@ const addBaseToTeam = (teamId) =>
 		.then((response) => response.data)
 		.catch(R.tap(console.error));
 
-const getViewsByIds = (ids) =>
-    axios.get(url + 'general/tables/views/ids/' + ids.join(':'))
-        .then((response) => response.data)
-        .catch(R.tap(console.error));
-
 const cloneBaseToTeam = (payload) =>
 	axios.post(url + '/team/' + payload.teamId + '/baseClone', payload)
 		.then((response) => response.data)
@@ -102,6 +97,5 @@ export {
 	updateCollaboratorRole,
 	addCollaborator,
 	getTeamsByUserId,
-	cloneBaseToTeam,
-	getViewsByIds
+	cloneBaseToTeam
 };

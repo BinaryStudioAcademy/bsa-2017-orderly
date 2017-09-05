@@ -119,6 +119,5 @@ export {
 	deleteFile,
     emitTableCoworker,
     addView,
-    deleteView,
-    getViewsByIds
+    deleteView
 };

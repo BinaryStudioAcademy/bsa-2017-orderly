@@ -32,11 +32,6 @@ class FormRepository extends Repository {
             {'new': true}
             );
     }
-    getByIds(ids) {
-        return this.model.find({'_id': {$in: ids}})
-            .populate('views.view');
-    }
-
 }
 
 module.exports = new FormRepository();

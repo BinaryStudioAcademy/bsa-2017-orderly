@@ -49,9 +49,26 @@ const defaultFormView = () => {
     };
 };
 
+const defaultKanbanView = () => {
+    return {
+        type: 'kanban',
+        name: 'Form view',
+        description: 'Default form view',
+    };
+};
+const galleryKanbanView = () => {
+    return {
+        type: 'gallery',
+        name: 'Form view',
+        description: 'Default form view',
+    };
+};
+
 module.exports = {
     defaultTeam,
     defaultTable,
     defaultGridView,
     defaultFormView,
+    defaultKanbanView,
+    galleryKanbanView
 };
