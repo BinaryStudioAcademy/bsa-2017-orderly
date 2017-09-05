@@ -5,7 +5,9 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
     changeFieldType, changeFieldOptions, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
     changeSearch, changeSearchFoundIndex, toggleSearch, changeFieldName, deleteRecord, deleteField,
-    changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket } from './dashboardActions';
+    changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
+    addView, deleteView
+} from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
 
@@ -17,6 +19,7 @@ const mapStateToProps = (state, ownProps) => {
         activeModal: state.dashboardReducer.activeModal,
         baseId: ownProps.params.baseId,
         currentTableId: ownProps.params.tableId,
+        currentView: state.dashboardReducer.currentView,
         addPopupIsOpen: state.dashboardReducer.addPopupIsOpen,
         renameIsError: state.dashboardReducer.renameIsError,
         selectedRecordItemId: state.dashboardReducer.selectedRecordItemId,
@@ -28,7 +31,7 @@ const mapStateToProps = (state, ownProps) => {
         coworkers: state.dashboardReducer.coworkers,
         tableIdActiveModal: state.dashboardReducer.tableIdActiveModal,
         user: state.userProfile.user,
-        filteredRecords: state.dashboardReducer.filteredRecords
+        filteredRecords: state.dashboardReducer.filteredRecords,
     });
 };
 
@@ -56,7 +59,7 @@ const mapDispatchToProps = {
     addComment: addComment,
     getUser: getCurrentUser,
     getCoworkersList: getCoworkersList,
-	setTableIdToActiveModal: setTableIdToActiveModal,
+    setTableIdToActiveModal: setTableIdToActiveModal,
     changeSearch: changeSearch,
     changeSearchFoundIndex: changeSearchFoundIndex,
     toggleSearch: toggleSearch,
@@ -68,9 +71,11 @@ const mapDispatchToProps = {
     changeFieldOptions: changeFieldOptions,
     deleteField: deleteField,
     deleteRecord: deleteRecord,
-	uploadAttachment: uploadAttachment,
-	deleteFile: deleteFile,
-    disconnectSocket: disconnectSocket
+    uploadAttachment: uploadAttachment,
+    deleteFile: deleteFile,
+    disconnectSocket: disconnectSocket,
+    addView: addView,
+    deleteView: deleteView,
 };
 
 const Dashboard = connect(
