@@ -43,46 +43,7 @@ let baseCopy = (baseToCopy) => {
     delete newBase._id;
     let promiseArray=[];
     let i = 0
-
-    // promiseArray[i] = baseRepository.add(newBase)
-    // for ( let table in base.tables ) {
-    //      promiseArray[++i] = tableRepository.add(base.tables[table])
-    //      //console.log(promiseArray)
-    // }
-
-   // return tableRepository.getByIds(base.tables)
-   //  .then((tables) => tablesCopy(tables))
-   //  .then((tables) =>  baseRepository.add(newBase))
-   //  .then(([base, tables]) => Promise.all(promiseArray))
-   //  .then((base) => baseRepository.addTablesToBase(base._id, table))
-    //.then((base) => teamRepository.addBaseToTeam(req.body.teamId, base._id))
-     // let baseTables;
-     //  tableRepository.getByIds(newBase.tables)
-     //  .then(([...tables]) => {
-     //    //console.log(tables)
-     //     //tables = [...tables];
-     //     baseTables = [...tables]
-     //     console.log(baseTables)
-     //  })
-    //    console.log(baseTables)
-
-        return baseRepository.add(newBase)
-        .then((base) => { 
-            let payload = {}; 
-            payload.base = base; 
-            tableRepository.getByIds(baseToCopy.tables)
-            .then((tables) => tablesCopy(tables))
-            .then((tables) => payload.tables = tables)
-            return payload
-        })
-        .then((payload) => {
-            let array = []
-            for ( let table in payload.tables ) {
-             array[table] = tableRepository.add(payload.tables[table])
-            }
-            return Promise.all(array)
-        })
-        
+    return newBase
 }
 
 

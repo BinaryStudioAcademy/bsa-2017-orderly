@@ -70,18 +70,21 @@ router.post('/:teamId/base', (req, res) => Promise.all(
 );
 
 router.post('/:teamId/baseClone', (req, res) => {
-    // let baseCloned = baseService.baseCopy(req.body.base);
-    // let tablesCloned = baseService.tablesCopy(req.body.tables);
-    // let promiseArray = [];
-    // let i = 0
-    // promiseArray[i] = baseRepository.add(baseCloned);
-    // for ( let table in tablesCloned ) {
-    //      promiseArray[++i] = tableRepository.add(tablesCloned[table])
-    // }
-    // Promise.all(promiseArray)
-    // .then(([base, ...table]) => baseRepository.addTablesToBase(base._id, table))
-    // .then((base) => teamRepository.addBaseToTeam(req.body.teamId, base._id))
-    baseService.baseCopy(req.body.base)
+    let baseCloned = baseService.baseCopy(req.body.base);
+
+    tableRepository.getByIds(req.body.base.tables)
+    .then((tables) => baseService.tablesCopy(tables))
+    .then((tables, baseCloned) => {
+        let promiseArray = [];
+        let i = 0
+        promiseArray[i] = baseRepository.add(baseCloned);
+        for ( let table in tables ) {
+         promiseArray[++i] = tableRepository.add(tables[table])
+        }
+        return Promise.all(promiseArray)
+    })
+    .then(([base, ...table]) => baseRepository.addTablesToBase(base._id, table))
+    //baseService.baseCopy(req.body.base)
     .then((base) => teamRepository.addBaseToTeam(req.body.teamId, base._id))
     .then((team) => res.status(200).send(team))
     .catch(err => {console.log(err)})
