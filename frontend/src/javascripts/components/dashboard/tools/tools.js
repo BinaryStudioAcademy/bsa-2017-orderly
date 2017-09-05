@@ -90,11 +90,6 @@ class Tools extends Component {
 
     render() {
         const currentTable = R.find(R.propEq('_id', this.props.currentTableId))(this.props.tables);
-        if (currentTable) {
-            if (!this.props.currentView) {
-                this.props.changeView(currentTable.views[0].view._id);
-            }
-        }
         const recordData = {
             isRecordSelected: this.isRecordSelected,
             isRecordActive: this.isRecordActive,
@@ -132,7 +127,7 @@ class Tools extends Component {
                       addTableClick={this.props.addTableClick}
                       coworkers={this.props.coworkers}
                       user={this.props.user}/>
-                {currentTable && this.props.currentView &&
+                {currentTable &&
                 <View currentTable={currentTable}
                       tables={this.props.tables}
                       recordData={recordData}
@@ -148,7 +143,7 @@ class Tools extends Component {
                       onChangeSearchFoundIndex={this.props.changeSearchFoundIndex}
                       onToggleSearch={this.props.toggleSearch}
                       searchBlockOpen={this.props.searchBlockOpen}
-                      currentView={this.props.currentView}
+                      currentView={currentTable.currentView}
                       addRecord={this.props.addRecord}
                       addField={this.props.addField}
                       changeFieldType={this.props.changeFieldType}
