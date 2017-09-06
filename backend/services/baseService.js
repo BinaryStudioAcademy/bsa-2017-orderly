@@ -42,48 +42,44 @@ let baseCopy = (baseToCopy) => {
     let newBase = Object.assign({}, baseToCopy);
 
     return tableRepository.getByIds(newBase.tables)
-    .then((tables) => tables.map((table) => {
-        delete table._id
-        return table
-    }))
     .then((tables) => {
-        console.log(tables)
-    
-        // let newTables =[...tables]
-        // delete newTables[0]._id
-        // console.log('aaaa', tables[0]._id)
-        // return newTables
-        // for (let table in newTables) {
-        //     delete newTables[table]._id
-        // }
-            // table.views.map(view => {
-            //     delete view._id
-            //     return view
-            // })
-            // table.fields.map(field => {
-            //     delete field._id
-            //     return field
-            // })
-            // table.records.map(record => {
-            //     delete record._id
-            //     record.record_data.map(data => {
-            //         delete data._id
-            //         return data
-            //    })
-            //     return record
-            // })
-            // return table
-    //})
+        let newTables = [...tables]
+        newTables.map(table => {
+         delete table._id
+         table.views.map(view => {
+            delete view._id
+            return view
+         })
+         table.fields.map(field => {
+            delete field._id
+            return field
+         })
+         table.records.map(record => {
+            delete record._id
+            record.record_data.map(data => {
+                delete data._id
+                return data
+            })
+            return record
+         })
+         return table
+        })
+    return newTables
+    })
+    .then((tables) => {
+        let newTables = [...tables]
+        delete newTables[0]._id
+        console.log(tables[0]._id)
         let promiseArray = [];
         let i = 0
         let newBase = Object.assign({}, baseToCopy);
         delete newBase._id;
-        newBase.tables = [];
-        promiseArray[i] = baseRepository.add(newBase);
-        for ( let table in tables ) {
-         promiseArray[++i] = tableRepository.add(tables[table])
-        }
-        return Promise.all(promiseArray)
+        //newBase.tables = [];
+        // promiseArray[i] = baseRepository.add(newBase);
+        // for ( let table in tables ) {
+        //  promiseArray[++i] = tableRepository.add(tables[table])
+        // }
+        return Promise.all([baseRepository.add(newBase), tableRepository.add(tables[0])])
     })
     .then(([base, ...table]) => baseRepository.addTablesToBase(base._id, table))
 }
