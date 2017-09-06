@@ -1,0 +1,27 @@
+.kanban_view_header {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #EEE;
+}
+
+#kanban_search {
+  position: absolute;
+  right: 0;
+  margin-right: 20px;
+  padding-bottom: 25px;
+  opacity: 0.6;
+  font-size: 14px;
+  margin-top: 4px;
+
+  &:hover {
+    opacity: .8;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .menu__text {
+    display: none;
+  }
+}
