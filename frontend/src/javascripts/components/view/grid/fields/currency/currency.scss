@@ -14,4 +14,6 @@
     outline: none;
     border: none;
     padding: 0 8px 0;
+        overflow: hidden;
+    text-overflow: ellipsis;
 }
