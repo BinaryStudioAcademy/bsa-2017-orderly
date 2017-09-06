@@ -71,3 +71,17 @@
       }
     }
   }
+
+  .content-import-spreadsheet{
+    margin-left: 10px;
+    .content-import-subheader{
+      font-size: 20px;
+    }
+    .content-import-text {
+      padding-top: 19px;
+    }
+    .content-import-btn {
+      margin-top: 20px;
+      margin-bottom: -40px !important;
+    }
+  }

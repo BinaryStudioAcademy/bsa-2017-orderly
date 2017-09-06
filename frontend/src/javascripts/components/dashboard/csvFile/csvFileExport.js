@@ -46,7 +46,7 @@ class ExportCSV extends Component {
         return(
             <div className='download-csv'>
                 <CSVLink filename={"my-file.csv"} data={this.state.csvRow} separator={";"}>
-                    <Icon link name='upload' size='large'/>
+                    <Icon link name='download' size='large'/>
                     <span className='item__span'>Export to CSV</span>
                 </CSVLink>
             </div>

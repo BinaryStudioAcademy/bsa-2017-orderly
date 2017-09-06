@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import BaseItem from './homePageBaseItem';
 import template from '../../../../../images/template_gallery_icon.png'
-import importSpreadsheet from '../../../../../images/upload_icon.png'
+
 import scratch from '../../../../../images/empty_template_icon.png'
+import ModalImportSpreadsheet from './baseImportPopUp'
 
 let temporaryKey = 0;
 
@@ -10,7 +11,8 @@ class BaseList extends Component {
 	constructor(props) {
 		super(props)
 		this.state ={
-			showMewnu: false
+			showMewnu: false,
+			modalClass: false
 		}
 		this.handleClickOnMenu = this.handleClickOnMenu.bind(this);
     	this.handleOutsideClick = this.handleOutsideClick.bind(this);
@@ -65,10 +67,7 @@ class BaseList extends Component {
 									<img src={template} />
 									<div className='text'>Start with a template</div>
 								</div>
-								<div className='options'> 
-									<img src={importSpreadsheet} />
-									<div className='text'>Import a spreadsheet</div>
-								</div>
+								<ModalImportSpreadsheet teamId={this.props.teamId}/>
 								<div className='options' onClick={(event) => {props.onNewBaseClick('#234FED', props.teamId); this.handleClickOnMenu(event)}}> 
 									<img src={scratch} />
 									<div className='text'>Start from scratch</div>
