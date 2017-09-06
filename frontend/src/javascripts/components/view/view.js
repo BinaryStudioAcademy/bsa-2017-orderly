@@ -99,6 +99,7 @@ export default class View extends Component {
             />;
         case 'kanban':
             return <KanbanView viewsCount={viewsCount}
+                               currentViewId={this.props.currentView}
                                currentTable={this.props.currentTable}
                                deleteView={() => this.handleDeleteView()}/>
         default:

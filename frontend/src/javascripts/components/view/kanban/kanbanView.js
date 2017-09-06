@@ -20,7 +20,8 @@ class KanbanView extends Component {
 				<KanbanViewHeader table={this.props.currentTable}
 				                  deleteView={this.props.deleteView}
 				                  viewsCount={this.props.viewsCount} />
-				<KanbanViewContainer table={this.props.currentTable}/>
+				<KanbanViewContainer currentViewId={this.props.currentViewId}
+				                     table={this.props.currentTable}/>
 			</div>
 		)
 	}

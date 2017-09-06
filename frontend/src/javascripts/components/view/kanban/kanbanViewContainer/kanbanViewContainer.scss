@@ -13,5 +13,35 @@
     justify-content: flex-start;
     align-items: stretch;
 
+    .add_stack {
+      width: 32%;
+      height: 46px;
+      background-color: #eeeeee;
+      border-radius: 5px;
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        cursor: pointer;
+        background-color: #fafafa;
+      }
+
+      .new_stack {
+        font-size: 16px;
+      }
+    }
   }
 }
+
+@media screen and (min-width: 1200px){
+  .kanban_workflow {
+    .kanban_stack {
+      .add_stack {
+        width: 22%;
+      }
+    }
+  }
+}
+

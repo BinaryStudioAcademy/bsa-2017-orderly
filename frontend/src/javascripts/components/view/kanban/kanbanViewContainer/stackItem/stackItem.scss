@@ -9,29 +9,34 @@
   justify-content: space-between;
   align-items: stretch;
 
-
-  &:nth-last-of-type(1) {
-    margin-right: 0;
-  }
-
   .stack_header {
     padding-top: 15px;
     padding-left: 23px;
     height: 46px;
     font-size: 16px;
     font-weight: 600;
+    margin-bottom: 20px;
   }
 
   .stack_records {
-    flex-grow: 1;
     overflow-y: auto;
+    overflow-x: hidden;
+    max-width: 100%;
+    padding: 8px 20px;
   }
 
   .stack_footer {
     margin-top: 20px;
+    padding-bottom: 20px;
     height: 46px;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
+
+@media screen and (min-width: 1200px){
+  .stack_item {
+    width: 22%;
   }
 }

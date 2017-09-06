@@ -4,10 +4,13 @@ import R from 'ramda'
 import RecordItem from './recordItem'
 import './records.scss'
 
-const Records = ({table}) => (
-	<div>
-		{R.map(record => <RecordItem record={record}
-		                             table={table}/>)(table.records || [])}
+const Records = ({records, fields, currentView, tableId}) => (
+	<div className='records_wrapper'>
+		{R.map(record => <RecordItem key={record._id}
+		                             currentView={currentView}
+		                             record={record}
+		                             fields={fields}
+		                             tableId={tableId}/>)(records || [])}
 	</div>
 )
 
