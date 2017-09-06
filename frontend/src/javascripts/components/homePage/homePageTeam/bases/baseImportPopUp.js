@@ -13,7 +13,10 @@ const ModalImportSpreadsheet = (props) => (
     <Modal.Content>
       <div className='content-import-spreadsheet'>
           <div className='content-import-subheader'>Import a CSV</div>
-          <div className='content-import-text'>You can import a table into Airtable by uploading a .CSV file with tabular data. Most spreadsheet applications will allow you to export your spreadsheet as a .CSV file.</div>
+          <div className='content-import-text'>You can import a table into Airtable by uploading a .CSV file 
+            with tabular data. Most spreadsheet applications will allow you to export your spreadsheet as a .CSV file.
+          <div className='content-import-subtext'>You can choose files one by one to add several bases.</div>
+          </div>
           <div className='content-import-btn'><ImportSpreadsheet teamId={props.teamId}/></div>
       </div>
     </Modal.Content>
