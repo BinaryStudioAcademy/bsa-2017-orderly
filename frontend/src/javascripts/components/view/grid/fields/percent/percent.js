@@ -8,14 +8,14 @@ class Percent extends Field {
   constructor(props) {
     super(props);
     this.state = { 
-        percent: '',
-        precision: '' 
+        percent: this.props.value,
+        precision: this.props.currentField.options.percent 
     }
 }
     componentWillReceiveProps(nextProps) {
         this.setState({ 
             precision: nextProps.currentField.options.percent
-            });
+        });
     }
   renderActiveField() {
     return (

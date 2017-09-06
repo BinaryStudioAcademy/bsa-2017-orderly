@@ -8,6 +8,12 @@ const addBaseToTeam = (teamId) =>
 		.then((response) => response.data)
 		.catch(R.tap(console.error));
 
+const addBaseToTeamSpreadSheet = (payload) =>
+	axios.post(url + '/team/' + payload.teamId + '/spreadsheet', payload)
+		.then((response) => response.data)
+		.catch(R.tap(console.error))
+
+
 const deleteBase = (_id) =>
     axios.delete(url + '/base/' + _id)
         .then((response) => response.data)
@@ -90,5 +96,6 @@ export {
 	deleteCollaborator,
 	updateCollaboratorRole,
 	addCollaborator,
-	getTeamsByUserId
+	getTeamsByUserId,
+	addBaseToTeamSpreadSheet
 };
