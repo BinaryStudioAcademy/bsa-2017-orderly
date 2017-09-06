@@ -5,15 +5,7 @@ import Field from '../field';
 
 class MultipleSelect  extends Field {
     constructor(props) {
-        super(props);
-        this.state = {
-            options:[],
-            value: [],
-            label:[]
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
+        super(props, 'multiple');
         let options = [];
         let propsOptions=this.props.currentField.options.multiple;
         let i = 0;
@@ -23,8 +15,35 @@ class MultipleSelect  extends Field {
                 label: propsOptions[option],
             })
         }
+            
+        let indexes = []
+        let newValues = this.props.value.split(',');
+
+        for (let j in newValues) {
+            indexes[j] = propsOptions.indexOf(newValues[j])
+        }
+        console.log(this.props.value)
+        console.log(indexes)
+        this.state = {
+            options:options,
+            value: indexes,
+            label:[]
+        }
+    }
+
+    componentWillReceiveProps(nextProps, nextState) {
+        let options2 = [];
+        let propsOptions2=nextProps.currentField.options.multiple;
+        let i = 0;
+        for (let option in propsOptions2) {
+        options2.push({
+                value: i++, 
+                label: propsOptions2[option],
+            })
+        }
+        
         this.setState({ 
-            options: options
+            options: options2
         });
     }
 
@@ -37,9 +56,13 @@ class MultipleSelect  extends Field {
                     onChange = {(event) => {
                         let labelArr=[];
                         for ( let i in event) {
-                            labelArr[i]=` ${event[i].label}`;
-                        }
-                        this.setState({value: event, label: labelArr})}}
+                            labelArr[i]=event[i].label;
+                        } 
+                        let valueArr=[...this.state.value];
+                        for ( let i in event) {
+                            valueArr[i]=event[i].value;
+                        } 
+                        this.setState({value: valueArr, label: labelArr})}}
                     onBlur={(event) => this.props.onBlurComponent(this.props.id, this.state.label)}
                     autoFocus={true}
                 />

@@ -27,3 +27,11 @@
     margin-top: -3px !important;
   }
 }
+.table-cell-wrap{
+  .single-select-container {
+      .Select-menu-outer{
+        z-index: 1000000 !important;
+      }
+    }
+  }
+  
