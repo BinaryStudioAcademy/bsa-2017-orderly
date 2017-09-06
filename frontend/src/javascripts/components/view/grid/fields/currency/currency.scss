@@ -14,4 +14,15 @@
     outline: none;
     border: none;
     padding: 0 8px 0;
+        overflow: hidden;
+    text-overflow: ellipsis;
+}
+.currency {
+ .table-cell-wrap {
+   .table-cell-inner {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+    }
+  }
 }

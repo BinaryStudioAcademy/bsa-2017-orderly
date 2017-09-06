@@ -6,10 +6,10 @@ import './currency.scss';
 
 class CurrencyField  extends Field {
   constructor(props) {
-    super(props);
+    super(props, 'currency');
     this.state = { 
         currency: this.props.value,
-        prefix: '$'
+        prefix: this.props.currentField.options.currency || '$'
     }
 }
  componentWillReceiveProps(nextProps) {
@@ -17,7 +17,7 @@ class CurrencyField  extends Field {
             prefix: nextProps.currentField.options.currency
         });
     }
-
+  
   renderActiveField() {
     return (
         <NumberFormat className="currency-input" 
