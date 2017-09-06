@@ -89,6 +89,10 @@ export default class View extends Component {
                 searchBlockOpen={this.props.searchBlockOpen}
                 deleteView={() => this.handleDeleteView()}
                 viewsCount={viewsCount}
+                setSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
+                appendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
+                setSelectAllRecordItems={this.props.setSelectAllRecordItems}
+                selectedRecordItemList={this.props.selectedRecordItemList}
             />;
         case 'form':
             return <FormView

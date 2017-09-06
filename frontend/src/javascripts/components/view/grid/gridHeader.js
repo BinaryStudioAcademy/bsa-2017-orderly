@@ -12,6 +12,16 @@ export default class GridHeader extends Component{
         super(props);
     }
 
+    componentDidMount() {
+        let _this = this;
+        window.addEventListener("keydown",function (e) {
+            if (e.keyCode === 114 || (e.ctrlKey && e.keyCode === 70)) {
+                e.preventDefault();
+                _this.props.onToggleSearch();
+            }
+        });
+    }
+
     render() {
         return (
             <div className="view__header">
@@ -31,9 +41,7 @@ export default class GridHeader extends Component{
                             <Icon name='browser'/>
                             <span className="menu__text">Group</span>
                         </Button>
-                        <SortMenu
-                            currentTable={this.props.currentTable}
-                            sortRecords={this.props.sortRecords}/>
+
                         <Button basic icon='external'/>
                         <ExtraMenu
                             currentTableId={this.props.currentTable._id}
@@ -63,3 +71,8 @@ export default class GridHeader extends Component{
         );
     }
 }
+/*
+<SortMenu
+                            currentTable={this.props.currentTable}
+                            sortRecords={this.props.sortRecords}/>
+ */

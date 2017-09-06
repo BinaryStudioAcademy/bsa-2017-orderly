@@ -8,6 +8,9 @@ $table-cell-width: 155px;
   width: $table-cell-width;
   height: 32px;
 }
+.table-cell:focus {
+  outline: none;
+}
 
 .table-cell.selected,
 .table-cell.active {

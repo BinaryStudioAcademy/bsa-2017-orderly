@@ -2,11 +2,12 @@ import Tools from './tools/tools';
 import { connect } from 'react-redux';
 import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setActive, togglePopup, openMenu, setTabsModal, updateTable, addRecord, addField, deleteTable,
-    selectRecord, activateRecord, changeRecord, blurRecord, blurRecordComponent,
+    selectRecordItem, activateRecord, changeRecord, blurRecord, blurRecordComponent,
     changeFieldType, changeFieldOptions, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
     changeSearch, changeSearchFoundIndex, toggleSearch, changeFieldName, deleteRecord, deleteField,
     changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
-    addView, deleteView
+    addView, deleteView, setSelectFieldRecordItems, appendSelectFieldRecordItems, setSelectAllRecordItems,
+    setSelectRecordItems, setPrevSelectedRecordItemId, clearSelectedRecordItemList
 } from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
@@ -32,6 +33,9 @@ const mapStateToProps = (state, ownProps) => {
         tableIdActiveModal: state.dashboardReducer.tableIdActiveModal,
         user: state.userProfile.user,
         filteredRecords: state.dashboardReducer.filteredRecords,
+        selectedRecordItemList: state.dashboardReducer.selectedRecordItemList,
+        prevSelectedRecordItemId: state.dashboardReducer.prevSelectedRecordItemId,
+        startSelectedRecordItemId: state.dashboardReducer.startSelectedRecordItemId
     });
 };
 
@@ -49,7 +53,7 @@ const mapDispatchToProps = {
     deleteTable: deleteTable,
     addField: addField,
     addRecord: addRecord,
-    selectRecord: selectRecord,
+    selectRecordItem: selectRecordItem,
     activateRecord: activateRecord,
     changeRecord: changeRecord,
     blurRecord: blurRecord,
@@ -76,6 +80,12 @@ const mapDispatchToProps = {
     disconnectSocket: disconnectSocket,
     addView: addView,
     deleteView: deleteView,
+    setSelectFieldRecordItems: setSelectFieldRecordItems,
+    appendSelectFieldRecordItems: appendSelectFieldRecordItems,
+    setSelectAllRecordItems: setSelectAllRecordItems,
+    setSelectRecordItems: setSelectRecordItems,
+    setPrevSelectedRecordItemId: setPrevSelectedRecordItemId,
+    clearSelectedRecordItemList: clearSelectedRecordItemList
 };
 
 const Dashboard = connect(

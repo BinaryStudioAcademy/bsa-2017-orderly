@@ -11,7 +11,7 @@ class Tools extends Component {
         this.props = props;
         this.isRecordSelected = this.isRecordSelected.bind(this);
         this.isRecordActive = this.isRecordActive.bind(this);
-        this.selectRecordHandler = this.selectRecordHandler.bind(this);
+        this.selectRecordItemHandler = this.selectRecordItemHandler.bind(this);
         this.activateRecordHandler = this.activateRecordHandler.bind(this);
         this.keyPressRecordHandler = this.keyPressRecordHandler.bind(this);
         this.keyPressSimpleRecordHandler = this.keyPressSimpleRecordHandler.bind(this);
@@ -42,6 +42,19 @@ class Tools extends Component {
         window.addEventListener("beforeunload", (event) => {
             _this.props.disconnectSocket();
         });
+
+        window.addEventListener("keydown", (event) => {
+            if (event.keyCode === 16) {
+                //_this.props.shiftKeyDown();
+            }
+        });
+
+        window.addEventListener("keyup", (event) => {
+
+            if (event.keyCode === 16) {
+                //_this.props.shiftKeyUp();
+            }
+        });
     }
 
     isRecordSelected(id) {
@@ -52,8 +65,19 @@ class Tools extends Component {
         return this.props.activeRecordItemId === id;
     }
 
-    selectRecordHandler(id) {
-        this.props.selectRecord(id);
+    selectRecordItemHandler(id, event) {
+        //event.preventDefault();
+        if (event.shiftKey && this.props.prevSelectedRecordItemId && !this.props.selectedRecordItemList.length) {
+            //this.props.setSelectRecordItems(this.props.selectedRecordItemId, id, this.props.currentTableId)/////////////////////
+            this.props.setSelectRecordItems(this.props.prevSelectedRecordItemId, id, this.props.currentTableId)
+        } else {
+            if (event.shiftKey && this.props.startSelectedRecordItemId ) {
+                this.props.setSelectRecordItems(this.props.startSelectedRecordItemId, id, this.props.currentTableId)
+            } else {
+                this.props.clearSelectedRecordItemList();
+                this.props.selectRecordItem(id);
+            }
+        }
     }
 
     activateRecordHandler(id) {
@@ -76,7 +100,8 @@ class Tools extends Component {
         }
     }
 
-    blurRecordHandler(id) {
+    blurRecordHandler(id, e) {
+        this.props.setPrevSelectedRecordItemId(id);///////////////////////////////////////////
         this.props.blurRecord(id);
     }
 
@@ -98,7 +123,7 @@ class Tools extends Component {
         const recordData = {
             isRecordSelected: this.isRecordSelected,
             isRecordActive: this.isRecordActive,
-            selectRecordHandler: this.selectRecordHandler,
+            selectRecordItemHandler: this.selectRecordItemHandler,
             activateRecordHandler: this.activateRecordHandler,
             keyPressRecordHandler: this.keyPressRecordHandler,
             keyPressSimpleRecordHandler: this.keyPressSimpleRecordHandler,
@@ -164,6 +189,10 @@ class Tools extends Component {
                       removeFilter={this.props.removeFilter}
                       addView={this.props.addView}
                       deleteView={this.props.deleteView}
+                      setSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
+                      appendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
+                      setSelectAllRecordItems={this.props.setSelectAllRecordItems}
+                      selectedRecordItemList={this.props.selectedRecordItemList}
                 />
                 }
             </div>

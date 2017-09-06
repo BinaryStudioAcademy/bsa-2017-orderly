@@ -29,12 +29,22 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
 
 const Field = ({id, tableId, type, name, index, records, recordData, changeFieldType, changeFieldName,
                    changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
-                   searchFoundIndex, uploadAttachment, deleteFile}) => {
+                   searchFoundIndex, uploadAttachment, deleteFile, onSetSelectFieldRecordItems,
+                   onAppendSelectFieldRecordItems, selectedRecordItemList}) => {
     return (
         <div className="field__items">
             <div className="content__field">
-                <Icon name={fieldIcons[type]} className="field__icon"/>
-                <span className="field__name">{name}</span>
+                <span className="content__field-title"
+                    onClick={(event) => {
+                        if (event.shiftKey && selectedRecordItemList) {
+                            onAppendSelectFieldRecordItems(index, tableId)
+                        } else {
+                            onSetSelectFieldRecordItems(index, tableId)
+                        }}}
+                >
+                    <Icon name={fieldIcons[type]} className="field__icon"/>
+                    <span className="field__name">{name}</span>
+                </span>
                 <FieldMenu
                     id={id}
                     tableId={tableId}
@@ -63,7 +73,8 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
                                    searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
                                    searchFoundIndex={searchFoundIndex}
                                    deleteFile={deleteFile}
-                                   tableId={tableId}/>
+                                   tableId={tableId}
+                                   selectedRecordItemList={selectedRecordItemList}/>
                 })}
             </div>
         </div>
@@ -71,7 +82,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
 };
 
 const RecordItem = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList,
-                     searchFoundIndex, uploadAttachment, tableId, deleteFile, currentRecord}) => {
+                     searchFoundIndex, uploadAttachment, tableId, deleteFile, currentRecord, selectedRecordItemList}) => {
     const fieldPayload = {
         id: id,
         value: data,
@@ -82,7 +93,7 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         deleteFile: deleteFile,
         selected: recordData.isRecordSelected(id),
         active: recordData.isRecordActive(id),
-        onSelect: recordData.selectRecordHandler,
+        onSelectRecordItem: recordData.selectRecordItemHandler,
         onActivate: recordData.activateRecordHandler,
         onKeyPress: recordData.keyPressSimpleRecordHandler,
         onBlurField: recordData.blurRecordHandler,
@@ -148,6 +159,14 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         }
     }
 
+    let selectedRecordItemIdList =[];
+    for (let i=0; i < selectedRecordItemList.length; i++) {
+        selectedRecordItemIdList.push(selectedRecordItemList[i].id);
+    }
+    if (selectedRecordItemIdList && selectedRecordItemIdList.indexOf(id) !== -1) {
+        recordClassName += ' selectedList';
+    }
+
     return (
         <div className={recordClassName}>
             {record}
@@ -159,6 +178,16 @@ export default class GridContent extends Component {
     constructor(props) {
         super(props);
         this.props = props;
+    }
+
+    componentDidMount() {
+        let _this = this;
+        window.addEventListener("keydown",function (e) {
+            if (e.ctrlKey && e.keyCode === 65) {
+                e.preventDefault();
+                _this.props.onSetSelectAllRecordItems(_this.props.currentTable._id);
+            }
+        });
     }
 
     handleAddField = () => {
@@ -254,6 +283,9 @@ export default class GridContent extends Component {
                                     deleteFile={this.props.deleteFile}
                                     searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                                     searchFoundIndex={this.props.searchFoundIndex}
+                                    onSetSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
+                                    onAppendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
+                                    selectedRecordItemList={this.props.selectedRecordItemList}
                                 />
                             })}</div>
                         </div>

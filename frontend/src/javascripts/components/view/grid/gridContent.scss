@@ -42,11 +42,18 @@ $cell-padding: 0px;
 .content__field {
   display: inline-block;
   border-left: $cell-border-left;
-  padding: 7px 5px 5px 5px;
+  //padding: 7px 5px 5px 5px;
+  padding-right: 5px;
   margin: 0;
   width: $cell-width;
   min-width: $cell-width;
   min-height: $cell-height;
+}
+
+.content__field-title {
+  display: inline-block;
+  width: 83%;
+  padding: 7px 0 5px 5px;
 }
 
 .field__items {
@@ -74,9 +81,15 @@ $cell-padding: 0px;
   text-overflow: ellipsis;
   position: relative;
 }
+
+.field__item.selectedList {
+  background-color: #f0f7ff;
+}
+
 .field__item.found {
   background-color: #f8ecce;
 }
+
 .field__item.foundCursor {
   background-color: #ffd66e;
 }
@@ -89,9 +102,13 @@ $cell-padding: 0px;
 .field__name {
   display: inline-block;
   height: 17px;
-  width: 100px;
+  width: 98px;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: default;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
 }
 
 .field__change-type {
