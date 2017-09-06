@@ -94,10 +94,10 @@ function dashboardReducer(state = initState, action) {
             {
                 tables: R.map((table) => {
                     if (table._id === action.payload.tableId) {
-                        let obj = R.dissoc('fields', table);
-                        obj = R.dissoc('records', obj);
+                        let obj = R.omit(['fields', 'records', 'views'], table);
                         obj.fields = action.payload.table.fields;
                         obj.records = action.payload.table.records;
+                        obj.views = action.payload.table.views;
                         return obj;
                     } else {
                         return table;
@@ -289,10 +289,10 @@ function dashboardReducer(state = initState, action) {
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
-                        let obj = R.dissoc('fields', table);
-                        obj = R.dissoc('records', obj);
+                        let obj = R.omit(['fields', 'records', 'views'], table);
                         obj.fields = action.table.fields;
                         obj.records = action.table.records;
+                        obj.views = action.table.views;
                         return obj;
                     } else {
                         return table;

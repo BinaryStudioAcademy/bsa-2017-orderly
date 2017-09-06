@@ -32,11 +32,8 @@ const addFieldsToTable = ({tableId}) => {
     return axios.post(url + '/tables/' + tableId + '/fields/', {
         name: 'Text line',
         type: 'text',
-    })
-        .then(() => {
-            return axios.put(url + '/tables/' + tableId + '/records/', {data: ''})
-                .then((table) => table.data);
-        })
+    }).then(() => axios.put(url + '/tables/' + tableId + '/records/', {data: ''})
+        .then((table) => table.data))
         .catch(R.tap(console.error));
 };
 

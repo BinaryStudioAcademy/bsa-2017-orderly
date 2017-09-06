@@ -81,7 +81,7 @@ class TableRepository extends Repository {
     }
 
     updateRecords(tableId, data) {
-        return this.model.findById(tableId)
+        return this.getById(tableId)
             .then((table) => {
                 for (let record of table.records) {
                     record.record_data.push(data);
@@ -107,14 +107,23 @@ class TableRepository extends Repository {
     }
 
     addField(tableId, field) {
-        this.model.findById(tableId).populate('views.view').then((t) => {
-            console.log(t);
-        });
         return this.model.findByIdAndUpdate(
             tableId,
             {'$push': {fields: field}},
             {'new': true}
-        );
+        ).then((table) => {
+            const newField = table.fields[table.fields.length - 1];
+            let updatedViews = [];
+            for (let view of table.views) {
+                updatedViews.push(this.getFromView(view.view, view.type).then((v) => {
+                    let config = v.fields_config;
+                    if (!config) return v;
+                    config.push({field: newField._id, size: 155, position: config.length + 1});
+                    return v.save();
+                }));
+            }
+            return Promise.all(updatedViews).then(() => this.getById(tableId));
+        });
     }
 
     updateField(tableId, fieldId, data) {
@@ -163,13 +172,21 @@ class TableRepository extends Repository {
     }
 
     deleteField(tableId, fieldId) {
-        return this.model.findById(tableId).then((table) => {
+        return this.getById(tableId).then((table) => {
             const deleteAt = table.fields.indexOf(table.fields.find((f) => f._id.toString() === fieldId));
             table.fields.splice(deleteAt, 1);
-            table.records.forEach((record) => {
-                record.record_data.splice(deleteAt, 1);
+            table.records.forEach((record) => record.record_data.splice(deleteAt, 1));
+            let updatedViews = [];
+            for (let view of table.views) {
+                updatedViews.push(this.getFromView(view.view._id, view.type).then((v) => {
+                    if (!v.fields_config) return v;
+                    v.fields_config = v.fields_config.filter((f) => f.field.toString() !== fieldId);
+                    return v.save();
+                }));
+            }
+            return Promise.all(updatedViews).then(() => {
+                return table.save().then(() => this.getById(tableId));
             });
-            return table.save();
         });
     }
 
