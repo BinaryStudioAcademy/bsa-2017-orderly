@@ -7,7 +7,7 @@ class Number extends Field {
     constructor(props){
         super(props, 'text-line');
         this.state = { 
-            precision: null 
+            precision: this.props.currentField.options.number || 2
         }
 
         this.changeHandler = this.changeHandler.bind(this);
