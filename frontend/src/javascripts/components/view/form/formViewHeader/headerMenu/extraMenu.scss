@@ -55,7 +55,7 @@
   background-color: #333;
 }
 
-.item__disabled .span__tooltip{
+.item__disabled .span__tooltip-form {
   visibility: hidden;
   width: 200px;
   background-color: #333;
@@ -69,6 +69,6 @@
   z-index: 5;
 }
 
-.item__disabled:hover .span__tooltip {
+.item__disabled:hover .span__tooltip-form {
   visibility: visible;
 }
