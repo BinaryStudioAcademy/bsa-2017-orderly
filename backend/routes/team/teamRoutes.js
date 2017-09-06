@@ -71,9 +71,9 @@ router.post('/:teamId/base', (req, res) => Promise.all(
 
 router.post('/:teamId/spreadsheet', (req, res) => Promise.all(
     [
-        baseRepository.add(req.body),
+        baseRepository.add(req.body.base),
         tableRepository.add(req.body.table),
-        gridViewRepository.add(defaultGridView()),
+        gridViewRepository.add(defaultViews['grid']),
     ])
     .then(([base, table, view]) => Promise.all(
         [
@@ -81,7 +81,7 @@ router.post('/:teamId/spreadsheet', (req, res) => Promise.all(
             tableRepository.addView(table._id, view._id, view.type)
         ])
     )
-    .then(([base, table]) => teamRepository.addBaseToTeam(req.params.teamId, base._id))
+    .then(([base]) => teamRepository.addBaseToTeam(req.params.teamId, base._id))
     .then((team) => res.status(200).send(team))
     .catch((err) => res.status(500).send(err))
 );

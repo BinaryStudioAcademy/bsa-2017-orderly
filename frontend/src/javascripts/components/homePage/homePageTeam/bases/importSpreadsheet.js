@@ -17,7 +17,7 @@ class ImportSpreadsheet extends Component {
 
         let data = results.data;
         let fieldsData = data[0];
-        let newData = {};
+        let table = {};
         let fields = [];
         for (let field in fieldsData ) {
           fields[field] = {"name": `${fieldsData[field]}`}
@@ -31,9 +31,14 @@ class ImportSpreadsheet extends Component {
           }
           records[row] = {"record_data": rowData} 
         }
-        newData.fields = fields;
-        newData.records = records;
-        passJSON(newData, teamId);
+        table.fields = fields;
+        table.records = records;
+
+        let base = {};
+        base.name = 'Base from CSV';
+        base.description = 'This base where initially created from CSV file';
+
+        passJSON(table, teamId, base);
       }
     });
   }

@@ -30,7 +30,8 @@ function* addingBaseFromSpreadsheet(action) {
     try {
     	const payload = {};
     	payload.teamId = action.teamId;
-    	payload.table = action.tables;
+    	payload.table = Object.assign({}, action.table);
+    	payload.base = action.base;
         const team = yield call(addBaseToTeamSpreadSheet, payload);
         yield put({ type: 'ADD_NEW_BASE_TO_TEAM_SUCCEEDED', team: team });
     } catch (err) {
