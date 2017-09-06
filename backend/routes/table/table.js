@@ -184,9 +184,11 @@ router.delete('/:id/views/:viewId/:viewType', (request, response) => {
 
 // filter table -------------------------------------
 
-router.get('/:id/fields/:fieldId/filter/:condition/:query', (request, response) => {
+router.get('/:id/views/:viewType/:viewId/fields/:fieldId/filter/:condition/:query', (request, response) => {
     tableRepository.filterRecords(
         request.params.id,
+        request.params.viewId,
+        request.params.viewType,
         request.params.fieldId,
         request.params.condition,
         request.params.query)

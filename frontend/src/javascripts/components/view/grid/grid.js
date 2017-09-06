@@ -34,6 +34,7 @@ export default class Grid extends Component {
                     removeFilter={this.handleRemoveFilter}
                     deleteView={this.props.deleteView}
                     viewsCount={this.props.viewsCount}
+                    currentViewType={this.props.currentViewType}
                 />
                 <GridContent
                     currentTable={this.props.currentTable}

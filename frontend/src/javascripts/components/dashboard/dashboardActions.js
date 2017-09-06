@@ -215,10 +215,12 @@ export function sortRecords(table, fieldId, sortOption) {
     };
 }
 
-export function filterRecords(tableId, fieldId, condition, filterQuery) {
+export function filterRecords(tableId, viewId, viewType, fieldId, condition, filterQuery) {
     return {
         type: 'FILTER_RECORDS',
-        tableId : tableId,
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
         fieldId: fieldId,
         condition: condition,
         filterQuery: filterQuery,

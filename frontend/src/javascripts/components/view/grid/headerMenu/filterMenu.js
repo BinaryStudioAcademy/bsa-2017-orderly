@@ -44,6 +44,8 @@ export default class FilterMenu extends Component {
     preformFilter = () => {
         this.props.filterRecords(
             this.props.currentTable._id,
+            this.props.currentTable.currentView,
+            this.props.currentViewType,
             this.state.fieldId,
             this.state.condition,
             this.state.filterQuery,

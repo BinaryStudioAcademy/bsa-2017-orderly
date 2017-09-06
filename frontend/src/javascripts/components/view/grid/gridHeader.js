@@ -25,15 +25,16 @@ export default class GridHeader extends Component{
                         </Button>
                         <FilterMenu
                             currentTable={this.props.currentTable}
+                            currentViewType={this.props.currentViewType}
                             filterRecords={this.props.filterRecords}
                             removeFilter={this.props.removeFilter}/>
                         <Button basic>
                             <Icon name='browser'/>
                             <span className="menu__text">Group</span>
                         </Button>
-                        {/*<SortMenu
+                        <SortMenu
                             currentTable={this.props.currentTable}
-                            sortRecords={this.props.sortRecords}/>*/}
+                            sortRecords={this.props.sortRecords}/>
                         <Button basic icon='external'/>
                         <ExtraMenu
                             currentTableId={this.props.currentTable._id}

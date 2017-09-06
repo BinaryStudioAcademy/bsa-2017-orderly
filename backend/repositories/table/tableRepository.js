@@ -281,11 +281,20 @@ class TableRepository extends Repository {
         });
     }
 
-    filterRecords(tableId, fieldId, condition, query) {
-        return this.model.findById(tableId).then((table) => {
-            const index = table.fields.findIndex((f) => f._id.toString() === fieldId);
-            table.records = table.records.filter((r) => r.record_data[index].data.includes(query));
-            return table;
+    filterRecords(tableId, viewId, viewType, fieldId, condition, query) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            view.filters.filterSet.push(
+                {
+                    fieldId: fieldId,
+                    condition: condition,
+                    value: query,
+                }
+            );
+            // const index = table.fields.findIndex((f) => f._id.toString() === fieldId);
+            // table.records = table.records.filter((r) => r.record_data[index].data.includes(query));
+            return view.save().then(() => {
+                return this.getById(tableId);
+            });
         });
     }
 }

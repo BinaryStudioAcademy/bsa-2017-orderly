@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Icon} from 'semantic-ui-react';
-import R from 'ramda';
 import Grid from './grid/grid';
 import FormView from './form/formView';
 import {viewIcons} from '../configuration/viewTypes';
@@ -62,6 +61,7 @@ export default class View extends Component {
         case 'grid':
             return <Grid
                 currentTable={this.props.currentTable}
+                currentViewType={activeView.type}
                 tables={this.props.tables}
                 recordData={this.props.recordData}
                 addRecord={this.props.addRecord}
@@ -97,7 +97,7 @@ export default class View extends Component {
                 viewsCount={viewsCount}
             />;
         case 'kanban':
-            return <div>Kanban</div>
+            return <div>Kanban</div>;
         default:
             return <InDeveloping/>;
         }
