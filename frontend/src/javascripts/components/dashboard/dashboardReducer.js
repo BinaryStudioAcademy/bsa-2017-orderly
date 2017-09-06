@@ -21,8 +21,8 @@ const initState = {
     searchBlockOpen: false,
     filteredRecords: null,
     selectedRecordItemList: [],
-    prevSelectedRecordItemId: '',
-    startSelectedRecordItemId: ''
+    isShiftKeyPressed: false,
+    isMouseDownPressed: false
 };
 
 function dashboardReducer(state = initState, action) {
@@ -480,7 +480,6 @@ function dashboardReducer(state = initState, action) {
 
     case 'SET_SELECT_FIELD_RECORD_ITEMS': {
         let selectedRecordItemList = [];
-
         state.tables.forEach((table) => {
             if (table._id === action.tableId) {
                 table.records.forEach((record, recordIndex) => {
@@ -489,7 +488,6 @@ function dashboardReducer(state = initState, action) {
                 })
             }
         });
-
         return{...state, ...{selectedRecordItemList: selectedRecordItemList,
                selectedRecordItemId: selectedRecordItemList[0].id}};
     }
@@ -497,13 +495,19 @@ function dashboardReducer(state = initState, action) {
     case 'APPEND_SELECT_FIELD_RECORD_ITEMS': {
         let selectedRecordItemList = [],
             maxSelectedFieldIndex,
-            minSelectedFieldIndex;
+            minSelectedFieldIndex,
+            minFieldIndex,
+            maxFieldIndex;
 
-        const minFieldIndex = R.prop('fieldIndex')(R.reduce(R.minBy( R.prop('fieldIndex') ), {fieldIndex: Infinity}, state.selectedRecordItemList));
-        const minRecordIndex = R.prop('recordIndex')(R.reduce(R.minBy( R.prop('recordIndex') ), {recordIndex: Infinity}, state.selectedRecordItemList));
-
-        const maxFieldIndex = R.prop('fieldIndex')(R.reduce(R.maxBy( R.prop('fieldIndex') ), {fieldIndex: -Infinity}, state.selectedRecordItemList));
-        const maxRecordIndex = R.prop('recordIndex')(R.reduce(R.maxBy( R.prop('recordIndex') ), {recordIndex: -Infinity}, state.selectedRecordItemList));
+        if (state.selectedRecordItemList.length === 0) {
+            let {firstSelectRecordItem} =
+                getBoundarySelectedRecordItems(state.tables, action.tableId, state.selectedRecordItemId, null);
+            minFieldIndex = firstSelectRecordItem.fieldIndex;
+            maxFieldIndex = firstSelectRecordItem.fieldIndex;
+        } else {
+            minFieldIndex = R.prop('fieldIndex')(R.reduce(R.minBy( R.prop('fieldIndex') ), {fieldIndex: Infinity}, state.selectedRecordItemList));
+            maxFieldIndex = R.prop('fieldIndex')(R.reduce(R.maxBy( R.prop('fieldIndex') ), {fieldIndex: -Infinity}, state.selectedRecordItemList));
+        }
 
         if (action.fieldIndex > maxFieldIndex) {
             minSelectedFieldIndex = minFieldIndex;
@@ -528,13 +532,11 @@ function dashboardReducer(state = initState, action) {
                 })
             }
         });
-
         return{...state, ...{selectedRecordItemList: selectedRecordItemList} };
     }
 
     case 'SET_SELECT_ALL_RECORD_ITEMS': {
         let selectedRecordItemList = [];
-
         state.tables.forEach((table) => {
             if (table._id === action.tableId) {
                 table.records.forEach((record, recordIndex) => {
@@ -545,97 +547,130 @@ function dashboardReducer(state = initState, action) {
                 })
             }
         });
-
         return{...state, ...{selectedRecordItemList: selectedRecordItemList,
                selectedRecordItemId: selectedRecordItemList[0].id}};
     }
 
     case 'SET_SELECT_RECORD_ITEMS': {
-        let selectedRecordItemList = [];
-        let firstSelectRecordItemId = {},
-            lastSelectRecordItemId = {},
-            maxSelectedFieldIndex,
-            minSelectedFieldIndex,
-            maxSelectedRecordIndex,
-            minSelectedRecordIndex;
+        let {firstSelectRecordItem, lastSelectRecordItem} =
+            getBoundarySelectedRecordItems(state.tables, action.tableId,
+                                           action.firstSelectRecordItemId, action.lastSelectRecordItemId);
+        let selectedRecordItemList = getSelectedRecordItemList (state.tables, action.tableId, firstSelectRecordItem, lastSelectRecordItem);
 
-        state.tables.forEach((table) => {
-            if (table._id === action.tableId) {
-                table.records.forEach((record, recordIndex) => {
-                    record.record_data.forEach((recordItem, fieldIndex) => {
-                        if (recordItem._id === action.firstSelectRecordItemId) {
-                            firstSelectRecordItemId.fieldIndex = fieldIndex;
-                            firstSelectRecordItemId.recordIndex = recordIndex;
-                        } else {
-                            if (recordItem._id === action.lastSelectRecordItemId) {
-                                lastSelectRecordItemId.fieldIndex = fieldIndex;
-                                lastSelectRecordItemId.recordIndex = recordIndex;
-                            }
-                        }
-                    });
-                })
-            }
-        });
-
-        if (firstSelectRecordItemId.fieldIndex > lastSelectRecordItemId.fieldIndex) {
-            maxSelectedFieldIndex = firstSelectRecordItemId.fieldIndex;
-            minSelectedFieldIndex = lastSelectRecordItemId.fieldIndex;
-        } else {
-            if (firstSelectRecordItemId.fieldIndex < lastSelectRecordItemId.fieldIndex) {
-                maxSelectedFieldIndex = lastSelectRecordItemId.fieldIndex;
-                minSelectedFieldIndex = firstSelectRecordItemId.fieldIndex;
-            } else {
-                minSelectedFieldIndex = firstSelectRecordItemId.fieldIndex;
-                maxSelectedFieldIndex = firstSelectRecordItemId.fieldIndex;
-            }
-        }
-
-        if (firstSelectRecordItemId.recordIndex > lastSelectRecordItemId.recordIndex) {
-            maxSelectedRecordIndex = firstSelectRecordItemId.recordIndex;
-            minSelectedRecordIndex = lastSelectRecordItemId.recordIndex;
-        } else {
-            if (firstSelectRecordItemId.recordIndex < lastSelectRecordItemId.recordIndex) {
-                maxSelectedRecordIndex = lastSelectRecordItemId.recordIndex;
-                minSelectedRecordIndex = firstSelectRecordItemId.recordIndex;
-            } else {
-                maxSelectedRecordIndex = firstSelectRecordItemId.recordIndex;
-                minSelectedRecordIndex = firstSelectRecordItemId.recordIndex;
-            }
-        }
-
-        state.tables.forEach((table) => {
-            if (table._id === action.tableId) {
-                table.records.forEach((record, recordIndex) => {
-                    if (recordIndex >= minSelectedRecordIndex && recordIndex <= maxSelectedRecordIndex) {
-                        for (let i = minSelectedFieldIndex; i < maxSelectedFieldIndex + 1; i++) {
-                            selectedRecordItemList.push({id: record.record_data[i]._id,
-                                fieldIndex: i, recordIndex: recordIndex});
-                        }
-                    }
-                })
-            }
-        });
-
-        return{...state, ...{selectedRecordItemList: selectedRecordItemList,
-               startSelectedRecordItemId: action.firstSelectRecordItemId,
-               selectedRecordItemId: action.firstSelectRecordItemId || selectedRecordItemList[0]._id} };
+        return{...state, ...{selectedRecordItemList: selectedRecordItemList} };
     }
 
-    case 'SET_PREV_SELECTED_RECORD_ITEM_ID': {
-        return {...state, prevSelectedRecordItemId: action.id};
+    case 'SHIFT_KEY_DOWN': {
+        return {...state, isShiftKeyPressed: true};
     }
 
-    case 'SET_PREV_SELECTED_RECORD_ITEM_ID': {
-        return {...state, prevSelectedRecordItemId: action.id};
+    case 'SHIFT_KEY_UP': {
+        return {...state, isShiftKeyPressed: false};
     }
 
     case 'CLEAR_SELECTED_RECORD_ITEM_LIST': {
         return {...state, selectedRecordItemList: []};
     }
 
+    case 'MOUSE_DOWN_RECORD_ITEM': {
+        let selectedRecordItemList = [];
+        /*selectedRecordItemList.push({
+            id: action.recordItemId,
+            fieldIndex: action.fieldIndex,
+            recordIndex: action.recordIndex
+        });*/
+        return {...state, isMouseDownPressed: true,
+            ...{selectedRecordItemId: action.recordItemId}, ...{selectedRecordItemList: selectedRecordItemList}};
+    }
+
+    case 'MOUSE_UP_RECORD_ITEM': {
+        return {...state, isMouseDownPressed: false};
+    }
+
+    case 'MOUSE_OVER_RECORD_ITEM': {
+        let {firstSelectRecordItem, lastSelectRecordItem} =
+            getBoundarySelectedRecordItems(state.tables, action.tableId,
+                state.selectedRecordItemId, action.recordItemId);
+        let selectedRecordItemList = getSelectedRecordItemList (state.tables, action.tableId, firstSelectRecordItem, lastSelectRecordItem);
+
+        return{...state, ...{selectedRecordItemList: selectedRecordItemList} };
+    }
+
     default:
         return state;
     }
+}
+
+function getBoundarySelectedRecordItems (tables, tableId, firstSelectRecordItemId, lastSelectRecordItemId) {
+    let firstSelectRecordItem = {},
+        lastSelectRecordItem = {};
+
+    tables.forEach((table) => {
+        if (table._id === tableId) {
+            table.records.forEach((record, recordIndex) => {
+                record.record_data.forEach((recordItem, fieldIndex) => {
+                    if (recordItem._id === firstSelectRecordItemId) {
+                        firstSelectRecordItem.fieldIndex = fieldIndex;
+                        firstSelectRecordItem.recordIndex = recordIndex;
+                    } else {
+                        if (recordItem._id === lastSelectRecordItemId) {
+                            lastSelectRecordItem.fieldIndex = fieldIndex;
+                            lastSelectRecordItem.recordIndex = recordIndex;
+                        }
+                    }
+                });
+            })
+        }
+    });
+    return {firstSelectRecordItem, lastSelectRecordItem};
+}
+
+function getSelectedRecordItemList (tables, tableId, firstSelectRecordItem, lastSelectRecordItem) {
+    let selectedRecordItemList = [];
+    let maxSelectedFieldIndex,
+        minSelectedFieldIndex,
+        maxSelectedRecordIndex,
+        minSelectedRecordIndex;
+
+    if (firstSelectRecordItem.fieldIndex > lastSelectRecordItem.fieldIndex) {
+        maxSelectedFieldIndex = firstSelectRecordItem.fieldIndex;
+        minSelectedFieldIndex = lastSelectRecordItem.fieldIndex;
+    } else {
+        if (firstSelectRecordItem.fieldIndex < lastSelectRecordItem.fieldIndex) {
+            maxSelectedFieldIndex = lastSelectRecordItem.fieldIndex;
+            minSelectedFieldIndex = firstSelectRecordItem.fieldIndex;
+        } else {
+            minSelectedFieldIndex = firstSelectRecordItem.fieldIndex;
+            maxSelectedFieldIndex = firstSelectRecordItem.fieldIndex;
+        }
+    }
+
+    if (firstSelectRecordItem.recordIndex > lastSelectRecordItem.recordIndex) {
+        maxSelectedRecordIndex = firstSelectRecordItem.recordIndex;
+        minSelectedRecordIndex = lastSelectRecordItem.recordIndex;
+    } else {
+        if (firstSelectRecordItem.recordIndex < lastSelectRecordItem.recordIndex) {
+            maxSelectedRecordIndex = lastSelectRecordItem.recordIndex;
+            minSelectedRecordIndex = firstSelectRecordItem.recordIndex;
+        } else {
+            maxSelectedRecordIndex = firstSelectRecordItem.recordIndex;
+            minSelectedRecordIndex = firstSelectRecordItem.recordIndex;
+        }
+    }
+
+    tables.forEach((table) => {
+        if (table._id === tableId) {
+            table.records.forEach((record, recordIndex) => {
+                if (recordIndex >= minSelectedRecordIndex && recordIndex <= maxSelectedRecordIndex) {
+                    for (let i = minSelectedFieldIndex; i < maxSelectedFieldIndex + 1; i++) {
+                        selectedRecordItemList.push({id: record.record_data[i]._id,
+                            fieldIndex: i, recordIndex: recordIndex});
+                    }
+                }
+            })
+        }
+    });
+    return selectedRecordItemList;
 }
 
 export default dashboardReducer;

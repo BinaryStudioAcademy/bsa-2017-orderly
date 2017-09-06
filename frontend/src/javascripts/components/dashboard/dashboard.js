@@ -7,7 +7,8 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     changeSearch, changeSearchFoundIndex, toggleSearch, changeFieldName, deleteRecord, deleteField,
     changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
     addView, deleteView, setSelectFieldRecordItems, appendSelectFieldRecordItems, setSelectAllRecordItems,
-    setSelectRecordItems, setPrevSelectedRecordItemId, clearSelectedRecordItemList
+    setSelectRecordItems, shiftKeyDown, shiftKeyUp, clearSelectedRecordItemList, mouseDownRecordItem,
+    mouseUpRecordItem, mouseOverRecordItem
 } from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
@@ -34,8 +35,8 @@ const mapStateToProps = (state, ownProps) => {
         user: state.userProfile.user,
         filteredRecords: state.dashboardReducer.filteredRecords,
         selectedRecordItemList: state.dashboardReducer.selectedRecordItemList,
-        prevSelectedRecordItemId: state.dashboardReducer.prevSelectedRecordItemId,
-        startSelectedRecordItemId: state.dashboardReducer.startSelectedRecordItemId
+        isShiftKeyPressed: state.dashboardReducer.isShiftKeyPressed,
+        isMouseDownPressed: state.dashboardReducer.isMouseDownPressed
     });
 };
 
@@ -84,8 +85,12 @@ const mapDispatchToProps = {
     appendSelectFieldRecordItems: appendSelectFieldRecordItems,
     setSelectAllRecordItems: setSelectAllRecordItems,
     setSelectRecordItems: setSelectRecordItems,
-    setPrevSelectedRecordItemId: setPrevSelectedRecordItemId,
-    clearSelectedRecordItemList: clearSelectedRecordItemList
+    shiftKeyDown: shiftKeyDown,
+    shiftKeyUp: shiftKeyUp,
+    clearSelectedRecordItemList: clearSelectedRecordItemList,
+    mouseDownRecordItem: mouseDownRecordItem,
+    mouseUpRecordItem: mouseUpRecordItem,
+    mouseOverRecordItem: mouseOverRecordItem
 };
 
 const Dashboard = connect(

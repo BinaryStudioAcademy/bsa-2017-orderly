@@ -20,6 +20,14 @@ $table-cell-width: 155px;
   background-color: #fff;
   z-index: 1;
 }
+.field__item.selectedList {
+  .table-cell.selected {
+    background-color: #f0f7ff;
+  }
+}
+.table-cell-wrap {
+  user-select: none;
+}
 
 .table-cell.selected .table-cell-wrap .table-cell-inner,
 .table-cell.active .table-cell-wrap .table-cell-inner {

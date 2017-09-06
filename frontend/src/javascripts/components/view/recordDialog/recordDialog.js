@@ -29,7 +29,6 @@ const Recordtem = ({id, type, data, tableId, recordData, uploadAttachment, delet
         deleteFile: deleteFile,
         selected: false,
         active: true,
-        onSelectRecordItem: () => {},
         onActivate: () => {},
         onKeyPress: recordData.keyPressSimpleRecordHandler,
         onBlurField: recordData.blurRecordHandler,
@@ -77,7 +76,7 @@ const Recordtem = ({id, type, data, tableId, recordData, uploadAttachment, delet
             record = <MultipleSelect {...fieldPayload}/>;
             break;
         case 'checkbox':
-            const fieldPayloadCheckbox = {...fieldPayload, ...{onSelectRecordItem: recordData.selectRecordItemHandler} };
+            const fieldPayloadCheckbox = {...fieldPayload };
             record = <Checkbox {...fieldPayloadCheckbox}/>;
             break;
         default:

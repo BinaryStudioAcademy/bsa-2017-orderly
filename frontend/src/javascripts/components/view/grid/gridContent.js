@@ -36,7 +36,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
             <div className="content__field">
                 <span className="content__field-title"
                     onClick={(event) => {
-                        if (event.shiftKey && selectedRecordItemList) {
+                        if (event.shiftKey) {
                             onAppendSelectFieldRecordItems(index, tableId)
                         } else {
                             onSetSelectFieldRecordItems(index, tableId)
@@ -65,6 +65,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
                                    id={record.record_data[index]._id}
                                    uploadAttachment={uploadAttachment}
                                    recordIdx={idx}
+                                   fieldIdx={index}
                                    currentRecord={record.record_data[index]}
                                    type={type}
                                    data={record.record_data[index].data}
@@ -81,11 +82,13 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
     );
 };
 
-const RecordItem = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList,
+const RecordItem = ({id, type, data, recordData, recordIdx, fieldIdx, currentField, searchMatchedRecordItemIdList,
                      searchFoundIndex, uploadAttachment, tableId, deleteFile, currentRecord, selectedRecordItemList}) => {
     const fieldPayload = {
         id: id,
         value: data,
+        recordIdx: recordIdx,
+        fieldIdx: fieldIdx,
         currentRecord: currentRecord,
         tableId: tableId,
         currentField: currentField,
@@ -93,12 +96,13 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         deleteFile: deleteFile,
         selected: recordData.isRecordSelected(id),
         active: recordData.isRecordActive(id),
-        onSelectRecordItem: recordData.selectRecordItemHandler,
         onActivate: recordData.activateRecordHandler,
         onKeyPress: recordData.keyPressSimpleRecordHandler,
         onBlurField: recordData.blurRecordHandler,
         onBlurComponent: recordData.blurRecordComponentHandler,
         onChangeCheckbox: recordData.changeCheckboxHandler,
+        onMouseDownRecordItem: recordData.mouseDownRecordItemHandler,
+        onMouseOverRecordItem: recordData.mouseOverRecordItemHandler,
         autoFocus: true
     };
     let record = null;
@@ -117,7 +121,7 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
             record = <CurrencyField {...fieldPayload}/>;
             break;
         case 'autonumber':
-            record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
+            record = <AutoNumber {...fieldPayload}/>;
             break;
         case 'url':
             record = <Url {...fieldPayload}/>;

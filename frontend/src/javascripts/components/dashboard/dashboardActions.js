@@ -325,16 +325,47 @@ const setSelectRecordItems = (firstSelectRecordItemId, lastSelectRecordItemId, t
     };
 };
 
-const setPrevSelectedRecordItemId = (id) => {
+const shiftKeyDown = () => {
     return {
-        type: 'SET_PREV_SELECTED_RECORD_ITEM_ID',
-        id: id
+        type: 'SHIFT_KEY_DOWN'
+    };
+};
+
+const shiftKeyUp = () => {
+    return {
+        type: 'SHIFT_KEY_UP'
     };
 };
 
 const clearSelectedRecordItemList = () => {
     return {
         type: 'CLEAR_SELECTED_RECORD_ITEM_LIST'
+    };
+};
+
+const mouseDownRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => {
+    return {
+        type: 'MOUSE_DOWN_RECORD_ITEM',
+        tableId: tableId,
+        recordItemId: recordItemId,
+        recordIndex: recordIndex,
+        fieldIndex: fieldIndex
+    };
+};
+
+const mouseUpRecordItem = () => {
+    return {
+        type: 'MOUSE_UP_RECORD_ITEM'
+    };
+};
+
+const mouseOverRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => {
+    return {
+        type: 'MOUSE_OVER_RECORD_ITEM',
+        tableId: tableId,
+        recordItemId: recordItemId,
+        recordIndex: recordIndex,
+        fieldIndex: fieldIndex
     };
 };
 
@@ -372,6 +403,10 @@ export {
     appendSelectFieldRecordItems,
     setSelectAllRecordItems,
     setSelectRecordItems,
-    setPrevSelectedRecordItemId,
-    clearSelectedRecordItemList
+    shiftKeyDown,
+    shiftKeyUp,
+    clearSelectedRecordItemList,
+    mouseDownRecordItem,
+    mouseUpRecordItem,
+    mouseOverRecordItem
 };
