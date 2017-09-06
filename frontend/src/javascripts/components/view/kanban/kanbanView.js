@@ -18,6 +18,7 @@ class KanbanView extends Component {
 		return (
 			<div className='kanban_view_wrapper_page'>
 				<KanbanViewHeader table={this.props.currentTable}
+				                  currentViewId={this.props.currentViewId}
 				                  deleteView={this.props.deleteView}
 				                  viewsCount={this.props.viewsCount} />
 				<KanbanViewContainer currentViewId={this.props.currentViewId}

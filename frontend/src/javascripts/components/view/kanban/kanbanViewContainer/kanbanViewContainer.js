@@ -15,6 +15,7 @@ class KanbanViewContainer extends Component {
 				<div className='kanban_stack'>
 					<StackItem currentViewId={this.props.currentViewId}
 					           table={this.props.table} />
+
 					<div className='add_stack'>
 						<span className='new_stack'>
 							<Icon name='plus'/>
