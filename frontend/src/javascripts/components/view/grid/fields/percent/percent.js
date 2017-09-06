@@ -15,7 +15,7 @@ class Percent extends Field {
     componentWillReceiveProps(nextProps) {
         this.setState({ 
             precision: nextProps.currentField.options.percent
-            });
+        });
     }
   renderActiveField() {
     return (

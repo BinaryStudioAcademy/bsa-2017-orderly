@@ -21,7 +21,7 @@ class CurrencyField  extends Field {
   renderActiveField() {
     return (
         <NumberFormat className="currency-input" 
-            thousandSeparator={true} prefix={`${this.state.prefix} `}
+            thousandSeparator={true} prefix={this.state.prefix}
             value={this.state.currency}
             onChange={(event) => this.setState({currency: event.target.value})}
             decimalPrecision={2}
