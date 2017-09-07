@@ -6,7 +6,7 @@ import './percent.scss';
 
 class Percent extends Field {
   constructor(props) {
-    super(props);
+    super(props, 'percent');
     this.state = { 
         percent: this.props.value,
         precision: this.props.currentField.options.percent 
