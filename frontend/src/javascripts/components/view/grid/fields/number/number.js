@@ -5,7 +5,7 @@ import './number.scss'
 
 class Number extends Field {
     constructor(props){
-        super(props, 'text-line');
+        super(props, 'number');
         this.state = { 
             precision: this.props.currentField.options.number || 2
         }

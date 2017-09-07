@@ -5,7 +5,7 @@ import './phone.scss';
 
 class Phone extends Field {
   constructor(props) {
-    super(props);
+    super(props, 'phone');
     this.state = { 
         phone: this.props.value
     }

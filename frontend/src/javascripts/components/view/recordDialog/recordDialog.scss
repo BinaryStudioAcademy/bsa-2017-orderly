@@ -274,6 +274,10 @@
         height: 32px;
         display: block;
       }
+
+      .Select-menu-outer{
+        z-index: 1000000 !important;
+      }
     }
 
     .multiple-select-container {

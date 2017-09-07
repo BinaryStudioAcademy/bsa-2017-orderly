@@ -7,9 +7,11 @@
   width: 100%;
   color: #ffffff;
   padding: {
-  left: 20px;
-  right: 20px;
+    left: 20px;
+    right: 20px;
   }
+  user-select: none;
+
   a,
   a:hover {
     color: #ffffff;

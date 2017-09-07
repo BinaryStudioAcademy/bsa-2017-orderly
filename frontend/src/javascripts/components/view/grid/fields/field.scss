@@ -8,6 +8,9 @@ $table-cell-width: 155px;
   width: $table-cell-width;
   height: 32px;
 }
+.table-cell:focus {
+  outline: none;
+}
 
 .table-cell.selected,
 .table-cell.active {
@@ -22,6 +25,14 @@ $table-cell-width: 155px;
   .table-cell.active {
     z-index: 1;
   }
+}
+.field__item.selectedList {
+  .table-cell.selected {
+    background-color: #f0f7ff;
+  }
+}
+.table-cell-wrap {
+  user-select: none;
 }
 
 .table-cell.selected .table-cell-wrap .table-cell-inner,
