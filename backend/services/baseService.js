@@ -53,7 +53,8 @@ let baseCopy = (baseToCopy) => {
 
             return record
          })
-         table.views = views;
+         //table.views = [];
+         viewCopy(table)
          table.fields = fields;
          table.records = records;
          return table
@@ -68,7 +69,7 @@ let baseCopy = (baseToCopy) => {
         newBase.tables = [];
         promiseArray[i] = baseRepository.add(newBase);
         for ( let table in tables ) {
-         viewCopy(tables[table])
+         
          promiseArray[++i] = tableRepository.add(tables[table])
         }
         return Promise.all(promiseArray)
@@ -100,10 +101,82 @@ let viewCopy = (table) => {
             idGl += 1; 
         }
     }
+    table.views = [];
+    // let addGrid = (newTable, gridIds) => {        
+        if (gridIds[0]) {   
+            gridRepository.getByIds(gridIds)
+            .then((views)  => {
+                return views.map(view => { 
+                    return view.toObject()
+                    })
+                })
+            .then((views) => {
+                 let newViews = views.map(view => {
+                 delete view._id
+                 let fields_config = view.fields_config.map((config, i) => {
+                    delete config._id
+                    config.field = newTable.fields[i]._id
+                    return config
+                    
+                 })
+                 let filters = view.filters.filterSet.map((filter, i) => {
+                    delete filter._id
+                    fieldId = newTable.fields[i]._id
+                    return filter
+                    })
+                 view.fields_config = fields_config;
+                 view.filters = filters;
+                 return view
+                })
+                return newViews
+            })
+            .then((views) => {
+                let promiseArray =[]
+                let i = 0
+                for ( let view in views ) {
+                 promiseArray[i++] = gridRepository.add(views[view])
+                }
+                return Promise.all(promiseArray)
+            })
+            .then((...gridViews)=> tableRepository.pushClonedViewsToTable('grid', newTable._id, gridViews))
+        }
+        
+        if (formIds[0]) {   
+            formRepository.getByIds(formIds)
+            .then((views)  => {
+                return views.map(view => { 
+                    return view.toObject()
+                    })
+                })
+            .then((views) => {
+                 let newViews = views.map(view => {
+                 delete view._id
+                 let fields_config = view.fields_config.map((config, i) => {
+                    delete config._id
+                    config.field = newTable.fields[i]._id
+                    return config
+                    
+                 })
+                 view.fields_config = fields_config;
+                 return view
+                })
+                return newViews
+            })
+            .then((views) => {
+                let promiseArray =[]
+                let i = 0
+                for ( let view in views ) {
+                 promiseArray[i++] = formRepository.add(views[view])
+                }
+                return Promise.all(promiseArray)
+            })
+            .then((...formViews)=> tableRepository.pushClonedViewsToTable('form', newTable._id, formViews))
+        }
 
-    if (gridIds[0]) {   
-        gridRepository.getByIds(gridIds)
+    if (kanbIds[0]) {   
+        kanbanRepository.getByIds(kanbIds)
         .then((views)  => {
+
             return views.map(view => { 
                 return view.toObject()
                 })
@@ -117,45 +190,6 @@ let viewCopy = (table) => {
                 return config
                 
              })
-             let filters = view.filters.filterSet.map((filter, i) => {
-                delete filter._id
-                fieldId = newTable.fields[i]._id
-                return filter
-                })
-             view.fields_config = fields_config;
-             view.filters = filters;
-             return view
-            })
-            return newViews
-        })
-        .then((views) => {
-            let promiseArray =[]
-            let i = 0
-            for ( let view in views ) {
-             promiseArray[i++] = gridRepository.add(views[view])
-            }
-            return Promise.all(promiseArray)
-        })
-        .then((...gridViews)=> tableRepository.addClonedViewsToTable('grid', newTable._id, gridViews))
-    }
-
-    if (formIds[0]) {   
-        formRepository.getByIds(formIds)
-        .then((views)  => {
-
-            return views.map(view => { 
-                return view.toObject()
-                })
-            })
-        .then((views) => {
-             let newViews = views.map(view => {
-             delete view._id
-             let fields_config = view.fields_config.map((config, i) => {
-                delete config._id
-                config.field = newTable.fields[i]._id
-                return config
-                
-             })
              view.fields_config = fields_config;
              return view
             })
@@ -165,45 +199,12 @@ let viewCopy = (table) => {
             let promiseArray =[]
             let i = 0
             for ( let view in views ) {
-             promiseArray[i++] = formRepository.add(views[view])
+             promiseArray[i++] = kanbanRepository.add(views[view])
             }
             return Promise.all(promiseArray)
         })
-        .then((...formViews)=> tableRepository.addClonedViewsToTable('form', newTable._id, formViews))
+        .then((...kanbanViews)=> tableRepository.pushClonedViewsToTable('kanban', newTable._id, kanbanViews))
     }
-
-    // if (kanbIds[0]) {   
-    //     kanbanRepository.getByIds(formIds)
-    //     .then((views)  => {
-
-    //         return views.map(view => { 
-    //             return view.toObject()
-    //             })
-    //         })
-    //     .then((views) => {
-    //          let newViews = views.map(view => {
-    //          delete view._id
-    //          let fields_config = view.fields_config.map((config, i) => {
-    //             delete config._id
-    //             config.field = newTable.fields[i]._id
-    //             return config
-                
-    //          })
-    //          view.fields_config = fields_config;
-    //          return view
-    //         })
-    //         return newViews
-    //     })
-    //     .then((views) => {
-    //         let promiseArray =[]
-    //         let i = 0
-    //         for ( let view in views ) {
-    //          promiseArray[i++] = kanbanRepository.add(views[view])
-    //         }
-    //         return Promise.all(promiseArray)
-    //     })
-    //     .then((...kanbanViews)=> tableRepository.addClonedViewsToTable('kanban', newTable._id, kanbanViews))
-    // }
 
 
 
