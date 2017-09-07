@@ -25,7 +25,8 @@ class Header extends Component {
                       onClick={() => {
                           browserHistory.push('/')
                       }}
-                      size='huge'/>
+                      size='huge'
+                      className="base-icon-logo"/>
                 <div className='label-header'>
                     <div className='header-base-name'>{this.props.base.name}</div>
                     <ContextMenuIcon
