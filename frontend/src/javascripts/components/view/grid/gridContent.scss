@@ -12,6 +12,7 @@ $cell-padding: 0px;
   height: 74.7vh;
   overflow: auto;
   border-top: 2px solid rgba(170, 170, 170, 0.5);
+  background-color: #f5f5f5;
 }
 
 .grid__content {
@@ -24,6 +25,13 @@ $cell-padding: 0px;
 
 .wrapper__table {
   display: flex;
+  background-color: #ffffff!important;
+
+  .content__rows.row-options-field {
+    .rows__selector.rows__row {
+      background-color: #f5f5f5;
+    }
+  }
 }
 
 .content__body {
@@ -48,6 +56,7 @@ $cell-padding: 0px;
   width: $cell-width;
   min-width: $cell-width;
   min-height: $cell-height;
+  background-color: #f5f5f5;
 }
 
 .content__field-title {
@@ -150,6 +159,7 @@ $cell-padding: 0px;
   cursor: pointer;
   border: $cell-border;
   margin-bottom: 70px;
+  background-color: #ffffff;
 }
 
 .item__add-field:hover, .item__add-record:hover {

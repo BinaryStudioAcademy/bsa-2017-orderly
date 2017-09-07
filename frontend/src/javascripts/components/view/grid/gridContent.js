@@ -233,7 +233,7 @@ export default class GridContent extends Component {
                         <div className="content__body">
                             <div className="field__items row-options-field">
                                 <div className="content__field row-options-field">
-                                    <Icon name="lock"/>
+                                    <Icon name="lock" className="row-options-field_lock-icon"/>
                                 </div>
                                 <div className="field__item row-options-field">
                                     {records.map((record, recordIndex) => {

@@ -1,6 +1,6 @@
 .content__field.row-options-field {
-  width: 27px;
-  min-width: 27px;
+  width: 35px;
+  min-width: 35px;
 }
 
 .field__item.row-options-field {
@@ -36,6 +36,11 @@
   .content__field.row-options-field {
     min-height: 33px;
     border-right: 0;
+
+    .row-options-field_lock-icon{
+      padding-top: 9px;
+      padding-left: 12px;
+    }
   }
   .row-options-field {
     .record-dialog-btn {
@@ -175,9 +180,6 @@
     .table-cell.attachment {
       height: 60px;
 
-      .table-cell-inner {
-        padding: 0;
-
         .attachment_cell {
           height: 100%;
           display: inline-block;
@@ -193,7 +195,7 @@
             z-index: 0!important;
           }
         }
-      }
+
     }
     .table-cell.autonumber {
       border: 2px solid rgba(0, 0, 0, 0.15);
