@@ -23,11 +23,7 @@ let baseCopy = (baseToCopy) => {
         let newTables = tables.map(table => {
          delete table._id
          table._id = mongoose.Types.ObjectId();
-
-         // let views = table.views.map(view => {
-         //    delete view._id
-         //    return view
-         // })         
+        
          let fields = table.fields.map(field => {
             delete field._id
             field._id = mongoose.Types.ObjectId();            
@@ -53,7 +49,6 @@ let baseCopy = (baseToCopy) => {
 
             return record
          })
-         //table.views = [];
          viewCopy(table)
          table.fields = fields;
          table.records = records;
@@ -67,6 +62,7 @@ let baseCopy = (baseToCopy) => {
         let newBase = Object.assign({}, baseToCopy);
         delete newBase._id;
         newBase.tables = [];
+        newBase.name = `${baseToCopy.name} copy` 
         promiseArray[i] = baseRepository.add(newBase);
         for ( let table in tables ) {
          
@@ -101,8 +97,7 @@ let viewCopy = (table) => {
             idGl += 1; 
         }
     }
-    table.views = [];
-    // let addGrid = (newTable, gridIds) => {        
+    table.views = [];     
         if (gridIds[0]) {   
             gridRepository.getByIds(gridIds)
             .then((views)  => {
@@ -140,7 +135,7 @@ let viewCopy = (table) => {
             })
             .then((...gridViews)=> tableRepository.pushClonedViewsToTable('grid', newTable._id, gridViews))
         }
-        
+
         if (formIds[0]) {   
             formRepository.getByIds(formIds)
             .then((views)  => {
@@ -205,9 +200,6 @@ let viewCopy = (table) => {
         })
         .then((...kanbanViews)=> tableRepository.pushClonedViewsToTable('kanban', newTable._id, kanbanViews))
     }
-
-
-
 }
 
 

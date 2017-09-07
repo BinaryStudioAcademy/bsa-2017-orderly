@@ -30,7 +30,6 @@ function* addingBase(action) {
 function* cloneBase(action) {
     try {
         const payload = {};
-        //payload.tables = yield call(getTablesByIds, action.tables);
         payload.base = action.base;
         payload.teamId = action.teamId;
 
