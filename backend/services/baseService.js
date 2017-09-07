@@ -43,47 +43,48 @@ let baseCopy = (baseToCopy) => {
 
     return tableRepository.getByIds(newBase.tables)
     .then((tables) => {
-        let newTables = [...tables]
-        newTables.map(table => {
+        let newTables = tables.map(table => {
          delete table._id
-         table.views.map(view => {
+
+         let views = table.views.map(view => {
             delete view._id
             return view
          })
-         table.fields.map(field => {
+         
+         let fields = table.fields.map(field => {
             delete field._id
             return field
          })
-         table.records.map(record => {
+         let records = table.records.map(record => {
             delete record._id
-            record.record_data.map(data => {
+            return record.record_data.map(data => {
                 delete data._id
                 return data
             })
-            return record
          })
+
+         table.views = views;
+         table.fields = fields;
+         table.records = records;
          return table
         })
+        
     return newTables
     })
     .then((tables) => {
-        let newTables = [...tables]
-        delete newTables[0]._id
-        console.log(tables[0]._id)
         let promiseArray = [];
         let i = 0
         let newBase = Object.assign({}, baseToCopy);
         delete newBase._id;
-        //newBase.tables = [];
-        // promiseArray[i] = baseRepository.add(newBase);
-        // for ( let table in tables ) {
-        //  promiseArray[++i] = tableRepository.add(tables[table])
-        // }
-        return Promise.all([baseRepository.add(newBase), tableRepository.add(tables[0])])
+        newBase.tables = [];
+        promiseArray[i] = baseRepository.add(newBase);
+        for ( let table in tables ) {
+         promiseArray[++i] = tableRepository.add(tables[table])
+        }
+        return Promise.all(promiseArray)
     })
     .then(([base, ...table]) => baseRepository.addTablesToBase(base._id, table))
 }
-
 
 
 module.exports = { baseCopy, tablesCopy }
