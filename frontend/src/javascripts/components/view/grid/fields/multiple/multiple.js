@@ -18,7 +18,6 @@ class MultipleSelect  extends Field {
 
         let valuesArr, valuesArrIndex;
         if (this.props.value) {
-            debugger;
             valuesArr = this.props.value.split(',');
             valuesArrIndex= [];
             for (let i = 0; i < valuesArr.length; i++) {
