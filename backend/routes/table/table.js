@@ -1,9 +1,14 @@
 const router = require('express').Router();
 const R = require('ramda');
 const tableRepository = require('../../repositories/table/tableRepository');
-const gridRepository = require('../../repositories/view/gridRepositories');
-const formRepository = require('../../repositories/view/formRepositories');
-const {defaultTable, defaultGridView, defaultFormView} = require('../../config/defaultEntities');
+const {defaultTable, defaultViews} = require('../../config/defaultEntities');
+
+const viewReps = {
+    grid: require('../../repositories/view/gridRepositories'),
+    form: require('../../repositories/view/formRepositories'),
+    kanban: require('../../repositories/view/kanbanRepositories'),
+    gallery: require('../../repositories/view/galleryRepositories')
+};
 
 // tables -------------------------------------
 router.post('/', (request, response, next) => {
@@ -11,7 +16,7 @@ router.post('/', (request, response, next) => {
     return Promise.all(
         [
             tableRepository.add(R.merge(newTable, request.body)),
-            gridRepository.add(defaultGridView())
+            viewReps['grid'].add(defaultViews['grid'])
         ])
         .then(([table, view]) => tableRepository.addView(table._id, view._id, view.type))
         .then((table) => response.status(201).send(table))
@@ -163,22 +168,11 @@ router.get('/:id/views/:viewId/:viewType', (request, response) => {
 });
 
 router.post('/:id/views', (request, response) => {
-    switch (request.body.viewType) {
-    case 'grid':
-        gridRepository.add(defaultGridView()).then((view) => {
-            tableRepository.addView(request.body.tableId, view._id, view.type)
-                .then((result) => response.status(200).send(result));
-        })
-            .catch((err) => response.status(500).send(err));
-        break;
-    case 'form':
-        formRepository.add(defaultFormView()).then((view) => {
-            tableRepository.addView(request.body.tableId, view._id, view.type)
-                .then((result) => response.status(200).send(result));
-        })
-            .catch((err) => response.status(500).send(err));
-        break;
-    }
+    const typeOfView = request.body.viewType;
+    viewReps[typeOfView].add(defaultViews[typeOfView])
+		.then((view) => tableRepository.addView(request.body.tableId, view._id, view.type))
+		.then((result) => response.status(200).send(result))
+		.catch((err) => response.status(500).send(err));
 });
 
 router.delete('/:id/views/:viewId/:viewType', (request, response) => {

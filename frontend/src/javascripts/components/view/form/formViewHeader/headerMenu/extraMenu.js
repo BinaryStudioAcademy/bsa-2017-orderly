@@ -60,7 +60,7 @@ export default class ExtraMenu extends Component {
                     <div className='extra-menu__item item__disabled'>
                         <Icon name='trash' size='large'/>
                         <span className='item__span'>Delete view</span>
-                        <span className='span__tooltip'>
+                        <span className='span__tooltip-form'>
                             Can not delete view if it's only one left in the table
                         </span>
                     </div>

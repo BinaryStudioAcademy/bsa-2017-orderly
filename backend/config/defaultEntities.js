@@ -32,43 +32,30 @@ const defaultTable = () => {
     };
 };
 
-const defaultGridView = () => {
-    return {
+const defaultViews = {
+    grid: {
         type: 'grid',
         name: 'Grid view',
         description: 'Default grid view',
         fixed_area: 1,
-    };
-};
-
-const defaultFormView = () => {
-    return {
+    },
+    form: {
         type: 'form',
         name: 'Form view',
         description: 'Default form view',
-    };
-};
-
-const defaultKanbanView = () => {
-    return {
+    },
+    kanban: {
         type: 'kanban',
-        name: 'Form view',
-        description: 'Default form view',
-    };
-};
-const defaultGalleryView = () => {
-    return {
+        name: 'Kanban view'
+    },
+    gallery: {
         type: 'gallery',
-        name: 'Form view',
-        description: 'Default form view',
-    };
+        name: 'Gallery view'
+    }
 };
 
 module.exports = {
     defaultTeam,
     defaultTable,
-    defaultGridView,
-    defaultFormView,
-    defaultKanbanView,
-    defaultGalleryView
+    defaultViews
 };

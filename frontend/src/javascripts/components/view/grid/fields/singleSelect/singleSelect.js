@@ -5,10 +5,21 @@ import Field from '../field';
 
 class SingleSelect  extends Field {
   constructor(props) {
-        super(props);
+        super(props, 'select');
+        let options = [];
+        let propsOptions=this.props.currentField.options.select
+        let i = 0;
+        for (let option in propsOptions) {
+        options.push({
+                value: i++,
+                label: propsOptions[option],
+            })
+        }
+        let newValue = propsOptions.indexOf(this.props.value) 
+
         this.state = {
-            options:[],
-            value:'',
+            options: options,
+            value:newValue,
             label:''
         }
     }
@@ -22,8 +33,9 @@ class SingleSelect  extends Field {
                 label: propsOptions[option],
             })
         }
+        //let newValue = propsOptions.indexOf(this.props.value) 
         this.setState({
-            options: options
+            options: options,
         });
     }
     renderActiveField() {

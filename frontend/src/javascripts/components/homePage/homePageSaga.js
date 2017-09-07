@@ -4,8 +4,7 @@ import R from 'ramda';
 import { addBaseToTeam, updateBaseById, updateTeam,
 		deleteBase, getTeamsByUserId, getBasesByTeam,
 		deleteTeam, addTeam, getCollaborators, getAllUsers,
-		addCollaborator, deleteCollaborator, updateCollaboratorRole, cloneBaseToTeam, getViewsByIds} from './homePageApi';
-
+		addCollaborator, deleteCollaborator, updateCollaboratorRole, cloneBaseToTeam, addBaseToTeamSpreadSheet } from './homePageApi';
 
 function* gettingBasesByTeam(action) {
 	try {
@@ -27,6 +26,7 @@ function* addingBase(action) {
     }
 }
 
+
 function* cloneBase(action) {
     try {
         const payload = {};
@@ -39,6 +39,18 @@ function* cloneBase(action) {
         yield put({ type: 'ADD_NEW_BASE_TO_TEAM_SUCCEEDED', team: team});
     } catch (err) {
         yield put({ type: 'CLONE_NEW_BASE_TO_TEAM_FAILED', message: err.message});
+
+function* addingBaseFromSpreadsheet(action) {
+    try {
+    	const payload = {};
+    	payload.teamId = action.teamId;
+    	payload.table = Object.assign({}, action.table);
+    	payload.base = action.base;
+        const team = yield call(addBaseToTeamSpreadSheet, payload);
+        yield put({ type: 'ADD_NEW_BASE_TO_TEAM_SUCCEEDED', team: team });
+    } catch (err) {
+        yield put({ type: 'ADD_NEW_BASE_TO_TEAM_FAILED', message: err.message});
+
     }
 }
 
@@ -176,7 +188,11 @@ function* homePageSaga() {
 	yield takeEvery('ADD_COLLABORATOR', addingCollaborator);
 	yield takeEvery('DELETE_COLLABORATOR', deletingCollaborators);
 	yield takeEvery('UPDATE_COLLABORATOR_ROLE', updatingCollaboratorRole);
+<<<<<<< HEAD
 	yield takeEvery('CLONE_BASE', cloneBase);
+=======
+	yield takeEvery('CSV_PARSED_SPREADSHEET', addingBaseFromSpreadsheet);
+>>>>>>> develop
 }
 
 export default homePageSaga;

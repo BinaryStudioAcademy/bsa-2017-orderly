@@ -44,7 +44,7 @@ class ContextMenuIcon extends React.Component {
 
 render() {
     return(
-      <div ref="contextMenu"className = 'menu-icon-wrapp'>
+      <div ref="contextMenu" className = 'menu-icon-wrapp'>
         <div ref={node => { this.node = node }} >
          <div  className = 'setting' onClick={(event) => this.handleClickOnMenu(event)} > 
           <Icon inverted link name='setting' size='large' color='black' 

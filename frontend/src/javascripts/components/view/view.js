@@ -3,6 +3,7 @@ import {Icon} from 'semantic-ui-react';
 import R from 'ramda';
 import Grid from './grid/grid';
 import FormView from './form/formView';
+import KanbanView from './kanban/kanbanView';
 import {viewIcons} from '../configuration/viewTypes';
 import InDeveloping from '../in_developing/InDeveloping';
 import './view.scss';
@@ -96,6 +97,11 @@ export default class View extends Component {
                 deleteView={() => this.handleDeleteView()}
                 viewsCount={viewsCount}
             />;
+        case 'kanban':
+            return <KanbanView viewsCount={viewsCount}
+                               currentViewId={this.props.currentView}
+                               currentTable={this.props.currentTable}
+                               deleteView={() => this.handleDeleteView()}/>
         default:
             return <InDeveloping/>;
         }
