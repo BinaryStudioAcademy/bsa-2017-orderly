@@ -226,6 +226,20 @@ class TableRepository extends Repository {
         });
     }
 
+    addClonedViewsToTable(viewType, tableId, views) {
+        //let newViews = []
+        for ( let view in views[0]) {
+            //newViews[view] = {view: views[0][view]._id, type: viewType}
+            console.log (views[0][view]._id)
+            return this.model.findByIdAndUpdate(
+                tableId,
+                {'$push': {views: {view: views[0][view]._id, type: viewType}}},
+                {'new': true}
+            )
+        }
+        return //this.model;
+    }
+
     updateRecordById(tableId, record_dataId, fileName, isDelete) {
         return this.model.findById(tableId)
 			.then(table => R.map( record => {

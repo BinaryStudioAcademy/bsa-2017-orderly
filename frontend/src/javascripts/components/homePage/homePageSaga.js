@@ -39,6 +39,8 @@ function* cloneBase(action) {
         yield put({ type: 'ADD_NEW_BASE_TO_TEAM_SUCCEEDED', team: team});
     } catch (err) {
         yield put({ type: 'CLONE_NEW_BASE_TO_TEAM_FAILED', message: err.message});
+    }
+}
 
 function* addingBaseFromSpreadsheet(action) {
     try {
@@ -188,11 +190,8 @@ function* homePageSaga() {
 	yield takeEvery('ADD_COLLABORATOR', addingCollaborator);
 	yield takeEvery('DELETE_COLLABORATOR', deletingCollaborators);
 	yield takeEvery('UPDATE_COLLABORATOR_ROLE', updatingCollaboratorRole);
-<<<<<<< HEAD
 	yield takeEvery('CLONE_BASE', cloneBase);
-=======
 	yield takeEvery('CSV_PARSED_SPREADSHEET', addingBaseFromSpreadsheet);
->>>>>>> develop
 }
 
 export default homePageSaga;
