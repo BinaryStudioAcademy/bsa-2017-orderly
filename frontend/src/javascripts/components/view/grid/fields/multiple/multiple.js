@@ -11,11 +11,29 @@ class MultipleSelect  extends Field {
 
         for (let option in propsOptions) {
         options.push({
-                value: option++, 
+                value: option++,
                 label: propsOptions[option],
             })
         }
 
+        let valuesArr, valuesArrIndex;
+        if (this.props.value) {
+            debugger;
+            valuesArr = this.props.value.split(',');
+            valuesArrIndex= [];
+            for (let i = 0; i < valuesArr.length; i++) {
+                for (let j = 0; j < propsOptions.length; j++) {
+                    if (valuesArr[i] ===  propsOptions[j]) {
+                        valuesArrIndex.push(j-1);
+                    }
+                }
+            }
+        }
+
+
+        // this.props.value.forEach((obj, index) => {
+        //     arr.push(obj)
+        // });
         // let newValues =[]
         // let k=0
         // let values = this.props.value.split(',')
@@ -30,7 +48,7 @@ class MultipleSelect  extends Field {
 //if you do not place newValues into valueSelected, then you can edit the record but no preselected value in the input    
         this.state = {
             options: options,
-            valueSelected:[],
+            valueSelected:valuesArrIndex || '',
             label:[]
         }
     }

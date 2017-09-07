@@ -38,7 +38,35 @@
 
 
 }
+.wrapper__table {
+  .table-cell.attachment {
+    .attachment_cell {
+      .attachment_selected {
+        z-index: 999;
 
+        &:after {
+          z-index: 900;
+        }
+
+        input[type='file'] {
+          z-index: 1002 !important;
+        }
+
+        .add_file_btn {
+          z-index: 1;
+        }
+
+        .images_wrapper {
+          .around_image {
+            .attachment_file {
+              z-index: 1004;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 .attachment_cell {
   position: relative;
   padding-left: 30px;
@@ -46,7 +74,7 @@
   .attachment_selected {
     background-color: #fff;
     position: absolute;
-    z-index: 999;
+    //z-index: 999;
     border: 2px solid #6495ed;
     padding: 5px;
     border-radius: 5px;
@@ -59,7 +87,7 @@
     &:after {
       content: '+';
       position: absolute;
-      z-index: 900;
+      //z-index: 900;
       font-size: 3rem;
       color: #8C8C8C;
       left: 13px;
@@ -67,12 +95,12 @@
     }
 
     input[type='file'] {
-      z-index: 1002 !important;
+      //z-index: 1002 !important;
     }
 
     .add_file_btn {
       position: relative;
-      z-index: 1;
+      //z-index: 1;
       display: inline-block;
       width: 40px !important;
       height: 40px;
@@ -100,7 +128,7 @@
         width: 45px;
 
         .attachment_file {
-          z-index: 1004;
+          //z-index: 1004;
           border-radius: 5px;
 
           &:hover {
