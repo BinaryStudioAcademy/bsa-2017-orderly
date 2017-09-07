@@ -189,7 +189,6 @@ function* disconnectSocket() {
 function* filterTableRecords(action) {
     try {
         const filtered = yield call(filterRecords, action);
-        console.log(filtered);
         yield put({
             type: 'FILTER_TABLE_SUCCEEDED',
             table: filtered.data.table,
@@ -229,7 +228,6 @@ function* updateTableFilter(action) {
 function* removeTableFilter(action) {
     try {
         const updatedFilters = yield call(removeFilter, action);
-        console.log(updatedFilters);
         yield put({
             type: 'REMOVE_FILTER_SUCCEEDED',
             table: updatedFilters.data.table,
