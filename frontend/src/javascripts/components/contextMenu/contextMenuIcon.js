@@ -54,8 +54,10 @@ render() {
         </div>
         <div className ={this.props.menu === this.props.base._id && this.state.menuVisible? "menu-show-2" : "none"}>
           <ContextMenu 
+            tables={this.props.tables}
             handleClick = {this.props.handleClick} 
-            base = {this.props.base} 
+            base = {this.props.base}
+            teamId={this.props.teamId}
             />
         </div>
       </div>

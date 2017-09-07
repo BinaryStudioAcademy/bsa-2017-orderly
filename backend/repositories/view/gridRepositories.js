@@ -30,6 +30,10 @@ class GridRepository extends Repository {
             {'$pull': {'fields_config': {_id: fieldId}}},
             {'new': true});
     }
+    getByIds(ids) {
+        return this.model.find({'_id': {$in: ids}})
+            .populate('views.view');
+    }
 
 }
 

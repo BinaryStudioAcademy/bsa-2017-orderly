@@ -12,6 +12,7 @@ $cell-padding: 0px;
   height: 75.8vh;
   overflow: auto;
   border-top: 2px solid rgba(170, 170, 170, 0.5);
+  background-color: #f5f5f5;
 }
 
 .grid__content {
@@ -24,6 +25,13 @@ $cell-padding: 0px;
 
 .wrapper__table {
   display: flex;
+  background-color: #ffffff!important;
+
+  .content__rows.row-options-field {
+    .rows__selector.rows__row {
+      background-color: #f5f5f5;
+    }
+  }
 }
 
 .content__body {
@@ -42,11 +50,19 @@ $cell-padding: 0px;
 .content__field {
   display: inline-block;
   border-left: $cell-border-left;
-  padding: 7px 5px 5px 5px;
+  //padding: 7px 5px 5px 5px;
+  padding-right: 5px;
   margin: 0;
   width: $cell-width;
   min-width: $cell-width;
   min-height: $cell-height;
+  background-color: #f5f5f5;
+}
+
+.content__field-title {
+  display: inline-block;
+  width: 83%;
+  padding: 7px 0 5px 5px;
 }
 
 .field__items {
@@ -74,9 +90,15 @@ $cell-padding: 0px;
   text-overflow: ellipsis;
   position: relative;
 }
+
+.field__item.selectedList {
+  background-color: #f0f7ff;
+}
+
 .field__item.found {
   background-color: #f8ecce;
 }
+
 .field__item.foundCursor {
   background-color: #ffd66e;
 }
@@ -89,9 +111,13 @@ $cell-padding: 0px;
 .field__name {
   display: inline-block;
   height: 17px;
-  width: 100px;
+  width: 98px;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: default;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
 }
 
 .field__change-type {
@@ -133,6 +159,7 @@ $cell-padding: 0px;
   cursor: pointer;
   border: $cell-border;
   margin-bottom: 70px;
+  background-color: #ffffff;
 }
 
 .item__add-field:hover, .item__add-record:hover {

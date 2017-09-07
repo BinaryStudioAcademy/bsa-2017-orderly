@@ -50,6 +50,7 @@ class BaseList extends Component {
 							<div key={base._id || ++temporaryKey}>
 								<BaseItem className="base-list-item"
 								          handleClick={props.handleClick}
+								          teamId={props.teamId}
 								          base={base}
 								          menu={props.menu}
 								/>

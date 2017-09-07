@@ -41,9 +41,10 @@ class Field extends Component {
         return (
             <div
                 className={"table-cell " + this.className + this.fieldSelectedClass() + this.fieldActiveClass()}
-                onClick={() => this.props.onSelect(this.props.id)}
                 onKeyPress={(event) => this.keyPressHandler(this.props.id, event)}
                 onBlur={() => this.props.onBlurField(this.props.id)}
+                onMouseDown={(event) => this.props.onMouseDownRecordItem(event, this.props.id, this.props.recordIdx, this.props.fieldIdx)}
+                onMouseOver={() => this.props.onMouseOverRecordItem(this.props.id, this.props.recordIdx, this.props.fieldIdx)}
                 tabIndex="0"
             >
                 <div className="table-cell-wrap" onDoubleClick={(event) => this.props.onActivate(this.props.id)}>

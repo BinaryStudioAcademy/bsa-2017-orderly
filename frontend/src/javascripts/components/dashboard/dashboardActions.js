@@ -90,9 +90,9 @@ export function addField(tableId) {
     };
 }
 
-const selectRecord = (recordId) => {
+const selectRecordItem = (recordId) => {
     return {
-        type: 'SELECT_RECORD',
+        type: 'SELECT_RECORD_ITEM',
         recordId: recordId
     };
 };
@@ -318,6 +318,82 @@ const deleteFile = (typeOfFile, record_dataId, tableId, fileNamesStr) => {
     }
 }
 
+const setSelectFieldRecordItems= (fieldIndex, tableId) => {
+    return {
+        type: 'SET_SELECT_FIELD_RECORD_ITEMS',
+        fieldIndex: fieldIndex,
+        tableId: tableId
+    };
+};
+
+const appendSelectFieldRecordItems = (fieldIndex, tableId) => {
+    return {
+        type: 'APPEND_SELECT_FIELD_RECORD_ITEMS',
+        fieldIndex: fieldIndex,
+        tableId: tableId
+    };
+};
+
+const setSelectAllRecordItems = (tableId) => {
+    return {
+        type: 'SET_SELECT_ALL_RECORD_ITEMS',
+        tableId: tableId
+    };
+};
+
+const setSelectRecordItems = (firstSelectRecordItemId, lastSelectRecordItemId, tableId) => {
+    return {
+        type: 'SET_SELECT_RECORD_ITEMS',
+        firstSelectRecordItemId: firstSelectRecordItemId,
+        lastSelectRecordItemId: lastSelectRecordItemId,
+        tableId: tableId
+    };
+};
+
+const shiftKeyDown = () => {
+    return {
+        type: 'SHIFT_KEY_DOWN'
+    };
+};
+
+const shiftKeyUp = () => {
+    return {
+        type: 'SHIFT_KEY_UP'
+    };
+};
+
+const clearSelectedRecordItemList = () => {
+    return {
+        type: 'CLEAR_SELECTED_RECORD_ITEM_LIST'
+    };
+};
+
+const mouseDownRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => {
+    return {
+        type: 'MOUSE_DOWN_RECORD_ITEM',
+        tableId: tableId,
+        recordItemId: recordItemId,
+        recordIndex: recordIndex,
+        fieldIndex: fieldIndex
+    };
+};
+
+const mouseUpRecordItem = () => {
+    return {
+        type: 'MOUSE_UP_RECORD_ITEM'
+    };
+};
+
+const mouseOverRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => {
+    return {
+        type: 'MOUSE_OVER_RECORD_ITEM',
+        tableId: tableId,
+        recordItemId: recordItemId,
+        recordIndex: recordIndex,
+        fieldIndex: fieldIndex
+    };
+};
+
 export {
     getBaseById,
     getTables,
@@ -333,7 +409,7 @@ export {
     setTableIdToActiveModal,
     updateTable,
     addRecord,
-    selectRecord,
+    selectRecordItem,
     activateRecord,
     changeRecord,
     blurRecord,
@@ -347,5 +423,15 @@ export {
     changeSearchFoundIndex,
     toggleSearch,
 	uploadAttachment,
-	deleteFile
+	deleteFile,
+    setSelectFieldRecordItems,
+    appendSelectFieldRecordItems,
+    setSelectAllRecordItems,
+    setSelectRecordItems,
+    shiftKeyDown,
+    shiftKeyUp,
+    clearSelectedRecordItemList,
+    mouseDownRecordItem,
+    mouseUpRecordItem,
+    mouseOverRecordItem
 };

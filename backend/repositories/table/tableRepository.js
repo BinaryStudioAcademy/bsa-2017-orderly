@@ -243,6 +243,19 @@ class TableRepository extends Repository {
         });
     }
 
+    pushClonedViewsToTable(viewType, tableId, views) {
+        console.log(viewType)
+        let newViews = []
+        for ( let view in views[0]) {
+            newViews[view] = {view: views[0][view]._id, type: viewType}
+        }
+            return this.model.findByIdAndUpdate(
+                tableId,
+                {$push: { views: {$each: newViews } } },
+                {upsert:true}
+            ).populate('views.view');
+        }
+
     updateRecordById(tableId, record_dataId, fileName, isDelete) {
         return this.model.findById(tableId)
 			.then(table => R.map( record => {
@@ -250,7 +263,6 @@ class TableRepository extends Repository {
 					if (data._id == record_dataId) {
 						if (!data._id) return {_id: data._id, data: fileName}
 						if (isDelete) {
-							// eval(require('locus'))
 							return {_id: data._id, data: fileName}
 						} else {
 							let dataArray = data.data.split(',')

@@ -54,6 +54,10 @@ export default class Grid extends Component {
                     user={this.props.user}
                     searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                     searchFoundIndex={this.props.searchFoundIndex}
+                    setSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
+                    appendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
+                    onSetSelectAllRecordItems={this.props.setSelectAllRecordItems}
+                    selectedRecordItemList={this.props.selectedRecordItemList}
                 />
             </div>
         );

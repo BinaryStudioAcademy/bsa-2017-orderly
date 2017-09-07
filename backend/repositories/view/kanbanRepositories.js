@@ -27,6 +27,10 @@ class KanbanRepository extends Repository {
     deleteColumn(viewId, columnId) {
         return this.model.findByIdAndUpdate(viewId, {'$pull': { 'columns_config': { _id: columnId } }});
     }
+    getByIds(ids) {
+        return this.model.find({'_id': {$in: ids}})
+            .populate('views.view');
+    }
 }
 
 module.exports = new KanbanRepository();

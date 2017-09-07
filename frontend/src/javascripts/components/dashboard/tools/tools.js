@@ -11,7 +11,6 @@ class Tools extends Component {
         this.props = props;
         this.isRecordSelected = this.isRecordSelected.bind(this);
         this.isRecordActive = this.isRecordActive.bind(this);
-        this.selectRecordHandler = this.selectRecordHandler.bind(this);
         this.activateRecordHandler = this.activateRecordHandler.bind(this);
         this.keyPressRecordHandler = this.keyPressRecordHandler.bind(this);
         this.keyPressSimpleRecordHandler = this.keyPressSimpleRecordHandler.bind(this);
@@ -19,6 +18,8 @@ class Tools extends Component {
         this.blurRecordComponentHandler = this.blurRecordComponentHandler.bind(this);
         this.keyPressCommentHandler = this.keyPressCommentHandler.bind(this);
         this.changeCheckboxHandler = this.changeCheckboxHandler.bind(this);
+        this.mouseDownRecordItemHandler = this.mouseDownRecordItemHandler.bind(this);
+        this.mouseOverRecordItemHandler = this.mouseOverRecordItemHandler.bind(this);
     }
 
     componentWillMount() {
@@ -42,6 +43,23 @@ class Tools extends Component {
         window.addEventListener("beforeunload", (event) => {
             _this.props.disconnectSocket();
         });
+
+        window.addEventListener("keydown", (event) => {
+            if (event.keyCode === 16) {
+                _this.props.shiftKeyDown();
+            }
+        });
+
+        window.addEventListener("keyup", (event) => {
+            if (event.keyCode === 16) {
+                _this.props.shiftKeyUp();
+            }
+        });
+
+        window.addEventListener("mouseup", (event) => {
+            event.preventDefault();
+            _this.props.mouseUpRecordItem();
+        });
     }
 
     isRecordSelected(id) {
@@ -50,10 +68,6 @@ class Tools extends Component {
 
     isRecordActive(id) {
         return this.props.activeRecordItemId === id;
-    }
-
-    selectRecordHandler(id) {
-        this.props.selectRecord(id);
     }
 
     activateRecordHandler(id) {
@@ -77,7 +91,9 @@ class Tools extends Component {
     }
 
     blurRecordHandler(id) {
-        this.props.blurRecord(id);
+        if (!this.props.isShiftKeyPressed) {
+            this.props.blurRecord(id);
+        }
     }
 
     blurRecordComponentHandler(id, value) {
@@ -93,24 +109,45 @@ class Tools extends Component {
         this.props.changeRecord(this.props.currentTableId, id, value, this.props.user);
     }
 
+    mouseDownRecordItemHandler(event, id, recordIndex, fieldIndex) {
+        if (event.shiftKey && this.props.selectedRecordItemId && !this.props.selectedRecordItemList.length) {
+            this.props.setSelectRecordItems(this.props.selectedRecordItemId, id, this.props.currentTableId)
+        } else {
+            if (event.shiftKey && this.props.selectedRecordItemId ) {
+                this.props.setSelectRecordItems(this.props.selectedRecordItemId, id, this.props.currentTableId)
+            } else {
+                this.props.clearSelectedRecordItemList();
+                this.props.mouseDownRecordItem(this.props.currentTableId, id, recordIndex, fieldIndex);
+            }
+        }
+    }
+
+    mouseOverRecordItemHandler(id, recordIndex, fieldIndex) {
+        if (this.props.isMouseDownPressed) {
+            this.props.mouseOverRecordItem(this.props.currentTableId, id, recordIndex, fieldIndex);
+        }
+    }
+
     render() {
         const currentTable = R.find(R.propEq('_id', this.props.currentTableId))(this.props.tables);
         const recordData = {
             isRecordSelected: this.isRecordSelected,
             isRecordActive: this.isRecordActive,
-            selectRecordHandler: this.selectRecordHandler,
             activateRecordHandler: this.activateRecordHandler,
             keyPressRecordHandler: this.keyPressRecordHandler,
             keyPressSimpleRecordHandler: this.keyPressSimpleRecordHandler,
             blurRecordHandler: this.blurRecordHandler,
             blurRecordComponentHandler: this.blurRecordComponentHandler,
-            changeCheckboxHandler: this.changeCheckboxHandler
+            changeCheckboxHandler: this.changeCheckboxHandler,
+            mouseDownRecordItemHandler: this.mouseDownRecordItemHandler,
+            mouseOverRecordItemHandler: this.mouseOverRecordItemHandler
         };
         return (
             <div onClick={() => {
                 // this.props.closeMenu();
             }}>
                 <Header base={this.props.base}
+                        tables={this.props.tables}
                         user={this.props.user}
                         menu={this.props.menu}
                         handleClick={this.props.handleClick}/>
@@ -166,6 +203,10 @@ class Tools extends Component {
                       deleteView={this.props.deleteView}
                       addFilter={this.props.addFilter}
                       updateFilter={this.props.updateFilter}
+                      setSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
+                      appendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
+                      setSelectAllRecordItems={this.props.setSelectAllRecordItems}
+                      selectedRecordItemList={this.props.selectedRecordItemList}
                 />
                 }
             </div>

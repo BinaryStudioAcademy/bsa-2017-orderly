@@ -92,6 +92,10 @@ export default class View extends Component {
                 viewsCount={viewsCount}
                 addFilter={this.props.addFilter}
                 updateFilter={this.props.updateFilter}
+                setSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
+                appendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
+                setSelectAllRecordItems={this.props.setSelectAllRecordItems}
+                selectedRecordItemList={this.props.selectedRecordItemList}
             />;
         case 'form':
             return <FormView

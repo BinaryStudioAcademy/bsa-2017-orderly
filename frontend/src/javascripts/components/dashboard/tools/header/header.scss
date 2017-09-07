@@ -3,19 +3,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
+  height: 50px;
   width: 100%;
   color: #ffffff;
   padding: {
-  left: 20px;
-  right: 20px;
+    left: 20px;
+    right: 20px;
   }
+  user-select: none;
+
   a,
   a:hover {
     color: #ffffff;
     text-decoration: none;
     border-bottom: 0;
   }
+  .base-icon-logo {
+    font-size: 3em!important;
+  }
+
   .label-header {
     font-weight: 700;
     font-size: 1.2rem;
@@ -32,7 +38,7 @@
     }
   }
   .header-base-name {
-    font-size: 27px;
+    font-size: 25px;
   }
   .menu-show-2 {
     left:35%;

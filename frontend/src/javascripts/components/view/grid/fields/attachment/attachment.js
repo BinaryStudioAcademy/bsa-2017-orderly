@@ -48,19 +48,21 @@ class Attachment extends Field {
 
 	renderField() {
 		return (
-			<div className='attachment_default'>
-				<div className='preview_wrapper'>
-					{R.map(fileName => <div key={++tempKey * 34}
-					                        style={bgImage(`http://localhost:2020/files/attachment/${this.props.id}/image/${fileName}`)}
-					                        className='image_icon'/>)(R.reject(R.isEmpty)(this.props.value.split(',')) || [])}
-				</div>
+			<div className="table-cell-inner">
+				<div className='attachment_default'>
+					<div className='preview_wrapper'>
+						{R.map(fileName => <div key={++tempKey * 34}
+												style={bgImage(`http://localhost:2020/files/attachment/${this.props.id}/image/${fileName}`)}
+												className='image_icon'/>)(R.reject(R.isEmpty)(this.props.value.split(',')) || [])}
+					</div>
 
+				</div>
 			</div>
 		)
 	}
 
 	fieldSelectedClass() {
-		return '';
+        return this.props.selected ? ' selected' : '';
 	}
 
 	fieldActiveClass() {
@@ -72,23 +74,23 @@ class Attachment extends Field {
 	}
 
 	renderActiveField() {
-		return (
+		return (			
 			<div className='attachment_cell' >
 				<div className="attachment_selected" >
 					<FileInput name="attachment"
-					           accept="image/*"
-					           onChange={this.handleFile}
-					           className="add_file_btn"/>
+							   accept="image/*"
+							   onChange={this.handleFile}
+							   className="add_file_btn"/>
 					<div className='images_wrapper'>
 						{console.log(R.reject(R.isEmpty)(this.props.value.split(',')), 'dfdfdfdfddd!!!!!!!!!!!!')}
 						{R.map(fileName => <div key={++tempKey} className='around_image'>
 												<Image
 												  size='mini'
-                                                  onClick={ event => {
-                                                  	this.handleOpen(event, fileName)
-                                                  }}
-						                          className='attachment_file'
-						                               src={`http://localhost:2020/files/attachment/${this.props.id}/image/${fileName}`} /></div>)
+												  onClick={ event => {
+													this.handleOpen(event, fileName)
+												  }}
+												  className='attachment_file'
+													   src={`http://localhost:2020/files/attachment/${this.props.id}/image/${fileName}`} /></div>)
 						(R.reject(R.isEmpty)(this.props.value.split(',')) || [])}
 					</div>
 
@@ -102,8 +104,8 @@ class Attachment extends Field {
 					size='small'
 				>
 					<Modal.Content className='image_modal_content'>
-				       <div style={bgImage(`http://localhost:2020/files/attachment/${this.props.id}/image/${this.state.imageModalOpen}`)}
-				            className='image_modal'/>
+					   <div style={bgImage(`http://localhost:2020/files/attachment/${this.props.id}/image/${this.state.imageModalOpen}`)}
+							className='image_modal'/>
 					</Modal.Content>
 					<Modal.Actions>
 						<p>Would you want to delete this file?</p>
@@ -118,7 +120,7 @@ class Attachment extends Field {
 						</Button>
 					</Modal.Actions>
 				</Modal>
-			</div>
+			</div>			
 		)
 	}
 }
