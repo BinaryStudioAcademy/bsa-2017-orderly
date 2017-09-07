@@ -282,15 +282,6 @@ class TableRepository extends Repository {
     }
 
     filterRecords(tableId, viewId, viewType, fieldId, condition, query) {
-        // return this.getFromView(viewId, viewType).then((view) => {
-        //     view.filters.filterSet.push(
-        //         {
-        //             fieldId: fieldId,
-        //             condition: condition,
-        //             value: query || null,
-        //         }
-        //     );
-        //     return view.save().then(() => {
         return this.getById(tableId).then((table) => {
             const view = table.views.find((v) => v.view._id.toString() === viewId);
             let filteredRecords;
@@ -298,22 +289,23 @@ class TableRepository extends Repository {
             for (let filterItem of view.view.filters.filterSet){
                 const index = table.fields.findIndex((f) => f._id.toString() === filterItem.fieldId.toString());
                 let recordsToFilter = filteredRecords || table.records;
+                console.log(filterItem);
                 switch (condition) {
                 case 'contains':
                     if (!query) break;
-                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.includes(query));
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.includes(filterItem.value));
                     break;
                 case '!contains':
                     if (!query) break;
-                    filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.includes(query));
+                    filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.includes(filterItem.value));
                     break;
                 case 'is':
                     if (!query) break;
-                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data === query);
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data === filterItem.value);
                     break;
                 case '!is':
                     if (!query) break;
-                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data !== query);
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data !== filterItem.value);
                     break;
                 case 'empty':
                     filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.length);
@@ -322,12 +314,9 @@ class TableRepository extends Repository {
                     filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.length);
                     break;
                 }
-                console.log(filteredRecords);
             }
             return {table: table, filteredRecords: filteredRecords};
         });
-        //     });
-        // });
     }
 
     removeFilter(tableId, viewId, viewType, filterId) {
@@ -347,7 +336,7 @@ class TableRepository extends Repository {
                 {
                     fieldId: fieldId,
                     condition: 'contains',
-                    value: null,
+                    value: '',
                 }
             );
             return view.save().then(() => {
@@ -357,6 +346,25 @@ class TableRepository extends Repository {
             });
         });
     }
+
+    updateFilter(tableId, viewId, viewType, filterId, fieldId, condition, query) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            console.log('BEFORE');
+            console.log(view.filters.filterSet);
+            let filterToUpdate = view.filters.filterSet.find((f) => f._id.toString() === filterId);
+            filterToUpdate.fieldId = fieldId;
+            filterToUpdate.value = query;
+            filterToUpdate.condition = condition;
+            console.log('AFTER');
+            console.log(view.filters.filterSet);
+            return view.save().then(() => {
+                return this.getById(tableId).then((table) => {
+                    return {table: table};
+                });
+            });
+        });
+    }
+
 }
 
 const typeToSchema = {

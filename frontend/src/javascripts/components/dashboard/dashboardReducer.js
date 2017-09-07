@@ -455,8 +455,9 @@ function dashboardReducer(state = initState, action) {
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
-                        const newTable = R.dissoc('views', table);
+                        const newTable = R.omit(['views', 'records'], table);
                         newTable.views = action.table.views;
+                        newTable.records = action.table.records;
                         return newTable;
                     }
                     return table;
