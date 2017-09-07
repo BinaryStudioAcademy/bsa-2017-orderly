@@ -34,7 +34,9 @@ const Recordtem = ({id, type, data, tableId, recordData, uploadAttachment, delet
         onBlurField: recordData.blurRecordHandler,
         onBlurComponent: recordData.blurRecordComponentHandler,
         onChangeCheckbox: recordData.changeCheckboxHandler,
-        autoFocus: false
+        autoFocus: false,
+        onMouseDownRecordItem: () => {},
+        onMouseOverRecordItem: () => {}
     };
     let record = null;
     switch (type) {

@@ -121,7 +121,8 @@ const RecordItem = ({id, type, data, recordData, recordIdx, fieldIdx, currentFie
             record = <CurrencyField {...fieldPayload}/>;
             break;
         case 'autonumber':
-            record = <AutoNumber {...fieldPayload}/>;
+            const fieldPayloadAutonumber = {...fieldPayload, ...{onActivate: () => {}} };
+            record = <AutoNumber {...fieldPayloadAutonumber}/>;
             break;
         case 'url':
             record = <Url {...fieldPayload}/>;
