@@ -5,19 +5,16 @@ import './autoNumber.scss';
 
 class AutoNumber extends Field {
 	constructor(props) {
-		super(props);
+		super(props, 'autonumber');
 	}
 
 	renderActiveField() {
-		return (
-			<div className="autonumber-wrapper">
-				<span className='autonumber'>{this.props.recordIdx + 1}</span>
-			</div>
-		)
+		return this.props.recordIdx + 1;
 	}
+
 	renderField() {
         return (
-			<div className="autonumber-wrapper">
+			<div className="table-cell-inner">
 				<span className='autonumber'>{this.props.recordIdx + 1}</span>
 			</div>
         )
