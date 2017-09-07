@@ -24,10 +24,10 @@ let baseCopy = (baseToCopy) => {
          delete table._id
          table._id = mongoose.Types.ObjectId();
 
-         let views = table.views.map(view => {
-            delete view._id
-            return view
-         })         
+         // let views = table.views.map(view => {
+         //    delete view._id
+         //    return view
+         // })         
          let fields = table.fields.map(field => {
             delete field._id
             field._id = mongoose.Types.ObjectId();            

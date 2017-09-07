@@ -227,17 +227,16 @@ class TableRepository extends Repository {
     }
 
     addClonedViewsToTable(viewType, tableId, views) {
-        //let newViews = []
+        let newViews = []
         for ( let view in views[0]) {
-            //newViews[view] = {view: views[0][view]._id, type: viewType}
-            console.log (views[0][view]._id)
+            newViews[view] = {view: views[0][view]._id, type: viewType}
+            
             return this.model.findByIdAndUpdate(
                 tableId,
-                {'$push': {views: {view: views[0][view]._id, type: viewType}}},
+                {'$push': {views: newViews}},
                 {'new': true}
-            )
+            ).populate('views.view');
         }
-        return //this.model;
     }
 
     updateRecordById(tableId, record_dataId, fileName, isDelete) {
@@ -247,7 +246,6 @@ class TableRepository extends Repository {
 					if (data._id == record_dataId) {
 						if (!data._id) return {_id: data._id, data: fileName}
 						if (isDelete) {
-							// eval(require('locus'))
 							return {_id: data._id, data: fileName}
 						} else {
 							let dataArray = data.data.split(',')
