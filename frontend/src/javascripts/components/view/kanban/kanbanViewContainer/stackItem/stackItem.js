@@ -5,9 +5,9 @@ import { findCurrentView } from '../../../viewService'
 import Records from './records/records'
 import './stackItem.scss'
 
-const StackItem = ({table, currentViewId}) => (
+const StackItem = ({table, currentViewId, name}) => (
 	<div className='stack_item'>
-		<div className='stack_header'>Uncategorized</div>
+		<div className='stack_header'>{name}</div>
 		<div className='stack_records'>
 			<Records records={table.records}
 			         fields={table.fields}

@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
+import R from 'ramda'
 
+import { findCurrentView } from '../viewService'
 import * as kanbanViewActions from './kanbanViewActions'
 import KanbanViewHeader from './kanbanViewHeader/kanbanViewHeader'
 import KanbanViewContainer from './kanbanViewContainer/kanbanViewContainer'
@@ -14,14 +16,17 @@ class KanbanView extends Component {
 
 	render() {
 		console.log(this.props, 'kanban propssssssssssssssss')
-
+		const currentView = findCurrentView(this.props.currentViewId, this.props.currentTable.views)
 		return (
 			<div className='kanban_view_wrapper_page'>
 				<KanbanViewHeader table={this.props.currentTable}
+				                  view={currentView}
+				                  updateKanbanView={this.props.updateKanbanView}
 				                  currentViewId={this.props.currentViewId}
 				                  deleteView={this.props.deleteView}
 				                  viewsCount={this.props.viewsCount} />
 				<KanbanViewContainer currentViewId={this.props.currentViewId}
+				                     view={currentView}
 				                     table={this.props.currentTable}/>
 			</div>
 		)
