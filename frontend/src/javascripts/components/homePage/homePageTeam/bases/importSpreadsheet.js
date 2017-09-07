@@ -35,7 +35,7 @@ class ImportSpreadsheet extends Component {
         table.records = records;
 
         let base = {};
-        base.name = 'Base from CSV';
+        base.name = file[0].name.replace(".csv", "");
         base.description = 'This base where initially created from CSV file';
 
         passJSON(table, teamId, base);
