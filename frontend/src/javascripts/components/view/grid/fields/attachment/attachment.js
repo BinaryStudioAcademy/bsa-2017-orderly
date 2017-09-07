@@ -75,7 +75,6 @@ class Attachment extends Field {
 
 	renderActiveField() {
 		return (
-			<div className="table-cell-inner">
 				<div className='attachment_cell' >
 					<div className="attachment_selected" >
 						<FileInput name="attachment"
@@ -122,7 +121,6 @@ class Attachment extends Field {
 						</Modal.Actions>
 					</Modal>
 				</div>
-			</div>
 		)
 	}
 }

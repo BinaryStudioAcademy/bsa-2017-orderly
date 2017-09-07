@@ -7,19 +7,19 @@ import './percent.scss';
 class Percent extends Field {
   constructor(props) {
     super(props, 'percent');
-    this.state = { 
+    this.state = {
         percent: this.props.value,
-        precision: this.props.currentField.options.percent 
+        precision: this.props.currentField.options.percent
     }
 }
     componentWillReceiveProps(nextProps) {
-        this.setState({ 
+        this.setState({
             precision: nextProps.currentField.options.percent
         });
     }
   renderActiveField() {
     return (
-        <NumberFormat className='percent-input' 
+        <NumberFormat className='percent-input'
             thousandSeparator={true} suffix={'%'}
             value={this.state.percent}
             onChange={(event) => this.setState({percent: event.target.value})}
@@ -28,7 +28,7 @@ class Percent extends Field {
             autoFocus={this.props.autoFocus}
         />
     )
-  }  
-}  
+  }
+}
 
 export default Percent;
