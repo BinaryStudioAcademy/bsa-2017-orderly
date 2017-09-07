@@ -12,10 +12,6 @@ export default class Grid extends Component {
         this.props.sortRecords(this.props.currentTable, payload.fieldId, payload.sortOption);
     };
 
-    handleRemoveFilter = () => {
-        this.props.removeFilter();
-    };
-
     render() {
         return (
             <div className="grid-view">
@@ -31,9 +27,11 @@ export default class Grid extends Component {
                     tables={this.props.tables}
                     sortRecords={this.handleSort}
                     filterRecords={this.props.filterRecords}
-                    removeFilter={this.handleRemoveFilter}
+                    removeFilter={this.props.removeFilter}
                     deleteView={this.props.deleteView}
                     viewsCount={this.props.viewsCount}
+                    currentViewType={this.props.currentViewType}
+                    addFilter={this.props.addFilter}
                 />
                 <GridContent
                     currentTable={this.props.currentTable}

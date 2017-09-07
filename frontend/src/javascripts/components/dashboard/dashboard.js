@@ -6,7 +6,7 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     changeFieldType, changeFieldOptions, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
     changeSearch, changeSearchFoundIndex, toggleSearch, changeFieldName, deleteRecord, deleteField,
     changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
-    addView, deleteView
+    addView, deleteView, addFilter,
 } from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
@@ -76,6 +76,7 @@ const mapDispatchToProps = {
     disconnectSocket: disconnectSocket,
     addView: addView,
     deleteView: deleteView,
+    addFilter: addFilter,
 };
 
 const Dashboard = connect(

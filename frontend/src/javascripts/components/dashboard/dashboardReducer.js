@@ -7,6 +7,7 @@ const initState = {
         name: '',
         isActive: false,
         currentView: null,
+        filteredRecords: null,
     }],
     addPopupIsOpen: false,
     activeModal: '',
@@ -94,10 +95,10 @@ function dashboardReducer(state = initState, action) {
             {
                 tables: R.map((table) => {
                     if (table._id === action.payload.tableId) {
-                        let obj = R.dissoc('fields', table);
-                        obj = R.dissoc('records', obj);
+                        let obj = R.omit(['fields', 'records', 'views'], table);
                         obj.fields = action.payload.table.fields;
                         obj.records = action.payload.table.records;
+                        obj.views = action.payload.table.views;
                         return obj;
                     } else {
                         return table;
@@ -289,10 +290,10 @@ function dashboardReducer(state = initState, action) {
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
-                        let obj = R.dissoc('fields', table);
-                        obj = R.dissoc('records', obj);
+                        let obj = R.omit(['fields', 'records', 'views'], table);
                         obj.fields = action.table.fields;
                         obj.records = action.table.records;
+                        obj.views = action.table.views;
                         return obj;
                     } else {
                         return table;
@@ -448,31 +449,63 @@ function dashboardReducer(state = initState, action) {
         ]);
     }
 
-    case 'FILTER_RECORDS_SUCCEEDED': {
+    case 'FILTER_TABLE_SUCCEEDED': {
         return R.mergeAll([
-            R.dissoc('tables', state),
+            R.omit(['tables', 'filteredRecords'], state),
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
-                        const newTable = action.table;
-                        newTable.isActive = true;
+                        const newTable = R.omit(['views', 'records'], table);
+                        newTable.views = action.table.views;
+                        newTable.records = action.table.records;
                         return newTable;
                     }
                     return table;
-                })(state.tables)
-            }
+                })(state.tables),
+                filteredRecords: action.filteredRecords
+            },
         ]);
     }
 
-    case 'SORT_RECORDS': {
+    case 'ADD_FILTER_SUCCEEDED': {
+        return R.mergeAll([
+            R.omit(['tables', 'filteredRecords'], state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        const newTable = R.dissoc('views', table);
+                        newTable.views = action.table.views;
+                        return newTable;
+                    }
+                    return table;
+                })(state.tables),
+                filteredRecords: null //TEMP
+            },
+        ]);
+    }
+
+    case 'REMOVE_FILTER_SUCCEEDED': {
+        return R.mergeAll([
+            R.omit(['tables', 'filteredRecords'], state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        const newTable = R.dissoc('views', table);
+                        newTable.views = action.table.views;
+                        return newTable;
+                    }
+                    return table;
+                })(state.tables),
+                filteredRecords: null
+            },
+        ]);
+    }
+
+    case 'SORT_TABLE': {
         console.log('DASH REDUCER SORT RECORDS');
         console.log(action);
         console.log('-------------------------');
         return {...state};
-    }
-
-    case 'REMOVE_FILTER': {
-        return {...state, filteredRecords: null};
     }
 
     default:
