@@ -1,6 +1,7 @@
 require('../../db/dbConnect');
 const Repository = require('../generalRepository');
 const Team = require('../../schemas/team/teamSchema');
+const Base = require('../../schemas/base/baseSchema');
 
 class TeamRepository extends Repository {
     constructor() {
@@ -17,12 +18,13 @@ class TeamRepository extends Repository {
     }
 
     addBaseToTeam(teamId, baseId) {
-    	return this.model.findByIdAndUpdate(
-    		teamId,
-		    {'$push': {bases: baseId}},
-		    {'new': true}
-	    );
+            return this.model.findByIdAndUpdate(
+                teamId,
+                {'$push': {bases: baseId}},
+                {'new': true}
+            );
     }
+
 
 	addCollaboratorToTeam(teamId, user) {
 		return this.model.findByIdAndUpdate(

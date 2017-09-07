@@ -57,5 +57,5 @@ const defaultViews = {
 module.exports = {
     defaultTeam,
     defaultTable,
-    defaultViews,
+    defaultViews
 };

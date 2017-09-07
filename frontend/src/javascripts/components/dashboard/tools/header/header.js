@@ -19,6 +19,7 @@ class Header extends Component {
     }
 
     render() {
+
         return(
             <header className='dashboard_header' style={{backgroundColor:`${this.props.base.color}`}}>
                 <Icon link name={this.props.base.icon}
@@ -30,6 +31,7 @@ class Header extends Component {
                 <div className='label-header'>
                     <div className='header-base-name'>{this.props.base.name}</div>
                     <ContextMenuIcon
+                        tables={this.props.tables}
                         base={this.props.base}
                         menu={this.props.menu}
                         handleClick={this.props.handleClick}

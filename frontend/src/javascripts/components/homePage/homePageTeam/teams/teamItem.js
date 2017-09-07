@@ -36,7 +36,8 @@ const TeamItem = (team, menu, handleClick, onNewBaseClick, toggleTeamPopup, team
 				          menu={menu}
 				          teamId={team._id}
 				          onNewBaseClick={onNewBaseClick}
-				          bases={team.bases}/>
+				          bases={team.bases}
+				          />
 			</div>
 };
 

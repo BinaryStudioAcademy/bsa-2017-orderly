@@ -18,8 +18,8 @@ let initialState = {
 }
 const baseStore = (state = initialState, action) => {
 
-	switch (action.type) {
-
+	 switch (action.type) {
+	 	
 		case 'DELETE_BASE_SUCCESS':
 			return R.mergeAll([
 				R.dissoc('teams', state),
