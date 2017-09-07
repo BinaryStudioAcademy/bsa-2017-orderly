@@ -90,6 +90,7 @@ export default class View extends Component {
                 searchBlockOpen={this.props.searchBlockOpen}
                 deleteView={() => this.handleDeleteView()}
                 viewsCount={viewsCount}
+                addFilter={this.props.addFilter}
             />;
         case 'form':
             return <FormView

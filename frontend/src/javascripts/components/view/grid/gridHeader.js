@@ -27,7 +27,8 @@ export default class GridHeader extends Component{
                             currentTable={this.props.currentTable}
                             currentViewType={this.props.currentViewType}
                             filterRecords={this.props.filterRecords}
-                            removeFilter={this.props.removeFilter}/>
+                            removeFilter={this.props.removeFilter}
+                            addFilter={this.props.addFilter}/>
                         <Button basic>
                             <Icon name='browser'/>
                             <span className="menu__text">Group</span>

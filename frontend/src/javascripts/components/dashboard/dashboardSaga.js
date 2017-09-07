@@ -2,7 +2,8 @@ import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable, deleteFile,
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
-    deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView, deleteView
+    deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView, deleteView,
+    removeFilter, addFilter,
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -188,9 +189,42 @@ function* disconnectSocket() {
 function* filterTableRecords(action) {
     try {
         const filtered = yield call(filterRecords, action);
-        yield put({type: 'FILTER_TABLE_SUCCEEDED', table: filtered.data});
+        console.log(filtered);
+        yield put({
+            type: 'FILTER_TABLE_SUCCEEDED',
+            table: filtered.data.table,
+            filteredRecords: filtered.data.filteredRecords
+        });
     } catch (err) {
         yield put({type: 'FILTER_TABLE_FAILED', message: err.message});
+    }
+}
+
+function* addTableFilter(action) {
+    try {
+        const updatedFilters = yield call(addFilter, action);
+        console.log(updatedFilters);
+        yield put({
+            type: 'ADD_FILTER_SUCCEEDED',
+            table: updatedFilters.data.table,
+            // filteredRecords: updatedFilters.data.filteredRecords
+        });
+    } catch (err) {
+        yield put({type: 'ADD_FILTER_FAILED', message: err.message});
+    }
+}
+
+function* removeTableFilter(action) {
+    try {
+        const updatedFilters = yield call(removeFilter, action);
+        console.log(updatedFilters);
+        yield put({
+            type: 'REMOVE_FILTER_SUCCEEDED',
+            table: updatedFilters.data.table,
+            // filteredRecords: updatedFilters.data.filteredRecords
+        });
+    } catch (err) {
+        yield put({type: 'REMOVE_FILTER_FAILED', message: err.message});
     }
 }
 
@@ -256,7 +290,9 @@ function* dashboardSaga() {
     yield takeEvery('SET_ACTIVE_TAB', sendTableCoworker);
     yield takeEvery(['SWITCH_TABLE', 'SET_ACTIVE_TAB'], sendSwitchTableCoworker);
     yield takeEvery('DISCONNECT_SOCKET', disconnectSocket);
-    yield takeEvery('FILTER_RECORDS', filterTableRecords);
+    yield takeEvery('FILTER_TABLE', filterTableRecords);
+    yield takeEvery('ADD_FILTER', addTableFilter);
+    yield takeEvery('REMOVE_FILTER', removeTableFilter);
     yield takeEvery('UPLOAD_FILES', uploadingFiles);
     yield takeEvery('DELETE_FILE', deletingFile);
 }

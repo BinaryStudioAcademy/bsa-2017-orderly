@@ -208,7 +208,7 @@ export function deleteView(tableId, viewId, viewType) {
 
 export function sortRecords(table, fieldId, sortOption) {
     return {
-        type: 'SORT_RECORDS',
+        type: 'SORT_TABLE',
         table: table,
         fieldId: fieldId,
         sortOption: sortOption
@@ -217,7 +217,7 @@ export function sortRecords(table, fieldId, sortOption) {
 
 export function filterRecords(tableId, viewId, viewType, fieldId, condition, filterQuery) {
     return {
-        type: 'FILTER_RECORDS',
+        type: 'FILTER_TABLE',
         tableId: tableId,
         viewId: viewId,
         viewType: viewType,
@@ -227,9 +227,23 @@ export function filterRecords(tableId, viewId, viewType, fieldId, condition, fil
     };
 }
 
-export function removeFilter() {
+export function addFilter(tableId, viewId, viewType, fieldId) {
     return {
-        type: 'REMOVE_FILTER'
+        type: 'ADD_FILTER',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+        fieldId: fieldId,
+    };
+}
+
+export function removeFilter(tableId, viewId, viewType, filterId) {
+    return {
+        type: 'REMOVE_FILTER',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+        filterId: filterId,
     };
 }
 

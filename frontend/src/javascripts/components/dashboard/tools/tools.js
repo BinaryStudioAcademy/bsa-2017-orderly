@@ -164,6 +164,7 @@ class Tools extends Component {
                       removeFilter={this.props.removeFilter}
                       addView={this.props.addView}
                       deleteView={this.props.deleteView}
+                      addFilter={this.props.addFilter}
                 />
                 }
             </div>

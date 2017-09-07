@@ -42,7 +42,7 @@ class TableRepository extends Repository {
             for (let view of table.views) {
                 removeTableViews.push(this.getFromView(view.view, view.type).then((v) => v.remove()));
             }
-            Promise.all(removeTableViews).then(() => {
+            return Promise.all(removeTableViews).then(() => {
                 return table.remove();
             });
         });
@@ -282,18 +282,78 @@ class TableRepository extends Repository {
     }
 
     filterRecords(tableId, viewId, viewType, fieldId, condition, query) {
+        // return this.getFromView(viewId, viewType).then((view) => {
+        //     view.filters.filterSet.push(
+        //         {
+        //             fieldId: fieldId,
+        //             condition: condition,
+        //             value: query || null,
+        //         }
+        //     );
+        //     return view.save().then(() => {
+        return this.getById(tableId).then((table) => {
+            const view = table.views.find((v) => v.view._id.toString() === viewId);
+            let filteredRecords;
+
+            for (let filterItem of view.view.filters.filterSet){
+                const index = table.fields.findIndex((f) => f._id.toString() === filterItem.fieldId.toString());
+                let recordsToFilter = filteredRecords || table.records;
+                switch (condition) {
+                case 'contains':
+                    if (!query) break;
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.includes(query));
+                    break;
+                case '!contains':
+                    if (!query) break;
+                    filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.includes(query));
+                    break;
+                case 'is':
+                    if (!query) break;
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data === query);
+                    break;
+                case '!is':
+                    if (!query) break;
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data !== query);
+                    break;
+                case 'empty':
+                    filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.length);
+                    break;
+                case '!empty':
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.length);
+                    break;
+                }
+                console.log(filteredRecords);
+            }
+            return {table: table, filteredRecords: filteredRecords};
+        });
+        //     });
+        // });
+    }
+
+    removeFilter(tableId, viewId, viewType, filterId) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            view.filters.filterSet = view.filters.filterSet.filter((f) => f._id.toString() !== filterId);
+            return view.save().then(() => {
+                return this.getById(tableId).then((table) => {
+                    return {table: table};
+                });
+            });
+        });
+    }
+
+    addFilter(tableId, viewId, viewType, fieldId) {
         return this.getFromView(viewId, viewType).then((view) => {
             view.filters.filterSet.push(
                 {
                     fieldId: fieldId,
-                    condition: condition,
-                    value: query,
+                    condition: 'contains',
+                    value: null,
                 }
             );
-            // const index = table.fields.findIndex((f) => f._id.toString() === fieldId);
-            // table.records = table.records.filter((r) => r.record_data[index].data.includes(query));
             return view.save().then(() => {
-                return this.getById(tableId);
+                return this.getById(tableId).then((table) => {
+                    return {table: table};
+                });
             });
         });
     }
