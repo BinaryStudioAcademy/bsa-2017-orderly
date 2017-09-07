@@ -32,6 +32,7 @@ export default class Grid extends Component {
                     viewsCount={this.props.viewsCount}
                     currentViewType={this.props.currentViewType}
                     addFilter={this.props.addFilter}
+                    updateFilter={this.props.updateFilter}
                 />
                 <GridContent
                     currentTable={this.props.currentTable}

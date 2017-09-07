@@ -215,15 +215,11 @@ export function sortRecords(table, fieldId, sortOption) {
     };
 }
 
-export function filterRecords(tableId, viewId, viewType, fieldId, condition, filterQuery) {
+export function filterRecords(tableId, viewId) {
     return {
         type: 'FILTER_TABLE',
         tableId: tableId,
         viewId: viewId,
-        viewType: viewType,
-        fieldId: fieldId,
-        condition: condition,
-        filterQuery: filterQuery,
     };
 }
 
@@ -234,6 +230,19 @@ export function addFilter(tableId, viewId, viewType, fieldId) {
         viewId: viewId,
         viewType: viewType,
         fieldId: fieldId,
+    };
+}
+
+export function updateFilter(tableId, viewId, viewType, fieldId, filterId, condition, filterQuery) {
+    return {
+        type: 'UPDATE_FILTER',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+        fieldId: fieldId,
+        filterId: filterId,
+        condition: condition,
+        filterQuery: filterQuery,
     };
 }
 

@@ -91,6 +91,7 @@ export default class View extends Component {
                 deleteView={() => this.handleDeleteView()}
                 viewsCount={viewsCount}
                 addFilter={this.props.addFilter}
+                updateFilter={this.props.updateFilter}
             />;
         case 'form':
             return <FormView

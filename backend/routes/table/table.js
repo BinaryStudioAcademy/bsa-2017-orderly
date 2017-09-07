@@ -184,14 +184,8 @@ router.delete('/:id/views/:viewId/:viewType', (request, response) => {
 
 // filter table -------------------------------------
 
-router.get('/:id/views/:viewType/:viewId/fields/:fieldId/filters/:condition/:query?', (request, response) => {
-    tableRepository.filterRecords(
-        request.params.id,
-        request.params.viewId,
-        request.params.viewType,
-        request.params.fieldId,
-        request.params.condition,
-        request.params.query)
+router.get('/:id/views/:viewId/fields/filter', (request, response) => {
+    tableRepository.filterRecords(request.params.id, request.params.viewId)
         .then((result) => response.status(200).send(result))
         .catch((error) => response.status(500).send(error));
 });
@@ -201,8 +195,21 @@ router.post('/:id/views/:viewType/:viewId/fields/:fieldId/filters', (request, re
         request.params.id,
         request.params.viewId,
         request.params.viewType,
-        request.params.fieldId
-    )
+        request.params.fieldId)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.put('/:id/views/:viewType/:viewId/fields/:fieldId/filters/:filterId/:condition/:query?', (request, response) => {
+    // tableId, viewId, viewType, filterId, fieldId, condition, query
+    tableRepository.updateFilter(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType,
+        request.params.fieldId,
+        request.params.filterId,
+        request.params.condition,
+        request.params.query)
         .then((result) => response.status(200).send(result))
         .catch((error) => response.status(500).send(error));
 });
@@ -212,8 +219,7 @@ router.delete('/:id/views/:viewType/:viewId/filters/:filterId', (request, respon
         request.params.id,
         request.params.viewId,
         request.params.viewType,
-        request.params.filterId
-    )
+        request.params.filterId)
         .then((result) => response.status(200).send(result))
         .catch((error) => response.status(500).send(error));
 });

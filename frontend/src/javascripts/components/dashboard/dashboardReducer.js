@@ -479,7 +479,7 @@ function dashboardReducer(state = initState, action) {
                     }
                     return table;
                 })(state.tables),
-                filteredRecords: null //TEMP
+                filteredRecords: action.filteredRecords
             },
         ]);
     }
@@ -496,7 +496,7 @@ function dashboardReducer(state = initState, action) {
                     }
                     return table;
                 })(state.tables),
-                filteredRecords: null
+                filteredRecords: action.filteredRecords
             },
         ]);
     }

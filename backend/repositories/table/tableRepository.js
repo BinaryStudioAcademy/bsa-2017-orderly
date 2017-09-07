@@ -281,7 +281,7 @@ class TableRepository extends Repository {
         });
     }
 
-    filterRecords(tableId, viewId, viewType, fieldId, condition, query) {
+    filterRecords(tableId, viewId) {
         return this.getById(tableId).then((table) => {
             const view = table.views.find((v) => v.view._id.toString() === viewId);
             let filteredRecords;
@@ -289,22 +289,21 @@ class TableRepository extends Repository {
             for (let filterItem of view.view.filters.filterSet){
                 const index = table.fields.findIndex((f) => f._id.toString() === filterItem.fieldId.toString());
                 let recordsToFilter = filteredRecords || table.records;
-                console.log(filterItem);
-                switch (condition) {
+                switch (filterItem.condition) {
                 case 'contains':
-                    if (!query) break;
+                    if (!filterItem.value) continue;
                     filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.includes(filterItem.value));
                     break;
                 case '!contains':
-                    if (!query) break;
+                    if (!filterItem.value) continue;
                     filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.includes(filterItem.value));
                     break;
                 case 'is':
-                    if (!query) break;
+                    if (!filterItem.value) continue;
                     filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data === filterItem.value);
                     break;
                 case '!is':
-                    if (!query) break;
+                    if (!filterItem.value) continue;
                     filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data !== filterItem.value);
                     break;
                 case 'empty':
@@ -323,9 +322,7 @@ class TableRepository extends Repository {
         return this.getFromView(viewId, viewType).then((view) => {
             view.filters.filterSet = view.filters.filterSet.filter((f) => f._id.toString() !== filterId);
             return view.save().then(() => {
-                return this.getById(tableId).then((table) => {
-                    return {table: table};
-                });
+                return this.filterRecords(tableId, viewId);
             });
         });
     }
@@ -336,31 +333,23 @@ class TableRepository extends Repository {
                 {
                     fieldId: fieldId,
                     condition: 'contains',
-                    value: '',
+                    value: null,
                 }
             );
             return view.save().then(() => {
-                return this.getById(tableId).then((table) => {
-                    return {table: table};
-                });
+                return this.filterRecords(tableId, viewId);
             });
         });
     }
 
-    updateFilter(tableId, viewId, viewType, filterId, fieldId, condition, query) {
+    updateFilter(tableId, viewId, viewType, fieldId, filterId, condition, query) {
         return this.getFromView(viewId, viewType).then((view) => {
-            console.log('BEFORE');
-            console.log(view.filters.filterSet);
             let filterToUpdate = view.filters.filterSet.find((f) => f._id.toString() === filterId);
             filterToUpdate.fieldId = fieldId;
             filterToUpdate.value = query;
             filterToUpdate.condition = condition;
-            console.log('AFTER');
-            console.log(view.filters.filterSet);
             return view.save().then(() => {
-                return this.getById(tableId).then((table) => {
-                    return {table: table};
-                });
+                return this.filterRecords(tableId, viewId);
             });
         });
     }

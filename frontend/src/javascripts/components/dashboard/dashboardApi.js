@@ -67,9 +67,7 @@ const deleteRecord = (payload) => {
 };
 
 const filterRecords = (payload) => {
-    return axios.get(url + '/tables/' + payload.tableId + '/views/' + payload.viewType + '/' +
-        payload.viewId + '/fields/' + payload.fieldId + '/filters/' + payload.condition +
-        '/' + payload.filterQuery)
+    return axios.get(url + '/tables/' + payload.tableId + '/views/' + payload.viewId + '/fields/filter/')
         .then((response) => response)
         .catch(R.tap(console.error));
 };
@@ -77,6 +75,14 @@ const filterRecords = (payload) => {
 const addFilter = (payload) => {
     return axios.post(url + '/tables/' + payload.tableId + '/views/' + payload.viewType + '/' +
         payload.viewId + '/fields/' + payload.fieldId + '/filters/')
+        .then((response) => response)
+        .catch(R.tap(console.error));
+};
+
+const updateFilter = (payload) => {
+    return axios.put(url + '/tables/' + payload.tableId + '/views/' + payload.viewType + '/' +
+        payload.viewId + '/fields/' + payload.fieldId + '/filters/' + payload.filterId + '/' +
+        payload.condition + '/' + payload.filterQuery)
         .then((response) => response)
         .catch(R.tap(console.error));
 };
@@ -134,4 +140,5 @@ export {
     deleteView,
     removeFilter,
     addFilter,
+    updateFilter
 };
