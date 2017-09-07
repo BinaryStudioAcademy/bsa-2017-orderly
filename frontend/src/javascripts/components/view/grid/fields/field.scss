@@ -15,7 +15,13 @@ $table-cell-width: 155px;
   border-radius: 1px;
   position: absolute;
   background-color: #fff;
-  z-index: 1;
+  //z-index: 1;
+}
+.wrapper__table {
+  .table-cell.selected,
+  .table-cell.active {
+    z-index: 1;
+  }
 }
 
 .table-cell.selected .table-cell-wrap .table-cell-inner,
