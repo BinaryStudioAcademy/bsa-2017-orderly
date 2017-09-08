@@ -5,9 +5,6 @@ import RecordCell from './recordCell/recordCell'
 import './recordItem.scss'
 
 const RecordItem = ({record, tableId, fields, currentView}) => {
-	console.log(currentView, 'viewsssssssssssssssss')
-	console.log(record, 'this is recorddfsdfsdfdsfsdfsd')
-	console.log(fields, 'fieeeeeeeeeeeeelds')
 	let counter = 0;
 	return (
 		<div className='record_item'>

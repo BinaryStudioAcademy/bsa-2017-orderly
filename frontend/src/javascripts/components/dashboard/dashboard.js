@@ -12,6 +12,7 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
 } from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
+import { updateKanbanView } from '../view/kanban/kanbanViewActions'
 
 const mapStateToProps = (state, ownProps) => {
     return ({
@@ -90,7 +91,8 @@ const mapDispatchToProps = {
     clearSelectedRecordItemList: clearSelectedRecordItemList,
     mouseDownRecordItem: mouseDownRecordItem,
     mouseUpRecordItem: mouseUpRecordItem,
-    mouseOverRecordItem: mouseOverRecordItem
+    mouseOverRecordItem: mouseOverRecordItem,
+	updateKanbanView: updateKanbanView
 };
 
 const Dashboard = connect(

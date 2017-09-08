@@ -2,7 +2,8 @@ import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable, deleteFile,
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
-    deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView, deleteView
+    deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView, deleteView,
+	getTableById, updateKanban
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -233,6 +234,17 @@ function* deleteTableView(action) {
     }
 }
 
+function* updatingKanban(action) {
+    try {
+        const kanban = yield call(updateKanban, action.kanban)
+        const changedTable = yield call(getTableById, action.tableId)
+	    yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable})
+
+    } catch (err) {
+        yield put({tupe: 'UPDATE_KANBAN_VIEW_FAILED', message: err.message})
+    }
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -259,6 +271,7 @@ function* dashboardSaga() {
     yield takeEvery('FILTER_RECORDS', filterTableRecords);
     yield takeEvery('UPLOAD_FILES', uploadingFiles);
     yield takeEvery('DELETE_FILE', deletingFile);
+    yield takeEvery('UPDATE_KANBAN_VIEW', updatingKanban)
 }
 
 export default dashboardSaga;

@@ -1,0 +1,26 @@
+.stack_modal {
+
+  .stacked_radio_block {
+    .radio_btn {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+
+      input[type='radio'] {
+        margin-top: 3px;
+        margin-right: 10px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      label {
+        font-size: 18px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+    }
+  }
+}
