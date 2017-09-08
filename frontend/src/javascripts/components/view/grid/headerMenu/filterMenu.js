@@ -114,6 +114,7 @@ export default class FilterMenu extends Component {
                                         <span className="menu__item item__conjunction">And</span>
                                     }
                                 <select className="menu__item item__select"
+                                        ref='fieldIdSelector'
                                         onChange={(e) => {
                                             this.setState({fieldId: e.target.value}, () => this.updateFilter(filterItem._id));
                                         }}>
@@ -135,7 +136,10 @@ export default class FilterMenu extends Component {
                                 <input className="menu__item item__input" type="text"
                                        value={filterItem.value}
                                        onChange={(e) => {
-                                           this.setState({filterQuery: e.target.value}, () => this.updateFilter(filterItem._id));
+                                           this.setState({
+                                               fieldId: this.refs.fieldIdSelector.value,
+                                               filterQuery: e.target.value
+                                           }, () => this.updateFilter(filterItem._id));
                                        }}/>}
                             </div>)
                     })}
