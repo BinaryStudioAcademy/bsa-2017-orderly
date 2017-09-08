@@ -8,7 +8,7 @@ export default class FilterMenu extends Component {
         super(props);
 
         this.state = {
-            fieldId: props.currentTable.fields[0]._id,
+            fieldId: '',
             condition: 'contains',
             filterQuery: '',
             isActive: false,
@@ -141,7 +141,10 @@ export default class FilterMenu extends Component {
                     }
                     <div className='menu__item item__add-filter'
                          onClick={() => {
-                             this.setState({fieldId: this.props.currentTable.fields[0]._id}, () => this.addFilter())
+                             this.setState({
+                                 fieldId: this.props.currentTable.fields[0]._id,
+                                 filterQuery: '',
+                             }, () => this.addFilter())
                          }}>
                         + Add filter</div>
                 </div>

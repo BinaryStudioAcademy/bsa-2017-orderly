@@ -297,23 +297,22 @@ class TableRepository extends Repository {
         return this.getById(tableId).then((table) => {
             const view = table.views.find((v) => v.view._id.toString() === viewId);
             let filteredRecords;
-
             for (let filterItem of view.view.filters.filterSet){
                 const index = table.fields.findIndex((f) => f._id.toString() === filterItem.fieldId.toString());
                 let recordsToFilter = filteredRecords || table.records;
                 const lowerQuery = filterItem.value.toLowerCase();
                 switch (filterItem.condition) {
                     case 'contains':
-                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toLowerCase().includes(lowerQuery));
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase().includes(lowerQuery));
                     break;
                 case '!contains':
-                    filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.toLowerCase().includes(lowerQuery));
+                    filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.toString().toLowerCase().includes(lowerQuery));
                     break;
                 case 'is':
-                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toLowerCase() === lowerQuery);
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase() === lowerQuery);
                     break;
                 case '!is':
-                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toLowerCase() !== lowerQuery);
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase() !== lowerQuery);
                     break;
                 case 'empty':
                     filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.length);
