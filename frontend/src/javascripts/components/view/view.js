@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Icon} from 'semantic-ui-react';
-import R from 'ramda';
 import Grid from './grid/grid';
 import FormView from './form/formView';
 import KanbanView from './kanban/kanbanView';
@@ -63,6 +62,7 @@ export default class View extends Component {
         case 'grid':
             return <Grid
                 currentTable={this.props.currentTable}
+                currentViewType={activeView.type}
                 tables={this.props.tables}
                 recordData={this.props.recordData}
                 addRecord={this.props.addRecord}
@@ -90,6 +90,8 @@ export default class View extends Component {
                 searchBlockOpen={this.props.searchBlockOpen}
                 deleteView={() => this.handleDeleteView()}
                 viewsCount={viewsCount}
+                addFilter={this.props.addFilter}
+                updateFilter={this.props.updateFilter}
                 setSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
                 appendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
                 setSelectAllRecordItems={this.props.setSelectAllRecordItems}

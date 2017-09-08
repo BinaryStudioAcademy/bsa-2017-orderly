@@ -6,7 +6,7 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     changeFieldType, changeFieldOptions, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
     changeSearch, changeSearchFoundIndex, toggleSearch, changeFieldName, deleteRecord, deleteField,
     changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
-    addView, deleteView, setSelectFieldRecordItems, appendSelectFieldRecordItems, setSelectAllRecordItems,
+    addView, deleteView, addFilter, updateFilter, setSelectFieldRecordItems, appendSelectFieldRecordItems, setSelectAllRecordItems,
     setSelectRecordItems, shiftKeyDown, shiftKeyUp, clearSelectedRecordItemList, mouseDownRecordItem,
     mouseUpRecordItem, mouseOverRecordItem
 } from './dashboardActions';
@@ -82,6 +82,8 @@ const mapDispatchToProps = {
     disconnectSocket: disconnectSocket,
     addView: addView,
     deleteView: deleteView,
+    addFilter: addFilter,
+    updateFilter: updateFilter,
     setSelectFieldRecordItems: setSelectFieldRecordItems,
     appendSelectFieldRecordItems: appendSelectFieldRecordItems,
     setSelectAllRecordItems: setSelectAllRecordItems,

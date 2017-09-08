@@ -183,13 +183,43 @@ router.delete('/:id/views/:viewId/:viewType', (request, response) => {
 
 // filter table -------------------------------------
 
-router.get('/:id/fields/:fieldId/filter/:condition/:query', (request, response) => {
-    tableRepository.filterRecords(
+router.get('/:id/views/:viewId/fields/filter', (request, response) => {
+    tableRepository.filterRecords(request.params.id, request.params.viewId)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.post('/:id/views/:viewType/:viewId/fields/:fieldId/filters', (request, response) => {
+    tableRepository.addFilter(
         request.params.id,
+        request.params.viewId,
+        request.params.viewType,
+        request.params.fieldId)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.put('/:id/views/:viewType/:viewId/fields/:fieldId/filters/:filterId/:condition/:query?', (request, response) => {
+    // tableId, viewId, viewType, filterId, fieldId, condition, query
+    tableRepository.updateFilter(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType,
         request.params.fieldId,
+        request.params.filterId,
         request.params.condition,
         request.params.query)
-        .then((table) => response.status(200).send(table))
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.delete('/:id/views/:viewType/:viewId/filters/:filterId', (request, response) => {
+    tableRepository.removeFilter(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType,
+        request.params.filterId)
+        .then((result) => response.status(200).send(result))
         .catch((error) => response.status(500).send(error));
 });
 

@@ -42,7 +42,7 @@ class TableRepository extends Repository {
             for (let view of table.views) {
                 removeTableViews.push(this.getFromView(view.view, view.type).then((v) => v.remove()));
             }
-            Promise.all(removeTableViews).then(() => {
+            return Promise.all(removeTableViews).then(() => {
                 return table.remove();
             });
         });
@@ -81,7 +81,7 @@ class TableRepository extends Repository {
     }
 
     updateRecords(tableId, data) {
-        return this.model.findById(tableId)
+        return this.getById(tableId)
             .then((table) => {
                 for (let record of table.records) {
                     record.record_data.push(data);
@@ -107,14 +107,23 @@ class TableRepository extends Repository {
     }
 
     addField(tableId, field) {
-        this.model.findById(tableId).populate('views.view').then((t) => {
-            console.log(t);
-        });
         return this.model.findByIdAndUpdate(
             tableId,
             {'$push': {fields: field}},
             {'new': true}
-        );
+        ).then((table) => {
+            const newField = table.fields[table.fields.length - 1];
+            let updatedViews = [];
+            for (let view of table.views) {
+                updatedViews.push(this.getFromView(view.view, view.type).then((v) => {
+                    let config = v.fields_config;
+                    if (!config) return v;
+                    config.push({field: newField._id, size: 155, position: config.length + 1});
+                    return v.save();
+                }));
+            }
+            return Promise.all(updatedViews).then(() => this.getById(tableId));
+        });
     }
 
     updateField(tableId, fieldId, data) {
@@ -163,13 +172,21 @@ class TableRepository extends Repository {
     }
 
     deleteField(tableId, fieldId) {
-        return this.model.findById(tableId).then((table) => {
+        return this.getById(tableId).then((table) => {
             const deleteAt = table.fields.indexOf(table.fields.find((f) => f._id.toString() === fieldId));
             table.fields.splice(deleteAt, 1);
-            table.records.forEach((record) => {
-                record.record_data.splice(deleteAt, 1);
+            table.records.forEach((record) => record.record_data.splice(deleteAt, 1));
+            let updatedViews = [];
+            for (let view of table.views) {
+                updatedViews.push(this.getFromView(view.view._id, view.type).then((v) => {
+                    if (!v.fields_config) return v;
+                    v.fields_config = v.fields_config.filter((f) => f.field.toString() !== fieldId);
+                    return v.save();
+                }));
+            }
+            return Promise.all(updatedViews).then(() => {
+                return table.save().then(() => this.getById(tableId));
             });
-            return table.save();
         });
     }
 
@@ -276,13 +293,79 @@ class TableRepository extends Repository {
         });
     }
 
-    filterRecords(tableId, fieldId, condition, query) {
-        return this.model.findById(tableId).then((table) => {
-            const index = table.fields.findIndex((f) => f._id.toString() === fieldId);
-            table.records = table.records.filter((r) => r.record_data[index].data.includes(query));
-            return table;
+    filterRecords(tableId, viewId) {
+        return this.getById(tableId).then((table) => {
+            const view = table.views.find((v) => v.view._id.toString() === viewId);
+            let filteredRecords;
+
+            for (let filterItem of view.view.filters.filterSet){
+                const index = table.fields.findIndex((f) => f._id.toString() === filterItem.fieldId.toString());
+                let recordsToFilter = filteredRecords || table.records;
+                switch (filterItem.condition) {
+                case 'contains':
+                    // if (!filterItem.value) continue;
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.includes(filterItem.value));
+                    break;
+                case '!contains':
+                    // if (!filterItem.value) continue;
+                    filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.includes(filterItem.value));
+                    break;
+                case 'is':
+                    // if (!filterItem.value) continue;
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data === filterItem.value);
+                    break;
+                case '!is':
+                    // if (!filterItem.value) continue;
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data !== filterItem.value);
+                    break;
+                case 'empty':
+                    filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.length);
+                    break;
+                case '!empty':
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.length);
+                    break;
+                }
+            }
+            return {table: table, filteredRecords: filteredRecords};
         });
     }
+
+    removeFilter(tableId, viewId, viewType, filterId) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            view.filters.filterSet = view.filters.filterSet.filter((f) => f._id.toString() !== filterId);
+            return view.save().then(() => {
+                return this.filterRecords(tableId, viewId);
+            });
+        });
+    }
+
+    addFilter(tableId, viewId, viewType, fieldId) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            view.filters.filterSet.push(
+                {
+                    fieldId: fieldId,
+                    condition: 'contains',
+                    value: '',
+                }
+            );
+            return view.save().then(() => {
+                return this.filterRecords(tableId, viewId);
+            });
+        });
+    }
+
+    updateFilter(tableId, viewId, viewType, fieldId, filterId, condition, query) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            let filterToUpdate = view.filters.filterSet.find((f) => f._id.toString() === filterId);
+            filterToUpdate.fieldId = fieldId;
+            filterToUpdate.value = query || '';
+            filterToUpdate.condition = condition;
+            return view.save().then(() => {
+                return this.filterRecords(tableId, viewId);
+            });
+        });
+    }
+
 }
 
 const typeToSchema = {

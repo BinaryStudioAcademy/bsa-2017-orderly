@@ -201,6 +201,8 @@ class Tools extends Component {
                       removeFilter={this.props.removeFilter}
                       addView={this.props.addView}
                       deleteView={this.props.deleteView}
+                      addFilter={this.props.addFilter}
+                      updateFilter={this.props.updateFilter}
                       setSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
                       appendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
                       setSelectAllRecordItems={this.props.setSelectAllRecordItems}

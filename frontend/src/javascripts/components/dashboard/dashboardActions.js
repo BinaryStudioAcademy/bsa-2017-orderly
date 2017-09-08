@@ -208,26 +208,51 @@ export function deleteView(tableId, viewId, viewType) {
 
 export function sortRecords(table, fieldId, sortOption) {
     return {
-        type: 'SORT_RECORDS',
+        type: 'SORT_TABLE',
         table: table,
         fieldId: fieldId,
         sortOption: sortOption
     };
 }
 
-export function filterRecords(tableId, fieldId, condition, filterQuery) {
+export function filterRecords(tableId, viewId) {
     return {
-        type: 'FILTER_RECORDS',
-        tableId : tableId,
+        type: 'FILTER_TABLE',
+        tableId: tableId,
+        viewId: viewId,
+    };
+}
+
+export function addFilter(tableId, viewId, viewType, fieldId) {
+    return {
+        type: 'ADD_FILTER',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
         fieldId: fieldId,
+    };
+}
+
+export function updateFilter(tableId, viewId, viewType, fieldId, filterId, condition, filterQuery) {
+    return {
+        type: 'UPDATE_FILTER',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+        fieldId: fieldId,
+        filterId: filterId,
         condition: condition,
         filterQuery: filterQuery,
     };
 }
 
-export function removeFilter() {
+export function removeFilter(tableId, viewId, viewType, filterId) {
     return {
-        type: 'REMOVE_FILTER'
+        type: 'REMOVE_FILTER',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+        filterId: filterId,
     };
 }
 

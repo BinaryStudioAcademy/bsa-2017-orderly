@@ -234,8 +234,8 @@ export default class FieldMenu extends Component {
                             handleOptionsChange={this.handleOptionsChange}
                         />
                         <div className='button-wrapper' 
-                                onClick={this.handleSumbit}
-                            >
+                             onClick={this.handleSumbit}
+                        >
                             <div className='save-btn'>Save</div>
                         </div>
                     </div>
