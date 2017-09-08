@@ -10,7 +10,7 @@ export default class FilterMenu extends Component {
         this.state = {
             fieldId: props.currentTable.fields[0]._id,
             condition: 'contains',
-            filterQuery: '',
+            filterQuery: null,
             isActive: false,
         };
     }
