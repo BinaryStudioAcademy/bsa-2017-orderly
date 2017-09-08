@@ -145,6 +145,7 @@ $cell-padding: 0px;
   width: 75px;
   min-width: 75px;
   text-align: center;
+  padding: 7px;
   cursor: pointer;
   border-right: $cell-border;
   border-bottom: $cell-border;
@@ -154,7 +155,7 @@ $cell-padding: 0px;
 
 .item__add-record {
   width: 100%;
-  padding-left: 7px;
+  padding: 7px 0 0 9px;
   text-align: left;
   cursor: pointer;
   border: $cell-border;
