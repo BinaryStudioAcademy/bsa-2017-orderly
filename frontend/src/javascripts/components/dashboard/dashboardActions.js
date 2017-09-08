@@ -256,6 +256,15 @@ export function removeFilter(tableId, viewId, viewType, filterId) {
     };
 }
 
+export function removeAllFilters(tableId, viewId, viewType) {
+    return {
+        type: 'REMOVE_ALL_FILTERS',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+    };
+}
+
 export function changeFieldType(tableId, fieldId, fieldType) {
     return {
         type: 'CHANGE_FIELD_TYPE',

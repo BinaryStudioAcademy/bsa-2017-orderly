@@ -3,7 +3,7 @@ import {
     getTablesByIds, getBase, addTable, addFieldsToTable, deleteFile,
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
     deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView, deleteView,
-    removeFilter, addFilter, updateFilter, getTableById, updateKanban,
+    removeFilter, addFilter, updateFilter, getTableById, updateKanban, removeAllFilters,
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -238,6 +238,19 @@ function* removeTableFilter(action) {
     }
 }
 
+function* removeAllTableFilters(action) {
+    try {
+        const updatedFilters = yield call(removeAllFilters, action);
+        yield put({
+            type: 'REMOVE_ALL_FILTERS_SUCCEEDED',
+            table: updatedFilters.data.table,
+            filteredRecords: updatedFilters.data.filteredRecords
+        });
+    } catch (err) {
+        yield put({type: 'REMOVE_ALL_FILTERS_FAILED', message: err.message});
+    }
+}
+
 function* uploadingFiles(action) {
     try {
         const changedTable = yield call(uploadFile, action);
@@ -315,6 +328,7 @@ function* dashboardSaga() {
     yield takeEvery('ADD_FILTER', addTableFilter);
     yield takeEvery('UPDATE_FILTER', updateTableFilter);
     yield takeEvery('REMOVE_FILTER', removeTableFilter);
+    yield takeEvery('REMOVE_ALL_FILTERS', removeAllTableFilters);
     yield takeEvery('UPLOAD_FILES', uploadingFiles);
     yield takeEvery('DELETE_FILE', deletingFile);
     yield takeEvery('UPDATE_KANBAN_VIEW', updatingKanban)

@@ -99,6 +99,13 @@ const removeFilter = (payload) => {
         .catch(R.tap(console.error));
 };
 
+const removeAllFilters = (payload) => {
+    return axios.delete(url + '/tables/' + payload.tableId + '/views/' + payload.viewType + '/' +
+        payload.viewId + '/filters')
+        .then((response) => response)
+        .catch(R.tap(console.error));
+};
+
 const emitTableCoworker = (user, tableId) => {
     return socket.emit('client-upload-table', user, tableId);
 };
@@ -153,4 +160,5 @@ export {
     updateFilter,
 	getTableById,
 	updateKanban,
+    removeAllFilters
 };

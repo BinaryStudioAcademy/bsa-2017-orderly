@@ -8,7 +8,7 @@ export default class FilterMenu extends Component {
         super(props);
 
         this.state = {
-            fieldId: props.currentTable.fields[0]._id,
+            fieldId: '',
             condition: 'contains',
             filterQuery: '',
             isActive: false,
@@ -76,6 +76,13 @@ export default class FilterMenu extends Component {
             filterId);
     };
 
+    clearAllFilters = () => {
+        this.props.removeAllFilters(
+            this.props.currentTable._id,
+            this.props.currentTable.currentView,
+            this.props.currentViewType);
+    };
+
     render() {
         const DEBUG = false; //REMOVE AFTER TESTING
         const currentView = this.props.currentTable.views.find(
@@ -107,6 +114,7 @@ export default class FilterMenu extends Component {
                                         <span className="menu__item item__conjunction">And</span>
                                     }
                                 <select className="menu__item item__select"
+                                        ref='fieldIdSelector'
                                         onChange={(e) => {
                                             this.setState({fieldId: e.target.value}, () => this.updateFilter(filterItem._id));
                                         }}>
@@ -128,7 +136,10 @@ export default class FilterMenu extends Component {
                                 <input className="menu__item item__input" type="text"
                                        value={filterItem.value}
                                        onChange={(e) => {
-                                           this.setState({filterQuery: e.target.value}, () => this.updateFilter(filterItem._id));
+                                           this.setState({
+                                               fieldId: this.refs.fieldIdSelector.value,
+                                               filterQuery: e.target.value
+                                           }, () => this.updateFilter(filterItem._id));
                                        }}/>}
                             </div>)
                     })}
@@ -139,11 +150,26 @@ export default class FilterMenu extends Component {
                     {!filtersCount &&
                         <div className='menu__item item__no-filters-label'>No filters applied to this view</div>
                     }
-                    <div className='menu__item item__add-filter'
-                         onClick={() => {
-                             this.setState({fieldId: this.props.currentTable.fields[0]._id}, () => this.addFilter())
-                         }}>
-                        + Add filter</div>
+                    <div className='menu__item item__menu-controls'>
+                        <div className='menu__item item__add-filter'
+                             onClick={() => {
+                                 this.setState({
+                                     fieldId: this.props.currentTable.fields[0]._id,
+                                     filterQuery: '',
+                                 }, () => this.addFilter())
+                             }}>
+                            + Add filter</div>
+                        {!!filtersCount &&
+                        <div className='menu__item item__clear-filters'
+                             onClick={() => {
+                                 this.setState({
+                                     fieldId: this.props.currentTable.fields[0]._id,
+                                     filterQuery: '',
+                                 }, () => this.clearAllFilters())
+                             }}>
+                            Clear filters</div>
+                        }
+                    </div>
                 </div>
             </Button>
         );
