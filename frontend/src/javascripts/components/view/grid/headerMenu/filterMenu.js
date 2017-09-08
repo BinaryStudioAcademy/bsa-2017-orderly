@@ -76,6 +76,13 @@ export default class FilterMenu extends Component {
             filterId);
     };
 
+    clearAllFilters = () => {
+        this.props.removeAllFilters(
+            this.props.currentTable._id,
+            this.props.currentTable.currentView,
+            this.props.currentViewType);
+    };
+
     render() {
         const DEBUG = false; //REMOVE AFTER TESTING
         const currentView = this.props.currentTable.views.find(
@@ -139,14 +146,26 @@ export default class FilterMenu extends Component {
                     {!filtersCount &&
                         <div className='menu__item item__no-filters-label'>No filters applied to this view</div>
                     }
-                    <div className='menu__item item__add-filter'
-                         onClick={() => {
-                             this.setState({
-                                 fieldId: this.props.currentTable.fields[0]._id,
-                                 filterQuery: '',
-                             }, () => this.addFilter())
-                         }}>
-                        + Add filter</div>
+                    <div className='menu__item item__menu-controls'>
+                        <div className='menu__item item__add-filter'
+                             onClick={() => {
+                                 this.setState({
+                                     fieldId: this.props.currentTable.fields[0]._id,
+                                     filterQuery: '',
+                                 }, () => this.addFilter())
+                             }}>
+                            + Add filter</div>
+                        {!!filtersCount &&
+                        <div className='menu__item item__clear-filters'
+                             onClick={() => {
+                                 this.setState({
+                                     fieldId: this.props.currentTable.fields[0]._id,
+                                     filterQuery: '',
+                                 }, () => this.clearAllFilters())
+                             }}>
+                            Clear filters</div>
+                        }
+                    </div>
                 </div>
             </Button>
         );

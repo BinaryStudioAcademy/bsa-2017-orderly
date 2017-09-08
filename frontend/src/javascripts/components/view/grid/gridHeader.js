@@ -40,6 +40,7 @@ export default class GridHeader extends Component{
                             removeFilter={this.props.removeFilter}
                             addFilter={this.props.addFilter}
                             updateFilter={this.props.updateFilter}
+                            removeAllFilters={this.props.removeAllFilters}
                         />
                         <Button basic>
                             <Icon name='browser'/>

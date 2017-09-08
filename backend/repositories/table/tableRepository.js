@@ -335,6 +335,15 @@ class TableRepository extends Repository {
         });
     }
 
+    removeAllFilters(tableId, viewId, viewType) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            view.filters.filterSet = [];
+            return view.save().then(() => {
+                return this.filterRecords(tableId, viewId);
+            });
+        });
+    }
+
     addFilter(tableId, viewId, viewType, fieldId) {
         return this.getFromView(viewId, viewType).then((view) => {
             view.filters.filterSet.push(

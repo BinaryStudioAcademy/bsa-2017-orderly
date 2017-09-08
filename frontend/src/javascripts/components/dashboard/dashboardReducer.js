@@ -509,6 +509,23 @@ function dashboardReducer(state = initState, action) {
         ]);
     }
 
+    case 'REMOVE_ALL_FILTERS_SUCCEEDED': {
+        return R.mergeAll([
+            R.omit(['tables', 'filteredRecords'], state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        const newTable = R.dissoc('views', table);
+                        newTable.views = action.table.views;
+                        return newTable;
+                    }
+                    return table;
+                })(state.tables),
+                filteredRecords: action.filteredRecords
+            },
+        ]);
+    }
+
     case 'SORT_TABLE': {
         console.log('DASH REDUCER SORT RECORDS');
         console.log(action);

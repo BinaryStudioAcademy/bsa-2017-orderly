@@ -223,5 +223,14 @@ router.delete('/:id/views/:viewType/:viewId/filters/:filterId', (request, respon
         .catch((error) => response.status(500).send(error));
 });
 
+router.delete('/:id/views/:viewType/:viewId/filters/', (request, response) => {
+    tableRepository.removeAllFilters(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
 module.exports = router;
 

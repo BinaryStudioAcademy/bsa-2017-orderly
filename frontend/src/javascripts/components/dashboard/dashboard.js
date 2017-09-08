@@ -8,7 +8,7 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
     addView, deleteView, addFilter, updateFilter, setSelectFieldRecordItems, appendSelectFieldRecordItems, setSelectAllRecordItems,
     setSelectRecordItems, shiftKeyDown, shiftKeyUp, clearSelectedRecordItemList, mouseDownRecordItem,
-    mouseUpRecordItem, mouseOverRecordItem
+    mouseUpRecordItem, mouseOverRecordItem, removeAllFilters,
 } from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
@@ -94,7 +94,8 @@ const mapDispatchToProps = {
     mouseDownRecordItem: mouseDownRecordItem,
     mouseUpRecordItem: mouseUpRecordItem,
     mouseOverRecordItem: mouseOverRecordItem,
-	updateKanbanView: updateKanbanView
+	updateKanbanView: updateKanbanView,
+    removeAllFilters: removeAllFilters,
 };
 
 const Dashboard = connect(
