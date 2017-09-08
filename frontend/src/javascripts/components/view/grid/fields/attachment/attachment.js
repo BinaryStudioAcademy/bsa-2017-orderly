@@ -86,7 +86,7 @@ class Attachment extends Field {
 						{R.map(fileName => <div key={++tempKey} className='around_image'>
 												<Image
 												  size='mini'
-												  onClick={ event => {
+												  onMouseDown={ event => {
 													this.handleOpen(event, fileName)
 												  }}
 												  className='attachment_file'
