@@ -301,22 +301,19 @@ class TableRepository extends Repository {
             for (let filterItem of view.view.filters.filterSet){
                 const index = table.fields.findIndex((f) => f._id.toString() === filterItem.fieldId.toString());
                 let recordsToFilter = filteredRecords || table.records;
+                const lowerQuery = filterItem.value.toLowerCase();
                 switch (filterItem.condition) {
-                case 'contains':
-                    // if (!filterItem.value) continue;
-                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.includes(filterItem.value));
+                    case 'contains':
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toLowerCase().includes(lowerQuery));
                     break;
                 case '!contains':
-                    // if (!filterItem.value) continue;
-                    filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.includes(filterItem.value));
+                    filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.toLowerCase().includes(lowerQuery));
                     break;
                 case 'is':
-                    // if (!filterItem.value) continue;
-                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data === filterItem.value);
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toLowerCase() === lowerQuery);
                     break;
                 case '!is':
-                    // if (!filterItem.value) continue;
-                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data !== filterItem.value);
+                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toLowerCase() !== lowerQuery);
                     break;
                 case 'empty':
                     filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.length);
