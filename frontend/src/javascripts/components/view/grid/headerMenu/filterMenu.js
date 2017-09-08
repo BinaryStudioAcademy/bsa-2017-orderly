@@ -140,7 +140,9 @@ export default class FilterMenu extends Component {
                         <div className='menu__item item__no-filters-label'>No filters applied to this view</div>
                     }
                     <div className='menu__item item__add-filter'
-                         onClick={() => {this.addFilter()}}>
+                         onClick={() => {
+                             this.setState({fieldId: this.props.currentTable.fields[0]._id}, () => this.addFilter())
+                         }}>
                         + Add filter</div>
                 </div>
             </Button>
