@@ -10,7 +10,7 @@ export default class FilterMenu extends Component {
         this.state = {
             fieldId: props.currentTable.fields[0]._id,
             condition: 'contains',
-            filterQuery: null,
+            filterQuery: '',
             isActive: false,
         };
     }
@@ -126,6 +126,7 @@ export default class FilterMenu extends Component {
                                 </select>
                                 {!filterItem.condition.includes('empty') &&
                                 <input className="menu__item item__input" type="text"
+                                       value={filterItem.value}
                                        onChange={(e) => {
                                            this.setState({filterQuery: e.target.value}, () => this.updateFilter(filterItem._id));
                                        }}/>}

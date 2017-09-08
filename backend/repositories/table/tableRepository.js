@@ -303,19 +303,19 @@ class TableRepository extends Repository {
                 let recordsToFilter = filteredRecords || table.records;
                 switch (filterItem.condition) {
                 case 'contains':
-                    if (!filterItem.value) continue;
+                    // if (!filterItem.value) continue;
                     filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.includes(filterItem.value));
                     break;
                 case '!contains':
-                    if (!filterItem.value) continue;
+                    // if (!filterItem.value) continue;
                     filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.includes(filterItem.value));
                     break;
                 case 'is':
-                    if (!filterItem.value) continue;
+                    // if (!filterItem.value) continue;
                     filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data === filterItem.value);
                     break;
                 case '!is':
-                    if (!filterItem.value) continue;
+                    // if (!filterItem.value) continue;
                     filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data !== filterItem.value);
                     break;
                 case 'empty':
@@ -345,7 +345,7 @@ class TableRepository extends Repository {
                 {
                     fieldId: fieldId,
                     condition: 'contains',
-                    value: null,
+                    value: '',
                 }
             );
             return view.save().then(() => {
@@ -358,7 +358,7 @@ class TableRepository extends Repository {
         return this.getFromView(viewId, viewType).then((view) => {
             let filterToUpdate = view.filters.filterSet.find((f) => f._id.toString() === filterId);
             filterToUpdate.fieldId = fieldId;
-            filterToUpdate.value = query;
+            filterToUpdate.value = query || '';
             filterToUpdate.condition = condition;
             return view.save().then(() => {
                 return this.filterRecords(tableId, viewId);
