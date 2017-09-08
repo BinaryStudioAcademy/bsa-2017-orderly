@@ -13,6 +13,11 @@ const getTablesByIds = (ids) =>
         .then((response) => response.data)
         .catch(R.tap(console.error));
 
+const getTableById = (tableId) =>
+	axios.get(url + '/tables/' + tableId)
+		.then(response => response.data)
+		.catch(R.tap(console.error))
+
 const addTable = (table) =>
     axios.post(url + '/tables', table)
         .then((response) => response.data)
@@ -120,6 +125,11 @@ const deleteView = ({tableId, viewId, viewType}) => {
         .catch(R.tap(console.error));
 };
 
+const updateKanban = (kanbanView) =>
+	axios.put(url + '/view/kanban/' + kanbanView._id, R.dissoc('_id', kanbanView))
+		.then((response) => response.data)
+		.catch(R.tap(console.error));
+
 export {
     getBase,
     getTablesByIds,
@@ -140,5 +150,7 @@ export {
     deleteView,
     removeFilter,
     addFilter,
-    updateFilter
+    updateFilter,
+	getTableById,
+	updateKanban,
 };
