@@ -94,14 +94,14 @@ export class DateType extends Component {
                     this.props.handleOptionsChange(event, 'format');
                   }}
               />
-              {/*<div className='options-checkbox'>
+              <div className='options-checkbox'>
                 <Checkbox checked={this.state.time} toggle label='Include a time field'
                 onChange = {(event, data) => {
                    this.setState({time:!this.state.time})
                    this.props.handleOptionsChange(data, 'time');
                  }}
                   />
-              </div>*/}
+              </div>
         </div>
       )
   }
