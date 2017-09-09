@@ -79,14 +79,14 @@ const filterRecords = (payload) => {
 
 const addFilter = (payload) => {
     return axios.post(url + '/tables/' + payload.tableId + '/views/' + payload.viewType + '/' +
-        payload.viewId + '/fields/' + payload.fieldId + '/filters/')
+        payload.viewId + '/fields/' + payload.fieldId + '/' + payload.fieldIndex + '/filters/')
         .then((response) => response)
         .catch(R.tap(console.error));
 };
 
 const updateFilter = (payload) => {
     return axios.put(url + '/tables/' + payload.tableId + '/views/' + payload.viewType + '/' +
-        payload.viewId + '/fields/' + payload.fieldId + '/filters/' + payload.filterId + '/' +
+        payload.viewId + '/fields/' + payload.fieldId + '/' + payload.fieldIndex + '/filters/' + payload.filterId + '/' +
         payload.condition + '/' + payload.filterQuery)
         .then((response) => response)
         .catch(R.tap(console.error));

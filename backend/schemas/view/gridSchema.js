@@ -27,6 +27,7 @@ const GridSchema = new Schema({
         filterSet: [
             {
                 fieldId: ObjectId,
+                fieldIndex: Number,
                 condition: String,
                 value: String,
             }

@@ -53,6 +53,7 @@ export default class FilterMenu extends Component {
             this.props.currentTable.currentView,
             this.props.currentViewType,
             this.state.fieldId,
+            this.state.fieldIndex,
         )
     };
 
@@ -62,6 +63,7 @@ export default class FilterMenu extends Component {
             this.props.currentTable.currentView,
             this.props.currentViewType,
             this.state.fieldId,
+            this.state.fieldIndex,
             filterId,
             this.state.condition,
             this.state.filterQuery
@@ -116,11 +118,15 @@ export default class FilterMenu extends Component {
                                 <select className="menu__item item__select"
                                         ref='fieldIdSelector'
                                         onChange={(e) => {
-                                            this.setState({fieldId: e.target.value}, () => this.updateFilter(filterItem._id));
+                                            const [fieldId, fieldIndex] = e.target.value.split(',');
+                                            this.setState({
+                                                fieldId: fieldId,
+                                                fieldIndex: fieldIndex
+                                            }, () => this.updateFilter(filterItem._id));
                                         }}>
                                     {this.props.currentTable.fields.map((field, ind) => {
                                         return (
-                                            <option key={ind} value={field._id}>{field.name}</option>
+                                            <option key={ind} value={[field._id, ind]}>{field.name}</option>
                                         );
                                     })}
                                 </select>
@@ -136,8 +142,10 @@ export default class FilterMenu extends Component {
                                 <input className="menu__item item__input" type="text"
                                        value={filterItem.value}
                                        onChange={(e) => {
+                                           const [fieldId, fieldIndex] = this.refs.fieldIdSelector.value.split(',');
                                            this.setState({
-                                               fieldId: this.refs.fieldIdSelector.value,
+                                               fieldId: fieldId,
+                                               fieldIndex: fieldIndex,
                                                filterQuery: e.target.value
                                            }, () => this.updateFilter(filterItem._id));
                                        }}/>}
@@ -155,6 +163,7 @@ export default class FilterMenu extends Component {
                              onClick={() => {
                                  this.setState({
                                      fieldId: this.props.currentTable.fields[0]._id,
+                                     fieldIndex: 0,
                                      filterQuery: '',
                                  }, () => this.addFilter())
                              }}>
@@ -163,7 +172,7 @@ export default class FilterMenu extends Component {
                         <div className='menu__item item__clear-filters'
                              onClick={() => {
                                  this.setState({
-                                     fieldId: this.props.currentTable.fields[0]._id,
+                                     fieldId: '',
                                      filterQuery: '',
                                  }, () => this.clearAllFilters())
                              }}>
