@@ -49,7 +49,6 @@ let baseCopy = (baseToCopy) => {
 
             return record
          })
-         viewCopy(table)
          table.fields = fields;
          table.records = records;
          return table
@@ -65,7 +64,7 @@ let baseCopy = (baseToCopy) => {
         newBase.name = `${baseToCopy.name} copy` 
         promiseArray[i] = baseRepository.add(newBase);
         for ( let table in tables ) {
-         
+         viewCopy(table)
          promiseArray[++i] = tableRepository.add(tables[table])
         }
         return Promise.all(promiseArray)
