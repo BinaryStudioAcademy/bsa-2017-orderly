@@ -6,8 +6,10 @@
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: stretch;
+  position: relative;
+  padding-bottom: 46px;
 
   .stack_header {
     padding-top: 15px;
@@ -26,12 +28,13 @@
   }
 
   .stack_footer {
-    margin-top: 20px;
-    padding-bottom: 20px;
-    height: 46px;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    margin-left: -14px;
+    left: 50%;
+    bottom: 10px;
   }
 }
 
