@@ -189,23 +189,24 @@ router.get('/:id/views/:viewId/fields/filter', (request, response) => {
         .catch((error) => response.status(500).send(error));
 });
 
-router.post('/:id/views/:viewType/:viewId/fields/:fieldId/filters', (request, response) => {
+router.post('/:id/views/:viewType/:viewId/fields/:fieldId/:fieldIndex/filters', (request, response) => {
     tableRepository.addFilter(
         request.params.id,
         request.params.viewId,
         request.params.viewType,
-        request.params.fieldId)
+        request.params.fieldId,
+        request.params.fieldIndex)
         .then((result) => response.status(200).send(result))
         .catch((error) => response.status(500).send(error));
 });
 
-router.put('/:id/views/:viewType/:viewId/fields/:fieldId/filters/:filterId/:condition/:query?', (request, response) => {
-    // tableId, viewId, viewType, filterId, fieldId, condition, query
+router.put('/:id/views/:viewType/:viewId/fields/:fieldId/:fieldIndex/filters/:filterId/:condition/:query?', (request, response) => {
     tableRepository.updateFilter(
         request.params.id,
         request.params.viewId,
         request.params.viewType,
         request.params.fieldId,
+        request.params.fieldIndex,
         request.params.filterId,
         request.params.condition,
         request.params.query)

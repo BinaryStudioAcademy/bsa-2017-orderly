@@ -21,7 +21,7 @@ class ImportCSV extends Component {
         let newData = {};
         let fields = [];
         for (let field in fieldsData ) {
-          fields[field] = {"name": `${fieldsData[field]}`}
+          fields[field] = {"name": `${fieldsData[field]}`, "type":"text"}
         }
         data.splice(0, 1);
         let records = [];

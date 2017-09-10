@@ -223,23 +223,25 @@ export function filterRecords(tableId, viewId) {
     };
 }
 
-export function addFilter(tableId, viewId, viewType, fieldId) {
+export function addFilter(tableId, viewId, viewType, fieldId, fieldIndex) {
     return {
         type: 'ADD_FILTER',
         tableId: tableId,
         viewId: viewId,
         viewType: viewType,
         fieldId: fieldId,
+        fieldIndex: fieldIndex,
     };
 }
 
-export function updateFilter(tableId, viewId, viewType, fieldId, filterId, condition, filterQuery) {
+export function updateFilter(tableId, viewId, viewType, fieldId, fieldIndex, filterId, condition, filterQuery) {
     return {
         type: 'UPDATE_FILTER',
         tableId: tableId,
         viewId: viewId,
         viewType: viewType,
         fieldId: fieldId,
+        fieldIndex: fieldIndex,
         filterId: filterId,
         condition: condition,
         filterQuery: filterQuery,
