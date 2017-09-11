@@ -23,7 +23,7 @@ class ModalDublicateBase extends React.Component {
           <div className='content-import-spreadsheet'>
               <div className='content-import-subheader'>Choose team:</div>
               <Select options={this.state.options}
-                    value={this.state.value}
+                    value={this.state.teamId}
                     onChange = {(event) => this.setState({teamId: event.value})}
                     autoFocus={true}
                 />
