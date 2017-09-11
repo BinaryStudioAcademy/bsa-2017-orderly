@@ -12,6 +12,7 @@ const R = require('ramda');
 
 let baseCopy = (baseToCopy) => {
     let newBase = Object.assign({}, baseToCopy);
+         console.log('aaaaaaaaaaaa', newBase.tables)
 
     return tableRepository.getByIds(newBase.tables)
     .then((tables) => {
@@ -21,7 +22,7 @@ let baseCopy = (baseToCopy) => {
         })
     .then((tables) => {
         let newTables = tables.map(table => {
-         delete table._id
+         //delete table._id
          table._id = mongoose.Types.ObjectId();
         
          let fields = table.fields.map(field => {
