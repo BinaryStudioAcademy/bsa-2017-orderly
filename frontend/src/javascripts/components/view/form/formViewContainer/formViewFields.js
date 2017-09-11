@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button} from 'semantic-ui-react';
 import {Icon} from 'semantic-ui-react';
+import { Recordtem } from '../../recordDialog/recordDialog'
 
 export default class FormViewFields extends Component {
     constructor(props) {
@@ -8,6 +9,7 @@ export default class FormViewFields extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <div className='form-inputs-list-wrapper'>
                 <div className='form-inputs-list'>
@@ -20,7 +22,17 @@ export default class FormViewFields extends Component {
                                         <Icon name="delete" className="form-inputs-delete"
                                               onClick={() => this.props.excludeField(field._id)}/>
                                     </div>
-                                    <input className='input-form' type='text'/>
+                                    <Recordtem
+                                        id={this.props.record.record_data[ind]._id}
+                                        data={this.props.record.record_data[ind].data}
+                                        type={this.props.fields[ind].type}
+                                        currentField={this.props.fields[ind]}
+                                        records={this.props.records}
+                                        recordData={this.props.recordData}
+                                        tableId={this.props.tableId}
+                                        uploadAttachment={this.props.uploadAttachment}
+                                        deleteFile={this.props.deleteFile}
+                                    />
                                 </div>
                             );
                         }

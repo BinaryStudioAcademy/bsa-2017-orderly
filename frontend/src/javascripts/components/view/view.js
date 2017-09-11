@@ -103,6 +103,9 @@ export default class View extends Component {
                 currentTable={this.props.currentTable}
                 deleteView={() => this.handleDeleteView()}
                 viewsCount={viewsCount}
+                recordData={this.props.recordData}
+                deleteFile={this.props.deleteFile}
+                uploadAttachment={this.props.uploadAttachment}
             />;
         case 'kanban':
             return <KanbanView viewsCount={viewsCount}

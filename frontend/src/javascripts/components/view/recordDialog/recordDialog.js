@@ -19,7 +19,7 @@ import HistoryList from './components/history/historyList';
 import CommentsBlock from './components/comments/commentsBlock';
 import {fieldIcons, fieldNames} from "../../configuration/fieldTypes";
 
-const Recordtem = ({id, type, data, tableId, recordData, uploadAttachment, deleteFile, currentField, recordIdx}) => {
+export const Recordtem = ({id, type, data, tableId, recordData, uploadAttachment, deleteFile, currentField, recordIdx}) => {
     const fieldPayload = {
         id: id,
         value: data,
@@ -38,6 +38,7 @@ const Recordtem = ({id, type, data, tableId, recordData, uploadAttachment, delet
         onMouseDownRecordItem: () => {},
         onMouseOverRecordItem: () => {}
     };
+    console.log('fieldPayload', fieldPayload)
     let record = null;
     switch (type) {
         case 'longtext':
