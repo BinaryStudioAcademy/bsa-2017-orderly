@@ -13,6 +13,10 @@ class TeamRepository extends Repository {
     	return this.model.find({ owner: userId });
     }
 
+    getByMember(userId) {
+    	return this.model.find({'collaborators.userId': userId})
+    }
+
     remove(teamId) {
     	return this.model.findByIdAndRemove(teamId);
     }

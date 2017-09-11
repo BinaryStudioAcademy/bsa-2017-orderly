@@ -115,7 +115,7 @@ router.put('/:teamId/collaborators/:userId', (req, res) => {
 })
 
 router.get('/user/:userId', (req, res) => {
-    teamRepository.getByOwner(req.params.userId)
+    teamRepository.getByMember(req.params.userId)
         .then((result) => {
             if (R.isEmpty(result)) {
                 return [teamRepository.add(defaultTeam(req.params.userId))];
