@@ -16,14 +16,30 @@ const RadioBtn = ({_id, name}) => (
 	</div>
 )
 
+const ModalBody = ({ stackedFields }) => {
+	if (R.isEmpty(stackedFields)) return (<h4>No field with type "select"</h4>)
+	else {
+		return (
+			<Modal.Content>
+				<div onChange={(event) => {
+					radioValue = event.target.value
+				}}
+				     className='stacked_radio_block'>
+					{R.map(field => <RadioBtn _id={field._id}
+					                          name={field.name}
+					                          key={field._id}/>)(stackedFields)}
+				</div>
+
+			</Modal.Content>
+		)
+	}
+}
+
 class StackedModal extends Component {
 	constructor(props) {
 		super(props)
 	}
-
-
 	render() {
-		// console.log(this.props.stackedFields, '44444444444444444444')
 		return (
 			<Modal className='stack_modal' size='mini'
 			       onClose={this.props.closeStackModal}
@@ -31,17 +47,7 @@ class StackedModal extends Component {
 				<Modal.Header>
 					Choose a grouping field
 				</Modal.Header>
-				<Modal.Content>
-					<div onChange={(event) => {
-						radioValue = event.target.value
-					}}
-					     className='stacked_radio_block'>
-						{R.map(field => <RadioBtn _id={field._id}
-						                          name={field.name}
-						                          key={field._id}/>)(this.props.stackedFields || [])}
-					</div>
-
-				</Modal.Content>
+				<ModalBody stackedFields={this.props.stackedFields}/>
 				<Modal.Actions>
 					<Button negative onClick={this.props.closeStackModal}>No</Button>
 					<Button positive

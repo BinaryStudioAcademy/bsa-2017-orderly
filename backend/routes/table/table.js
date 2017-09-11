@@ -120,6 +120,13 @@ router.get('/:id/fields/:fieldId', (request, response) => {
 
 router.post('/:id/fields', (request, response) => {
     tableRepository.addField(request.params.id, request.body)
+        .then(result => {
+        	const kanbanViews = R.filter(R.propEq('type', 'kanban'))(result.views)
+	        const addedField = R.last(result.fields)
+	        return Promise.all(R.map(view => {
+		        viewReps['kanban'].addColumn(view._id, {field: addedField._id})
+	        })(kanbanViews))
+        })
         .then((result) => response.status(200).send(result))
         .catch((err) => response.status(500).send(err));
 });

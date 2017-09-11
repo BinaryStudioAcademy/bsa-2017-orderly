@@ -4,7 +4,6 @@ import Grid from './grid/grid';
 import FormView from './form/formView';
 import KanbanView from './kanban/kanbanView';
 import {viewIcons} from '../configuration/viewTypes';
-import InDeveloping from '../in_developing/InDeveloping';
 import './view.scss';
 
 export default class View extends Component {
@@ -110,7 +109,11 @@ export default class View extends Component {
                                currentTable={this.props.currentTable}
                                deleteView={() => this.handleDeleteView()}/>
         default:
-            return <InDeveloping/>;
+	        return <FormView
+                currentTable={this.props.currentTable}
+                deleteView={() => this.handleDeleteView()}
+                viewsCount={viewsCount}
+            />;
         }
     }
 

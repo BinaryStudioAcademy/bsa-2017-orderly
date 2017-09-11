@@ -25,14 +25,11 @@ class KanbanViewHeader extends Component {
 	chooseStackedField = (fieldId) => {
 		const view = R.clone(findCurrentView(this.props.currentViewId, this.props.table.views))
 		const fieldsFalse = R.compose(R.map(R.set(R.lensProp('isStacked'), false)))(view.fields_config)
-		// console.log(this.props.table.fields, 'fieldsssssssssssssssssssssss')
-		// console.log(view, 'vieeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeew')
 		view.fields_config = R.map(field => {
-			console.log(field.field, fieldId, '======================')
 			if (field.field === fieldId) return R.set(R.lensProp('isStacked'), true, field)
 			return field
 		})(fieldsFalse)
-		// this.props.updateKanbanView(view, this.props.table._id)
+		this.props.updateKanbanView(view, this.props.table._id)
 	}
 
 	render() {

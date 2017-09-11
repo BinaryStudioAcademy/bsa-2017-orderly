@@ -5,7 +5,7 @@ import R from 'ramda'
 import { fieldIcons } from "../../../../../../configuration/fieldTypes";
 import './recordCell.scss'
 
-const RecordCell = ({position, fields, data}) => {
+const RecordCell = ({position, fields, data, stackField}) => {
 	if (position === 0 && fields[position].type === 'text' && data) {
 		return (
 			<div className='record_name'>{data}</div>
@@ -15,8 +15,9 @@ const RecordCell = ({position, fields, data}) => {
 			<div className='record_name fade'>Unnamed record</div>
 		)
 	}
-	if (!data) return (<div/>)
-	switch(fields[position]) {
+	if (!data || R.path(['idx'], stackField) === position) return (<div/>)
+
+	switch(fields[position].type) {
 		default:
 			return (<div className='field_wrapper'>
 						<div className='field'>
