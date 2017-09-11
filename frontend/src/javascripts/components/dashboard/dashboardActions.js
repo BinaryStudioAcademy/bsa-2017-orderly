@@ -4,10 +4,6 @@ const getBaseById = (_id, tableId) => ({
     tableId: tableId
 });
 
-const getTables = () => ({
-    type: 'GET_TABLES'
-});
-
 const deleteTable = (tableId) => ({
     type: 'DELETE_TABLE',
     tableId: tableId
@@ -407,7 +403,6 @@ const mouseOverRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => 
 
 export {
     getBaseById,
-    getTables,
     setActive,
     addTable,
     switchTable,

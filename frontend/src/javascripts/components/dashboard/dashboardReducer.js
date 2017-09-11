@@ -7,7 +7,6 @@ const initState = {
         name: '',
         isActive: false,
         currentView: null,
-        filteredRecords: null,
     }],
     addPopupIsOpen: false,
     activeModal: '',
@@ -123,6 +122,8 @@ function dashboardReducer(state = initState, action) {
     }
 
     case 'SWITCH_TABLE': {
+        console.log('DASH REDUCER SWITCH TABLE');
+        console.log(action);
         return R.mergeAll([
             R.omit(['tables', 'filteredRecords'], state),
             {
@@ -463,9 +464,8 @@ function dashboardReducer(state = initState, action) {
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
-                        const newTable = R.omit(['views', 'records'], table);
+                        const newTable = R.dissoc('views', table);
                         newTable.views = action.table.views;
-                        newTable.records = action.table.records;
                         return newTable;
                     }
                     return table;

@@ -191,7 +191,7 @@ router.delete('/:id/views/:viewId/:viewType', (request, response) => {
 // filter table -------------------------------------
 
 router.get('/:id/views/:viewId/fields/filter', (request, response) => {
-    tableRepository.filterRecords(request.params.id, request.params.viewId)
+    tableRepository.performFilter(request.params.id, request.params.viewId)
         .then((result) => response.status(200).send(result))
         .catch((error) => response.status(500).send(error));
 });
@@ -217,7 +217,12 @@ router.put('/:id/views/:viewType/:viewId/fields/:fieldId/:fieldIndex/filters/:fi
         request.params.filterId,
         request.params.condition,
         request.params.query)
-        .then((result) => response.status(200).send(result))
+        .then((result) => {
+            const tableWithFilter = Object.assign({}, result.table, {filtered: result.filteredRecords});
+            console.log('IN ROUTERS');
+            console.log(tableWithFilter);
+            return response.status(200).send(result)
+        })
         .catch((error) => response.status(500).send(error));
 });
 

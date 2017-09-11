@@ -26,7 +26,18 @@ class TableRepository extends Repository {
         return this.model.find({'_id': {$in: ids}})
             .populate('records.history.collaborator')
             .populate('records.comments.collaborator')
-            .populate('views.view');
+            .populate('views.view')
+            .then((tables) => {
+                const firstTableView = tables[0].views[0].view;
+                // Check if first view of first table have no filters, otherwise - perform filtering
+                if (!firstTableView.filters.filterSet.length) {
+                    return tables;
+                }
+                const tableWithFilters = TableRepository.filterRecords(tables[0], firstTableView._id);
+                const updatedTables = R.prepend(tableWithFilters, R.drop(1, tables));
+                console.log(updatedTables);
+                return tables;
+            });
     }
 
     update(id, body) {
@@ -293,36 +304,42 @@ class TableRepository extends Repository {
         });
     }
 
-    filterRecords(tableId, viewId) {
+    performFilter(tableId, viewId, tableObject) {
+        // Check if method receive prepared table (with populated views) for filtering
+        if (tableObject) {
+            return TableRepository.filterRecords(tableObject, viewId);
+        }
         return this.getById(tableId).then((table) => {
-            const view = table.views.find((v) => v.view._id.toString() === viewId);
-            let filteredRecords;
-            for (let filterItem of view.view.filters.filterSet){
-                const index = table.fields.findIndex((f) => f._id.toString() === filterItem.fieldId.toString());
-                let recordsToFilter = filteredRecords || table.records;
-                const lowerQuery = filterItem.value.toLowerCase();
-                switch (filterItem.condition) {
-                    case 'contains':
-                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase().includes(lowerQuery));
-                    break;
-                case '!contains':
-                    filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.toString().toLowerCase().includes(lowerQuery));
-                    break;
-                case 'is':
-                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase() === lowerQuery);
-                    break;
-                case '!is':
-                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase() !== lowerQuery);
-                    break;
-                case 'empty':
-                    filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.length);
-                    break;
-                case '!empty':
-                    filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.length);
-                    break;
-                }
-            }
-            return {table: table, filteredRecords: filteredRecords};
+            return TableRepository.filterRecords(table, viewId);
+            // const view = table.views.find((v) => v.view._id.toString() === viewId);
+            // let filteredRecords;
+            // for (let filterItem of view.view.filters.filterSet){
+            //     const index = table.fields.findIndex((f) => f._id.toString() === filterItem.fieldId.toString());
+            //     let recordsToFilter = filteredRecords || table.records;
+            //     const lowerQuery = filterItem.value.toLowerCase();
+            //     switch (filterItem.condition) {
+            //     case 'contains':
+            //         filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase().includes(lowerQuery));
+            //         break;
+            //     case '!contains':
+            //         filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.toString().toLowerCase().includes(lowerQuery));
+            //         break;
+            //     case 'is':
+            //         filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase() === lowerQuery);
+            //         break;
+            //     case '!is':
+            //         filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase() !== lowerQuery);
+            //         break;
+            //     case 'empty':
+            //         filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.length);
+            //         break;
+            //     case '!empty':
+            //         filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.length);
+            //         break;
+            //     }
+            // }
+            // const tableWithFilter = Object.assign({}, table.toObject(), {filteredRecords: filteredRecords});
+            // return {table: tableWithFilter, filteredRecords: filteredRecords};
         });
     }
 
@@ -330,7 +347,7 @@ class TableRepository extends Repository {
         return this.getFromView(viewId, viewType).then((view) => {
             view.filters.filterSet = view.filters.filterSet.filter((f) => f._id.toString() !== filterId);
             return view.save().then(() => {
-                return this.filterRecords(tableId, viewId);
+                return this.performFilter(tableId, viewId);
             });
         });
     }
@@ -339,7 +356,7 @@ class TableRepository extends Repository {
         return this.getFromView(viewId, viewType).then((view) => {
             view.filters.filterSet = [];
             return view.save().then(() => {
-                return this.filterRecords(tableId, viewId);
+                return this.performFilter(tableId, viewId);
             });
         });
     }
@@ -355,7 +372,7 @@ class TableRepository extends Repository {
                 }
             );
             return view.save().then(() => {
-                return this.filterRecords(tableId, viewId);
+                return this.performFilter(tableId, viewId);
             });
         });
     }
@@ -368,9 +385,41 @@ class TableRepository extends Repository {
             filterToUpdate.value = query || '';
             filterToUpdate.condition = condition;
             return view.save().then(() => {
-                return this.filterRecords(tableId, viewId);
+                return this.performFilter(tableId, viewId);
             });
         });
+    }
+
+    static filterRecords(table, viewId) {
+        const view = table.views.find((v) => v.view._id.toString() === viewId.toString());
+        let filteredRecords;
+        for (let filterItem of view.view.filters.filterSet){
+            const index = table.fields.findIndex((f) => f._id.toString() === filterItem.fieldId.toString());
+            let recordsToFilter = filteredRecords || table.records;
+            const lowerQuery = filterItem.value.toLowerCase();
+            switch (filterItem.condition) {
+            case 'contains':
+                filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase().includes(lowerQuery));
+                break;
+            case '!contains':
+                filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.toString().toLowerCase().includes(lowerQuery));
+                break;
+            case 'is':
+                filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase() === lowerQuery);
+                break;
+            case '!is':
+                filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase() !== lowerQuery);
+                break;
+            case 'empty':
+                filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.length);
+                break;
+            case '!empty':
+                filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.length);
+                break;
+            }
+        }
+        const tableWithFilter = Object.assign({}, table.toObject(), {filteredRecords: filteredRecords});
+        return {table: tableWithFilter, filteredRecords: filteredRecords};
     }
 
 }
