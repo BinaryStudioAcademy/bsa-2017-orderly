@@ -37,7 +37,8 @@ export default class FormViewContainer extends Component {
 
                     <FormViewFields fields={this.props.currentTable.fields}
                                     included={this.props.included}
-                                    excludeField={this.props.excludeField}/>
+                                    excludeField={this.props.excludeField}
+                                    />
                 </div>
             </div>
         );

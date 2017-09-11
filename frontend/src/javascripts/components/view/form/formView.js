@@ -23,6 +23,7 @@ class FormView extends Component {
                 <div className='form-mega-wrapper'>
                     <div className='form-body-wrapper'>
                         <FormAvailableFields currentTable={this.props.currentTable}
+                                             changeView={this.props.changeView}
                                              included={this.props.formView.included}
                                              includeField={this.props.includeField}
                                              includeAll={this.props.includeAll}

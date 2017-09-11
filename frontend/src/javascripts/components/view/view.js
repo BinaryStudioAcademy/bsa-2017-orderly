@@ -99,6 +99,7 @@ export default class View extends Component {
             />;
         case 'form':
             return <FormView
+                changeView={this.props.changeView}
                 currentTable={this.props.currentTable}
                 deleteView={() => this.handleDeleteView()}
                 viewsCount={viewsCount}
