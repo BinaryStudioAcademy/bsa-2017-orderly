@@ -7,8 +7,9 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     changeSearch, changeSearchFoundIndex, toggleSearch, changeFieldName, deleteRecord, deleteField,
     changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
     addView, deleteView, addFilter, updateFilter, setSelectFieldRecordItems, appendSelectFieldRecordItems, setSelectAllRecordItems,
-    setSelectRecordItems, shiftKeyDown, shiftKeyUp, clearSelectedRecordItemList, mouseDownRecordItem,
-    mouseUpRecordItem, mouseOverRecordItem, removeAllFilters,
+    setSelectRecordItems, shiftKeyDown, shiftKeyUp, clearSelectedRecordItemList, 
+    //mouseDownRecordItem, mouseUpRecordItem, mouseOverRecordItem, 
+    removeAllFilters,
 } from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
@@ -37,7 +38,7 @@ const mapStateToProps = (state, ownProps) => {
         filteredRecords: state.dashboardReducer.filteredRecords,
         selectedRecordItemList: state.dashboardReducer.selectedRecordItemList,
         isShiftKeyPressed: state.dashboardReducer.isShiftKeyPressed,
-        isMouseDownPressed: state.dashboardReducer.isMouseDownPressed
+        //isMouseDownPressed: state.dashboardReducer.isMouseDownPressed
     });
 };
 
@@ -91,9 +92,9 @@ const mapDispatchToProps = {
     shiftKeyDown: shiftKeyDown,
     shiftKeyUp: shiftKeyUp,
     clearSelectedRecordItemList: clearSelectedRecordItemList,
-    mouseDownRecordItem: mouseDownRecordItem,
-    mouseUpRecordItem: mouseUpRecordItem,
-    mouseOverRecordItem: mouseOverRecordItem,
+    // mouseDownRecordItem: mouseDownRecordItem,
+    // mouseUpRecordItem: mouseUpRecordItem,
+    // mouseOverRecordItem: mouseOverRecordItem,
 	updateKanbanView: updateKanbanView,
     removeAllFilters: removeAllFilters,
 };
