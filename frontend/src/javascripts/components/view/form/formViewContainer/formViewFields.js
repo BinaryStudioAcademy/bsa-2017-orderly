@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Button} from 'semantic-ui-react';
-import {Icon} from 'semantic-ui-react';
+import {Icon, Modal, Button} from 'semantic-ui-react';
+import { Link } from 'react-router';
 import { Recordtem } from '../../recordDialog/recordDialog'
 
 export default class FormViewFields extends Component {
@@ -9,14 +9,13 @@ export default class FormViewFields extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <div className='form-inputs-list-wrapper'>
                 <div className='form-inputs-list'>
                     {this.props.fields.map((field, ind) => {
                         if(this.props.included.includes(field._id)) {
                             return (
-                                <div key={ind} className='form-inputs-list-item'>
+                                <div key={ind}  className ={field.type === 'longtext'? "long-text-item" : "form-inputs-list-item"}>
                                     <div className='form-inputs-name'>
                                         <span>{field.name}</span>
                                         <Icon name="delete" className="form-inputs-delete"
@@ -39,7 +38,16 @@ export default class FormViewFields extends Component {
                     })}
                 </div>
                 <div className='submit-btn'>
-                    <Button type='submit'>Sumbit form</Button>
+                    <Modal trigger={<Button type='submit'>Sumbit form</Button>} size ='tiny' closeIcon>
+                        <Modal.Content>
+                          <div className='content-import-spreadsheet'>
+                              <div className='content-import-subheader'>Your form has been successfully submitted!</div>
+                              <div className='thank-you'>Thank you! </div>
+                              <div className='content-import-btn'><Link to={'/'}><Button color='blue'>Learn more about Orderly</Button></Link></div>
+                          </div>
+                        </Modal.Content>
+                    </Modal>
+
                 </div>
             </div>
         );

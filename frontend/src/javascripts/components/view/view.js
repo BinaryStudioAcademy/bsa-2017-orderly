@@ -4,6 +4,7 @@ import Grid from './grid/grid';
 import FormView from './form/formView';
 import KanbanView from './kanban/kanbanView';
 import {viewIcons} from '../configuration/viewTypes';
+import {browserHistory} from 'react-router';
 import './view.scss';
 
 export default class View extends Component {
@@ -39,8 +40,18 @@ export default class View extends Component {
         }
     };
 
-    handleChangeView = (viewId) => {
-        this.props.changeView(this.props.currentTable._id, viewId);
+    handleChangeView = (viewId, viewType) => {
+        console.log(viewType)
+        //debugger
+        if (viewType==='form') {
+            this.props.addRecord(this.props.currentTable._id);
+            this.props.changeView(this.props.currentTable._id, viewId);
+            //browserHistory.push(`/${viewId}`)
+        } else {
+            console.log(window.location.href)
+            this.props.changeView(this.props.currentTable._id, viewId);
+            //browserHistory.push(`${window.location.href}/${viewId}`)
+        }
         this.handleClickOnMenu();
     };
 
@@ -100,6 +111,7 @@ export default class View extends Component {
         case 'form':
             return <FormView
                 changeView={this.props.changeView}
+                addRecord={this.props.addRecord}
                 currentTable={this.props.currentTable}
                 deleteView={() => this.handleDeleteView()}
                 viewsCount={viewsCount}
@@ -154,7 +166,7 @@ export default class View extends Component {
                                 return (
                                     <div key={ind}
                                          className="selector__option"
-                                         onClick={() => this.handleChangeView(view.view._id)}>
+                                         onClick={() => this.handleChangeView(view.view._id, view.view.type)}>
                                         <Icon
                                             name="checkmark"
                                             className={view.view._id === this.props.currentView

@@ -14,12 +14,14 @@ import Logout from '../components/auth/logout/logout';
 import Forgot from '../components/auth/forgot/forgot';
 import Reset from '../components/auth/reset/reset';
 import Auth from '../components/auth/auth';
+import View from '../components/view/view';
 
 export default (
     <Route path="/" component={App}>
         <Route path='user-page' component={UserProfilePage} />
         <IndexRoute component={StartPage}/>
         <Route path='/dashboard/:baseId/:tableId' components={Dashboard}/>
+        <Route path='/dashboard/:baseId/:tableId/:viewId' components={View}/>
         <Route path="/signup" component={SignUp}/>
         <Route path="/login" component={Login}/>
         <Route path="/logout" component={Logout}/>
