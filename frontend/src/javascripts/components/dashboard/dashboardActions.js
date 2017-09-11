@@ -442,7 +442,7 @@ export {
     shiftKeyDown,
     shiftKeyUp,
     clearSelectedRecordItemList,
-    mouseDownRecordItem,
-    mouseUpRecordItem,
-    mouseOverRecordItem
+    //mouseDownRecordItem,
+    //mouseUpRecordItem,
+    //mouseOverRecordItem
 };

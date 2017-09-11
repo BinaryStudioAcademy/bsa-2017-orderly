@@ -53,6 +53,7 @@ class BaseList extends Component {
 								          teamId={props.teamId}
 								          base={base}
 								          menu={props.menu}
+								          teamNames={props.teamNames}
 								/>
 							</div>
 						)

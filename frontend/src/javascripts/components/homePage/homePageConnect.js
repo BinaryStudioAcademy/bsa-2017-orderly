@@ -8,7 +8,16 @@ import { getTeamsByUser, getBasesByTeam, toggleTeamPopup,
 import { getCurrentUser } from '../userProfile/userProfileActions';
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => {
+let teamNames = [];
+for (let team in state.baseStore.teams) {
+teamNames.push({
+        value: state.baseStore.teams[team]._id,
+        label: state.baseStore.teams[team].name,
+    })
+}
+return ({
+	teamNames: teamNames,
     menu: state.baseStore.showMenuforBase,
     user: state.userProfile.user,
     avatar: state.userProfile.file,
@@ -20,6 +29,7 @@ const mapStateToProps = (state) => ({
 	activeShareModal: state.baseStore.activeShareModal,
 	allUsers: state.baseStore.allUsers
   });
+}
 
 const mapDispatchToProps = {
 	getUser: getCurrentUser,

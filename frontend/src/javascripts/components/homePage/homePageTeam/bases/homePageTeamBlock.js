@@ -50,6 +50,7 @@ class HomePageTeamBlock extends Component {
 							  user={this.props.user}
 					          menu={this.props.menu}
 					          teams={this.props.teams}
+					          teamNames={this.props.teamNames}
 					          />
 				</div>
 			</div>
