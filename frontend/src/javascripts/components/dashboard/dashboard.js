@@ -32,6 +32,7 @@ const mapStateToProps = (state, ownProps) => {
         searchFoundIndex: state.dashboardReducer.searchFoundIndex,
         searchBlockOpen: state.dashboardReducer.searchBlockOpen,
         coworkers: state.dashboardReducer.coworkers,
+        collaborators: state.dashboardReducer.collaborators,
         tableIdActiveModal: state.dashboardReducer.tableIdActiveModal,
         user: state.userProfile.user,
         filteredRecords: state.dashboardReducer.filteredRecords,

@@ -134,7 +134,8 @@ function* addingCollaborator(action) {
 		const addObject = {
 			teamId: action.teamId,
 			userId: action.userId,
-			role: action.role
+			role: action.role,
+			message: action.message
 		}
 		const team = yield call(addCollaborator, addObject)
 		yield put({ type: 'UPDATE_TEAM_SUCCEEDED', team: team })

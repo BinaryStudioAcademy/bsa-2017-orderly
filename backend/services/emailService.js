@@ -35,7 +35,18 @@ const sendPasswordChangedNotification = (email, callback) => {
     createTransport().sendMail(mailOptions, callback);
 };
 
+const sendInvite = (email, message, teamName, callback) => {
+	const mailOptions = {
+		to: email,
+		from: config.fromEmail,
+		subject: 'no-reply (Invite to Orderly)',
+		text: message ? message : `This is invite to ${teamName} team.`
+	}
+	createTransport().sendMail(mailOptions, callback)
+}
+
 module.exports = {
     sendResetPasswordLink,
-    sendPasswordChangedNotification
+    sendPasswordChangedNotification,
+	sendInvite
 };

@@ -15,7 +15,6 @@ class KanbanView extends Component {
 	}
 
 	render() {
-		console.log(this.props, 'kanban propssssssssssssssss')
 		const currentView = findCurrentView(this.props.currentViewId, this.props.currentTable.views)
 		return (
 			<div className='kanban_view_wrapper_page'>

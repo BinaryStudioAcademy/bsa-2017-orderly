@@ -169,6 +169,7 @@ class Tools extends Component {
                       deleteTable={this.props.deleteTable}
                       addTableClick={this.props.addTableClick}
                       coworkers={this.props.coworkers}
+                      collaborators={this.props.collaborators}
                       user={this.props.user}/>
                 {currentTable &&
                 <View currentTable={currentTable}

@@ -405,6 +405,14 @@ const mouseOverRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => 
     };
 };
 
+const saveCurrentTeamRoles = (collaborators) => {
+	console.log(collaborators, 'inside action')
+    return {
+        type: 'SAVE_CURRENT_TEAM_ROLES',
+	    collaborators: collaborators
+    }
+}
+
 export {
     getBaseById,
     getTables,
@@ -444,5 +452,6 @@ export {
     clearSelectedRecordItemList,
     mouseDownRecordItem,
     mouseUpRecordItem,
-    mouseOverRecordItem
+    mouseOverRecordItem,
+	saveCurrentTeamRoles
 };

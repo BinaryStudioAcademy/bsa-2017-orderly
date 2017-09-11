@@ -7,7 +7,7 @@
   width: 100%;
   color: #ffffff;
   padding: {
-    left: 20px;
+    left: 30px;
     right: 20px;
   }
   user-select: none;
@@ -19,7 +19,7 @@
     border-bottom: 0;
   }
   .base-icon-logo {
-    font-size: 3em!important;
+    //font-size: 3em!important;
   }
 
   .label-header {
@@ -38,7 +38,8 @@
     }
   }
   .header-base-name {
-    font-size: 25px;
+    font-size: 18px;
+    margin-right: 5px;
   }
   .menu-show-2 {
     left:35%;
