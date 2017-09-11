@@ -99,6 +99,23 @@
             padding-bottom: 2rem;
             text-align: center;
         }
+        .attachment-item {
+            margin: 0 auto; 
+            position: relative;
+            box-shadow: none;
+            z-index: 0;
+            top: 0;
+            background: #fafafa;
+            border-radius: 6px;
+            padding: 15px;
+            .table-cell-wrap {
+            border:none;
+            }
+            
+        }
+        .attachment-item:hover{
+            background-color: #F0F0F0;
+        }
         .long-text-item {
             margin: 0 auto; 
             position: relative;
@@ -129,6 +146,39 @@
             .table-cell {width:100%}
         }
         .long-text-item:hover{
+            background-color: #F0F0F0;
+        }
+        .checkbox-item {
+            margin: 0 auto; 
+            position: relative;
+            box-shadow: none;
+            z-index: 0;
+            top: 0;
+            background: #fafafa;
+            border-radius: 6px;
+            padding: 15px;
+            .table-cell-wrap {
+                border:none;
+                width:100%;
+                background-color:transparent;
+                .checkbox-block{
+                    right: 20px;
+                }
+            }
+            .table-cell {
+                background-color:transparent;
+            }
+            
+            .table-cell.active {
+                border: none;
+                background-color:transparent;
+            }
+            .field__item{
+                width:100%;
+            }
+            .table-cell {width:100%}
+        }
+        .checkbox-item:hover{
             background-color: #F0F0F0;
         }
 
@@ -168,6 +218,7 @@
                     padding: 10px;
                     width:100%;
                     height: 35px;
+                    border:none;
                 }
                 .table-cell.active {
                     border: none;
@@ -252,27 +303,17 @@
                       height: 36px;
                       display: block;
                       position: absolute;
-                      top: 12px;
-
-                      // .Select-value {
-                      //   height: 24px;
-                      // }
+                      top: 6px;
                       .Select-value-label {
                         width: inherit;
                         height: inherit;
                         display: inherit;
                       }
-                      .Select-placeholder {
-                        
+                      .Select-placeholder { 
                         height: 32px;
                       }
 
                       .Select-input {
-                        // width: 100%;
-                        // margin-top: 10px;
-                        // height: 20px!important;
-                        //visibility: hidden !important;
-
                         input {
                           width: 100% !important;
                           height: 100%;
@@ -319,5 +360,8 @@
             text-align: center;
             margin-bottom: 15px;
         }
+    }
+.field__item{
+    border:none;
     }
 }

@@ -41,8 +41,6 @@ export default class View extends Component {
     };
 
     handleChangeView = (viewId, viewType) => {
-        console.log(viewType)
-        //debugger
         if (viewType==='form') {
             this.props.addRecord(this.props.currentTable._id);
             this.props.changeView(this.props.currentTable._id, viewId);

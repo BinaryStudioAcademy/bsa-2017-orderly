@@ -38,7 +38,6 @@ export const Recordtem = ({id, type, data, tableId, recordData, uploadAttachment
         onMouseDownRecordItem: () => {},
         onMouseOverRecordItem: () => {}
     };
-    console.log('fieldPayload', fieldPayload)
     let record = null;
     switch (type) {
         case 'longtext':

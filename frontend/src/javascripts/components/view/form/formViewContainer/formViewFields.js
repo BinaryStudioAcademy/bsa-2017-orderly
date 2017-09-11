@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Icon, Modal, Button} from 'semantic-ui-react';
 import { Link } from 'react-router';
 import { Recordtem } from '../../recordDialog/recordDialog'
+import {fieldIcons} from '../../../configuration/fieldTypes';
 
 export default class FormViewFields extends Component {
     constructor(props) {
@@ -15,8 +16,9 @@ export default class FormViewFields extends Component {
                     {this.props.fields.map((field, ind) => {
                         if(this.props.included.includes(field._id)) {
                             return (
-                                <div key={ind}  className ={field.type === 'longtext'? "long-text-item" : "form-inputs-list-item"}>
+                                <div key={ind}  className ={field.type === 'longtext'? "long-text-item" : field.type === 'attachment' ? "attachment-item": field.type === 'checkbox'? 'checkbox-item' :"form-inputs-list-item"}>
                                     <div className='form-inputs-name'>
+                                        <Icon name={fieldIcons[field.type]}/>
                                         <span>{field.name}</span>
                                         <Icon name="delete" className="form-inputs-delete"
                                               onClick={() => this.props.excludeField(field._id)}/>

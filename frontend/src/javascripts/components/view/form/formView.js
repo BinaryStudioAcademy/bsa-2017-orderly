@@ -27,7 +27,8 @@ class FormView extends Component {
                                              included={this.props.formView.included}
                                              includeField={this.props.includeField}
                                              includeAll={this.props.includeAll}
-                                             excludeAll={this.props.excludeAll}/>
+                                             excludeAll={this.props.excludeAll}
+                                             addRecord={this.props.addRecord}/>
                         <FormViewContainer currentTable={this.props.currentTable}
                                             addRecord={this.props.addRecord}
                                             included={this.props.formView.included}
