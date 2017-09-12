@@ -5,7 +5,7 @@ import * as formViewActions from './formViewActions';
 import FormAvailableFields from './formViewAvailableFields/formViewAvailableFields';
 import FormViewHeader from './formViewHeader/formViewHeader';
 import FormViewContainer from './formViewContainer/formViewContainer';
-import {Button} from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import './formView.scss';
 
 class FormView extends Component {
@@ -18,6 +18,8 @@ class FormView extends Component {
             <div className='form-view-wrapper-page'>
                 <FormViewHeader
                     deleteView={this.props.deleteView}
+                    currentTable={this.props.currentTable}
+                    currentViewId={this.props.currentViewId}
                     viewsCount={this.props.viewsCount}
                 />
                 <div className='form-mega-wrapper'>
