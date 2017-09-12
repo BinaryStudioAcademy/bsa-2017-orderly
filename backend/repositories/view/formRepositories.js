@@ -57,7 +57,6 @@ class FormRepository extends Repository {
                     return config;
                 })
             }
-
             return view.save();
         });
     }
