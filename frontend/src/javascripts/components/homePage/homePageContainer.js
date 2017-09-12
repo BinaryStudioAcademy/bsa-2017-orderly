@@ -42,6 +42,7 @@ class HomePageContainer extends React.Component {
                              toggleTeamPopup={this.props.toggleTeamPopup}
                              user={this.props.user}
                              menu={this.props.menu}
+                             saveCurrentTeamRoles={this.props.saveCurrentTeamRoles}
                              showMenu={this.props.showMenu}
           />
         </div>

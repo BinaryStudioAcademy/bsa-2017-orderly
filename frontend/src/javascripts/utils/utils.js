@@ -1,4 +1,5 @@
 import Moment from 'moment';
+import R from 'ramda'
 
 const formatDateFromNow = (timestamp) => {
     const momentDate = Moment(timestamp);
@@ -15,6 +16,9 @@ const formatDateFromNow = (timestamp) => {
     }
 }
 
+const testEmail = R.test(/^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+(\-)?[a-zA-Z0-9]+(\.)?[a-zA-Z0-9]{2,6}?\.[a-zA-Z]{2,6}$/)
+
 export {
-    formatDateFromNow
+    formatDateFromNow,
+	testEmail
 };

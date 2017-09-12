@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Modal, Input, Dropdown, Button, Icon, Search } from 'semantic-ui-react';
 import R from 'ramda';
+import { testEmail } from '../../../../../../utils/utils'
 
 import MemberInfo from '../../memberInfo/memberInfo';
 import { getRolesForDropdown, filterFunc } from '../../../../homePageService';
@@ -27,7 +28,8 @@ class ShareModal extends Component {
 			usersListForSearch: [],
 			results: [],
 			value: '',
-			role: 'readOnly'
+			role: 'readOnly',
+			message: ''
 		}
 		this.handleSearchChange = this.handleSearchChange.bind(this);
 		this.handleResultSelect = this.handleResultSelect.bind(this);
@@ -97,11 +99,11 @@ class ShareModal extends Component {
 							       id='byemail'/>
 							<label htmlFor='byemail'>Invite by email</label>
 
-							<input type='radio'
-							       value='LINK'
-							       name='invite'
-							       id='bylink'/>
-							<label htmlFor='bylink'>Invite by link</label>
+							{/*<input type='radio'*/}
+							       {/*value='LINK'*/}
+							       {/*name='invite'*/}
+							       {/*id='bylink'/>*/}
+							{/*<label htmlFor='bylink'>Invite by link</label>*/}
 						</div>
 
 						<div className='modal_main_email'>
@@ -124,6 +126,9 @@ class ShareModal extends Component {
 							</div>
 							<div className='modal_main_row'>
 								<Input placeholder='Add a message(optional)'
+								       onChange={(event) => {
+								       	    this.setState({message: event.target.value})
+								       }}
 								       disabled={!this.state.value} />
 								<Button primary
 								        disabled={!this.state.value}
@@ -131,9 +136,13 @@ class ShareModal extends Component {
 								        	const state = this.state;
 								        	const member = R.find(R.propEq('email', state.value))(state.usersListForSearch)
 									        if (member) {
-								        		this.props.addCollaborator(this.props.team._id, member._id, state.role)
+								        		this.props.addCollaborator(this.props.team._id, member._id, state.role, state.message)
 										        this.resetComponent()
-										        this.setState({role: 'readOnly'})
+										        this.setState({role: 'readOnly', message: ''})
+									        } else {
+								        		if (testEmail(this.state.value)) {
+
+										        }
 									        }
 								        }}
 								>Add member</Button>

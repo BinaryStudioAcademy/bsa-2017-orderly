@@ -22,7 +22,8 @@ const initState = {
     filteredRecords: null,
     selectedRecordItemList: [],
     isShiftKeyPressed: false,
-    isMouseDownPressed: false
+    isMouseDownPressed: false,
+    collaborators: {}
 };
 
 function dashboardReducer(state = initState, action) {
@@ -33,6 +34,14 @@ function dashboardReducer(state = initState, action) {
             {base: action.payload.base}
         );
     }
+
+    case 'SAVE_CURRENT_TEAM_ROLES': {
+        return R.merge(
+            state,
+            {collaborators: action.collaborators}
+        )
+    }
+
     case 'CHANGE_BASE_PARAM_SUCCESS': {
         return R.merge(
             state,
