@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const tableSchema = new Schema({
     name: {
         type: String,
         required: true,
-	    default: 'new table'
+        default: 'new table'
     },
     description: {
         type: String,
-	    default: ''
+        default: ''
     },
     records: [{
         record_data: [{
@@ -17,7 +18,7 @@ const tableSchema = new Schema({
         }],
         history: [{
             collaborator: {
-                type: Schema.Types.ObjectId,
+                type: ObjectId,
                 ref: 'User'
             },
             changes: {
@@ -26,16 +27,30 @@ const tableSchema = new Schema({
                 },
                 changed_to: {
                     type: String
+                },
+                field_id: {
+                    type: String
+                },
+                record_id: {
+                    type: String
                 }
+            },
+            date: {
+                type: Date,
+                default: Date.now
             }
         }],
         comments: [{
             collaborator: {
-                type: Schema.Types.ObjectId,
+                type: ObjectId,
                 ref: 'User'
             },
             message: {
                 type: String
+            },
+            created: {
+                type: Date,
+                default: Date.now
             }
         }]
     }],
@@ -51,11 +66,30 @@ const tableSchema = new Schema({
         description: {
             type: String,
             default: 'description'
-        }
+        },
+        options:{
+            select:[],
+            number: { type: Number, default: '2' },
+            currency: { type: String,  default:'$' },
+            date: { 
+                format: { type: String,  default:'#MM#/#DD#/#YYYY#' },
+                time: { type: Boolean, default: false }
+                },
+            percent: { type: Number, default: '1' },
+            multiple:[]
+            }
     }],
     views: [{
-        type: Schema.Types.ObjectId,
-        ref: 'View'
+        type: {
+            type: String,
+            enum: ['grid', 'form', 'gallery', 'kanban'],
+            required: true
+        },
+        view: {
+            type: ObjectId,
+            refPath: 'views.type',
+            required: true
+        },
     }]
 }, {versionKey: false});
 

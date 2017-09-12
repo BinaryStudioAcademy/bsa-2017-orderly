@@ -1,0 +1,12 @@
+.record_item {
+  border: 2px solid #afafaf;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 8px;
+  background-color: #f9f9f9;
+
+  &:hover {
+    border-color: #787878;
+    cursor: pointer;
+  }
+}

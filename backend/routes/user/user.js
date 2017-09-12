@@ -22,6 +22,12 @@ router.get('/', (request, response) => {
         .catch((error) => response.status(400).send(`Can not get user list. ${error}`));
 });
 
+router.get('/ids/:ids', (request, response) => {
+    userRepository.getByIds(request.params.ids.split(':'))
+        .then((users) => response.status(200).send(users))
+        .catch((error) => response.status(400).send(error))
+});
+
 router.post('/', (request, response) => {
     userRepository.add(request.body)
         .then((data) => response.status(200).send(data))

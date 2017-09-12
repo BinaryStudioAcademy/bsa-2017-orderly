@@ -1,33 +1,34 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const FormSchema = new Schema({
-    "type": {
-        "type": String,
-        "enum": ["form"],
-        "default": "form",
-        "required": true
+    type: {
+        type: String,
+        enum: ['form'],
+        default: 'form',
+        required: true
     },
-    "name": {
-        "type": String,
-        "required": true,
-        "trim": true
+    name: {
+        type: String,
+        required: true,
+        trim: true
     },
-    "description": String,
-    "logo": String,
-    "fields_config": [{
-        "name": {
-            "type": String,
-            "required": true,
-            "trim": true
+    description: String,
+    logo: String,
+    fields_config: [{
+        field: ObjectId,
+        name: {
+            type: String,
+            trim: true
         },
-        "position": {
-            "type": Number,
-            "required": true
+        position: {
+            type: Number,
+            required: true
         },
-        "included": {
-            "type": Boolean,
-            "default": true
+        included: {
+            type: Boolean,
+            default: true
         }
     }]
 }, {versionKey: false});

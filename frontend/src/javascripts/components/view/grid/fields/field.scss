@@ -1,10 +1,15 @@
+$table-cell-width: 155px;
+
 .table-cell-container{
   position: relative;
 }
 
 .table-cell {
-  width: 148px;
-  height: 31px;
+  width: $table-cell-width;
+  height: 32px;
+}
+.table-cell:focus {
+  outline: none;
 }
 
 .table-cell.selected,
@@ -13,10 +18,33 @@
   border-radius: 1px;
   position: absolute;
   background-color: #fff;
-  z-index: 1;
+  //z-index: 1;
+}
+.wrapper__table {
+  .table-cell.selected,
+  .table-cell.active {
+    z-index: 1;
+  }
+}
+.field__item.selectedList {
+  .table-cell.selected {
+    background-color: #f0f7ff;
+  }
+}
+.table-cell-wrap {
+  user-select: none;
+}
+
+.table-cell.selected .table-cell-wrap .table-cell-inner,
+.table-cell.active .table-cell-wrap .table-cell-inner {
+  padding: 2px 8px;
 }
 
 .table-cell .table-cell-wrap {
   width: 100%;
   height: 100%;
+
+  .ui.input {
+    width: 100%;
+  }
 }

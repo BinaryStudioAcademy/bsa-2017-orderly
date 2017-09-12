@@ -7,29 +7,32 @@ class GridRepository extends Repository {
         this.model = Grid;
     }
 
-    addField(viewId,gridFieldData) {
+    addField(viewId, gridFieldData) {
         return this.model.findByIdAndUpdate(viewId,
             {'$push': {'fields_config': gridFieldData}},
             {'new': true});
     }
 
     updateField(viewId, fieldId, gridFieldData) {
-        return this.model.findOneAndUpdate({
-            _id: viewId,
-            'fields_config._id': fieldId},
-        {
-            $set:{
-                'fields_config.$.name': gridFieldData.name,
-                'fields_config.$.position': gridFieldData.position,                
-                'fields_config.$.hidden': gridFieldData.hidden,
-                'fields_config.$.fixed_area': gridFieldData.fixed_area,
-                'fields_config.$.size': gridFieldData.size
-            }
-        });
+        return this.model.findById(viewId)
+            .then((view) => {
+                const config = view.fields_config.find((f) => f._id.toString() === fieldId);
+                config.name = gridFieldData.name || config.name;
+                config.size = gridFieldData.size || config.size;
+                config.position = gridFieldData.position || config.position;
+                config.hidden = gridFieldData.hidden || config.hidden;
+                return view.save();
+            });
     }
 
     deleteField(viewId, fieldId) {
-        return this.model.findByIdAndUpdate(viewId, {'$pull': { 'fields_config': { _id: fieldId } }});
+        return this.model.findByIdAndUpdate(viewId,
+            {'$pull': {'fields_config': {_id: fieldId}}},
+            {'new': true});
+    }
+    getByIds(ids) {
+        return this.model.find({'_id': {$in: ids}})
+            .populate('views.view');
     }
 
 }
