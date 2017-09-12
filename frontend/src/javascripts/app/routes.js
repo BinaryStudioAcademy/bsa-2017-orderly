@@ -2,12 +2,12 @@ import React from 'react';
 import {Route, Redirect, IndexRoute} from 'react-router';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
-
 import App from './App';
 import StartPage from '../components/StartPage';
 import UserProfilePage from '../components/userProfile/userProfilePage';
 import NotFound from '../components/notFound/notFound';
 import Dashboard from '../components/dashboard/dashboard';
+import ContainerForShare from '../components/view/form/formViewContainer/containerForShare'
 import SignUp from '../components/auth/signUp/signUp';
 import Login from '../components/auth/login/login';
 import Logout from '../components/auth/logout/logout';
@@ -20,6 +20,7 @@ export default (
         <Route path='user-page' component={UserProfilePage} />
         <IndexRoute component={StartPage}/>
         <Route path='/dashboard/:baseId/:tableId' components={Dashboard}/>
+        <Route path='/:tableId/:viewId' components={ContainerForShare}/>
         <Route path="/signup" component={SignUp}/>
         <Route path="/login" component={Login}/>
         <Route path="/logout" component={Logout}/>
