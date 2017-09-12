@@ -14,7 +14,7 @@ export default class FormViewListOfFields extends Component {
                     if (!this.props.included.includes(field._id)) {
                         return (
                             <div key={ind} className='availableFormField-Item'
-                                 onClick={() => this.props.includeField(field._id)}>
+                                 onClick={() => this.props.includeField(field._id, this.props.currentTableId, this.props.currentViewId)}>
                                 <div className='columnName-TypeIcon-Container'>
                                     <Icon name={fieldIcons[field.type]}/>
                                     <span className='field-name'>{field.name}</span>

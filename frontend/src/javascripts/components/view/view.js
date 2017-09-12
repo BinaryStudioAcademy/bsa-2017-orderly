@@ -108,6 +108,7 @@ export default class View extends Component {
             />;
         case 'form':
             return <FormView
+                currentView={this.props.currentView}
                 changeView={this.props.changeView}
                 addRecord={this.props.addRecord}
                 currentTable={this.props.currentTable}

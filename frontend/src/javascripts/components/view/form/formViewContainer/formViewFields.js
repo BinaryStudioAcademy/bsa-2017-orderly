@@ -21,7 +21,7 @@ export default class FormViewFields extends Component {
                                         <Icon name={fieldIcons[field.type]}/>
                                         <span>{field.name}</span>
                                         <Icon name="delete" className="form-inputs-delete"
-                                              onClick={() => this.props.excludeField(field._id)}/>
+                                              onClick={() => this.props.excludeField(field._id, this.props.currentTableId, this.props.currentViewId)}/>
                                     </div>
                                     <Recordtem
                                         id={this.props.record.record_data[ind]._id}

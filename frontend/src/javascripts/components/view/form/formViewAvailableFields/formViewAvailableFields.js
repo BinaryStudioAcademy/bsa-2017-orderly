@@ -27,18 +27,23 @@ export default class FormAvailableFields extends Component {
                             <div className='add-all'
                                  onClick={() => {
                                      this.props.includeAll(
-                                         this.props.currentTable.fields.map((f) => f._id)
+                                         this.props.currentTable.fields.map((f) => f._id), 
+                                         this.props.currentTable._id, 
+                                         this.props.currentViewId
                                      );
                                  }}>
                                 add all
                             </div>
                             <div className='remove-all'
-                                 onClick={() => this.props.excludeAll()}>
+                                 onClick={() => this.props.excludeAll(this.props.currentTable.fields.map((f) => f._id),
+                                  this.props.currentTable._id, this.props.currentViewId)}>
                                 remove all
                             </div>
                         </div>
                     </div>
                     <FormViewListOfFields fields={this.props.currentTable.fields}
+                                          currentViewId={this.props.currentViewId}
+                                          currentTableId={this.props.currentTable._id}
                                           included={this.props.included}
                                           includeField={this.props.includeField}/>
                     <div className='left-side-text'>

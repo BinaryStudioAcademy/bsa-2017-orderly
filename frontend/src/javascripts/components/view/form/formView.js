@@ -25,6 +25,7 @@ class FormView extends Component {
                 <div className='form-mega-wrapper'>
                     <div className='form-body-wrapper'>
                         <FormAvailableFields currentTable={this.props.currentTable}
+                                             currentViewId={this.props.currentViewId}
                                              changeView={this.props.changeView}
                                              included={this.props.formView.included}
                                              includeField={this.props.includeField}
@@ -32,6 +33,7 @@ class FormView extends Component {
                                              excludeAll={this.props.excludeAll}
                                              addRecord={this.props.addRecord}/>
                         <FormViewContainer currentTable={this.props.currentTable}
+                                            currentViewId={this.props.currentViewId}
                                             addRecord={this.props.addRecord}
                                             included={this.props.formView.included}
                                             excludeField={this.props.excludeField}

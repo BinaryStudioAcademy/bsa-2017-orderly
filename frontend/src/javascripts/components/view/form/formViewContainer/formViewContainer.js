@@ -41,7 +41,8 @@ export default class FormViewContainer extends Component {
                                     records={this.props.currentTable.records}
                                     record={this.props.currentTable.records[this.props.currentTable.records.length-1]}
                                     recordData={this.props.recordData}
-                                    tableId={this.props.currentTable._id}
+                                    currentViewId={this.props.currentViewId}
+                                    currentTableId={this.props.currentTable._id}
                                     uploadAttachment={this.props.uploadAttachment}
                                     deleteFile={this.props.deleteFile}
                     />
