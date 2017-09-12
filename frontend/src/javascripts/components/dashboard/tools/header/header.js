@@ -41,7 +41,7 @@ class Header extends Component {
                     {/*<Icon link className="header-icon" name='help circle' size='large'/>*/}
                     {/*<Icon link className="header-icon" name='grid layout' size='large'/>*/}
                     {/*<Icon link className="header-icon" name='bell' size='large' />*/}
-                    <UserProfile user={this.props.user}/>
+                    <UserProfile user={this.props.user} members={this.props.members}/>
                     <span className="user-profile-logout-wrapper header-icon">
                         <Link to={'/logout'} className="logout" title="Logout">
                             <Icon name="log out" size="large"/>

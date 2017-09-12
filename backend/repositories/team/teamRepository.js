@@ -29,6 +29,9 @@ class TeamRepository extends Repository {
             );
     }
 
+	getMembersByBaseId(baseId) {
+    	return this.model.find({bases: baseId})
+	}
 
 	addCollaboratorToTeam(teamId, user) {
 		return this.model.findByIdAndUpdate(
