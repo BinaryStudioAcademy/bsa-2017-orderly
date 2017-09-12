@@ -1,6 +1,6 @@
 import R from 'ramda';
 
-const ROLES = ['owner', 'creator', 'editOnly', 'readOnly']
+const ROLES = ['owner', 'editor', 'readOnly']
 
 const setName = (activeModal) => {
 	switch (activeModal) {
@@ -19,11 +19,18 @@ const createCollaboratorsObject = (teamId, users) => {
 	return result
 }
 
+const createRolesObject = (members) => {
+	let result = {}
+	R.forEach( member => {
+		result[member.userId] = {role: member.role}
+	})(members)
+	return result
+}
+
 const getRolesColor = (role) => {
 	switch (role) {
 		case 'owner': return {color: '#20c933'}
-		case 'creator': return {color: '#4a20cb'}
-		case 'editOnly': return {color: '#c9830e'}
+		case 'editor': return {color: '#c9830e'}
 		case 'readOnly': return {color: '#c9082a'}
 	}
 }
@@ -35,6 +42,7 @@ const getRolesForDropdown = () => {
 		return {
 			key: ++idx,
 			value: role,
+			disabled: role === 'owner',
 			text: R.toUpper(roleName.charAt(0)) + roleName.slice(1)
 		}
 	})(ROLES)
@@ -52,5 +60,6 @@ export {
 	filterFunc,
 	createCollaboratorsObject,
 	getRolesColor,
-	getRolesForDropdown
+	getRolesForDropdown,
+	createRolesObject
 }
