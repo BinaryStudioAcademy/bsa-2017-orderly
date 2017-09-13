@@ -1,6 +1,6 @@
 import React from 'react'
 import { Icon } from 'semantic-ui-react'
-import R from 'ramda'
+
 
 import { fieldIcons } from "../../../../../../configuration/fieldTypes";
 import './recordCell.scss'

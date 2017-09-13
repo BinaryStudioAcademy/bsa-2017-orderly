@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, Button, Radio, Icon } from 'semantic-ui-react'
-import R from 'ramda'
+
 
 import './stackedModal.scss'
 
