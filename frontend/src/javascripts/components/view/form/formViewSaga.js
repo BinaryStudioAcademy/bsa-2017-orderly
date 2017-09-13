@@ -4,9 +4,9 @@ import { updateView, getTableById, getViewById, updateTableFromForm } from './fo
 function* updateForm(action) {
     try {
         const form = yield call(updateView, action);
-        yield put( {type: 'UPDATE_FORM_SUCCEEDED', form: form.data} )
+        yield put( {type: 'CHANGE_FIELD_STATUS_SUCCEEDED', form: form.data} )
     } catch (err) {
-        yield put({ type: 'UPDATE_FORM_FAILED', message: err.message})
+        yield put({ type: 'CHANGE_FIELD_STATUS_FAILED', message: err.message})
     }
 }
 
@@ -36,8 +36,6 @@ function* formSaga() {
     yield takeEvery('EXCLUDE_FIELD', updateForm);
     yield takeEvery('INCLUDE_ALL', updateForm);
     yield takeEvery('EXCLUDE_ALL', updateForm);
-    yield takeEvery('CHANGE_FORM_NAME', updateForm);
-    yield takeEvery('CHANGE_FORM_DESCRIPTION', updateForm);
     yield takeEvery('GET_CURRENT_TABLE_AND_VIEW', getTableAndView);
     yield takeEvery('UPDATE_TABLE_BY_FORM_DATA', addNewRecordFromForm);
 }

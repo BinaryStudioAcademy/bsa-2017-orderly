@@ -17,18 +17,11 @@ class ContainerForShare extends Component {
         this.state ={
             table: '',
             view: '',
-            curentInd: '',
-            formName: '',
-            formDescr: '',
-            checked: false,
-            uploadAttachment: () => {},
-            deleteFile: () => {},
+            curentInd: ''
         }
     }
     componentWillMount(){
-        let tableId = this.props.params.tableId;
-        let viewId = this.props.params.viewId;
-        this.props.getTableAndView(tableId, viewId);
+        this.props.getTableAndView(window.location.href.split( '/' )[3], window.location.href.split( '/' )[4]);
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.formView.table && nextProps.formView.view) {
@@ -40,15 +33,7 @@ class ContainerForShare extends Component {
                     i += 1;
                 }
             }
-            this.setState({
-                table: nextProps.formView.table, 
-                view: nextProps.formView.view, 
-                included: showFields,
-                formName: nextProps.formView.view.name,
-                formDescr: nextProps.formView.view.description,
-                uploadAttachment: nextProps.uploadAttachment,
-                deleteFile: nextProps.deleteFile
-            })
+            this.setState({table: nextProps.formView.table, view: nextProps.formView.view, included: showFields})
         }
     }
     handleSubmit =() => {
@@ -71,7 +56,6 @@ class ContainerForShare extends Component {
         let sentTable = {...newTable, records: newTable.records.concat(newRecord)};
         this.props.updateableByFormData(this.state.table._id, sentTable)
     }
-    
     render() {
         const recordData = {
             isRecordSelected: () => {},
@@ -85,7 +69,6 @@ class ContainerForShare extends Component {
             mouseDownRecordItemHandler: () => {},
             mouseOverRecordItemHandler: () => {}
         };
-            console.log(this.props)
         return (
             <div className='formContainer form-for-share'>
                 <div className='form-wrapper'>
@@ -101,10 +84,10 @@ class ContainerForShare extends Component {
                                             <img src={logo}/>
                                         </div>
                                         <div>
-                                            <div className='form-name'>{this.state.formName}</div>
+                                            <div className='form-name'>Form 1</div>
                                         </div>
                                         <div className='form-description'>
-                                            {this.state.formDescr}
+                                            Add a description of this form
                                         </div>
                                     </div>
                                 </div>
@@ -124,13 +107,12 @@ class ContainerForShare extends Component {
                                             <Recordtem recordData={recordData}
                                                 type={field.type}
                                                 currentField={field}
-                                                id=''
-                                                data=''
-                                                records=''
-                                                tableId={this.state.table._id}
-                                                
-                                                uploadAttachment={this.state.uploadAttachment}
-                                                deleteFile={this.state.deleteFile}
+                                                /*id={this.props.record.record_data[ind]._id}
+                                                data={this.props.record.record_data[ind].data}
+                                                records={this.props.records}
+                                                tableId={this.props.tableId}
+                                                uploadAttachment={this.props.uploadAttachment}
+                                                deleteFile={this.props.deleteFile}*/
                                             />
                                         </div>
                                     );

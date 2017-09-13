@@ -1,7 +1,6 @@
 .form-for-share{
     padding: 50px 150px 100px 150px !important;
     background-color: #fafafa;
-
 }
 .content-subheader-share-form{
         text-align: center;
@@ -91,30 +90,13 @@
             line-height: 36px;
             font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
             font-weight: bold;
-            input {
-                color: #646464 !important;
-                border: 1px solid white !important;
-                font-size: 25px !important;
-            }
-            input:focus {
-                border:  1px solid rgba(34,36,38,.15) !important;
-            }
         }
         .form-description {
             margin-left: 5px;
             margin-right: 5px;
-            margin-top: 20px;
+            margin-top: 25px;
             font-size: 20px;
             color: rgb(100, 100, 100);
-            textarea {
-                color: #646464 !important;
-                border: 1px solid white !important;
-                font-size: 19px !important;
-                width: 100% !important;
-            }
-            textarea:focus {
-                border:  1px solid rgba(34,36,38,.15) !important;
-            }
         }
         .form-inputs-list-wrapper{
             margin-left: 14%;
