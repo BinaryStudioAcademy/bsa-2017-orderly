@@ -31,7 +31,7 @@ class Header extends Component {
                       className="base-icon-logo"/>
                 <div className='label-header'>
                     <div className='header-base-name'>{this.props.base.name}</div>
-                    <div claccName='icon-dashbord-settings'>
+                    <div className='icon-dashbord-settings'>
                         <ContextMenuIcon
                             tables={this.props.tables}
                             base={this.props.base}

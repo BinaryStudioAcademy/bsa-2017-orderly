@@ -7,10 +7,8 @@ import logo from '../../../../../images/logo.png';
 let newFormInd = 0
 export default class FormViewContainer extends Component {
     constructor(props) {
-        super(props);
-        
+        super(props);  
         const activeView = this.props.currentTable.views.find((v) => v.view._id === this.props.currentViewId);
-        console.log(activeView)
         this.state ={
             formName: activeView.view.name || 'Form Name',
             formDescr: activeView.view.description || 'Add a description of this form',
@@ -68,6 +66,7 @@ export default class FormViewContainer extends Component {
                                     record={this.props.currentTable.records[this.props.currentTable.records.length-1]}
                                     recordData={this.props.recordData}
                                     currentViewId={this.props.currentViewId}
+                                    currentTable={this.props.currentTable}
                                     currentTableId={this.props.currentTable._id}
                                     uploadAttachment={this.props.uploadAttachment}
                                     deleteFile={this.props.deleteFile}

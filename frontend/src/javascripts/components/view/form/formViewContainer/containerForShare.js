@@ -20,7 +20,6 @@ class ContainerForShare extends Component {
             curentInd: '',
             formName: '',
             formDescr: ''
-
         }
     }
     componentWillMount(){
