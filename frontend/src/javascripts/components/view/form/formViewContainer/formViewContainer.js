@@ -11,8 +11,7 @@ export default class FormViewContainer extends Component {
         const activeView = this.props.currentTable.views.find((v) => v.view._id === this.props.currentViewId);
         this.state ={
             formName: activeView.view.name || 'Form Name',
-            formDescr: activeView.view.description || 'Add a description of this form',
-
+            formDescr: activeView.view.description || 'Add a description of this form'
         }
     }
 
@@ -41,7 +40,7 @@ export default class FormViewContainer extends Component {
                                         <div>
                                             <div className='form-name'>
                                                 <Input value = {this.state.formName}
-                                                    onClick={(event) => this.setState({formName: event.value})}
+                                                    onChange={(event) => this.setState({formName: event.value})}
                                                     onBlur={(event, data) => this.handleBlur(event)}
                                                 /> 
                                             </div>
@@ -49,7 +48,7 @@ export default class FormViewContainer extends Component {
                                         <div className='form-description'>
                                             <Form>
                                             <TextArea value = {this.state.formDescr} autoHeight
-                                                onClick={(event) => this.setState({formDescr: event.value})}
+                                                onChange={(event) => this.setState({formDescr: event.value})}
                                                 onBlur={(event) => this.handleBlurDescr(event)}
                                             />
                                             </Form>

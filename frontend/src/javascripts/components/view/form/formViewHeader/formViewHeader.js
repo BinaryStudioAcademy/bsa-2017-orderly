@@ -30,7 +30,6 @@ export default class FormViewHeader extends Component{
                         viewsCount={this.props.viewsCount}
                     />
                 </Button.Group>
-                <Icon name="search" id="header__search" size='large'/>
             </div>
         );
     }
