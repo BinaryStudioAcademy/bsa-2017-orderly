@@ -24,7 +24,8 @@ const initState = {
     selectedRecordItemList: [],
     isShiftKeyPressed: false,
     isMouseDownPressed: false,
-    collaborators: {}
+    collaborators: {},
+    members: {}
 };
 
 function dashboardReducer(state = initState, action) {
@@ -34,6 +35,13 @@ function dashboardReducer(state = initState, action) {
             state,
             {base: action.payload.base}
         );
+    }
+
+    case 'GET_MEMBERS_BY_BASE_ID_SUCCESSED': {
+        return R.merge(
+            state,
+            {members: R.map(R.dissoc('_id'))(action.members)}
+        )
     }
 
     case 'SAVE_CURRENT_TEAM_ROLES': {

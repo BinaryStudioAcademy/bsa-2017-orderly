@@ -20,6 +20,7 @@ const createCollaboratorsObject = (teamId, users) => {
 }
 
 const createRolesObject = (members) => {
+	if (!members) return
 	let result = {}
 	R.forEach( member => {
 		result[member.userId] = {role: member.role}
@@ -35,8 +36,18 @@ const getRolesColor = (role) => {
 	}
 }
 
+const getRolesBackgroundColor = (role) => {
+	switch (role) {
+		case 'owner': return {backgroundColor: '#20c933'}
+		case 'editor': return {backgroundColor: '#c9830e'}
+		case 'readOnly': return {backgroundColor: '#c9082a'}
+		default : return {display: 'none'}
+	}
+}
+
 const getRolesForDropdown = () => {
 	let idx = 0;
+
 	return R.map( role => {
 		let roleName = R.toLower(role)
 		return {
@@ -61,5 +72,6 @@ export {
 	createCollaboratorsObject,
 	getRolesColor,
 	getRolesForDropdown,
-	createRolesObject
+	createRolesObject,
+	getRolesBackgroundColor
 }

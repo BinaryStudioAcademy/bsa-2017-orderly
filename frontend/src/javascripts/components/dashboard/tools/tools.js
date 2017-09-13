@@ -4,6 +4,7 @@ import Tabs from './tabs/tabs';
 import View from '../../view/view';
 import R from 'ramda';
 import {onGetCoworkersList} from '../../../app/socket';
+import { getRoleByUserId } from '../dashboardService'
 
 class Tools extends Component {
     constructor(props) {
@@ -20,11 +21,21 @@ class Tools extends Component {
         this.changeCheckboxHandler = this.changeCheckboxHandler.bind(this);
         this.mouseDownRecordItemHandler = this.mouseDownRecordItemHandler.bind(this);
         this.mouseOverRecordItemHandler = this.mouseOverRecordItemHandler.bind(this);
+
+        this.state = {
+            currentUserRole: ''
+        }
     }
 
     componentWillMount() {
         this.props.getBaseCurrent(this.props.baseId, this.props.currentTableId);
         this.props.getUser();
+        this.props.getMembersByBaseId(this.props.baseId)
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+		    this.setState({currentUserRole: getRoleByUserId(R.path(['_id'], nextProps.user), nextProps.members)})
     }
 
     componentDidMount() {
@@ -33,7 +44,9 @@ class Tools extends Component {
             _this.props.getCoworkersList(coworkersByTables, _this.props.currentTableId);
         });
 
-        this.context.router.listenBefore((location, done) => {
+
+
+	    this.context.router.listenBefore((location, done) => {
             if (!location.pathname.startsWith('/dashboard/' + _this.props.baseId + '/')) {
                 _this.props.disconnectSocket();
             }
@@ -149,9 +162,11 @@ class Tools extends Component {
                 <Header base={this.props.base}
                         tables={this.props.tables}
                         user={this.props.user}
+                        members={this.props.members}
                         menu={this.props.menu}
                         handleClick={this.props.handleClick}/>
                 <Tabs base={this.props.base}
+                      members={this.props.members}
                       currentTableId={this.props.currentTableId}
                       tables={this.props.tables}
                       tableIdActiveModal={this.props.tableIdActiveModal}

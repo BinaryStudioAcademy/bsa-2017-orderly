@@ -126,4 +126,11 @@ router.get('/user/:userId', (req, res) => {
         .catch((err) => res.status(500).send(err));
 });
 
+router.get('/:baseId/members', (req, res) => {
+    teamRepository.getMembersByBaseId(req.params.baseId)
+        .then(R.path(['0', 'collaborators']))
+        .then(members => res.status(200).send(members))
+        .catch(err => res.status(500).send(err))
+})
+
 module.exports = router;

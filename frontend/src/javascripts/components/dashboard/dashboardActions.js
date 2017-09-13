@@ -406,11 +406,17 @@ const mouseOverRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => 
 };
 
 const saveCurrentTeamRoles = (collaborators) => {
-	console.log(collaborators, 'inside action')
     return {
         type: 'SAVE_CURRENT_TEAM_ROLES',
 	    collaborators: collaborators
     }
+}
+
+const getMembersByBaseId = (baseId) => {
+	return  {
+		type: 'GET_MEMBERS_BY_BASE_ID',
+		baseId: baseId
+	}
 }
 
 export {
@@ -453,5 +459,6 @@ export {
     mouseDownRecordItem,
     mouseUpRecordItem,
     mouseOverRecordItem,
-	saveCurrentTeamRoles
+	saveCurrentTeamRoles,
+	getMembersByBaseId
 };

@@ -1,3 +1,5 @@
+import R from 'ramda'
+
 const formatFieldsRecords = (fields, records) => {
     let combined = [];
     for (const [ind, field] of fields.entries()) {
@@ -23,7 +25,14 @@ const setName = (activeModal) => {
     }
 };
 
+const getRoleByUserId = (userId, members) => {
+	if (!userId || R.isEmpty) return
+	debugger
+	return R.prop('role')(R.find(R.propEq('userId', userId))(members))
+}
+
 export {
     formatFieldsRecords,
-    setName
+    setName,
+	getRoleByUserId
 };
