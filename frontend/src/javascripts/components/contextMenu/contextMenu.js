@@ -16,6 +16,7 @@ class ContextMenu extends Component {
         <BaseOptions handleClick = {this.props.handleClick}  
                      base = {this.props.base} teamId={this.props.teamId} 
                      tables={this.props.tables}
+                     teamNames={this.props.teamNames}
         />
       </div>
     )

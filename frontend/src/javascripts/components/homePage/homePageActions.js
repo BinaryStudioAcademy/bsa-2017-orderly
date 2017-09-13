@@ -35,12 +35,13 @@ export const getCollaborators = (teamId, usersIds) => {
 	}
 }
 
-export const addCollaborator = (teamId, userId, role) => {
+export const addCollaborator = (teamId, userId, role, message) => {
 	return {
 		type: 'ADD_COLLABORATOR',
 		teamId: teamId,
 		userId: userId,
-		role: role
+		role: role,
+		message: message
 	}
 }
 

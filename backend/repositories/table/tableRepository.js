@@ -30,7 +30,7 @@ class TableRepository extends Repository {
     }
 
     update(id, body) {
-        return this.model.findByIdAndUpdate(id, body, {'new': true})
+        return this.model.findByIdAndUpdate(id, body)
             .populate('records.history.collaborator')
             .populate('records.comments.collaborator')
             .populate('views.view');
@@ -344,11 +344,12 @@ class TableRepository extends Repository {
         });
     }
 
-    addFilter(tableId, viewId, viewType, fieldId) {
+    addFilter(tableId, viewId, viewType, fieldId, fieldIndex) {
         return this.getFromView(viewId, viewType).then((view) => {
             view.filters.filterSet.push(
                 {
                     fieldId: fieldId,
+                    fieldIndex: Number(fieldIndex),
                     condition: 'contains',
                     value: '',
                 }
@@ -359,10 +360,11 @@ class TableRepository extends Repository {
         });
     }
 
-    updateFilter(tableId, viewId, viewType, fieldId, filterId, condition, query) {
+    updateFilter(tableId, viewId, viewType, fieldId, fieldIndex, filterId, condition, query) {
         return this.getFromView(viewId, viewType).then((view) => {
             let filterToUpdate = view.filters.filterSet.find((f) => f._id.toString() === filterId);
             filterToUpdate.fieldId = fieldId;
+            filterToUpdate.fieldIndex = Number(fieldIndex);
             filterToUpdate.value = query || '';
             filterToUpdate.condition = condition;
             return view.save().then(() => {

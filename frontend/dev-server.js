@@ -12,7 +12,8 @@ const compiler = webpack(config);
 compiler.apply(new DashboardPlugin());
 
 const host = process.env.HOST || 'localhost';
-const port = process.env.PORT || 3000;
+//const port = process.env.PORT || 5555;
+const port = 5555;
 
 function log() {
     arguments[0] = '\nWebpack: ' + arguments[0];

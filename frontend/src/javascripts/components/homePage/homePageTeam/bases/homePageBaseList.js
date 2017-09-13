@@ -51,8 +51,12 @@ class BaseList extends Component {
 								<BaseItem className="base-list-item"
 								          handleClick={props.handleClick}
 								          teamId={props.teamId}
+								          collaborators={props.collaborators}
+								          saveCurrentTeamRoles={props.saveCurrentTeamRoles}
+								          team={props.team}
 								          base={base}
 								          menu={props.menu}
+								          teamNames={props.teamNames}
 								/>
 							</div>
 						)

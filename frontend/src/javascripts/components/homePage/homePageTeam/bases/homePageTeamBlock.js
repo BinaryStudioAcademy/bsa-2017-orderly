@@ -47,9 +47,11 @@ class HomePageTeamBlock extends Component {
 					          toggleTeamPopup={this.props.toggleTeamPopup}
 					          teamPopupIsShow={this.props.teamPopupIsShow}
 					          onNewBaseClick={this.props.onNewBaseClick}
+					          saveCurrentTeamRoles={this.props.saveCurrentTeamRoles}
 							  user={this.props.user}
 					          menu={this.props.menu}
 					          teams={this.props.teams}
+					          teamNames={this.props.teamNames}
 					          />
 				</div>
 			</div>

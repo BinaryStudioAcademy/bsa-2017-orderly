@@ -3,6 +3,7 @@ import FormViewFields from './formViewFields';
 import './formViewContainer.scss';
 import logo from '../../../../../images/logo.png';
 
+let newFormInd = 0
 export default class FormViewContainer extends Component {
     constructor(props) {
         super(props);
@@ -34,10 +35,17 @@ export default class FormViewContainer extends Component {
                             </div>
                         </div>
                     </div>
-
                     <FormViewFields fields={this.props.currentTable.fields}
                                     included={this.props.included}
-                                    excludeField={this.props.excludeField}/>
+                                    excludeField={this.props.excludeField}
+                                    records={this.props.currentTable.records}
+                                    record={this.props.currentTable.records[this.props.currentTable.records.length-1]}
+                                    recordData={this.props.recordData}
+                                    currentViewId={this.props.currentViewId}
+                                    currentTableId={this.props.currentTable._id}
+                                    uploadAttachment={this.props.uploadAttachment}
+                                    deleteFile={this.props.deleteFile}
+                    />
                 </div>
             </div>
         );

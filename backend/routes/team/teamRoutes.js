@@ -1,6 +1,7 @@
 const R = require('ramda');
 const router = require('express').Router();
 const baseService = require('../../services/baseService')
+const teamService = require('../../services/teamService')
 const teamRepository = require('../../repositories/team/teamRepository');
 const baseRepository = require('../../repositories/base/baseRepository');
 const tableRepository = require('../../repositories/table/tableRepository');
@@ -73,8 +74,7 @@ router.post('/:teamId/baseClone', (req, res) => {
     baseService.baseCopy(req.body.base)
     .then((base) => teamRepository.addBaseToTeam(req.body.teamId, base._id))
     .then((team) => res.status(200).send(team))
-    .catch(err => {console.log(err)})
-    //.catch((err) => res.status(500).send(err))
+    .catch((err) => res.status(500).send(err))
 });
 
 router.post('/:teamId/spreadsheet', (req, res) => Promise.all(
@@ -95,7 +95,8 @@ router.post('/:teamId/spreadsheet', (req, res) => Promise.all(
 );
 
 router.put('/:teamId/collaborators', (req, res) => {
-	teamRepository.addCollaboratorToTeam(req.params.teamId, req.body)
+	teamRepository.addCollaboratorToTeam(req.params.teamId, R.dissoc('message', req.body))
+        .then(R.tap(() => teamService.getInfoForInvite(req.body.userId, req.body.message, req.params.teamId)))
 		.then(team => res.status(200).send(team))
 		.catch(err => res.status(500).send(err))
 })
@@ -113,7 +114,7 @@ router.put('/:teamId/collaborators/:userId', (req, res) => {
 })
 
 router.get('/user/:userId', (req, res) => {
-    teamRepository.getByOwner(req.params.userId)
+    teamRepository.getByMember(req.params.userId)
         .then((result) => {
             if (R.isEmpty(result)) {
                 return [teamRepository.add(defaultTeam(req.params.userId))];
@@ -123,5 +124,12 @@ router.get('/user/:userId', (req, res) => {
         .then((teams) => res.status(200).send(teams))
         .catch((err) => res.status(500).send(err));
 });
+
+router.get('/:baseId/members', (req, res) => {
+    teamRepository.getMembersByBaseId(req.params.baseId)
+        .then(R.path(['0', 'collaborators']))
+        .then(members => res.status(200).send(members))
+        .catch(err => res.status(500).send(err))
+})
 
 module.exports = router;

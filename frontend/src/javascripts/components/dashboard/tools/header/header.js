@@ -26,7 +26,7 @@ class Header extends Component {
                       onClick={() => {
                           browserHistory.push('/')
                       }}
-                      size='huge'
+                      size='large'
                       className="base-icon-logo"/>
                 <div className='label-header'>
                     <div className='header-base-name'>{this.props.base.name}</div>
@@ -38,10 +38,10 @@ class Header extends Component {
                     />
                 </div>
                 <div className='info'>
-                    <Icon link className="header-icon" name='help circle' size='large'/>
-                    <Icon link className="header-icon" name='grid layout' size='large'/>
-                    <Icon link className="header-icon" name='bell' size='large' />
-                    <UserProfile user={this.props.user}/>
+                    {/*<Icon link className="header-icon" name='help circle' size='large'/>*/}
+                    {/*<Icon link className="header-icon" name='grid layout' size='large'/>*/}
+                    {/*<Icon link className="header-icon" name='bell' size='large' />*/}
+                    <UserProfile user={this.props.user} members={this.props.members}/>
                     <span className="user-profile-logout-wrapper header-icon">
                         <Link to={'/logout'} className="logout" title="Logout">
                             <Icon name="log out" size="large"/>

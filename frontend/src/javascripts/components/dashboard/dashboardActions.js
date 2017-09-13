@@ -225,23 +225,25 @@ export function filterRecords(tableId, viewId) {
     };
 }
 
-export function addFilter(tableId, viewId, viewType, fieldId) {
+export function addFilter(tableId, viewId, viewType, fieldId, fieldIndex) {
     return {
         type: 'ADD_FILTER',
         tableId: tableId,
         viewId: viewId,
         viewType: viewType,
         fieldId: fieldId,
+        fieldIndex: fieldIndex,
     };
 }
 
-export function updateFilter(tableId, viewId, viewType, fieldId, filterId, condition, filterQuery) {
+export function updateFilter(tableId, viewId, viewType, fieldId, fieldIndex, filterId, condition, filterQuery) {
     return {
         type: 'UPDATE_FILTER',
         tableId: tableId,
         viewId: viewId,
         viewType: viewType,
         fieldId: fieldId,
+        fieldIndex: fieldIndex,
         filterId: filterId,
         condition: condition,
         filterQuery: filterQuery,
@@ -406,6 +408,20 @@ const mouseOverRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => 
     };
 };
 
+const saveCurrentTeamRoles = (collaborators) => {
+    return {
+        type: 'SAVE_CURRENT_TEAM_ROLES',
+	    collaborators: collaborators
+    }
+}
+
+const getMembersByBaseId = (baseId) => {
+	return  {
+		type: 'GET_MEMBERS_BY_BASE_ID',
+		baseId: baseId
+	}
+}
+
 export {
     getBaseById,
     getTables,
@@ -445,5 +461,7 @@ export {
     clearSelectedRecordItemList,
     mouseDownRecordItem,
     mouseUpRecordItem,
-    mouseOverRecordItem
+    mouseOverRecordItem,
+	saveCurrentTeamRoles,
+	getMembersByBaseId
 };

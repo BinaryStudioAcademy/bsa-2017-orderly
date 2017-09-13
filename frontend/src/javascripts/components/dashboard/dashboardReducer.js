@@ -24,6 +24,8 @@ const initState = {
     selectedRecordItemList: [],
     isShiftKeyPressed: false,
     isMouseDownPressed: false,
+    collaborators: {},
+    members: {},
     lastMouseDownRecordId: null
 };
 
@@ -35,6 +37,21 @@ function dashboardReducer(state = initState, action) {
             {base: action.payload.base}
         );
     }
+
+    case 'GET_MEMBERS_BY_BASE_ID_SUCCESSED': {
+        return R.merge(
+            state,
+            {members: R.map(R.dissoc('_id'))(action.members)}
+        )
+    }
+
+    case 'SAVE_CURRENT_TEAM_ROLES': {
+        return R.merge(
+            state,
+            {collaborators: action.collaborators}
+        )
+    }
+
     case 'CHANGE_BASE_PARAM_SUCCESS': {
         return R.merge(
             state,
@@ -257,8 +274,6 @@ function dashboardReducer(state = initState, action) {
     }
 
     case 'BLUR_RECORD': {
-console.log('------------------------------------------------');
-console.log(' ============== BLUR_RECORD - state.lastMouseDownRecordId: WAS   ' + state.lastMouseDownRecordId + '  => null     | ' + (action.recordId === state.lastMouseDownRecordId));
         if (action.recordId === state.lastMouseDownRecordId) {
             return {...state, ...{lastMouseDownRecordId: null}};
         } else {
@@ -649,9 +664,6 @@ console.log(' ============== BLUR_RECORD - state.lastMouseDownRecordId: WAS   ' 
             fieldIndex: action.fieldIndex,
             recordIndex: action.recordIndex
         });*/
-console.log('**********************************************************************************************************');
-console.log(' ============== state.selectedRecordItemId:   SET   ' + action.recordItemId);
-console.log(' ============== state.lastMouseDownRecordId:   SET   ' + action.recordItemId);
         return {...state, isMouseDownPressed: true,
             ...{selectedRecordItemId: action.recordItemId,
                 selectedRecordItemList: selectedRecordItemList,
