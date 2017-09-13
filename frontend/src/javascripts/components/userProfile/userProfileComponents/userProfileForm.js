@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, Modal } from 'semantic-ui-react';
+import { Link } from 'react-router';
 import './date.js' 
 
 class UserProfileForm extends Component {
@@ -106,7 +107,15 @@ render() {
           </div>
         </div>
         <div className='user-profile-submit-btn'>
-            <Button type='submit'>Update Data</Button>
+              <Modal trigger={<Button type='submit'>Update Data</Button>} size ='tiny' closeIcon>
+                <Modal.Content>
+                  <div className='content-import-spreadsheet'>
+                      <div className='content-subheader-share-form'>Your data has been successfully updated!</div>
+                      <div className='thank-you'>Thank you! </div>
+                      <div className='content-import-btn'><Link to={'/'}><Button color='blue'>Go to Orderly Home Page</Button></Link></div>
+                  </div>
+                </Modal.Content>
+              </Modal>
         </div>
       </form> 
     </div>
