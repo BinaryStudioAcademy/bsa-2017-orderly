@@ -17,7 +17,10 @@ class ContainerForShare extends Component {
         this.state ={
             table: '',
             view: '',
-            curentInd: ''
+            curentInd: '',
+            formName: '',
+            formDescr: ''
+
         }
     }
     componentWillMount(){
@@ -33,7 +36,13 @@ class ContainerForShare extends Component {
                     i += 1;
                 }
             }
-            this.setState({table: nextProps.formView.table, view: nextProps.formView.view, included: showFields})
+            this.setState({
+                table: nextProps.formView.table, 
+                view: nextProps.formView.view, 
+                included: showFields,
+                formName: nextProps.formView.view.name,
+                formDescr: nextProps.formView.view.description
+            })
         }
     }
     handleSubmit =() => {
@@ -84,10 +93,10 @@ class ContainerForShare extends Component {
                                             <img src={logo}/>
                                         </div>
                                         <div>
-                                            <div className='form-name'>Form 1</div>
+                                            <div className='form-name'>{this.state.formName}</div>
                                         </div>
                                         <div className='form-description'>
-                                            Add a description of this form
+                                            {this.state.formDescr}
                                         </div>
                                     </div>
                                 </div>

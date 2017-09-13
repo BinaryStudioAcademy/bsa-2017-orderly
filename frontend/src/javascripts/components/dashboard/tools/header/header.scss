@@ -1,3 +1,4 @@
+
 .dashboard_header {
   background-color: #f2711c;
   display: flex;
@@ -10,6 +11,9 @@
     left: 30px;
     right: 20px;
   }
+  .icon-dashbord-settings{
+    margin-top: 4px;
+  }
   user-select: none;
 
   a,
@@ -19,7 +23,7 @@
     border-bottom: 0;
   }
   .base-icon-logo {
-    //font-size: 3em!important;
+    cursor: pointer !important;
   }
 
   .label-header {
@@ -27,6 +31,7 @@
     font-size: 1.2rem;
     margin-left: 40px;
     display: flex;
+    margin-top: 10px;
 }
   .info {
     display: flex;
@@ -38,7 +43,7 @@
     }
   }
   .header-base-name {
-    font-size: 18px;
+    font-size: 21px;
     margin-right: 5px;
   }
   .menu-show-2 {

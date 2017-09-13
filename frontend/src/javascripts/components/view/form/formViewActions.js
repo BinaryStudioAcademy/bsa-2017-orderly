@@ -5,12 +5,32 @@ export const EXCLUDE_ALL = 'EXCLUDE_ALL';
 export const GET_CURRENT_TABLE_AND_VIEW = 'GET_CURRENT_TABLE_AND_VIEW';
 export const BLUR_RECORD = 'BLUR_RECORD';
 export const UPDATE_TABLE_BY_FORM_DATA = 'UPDATE_TABLE_BY_FORM_DATA';
+export const CHANGE_FORM_NAME = 'CHANGE_FORM_NAME';
+export const CHANGE_FORM_DESCRIPTION = 'CHANGE_FORM_DESCRIPTION';
 
 export function updateableByFormData(tableId, table) {
     return {
         type: UPDATE_TABLE_BY_FORM_DATA,
         tableId: tableId,
         table: table
+    };
+}
+
+export function updateFormName(name, tableId, viewId) {
+    return {
+        type: CHANGE_FORM_NAME,
+        viewId: viewId,
+        tableId: tableId,
+        name: name
+    };
+}
+
+export function updateFormDescription(description, tableId, viewId) {
+    return {
+        type: CHANGE_FORM_DESCRIPTION,
+        viewId: viewId,
+        tableId: tableId,
+        description: description
     };
 }
 
