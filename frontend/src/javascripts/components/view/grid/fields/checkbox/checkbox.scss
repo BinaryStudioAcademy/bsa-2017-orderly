@@ -28,7 +28,7 @@
   .checkbox-checked{
     position: absolute;
     top: 3px;
-    left: 69px;
+    left: 59px;
     font-size: 15px;
     //z-index: 4;
     color: #0BC549;
@@ -36,7 +36,7 @@
   .checkbox-square {
     position: absolute;
     top: 5px;
-    left: 62px;
+    left: 52px;
     //z-index: 3;
     font-size: 25px;
     opacity: 0.5;
@@ -49,7 +49,6 @@
 .selected .checkbox-block {
   //z-index: 2;
   margin-top: -2px;
-  margin-left: -2px;
   outline: none!important;
 }
 .selected .table-cell-wrap {

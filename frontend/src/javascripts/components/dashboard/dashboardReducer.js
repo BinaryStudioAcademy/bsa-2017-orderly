@@ -25,7 +25,8 @@ const initState = {
     isShiftKeyPressed: false,
     isMouseDownPressed: false,
     collaborators: {},
-    members: {}
+    members: {},
+    lastMouseDownRecordId: null
 };
 
 function dashboardReducer(state = initState, action) {
@@ -219,8 +220,8 @@ function dashboardReducer(state = initState, action) {
         return {...state, ...{activeRecordItemId: action.recordId}};
 
     case 'PERFORM_CHANGE_RECORD': {
-        return R.mergeAll([
-            R.dissoc('tables', state),
+            return R.mergeAll([
+            R.omit(['tables', 'lastMouseDownRecordId'], state),
             {
                 tables: R.map((table) => {
                     if (table._id === action.tableId) {
@@ -267,16 +268,27 @@ function dashboardReducer(state = initState, action) {
                             }]);
                     }
                     return table;
-                })(state.tables)
+                })(state.tables),
+                lastMouseDownRecordId: action.recordId
             }]);
     }
 
     case 'BLUR_RECORD': {
-        return {...state, ...{selectedRecordItemId: null}};
+        if (action.recordId === state.lastMouseDownRecordId) {
+            return {...state, ...{lastMouseDownRecordId: null}};
+        } else {
+            const selectedRecordItemId = (action.recordId === state.selectedRecordItemId) ? null : state.selectedRecordItemId;
+            const activeRecordItemId = (action.recordId === state.activeRecordItemId) ? null : state.activeRecordItemId;
+            return {...state, ...{selectedRecordItemId: selectedRecordItemId,
+                                  activeRecordItemId: activeRecordItemId,
+                                  lastMouseDownRecordId: null}};
+        }
     }
 
     case 'BLUR_RECORD_COMPONENT': {
-        return {...state, ...{activeRecordItemId: null}};
+        const selectedRecordItemId = (action.recordId === state.selectedRecordItemId) ? null : state.selectedRecordItemId;
+        const activeRecordItemId = (action.recordId === state.activeRecordItemId) ? null : state.activeRecordItemId;
+        return {...state, ...{selectedRecordItemId: selectedRecordItemId, activeRecordItemId: activeRecordItemId}};
     }
 
     case 'DELETE_TABLE_SUCCEEDED': {
@@ -376,6 +388,7 @@ function dashboardReducer(state = initState, action) {
                     return table;
                 })(state.tables)
             }]);
+        lastMouseDownRecordId: action.recordItemId
     }
 
     case 'GET_COWORKERS_LIST': {
@@ -629,7 +642,7 @@ function dashboardReducer(state = initState, action) {
                                            action.firstSelectRecordItemId, action.lastSelectRecordItemId);
         let selectedRecordItemList = getSelectedRecordItemList (state.tables, action.tableId, firstSelectRecordItem, lastSelectRecordItem);
 
-        return{...state, ...{selectedRecordItemList: selectedRecordItemList} };
+        return{...state, ...{selectedRecordItemList: selectedRecordItemList, isMouseDownPressed: true} };
     }
 
     case 'SHIFT_KEY_DOWN': {
@@ -652,11 +665,17 @@ function dashboardReducer(state = initState, action) {
             recordIndex: action.recordIndex
         });*/
         return {...state, isMouseDownPressed: true,
-            ...{selectedRecordItemId: action.recordItemId}, ...{selectedRecordItemList: selectedRecordItemList}};
+            ...{selectedRecordItemId: action.recordItemId,
+                selectedRecordItemList: selectedRecordItemList,
+                lastMouseDownRecordId: action.recordItemId}};
     }
 
     case 'MOUSE_UP_RECORD_ITEM': {
-        return {...state, isMouseDownPressed: false};
+        if (action.isRecordItemClicked) {
+            return {...state, ...{isMouseDownPressed: false}};
+        } else {
+            return {...state, ...{isMouseDownPressed: false/*, selectedRecordItemId: null, selectedRecordItemList: []*/}};
+        }
     }
 
     case 'MOUSE_OVER_RECORD_ITEM': {
