@@ -6,7 +6,6 @@ import UserProfile from '../../../userProfile/userProfile';
 import avatar from '../../../../../images/avatar.png';
 import ContextMenuIcon from '../../../contextMenu/contextMenuIcon';
 import { changeBaseParam, showContextMenu, deleteBase } from '../../../homePage/homePageActions';
-import LogoShort from '../../../../../images/logo_short.png'
 import './header.scss';
 
 
@@ -23,22 +22,20 @@ class Header extends Component {
 
         return(
             <header className='dashboard_header' style={{backgroundColor:`${this.props.base.color}`}}>
-                <Image src={LogoShort}
+                <Icon link name={this.props.base.icon}
                       onClick={() => {
                           browserHistory.push('/')
                       }}
-                      size='mini'
+                      size='large'
                       className="base-icon-logo"/>
                 <div className='label-header'>
                     <div className='header-base-name'>{this.props.base.name}</div>
-                    <div className='icon-dashbord-settings'>
-                        <ContextMenuIcon
-                            tables={this.props.tables}
-                            base={this.props.base}
-                            menu={this.props.menu}
-                            handleClick={this.props.handleClick}
-                        />
-                    </div>
+                    <ContextMenuIcon
+                        tables={this.props.tables}
+                        base={this.props.base}
+                        menu={this.props.menu}
+                        handleClick={this.props.handleClick}
+                    />
                 </div>
                 <div className='info'>
                     {/*<Icon link className="header-icon" name='help circle' size='large'/>*/}

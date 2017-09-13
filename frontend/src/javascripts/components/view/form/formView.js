@@ -33,17 +33,13 @@ class FormView extends Component {
                                              excludeAll={this.props.excludeAll}
                                              addRecord={this.props.addRecord}/>
                         <FormViewContainer currentTable={this.props.currentTable}
-                                            updateFormName={this.props.updateFormName}
-                                            updateFormDescription={this.props.updateFormDescription}
                                             currentViewId={this.props.currentViewId}
-                                            currentViewData={this.props.currentViewData}
                                             addRecord={this.props.addRecord}
                                             included={this.props.formView.included}
                                             excludeField={this.props.excludeField}
                                             recordData={this.props.recordData}
                                             deleteFile={this.props.deleteFile}
                                             uploadAttachment={this.props.uploadAttachment}
-                                            form={this.props.formView.form}
                                            />
                     </div>
                     <Button type='submit'>Submit form</Button>

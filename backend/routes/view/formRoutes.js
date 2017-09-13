@@ -38,7 +38,7 @@ router.post('/:viewId/fields', (request, response) => {
 });
 
 router.put('/:viewId/fields', (request, response) => {
-    formRepository.updateForm(request.params.viewId, request.body)
+    formRepository.includeExcludeFields(request.params.viewId, request.body)
         .then((data) => response.status(200).send(data))
         .catch((error) => response.status(400).send(`Can not add form view field. ${error}`));
 });
