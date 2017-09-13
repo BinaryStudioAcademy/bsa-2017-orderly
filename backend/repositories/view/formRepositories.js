@@ -26,7 +26,7 @@ class FormRepository extends Repository {
         });
     }
 
-    includeExcludeFields(viewId, data) {
+    updateForm(viewId, data) {
         return this.model.findById(viewId).then((view) => {
             view.toObject();
             if (data.type ==='INCLUDE_ALL') {
@@ -56,6 +56,12 @@ class FormRepository extends Repository {
                     }
                     return config;
                 })
+            }
+            if (data.type ==='CHANGE_FORM_NAME') {
+                view.name = data.name
+            }
+            if (data.type ==='CHANGE_FORM_DESCRIPTION') {
+                view.description = data.description
             }
             return view.save();
         });

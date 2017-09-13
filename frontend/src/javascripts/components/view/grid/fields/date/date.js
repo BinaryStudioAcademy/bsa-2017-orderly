@@ -2,7 +2,6 @@ import React from 'react';
 import Field from '../field';
 import { Input } from 'semantic-ui-react';
 import Datetime from 'react-datetime';
-import moment from 'moment';
 import './date.scss';
 import '../../../../userProfile/userProfileComponents/date.js';
 
