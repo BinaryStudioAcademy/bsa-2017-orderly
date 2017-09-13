@@ -10,6 +10,8 @@ const TeamItem = (team, menu, handleClick, onNewBaseClick, toggleTeamPopup, team
                   setTeamModal, activeModal, updateTeam, deleteTeam, getCollaborators,
                   collaborators, showUserPopup, isShowUserPopup, activeShareModal, changeActiveShareModal,
                   allUsers, getAllUsers, addCollaborator, deleteCollaborator, updateCollaboratorRole, teamNames) => {
+                  allUsers, getAllUsers, addCollaborator, deleteCollaborator, updateCollaboratorRole,
+                  saveCurrentTeamRoles, teamNames) => {
 	return <div className='team-item relative' key={team._id || ++tempKey}>
 				<TeamHeader team={team}
 				            updateCollaboratorRole={updateCollaboratorRole}
@@ -33,11 +35,14 @@ const TeamItem = (team, menu, handleClick, onNewBaseClick, toggleTeamPopup, team
 				           deleteTeam={deleteTeam}
 				           toggleTeamPopup={toggleTeamPopup} />
 				<BaseList handleClick={handleClick}
+				          saveCurrentTeamRoles={saveCurrentTeamRoles}
+				          team={team}
 				          menu={menu}
 				          teamId={team._id}
 				          teamNames={teamNames}
 				          onNewBaseClick={onNewBaseClick}
 				          bases={team.bases}
+				          collaborators={collaborators}
 				          />
 			</div>
 };

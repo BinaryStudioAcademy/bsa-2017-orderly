@@ -47,7 +47,7 @@ render() {
       <div ref="contextMenu" className = 'menu-icon-wrapp'>
         <div ref={node => { this.node = node }} >
          <div  className = 'setting' onClick={(event) => this.handleClickOnMenu(event)} > 
-          <Icon inverted link name='setting' size='large' color='black' 
+          <Icon inverted link name='setting' size='small' color='black' style={{fontSize: '18px'}}
             onClick={()=>this.props.handleClick(null, 'show', this.props.base._id)}
           />
         </div>

@@ -30,7 +30,7 @@ class TableRepository extends Repository {
     }
 
     update(id, body) {
-        return this.model.findByIdAndUpdate(id, body, {'new': true})
+        return this.model.findByIdAndUpdate(id, body)
             .populate('records.history.collaborator')
             .populate('records.comments.collaborator')
             .populate('views.view');

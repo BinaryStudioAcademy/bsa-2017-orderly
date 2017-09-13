@@ -405,6 +405,20 @@ const mouseOverRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => 
     };
 };
 
+const saveCurrentTeamRoles = (collaborators) => {
+    return {
+        type: 'SAVE_CURRENT_TEAM_ROLES',
+	    collaborators: collaborators
+    }
+}
+
+const getMembersByBaseId = (baseId) => {
+	return  {
+		type: 'GET_MEMBERS_BY_BASE_ID',
+		baseId: baseId
+	}
+}
+
 export {
     getBaseById,
     getTables,
@@ -442,7 +456,9 @@ export {
     shiftKeyDown,
     shiftKeyUp,
     clearSelectedRecordItemList,
-    //mouseDownRecordItem,
-    //mouseUpRecordItem,
-    //mouseOverRecordItem
+    mouseDownRecordItem,
+    mouseUpRecordItem,
+    mouseOverRecordItem,
+	saveCurrentTeamRoles,
+	getMembersByBaseId
 };

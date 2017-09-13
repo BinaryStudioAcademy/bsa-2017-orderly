@@ -4,6 +4,7 @@ import Tabs from './tabs/tabs';
 import View from '../../view/view';
 import R from 'ramda';
 import {onGetCoworkersList} from '../../../app/socket';
+import { getRoleByUserId } from '../dashboardService'
 
 class Tools extends Component {
     constructor(props) {
@@ -18,13 +19,23 @@ class Tools extends Component {
         this.blurRecordComponentHandler = this.blurRecordComponentHandler.bind(this);
         this.keyPressCommentHandler = this.keyPressCommentHandler.bind(this);
         this.changeCheckboxHandler = this.changeCheckboxHandler.bind(this);
-        //this.mouseDownRecordItemHandler = this.mouseDownRecordItemHandler.bind(this);
-        //this.mouseOverRecordItemHandler = this.mouseOverRecordItemHandler.bind(this);
+        this.mouseDownRecordItemHandler = this.mouseDownRecordItemHandler.bind(this);
+        this.mouseOverRecordItemHandler = this.mouseOverRecordItemHandler.bind(this);
+
+        this.state = {
+            currentUserRole: ''
+        }
     }
 
     componentWillMount() {
         this.props.getBaseCurrent(this.props.baseId, this.props.currentTableId);
         this.props.getUser();
+        this.props.getMembersByBaseId(this.props.baseId)
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+		    this.setState({currentUserRole: getRoleByUserId(R.path(['_id'], nextProps.user), nextProps.members)})
     }
 
     componentDidMount() {
@@ -33,7 +44,9 @@ class Tools extends Component {
             _this.props.getCoworkersList(coworkersByTables, _this.props.currentTableId);
         });
 
-        this.context.router.listenBefore((location, done) => {
+
+
+	    this.context.router.listenBefore((location, done) => {
             if (!location.pathname.startsWith('/dashboard/' + _this.props.baseId + '/')) {
                 _this.props.disconnectSocket();
             }
@@ -56,10 +69,10 @@ class Tools extends Component {
             }
         });
 
-        // window.addEventListener("mouseup", (event) => {
-        //     event.preventDefault();
-        //     _this.props.mouseUpRecordItem();
-        // });
+        window.addEventListener("mouseup", (event) => {
+            event.preventDefault();
+            _this.props.mouseUpRecordItem();
+        });
     }
 
     isRecordSelected(id) {
@@ -109,24 +122,24 @@ class Tools extends Component {
         this.props.changeRecord(this.props.currentTableId, id, value, this.props.user);
     }
 
-    // mouseDownRecordItemHandler(event, id, recordIndex, fieldIndex) {
-    //     if (event.shiftKey && this.props.selectedRecordItemId && !this.props.selectedRecordItemList.length) {
-    //         this.props.setSelectRecordItems(this.props.selectedRecordItemId, id, this.props.currentTableId)
-    //     } else {
-    //         if (event.shiftKey && this.props.selectedRecordItemId ) {
-    //             this.props.setSelectRecordItems(this.props.selectedRecordItemId, id, this.props.currentTableId)
-    //         } else {
-    //             this.props.clearSelectedRecordItemList();
-    //             this.props.mouseDownRecordItem(this.props.currentTableId, id, recordIndex, fieldIndex);
-    //         }
-    //     }
-    // }
+    mouseDownRecordItemHandler(event, id, recordIndex, fieldIndex) {
+        if (event.shiftKey && this.props.selectedRecordItemId && !this.props.selectedRecordItemList.length) {
+            this.props.setSelectRecordItems(this.props.selectedRecordItemId, id, this.props.currentTableId)
+        } else {
+            if (event.shiftKey && this.props.selectedRecordItemId ) {
+                this.props.setSelectRecordItems(this.props.selectedRecordItemId, id, this.props.currentTableId)
+            } else {
+                this.props.clearSelectedRecordItemList();
+                this.props.mouseDownRecordItem(this.props.currentTableId, id, recordIndex, fieldIndex);
+            }
+        }
+    }
 
-    // mouseOverRecordItemHandler(id, recordIndex, fieldIndex) {
-    //     if (this.props.isMouseDownPressed) {
-    //         this.props.mouseOverRecordItem(this.props.currentTableId, id, recordIndex, fieldIndex);
-    //     }
-    // }
+    mouseOverRecordItemHandler(id, recordIndex, fieldIndex) {
+        if (this.props.isMouseDownPressed) {
+            this.props.mouseOverRecordItem(this.props.currentTableId, id, recordIndex, fieldIndex);
+        }
+    }
 
     render() {
         const currentTable = R.find(R.propEq('_id', this.props.currentTableId))(this.props.tables);
@@ -139,8 +152,8 @@ class Tools extends Component {
             blurRecordHandler: this.blurRecordHandler,
             blurRecordComponentHandler: this.blurRecordComponentHandler,
             changeCheckboxHandler: this.changeCheckboxHandler,
-            //mouseDownRecordItemHandler: this.mouseDownRecordItemHandler,
-            //mouseOverRecordItemHandler: this.mouseOverRecordItemHandler
+            mouseDownRecordItemHandler: this.mouseDownRecordItemHandler,
+            mouseOverRecordItemHandler: this.mouseOverRecordItemHandler
         };
         return (
             <div onClick={() => {
@@ -149,9 +162,11 @@ class Tools extends Component {
                 <Header base={this.props.base}
                         tables={this.props.tables}
                         user={this.props.user}
+                        members={this.props.members}
                         menu={this.props.menu}
                         handleClick={this.props.handleClick}/>
                 <Tabs base={this.props.base}
+                      members={this.props.members}
                       currentTableId={this.props.currentTableId}
                       tables={this.props.tables}
                       tableIdActiveModal={this.props.tableIdActiveModal}
@@ -169,6 +184,7 @@ class Tools extends Component {
                       deleteTable={this.props.deleteTable}
                       addTableClick={this.props.addTableClick}
                       coworkers={this.props.coworkers}
+                      collaborators={this.props.collaborators}
                       user={this.props.user}/>
                 {currentTable &&
                 <View currentTable={currentTable}

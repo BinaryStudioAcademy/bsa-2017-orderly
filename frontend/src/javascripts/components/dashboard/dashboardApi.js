@@ -137,6 +137,11 @@ const updateKanban = (kanbanView) =>
 		.then((response) => response.data)
 		.catch(R.tap(console.error));
 
+const getMembersByBaseId = (baseId) =>
+	axios.get(url + '/team/' + baseId + '/members')
+		.then(response => response.data)
+		.catch(R.tap(console.error))
+
 export {
     getBase,
     getTablesByIds,
@@ -160,5 +165,6 @@ export {
     updateFilter,
 	getTableById,
 	updateKanban,
-    removeAllFilters
+    removeAllFilters,
+	getMembersByBaseId
 };

@@ -6,6 +6,7 @@ import { getTeamsByUser, getBasesByTeam, toggleTeamPopup,
 		getAllUsers, addCollaborator, deleteCollaborator,
 		updateCollaboratorRole} from './homePageActions';
 import { getCurrentUser } from '../userProfile/userProfileActions';
+import { saveCurrentTeamRoles } from '../dashboard/dashboardActions'
 
 
 const mapStateToProps = (state) => {
@@ -46,7 +47,8 @@ const mapDispatchToProps = {
 	getAllUsers: getAllUsers,
 	addCollaborator: addCollaborator,
 	deleteCollaborator: deleteCollaborator,
-	updateCollaboratorRole: updateCollaboratorRole
+	updateCollaboratorRole: updateCollaboratorRole,
+	saveCurrentTeamRoles: saveCurrentTeamRoles
 }
 
 const HomePage = connect(

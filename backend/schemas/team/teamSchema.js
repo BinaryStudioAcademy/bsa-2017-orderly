@@ -23,8 +23,7 @@ const teamSchema = new Schema({
                 type: String,
                 enum: [
                     "owner",
-                    "creator",
-                    "editOnly",
+                    "editor",
                     "readOnly"
                 ],
                 required: true
