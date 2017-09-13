@@ -41,6 +41,7 @@
 .wrapper__table {
   .table-cell.attachment {
     .attachment_cell {
+      z-index: 800;
       .attachment_selected {
         z-index: 999;
 
@@ -50,10 +51,11 @@
 
         input[type='file'] {
           z-index: 1002 !important;
+          border: 0px !important;
         }
 
-        .add_file_btn {
-          z-index: 1;
+        input[type="text"].add_file_btn {
+          z-index: 0;
         }
 
         .images_wrapper {
@@ -67,9 +69,11 @@
     }
   }
 }
+
 .attachment_cell {
   position: relative;
   padding-left: 30px;
+  outline: none;
 
   .attachment_selected {
     background-color: #fff;
@@ -77,12 +81,14 @@
     //z-index: 999;
     border: 2px solid #6495ed;
     padding: 5px;
-    border-radius: 5px;
-    top: -12px;
-    left: -8px;
+    //border-radius: 5px;
+    top: -15px;
+    left: -10px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    overflow: initial;
+    min-width: 155px;
 
     &:after {
       content: '+';
@@ -91,12 +97,9 @@
       font-size: 3rem;
       color: #8C8C8C;
       left: 13px;
-
     }
 
-    input[type='file'] {
-      //z-index: 1002 !important;
-    }
+    input[type=file] { width: 300px; border: 2px solid red; }
 
     .add_file_btn {
       position: relative;
@@ -107,7 +110,7 @@
       text-transform: none;
       text-shadow: none;
       outline: none;
-      font-size: 3rem;
+      font-size: 4px;
       border: none;
       border-radius: 5px;
       background-color: #cbcbcb;
@@ -116,7 +119,6 @@
       opacity: .8;
       margin-right: 10px;
       cursor: pointer;
-
     }
 
     .images_wrapper {
@@ -142,3 +144,6 @@
   }
 }
 
+.table-cell.attachment .table-cell-wrap .table-cell-inner {
+  overflow: initial;
+}

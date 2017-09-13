@@ -8,24 +8,14 @@ class LongText extends Field {
         super(props, 'long-text');
     }
 
-    renderSelectedField() {
-        return (
-            <div>
-                <div className="table-cell-inner">{this.props.value}</div>
-            </div>
-        );
-    }
-
     renderActiveField() {
         return (
-            <div>
-                <TextArea
-                    onBlur={(event) => this.props.onBlurComponent(this.props.id, event.target.value)}
-                    defaultValue={this.props.value}
-                    type='text'
-                    autoFocus={this.props.autoFocus}
-                />
-            </div>
+            <TextArea
+                onBlur={(event) => this.props.onBlurComponent(this.props.id, event.target.value)}
+                defaultValue={this.props.value}
+                type='text'
+                autoFocus={this.props.autoFocus}
+            />
         );
     }
 }
