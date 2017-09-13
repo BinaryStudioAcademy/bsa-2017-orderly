@@ -4,7 +4,8 @@ const initialState = {
     included: [],
     table: null,
     view: null,
-    record_data: []
+    record_data: [],
+    form: null
 
 };
 
@@ -18,16 +19,16 @@ export default function formReducer(state = initialState, action) {
     }
     case INCLUDE_ALL: {
         return {...state, included: [].concat(action.fieldIds)};
-    }
+    }   
     case EXCLUDE_ALL: {
         return {...state, included: []};
     }
     case BLUR_RECORD: {
         return {...state, record_data: state.record_data.concat({position: action.index, data: action.recordData})};
     }
-    // case 'CHANGE_FIELD_STATUS_SUCCEEDED': {
-    //     return {...state, included: []};
-    // }
+    case 'UPDATE_FORM_SUCCEEDED': { 
+        return {...state, form: action.form};
+    }
 
 
     case 'GET_CURRENT_TABLE_AND_VIEW_SUCCEEDED' : {
