@@ -13,11 +13,7 @@ class AutoNumber extends Field {
 	}
 
 	renderField() {
-        return (
-			<div className="table-cell-inner">
-				<span className='autonumber'>{this.props.recordIdx + 1}</span>
-			</div>
-        )
+        return this.props.recordIdx + 1;
 	}
 }
 

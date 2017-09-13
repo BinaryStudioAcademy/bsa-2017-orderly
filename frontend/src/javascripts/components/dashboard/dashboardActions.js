@@ -114,16 +114,18 @@ const changeRecord = (tableId, recordId, data, user) => {
     };
 };
 
-const blurRecord = (recordId) => {
+const blurRecord = (tableId, recordId) => {
     return {
         type: 'BLUR_RECORD',
+        tableId: tableId,
         recordId: recordId
     };
 };
 
-const blurRecordComponent = (recordId) => {
+const blurRecordComponent = (tableId, recordId) => {
     return {
         type: 'BLUR_RECORD_COMPONENT',
+        tableId: tableId,
         recordId: recordId
     };
 };
@@ -387,9 +389,10 @@ const mouseDownRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => 
     };
 };
 
-const mouseUpRecordItem = () => {
+const mouseUpRecordItem = (isRecordItemClicked) => {
     return {
-        type: 'MOUSE_UP_RECORD_ITEM'
+        type: 'MOUSE_UP_RECORD_ITEM',
+        isRecordItemClicked: isRecordItemClicked
     };
 };
 
