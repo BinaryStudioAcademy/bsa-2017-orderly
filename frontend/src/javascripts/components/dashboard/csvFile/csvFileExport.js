@@ -13,8 +13,8 @@ class ExportCSV extends Component {
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.tables && nextProps.tables[0].records) {
-            var lookup = {};
-            for (var i = 0, len = nextProps.tables.length; i < len; i++) {
+            let lookup = {};
+            for (let i = 0, len = nextProps.tables.length; i < len; i++) {
                 lookup[nextProps.tables[i]._id] = nextProps.tables[i];
             }
 
@@ -47,7 +47,7 @@ class ExportCSV extends Component {
             <div className='download-csv'>
                 <CSVLink filename={"my-file.csv"} data={this.state.csvRow} separator={";"}>
                     <Icon link name='download' size='large'/>
-                    <span>Export to CSV</span>
+                    <span className='item__span'>Export to CSV</span>
                 </CSVLink>
             </div>
         )

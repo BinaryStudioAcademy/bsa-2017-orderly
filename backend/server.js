@@ -10,8 +10,8 @@ const cors = require('cors');
 const port = 2020;
 
 app.use(morgan('combined'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json({limit: '5mb'}));
+app.use(bodyParser.urlencoded({extended: true, limit: '5mb'}));
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(passport.initialize());
 
@@ -29,6 +29,7 @@ app.use('/auth', require('./routes/auth/auth'));
 require('./routes/index')(router);
 app.use('/api', router);
 app.use('/files', require('./routes/uploadFiles/uploadFilesRoutes'));
+app.use('/formShare', require('./routes/view/formShareRoutes'));
 
 app.use((request, response) => {
     response.sendStatus(404);

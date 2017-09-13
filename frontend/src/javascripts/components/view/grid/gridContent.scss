@@ -1,28 +1,42 @@
 $cell-width: 155px;
 $cell-height: 33px;
 $icon-opacity: 0.6;
-$cell-border: 0.5px solid rgba(170, 170, 170, 0.5);
-$cell-border-top: 0.5px solid rgba(170, 170, 170, 0.5);
-$cell-border-left: 0.5px solid rgba(170, 170, 170, 0.15);
+$cell-border: 0.5px solid rgba(170, 170, 170, 0.15);
+$cell-border-top: 0.5px solid rgba(170, 170, 170, 0.15);
+$cell-border-left: 0.5px solid rgba(170, 170, 170, 0.1);
 $cell-padding: 0px;
 
 .wrapper__grid {
   display: inline-block;
   width: 100vw;
-  height: 73.3vh;
+  height: 80.2vh;
   overflow: auto;
   border-top: 2px solid rgba(170, 170, 170, 0.5);
+  background-color: #f5f5f5;
+}
+
+.grid__content {
+  display: flex;
 }
 
 .content__wrapper {
+  display: inline-table;
+}
+
+.wrapper__table {
   display: flex;
-  position: relative;
+  background-color: #ffffff!important;
+
+  .content__rows.row-options-field {
+    .rows__selector.rows__row {
+      background-color: #f5f5f5;
+    }
+  }
 }
 
 .content__body {
   display: flex;
   flex-direction: row;
-  border-bottom: $cell-border-top;
 }
 .content__body {
   .field__items.row-options-field {
@@ -31,16 +45,24 @@ $cell-padding: 0px;
       border-bottom: $cell-border-top;
     }
   }
-
 }
+
 .content__field {
   display: inline-block;
   border-left: $cell-border-left;
-  padding: 7px 5px 5px 5px;
+  //padding: 7px 5px 5px 5px;
+  padding-right: 5px;
   margin: 0;
   width: $cell-width;
   min-width: $cell-width;
   min-height: $cell-height;
+  background-color: #f5f5f5;
+}
+
+.content__field-title {
+  display: inline-block;
+  width: 83%;
+  padding: 7px 0 5px 5px;
 }
 
 .field__items {
@@ -50,6 +72,10 @@ $cell-padding: 0px;
 
 .content__body:last-child {
   border-right: $cell-border-top;
+}
+
+.body__fields {
+  border-right: $cell-border;
 }
 
 .field__item {
@@ -64,15 +90,35 @@ $cell-padding: 0px;
   text-overflow: ellipsis;
   position: relative;
 }
+
+.field__item.selectedList {
+  background-color: #f0f7ff;
+}
+
 .field__item.found {
   background-color: #f8ecce;
 }
+
 .field__item.foundCursor {
   background-color: #ffd66e;
 }
 
 .field__icon {
   opacity: $icon-opacity!important;
+  vertical-align: top;
+}
+
+.field__name {
+  display: inline-block;
+  height: 17px;
+  width: 98px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: default;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  white-space: pre;
 }
 
 .field__change-type {
@@ -100,22 +146,22 @@ $cell-padding: 0px;
   width: 75px;
   min-width: 75px;
   text-align: center;
+  padding: 7px;
   cursor: pointer;
-  border: $cell-border-top;
-  //border-left: 0;
-  border-top: 0;
+  border-right: $cell-border;
+  border-bottom: $cell-border;
   min-height: 33.5px;
-  //height: 33.5px;
+  height: 33.5px;
 }
 
 .item__add-record {
-  min-width: 0;
-  width: 38px;
-  padding-left: 7px;
+  width: 100%;
+  padding: 7px 0 0 9px;
   text-align: left;
   cursor: pointer;
-  border: $cell-border-top;
+  border: $cell-border;
   margin-bottom: 70px;
+  background-color: #ffffff;
 }
 
 .item__add-field:hover, .item__add-record:hover {

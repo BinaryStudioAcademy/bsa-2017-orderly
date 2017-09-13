@@ -1,5 +1,15 @@
+.filter__button {
+  padding: 0 !important;
+}
+
+.button__items {
+  padding: 10px 20px;
+}
+
 .filter__menu {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: baseline;
   max-width: 50rem;
   background-color: #FFF;
@@ -8,12 +18,36 @@
   padding: 5px 10px;
   z-index: 5;
   position: absolute;
-  top: 159px;
+  top: 120px;
   left: 275px;
+  cursor: default;
+}
+
+.filter__item {
+  display: flex;
+  width: 100%;
+}
+
+.item__filter-controls {
+  display: flex;
+  margin: auto 0;
 }
 
 .menu__item {
   margin: 5px;
+  opacity: 1 !important;
+}
+
+.item__where {
+  padding: 4px 0;
+}
+
+.item__conjunction {
+  padding: 4px 8px;
+}
+
+.item__select {
+  max-width: 150px;
 }
 
 .item__conditions {
@@ -24,6 +58,32 @@
   min-width: 100px;
   width: 100%;
 }
+
+.item__menu-controls {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.item__add-filter, .item__clear-filters {
+  display: flex;
+  //width: 100%;
+  padding: 5px;
+  border-radius: 4px;
+  text-align: left;
+  cursor: pointer;
+  font-weight: bold;
+  color: #666;
+}
+
+.item__add-filter:hover , .item__clear-filters{
+  color: #222;
+}
+
+.item__no-filters-label {
+  color: #999;
+}
+
 .hide {
   display: none;
 }

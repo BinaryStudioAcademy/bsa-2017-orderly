@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const GridSchema = new Schema({
     type: {
@@ -17,12 +18,27 @@ const GridSchema = new Schema({
         type: Number,
         required: true
     },
+    filters: {
+        conjunction: {
+            type: String,
+            enum: ['and', 'or'],
+            default: 'and',
+        },
+        filterSet: [
+            {
+                fieldId: ObjectId,
+                fieldIndex: Number,
+                condition: String,
+                value: String,
+            }
+        ]
+    },
     fields_config: [
         {
+            field: ObjectId,
             hidden: {
                 type: Boolean,
                 default: false,
-                required: true
             },
             size: {
                 type: Number,

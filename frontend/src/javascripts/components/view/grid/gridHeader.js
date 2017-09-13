@@ -10,19 +10,17 @@ import './gridHeader.scss';
 export default class GridHeader extends Component{
     constructor(props) {
         super(props);
-
-        this.state = {
-            activeMenu: null,
-        };
     }
 
-    toggleMenu = (menu) => {
-        if (this.state.activeMenu === menu) {
-            this.setState({activeMenu: null});
-        } else {
-            this.setState({activeMenu: menu});
-        }
-    };
+    componentDidMount() {
+        let _this = this;
+        window.addEventListener("keydown",function (e) {
+            if (e.keyCode === 114 || (e.ctrlKey && e.keyCode === 70)) {
+                e.preventDefault();
+                _this.props.onToggleSearch();
+            }
+        });
+    }
 
     render() {
         return (
@@ -35,38 +33,29 @@ export default class GridHeader extends Component{
                             <Icon name='hide'/>
                             <span className="menu__text">Hide fields</span>
                         </Button>
-                        <Button basic onClick={() => this.toggleMenu('filter')}>
-                            <Icon name='filter'/>
-                            <span className="menu__text">Filter</span>
-                        </Button>
+                        <FilterMenu
+                            currentTable={this.props.currentTable}
+                            currentViewType={this.props.currentViewType}
+                            filterRecords={this.props.filterRecords}
+                            removeFilter={this.props.removeFilter}
+                            addFilter={this.props.addFilter}
+                            updateFilter={this.props.updateFilter}
+                            removeAllFilters={this.props.removeAllFilters}
+                        />
                         <Button basic>
                             <Icon name='browser'/>
                             <span className="menu__text">Group</span>
                         </Button>
-                        <Button basic onClick={() => this.toggleMenu('sort')}>
-                            <Icon name='sort content ascending'/>
-                            <span className="menu__text">Sort</span>
-                        </Button>
+
                         <Button basic icon='external'/>
-                        <Button basic icon='ellipsis horizontal' onClick={() => this.toggleMenu('extra')}/>
+                        <ExtraMenu
+                            currentTableId={this.props.currentTable._id}
+                            tables={this.props.tables}
+                            deleteView={this.props.deleteView}
+                            viewsCount={this.props.viewsCount}
+                        />
                     </Button.Group>
                 </div>
-                <SortMenu
-                    isActive={this.state.activeMenu === 'sort'}
-                    currentTable={this.props.currentTable}
-                    sortRecords={this.props.sortRecords}
-                />
-                <FilterMenu
-                    isActive={this.state.activeMenu === 'filter'}
-                    currentTable={this.props.currentTable}
-                    filterRecords={this.props.filterRecords}
-                    removeFilter={this.props.removeFilter}
-                />
-                <ExtraMenu
-                    currentTableId={this.props.currentTable._id}
-                    tables={this.props.tables}
-                    isActive={this.state.activeMenu === 'extra'}
-                />
                 <div id="search-wrapper">
                     <span id="search-container">
                         {this.props.searchBlockOpen &&
@@ -87,3 +76,9 @@ export default class GridHeader extends Component{
         );
     }
 }
+/*
+                        <SortMenu
+                            currentTable={this.props.currentTable}
+                            sortRecords={this.props.sortRecords}
+                        />
+ */

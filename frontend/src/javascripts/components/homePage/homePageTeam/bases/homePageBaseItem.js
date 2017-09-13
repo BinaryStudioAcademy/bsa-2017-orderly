@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
+import R from 'ramda'
 import ContextMenuIcon from '../../../contextMenu/contextMenuIcon';
+import { createRolesObject } from '../../homePageService'
 import './homePageBaseItem.scss'
 
 class BaseItem extends Component {
@@ -9,6 +11,7 @@ class BaseItem extends Component {
     super(props);
   }
   render() {
+      const rolesObject = createRolesObject(R.path(['collaborators'], this.props.team))
     return (
       <div className='base-wrapper'>
         <div className='base-name-header'>
@@ -17,17 +20,22 @@ class BaseItem extends Component {
         <div className = 'one-base-wrapper' >
         <div className = 'one-base' style = {{backgroundColor: `${this.props.base.color}` }} > 
           <div className = 'one-base-icon'>
-            <Link to={`/dashboard/${this.props.base._id}/${this.props.base.tables[0]}`}>
-              <Icon inverted link  size='huge' name={this.props.base.icon} 
+              <Icon inverted link  size='huge'
+                    onClick={() => {
+                        browserHistory.push(`/dashboard/${this.props.base._id}/${this.props.base.tables[0]}`)
+	                    this.props.saveCurrentTeamRoles(R.mergeWith(R.merge, rolesObject, this.props.collaborators[this.props.teamId]))
+                    }}
+                    name={this.props.base.icon}
               />
-            </Link>
             </div>
             <div> 
               <div>
                 <ContextMenuIcon 
+                  teamNames={this.props.teamNames}
                   handleClick = {this.props.handleClick}
                   base = {this.props.base}
-                  menu={this.props.menu}             
+                  menu={this.props.menu}  
+                  teamId={this.props.teamId}           
                   />
               </div>
             </div>

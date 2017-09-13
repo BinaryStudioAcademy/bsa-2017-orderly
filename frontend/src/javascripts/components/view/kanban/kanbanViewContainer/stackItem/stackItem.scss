@@ -1,0 +1,45 @@
+.stack_item {
+  width: 32%;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-right: 15px;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  position: relative;
+  padding-bottom: 46px;
+
+  .stack_header {
+    padding-top: 15px;
+    padding-left: 23px;
+    height: 46px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .stack_records {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-width: 100%;
+    padding: 8px 20px;
+  }
+
+  .stack_footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    margin-left: -14px;
+    left: 50%;
+    bottom: 10px;
+  }
+}
+
+@media screen and (min-width: 1200px){
+  .stack_item {
+    width: 22%;
+  }
+}

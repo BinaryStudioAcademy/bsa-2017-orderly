@@ -2,7 +2,9 @@ import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable, deleteFile,
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
-    deleteFieldRecords, deleteRecord, filterRecords, uploadFile
+    deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView, deleteView,
+    removeFilter, addFilter, updateFilter, getTableById, updateKanban, removeAllFilters,
+	getMembersByBaseId
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -188,33 +190,132 @@ function* disconnectSocket() {
 function* filterTableRecords(action) {
     try {
         const filtered = yield call(filterRecords, action);
-        yield put({type: 'FILTER_TABLE_SUCCEEDED', table: filtered.data});
+        yield put({
+            type: 'FILTER_TABLE_SUCCEEDED',
+            table: filtered.data.table,
+            filteredRecords: filtered.data.filteredRecords
+        });
     } catch (err) {
         yield put({type: 'FILTER_TABLE_FAILED', message: err.message});
     }
 }
 
+function* addTableFilter(action) {
+    try {
+        const updatedFilters = yield call(addFilter, action);
+        yield put({
+            type: 'ADD_FILTER_SUCCEEDED',
+            table: updatedFilters.data.table,
+            filteredRecords: updatedFilters.data.filteredRecords
+        });
+    } catch (err) {
+        yield put({type: 'ADD_FILTER_FAILED', message: err.message});
+    }
+}
+
+function* updateTableFilter(action) {
+    try {
+        const updatedFilters = yield call(updateFilter, action);
+        yield put({
+            type: 'FILTER_TABLE_SUCCEEDED',
+            table: updatedFilters.data.table,
+            filteredRecords: updatedFilters.data.filteredRecords
+        });
+    } catch (err) {
+        yield put({type: 'FILTER_TABLE_FAILED', message: err.message});
+    }
+}
+
+function* removeTableFilter(action) {
+    try {
+        const updatedFilters = yield call(removeFilter, action);
+        yield put({
+            type: 'REMOVE_FILTER_SUCCEEDED',
+            table: updatedFilters.data.table,
+            filteredRecords: updatedFilters.data.filteredRecords
+        });
+    } catch (err) {
+        yield put({type: 'REMOVE_FILTER_FAILED', message: err.message});
+    }
+}
+
+function* removeAllTableFilters(action) {
+    try {
+        const updatedFilters = yield call(removeAllFilters, action);
+        yield put({
+            type: 'REMOVE_ALL_FILTERS_SUCCEEDED',
+            table: updatedFilters.data.table,
+            filteredRecords: updatedFilters.data.filteredRecords
+        });
+    } catch (err) {
+        yield put({type: 'REMOVE_ALL_FILTERS_FAILED', message: err.message});
+    }
+}
+
 function* uploadingFiles(action) {
-	try {
-		const changedTable = yield call(uploadFile, action);
-		yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable})
-	} catch (err) {
-		yield put({type: 'UPLOAD_FILES_FAILED', message: err.message})
-	}
+    try {
+        const changedTable = yield call(uploadFile, action);
+        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
+    } catch (err) {
+        yield put({type: 'UPLOAD_FILES_FAILED', message: err.message});
+    }
 }
 
 function* deletingFile(action) {
     try {
         const changedTable = yield call(deleteFile, action);
-        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable})
+        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
     } catch (err) {
-        yield put({type: 'DELETE_FILE_FAILED', message: err.message})
+        yield put({type: 'DELETE_FILE_FAILED', message: err.message});
+    }
+}
+
+function* addTableView(action) {
+    try {
+        const payload = {};
+        payload.tableId = action.tableId;
+        payload.viewType = action.viewType;
+        payload.table = yield call(addView, payload);
+        yield put({type: 'ADD_VIEW_SUCCEEDED', ...payload});
+    } catch (err) {
+        yield put({type: 'ADD_VIEW_FAILED', message: err.message});
+    }
+}
+
+function* deleteTableView(action) {
+    try {
+        const table = yield call(deleteView, action);
+        yield put({type: 'DELETE_VIEW_SUCCEEDED', table});
+    } catch (err) {
+        yield put({type: 'DELETE_VIEW_FAILED', message: err.message});
+    }
+}
+
+function* updatingKanban(action) {
+    try {
+        const kanban = yield call(updateKanban, action.kanban)
+        const changedTable = yield call(getTableById, action.tableId)
+	    yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable})
+
+    } catch (err) {
+        yield put({type: 'UPDATE_KANBAN_VIEW_FAILED', message: err.message})
+    }
+}
+
+function* gettingMembersByBaseId(action) {
+    try {
+        const members = yield call(getMembersByBaseId, action.baseId)
+	    yield put({type: 'GET_MEMBERS_BY_BASE_ID_SUCCESSED', members})
+    } catch (err) {
+        yield put({type: 'GET_MEMBERS_BY_BASE_ID_FAILED', message: err.message})
     }
 }
 
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
+    yield takeEvery('ADD_VIEW', addTableView);
+    yield takeEvery('DELETE_VIEW', deleteTableView);
     yield takeEvery('GET_BASE_SUCCEEDED', fetchTablesByBase);
     yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
     yield takeEvery('ADD_FIELD', addNewField);
@@ -233,9 +334,15 @@ function* dashboardSaga() {
     yield takeEvery('SET_ACTIVE_TAB', sendTableCoworker);
     yield takeEvery(['SWITCH_TABLE', 'SET_ACTIVE_TAB'], sendSwitchTableCoworker);
     yield takeEvery('DISCONNECT_SOCKET', disconnectSocket);
-    yield takeEvery('FILTER_RECORDS', filterTableRecords);
+    yield takeEvery('FILTER_TABLE', filterTableRecords);
+    yield takeEvery('ADD_FILTER', addTableFilter);
+    yield takeEvery('UPDATE_FILTER', updateTableFilter);
+    yield takeEvery('REMOVE_FILTER', removeTableFilter);
+    yield takeEvery('REMOVE_ALL_FILTERS', removeAllTableFilters);
     yield takeEvery('UPLOAD_FILES', uploadingFiles);
-    yield takeEvery('DELETE_FILE', deletingFile)
+    yield takeEvery('DELETE_FILE', deletingFile);
+    yield takeEvery('UPDATE_KANBAN_VIEW', updatingKanban)
+    yield takeEvery('GET_MEMBERS_BY_BASE_ID', gettingMembersByBaseId)
 }
 
 export default dashboardSaga;

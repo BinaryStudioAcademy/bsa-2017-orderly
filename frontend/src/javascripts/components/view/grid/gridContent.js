@@ -14,6 +14,8 @@ import Email from './fields/email/email';
 import Percent from './fields/percent/percent';
 import Phone from './fields/phone/phone';
 import Attachment from './fields/attachment/attachment';
+import MultipleSelect from './fields/multiple/multiple';
+import Checkbox from './fields/checkbox/checkbox';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
@@ -25,16 +27,25 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
     )
 };
 
-const Field = ({id, tableId, type, name, index, records, recordData, showFieldMenu,
-                   changeFieldType, changeFieldName, changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
-                   searchFoundIndex, uploadAttachment, deleteFile}) => {
+const Field = ({id, tableId, type, name, index, records, recordData, changeFieldType, changeFieldName,
+                   changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
+                   searchFoundIndex, uploadAttachment, deleteFile, onSetSelectFieldRecordItems,
+                   onAppendSelectFieldRecordItems, selectedRecordItemList}) => {
     return (
         <div className="field__items">
             <div className="content__field">
-                <Icon name={fieldIcons[type]} className="field__icon"/>
-                <span>{name}</span>
+                <span className="content__field-title"
+                    onClick={(event) => {
+                        if (event.shiftKey) {
+                            onAppendSelectFieldRecordItems(index, tableId)
+                        } else {
+                            onSetSelectFieldRecordItems(index, tableId)
+                        }}}
+                >
+                    <Icon name={fieldIcons[type]} className="field__icon"/>
+                    <span className="field__name">{name}</span>
+                </span>
                 <FieldMenu
-                    onClick={showFieldMenu}
                     id={id}
                     tableId={tableId}
                     name={name}
@@ -54,6 +65,8 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                                    id={record.record_data[index]._id}
                                    uploadAttachment={uploadAttachment}
                                    recordIdx={idx}
+                                   fieldIdx={index}
+                                   currentRecord={record.record_data[index]}
                                    type={type}
                                    data={record.record_data[index].data}
                                    recordData={recordData}
@@ -62,29 +75,34 @@ const Field = ({id, tableId, type, name, index, records, recordData, showFieldMe
                                    searchFoundIndex={searchFoundIndex}
                                    deleteFile={deleteFile}
                                    tableId={tableId}
-                                   />
+                                   selectedRecordItemList={selectedRecordItemList}/>
                 })}
             </div>
         </div>
     );
 };
 
-const RecordItem = ({id, type, data, recordData, recordIdx, currentField, searchMatchedRecordItemIdList, searchFoundIndex, uploadAttachment, tableId,
-	                    deleteFile}) => {
+const RecordItem = ({id, type, data, recordData, recordIdx, fieldIdx, currentField, searchMatchedRecordItemIdList,
+                     searchFoundIndex, uploadAttachment, tableId, deleteFile, currentRecord, selectedRecordItemList}) => {
     const fieldPayload = {
         id: id,
         value: data,
+        recordIdx: recordIdx,
+        fieldIdx: fieldIdx,
+        currentRecord: currentRecord,
         tableId: tableId,
         currentField: currentField,
-	    uploadAttachment: uploadAttachment,
-	    deleteFile: deleteFile,
+        uploadAttachment: uploadAttachment,
+        deleteFile: deleteFile,
         selected: recordData.isRecordSelected(id),
         active: recordData.isRecordActive(id),
-        onSelect: recordData.selectRecordHandler,
         onActivate: recordData.activateRecordHandler,
         onKeyPress: recordData.keyPressSimpleRecordHandler,
         onBlurField: recordData.blurRecordHandler,
         onBlurComponent: recordData.blurRecordComponentHandler,
+        onChangeCheckbox: recordData.changeCheckboxHandler,
+        onMouseDownRecordItem: recordData.mouseDownRecordItemHandler,
+        onMouseOverRecordItem: recordData.mouseOverRecordItemHandler,
         autoFocus: true
     };
     let record = null;
@@ -96,16 +114,15 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         case 'number':
             record = <Number {...fieldPayload}/>;
             break;
-
         case 'select':
             record = <SingleSelect {...fieldPayload}/>;
             break;
-
         case 'currency':
             record = <CurrencyField {...fieldPayload}/>;
             break;
         case 'autonumber':
-            record = <AutoNumber {...fieldPayload} recordIdx={recordIdx}/>;
+            const fieldPayloadAutonumber = {...fieldPayload, ...{onActivate: () => {}} };
+            record = <AutoNumber {...fieldPayloadAutonumber}/>;
             break;
         case 'url':
             record = <Url {...fieldPayload}/>;
@@ -122,14 +139,19 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         case 'percent':
             record = <Percent {...fieldPayload}/>;
             break;
-            
 	    case 'attachment':
 		    record = <Attachment {...fieldPayload}/>;
 		    break;
+        case 'multiple':
+            record = <MultipleSelect {...fieldPayload}/>;
+            break;
+        case 'checkbox':
+            const fieldPayloadCheckbox = {...fieldPayload, ...{onActivate: () => {}} };
+            record = <Checkbox {...fieldPayloadCheckbox}/>;
+            break;
 	    default:
             record = <TextLine {...fieldPayload}/>;
     }
-
 
     let recordClassName = '';
     if (searchMatchedRecordItemIdList && searchMatchedRecordItemIdList.indexOf(id) === searchFoundIndex) {
@@ -142,6 +164,14 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
         }
     }
 
+    let selectedRecordItemIdList =[];
+    for (let i=0; i < selectedRecordItemList.length; i++) {
+        selectedRecordItemIdList.push(selectedRecordItemList[i].id);
+    }
+    if (selectedRecordItemIdList && selectedRecordItemIdList.indexOf(id) !== -1) {
+        recordClassName += ' selectedList';
+    }
+
     return (
         <div className={recordClassName}>
             {record}
@@ -149,19 +179,32 @@ const RecordItem = ({id, type, data, recordData, recordIdx, currentField, search
     );
 };
 
-
 export default class GridContent extends Component {
     constructor(props) {
         super(props);
         this.props = props;
     }
 
+    componentDidMount() {
+        let _this = this;
+        window.addEventListener("keydown",function (e) {
+            if (e.ctrlKey && e.keyCode === 65) {
+                e.preventDefault();
+                _this.props.onSetSelectAllRecordItems(_this.props.currentTable._id);
+            }
+        });
+    }
+
     handleAddField = () => {
         this.props.addField(this.props.currentTable._id);
+        setTimeout(() => {
+            this.wrapperGrid.scrollLeft = this.wrapperGrid.scrollWidth;
+        }, 500);
     };
 
     handleAddRecord = () => {
         this.props.addRecord(this.props.currentTable._id);
+        this.wrapperGrid.scrollTop = this.wrapperGrid.scrollHeight;
     };
 
     handleDeleteRecord = (event, tableId, recordId) => {
@@ -172,13 +215,12 @@ export default class GridContent extends Component {
     render() {
         const records = this.props.filteredRecords || this.props.currentTable.records;
         return (
-            <div className="wrapper__grid">
+            <div className="wrapper__grid" ref={(div) => this.wrapperGrid = div}>
                 <div className="grid__content">
                     <div className="content__wrapper">
-                        <div className="content__rows row-options-field">
-                            <div className="rows__selector rows__row">
-                                <Icon name="lock"/>
-                            </div>
+                        <div className="wrapper__table">
+                            <div className="content__rows row-options-field">
+                            <div className="rows__selector rows__row"/>
                             {records.map((record, recordIndex) => {
                                 return <RowNum key={record._id}
                                                tableId={this.props.currentTable._id}
@@ -190,11 +232,13 @@ export default class GridContent extends Component {
 
                         <div className="content__body">
                             <div className="field__items row-options-field">
-                                <div className="content__field row-options-field"/>
+                                <div className="content__field row-options-field">
+                                    <Icon name="lock" className="row-options-field_lock-icon"/>
+                                </div>
                                 <div className="field__item row-options-field">
                                     {records.map((record, recordIndex) => {
                                         return (
-                                            <div className="row-control-container" key={record._id} >
+                                            <div className="row-control-container" key={record._id}>
                                                 <Button
                                                     className="record-dialog-btn"
                                                     onClick={(event) => this.props.onOpenRecordDialog(recordIndex)}>
@@ -213,13 +257,16 @@ export default class GridContent extends Component {
                                         onKeyPressComment={this.props.onKeyPressComment}
                                         user={this.props.user}
                                         tableId={this.props.currentTable._id}
+                                        uploadAttachment={this.props.uploadAttachment}
+                                        deleteFile={this.props.deleteFile}
+                                        recordIdx={this.props.recordDialogIndex}
                                     />
                                     }
                                 </div>
                             </div>
                         </div>
 
-                        <div className="content__body">
+                        <div className="content__body body__fields">
                             {this.props.currentTable.fields.map((field, fieldIndex) => {
                                 return <Field
                                     key={field._id}
@@ -241,15 +288,19 @@ export default class GridContent extends Component {
                                     deleteFile={this.props.deleteFile}
                                     searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                                     searchFoundIndex={this.props.searchFoundIndex}
+                                    onSetSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
+                                    onAppendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
+                                    selectedRecordItemList={this.props.selectedRecordItemList}
                                 />
-                            })}
+                            })}</div>
                         </div>
-
-                        <div className="content__field item__add-field" onClick={this.handleAddField}>
+                        <div className="content__field item__add-record"
+                             onClick={this.handleAddRecord}>
                             <Icon name="plus" className="field__icon"/>
                         </div>
                     </div>
-                    <div className="content__field item__add-record" onClick={this.handleAddRecord}>
+                    <div className="content__field item__add-field"
+                         onClick={this.handleAddField}>
                         <Icon name="plus" className="field__icon"/>
                     </div>
                 </div>

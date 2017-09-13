@@ -19,6 +19,8 @@ class HomePageContainer extends React.Component {
         <HomePageHeader user={this.props.user}/>
         <div className = 'home-page-body'>
           <HomePageTeamBlock teams={this.props.teams}
+                             teamNames={this.props.teamNames}
+                             tables={this.props.tables}
                              updateCollaboratorRole={this.props.updateCollaboratorRole}
                              deleteCollaborator={this.props.deleteCollaborator}
                              addCollaborator={this.props.addCollaborator}
@@ -41,6 +43,7 @@ class HomePageContainer extends React.Component {
                              toggleTeamPopup={this.props.toggleTeamPopup}
                              user={this.props.user}
                              menu={this.props.menu}
+                             saveCurrentTeamRoles={this.props.saveCurrentTeamRoles}
                              showMenu={this.props.showMenu}
           />
         </div>

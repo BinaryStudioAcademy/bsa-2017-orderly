@@ -90,9 +90,9 @@ export function addField(tableId) {
     };
 }
 
-const selectRecord = (recordId) => {
+const selectRecordItem = (recordId) => {
     return {
-        type: 'SELECT_RECORD',
+        type: 'SELECT_RECORD_ITEM',
         recordId: recordId
     };
 };
@@ -181,44 +181,98 @@ const toggleSearch = () => {
     };
 };
 
-export function changeView(viewId) {
+export function changeView(tableId, viewId) {
     return {
         type: 'CHANGE_VIEW',
+        tableId,
         viewId
+    };
+}
+
+export function addView(tableId, viewType) {
+    return {
+        type: 'ADD_VIEW',
+        tableId: tableId,
+        viewType: viewType,
+    };
+}
+
+export function deleteView(tableId, viewId, viewType) {
+    return {
+        type: 'DELETE_VIEW',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
     };
 }
 
 export function sortRecords(table, fieldId, sortOption) {
     return {
-        type: 'SORT_RECORDS',
+        type: 'SORT_TABLE',
         table: table,
         fieldId: fieldId,
         sortOption: sortOption
     };
 }
 
-export function filterRecords(tableId, fieldId, condition, filterQuery) {
+export function filterRecords(tableId, viewId) {
     return {
-        type: 'FILTER_RECORDS',
-        tableId : tableId,
+        type: 'FILTER_TABLE',
+        tableId: tableId,
+        viewId: viewId,
+    };
+}
+
+export function addFilter(tableId, viewId, viewType, fieldId, fieldIndex) {
+    return {
+        type: 'ADD_FILTER',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
         fieldId: fieldId,
+        fieldIndex: fieldIndex,
+    };
+}
+
+export function updateFilter(tableId, viewId, viewType, fieldId, fieldIndex, filterId, condition, filterQuery) {
+    return {
+        type: 'UPDATE_FILTER',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+        fieldId: fieldId,
+        fieldIndex: fieldIndex,
+        filterId: filterId,
         condition: condition,
         filterQuery: filterQuery,
     };
 }
 
-export function removeFilter() {
+export function removeFilter(tableId, viewId, viewType, filterId) {
     return {
-        type: 'REMOVE_FILTER'
+        type: 'REMOVE_FILTER',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+        filterId: filterId,
     };
 }
 
-export function changeFieldType(tableId, fieldType, fieldId) {
+export function removeAllFilters(tableId, viewId, viewType) {
+    return {
+        type: 'REMOVE_ALL_FILTERS',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+    };
+}
+
+export function changeFieldType(tableId, fieldId, fieldType) {
     return {
         type: 'CHANGE_FIELD_TYPE',
         tableId: tableId,
-        fieldType: fieldType,
-        fieldId: fieldId
+        fieldId: fieldId,
+        fieldType: fieldType
     };
 }
 export function changeFieldName(tableId, fieldId, fieldName) {
@@ -229,12 +283,13 @@ export function changeFieldName(tableId, fieldId, fieldName) {
         fieldName: fieldName,
     };
 }
-export function changeFieldOptions(tableId, fieldId, fieldOptions) {
+export function changeFieldOptions(tableId, fieldId, fieldOptions, value) {
     return {
         type: 'CHANGE_FIELD_OPTIONS',
         tableId: tableId,
         fieldId: fieldId,
-        fieldOption: fieldOptions
+        fieldOption: fieldOptions,
+        currentValue: value
     };
 }
 
@@ -274,6 +329,96 @@ const deleteFile = (typeOfFile, record_dataId, tableId, fileNamesStr) => {
     }
 }
 
+const setSelectFieldRecordItems= (fieldIndex, tableId) => {
+    return {
+        type: 'SET_SELECT_FIELD_RECORD_ITEMS',
+        fieldIndex: fieldIndex,
+        tableId: tableId
+    };
+};
+
+const appendSelectFieldRecordItems = (fieldIndex, tableId) => {
+    return {
+        type: 'APPEND_SELECT_FIELD_RECORD_ITEMS',
+        fieldIndex: fieldIndex,
+        tableId: tableId
+    };
+};
+
+const setSelectAllRecordItems = (tableId) => {
+    return {
+        type: 'SET_SELECT_ALL_RECORD_ITEMS',
+        tableId: tableId
+    };
+};
+
+const setSelectRecordItems = (firstSelectRecordItemId, lastSelectRecordItemId, tableId) => {
+    return {
+        type: 'SET_SELECT_RECORD_ITEMS',
+        firstSelectRecordItemId: firstSelectRecordItemId,
+        lastSelectRecordItemId: lastSelectRecordItemId,
+        tableId: tableId
+    };
+};
+
+const shiftKeyDown = () => {
+    return {
+        type: 'SHIFT_KEY_DOWN'
+    };
+};
+
+const shiftKeyUp = () => {
+    return {
+        type: 'SHIFT_KEY_UP'
+    };
+};
+
+const clearSelectedRecordItemList = () => {
+    return {
+        type: 'CLEAR_SELECTED_RECORD_ITEM_LIST'
+    };
+};
+
+const mouseDownRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => {
+    return {
+        type: 'MOUSE_DOWN_RECORD_ITEM',
+        tableId: tableId,
+        recordItemId: recordItemId,
+        recordIndex: recordIndex,
+        fieldIndex: fieldIndex
+    };
+};
+
+const mouseUpRecordItem = () => {
+    return {
+        type: 'MOUSE_UP_RECORD_ITEM'
+    };
+};
+
+const mouseOverRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => {
+    return {
+        type: 'MOUSE_OVER_RECORD_ITEM',
+        tableId: tableId,
+        recordItemId: recordItemId,
+        recordIndex: recordIndex,
+        fieldIndex: fieldIndex
+    };
+};
+
+const saveCurrentTeamRoles = (collaborators) => {
+    return {
+        type: 'SAVE_CURRENT_TEAM_ROLES',
+	    collaborators: collaborators
+    }
+}
+
+const getMembersByBaseId = (baseId) => {
+	return  {
+		type: 'GET_MEMBERS_BY_BASE_ID',
+		baseId: baseId
+	}
+}
+
 export {
     getBaseById,
     getTables,
@@ -289,7 +434,7 @@ export {
     setTableIdToActiveModal,
     updateTable,
     addRecord,
-    selectRecord,
+    selectRecordItem,
     activateRecord,
     changeRecord,
     blurRecord,
@@ -303,5 +448,17 @@ export {
     changeSearchFoundIndex,
     toggleSearch,
 	uploadAttachment,
-	deleteFile
+	deleteFile,
+    setSelectFieldRecordItems,
+    appendSelectFieldRecordItems,
+    setSelectAllRecordItems,
+    setSelectRecordItems,
+    shiftKeyDown,
+    shiftKeyUp,
+    clearSelectedRecordItemList,
+    mouseDownRecordItem,
+    mouseUpRecordItem,
+    mouseOverRecordItem,
+	saveCurrentTeamRoles,
+	getMembersByBaseId
 };

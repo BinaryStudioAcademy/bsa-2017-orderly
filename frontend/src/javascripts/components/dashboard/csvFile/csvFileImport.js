@@ -21,7 +21,7 @@ class ImportCSV extends Component {
         let newData = {};
         let fields = [];
         for (let field in fieldsData ) {
-          fields[field] = {"name": `${fieldsData[field]}`}
+          fields[field] = {"name": `${fieldsData[field]}`, "type":"text"}
         }
         data.splice(0, 1);
         let records = [];
@@ -34,7 +34,7 @@ class ImportCSV extends Component {
         }
         newData.fields = fields;
         newData.records = records;
-
+        console.log(newData)
         passJSON(newData, tableId);
         
       }
@@ -46,7 +46,7 @@ class ImportCSV extends Component {
       <div className='dropzone-wrapper'>
         <Dropzone className='dropzone' multiple={false} onDrop={this.onDrop.bind(this)}>
           <Icon link name='upload' size="large"/>
-            <span>Import from CSV</span>
+            <span className='item__span'>Import from CSV</span>
         </Dropzone>
       </div>
     );

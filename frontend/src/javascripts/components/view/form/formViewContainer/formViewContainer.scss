@@ -1,4 +1,13 @@
+.form-for-share{
+    padding: 50px 150px 100px 150px !important;
+    background-color: #fafafa;
+}
+.content-subheader-share-form{
+        text-align: center;
+        font-size: 20px; 
+    }
 .formContainer {
+
     position: absolute;
     width: 100%;
     height: 100%;
@@ -7,7 +16,6 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding: 24px 24px 48px 288px;
-    
     .form-wrapper {
         display: block;
         position: static;
@@ -100,7 +108,7 @@
             padding-bottom: 2rem;
             text-align: center;
         }
-        .form-inputs-list-item{
+        .attachment-item {
             margin: 0 auto; 
             position: relative;
             box-shadow: none;
@@ -109,6 +117,237 @@
             background: #fafafa;
             border-radius: 6px;
             padding: 15px;
+            .table-cell-wrap {
+            border:none;
+            }
+            
+        }
+        .attachment-item:hover{
+            background-color: #F0F0F0;
+        }
+        .long-text-item {
+            margin: 0 auto; 
+            position: relative;
+            box-shadow: none;
+            z-index: 0;
+            top: 0;
+            background: #fafafa;
+            border-radius: 6px;
+            padding: 15px;
+            height: 215px;
+            .table-cell-wrap {
+                border:2px solid rgba(0,0,0,0.1);
+                width:100%;
+            }
+            .long-text textarea{
+                width:100%;
+                border:none;
+            }
+            .table-cell.active {
+                    border: none;
+            }
+            .table-cell-wrap:hover{
+                    border: 2px solid rgba(77, 144, 254, 0.5);
+            }
+            .field__item{
+                width:100%;
+            }
+            .table-cell {width:100%}
+        }
+        .long-text-item:hover{
+            background-color: #F0F0F0;
+        }
+        .checkbox-item {
+            margin: 0 auto; 
+            position: relative;
+            box-shadow: none;
+            z-index: 0;
+            top: 0;
+            background: #fafafa;
+            border-radius: 6px;
+            padding: 15px;
+            .table-cell-wrap {
+                border:none;
+                width:100%;
+                background-color:transparent;
+                .checkbox-block{
+                    right: 20px;
+                }
+            }
+            .table-cell {
+                background-color:transparent;
+            }
+            
+            .table-cell.active {
+                border: none;
+                background-color:transparent;
+            }
+            .field__item{
+                width:100%;
+            }
+            .table-cell {width:100%}
+        }
+        .checkbox-item:hover{
+            background-color: #F0F0F0;
+        }
+
+        .form-inputs-list-item{
+            margin: 0 auto; 
+            position: relative;
+            box-shadow: none;
+            z-index: auto;
+            top: 0;
+            background: #fafafa;
+            border-radius: 6px;
+            padding: 15px;
+            .field__item{
+                width:100%;
+                box-sizing: border-box;
+                height: 40px;
+                border:none;
+                .table-cell {
+                    text-align: center;
+                    width:100%;
+                    heigth:100%;
+                }
+                .table-cell-wrap {
+                    display: inline-block;
+                    width:100%;
+                    margin: 0 auto;
+                    box-sizing: border-box;
+                    border: 2px solid rgba(0,0,0,0.1);
+                    text-align: center;
+                    height: 40px;
+                    background-color: white;
+                }
+                .table-cell-wrap:hover{
+                    border: 2px solid rgba(77, 144, 254, 0.5);
+                }
+                .table-cell-wrap input {
+                    padding: 10px;
+                    width:100%;
+                    height: 35px;
+                    border:none;
+                }
+                .table-cell.active {
+                    border: none;
+                }
+                .long-text.active {
+                    min-height: 150px;
+                }
+                .single-select-container {
+                  height: 36px;
+                  border-radius: none !important;
+
+                  .Select {
+                    height: 36px !important;
+                    border-radius: none !important;
+                  }
+                  .Select-control {
+                    height: 36px !important;
+                    position: relative;
+                    border: none !important;
+                    border-radius: none !important;
+
+                    .Select-multi-value-wrapper {
+                      width: 100%;
+                      height: 32px;
+                      display: block;
+                      position: absolute;
+                      top: 7px;
+
+                      .Select-input {
+                        width: 100%;
+                        height: 32px!important;
+                        display: block;
+
+                        input {
+                          width: 100% !important;
+                          height: 100%;
+                          display: block;
+                          padding: 0;
+                          border: none;
+                          outline: none;
+                        }
+                      }
+
+                      .Select-placeholder {
+                        top: -3px;
+                      }
+                    }
+
+                    .Select-arrow-zone {
+                      height: 32px!important;
+                      position: absolute;
+                      top: 5px;
+                      right: 0;
+                    }
+                  }
+
+                  .Select-value-label {
+                    width: 100%;
+                    display: block;
+                  }
+
+                  .Select-menu-outer{
+                    z-index: 1000000 !important;
+                  }
+                }
+
+                .multiple-select-container {
+                  height: 36px;
+                   border-radius: none !important;
+
+                  .Select {
+                    height: 36px !important;
+                  }
+                  .Select-control {
+                    height: 36px !important;
+                    position: relative;
+                    border: none;
+                    border-radius: none !important;
+
+                    .Select-multi-value-wrapper {
+                      width: 100%;
+                      height: 36px;
+                      display: block;
+                      position: absolute;
+                      top: 6px;
+                      .Select-value-label {
+                        width: inherit;
+                        height: inherit;
+                        display: inherit;
+                      }
+                      .Select-placeholder { 
+                        height: 32px;
+                      }
+
+                      .Select-input {
+                        input {
+                          width: 100% !important;
+                          height: 100%;
+                          display: block;
+                          padding: 0;
+                          border: none;
+                          outline: none;
+                        }
+                      }
+                    }
+
+                    .Select-arrow-zone {
+                      height: 32px!important;
+                      position: absolute;
+                      top: 12px;
+                      right: 0;
+                    }
+                  }
+                  .Select-value-label {
+                    width: 100%;
+                    height: 32px;
+                    display: block;
+                  }
+                }
+            }
         }
         .form-inputs-list-item:hover{
             background-color: #F0F0F0;
@@ -125,17 +364,13 @@
         .form-inputs-delete{
             float: right;
         }
-        .input-form{
-            width:100%;
-            box-sizing: border-box;
-            border: 2px solid rgba(0,0,0,0.1);
-            text-align: left;
-            padding: 9px;
-        }
         .submit-btn{
             width: 100%;
             text-align: center;
             margin-bottom: 15px;
         }
+    }
+.field__item{
+    border:none;
     }
 }

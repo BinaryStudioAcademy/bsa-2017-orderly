@@ -1,3 +1,11 @@
+.sort__button {
+  padding: 0 !important;
+}
+
+.button__items {
+  padding: 10px 20px;
+}
+
 .sort__menu {
   display: flex;
   align-items: baseline;
@@ -8,7 +16,7 @@
   padding: 5px 10px;
   z-index: 5;
   position: absolute;
-  top: 159px;
+  top: 120px;
   left: 470px;
 }
 

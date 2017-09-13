@@ -44,18 +44,21 @@ class ContextMenuIcon extends React.Component {
 
 render() {
     return(
-      <div ref="contextMenu"className = 'menu-icon-wrapp'>
+      <div ref="contextMenu" className = 'menu-icon-wrapp'>
         <div ref={node => { this.node = node }} >
          <div  className = 'setting' onClick={(event) => this.handleClickOnMenu(event)} > 
-          <Icon inverted link name='setting' size='large' color='black' 
+          <Icon inverted link name='setting' size='small' color='black' style={{fontSize: '18px'}}
             onClick={()=>this.props.handleClick(null, 'show', this.props.base._id)}
           />
         </div>
         </div>
         <div className ={this.props.menu === this.props.base._id && this.state.menuVisible? "menu-show-2" : "none"}>
           <ContextMenu 
+            tables={this.props.tables}
             handleClick = {this.props.handleClick} 
-            base = {this.props.base} 
+            base = {this.props.base}
+            teamId={this.props.teamId}
+            teamNames={this.props.teamNames}
             />
         </div>
       </div>

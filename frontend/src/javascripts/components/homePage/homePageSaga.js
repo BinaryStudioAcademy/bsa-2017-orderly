@@ -1,10 +1,10 @@
 import { call, put, takeEvery} from 'redux-saga/effects';
+import { getTablesByIds } from '../dashboard/dashboardApi';
 import R from 'ramda';
 import { addBaseToTeam, updateBaseById, updateTeam,
 		deleteBase, getTeamsByUserId, getBasesByTeam,
 		deleteTeam, addTeam, getCollaborators, getAllUsers,
-		addCollaborator, deleteCollaborator, updateCollaboratorRole} from './homePageApi';
-
+		addCollaborator, deleteCollaborator, updateCollaboratorRole, cloneBaseToTeam, addBaseToTeamSpreadSheet } from './homePageApi';
 
 function* gettingBasesByTeam(action) {
 	try {
@@ -23,6 +23,35 @@ function* addingBase(action) {
         yield put({ type: 'ADD_NEW_BASE_TO_TEAM_SUCCEEDED', team: team });
     } catch (err) {
         yield put({ type: 'ADD_NEW_BASE_TO_TEAM_FAILED', message: err.message});
+    }
+}
+
+
+function* cloneBase(action) {
+    try {
+        const payload = {};
+        payload.base = action.base;
+        payload.teamId = action.teamId;
+
+        let team = yield call(cloneBaseToTeam, payload);
+
+        yield put({ type: 'ADD_NEW_BASE_TO_TEAM_SUCCEEDED', team: team});
+    } catch (err) {
+        yield put({ type: 'CLONE_NEW_BASE_TO_TEAM_FAILED', message: err.message});
+    }
+}
+
+function* addingBaseFromSpreadsheet(action) {
+    try {
+    	const payload = {};
+    	payload.teamId = action.teamId;
+    	payload.table = Object.assign({}, action.table);
+    	payload.base = action.base;
+        const team = yield call(addBaseToTeamSpreadSheet, payload);
+        yield put({ type: 'ADD_NEW_BASE_TO_TEAM_SUCCEEDED', team: team });
+    } catch (err) {
+        yield put({ type: 'ADD_NEW_BASE_TO_TEAM_FAILED', message: err.message});
+
     }
 }
 
@@ -105,7 +134,8 @@ function* addingCollaborator(action) {
 		const addObject = {
 			teamId: action.teamId,
 			userId: action.userId,
-			role: action.role
+			role: action.role,
+			message: action.message
 		}
 		const team = yield call(addCollaborator, addObject)
 		yield put({ type: 'UPDATE_TEAM_SUCCEEDED', team: team })
@@ -160,6 +190,8 @@ function* homePageSaga() {
 	yield takeEvery('ADD_COLLABORATOR', addingCollaborator);
 	yield takeEvery('DELETE_COLLABORATOR', deletingCollaborators);
 	yield takeEvery('UPDATE_COLLABORATOR_ROLE', updatingCollaboratorRole);
+	yield takeEvery('CLONE_BASE', cloneBase);
+	yield takeEvery('CSV_PARSED_SPREADSHEET', addingBaseFromSpreadsheet);
 }
 
 export default homePageSaga;

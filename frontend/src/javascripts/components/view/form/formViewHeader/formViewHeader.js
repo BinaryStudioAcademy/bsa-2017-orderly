@@ -1,9 +1,16 @@
 import React, {Component} from 'react';
 import {Icon, Button} from 'semantic-ui-react';
 import {viewIcons} from '../../../configuration/viewTypes';
+import {browserHistory} from 'react-router';
+import ExtraMenu from './headerMenu/extraMenu';
 import './formViewHeader.scss';
 
 export default class FormViewHeader extends Component{
+
+    handlePreview = (viewId, viewType) => {
+        browserHistory.push(`/${this.props.currentTable._id}/${this.props.currentViewId}`)
+    }
+
     render() {
         return (
             <div className="formView__header">
@@ -18,9 +25,12 @@ export default class FormViewHeader extends Component{
                     </Button>
                     <Button basic>
                         <Icon name='eye'/>
-                        <span className="menu__text">Preview</span>
+                        <span className="menu__text" onClick={this.handlePreview}>Preview</span>
                     </Button>
-                    <Button basic icon='ellipsis horizontal'/>
+                    <ExtraMenu
+                        deleteView={this.props.deleteView}
+                        viewsCount={this.props.viewsCount}
+                    />
                 </Button.Group>
                 <Icon name="search" id="header__search" size='large'/>
             </div>

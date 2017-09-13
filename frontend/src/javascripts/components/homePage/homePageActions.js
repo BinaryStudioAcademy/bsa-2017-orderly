@@ -5,6 +5,16 @@ export const addNewBase = (teamId) => {
   }
 }
 
+export const cloneBase = (teamId, baseId, base) => {
+  return {
+    type: 'CLONE_BASE',
+    teamId: teamId,
+    baseId: baseId,
+    base: base,
+    tables: base.tables
+  }
+}
+
 export const getAllUsers = () => ({
 	type: 'GET_ALL_USERS',
 })
@@ -25,12 +35,13 @@ export const getCollaborators = (teamId, usersIds) => {
 	}
 }
 
-export const addCollaborator = (teamId, userId, role) => {
+export const addCollaborator = (teamId, userId, role, message) => {
 	return {
 		type: 'ADD_COLLABORATOR',
 		teamId: teamId,
 		userId: userId,
-		role: role
+		role: role,
+		message: message
 	}
 }
 

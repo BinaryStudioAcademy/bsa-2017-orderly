@@ -1,18 +1,20 @@
 
 .tabs_panel {
   padding: {
-    left: 20px;
-    right: 20px;
+    left: 30px;
+    right: 65px;
   }
+  height: 36px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  user-select: none;
 
   .btn_block {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    align-self: flex-end;
 
     .tabs_block {
       margin-bottom: 3px;
@@ -30,7 +32,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin-bottom: 5px;
+    //margin-bottom: 5px;
 
 
     .header-icon {

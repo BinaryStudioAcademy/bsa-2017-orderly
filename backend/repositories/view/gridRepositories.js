@@ -21,7 +21,6 @@ class GridRepository extends Repository {
                 config.size = gridFieldData.size || config.size;
                 config.position = gridFieldData.position || config.position;
                 config.hidden = gridFieldData.hidden || config.hidden;
-                console.log(view);
                 return view.save();
             });
     }
@@ -30,6 +29,10 @@ class GridRepository extends Repository {
         return this.model.findByIdAndUpdate(viewId,
             {'$pull': {'fields_config': {_id: fieldId}}},
             {'new': true});
+    }
+    getByIds(ids) {
+        return this.model.find({'_id': {$in: ids}})
+            .populate('views.view');
     }
 
 }

@@ -3,7 +3,7 @@ import R from 'ramda';
 import { connect } from 'react-redux';
 import TeamList from '../teams/teamList';
 import { addNewBase, changeBaseParam,
-		showContextMenu, deleteBase } from '../../homePageActions';
+		showContextMenu, deleteBase, cloneBase } from '../../homePageActions';
 import '../teams/teamList.scss'
 
 class HomePageTeamBlock extends Component {
@@ -47,9 +47,12 @@ class HomePageTeamBlock extends Component {
 					          toggleTeamPopup={this.props.toggleTeamPopup}
 					          teamPopupIsShow={this.props.teamPopupIsShow}
 					          onNewBaseClick={this.props.onNewBaseClick}
+					          saveCurrentTeamRoles={this.props.saveCurrentTeamRoles}
 							  user={this.props.user}
 					          menu={this.props.menu}
-					          teams={this.props.teams}/>
+					          teams={this.props.teams}
+					          teamNames={this.props.teamNames}
+					          />
 				</div>
 			</div>
 		)
@@ -58,11 +61,13 @@ class HomePageTeamBlock extends Component {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		handleClick: (value, type, _id) => {
+		handleClick: (value, type, _id, base) => {
 			if (type === 'show') {
 				dispatch(showContextMenu(value, type, _id))
 			} else if (type === 'delete') {
 				dispatch(deleteBase(value, type, _id))
+			} else if (type === 'clone') {
+				dispatch(cloneBase(value, _id, base))
 			} else {
 				dispatch(changeBaseParam(value, type, _id))
 			}
