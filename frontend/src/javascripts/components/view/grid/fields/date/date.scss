@@ -1,13 +1,7 @@
 .date
   .table-cell-inner{
-  //padding: 0;
+  padding: 5px;
 }
-.date-input-wrapper {
-  input {
-    padding: 6px 8px;
-  }
-}
-
 .date-input-wrapper
 .form-control {
     overflow: hidden;
@@ -20,9 +14,8 @@
     color: rgba(0,0,0,.87);
     transition: box-shadow .1s ease,border-color .1s ease;
     box-shadow: none;
-    //padding: 6px;
+    padding: 6px;
     color: rgba(0,0,0,.87);
-    outline: none;
 }
 .rdt {
   position: relative;
