@@ -96,9 +96,9 @@ const mapDispatchToProps = {
     mouseDownRecordItem: mouseDownRecordItem,
     mouseUpRecordItem: mouseUpRecordItem,
     mouseOverRecordItem: mouseOverRecordItem,
-	updateKanbanView: updateKanbanView,
+    updateKanbanView: updateKanbanView,
     removeAllFilters: removeAllFilters,
-	getMembersByBaseId: getMembersByBaseId
+    getMembersByBaseId: getMembersByBaseId
 };
 
 const Dashboard = connect(

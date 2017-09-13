@@ -244,7 +244,6 @@ class TableRepository extends Repository {
     }
 
     pushClonedViewsToTable(viewType, tableId, views) {
-        console.log(viewType)
         let newViews = []
         for ( let view in views[0]) {
             newViews[view] = {view: views[0][view]._id, type: viewType}
