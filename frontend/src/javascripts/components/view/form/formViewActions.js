@@ -7,6 +7,9 @@ export const BLUR_RECORD = 'BLUR_RECORD';
 export const UPDATE_TABLE_BY_FORM_DATA = 'UPDATE_TABLE_BY_FORM_DATA';
 export const CHANGE_FORM_NAME = 'CHANGE_FORM_NAME';
 export const CHANGE_FORM_DESCRIPTION = 'CHANGE_FORM_DESCRIPTION';
+export const UPLOAD_FILES = 'UPLOAD_FILES';
+export const DELETE_FILE = 'DELETE_FILE';
+
 
 export function updateableByFormData(tableId, table) {
     return {
@@ -14,6 +17,26 @@ export function updateableByFormData(tableId, table) {
         tableId: tableId,
         table: table
     };
+}
+
+export function uploadAttachment (data, typeOfFile, record_dataId, tableId) {
+    return {
+        type: UPLOAD_FILES,
+        data: data,
+        typeOfFile: typeOfFile,
+        record_dataId: record_dataId,
+        tableId: tableId
+    }
+}
+
+export function deleteFile (typeOfFile, record_dataId, tableId, fileNamesStr) {
+    return {
+        type: DELETE_FILE,
+        typeOfFile: typeOfFile,
+        record_dataId: record_dataId,
+        tableId: tableId,
+        fileNamesStr: fileNamesStr
+    }
 }
 
 export function updateFormName(name, tableId, viewId) {

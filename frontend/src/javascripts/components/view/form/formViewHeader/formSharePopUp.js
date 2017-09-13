@@ -6,12 +6,13 @@ export default class PopupShareForm extends Component{
     constructor(props) {
         super(props);
         this.state={
-            value:`http://localhost:3000/${this.props.tableId}/${this.props.viewId}`,
+            value:`${window.location.hostname}:${window.location.port}/${this.props.tableId}/${this.props.viewId}`,
             copied: false
         }
     }
 
     render() {
+      console.log()
         return (
           <Popup size ="small" wide
             trigger={<Button basic>
