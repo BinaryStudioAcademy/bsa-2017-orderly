@@ -25,10 +25,21 @@ const disconnect = () => {
     return socket.disconnect();
 };
 
+
+const tableAddSuccess = (callback) => {
+	socket.on('table:add:success', table => {
+		console.log(table, '<------ from socket')
+		callback(table)
+	})
+}
+
+
+
 export {
     emitTableCoworker,
     emitSwitchTableCoworker,
     onGetCoworkersList,
     connect,
-    disconnect
+    disconnect,
+	tableAddSuccess
 };
