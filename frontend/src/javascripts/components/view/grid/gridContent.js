@@ -101,8 +101,8 @@ const RecordItem = ({id, type, data, recordData, recordIdx, fieldIdx, currentFie
         onBlurField: recordData.blurRecordHandler,
         onBlurComponent: recordData.blurRecordComponentHandler,
         onChangeCheckbox: recordData.changeCheckboxHandler,
-        // onMouseDownRecordItem: recordData.mouseDownRecordItemHandler,
-        // onMouseOverRecordItem: recordData.mouseOverRecordItemHandler,
+        onMouseDownRecordItem: recordData.mouseDownRecordItemHandler,
+        onMouseOverRecordItem: recordData.mouseOverRecordItemHandler,
         autoFocus: true
     };
     let record = null;

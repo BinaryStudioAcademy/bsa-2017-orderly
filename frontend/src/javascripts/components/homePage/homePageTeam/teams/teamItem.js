@@ -9,7 +9,6 @@ let tempKey = 0;
 const TeamItem = (team, menu, handleClick, onNewBaseClick, toggleTeamPopup, teamPopupIsShow,
                   setTeamModal, activeModal, updateTeam, deleteTeam, getCollaborators,
                   collaborators, showUserPopup, isShowUserPopup, activeShareModal, changeActiveShareModal,
-                  allUsers, getAllUsers, addCollaborator, deleteCollaborator, updateCollaboratorRole, teamNames) => {
                   allUsers, getAllUsers, addCollaborator, deleteCollaborator, updateCollaboratorRole,
                   saveCurrentTeamRoles, teamNames) => {
 	return <div className='team-item relative' key={team._id || ++tempKey}>
