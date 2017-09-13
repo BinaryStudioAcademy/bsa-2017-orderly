@@ -20,6 +20,7 @@ class ContainerForShare extends Component {
             curentInd: '',
             formName: '',
             formDescr: '',
+            checked: false,
             uploadAttachment: () => {},
             deleteFile: () => {},
         }
@@ -70,6 +71,7 @@ class ContainerForShare extends Component {
         let sentTable = {...newTable, records: newTable.records.concat(newRecord)};
         this.props.updateableByFormData(this.state.table._id, sentTable)
     }
+    
     render() {
         const recordData = {
             isRecordSelected: () => {},

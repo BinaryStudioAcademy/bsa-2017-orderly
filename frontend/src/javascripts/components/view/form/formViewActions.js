@@ -19,6 +19,16 @@ export function updateableByFormData(tableId, table) {
     };
 }
 
+export function changeRecord (tableId, recordId, data, user) {
+    return {
+        type: 'CHANGE_RECORD',
+        tableId: tableId,
+        recordId: recordId,
+        data: data,
+        user: user
+    };
+};
+
 export function uploadAttachment (data, typeOfFile, record_dataId, tableId) {
     return {
         type: UPLOAD_FILES,
