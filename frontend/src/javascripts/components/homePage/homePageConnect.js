@@ -10,6 +10,7 @@ import { saveCurrentTeamRoles } from '../dashboard/dashboardActions'
 
 
 const mapStateToProps = (state) => {
+
 let teamNames = [];
 for (let team in state.baseStore.teams) {
 teamNames.push({

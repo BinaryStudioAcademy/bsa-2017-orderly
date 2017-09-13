@@ -74,8 +74,7 @@ router.post('/:teamId/baseClone', (req, res) => {
     baseService.baseCopy(req.body.base)
     .then((base) => teamRepository.addBaseToTeam(req.body.teamId, base._id))
     .then((team) => res.status(200).send(team))
-    .catch(err => {console.log(err)})
-    //.catch((err) => res.status(500).send(err))
+    .catch((err) => res.status(500).send(err))
 });
 
 router.post('/:teamId/spreadsheet', (req, res) => Promise.all(
