@@ -13,10 +13,10 @@
 
   .url_link {
     background-color: #fff;
-    //position: absolute;
+    position: absolute;
     display: block;
-    //margin-top: 7px;
-    //margin-left: 9px;
+    margin-top: 7px;
+    margin-left: 9px;
     color: #4183c4;
 
     &:hover {
@@ -32,17 +32,16 @@
 .url {
   .table-cell-wrap {
     .table-cell-inner {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 4px 10px;
+      height: 100%;
+      width: 100%;
+      line-height: 24px;
+
       &:focus {
         outline: none;
       }
     }
-  }
-}
-.table-cell.url {
-  input {
-    width: 100%;
-    height: 100%;
-    border: none!important;
-    padding: 5px 8px!important;
   }
 }

@@ -1,5 +1,12 @@
-.percent-input{
-    width: 100%;
+.table-cell-inner {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 4px 10px;
     height: 100%;
-    padding: 6px 8px;
+    width: 100%;
+    line-height: 24px;
+}
+.percent-input{
+    width: 150px;
+    height: 100%;
 }

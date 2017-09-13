@@ -9,9 +9,9 @@
 .long-text {
   textarea {
     width: 100%;
-    height: 144px;
+    height: 146px;
     outline: none;
-    border: 0px solid #6495ed;
+    border: 2px solid #6495ed;
     border-radius: 1px;
     //z-index: 10;
   }
@@ -19,7 +19,6 @@
 
 .long-text.selected {
   height: 65px;
-  padding: 2px 0;
 }
 
 .long-text.active {
@@ -31,6 +30,7 @@
     .table-cell-inner {
       -webkit-line-clamp: 2 !important;
       -webkit-box-orient: vertical !important;
+      overflow: hidden;
       white-space: pre-wrap;
     }
   }
@@ -44,11 +44,15 @@
 
 .long-text {
   .table-cell-wrap {
-    .table-cell-inner.default-cell {
+    .table-cell-inner {
+      padding: 4px 10px;
+      height: 100%;
       display: -webkit-box !important;
       -webkit-line-clamp: 1 !important;
       -webkit-box-orient: vertical !important;
+      overflow: hidden;
       white-space: pre-wrap;
+      line-height: 24px;
     }
   }
 }

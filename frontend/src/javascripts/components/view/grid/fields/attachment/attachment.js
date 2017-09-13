@@ -34,7 +34,6 @@ class Attachment extends Field {
 	}
 
 	handleFile = (event) => {
-        //this.props.onMouseDownRecordItem(event, this.props.id, this.props.recordIdx, this.props.fieldIdx);
 		const file = event.target.files[0];
 		let type;
 		if (R.test(/^image/, file.type)) type = 'image';
@@ -49,13 +48,15 @@ class Attachment extends Field {
 
 	renderField() {
 		return (
-			<div className='attachment_default'>
-				<div className='preview_wrapper'>
-					{R.map(fileName => <div key={++tempKey * 34}
-											style={bgImage(`http://localhost:2020/files/attachment/${this.props.id}/image/${fileName}`)}
-											className='image_icon'/>)(R.reject(R.isEmpty)(this.props.value.split(',')) || [])}
-				</div>
+			<div className="table-cell-inner">
+				<div className='attachment_default'>
+					<div className='preview_wrapper'>
+						{R.map(fileName => <div key={++tempKey * 34}
+												style={bgImage(`http://localhost:2020/files/attachment/${this.props.id}/image/${fileName}`)}
+												className='image_icon'/>)(R.reject(R.isEmpty)(this.props.value.split(',')) || [])}
+					</div>
 
+				</div>
 			</div>
 		)
 	}
@@ -69,13 +70,13 @@ class Attachment extends Field {
 	}
 
 	renderSelectedField() {
-		return this.renderActiveField()
+		return this.renderField()
 	}
 
 	renderActiveField() {
 		return (			
-			<div className='attachment_cell' tabIndex="0">
-				<div className="attachment_selected" onMouseUp={(event) => this.props.onMouseDownRecordItem(event, this.props.id, this.props.recordIdx, this.props.fieldIdx)}>
+			<div className='attachment_cell' >
+				<div className="attachment_selected" >
 					<FileInput name="attachment"
 							   accept="image/*"
 							   onChange={this.handleFile}
@@ -119,7 +120,7 @@ class Attachment extends Field {
 						</Button>
 					</Modal.Actions>
 				</Modal>
-			</div>
+			</div>			
 		)
 	}
 }

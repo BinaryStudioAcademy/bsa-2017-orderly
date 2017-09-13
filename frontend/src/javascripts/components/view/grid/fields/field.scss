@@ -37,33 +37,7 @@ $table-cell-width: 155px;
 
 .table-cell.selected .table-cell-wrap .table-cell-inner,
 .table-cell.active .table-cell-wrap .table-cell-inner {
-  outline: none;
-}
-
-.table-cell-inner.default-cell,
-.selected .table-cell-inner {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 4px 10px;
-  height: 100%;
-  width: 100%;
-  line-height: 24px;
-}
-
-.selected .table-cell-inner {
   padding: 2px 8px;
-}
-
-.active .table-cell-inner {
-  overflow: initial;
-  text-overflow: initial;
-  line-height: initial;
-  padding: 0;
-
-  input {
-    border: 0;
-    outline: none;
-  }
 }
 
 .table-cell .table-cell-wrap {

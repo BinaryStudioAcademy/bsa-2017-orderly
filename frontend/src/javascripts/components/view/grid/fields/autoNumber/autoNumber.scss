@@ -1,7 +1,4 @@
-.autonumber .table-cell-inner {
-  padding-right: 15px;
-  text-align: right;
-}
-.autonumber.selected .table-cell-inner {
-  padding-right: 13px;
+.autonumber span {
+  padding: 5px;
+  float: right;
 }
