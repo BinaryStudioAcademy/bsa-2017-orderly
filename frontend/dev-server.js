@@ -46,4 +46,4 @@ app.listen(port, host, (err) => {
     log('🚧  App is listening at http://%s:%s', host, port);
 });
 
-server.keepAliveTimeout = 60000 * 2;
+app.keepAliveTimeout = 60000 * 2;
