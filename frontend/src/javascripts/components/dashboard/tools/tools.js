@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Header from './header/header';
 import Tabs from './tabs/tabs';
 import View from '../../view/view';
-import R from 'ramda';
+;
 import {onGetCoworkersList} from '../../../app/socket';
 import { getRoleByUserId } from '../dashboardService'
 
