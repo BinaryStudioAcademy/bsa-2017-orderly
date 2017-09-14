@@ -14,6 +14,7 @@ import Logout from '../components/auth/logout/logout';
 import Forgot from '../components/auth/forgot/forgot';
 import Reset from '../components/auth/reset/reset';
 import Auth from '../components/auth/auth';
+import API from '../config';
 
 export default (
     <Route path="/" component={App}>
@@ -33,7 +34,7 @@ export default (
 
 // Axios config
 (function() {
-    axios.defaults.baseURL = 'http://localhost:2020';
+    axios.defaults.baseURL = API.host;
 
     const token = Auth.getToken();
     if (token) {

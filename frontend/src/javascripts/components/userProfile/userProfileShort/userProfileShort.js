@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Image } from 'semantic-ui-react';
 import avatar from '../../../../images/avatar.png';
+import API from '../../../config';
 
 class userProfileShort extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class userProfileShort extends Component {
                 {this.props.showAvatar &&
                 <Image  src={
                     this.state.avatar != '' ?
-                        `http://localhost:2020/files/${this.props.user.avatar}`
+                        `${API.host}/files/${this.props.user.avatar}`
                         : avatar}
                         avatar
                 />}

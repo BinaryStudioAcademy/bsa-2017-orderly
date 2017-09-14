@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image } from 'semantic-ui-react';
 import avatar from '../../../../images/avatar.png';
 import FileInput from 'react-file-input';
+import API from '../../../config';
 
 class UserProfilePhoto extends Component {
 constructor(props) {
@@ -43,7 +44,7 @@ constructor(props) {
       <div className='user-profile-photo-wrapper'>
         <div className='user-profile-photo'>
           <Image src={ this.state.avatar != '' ? 
-                        `http://localhost:2020/files/${this.props.user.avatar}` 
+                        `${API.host}/files/${this.props.user.avatar}`
                         : avatar}
                 size='medium' bordered/>
         </div>
