@@ -8,10 +8,10 @@ class MultipleSelect  extends Field {
         super(props, 'multiple');
         let options = [];
         let propsOptions=this.props.currentField.options.multiple;
-
+        let i = 0;
         for (let option in propsOptions) {
         options.push({
-                value: option++,
+                value: i++,
                 label: propsOptions[option],
             })
         }
@@ -55,9 +55,11 @@ class MultipleSelect  extends Field {
     componentWillReceiveProps(nextProps) {
         let options = [];
         let propsOptions=this.props.currentField.options.multiple;
+        let i = 0;
         for (let option in propsOptions) {
+            //debugger
         options.push({
-                value: option++, 
+                value: i++, 
                 label: propsOptions[option],
             })
         }
