@@ -1,5 +1,5 @@
 import React from 'react'
-import R from 'ramda'
+
 
 import RecordCell from './recordCell/recordCell'
 import './recordItem.scss'

@@ -1,5 +1,5 @@
 import React from 'react';
-import R from 'ramda'
+
 import Coworker from './coworker'
 
 const Coworkers = ({ coworkers, currentUser, members}) => {

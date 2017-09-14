@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Icon } from 'semantic-ui-react'
-import R from 'ramda'
+
 
 import StackItem from './stackItem/stackItem'
 import './kanbanViewContainer.scss'

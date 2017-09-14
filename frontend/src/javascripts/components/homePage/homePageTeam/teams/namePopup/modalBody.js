@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Input } from 'semantic-ui-react';
-import R from 'ramda';
+;
 
 let renameInput = '';
 
