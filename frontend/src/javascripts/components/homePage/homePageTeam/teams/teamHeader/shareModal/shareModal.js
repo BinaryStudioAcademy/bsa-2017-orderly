@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Modal, Input, Dropdown, Button, Icon, Search } from 'semantic-ui-react';
-import R from 'ramda';
+;
 import { testEmail } from '../../../../../../utils/utils'
 
 import MemberInfo from '../../memberInfo/memberInfo';

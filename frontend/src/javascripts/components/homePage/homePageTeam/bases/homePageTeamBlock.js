@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import R from 'ramda';
+;
 import { connect } from 'react-redux';
 import TeamList from '../teams/teamList';
 import { addNewBase, changeBaseParam,

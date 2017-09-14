@@ -1,7 +1,7 @@
 import React from 'react';
 import FileInput from 'react-file-input';
 import { Image, Modal, Button, Icon } from 'semantic-ui-react';
-import R from 'ramda';
+;
 
 import Field from '../field';
 import './attachment.scss';

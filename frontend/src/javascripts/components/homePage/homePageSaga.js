@@ -1,6 +1,6 @@
 import { call, put, takeEvery} from 'redux-saga/effects';
 import { getTablesByIds } from '../dashboard/dashboardApi';
-import R from 'ramda';
+;
 import { addBaseToTeam, updateBaseById, updateTeam,
 		deleteBase, getTeamsByUserId, getBasesByTeam,
 		deleteTeam, addTeam, getCollaborators, getAllUsers,

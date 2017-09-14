@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Input, Checkbox } from 'semantic-ui-react';
-import R from 'ramda';
+;
 import { debounce } from 'throttle-debounce';
 
 let renameInput;

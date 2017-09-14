@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 import { browserHistory } from 'react-router';
-import R from 'ramda';
+;
 
 import { setName } from '../../../../../dashboardService';
 import { ModalBody, renameInput, descriptionInput, isRecordCopy } from './modalContent';

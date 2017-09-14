@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import R from 'ramda'
+
 import './userProfile.scss';
 import { Link } from 'react-router';
 import { Icon, Image } from 'semantic-ui-react';
