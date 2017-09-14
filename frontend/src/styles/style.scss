@@ -2,3 +2,9 @@ body {
   background: #f1f1f1;
   padding-top: 30px;
 }
+.relative {
+  position: relative;
+}
+.modal.team_modal, .modal.table_modal, .modal.share_modal, .modal.stack_modal {
+  padding-bottom: 0;
+}

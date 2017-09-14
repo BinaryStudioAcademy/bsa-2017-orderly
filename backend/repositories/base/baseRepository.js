@@ -8,12 +8,26 @@ class BaseRepository extends Repository {
         this.model = Base;
     }
 
+    remove(id) {
+        return this.model.findByIdAndRemove(id);
+    }
+
     addTableToBase(baseId, tableId) {
         return this.model.findByIdAndUpdate(
             baseId,
             {'$push': {tables: tableId}},
             {'new': true}
         );
+    }
+    addTablesToBase(baseId, tables) {
+        let newTables = []
+        for ( let table in tables) {
+            newTables[table] = tables[table]._id
+        }
+        return this.model.findByIdAndUpdate(
+            baseId,
+            {tables: newTables}
+        )
     }
 }
 

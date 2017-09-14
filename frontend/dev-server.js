@@ -11,8 +11,9 @@ const compiler = webpack(config);
 
 compiler.apply(new DashboardPlugin());
 
-const host = process.env.HOST || 'localhost';
-const port = process.env.PORT || 3000;
+const host = '0.0.0.0';
+//const port = process.env.PORT || 5555;
+const port = 5555;
 
 function log() {
     arguments[0] = '\nWebpack: ' + arguments[0];
@@ -44,3 +45,5 @@ app.listen(port, host, (err) => {
 
     log('🚧  App is listening at http://%s:%s', host, port);
 });
+
+server.keepAliveTimeout = 60000 * 2;

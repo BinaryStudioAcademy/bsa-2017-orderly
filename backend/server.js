@@ -6,11 +6,12 @@ const app = express();
 const router = express.Router();
 const passport = require('passport');
 const favicon = require('serve-favicon');
+const cors = require('cors');
 const port = 2020;
 
 app.use(morgan('combined'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json({limit: '5mb'}));
+app.use(bodyParser.urlencoded({extended: true, limit: '5mb'}));
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(passport.initialize());
 
@@ -19,7 +20,6 @@ const localLoginStrategy = require('./passport/localLogin');
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 
-const cors = require('cors');
 app.use(cors());
 
 const authCheckMiddleware = require('./middleware/authCheck');
@@ -28,6 +28,8 @@ app.use('/auth', require('./routes/auth/auth'));
 
 require('./routes/index')(router);
 app.use('/api', router);
+app.use('/files', require('./routes/uploadFiles/uploadFilesRoutes'));
+app.use('/formShare', require('./routes/view/formShareRoutes'));
 
 app.use((request, response) => {
     response.sendStatus(404);
@@ -42,8 +44,11 @@ app.use((error, request, response) => {
     response.send();
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log('Server is started on localhost:2020');
 });
+
+const io = require('socket.io').listen(server);
+const coworkers = require("./socketModules/coworkersSocket")(io);
 
 module.exports = app;

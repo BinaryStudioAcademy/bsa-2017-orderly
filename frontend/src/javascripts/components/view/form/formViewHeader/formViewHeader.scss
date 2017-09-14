@@ -1,0 +1,45 @@
+.formView__header {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #EEE;
+}
+
+#header__caret {
+  margin: 0 10px 0 20px;
+}
+
+#view-type__icon {
+  display: inline;
+}
+
+#view-type__name {
+  white-space: nowrap;
+}
+
+#header__search {
+  position: fixed;
+  right: 0;
+  margin-right: 20px;
+  padding-bottom: 25px;
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 650px) {
+  .menu__text {
+    display: none;
+  }
+}
+.form-share-popup-wrapper{
+  padding: 10px;
+  .form-share-header{
+    margin-bottom: 10px;
+  }
+  .form-share-text{
+    margin-bottom: 10px;
+  }
+  .form-share-btn{
+    margin-top: 15px;
+    text-align: center;
+  }
+}

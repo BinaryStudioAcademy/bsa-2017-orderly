@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, Modal } from 'semantic-ui-react';
+import { Link } from 'react-router';
 import './date.js' 
 
 class UserProfileForm extends Component {
@@ -21,14 +22,14 @@ class UserProfileForm extends Component {
 
   componentWillReceiveProps(nextProps) {
       this.setState({ 
-        firstName: nextProps.user.firstName, 
-        lastName: nextProps.user.lastName,
-        gender: nextProps.user.gender,
-        birthday: new Date(Date.parse(nextProps.user.birthday)).customFormat( "#YYYY#-#MM#-#DD#" ),
-        country: nextProps.user.country,
-        city: nextProps.user.city,
-        address: nextProps.user.address,
-        phone: nextProps.user.phone
+        firstName: nextProps.user.firstName ? nextProps.user.firstName : '', 
+        lastName: nextProps.user.lastName ? nextProps.user.lastName : '',
+        gender: nextProps.user.gender ? nextProps.user.gender : '' ,
+        birthday: nextProps.user.birthday ? new Date(Date.parse(nextProps.user.birthday)).customFormat( "#YYYY#-#MM#-#DD#" ) : '',
+        country: nextProps.user.country ? nextProps.user.country : '',
+        city: nextProps.user.city ? nextProps.user.city : '',
+        address: nextProps.user.address ? nextProps.user.address : '',
+        phone: nextProps.user.phone ? nextProps.user.phone : ''
     });
   }
 
@@ -106,7 +107,15 @@ render() {
           </div>
         </div>
         <div className='user-profile-submit-btn'>
-            <Button type='submit'>Update Data</Button>
+              <Modal trigger={<Button type='submit'>Update Data</Button>} size ='tiny' closeIcon>
+                <Modal.Content>
+                  <div className='content-import-spreadsheet'>
+                      <div className='content-subheader-share-form'>Your data has been successfully updated!</div>
+                      <div className='thank-you'>Thank you! </div>
+                      <div className='content-import-btn'><Link to={'/'}><Button color='blue'>Go to Orderly Home Page</Button></Link></div>
+                  </div>
+                </Modal.Content>
+              </Modal>
         </div>
       </form> 
     </div>

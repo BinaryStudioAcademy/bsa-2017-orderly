@@ -1,0 +1,56 @@
+.collaboration_item {
+  position: relative;
+
+  .collaborator_logo {
+    width: 28px !important;
+    height: auto !important;
+  }
+
+  .logo_user_status {
+    position: absolute;
+    height: 9px;
+    width: 9px;
+    right: 4px;
+    bottom: -2px;
+    border: 1px solid white;
+    border-radius: 20px;
+  }
+
+  .user_info_popup {
+    position: absolute;
+    min-width: 200px;
+    left: -170px;
+    top: -100px;
+    border: 2px solid #eee;
+    border-radius: 5px;
+    z-index: 10;
+
+
+    .popup_footer {
+      background-color: #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 10px;
+
+      .footer_status {
+        position: relative;
+        margin-left: 10px;
+        font-size: 12px;
+
+        .user_status {
+          position: absolute;
+          height: 7px;
+          width: 7px;
+          top: 7px;
+          left: -13px;
+          border-radius: 20px;
+        }
+      }
+      .footer_role {
+        text-transform: capitalize;
+        font-size: 12px;
+      }
+    }
+  }
+}

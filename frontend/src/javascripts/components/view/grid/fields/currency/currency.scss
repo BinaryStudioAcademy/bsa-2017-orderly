@@ -1,0 +1,19 @@
+.currency-input{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    height: 100%;
+    line-height: 24px;
+    margin: 0;
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    //border: 1px solid rgba(34,36,38,.15);
+    color: rgba(0,0,0,.87);
+    transition: box-shadow .1s ease,border-color .1s ease;
+    box-shadow: none;
+    //padding: .67857143em 1em;
+    outline: none;
+    border: none;
+    padding: 5px 8px;
+        overflow: hidden;
+    text-overflow: ellipsis;
+}
