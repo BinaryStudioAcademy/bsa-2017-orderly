@@ -18,9 +18,13 @@ export default class PopupHideColumn extends Component{
 
         let propsOptions=[];
         let propsIds=[];
+        let i = 0
         for (let item in fields) {
-            propsOptions[item] = fields[item].name
-            propsIds[item] = fields[item]._id
+            if (fields[item].display == true) { 
+                propsOptions[i] = fields[item].name
+                propsIds[i] = fields[item]._id
+                i += 1;
+            }
         }
 
         let options = [];
@@ -52,9 +56,13 @@ export default class PopupHideColumn extends Component{
         }
         let propsOptions=[];
         let propsIds=[];
+        let i = 0
         for (let item in fields) {
-            propsOptions[item] = fields[item].name
-            propsIds[item] = fields[item]._id
+            if (fields[item].display == true) {   
+                propsOptions[i] = fields[item].name
+                propsIds[i] = fields[item]._id
+                i += 1;
+            }
         }
 
         let options = [];
