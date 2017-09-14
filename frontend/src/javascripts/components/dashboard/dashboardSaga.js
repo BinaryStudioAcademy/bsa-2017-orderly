@@ -4,7 +4,7 @@ import {
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
     deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView, deleteView,
     removeFilter, addFilter, updateFilter, getTableById, updateKanban, removeAllFilters,
-	getMembersByBaseId
+	getMembersByBaseId, getTableView,
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -204,8 +204,6 @@ function* filterTableRecords(action) {
 function* addTableFilter(action) {
     try {
         const updatedFilters = yield call(addFilter, action);
-        console.log('UPDATED SAGA');
-        console.log(updatedFilters);
         yield put({
             type: 'ADD_FILTER_SUCCEEDED',
             table: updatedFilters.data,
@@ -310,6 +308,19 @@ function* gettingMembersByBaseId(action) {
     }
 }
 
+function* changeTableView(action) {
+    try {
+        const payload = {};
+        payload.tableId = action.tableId;
+        payload.viewId = action.viewId;
+        payload.viewType = action.viewType;
+        payload.table = yield call(getTableView, payload);
+        yield put({type: 'CHANGE_VIEW_SUCCEEDED', payload});
+    } catch (err) {
+        yield put({type: 'CHANGE_VIEW_FAILED', message: err});
+    }
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -331,6 +342,7 @@ function* dashboardSaga() {
     yield takeEvery('DELETE_FIELD', removeField);
     yield takeEvery('DELETE_RECORD', removeRecord);
     yield takeEvery('SET_ACTIVE_TAB', sendTableCoworker);
+    yield takeEvery('CHANGE_VIEW', changeTableView);
     yield takeEvery(['SWITCH_TABLE', 'SET_ACTIVE_TAB'], sendSwitchTableCoworker);
     yield takeEvery('DISCONNECT_SOCKET', disconnectSocket);
     yield takeEvery('FILTER_TABLE', filterTableRecords);

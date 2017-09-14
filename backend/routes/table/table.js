@@ -98,7 +98,7 @@ router.put('/:id/records', (request, response) => {
         .then((result) => {
             console.log('IN ROUTERS');
             console.log(result);
-            return response.status(200).send(result.table)
+            return response.status(200).send(result)
         })
         .catch((err) => response.status(500).send(err));
 });
@@ -173,8 +173,8 @@ router.get('/:id/views/', (request, response) => {
 });
 
 router.get('/:id/views/:viewId/:viewType', (request, response) => {
-    tableRepository.getFromView(request.params.viewId, request.params.viewType)
-        .then((tables) => response.status(200).send(tables))
+    tableRepository.getById(request.params.id, request.params.viewId)
+        .then((table) => response.status(200).send(table))
         .catch((error) => response.status(500).send(error));
 });
 

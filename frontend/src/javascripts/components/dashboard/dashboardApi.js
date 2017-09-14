@@ -40,13 +40,10 @@ const addFieldsToTable = ({tableId, currentViewId}) => {
             type: 'text',
         },
         currentViewId: currentViewId,
-    }).then(() => {
-        console.log('IN PUT RECORDS');
-        return axios.put(url + '/tables/' + tableId + '/records/', {
-            data: {data: '', currentView: currentViewId}
-        });
-    })
-        .then((table) => {console.log('FINAL DASH API ADD FIELD-----------'); console.log(table); return table.data})
+    }).then(() => axios.put(url + '/tables/' + tableId + '/records/',
+            {data: {data: '', currentView: currentViewId}}
+        ))
+        .then((table) => table.data)
         .catch(R.tap(console.error));
 };
 
@@ -135,6 +132,12 @@ const addView = ({tableId, viewType}) => {
         .catch(R.tap(console.error));
 };
 
+const getTableView = ({tableId, viewId, viewType}) => {
+    return axios.get(url + '/tables/' + tableId + '/views/' + viewId + '/' + viewType)
+        .then((response) => response.data)
+        .catch(R.tap(console.error));
+};
+
 const deleteView = ({tableId, viewId, viewType}) => {
     return axios.delete(url + '/tables/' + tableId + '/views/' + viewId + '/' + viewType)
         .then((response) => response.data)
@@ -175,5 +178,6 @@ export {
 	getTableById,
 	updateKanban,
     removeAllFilters,
-	getMembersByBaseId
+	getMembersByBaseId,
+    getTableView,
 };

@@ -180,11 +180,12 @@ const toggleSearch = () => {
     };
 };
 
-export function changeView(tableId, viewId) {
+export function changeView(tableId, viewId, viewType) {
     return {
         type: 'CHANGE_VIEW',
         tableId,
-        viewId
+        viewId,
+        viewType,
     };
 }
 

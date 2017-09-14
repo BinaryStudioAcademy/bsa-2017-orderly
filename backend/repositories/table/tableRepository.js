@@ -15,11 +15,7 @@ class TableRepository extends Repository {
         this.model = Table;
     }
 
-    getById(id, currentViewId=0) {
-        console.log('IN GET_BY_ID ========================')
-        console.log(id);
-        console.log(currentViewId);
-        console.log('@!_#_!@#_!@#!@#)!@#)!@)#)!@#))!@#))!@#)!@#');
+    getById(id, currentViewId) {
         return this.model.findById(id)
             .populate('records.history.collaborator')
             .populate('records.comments.collaborator')
@@ -97,13 +93,8 @@ class TableRepository extends Repository {
     }
 
     updateRecords(tableId, data, currentView) {
-        console.log('UPDATE RECORDS!@#*!@*#*!@#*');
-        console.log({data: data});
-        console.log(currentView);
         return this.model.findById(tableId)
             .then((table) => {
-                console.log('GET TABLE')
-                console.log(table)
                 for (let record of table.records) {
                     record.record_data.push({data: data});
                 }
@@ -144,8 +135,6 @@ class TableRepository extends Repository {
                     return v.save();
                 }));
             }
-            console.log('END OF ADD');
-            console.log(table);
             return Promise.all(updatedViews).then(() => {
                 return table.save().then(() => this.getById(tableId, currentView));
             });
@@ -199,8 +188,6 @@ class TableRepository extends Repository {
 
     deleteField(tableId, fieldId, currentView) {
         return this.model.findById(tableId).then((table) => {
-            console.log('in DELETE');
-            console.log(table);
             const deleteAt = table.fields.indexOf(table.fields.find((f) => f._id.toString() === fieldId));
             table.fields.splice(deleteAt, 1);
             table.records.forEach((record) => record.record_data.splice(deleteAt, 1));
@@ -212,7 +199,6 @@ class TableRepository extends Repository {
                     return v.save();
                 }));
             }
-            console.log('END DELETE');
             return Promise.all(updatedViews).then(() => {
                 return table.save().then(() => this.getById(tableId, currentView));
             });
@@ -254,7 +240,6 @@ class TableRepository extends Repository {
                             view.fields_config.push({field: f._id, position: ind + 1, included: false});
                             break;
                         case 'kanban':
-                            console.log('IN KANBAN CASE');
                             view.fields_config.push({field: f._id});
                             break;
                         }
@@ -321,16 +306,6 @@ class TableRepository extends Repository {
         });
     }
 
-    performFilter(tableId, viewId, tableObject) {
-        // Check if method receive prepared table (with populated views) for filtering
-        if (tableObject) {
-            return TableRepository.filterRecords(tableObject, viewId);
-        }
-        return this.getById(tableId).then((table) => {
-            return TableRepository.filterRecords(table, viewId);
-        });
-    }
-
     removeFilter(tableId, viewId, viewType, filterId) {
         return this.getFromView(viewId, viewType).then((view) => {
             view.filters.filterSet = view.filters.filterSet.filter((f) => f._id.toString() !== filterId);
@@ -379,8 +354,8 @@ class TableRepository extends Repository {
     }
 
     static filterRecords(table, viewId) {
-        console.log('BEGIN FILTER-----------------------------------------------------------');
         const view = table.views.find((v) => v.view._id.toString() === viewId.toString());
+        if (view.type !== 'grid') return table; // filter only applicable for grid view, for now...
         let filteredRecords;
         for (let filterItem of view.view.filters.filterSet){
             const index = table.fields.findIndex((f) => f._id.toString() === filterItem.fieldId.toString());
@@ -412,7 +387,6 @@ class TableRepository extends Repository {
             }
         }
         const tableWithFilter = Object.assign({}, table.toObject(), {filteredRecords: filteredRecords});
-        console.log('END OF FILTER');
         return tableWithFilter;
     }
 

@@ -115,10 +115,11 @@ function dashboardReducer(state = initState, action) {
             {
                 tables: R.map((table) => {
                     if (table._id === action.payload.tableId) {
-                        let obj = R.omit(['fields', 'records', 'views'], table);
+                        let obj = R.omit(['fields', 'records', 'views', 'fillteredRecords'], table);
                         obj.fields = action.payload.table.fields;
                         obj.records = action.payload.table.records;
                         obj.views = action.payload.table.views;
+                        obj.filteredRecords = action.payload.table.filteredRecords;
                         return obj;
                     } else {
                         return table;
@@ -429,15 +430,16 @@ function dashboardReducer(state = initState, action) {
         return{...state, ...{searchMatchedRecordItemIdList: [], searchFoundIndex: '', searchBlockOpen: !state.searchBlockOpen}};
     }
 
-    case 'CHANGE_VIEW': {
+    case 'CHANGE_VIEW_SUCCEEDED': {
         return R.mergeAll([
             R.omit(['tables'], state),
             {
                 tables: R.map((table) => {
-                    if (table._id === action.tableId) {
-                        let obj = R.dissoc('currentView', table);
-                        obj.currentView = action.viewId;
-                        return obj;
+                    if (table._id === action.payload.tableId) {
+                        let newTable = R.omit(['currentView', 'filteredRecords'], table);
+                        newTable.currentView = action.payload.viewId;
+                        newTable.filteredRecords = action.payload.table.filteredRecords;
+                        return newTable;
                     } else {
                         return table;
                     }
