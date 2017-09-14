@@ -1,7 +1,8 @@
 import axios from 'axios';
 import R from 'ramda';
+import AppConfig from '../../config';
 
-const url = 'http://localhost:2020/api';
+const url = `${AppConfig.host}/api`;
 
 const addBaseToTeam = (teamId) =>
 	axios.post(url + '/team/' + teamId + '/base')
@@ -36,7 +37,7 @@ const getTeamsByUserId = (_id) =>
 const getBasesByTeam = (teamId) =>
 	axios.get(url + '/team/' + teamId + '/base')
 		.then((response) => response.data)
-		.catch(R.tap(console.error))
+		.catch(R.tap(console.error));
 
 const getCollaborators = (usersIds) =>
 	axios.get(url + '/user/ids/' + usersIds.join(':'))
