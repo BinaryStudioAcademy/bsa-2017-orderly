@@ -154,7 +154,7 @@ class ShareModal extends Component {
 						<h4>Team members</h4>
 						{R.map(user => {
 							if (!R.isEmpty(props.collaborators)) {
-								const collaborator = props.collaborators[props.team._id][user.userId]
+								const collaborator = R.path([props.team._id, user.userId], props.collaborators)
 								return (
 									<div key={user.userId} className='member_wrapper'>
 										<MemberInfo collaborator={collaborator} />
