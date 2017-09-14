@@ -29,6 +29,7 @@ app.use('/auth', require('./routes/auth/auth'));
 require('./routes/index')(router);
 app.use('/api', router);
 app.use('/files', require('./routes/uploadFiles/uploadFilesRoutes'));
+app.use('/formShare', require('./routes/view/formShareRoutes'));
 
 app.use((request, response) => {
     response.sendStatus(404);

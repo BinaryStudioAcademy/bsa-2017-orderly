@@ -11,6 +11,10 @@ class Field extends Component {
         this.keyPressHandler = this.keyPressHandler.bind(this);
     }
 
+    fieldDefaultCellClass() {
+        return (this.props.selected || this.props.active) ? '' : ' default-cell';
+    }
+
     fieldSelectedClass() {
         return this.props.selected ? ' selected' : '';
     }
@@ -20,7 +24,7 @@ class Field extends Component {
     }
 
     renderField() {
-        return <div className="table-cell-inner">{this.props.value}</div>;
+        return this.props.value;
     }
 
     renderSelectedField() {
@@ -38,19 +42,25 @@ class Field extends Component {
     }
 
     render() {
+        let content = '';
+        if (this.props.active) {
+            content = this.renderActiveField();
+        } else if (!this.props.active && this.props.selected) {
+            content = this.renderSelectedField();
+        } else if (!this.props.active && !this.props.selected) {
+            content = this.renderField();
+        }
         return (
-            <div
-                className={"table-cell " + this.className + this.fieldSelectedClass() + this.fieldActiveClass()}
-                onKeyPress={(event) => this.keyPressHandler(this.props.id, event)}
-                onBlur={() => this.props.onBlurField(this.props.id)}
-                onMouseDown={(event) => this.props.onMouseDownRecordItem(event, this.props.id, this.props.recordIdx, this.props.fieldIdx)}
-                onMouseOver={() => this.props.onMouseOverRecordItem(this.props.id, this.props.recordIdx, this.props.fieldIdx)}
-                tabIndex="0"
-            >
+
+            <div className={"table-cell " + this.className + this.fieldSelectedClass() + this.fieldActiveClass()}>
                 <div className="table-cell-wrap" onDoubleClick={(event) => this.props.onActivate(this.props.id)}>
-                    {this.props.active && this.renderActiveField()}
-                    {!this.props.active && this.props.selected && this.renderSelectedField()}
-                    {!this.props.active && !this.props.selected && this.renderField()}
+                    <div className={"table-cell-inner " + this.fieldDefaultCellClass()}
+                         onKeyPress={(event) => this.keyPressHandler(this.props.id, event)}
+                         onBlur={() => this.props.onBlurField(this.props.id)}
+                         onMouseDown={(event) => this.props.onMouseDownRecordItem(event, this.props.id, this.props.recordIdx, this.props.fieldIdx)}
+                         onMouseOver={(event) => this.props.onMouseOverRecordItem(event, this.props.id, this.props.recordIdx, this.props.fieldIdx)}
+                         tabIndex="0"
+                    >{content}</div>
                 </div>
             </div>
         );

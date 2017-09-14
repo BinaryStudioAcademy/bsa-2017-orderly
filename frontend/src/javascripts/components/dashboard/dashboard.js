@@ -8,7 +8,7 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
     addView, deleteView, addFilter, updateFilter, setSelectFieldRecordItems, appendSelectFieldRecordItems, setSelectAllRecordItems,
     setSelectRecordItems, shiftKeyDown, shiftKeyUp, clearSelectedRecordItemList, mouseDownRecordItem,
-    mouseUpRecordItem, mouseOverRecordItem, removeAllFilters,
+    mouseUpRecordItem, mouseOverRecordItem, removeAllFilters, getMembersByBaseId
 } from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
@@ -38,7 +38,8 @@ const mapStateToProps = (state, ownProps) => {
         filteredRecords: state.dashboardReducer.filteredRecords,
         selectedRecordItemList: state.dashboardReducer.selectedRecordItemList,
         isShiftKeyPressed: state.dashboardReducer.isShiftKeyPressed,
-        isMouseDownPressed: state.dashboardReducer.isMouseDownPressed
+        isMouseDownPressed: state.dashboardReducer.isMouseDownPressed,
+        members: state.dashboardReducer.members
     });
 };
 
@@ -95,8 +96,9 @@ const mapDispatchToProps = {
     mouseDownRecordItem: mouseDownRecordItem,
     mouseUpRecordItem: mouseUpRecordItem,
     mouseOverRecordItem: mouseOverRecordItem,
-	updateKanbanView: updateKanbanView,
+    updateKanbanView: updateKanbanView,
     removeAllFilters: removeAllFilters,
+    getMembersByBaseId: getMembersByBaseId
 };
 
 const Dashboard = connect(

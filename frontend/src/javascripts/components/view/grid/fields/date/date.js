@@ -2,7 +2,6 @@ import React from 'react';
 import Field from '../field';
 import { Input } from 'semantic-ui-react';
 import Datetime from 'react-datetime';
-import moment from 'moment';
 import './date.scss';
 import '../../../../userProfile/userProfileComponents/date.js';
 
@@ -25,18 +24,18 @@ class DateField extends Field {
         });
     }
 
-    handleChange(event){
-        this.setState({date: new Date(Date.parse(event._d)).customFormat(`${this.state.format} ${this.state.time}`)});
-    }
 
-    renderActiveField() {  
-     console.log(this.props.value)     
+    renderActiveField() {   
         return(
         <div className="date-input-wrapper"> 
             <Datetime
                 value={this.state.date}
                 timeFormat={this.state.showTime}
-                onChangeEvent={this.handleChange.bind(this)}       
+                onChangeEvent={(event)=>{
+                    if (event._d) {
+                        this.setState({date: new Date(Date.parse(event._d)).customFormat(`${this.state.format} ${this.state.time}`)})
+                    }
+                }}       
                 onBlur={(event) => {this.props.onBlurComponent(this.props.id, event._d?new Date(Date.parse(event._d)).customFormat(`${this.state.format} ${this.state.time}`):'')}}   
                 autoFocus={true}
             />

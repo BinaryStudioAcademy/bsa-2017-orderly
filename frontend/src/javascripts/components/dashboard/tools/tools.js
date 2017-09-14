@@ -4,6 +4,7 @@ import Tabs from './tabs/tabs';
 import View from '../../view/view';
 import R from 'ramda';
 import {onGetCoworkersList} from '../../../app/socket';
+import { getRoleByUserId } from '../dashboardService'
 
 class Tools extends Component {
     constructor(props) {
@@ -20,11 +21,21 @@ class Tools extends Component {
         this.changeCheckboxHandler = this.changeCheckboxHandler.bind(this);
         this.mouseDownRecordItemHandler = this.mouseDownRecordItemHandler.bind(this);
         this.mouseOverRecordItemHandler = this.mouseOverRecordItemHandler.bind(this);
+
+        this.state = {
+            currentUserRole: ''
+        }
     }
 
     componentWillMount() {
         this.props.getBaseCurrent(this.props.baseId, this.props.currentTableId);
         this.props.getUser();
+        this.props.getMembersByBaseId(this.props.baseId)
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+		    this.setState({currentUserRole: getRoleByUserId(R.path(['_id'], nextProps.user), nextProps.members)})
     }
 
     componentDidMount() {
@@ -33,7 +44,9 @@ class Tools extends Component {
             _this.props.getCoworkersList(coworkersByTables, _this.props.currentTableId);
         });
 
-        this.context.router.listenBefore((location, done) => {
+
+
+	    this.context.router.listenBefore((location, done) => {
             if (!location.pathname.startsWith('/dashboard/' + _this.props.baseId + '/')) {
                 _this.props.disconnectSocket();
             }
@@ -57,9 +70,23 @@ class Tools extends Component {
         });
 
         window.addEventListener("mouseup", (event) => {
-            event.preventDefault();
-            _this.props.mouseUpRecordItem();
+            const isRecordItemClicked = this.hasParentClass(event.target, ['table-cell-inner', 'modals']);
+            _this.props.mouseUpRecordItem(isRecordItemClicked);
         });
+    }
+
+    hasParentClass(element, classNameList) {
+        do {
+            if (element.classList) {
+                for (let i = 0; i < classNameList.length; i++) {
+                    if (element.classList.contains(classNameList[i])) {
+                        return true;
+                    }
+                }
+            }
+            element = element.parentNode;
+        } while (element);
+        return false;
     }
 
     isRecordSelected(id) {
@@ -77,7 +104,7 @@ class Tools extends Component {
     keyPressRecordHandler(id) {
         if (!this.isRecordActive(id)) {
             this.props.changeRecord(this.props.currentTableId, id, '', this.props.user);
-            this.props.activateRecord(id);
+                                                                                                                                                                                this.props.activateRecord(id);
         }
     }
 
@@ -92,13 +119,13 @@ class Tools extends Component {
 
     blurRecordHandler(id) {
         if (!this.props.isShiftKeyPressed) {
-            this.props.blurRecord(id);
+            this.props.blurRecord(this.props.currentTableId, id);
         }
     }
 
     blurRecordComponentHandler(id, value) {
         this.props.changeRecord(this.props.currentTableId, id, value, this.props.user);
-        this.props.blurRecordComponent(id);
+        this.props.blurRecordComponent(this.props.currentTableId, id);
     }
 
     keyPressCommentHandler(userId, recordId, tableId, comment) {
@@ -116,14 +143,13 @@ class Tools extends Component {
             if (event.shiftKey && this.props.selectedRecordItemId ) {
                 this.props.setSelectRecordItems(this.props.selectedRecordItemId, id, this.props.currentTableId)
             } else {
-                this.props.clearSelectedRecordItemList();
                 this.props.mouseDownRecordItem(this.props.currentTableId, id, recordIndex, fieldIndex);
             }
         }
     }
 
-    mouseOverRecordItemHandler(id, recordIndex, fieldIndex) {
-        if (this.props.isMouseDownPressed) {
+    mouseOverRecordItemHandler(event, id, recordIndex, fieldIndex) {
+        if (this.props.isMouseDownPressed && event.shiftKey) {
             this.props.mouseOverRecordItem(this.props.currentTableId, id, recordIndex, fieldIndex);
         }
     }
@@ -149,9 +175,11 @@ class Tools extends Component {
                 <Header base={this.props.base}
                         tables={this.props.tables}
                         user={this.props.user}
+                        members={this.props.members}
                         menu={this.props.menu}
                         handleClick={this.props.handleClick}/>
                 <Tabs base={this.props.base}
+                      members={this.props.members}
                       currentTableId={this.props.currentTableId}
                       tables={this.props.tables}
                       tableIdActiveModal={this.props.tableIdActiveModal}

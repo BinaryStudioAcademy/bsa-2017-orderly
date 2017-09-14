@@ -112,13 +112,6 @@
     z-index: 1000;
   }
 
-  .text-line,
-  .long-text,
-  .number {
-    .table-cell-wrap {
-    }
-  }
-
   .table-cell-container {
     margin-bottom: 20px;
   }
@@ -157,25 +150,25 @@
     .ui.input input,
     input,
     textarea {
-      width: 100%;
-      resize: none;
-      border: 2px solid rgba(0,0,0,0.15);
-      border-radius: .28571429rem;
-      padding: 16px 9.5px;
+      width: 100%!important;
+      resize: none!important;;
+      border: 2px solid rgba(0,0,0,0.15)!important;;
+      border-radius: .28571429rem!important;
+      //padding: 16px 9.5px!important;;
     }
 
     .ui.input input:hover,
     input:hover,
     textarea:hover,
     .attachment_selected:hover {
-      border: 2px solid rgba(0,0,0,0.25);
+      border: 2px solid rgba(0,0,0,0.25)!important;;
     }
 
     .ui.input input:focus,
     input:focus,
     textarea:focus,
     .attachment_selected:focus {
-      border: 2px solid #6495ed;
+      border: 2px solid #6495ed!important;;
     }
     .table-cell.attachment {
       height: 60px;
@@ -184,14 +177,16 @@
           height: 100%;
           display: inline-block;
           margin-bottom: 15px;
+          outline: none;
 
           .attachment_selected {
             top: 0;
             left: 0;
             border: 2px solid rgba(0, 0, 0, 0.15);
+            border-radius: .28571429rem!important;
           }
 
-          .add_file_btn {
+          input[type="text"].add_file_btn {
             z-index: 0!important;
           }
         }
@@ -209,6 +204,10 @@
         position: absolute;
         top: 6px;
         left: 9.5px;
+
+        .table-cell-inner {
+          text-align: left;
+        }
       }
     }
 
@@ -257,7 +256,7 @@
           height: 32px;
           display: block;
           position: absolute;
-          top: 7px;
+          top: 12px;
 
           .Select-input {
             width: 100%;
@@ -265,12 +264,12 @@
             display: block;
 
             input {
-              width: 100% !important;
-              height: 100%;
-              display: block;
-              padding: 0;
-              border: none;
-              outline: none;
+              width: 100%!important;
+              height: 100%!important;
+              display: block!important;
+              padding: 0!important;
+              border: none!important;
+              outline: none!important;
             }
           }
 
@@ -330,17 +329,17 @@
           }
 
           .Select-input {
-            width: 100%;
+            width: 100%!important;
             height: 32px!important;
-            display: block;
+            display: block!important;
 
             input {
               width: 100% !important;
-              height: 100%;
-              display: block;
-              padding: 0;
-              border: none;
-              outline: none;
+              height: 100%!important;
+              display: block!important;
+              padding: 0!important;
+              border: none!important;
+              outline: none!important;
             }
           }
         }

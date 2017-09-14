@@ -1,12 +1,15 @@
 import React from 'react';
-import UserProfile from '../../../../userProfile/userProfile';
+import R from 'ramda'
+import Coworker from './coworker'
 
-const Coworkers = ({ coworkers, currentUser}) => {
+const Coworkers = ({ coworkers, currentUser, members}) => {
     return (
         <span id='coworkers'>
             {Object.values(coworkers).map(user => {
                 if (currentUser._id !== user._id) {
-                    return <UserProfile key={user._id} user={user}/>
+                    return <Coworker key={user._id}
+                                     user={user}
+                                     member={R.find(R.propEq('userId', user._id))(members)}/>
                 } else {
                     return '';
                 }

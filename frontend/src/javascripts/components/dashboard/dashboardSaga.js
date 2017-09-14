@@ -4,6 +4,7 @@ import {
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
     deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView, deleteView,
     removeFilter, addFilter, updateFilter, getTableById, updateKanban, removeAllFilters,
+	getMembersByBaseId
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -297,7 +298,16 @@ function* updatingKanban(action) {
 	    yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable})
 
     } catch (err) {
-        yield put({tupe: 'UPDATE_KANBAN_VIEW_FAILED', message: err.message})
+        yield put({type: 'UPDATE_KANBAN_VIEW_FAILED', message: err.message})
+    }
+}
+
+function* gettingMembersByBaseId(action) {
+    try {
+        const members = yield call(getMembersByBaseId, action.baseId)
+	    yield put({type: 'GET_MEMBERS_BY_BASE_ID_SUCCESSED', members})
+    } catch (err) {
+        yield put({type: 'GET_MEMBERS_BY_BASE_ID_FAILED', message: err.message})
     }
 }
 
@@ -332,6 +342,7 @@ function* dashboardSaga() {
     yield takeEvery('UPLOAD_FILES', uploadingFiles);
     yield takeEvery('DELETE_FILE', deletingFile);
     yield takeEvery('UPDATE_KANBAN_VIEW', updatingKanban)
+    yield takeEvery('GET_MEMBERS_BY_BASE_ID', gettingMembersByBaseId)
 }
 
 export default dashboardSaga;

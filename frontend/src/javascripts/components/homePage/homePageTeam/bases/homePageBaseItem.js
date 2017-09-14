@@ -31,6 +31,7 @@ class BaseItem extends Component {
             <div> 
               <div>
                 <ContextMenuIcon 
+                  teamNames={this.props.teamNames}
                   handleClick = {this.props.handleClick}
                   base = {this.props.base}
                   menu={this.props.menu}  

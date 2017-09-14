@@ -9,7 +9,7 @@ import './tabs.scss';
 const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
     addTableClick, switchTableClick, togglePopup, openMenu, closeMenu,
     activeModal, setTabsModal, checkTableName, updateTable, deleteTable,
-    coworkers, user, tableIdActiveModal, setTableIdToActiveModal}) => (
+    coworkers, user, tableIdActiveModal, setTableIdToActiveModal, members}) => (
     <div className='tabs_panel' style={{backgroundColor:`${base.color}`}}>
         <div className='btn_block'>
             <div className='tabs_block'>
@@ -27,15 +27,17 @@ const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
             </div>
         </div>
         <div className='history'>
-            <Coworkers coworkers={coworkers} currentUser={user}/>
-            <Label color={'grey'}
-                   className='share_btn'
-                   as='a'
-                   circular>SHARE</Label>
-            <Icon inverted link
-                className='header-icon'
-                name='history'
-                size='large'/>
+            <Coworkers coworkers={coworkers}
+                       members={members}
+                       currentUser={user}/>
+            {/*<Label color={'grey'}*/}
+                   {/*className='share_btn'*/}
+                   {/*as='a'*/}
+                   {/*circular>SHARE</Label>*/}
+            {/*<Icon inverted link*/}
+                {/*className='header-icon'*/}
+                {/*name='history'*/}
+                {/*size='large'/>*/}
         </div>
     </div>
 );

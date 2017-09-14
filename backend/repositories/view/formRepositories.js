@@ -26,6 +26,48 @@ class FormRepository extends Repository {
         });
     }
 
+    updateForm(viewId, data) {
+        return this.model.findById(viewId).then((view) => {
+            view.toObject();
+            if (data.type ==='INCLUDE_ALL') {
+                view.fields_config.map((config)=> {
+                    config.included = true;
+                    return config;
+                })
+            }
+            if (data.type ==='EXCLUDE_ALL') {
+                view.fields_config.map((config)=> {
+                    config.included = false;
+                    return config;
+                })
+            }
+            if (data.type ==='INCLUDE_FIELD') {
+                view.fields_config.map((config)=> {
+                    if (config.field == data.fieldId) {
+                        config.included = true;
+                    }
+                    return config;
+                })
+            }
+            if (data.type ==='EXCLUDE_FIELD') {
+                view.fields_config.map((config)=> {
+                    if (config.field == data.fieldId) {
+                        config.included = false;
+                    }
+                    return config;
+                })
+            }
+            if (data.type ==='CHANGE_FORM_NAME') {
+                view.name = data.name
+            }
+            if (data.type ==='CHANGE_FORM_DESCRIPTION') {
+                view.description = data.description
+            }
+            return view.save();
+        });
+    }
+
+
     deleteField(viewId, fieldId) {
         return this.model.findByIdAndUpdate(viewId,
             {'$pull': { 'fields_config': { _id: fieldId } }},
