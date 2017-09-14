@@ -338,6 +338,7 @@ function* dashboardSaga() {
     yield takeEvery('ADD_COMMENT', addNewComment);
     yield takeEvery('CHANGE_FIELD_TYPE', updateFieldMeta);
     yield takeEvery('CHANGE_FIELD_NAME', updateFieldMeta);
+    yield takeEvery('CHANGE_FIELD_DISPLAY', updateFieldMeta);
     yield takeEvery('CHANGE_FIELD_OPTIONS', updateFieldMeta);
     yield takeEvery('DELETE_FIELD', removeField);
     yield takeEvery('DELETE_RECORD', removeRecord);

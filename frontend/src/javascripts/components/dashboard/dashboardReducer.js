@@ -1,4 +1,4 @@
-import R from 'ramda';
+;
 
 const initState = {
     base: '',

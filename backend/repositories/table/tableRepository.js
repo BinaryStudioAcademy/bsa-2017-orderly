@@ -147,6 +147,7 @@ class TableRepository extends Repository {
             const field = table.fields[fieldIndex];
             field.type = data.fieldType || field.type;
             field.name = data.fieldName || field.name;
+            field.display = data.display || field.display
             
             if (data.type === 'CHANGE_FIELD_OPTIONS') {
                 switch (data.currentValue) {

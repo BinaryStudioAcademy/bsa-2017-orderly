@@ -275,6 +275,7 @@ export function changeFieldType(tableId, fieldId, fieldType) {
         fieldType: fieldType
     };
 }
+
 export function changeFieldName(tableId, fieldId, fieldName) {
     return {
         type: 'CHANGE_FIELD_NAME',
@@ -283,6 +284,16 @@ export function changeFieldName(tableId, fieldId, fieldName) {
         fieldName: fieldName,
     };
 }
+
+export function changeFieldDisplay(tableId, fieldId, display) {
+    return {
+        type: 'CHANGE_FIELD_DISPLAY',
+        tableId: tableId,
+        fieldId: fieldId,
+        display: display
+    };
+}
+
 export function changeFieldOptions(tableId, fieldId, fieldOptions, value) {
     return {
         type: 'CHANGE_FIELD_OPTIONS',

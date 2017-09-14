@@ -184,8 +184,16 @@ export default class GridContent extends Component {
     constructor(props) {
         super(props);
         this.props = props;
+        let fieldsToShow = this.props.currentTable.fields.filter((field) => field.display === true)
+        
+        this.state={
+            fields:fieldsToShow
+        }
     }
-
+    componentWillReceiveProps(nextProps) {
+        let fieldsToShow = nextProps.currentTable.fields.filter((field) => field.display === true)
+        this.setState({fields:fieldsToShow})
+    }
     componentDidMount() {
         let _this = this;
         window.addEventListener("keydown",function (e) {
@@ -268,7 +276,7 @@ export default class GridContent extends Component {
                         </div>
 
                         <div className="content__body body__fields">
-                            {this.props.currentTable.fields.map((field, fieldIndex) => {
+                            {this.state.fields.map((field, fieldIndex) => {
                                 return <Field
                                     key={field._id}
                                     currentField = {field}

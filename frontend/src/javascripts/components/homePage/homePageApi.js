@@ -1,5 +1,5 @@
 import axios from 'axios';
-import R from 'ramda';
+;
 
 const url = 'http://localhost:2020/api';
 

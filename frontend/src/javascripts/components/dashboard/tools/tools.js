@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Header from './header/header';
 import Tabs from './tabs/tabs';
 import View from '../../view/view';
-import R from 'ramda';
+;
 import {onGetCoworkersList} from '../../../app/socket';
 import { getRoleByUserId } from '../dashboardService'
 
@@ -220,6 +220,7 @@ class Tools extends Component {
                       addField={this.props.addField}
                       changeFieldType={this.props.changeFieldType}
                       changeFieldName={this.props.changeFieldName}
+                      changeFieldDisplay={this.props.changeFieldDisplay}
                       changeFieldOptions={this.props.changeFieldOptions}
                       deleteField={this.props.deleteField}
                       deleteRecord={this.props.deleteRecord}

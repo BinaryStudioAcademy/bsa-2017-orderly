@@ -8,7 +8,7 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
     addView, deleteView, addFilter, updateFilter, setSelectFieldRecordItems, appendSelectFieldRecordItems, setSelectAllRecordItems,
     setSelectRecordItems, shiftKeyDown, shiftKeyUp, clearSelectedRecordItemList, mouseDownRecordItem,
-    mouseUpRecordItem, mouseOverRecordItem, removeAllFilters, getMembersByBaseId
+    mouseUpRecordItem, mouseOverRecordItem, removeAllFilters, getMembersByBaseId, changeFieldDisplay
 } from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
@@ -77,6 +77,7 @@ const mapDispatchToProps = {
     removeFilter: removeFilter,
     changeFieldName: changeFieldName,
     changeFieldOptions: changeFieldOptions,
+    changeFieldDisplay: changeFieldDisplay,
     deleteField: deleteField,
     deleteRecord: deleteRecord,
     uploadAttachment: uploadAttachment,

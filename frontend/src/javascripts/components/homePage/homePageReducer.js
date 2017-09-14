@@ -1,4 +1,4 @@
-import R from 'ramda'
+
 
 import { createCollaboratorsObject } from './homePageService';
 

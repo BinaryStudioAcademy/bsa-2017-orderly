@@ -1,7 +1,7 @@
 import axios from 'axios';
 const url = '/api';
 const urlNoAuth = 'http://localhost:2020/formShare/';
-import R from 'ramda';
+;
 
 export const updateView = (action) => {
     return axios.put(url + '/view/form/' + action.viewId + '/fields', action)
