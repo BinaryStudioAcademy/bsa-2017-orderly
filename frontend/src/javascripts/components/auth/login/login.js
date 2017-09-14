@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import {Form, Label, Grid, Button, Header} from 'semantic-ui-react';
-import R from 'ramda';
+;
 import * as LoginActions from './loginActions';
 import LoginWithGoogleBtn from './components/loginWithGoogleBtn';
 import './login.scss';

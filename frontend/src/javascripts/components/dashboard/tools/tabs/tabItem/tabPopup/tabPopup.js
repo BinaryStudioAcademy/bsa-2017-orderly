@@ -1,6 +1,6 @@
 import React from 'react';
 import { List } from 'semantic-ui-react';
-import R from 'ramda';
+;
 
 import PopUpModal from './popUpModal/popUpModal';
 import './tabPopup.scss';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Icon, Button } from 'semantic-ui-react'
-import R from 'ramda'
+
 
 import { findCurrentView } from '../../viewService'
 import { viewIcons } from '../../../configuration/viewTypes'

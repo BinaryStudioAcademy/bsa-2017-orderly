@@ -1,4 +1,4 @@
-import R from 'ramda';
+;
 
 const ROLES = ['owner', 'editor', 'readOnly']
 

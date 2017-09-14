@@ -13,9 +13,11 @@ export default class Grid extends Component {
     };
 
     render() {
+
         return (
             <div className="grid-view">
                 <GridHeader
+                    changeFieldDisplay={this.props.changeFieldDisplay}
                     onChangeSearch={this.props.onChangeSearch}
                     currentTableId={this.props.currentTable._id}
                     searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
