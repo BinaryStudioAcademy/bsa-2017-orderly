@@ -37,7 +37,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './src/index.html'));
 });
 
-app.listen(port, host, (err) => {
+const server = app.listen(port, host, (err) => {
     if (err) {
         log(err);
         return;

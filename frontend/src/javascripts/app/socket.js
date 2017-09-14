@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
-const socket = io('http://localhost:2020');
+import AppConfig from '../config';
+const socket = io(AppConfig.host);
 
 const emitTableCoworker = (user, tableId, tables) => {
     return socket.emit('client-upload-table', user, tableId);

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Image } from 'semantic-ui-react';
-import avatar from '../../../../../../images/avatar.png';
 
+import avatar from '../../../../../../images/avatar.png';
 import MemberInfo from '../memberInfo/memberInfo';
 import { getRolesColor } from '../../../homePageService';
 import './collabolatorItem.scss';
+import AppConfig from '../../../../../config';
 
 const hidingPopupStyle = (isShowUserPopup, teamId, userId) => ({
 	display: isShowUserPopup[0] === teamId
@@ -15,7 +16,7 @@ const hidingPopupStyle = (isShowUserPopup, teamId, userId) => ({
 const CollaboratorItem = (team, teamUser, collaborator, showUserPopup, isShowUserPopup) => {
 	if (collaborator) return (
 		<span className='collaboration_item' key={teamUser.userId}>
-		<Image src={ collaborator.avatar ? `http://localhost:2020/files/${collaborator.avatar}` : avatar}
+		<Image src={ collaborator.avatar ? `${AppConfig.host}/files/${collaborator.avatar}` : avatar}
 		       className='collaborator_logo'
 		       onMouseOver={() => {
 			       if (isShowUserPopup[0]) showUserPopup(['', ''])
