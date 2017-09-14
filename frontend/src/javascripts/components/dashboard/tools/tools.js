@@ -220,6 +220,7 @@ class Tools extends Component {
                       addField={this.props.addField}
                       changeFieldType={this.props.changeFieldType}
                       changeFieldName={this.props.changeFieldName}
+                      changeFieldDisplay={this.props.changeFieldDisplay}
                       changeFieldOptions={this.props.changeFieldOptions}
                       deleteField={this.props.deleteField}
                       deleteRecord={this.props.deleteRecord}

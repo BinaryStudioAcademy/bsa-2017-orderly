@@ -32,10 +32,10 @@ class UserProfile extends Component {
         return (
             <span id="user-info" className="header-icon">
                 <Link to={'/user-page'} title={username}>
-                    <Image  src={ this.state.avatar != '' ?
+                    <Image  src={ this.state.avatar != '' ? 
                         `http://localhost:2020/files/${this.props.user.avatar}`
                         : avatar}
-                            avatar />
+                            avatar size='mini'/>
                     <span className="user-status"
                           style={getRolesBackgroundColor(rolesObject)}/>
                 </Link>
