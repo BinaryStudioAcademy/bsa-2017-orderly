@@ -19,7 +19,6 @@ const initState = {
     searchMatchedRecordItemIdList: [],
     searchFoundIndex: '',
     searchBlockOpen: false,
-    filteredRecords: null,
     selectedRecordItemList: [],
     isShiftKeyPressed: false,
     isMouseDownPressed: false,
@@ -60,7 +59,7 @@ function dashboardReducer(state = initState, action) {
 
     case 'SET_ACTIVE_TAB': {
         return R.mergeAll([
-            R.omit(['tables', 'filteredRecords'], state),
+            R.omit(['tables'], state),
             {
                 tables: R.map((table) => {
                     let tempObj = R.dissoc('isActive', table);
@@ -68,7 +67,6 @@ function dashboardReducer(state = initState, action) {
                     tempObj.currentView = table.views[0].view._id;
                     return tempObj;
                 })(state.tables),
-                filteredRecords: null,
             },
         ]);
     }
@@ -99,19 +97,19 @@ function dashboardReducer(state = initState, action) {
 
     case 'ADD_TABLE_SUCCEEDED': {
         return R.mergeAll([
-            R.omit(['tables', 'addPopupIsOpen', 'filteredRecords'], state),
+            R.omit(['tables', 'addPopupIsOpen'], state),
             {
                 tables: R.concat(
                     R.map(R.compose(R.assoc('isActive', false), R.dissoc('isActive')))(state.tables),
                     [R.assoc('isActive', true, action.payload.table)]
                 ),
-                filteredRecords: null,
             },
             {addPopupIsOpen: false}
         ]);
     }
 
     case 'ADD_FIELD_SUCCEEDED': {
+
         return R.mergeAll([
             R.dissoc('tables', state),
             {
@@ -140,10 +138,8 @@ function dashboardReducer(state = initState, action) {
     }
 
     case 'SWITCH_TABLE': {
-        console.log('DASH REDUCER SWITCH TABLE');
-        console.log(action);
         return R.mergeAll([
-            R.omit(['tables', 'filteredRecords'], state),
+            R.omit(['tables'], state),
             {
                 tables: R.map((table) => {
                     let newObj = R.omit(['isActive', 'currentView'], table);
@@ -435,7 +431,7 @@ function dashboardReducer(state = initState, action) {
 
     case 'CHANGE_VIEW': {
         return R.mergeAll([
-            R.omit(['tables', 'filteredRecords'], state),
+            R.omit(['tables'], state),
             {
                 tables: R.map((table) => {
                     if (table._id === action.tableId) {
@@ -446,14 +442,13 @@ function dashboardReducer(state = initState, action) {
                         return table;
                     }
                 })(state.tables),
-                filteredRecords: null,
             }
         ]);
     }
 
     case 'ADD_VIEW_SUCCEEDED': {
         return R.mergeAll([
-            R.omit(['tables', 'filteredRecords'], state),
+            R.omit(['tables'], state),
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
@@ -465,14 +460,13 @@ function dashboardReducer(state = initState, action) {
                     }
                     return table;
                 })(state.tables),
-                filteredRecords: null,
             }
         ]);
     }
 
     case 'DELETE_VIEW_SUCCEEDED': {
         return R.mergeAll([
-            R.omit(['tables', 'filteredRecords'], state),
+            R.omit(['tables'], state),
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
@@ -483,75 +477,74 @@ function dashboardReducer(state = initState, action) {
                     }
                     return table;
                 })(state.tables),
-                filteredRecords: null,
             }
         ]);
     }
 
     case 'FILTER_TABLE_SUCCEEDED': {
         return R.mergeAll([
-            R.omit(['tables', 'filteredRecords'], state),
+            R.omit(['tables'], state),
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
-                        const newTable = R.dissoc('views', table);
+                        const newTable = R.omit(['views', 'filteredRecords'], table);
                         newTable.views = action.table.views;
+                        newTable.filteredRecords = action.table.filteredRecords;
                         return newTable;
                     }
                     return table;
                 })(state.tables),
-                filteredRecords: action.filteredRecords
             },
         ]);
     }
 
     case 'ADD_FILTER_SUCCEEDED': {
         return R.mergeAll([
-            R.omit(['tables', 'filteredRecords'], state),
+            R.omit(['tables'], state),
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
-                        const newTable = R.dissoc('views', table);
+                        const newTable = R.omit(['views', 'filteredRecords'], table);
                         newTable.views = action.table.views;
+                        newTable.filteredRecords = action.table.filteredRecords;
                         return newTable;
                     }
                     return table;
                 })(state.tables),
-                filteredRecords: action.filteredRecords
             },
         ]);
     }
 
     case 'REMOVE_FILTER_SUCCEEDED': {
         return R.mergeAll([
-            R.omit(['tables', 'filteredRecords'], state),
+            R.omit(['tables'], state),
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
-                        const newTable = R.dissoc('views', table);
+                        const newTable = R.omit(['views', 'filteredRecords'], table);
                         newTable.views = action.table.views;
+                        newTable.filteredRecords = action.table.filteredRecords;
                         return newTable;
                     }
                     return table;
                 })(state.tables),
-                filteredRecords: action.filteredRecords
             },
         ]);
     }
 
     case 'REMOVE_ALL_FILTERS_SUCCEEDED': {
         return R.mergeAll([
-            R.omit(['tables', 'filteredRecords'], state),
+            R.omit(['tables'], state),
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
-                        const newTable = R.dissoc('views', table);
+                        const newTable = R.omit(['views', 'filteredRecords'], table);
                         newTable.views = action.table.views;
+                        newTable.filteredRecords = action.table.filteredRecords;
                         return newTable;
                     }
                     return table;
                 })(state.tables),
-                filteredRecords: action.filteredRecords
             },
         ]);
     }

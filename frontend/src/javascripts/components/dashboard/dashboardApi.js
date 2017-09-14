@@ -33,12 +33,20 @@ const updateTable = ({ _id, body }) =>
 		.then((response) => response.data)
 		.catch(R.tap(console.error));
 
-const addFieldsToTable = ({tableId}) => {
+const addFieldsToTable = ({tableId, currentViewId}) => {
     return axios.post(url + '/tables/' + tableId + '/fields/', {
-        name: 'Text line',
-        type: 'text',
-    }).then(() => axios.put(url + '/tables/' + tableId + '/records/', {data: ''})
-        .then((table) => table.data))
+        field: {
+            name: 'Text line',
+            type: 'text',
+        },
+        currentViewId: currentViewId,
+    }).then(() => {
+        console.log('IN PUT RECORDS');
+        return axios.put(url + '/tables/' + tableId + '/records/', {
+            data: {data: '', currentView: currentViewId}
+        });
+    })
+        .then((table) => {console.log('FINAL DASH API ADD FIELD-----------'); console.log(table); return table.data})
         .catch(R.tap(console.error));
 };
 
@@ -60,7 +68,8 @@ const updateField = (payload) => {
 };
 
 const deleteFieldRecords = (payload) => {
-    return axios.delete(url + '/tables/' + payload.tableId + '/fields/' + payload.fieldId)
+    return axios.delete(url + '/tables/' + payload.tableId + '/fields/' + payload.fieldId,
+        {data: {currentView: payload.currentView}})
         .then((response) => response)
         .catch(R.tap(console.error));
 };
@@ -86,8 +95,8 @@ const addFilter = (payload) => {
 
 const updateFilter = (payload) => {
     return axios.put(url + '/tables/' + payload.tableId + '/views/' + payload.viewType + '/' +
-        payload.viewId + '/fields/' + payload.fieldId + '/' + payload.fieldIndex + '/filters/' + payload.filterId + '/' +
-        payload.condition + '/' + payload.filterQuery)
+        payload.viewId + '/fields/' + payload.fieldId + '/' + payload.fieldIndex + '/filters/' + payload.filterId,
+        {data: {condition: payload.condition, query: payload.filterQuery}})
         .then((response) => response)
         .catch(R.tap(console.error));
 };

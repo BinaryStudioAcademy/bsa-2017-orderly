@@ -15,11 +15,18 @@ class TableRepository extends Repository {
         this.model = Table;
     }
 
-    getById(id) {
+    getById(id, currentViewId=0) {
+        console.log('IN GET_BY_ID ========================')
+        console.log(id);
+        console.log(currentViewId);
+        console.log('@!_#_!@#_!@#!@#)!@#)!@)#)!@#))!@#))!@#)!@#');
         return this.model.findById(id)
             .populate('records.history.collaborator')
             .populate('records.comments.collaborator')
-            .populate('views.view');
+            .populate('views.view')
+            .then((table) => {
+                return TableRepository.filterRecords(table, currentViewId);
+            });
     }
 
     getByIds(ids) {
@@ -29,14 +36,12 @@ class TableRepository extends Repository {
             .populate('views.view')
             .then((tables) => {
                 const firstTableView = tables[0].views[0].view;
-                // Check if first view of first table have no filters, otherwise - perform filtering
+                // Check if first view of first table have no filters, otherwise - perform filtering+
                 if (!firstTableView.filters.filterSet.length) {
                     return tables;
                 }
                 const tableWithFilters = TableRepository.filterRecords(tables[0], firstTableView._id);
-                const updatedTables = R.prepend(tableWithFilters, R.drop(1, tables));
-                console.log(updatedTables);
-                return tables;
+                return R.prepend(tableWithFilters, R.drop(1, tables));
             });
     }
 
@@ -91,14 +96,20 @@ class TableRepository extends Repository {
         );
     }
 
-    updateRecords(tableId, data) {
-        return this.getById(tableId)
+    updateRecords(tableId, data, currentView) {
+        console.log('UPDATE RECORDS!@#*!@*#*!@#*');
+        console.log({data: data});
+        console.log(currentView);
+        return this.model.findById(tableId)
             .then((table) => {
+                console.log('GET TABLE')
+                console.log(table)
                 for (let record of table.records) {
-                    record.record_data.push(data);
+                    record.record_data.push({data: data});
                 }
                 return table.save();
-            });
+            })
+            .then(() => this.getById(tableId, currentView));
     }
 
     getFields(tableId) {
@@ -117,7 +128,7 @@ class TableRepository extends Repository {
             }).select('-_id -views -records -name -description');
     }
 
-    addField(tableId, field) {
+    addField(tableId, field, currentView) {
         return this.model.findByIdAndUpdate(
             tableId,
             {'$push': {fields: field}},
@@ -133,7 +144,11 @@ class TableRepository extends Repository {
                     return v.save();
                 }));
             }
-            return Promise.all(updatedViews).then(() => this.getById(tableId));
+            console.log('END OF ADD');
+            console.log(table);
+            return Promise.all(updatedViews).then(() => {
+                return table.save().then(() => this.getById(tableId, currentView));
+            });
         });
     }
 
@@ -182,21 +197,24 @@ class TableRepository extends Repository {
             });
     }
 
-    deleteField(tableId, fieldId) {
-        return this.getById(tableId).then((table) => {
+    deleteField(tableId, fieldId, currentView) {
+        return this.model.findById(tableId).then((table) => {
+            console.log('in DELETE');
+            console.log(table);
             const deleteAt = table.fields.indexOf(table.fields.find((f) => f._id.toString() === fieldId));
             table.fields.splice(deleteAt, 1);
             table.records.forEach((record) => record.record_data.splice(deleteAt, 1));
             let updatedViews = [];
             for (let view of table.views) {
-                updatedViews.push(this.getFromView(view.view._id, view.type).then((v) => {
+                updatedViews.push(this.getFromView(view.view, view.type).then((v) => {
                     if (!v.fields_config) return v;
                     v.fields_config = v.fields_config.filter((f) => f.field.toString() !== fieldId);
                     return v.save();
                 }));
             }
+            console.log('END DELETE');
             return Promise.all(updatedViews).then(() => {
-                return table.save().then(() => this.getById(tableId));
+                return table.save().then(() => this.getById(tableId, currentView));
             });
         });
     }
@@ -310,35 +328,6 @@ class TableRepository extends Repository {
         }
         return this.getById(tableId).then((table) => {
             return TableRepository.filterRecords(table, viewId);
-            // const view = table.views.find((v) => v.view._id.toString() === viewId);
-            // let filteredRecords;
-            // for (let filterItem of view.view.filters.filterSet){
-            //     const index = table.fields.findIndex((f) => f._id.toString() === filterItem.fieldId.toString());
-            //     let recordsToFilter = filteredRecords || table.records;
-            //     const lowerQuery = filterItem.value.toLowerCase();
-            //     switch (filterItem.condition) {
-            //     case 'contains':
-            //         filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase().includes(lowerQuery));
-            //         break;
-            //     case '!contains':
-            //         filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.toString().toLowerCase().includes(lowerQuery));
-            //         break;
-            //     case 'is':
-            //         filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase() === lowerQuery);
-            //         break;
-            //     case '!is':
-            //         filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase() !== lowerQuery);
-            //         break;
-            //     case 'empty':
-            //         filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.length);
-            //         break;
-            //     case '!empty':
-            //         filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.length);
-            //         break;
-            //     }
-            // }
-            // const tableWithFilter = Object.assign({}, table.toObject(), {filteredRecords: filteredRecords});
-            // return {table: tableWithFilter, filteredRecords: filteredRecords};
         });
     }
 
@@ -346,7 +335,7 @@ class TableRepository extends Repository {
         return this.getFromView(viewId, viewType).then((view) => {
             view.filters.filterSet = view.filters.filterSet.filter((f) => f._id.toString() !== filterId);
             return view.save().then(() => {
-                return this.performFilter(tableId, viewId);
+                return this.getById(tableId, viewId);
             });
         });
     }
@@ -355,7 +344,7 @@ class TableRepository extends Repository {
         return this.getFromView(viewId, viewType).then((view) => {
             view.filters.filterSet = [];
             return view.save().then(() => {
-                return this.performFilter(tableId, viewId);
+                return this.getById(tableId, viewId);
             });
         });
     }
@@ -371,7 +360,7 @@ class TableRepository extends Repository {
                 }
             );
             return view.save().then(() => {
-                return this.performFilter(tableId, viewId);
+                return this.getById(tableId, viewId);
             });
         });
     }
@@ -384,12 +373,13 @@ class TableRepository extends Repository {
             filterToUpdate.value = query || '';
             filterToUpdate.condition = condition;
             return view.save().then(() => {
-                return this.performFilter(tableId, viewId);
+                return this.getById(tableId, viewId);
             });
         });
     }
 
     static filterRecords(table, viewId) {
+        console.log('BEGIN FILTER-----------------------------------------------------------');
         const view = table.views.find((v) => v.view._id.toString() === viewId.toString());
         let filteredRecords;
         for (let filterItem of view.view.filters.filterSet){
@@ -398,15 +388,19 @@ class TableRepository extends Repository {
             const lowerQuery = filterItem.value.toLowerCase();
             switch (filterItem.condition) {
             case 'contains':
+                if (!lowerQuery.length) continue;
                 filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase().includes(lowerQuery));
                 break;
             case '!contains':
+                if (!lowerQuery.length) continue;
                 filteredRecords = recordsToFilter.filter((r) => !r.record_data[index].data.toString().toLowerCase().includes(lowerQuery));
                 break;
             case 'is':
+                if (!lowerQuery.length) continue;
                 filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase() === lowerQuery);
                 break;
             case '!is':
+                if (!lowerQuery.length) continue;
                 filteredRecords = recordsToFilter.filter((r) => r.record_data[index].data.toString().toLowerCase() !== lowerQuery);
                 break;
             case 'empty':
@@ -418,7 +412,8 @@ class TableRepository extends Repository {
             }
         }
         const tableWithFilter = Object.assign({}, table.toObject(), {filteredRecords: filteredRecords});
-        return {table: tableWithFilter, filteredRecords: filteredRecords};
+        console.log('END OF FILTER');
+        return tableWithFilter;
     }
 
 }

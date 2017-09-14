@@ -79,10 +79,11 @@ const addRecord = (tableId) => {
     };
 };
 
-export function addField(tableId) {
+export function addField(tableId, currentViewId) {
     return {
         type: 'ADD_FIELD',
-        tableId: tableId
+        tableId: tableId,
+        currentViewId: currentViewId,
     };
 }
 
@@ -291,11 +292,12 @@ export function changeFieldOptions(tableId, fieldId, fieldOptions, value) {
     };
 }
 
-export function deleteField(tableId, fieldId) {
+export function deleteField(tableId, fieldId, currentView) {
     return {
         type: 'DELETE_FIELD',
         tableId: tableId,
         fieldId: fieldId,
+        currentView: currentView
     };
 }
 

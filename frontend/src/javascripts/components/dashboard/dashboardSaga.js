@@ -59,10 +59,11 @@ function* addNewField(action) {
     try {
         const payload = {};
         payload.tableId = action.tableId;
+        payload.currentViewId = action.currentViewId;
         payload.table = yield call(addFieldsToTable, payload);
         yield put({type: 'ADD_FIELD_SUCCEEDED', payload});
     } catch (err) {
-        yield put({type: 'ADD_FIELD_FAILED', message: err.message});
+        yield put({type: 'ADD_FIELD_FAILED', message: err});
     }
 }
 
@@ -203,10 +204,11 @@ function* filterTableRecords(action) {
 function* addTableFilter(action) {
     try {
         const updatedFilters = yield call(addFilter, action);
+        console.log('UPDATED SAGA');
+        console.log(updatedFilters);
         yield put({
             type: 'ADD_FILTER_SUCCEEDED',
-            table: updatedFilters.data.table,
-            filteredRecords: updatedFilters.data.filteredRecords
+            table: updatedFilters.data,
         });
     } catch (err) {
         yield put({type: 'ADD_FILTER_FAILED', message: err.message});
@@ -218,8 +220,7 @@ function* updateTableFilter(action) {
         const updatedFilters = yield call(updateFilter, action);
         yield put({
             type: 'FILTER_TABLE_SUCCEEDED',
-            table: updatedFilters.data.table,
-            filteredRecords: updatedFilters.data.filteredRecords
+            table: updatedFilters.data,
         });
     } catch (err) {
         yield put({type: 'FILTER_TABLE_FAILED', message: err.message});
@@ -231,8 +232,7 @@ function* removeTableFilter(action) {
         const updatedFilters = yield call(removeFilter, action);
         yield put({
             type: 'REMOVE_FILTER_SUCCEEDED',
-            table: updatedFilters.data.table,
-            filteredRecords: updatedFilters.data.filteredRecords
+            table: updatedFilters.data,
         });
     } catch (err) {
         yield put({type: 'REMOVE_FILTER_FAILED', message: err.message});
@@ -244,8 +244,7 @@ function* removeAllTableFilters(action) {
         const updatedFilters = yield call(removeAllFilters, action);
         yield put({
             type: 'REMOVE_ALL_FILTERS_SUCCEEDED',
-            table: updatedFilters.data.table,
-            filteredRecords: updatedFilters.data.filteredRecords
+            table: updatedFilters.data,
         });
     } catch (err) {
         yield put({type: 'REMOVE_ALL_FILTERS_FAILED', message: err.message});

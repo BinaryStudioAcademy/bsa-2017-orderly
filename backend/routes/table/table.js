@@ -94,8 +94,12 @@ router.post('/:id/records', (request, response, next) => {
 });
 
 router.put('/:id/records', (request, response) => {
-    tableRepository.updateRecords(request.params.id, request.body)
-        .then((result) => response.status(200).send(result))
+    tableRepository.updateRecords(request.params.id, request.body.data.data, request.body.data.currentView)
+        .then((result) => {
+            console.log('IN ROUTERS');
+            console.log(result);
+            return response.status(200).send(result.table)
+        })
         .catch((err) => response.status(500).send(err));
 });
 
@@ -119,15 +123,15 @@ router.get('/:id/fields/:fieldId', (request, response) => {
 });
 
 router.post('/:id/fields', (request, response) => {
-    tableRepository.addField(request.params.id, request.body)
-        .then(result => {
-        	const kanbanViews = R.filter(R.propEq('type', 'kanban'))(result.views)
-	        const addedField = R.last(result.fields)
-	        return Promise.all(R.map(view => {
-		        viewReps['kanban'].addColumn(view._id, {field: addedField._id})
-	        })(kanbanViews))
+    tableRepository.addField(request.params.id, request.body.field, request.body.currentViewId)
+        .then((table) => {
+            const kanbanViews = R.filter(R.propEq('type', 'kanban'))(table.views);
+            const addedField = R.last(table.fields);
+            return Promise.all(R.map((view) => {
+                viewReps['kanban'].addColumn(view._id, {field: addedField._id});
+            })(kanbanViews)).then(() => table);
         })
-        .then((result) => response.status(200).send(result))
+        .then((result) => {console.log('AFTER ADD FIELD RESULT'); return response.status(200).send(result)})
         .catch((err) => response.status(500).send(err));
 });
 
@@ -144,7 +148,7 @@ router.put('/:id/fields/:fieldId', (request, response) => {
 });
 
 router.delete('/:id/fields/:fieldId', (request, response) => {
-    tableRepository.deleteField(request.params.id, request.params.fieldId)
+    tableRepository.deleteField(request.params.id, request.params.fieldId, request.body.currentView)
         .then((result) => response.send(result))
         .catch((err) => response.sendStatus(500).send(err));
 });
@@ -207,7 +211,7 @@ router.post('/:id/views/:viewType/:viewId/fields/:fieldId/:fieldIndex/filters', 
         .catch((error) => response.status(500).send(error));
 });
 
-router.put('/:id/views/:viewType/:viewId/fields/:fieldId/:fieldIndex/filters/:filterId/:condition/:query?', (request, response) => {
+router.put('/:id/views/:viewType/:viewId/fields/:fieldId/:fieldIndex/filters/:filterId', (request, response) => {
     tableRepository.updateFilter(
         request.params.id,
         request.params.viewId,
@@ -215,14 +219,9 @@ router.put('/:id/views/:viewType/:viewId/fields/:fieldId/:fieldIndex/filters/:fi
         request.params.fieldId,
         request.params.fieldIndex,
         request.params.filterId,
-        request.params.condition,
-        request.params.query)
-        .then((result) => {
-            const tableWithFilter = Object.assign({}, result.table, {filtered: result.filteredRecords});
-            console.log('IN ROUTERS');
-            console.log(tableWithFilter);
-            return response.status(200).send(result)
-        })
+        request.body.data.condition,
+        request.body.data.query)
+        .then((result) => response.status(200).send(result))
         .catch((error) => response.status(500).send(error));
 });
 

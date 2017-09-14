@@ -108,7 +108,7 @@ export default class FieldMenu extends Component {
         this.handleClickOnMenu();
     }
     handleDeleteField = () => {
-        this.props.deleteField(this.props.tableId, this.props.id)
+        this.props.deleteField(this.props.tableId, this.props.id, this.props.currentView)
     }
     handleChangeType =(event) => {
         this.props.changeFieldType(this.props.tableId, this.props.id, event.value)

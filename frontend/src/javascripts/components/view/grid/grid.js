@@ -18,6 +18,7 @@ export default class Grid extends Component {
                 <GridHeader
                     onChangeSearch={this.props.onChangeSearch}
                     currentTableId={this.props.currentTable._id}
+                    currentView={this.props.currentTable.currentView}
                     searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
                     searchFoundIndex={this.props.searchFoundIndex}
                     onChangeSearchFoundIndex={this.props.onChangeSearchFoundIndex}
