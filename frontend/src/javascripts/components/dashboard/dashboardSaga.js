@@ -4,7 +4,7 @@ import {
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
     deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView, deleteView,
     removeFilter, addFilter, updateFilter, getTableById, updateKanban, removeAllFilters,
-	getMembersByBaseId
+	getMembersByBaseId, getTableView,
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -59,10 +59,11 @@ function* addNewField(action) {
     try {
         const payload = {};
         payload.tableId = action.tableId;
+        payload.currentViewId = action.currentViewId;
         payload.table = yield call(addFieldsToTable, payload);
         yield put({type: 'ADD_FIELD_SUCCEEDED', payload});
     } catch (err) {
-        yield put({type: 'ADD_FIELD_FAILED', message: err.message});
+        yield put({type: 'ADD_FIELD_FAILED', message: err});
     }
 }
 
@@ -205,8 +206,7 @@ function* addTableFilter(action) {
         const updatedFilters = yield call(addFilter, action);
         yield put({
             type: 'ADD_FILTER_SUCCEEDED',
-            table: updatedFilters.data.table,
-            filteredRecords: updatedFilters.data.filteredRecords
+            table: updatedFilters.data,
         });
     } catch (err) {
         yield put({type: 'ADD_FILTER_FAILED', message: err.message});
@@ -218,8 +218,7 @@ function* updateTableFilter(action) {
         const updatedFilters = yield call(updateFilter, action);
         yield put({
             type: 'FILTER_TABLE_SUCCEEDED',
-            table: updatedFilters.data.table,
-            filteredRecords: updatedFilters.data.filteredRecords
+            table: updatedFilters.data,
         });
     } catch (err) {
         yield put({type: 'FILTER_TABLE_FAILED', message: err.message});
@@ -231,8 +230,7 @@ function* removeTableFilter(action) {
         const updatedFilters = yield call(removeFilter, action);
         yield put({
             type: 'REMOVE_FILTER_SUCCEEDED',
-            table: updatedFilters.data.table,
-            filteredRecords: updatedFilters.data.filteredRecords
+            table: updatedFilters.data,
         });
     } catch (err) {
         yield put({type: 'REMOVE_FILTER_FAILED', message: err.message});
@@ -244,8 +242,7 @@ function* removeAllTableFilters(action) {
         const updatedFilters = yield call(removeAllFilters, action);
         yield put({
             type: 'REMOVE_ALL_FILTERS_SUCCEEDED',
-            table: updatedFilters.data.table,
-            filteredRecords: updatedFilters.data.filteredRecords
+            table: updatedFilters.data,
         });
     } catch (err) {
         yield put({type: 'REMOVE_ALL_FILTERS_FAILED', message: err.message});
@@ -311,6 +308,19 @@ function* gettingMembersByBaseId(action) {
     }
 }
 
+function* changeTableView(action) {
+    try {
+        const payload = {};
+        payload.tableId = action.tableId;
+        payload.viewId = action.viewId;
+        payload.viewType = action.viewType;
+        payload.table = yield call(getTableView, payload);
+        yield put({type: 'CHANGE_VIEW_SUCCEEDED', payload});
+    } catch (err) {
+        yield put({type: 'CHANGE_VIEW_FAILED', message: err});
+    }
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -333,6 +343,7 @@ function* dashboardSaga() {
     yield takeEvery('DELETE_FIELD', removeField);
     yield takeEvery('DELETE_RECORD', removeRecord);
     yield takeEvery('SET_ACTIVE_TAB', sendTableCoworker);
+    yield takeEvery('CHANGE_VIEW', changeTableView);
     yield takeEvery(['SWITCH_TABLE', 'SET_ACTIVE_TAB'], sendSwitchTableCoworker);
     yield takeEvery('DISCONNECT_SOCKET', disconnectSocket);
     yield takeEvery('FILTER_TABLE', filterTableRecords);
