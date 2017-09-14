@@ -10,6 +10,8 @@ const viewReps = {
     gallery: require('../../repositories/view/galleryRepositories')
 };
 
+let io
+
 // tables -------------------------------------
 router.post('/', (request, response, next) => {
     let newTable = request.body || defaultTable();
@@ -19,6 +21,9 @@ router.post('/', (request, response, next) => {
             viewReps['grid'].add(defaultViews['grid'])
         ])
         .then(([table, view]) => tableRepository.addView(table._id, view._id, view.type))
+	    .then(table => R.tap(table => {
+		    io.emit('table:add:success', table)
+	    })(table))
         .then((table) => response.status(201).send(table))
         .catch((error) => {
             response.status(400);
@@ -55,6 +60,9 @@ router.get('/', (request, response, next) => {
 
 router.put('/:id', (request, response, next) => {
     tableRepository.update(request.params.id, request.body)
+	    .then(R.tap(table => {
+		    io.emit('table:update:success', table)
+	    }))
         .then((table) => response.status(200).send(table))
         .catch((error) => {
             response.status(400);
@@ -64,6 +72,10 @@ router.put('/:id', (request, response, next) => {
 
 router.delete('/:id', (request, response, next) => {
     tableRepository.remove(request.params.id)
+	    .then(() => {
+		    io.emit('table:delete:success', request.params.id)
+            return Promise.resolve({})
+	    })
         .then(() => response.sendStatus(204))
         .catch((error) => {
             response.status(400);
@@ -105,6 +117,9 @@ router.put('/:id/records', (request, response) => {
 
 router.delete('/:id/records/:recordId', (request, response) => {
     tableRepository.pullRecord(request.params.id, request.params.recordId)
+	    .then(R.tap(table => {
+		    io.emit('record:delete:success', table)
+	    }))
         .then((result) => response.send(result))
         .catch((err) => response.sendStatus(500).send(err));
 });
@@ -137,18 +152,27 @@ router.post('/:id/fields', (request, response) => {
 
 router.put('/:id/fields', (request, response) => {
     tableRepository.updateFields(request.params.id, request.body)
+	    .then(R.tap(table => {
+		    io.emit('record:add:success', table)
+	    }))
         .then((result) => response.status(200).send(result))
         .catch((err) => response.status(500).send(err));
 });
 
 router.put('/:id/fields/:fieldId', (request, response) => {
     tableRepository.updateField(request.params.id, request.params.fieldId, request.body)
+	    .then(R.tap(table => {
+		    io.emit('field:update:meta:success', table)
+	    }))
         .then((result) => response.status(200).send(result))
         .catch((err) => response.status(500).send(err));
 });
 
 router.delete('/:id/fields/:fieldId', (request, response) => {
     tableRepository.deleteField(request.params.id, request.params.fieldId, request.body.currentView)
+	    .then(R.tap(table => {
+		    io.emit('field:delete:success', table)
+	    }))
         .then((result) => response.send(result))
         .catch((err) => response.sendStatus(500).send(err));
 });
@@ -245,4 +269,7 @@ router.delete('/:id/views/:viewType/:viewId/filters/', (request, response) => {
 });
 
 module.exports = router;
+module.exports.socketIO = function(importIO) {
+	io = importIO
+}
 

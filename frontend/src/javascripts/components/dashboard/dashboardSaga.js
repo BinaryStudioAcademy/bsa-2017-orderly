@@ -8,6 +8,7 @@ import {
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
+import R from 'ramda'
 
 const getDashboardReducer = (state) => state.dashboardReducer;
 const getUserProfileReducer = (state) => state.userProfile;
@@ -48,8 +49,10 @@ function* addTableToBase(action) {
     try {
         const base = yield call(updateBaseByNewTable, action.payload);
         yield put({type: 'ADD_TABLE_TO_BASE_SUCCEEDED', base: base});
-        yield put({type: 'SET_ACTIVE_TAB', tableId: action.payload.table._id});
-        browserHistory.push(`/dashboard/${base._id}/${action.payload.table._id}`);
+        if(R.isNil(action.payload.isWillActive)) {
+	        yield put({type: 'SET_ACTIVE_TAB', tableId: action.payload.table._id});
+	        browserHistory.push(`/dashboard/${base._id}/${action.payload.table._id}`);
+        }
     } catch (err) {
         yield put({type: 'ADD_TABLE_TO_BASE_FAILED', message: err.message});
     }

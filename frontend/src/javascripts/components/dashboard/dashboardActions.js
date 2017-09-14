@@ -432,7 +432,73 @@ const getMembersByBaseId = (baseId) => {
 	}
 }
 
+const addTableSucceed = (table, baseId) => {
+	return {
+		type: 'ADD_TABLE_SUCCEEDED',
+		payload: {
+			table: table,
+			baseId: baseId,
+			isWillActive: false
+		}
+	}
+}
+
+const deleteTableSuccess = (tableId) => {
+    return {
+        type: 'DELETE_TABLE_SUCCEEDED',
+        payload: {
+            tableId: tableId
+        }
+    }
+}
+
+const updateTableSuccess = (table) => {
+    return {
+        type: 'RENAME_TABLE_SUCCEEDED',
+        changedTable: table,
+        isWillNotActive: true
+    }
+}
+
+const addRecordSuccess = (table) => {
+    return {
+        type: 'ADD_RECORD_SUCCEEDED',
+        payload: {
+            tableId: table._id,
+            table: table
+        }
+    }
+}
+
+const updateFieldSucceeded = (table) => {
+    return {
+        type: 'UPDATE_FIELD_SUCCEEDED',
+        table: table
+    }
+}
+
+const deleteFieldSuccess = (table) => {
+    return {
+        type: 'DELETE_FIELD_SUCCEEDED',
+        table: table
+    }
+}
+
+const deleteRecordSuccess = (table) => {
+    return {
+        type: 'DELETE_RECORD_SUCCEEDED',
+        table: table
+    }
+}
+
 export {
+	deleteRecordSuccess,
+    deleteFieldSuccess,
+	updateFieldSucceeded,
+	addRecordSuccess,
+	updateTableSuccess,
+	deleteTableSuccess,
+	addTableSucceed,
     getBaseById,
     setActive,
     addTable,
