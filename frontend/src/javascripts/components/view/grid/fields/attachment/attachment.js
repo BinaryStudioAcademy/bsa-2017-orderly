@@ -5,6 +5,7 @@ import { Image, Modal, Button, Icon } from 'semantic-ui-react';
 
 import Field from '../field';
 import './attachment.scss';
+import AppConfig from '../../../../../config';
 
 const bgImage = (urlImage) => ({
 	backgroundImage: `url(${urlImage})`
@@ -52,7 +53,7 @@ class Attachment extends Field {
 			<div className='attachment_default'>
 				<div className='preview_wrapper'>
 					{R.map(fileName => <div key={++tempKey * 34}
-											style={bgImage(`http://localhost:2020/files/attachment/${this.props.id}/image/${fileName}`)}
+											style={bgImage(`${AppConfig.host}/files/attachment/${this.props.id}/image/${fileName}`)}
 											className='image_icon'/>)(R.reject(R.isEmpty)(this.props.value.split(',')) || [])}
 				</div>
 
@@ -89,7 +90,7 @@ class Attachment extends Field {
 													this.handleOpen(event, fileName)
 												  }}
 												  className='attachment_file'
-													   src={`http://localhost:2020/files/attachment/${this.props.id}/image/${fileName}`} /></div>)
+													   src={`${AppConfig.host}/files/attachment/${this.props.id}/image/${fileName}`} /></div>)
 						(R.reject(R.isEmpty)(this.props.value.split(',')) || [])}
 					</div>
 
@@ -103,7 +104,7 @@ class Attachment extends Field {
 					size='small'
 				>
 					<Modal.Content className='image_modal_content'>
-					   <div style={bgImage(`http://localhost:2020/files/attachment/${this.props.id}/image/${this.state.imageModalOpen}`)}
+					   <div style={bgImage(`${AppConfig.host}/files/attachment/${this.props.id}/image/${this.state.imageModalOpen}`)}
 							className='image_modal'/>
 					</Modal.Content>
 					<Modal.Actions>

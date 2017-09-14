@@ -1,7 +1,8 @@
 import axios from 'axios';
-;
+import R from 'ramda';
+import AppConfig from '../../config';
 
-const url = 'http://localhost:2020/api';
+const url = `${AppConfig.host}/api`;
 
 const addBaseToTeam = (teamId) =>
 	axios.post(url + '/team/' + teamId + '/base')
