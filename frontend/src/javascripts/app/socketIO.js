@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
-import API from '../config';
+import AppConfig from '../config';
 
-const socket = io(API.host);
+const socket = io(AppConfig.host);
 
 export default socket;

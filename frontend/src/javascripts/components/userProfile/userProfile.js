@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { Icon, Image } from 'semantic-ui-react';
 import avatar from '../../../images/avatar.png';
 import { getRolesBackgroundColor, createRolesObject } from '../homePage/homePageService'
-import API from '../../config';
+import AppConfig from '../../config';
 
 class UserProfile extends Component {
     constructor(props) {
@@ -34,7 +34,7 @@ class UserProfile extends Component {
             <span id="user-info" className="header-icon">
                 <Link to={'/user-page'} title={username}>
                     <Image  src={ this.state.avatar != '' ?
-                        `${API.host}/files/${this.props.user.avatar}`
+                        `${AppConfig.host}/files/${this.props.user.avatar}`
                         : avatar}
                             avatar />
                     <span className="user-status"

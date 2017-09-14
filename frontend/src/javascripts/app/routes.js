@@ -14,7 +14,7 @@ import Logout from '../components/auth/logout/logout';
 import Forgot from '../components/auth/forgot/forgot';
 import Reset from '../components/auth/reset/reset';
 import Auth from '../components/auth/auth';
-import API from '../config';
+import AppConfig from '../config';
 
 export default (
     <Route path="/" component={App}>
@@ -34,7 +34,7 @@ export default (
 
 // Axios config
 (function() {
-    axios.defaults.baseURL = API.host;
+    axios.defaults.baseURL = AppConfig.host;
 
     const token = Auth.getToken();
     if (token) {

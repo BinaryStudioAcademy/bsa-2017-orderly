@@ -3,7 +3,7 @@ import { Image } from 'semantic-ui-react';
 import avatar from '../../../../../../images/avatar.png';
 import MemberInfo from '../../../../homePage/homePageTeam/teams/memberInfo/memberInfo'
 import { getRolesColor } from '../../../../homePage/homePageService'
-import API from '../../../../../config';
+import AppConfig from '../../../../../config';
 
 import './coworker.scss'
 
@@ -26,7 +26,7 @@ class Coworker extends Component {
 				       avatar
 				       onMouseOver={this.showPopup}
 				       onMouseLeave={this.hidePopup}
-				       src={ this.props.user.avatar ? `${API.host}/files/${this.props.user.avatar}` : avatar}/>
+				       src={ this.props.user.avatar ? `${AppConfig.host}/files/${this.props.user.avatar}` : avatar}/>
 				<div style={{display: this.state.isShowPopup ? 'block' : 'none', top: '25px'}} className='user_info_popup'>
 					<MemberInfo collaborator={this.props.user}/>
 					<div className='popup_footer'>

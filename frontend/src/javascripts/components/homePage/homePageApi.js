@@ -1,8 +1,8 @@
 import axios from 'axios';
 import R from 'ramda';
-import API from '../../config';
+import AppConfig from '../../config';
 
-const url = `${API.host}/api`;
+const url = `${AppConfig.host}/api`;
 
 const addBaseToTeam = (teamId) =>
 	axios.post(url + '/team/' + teamId + '/base')
@@ -34,11 +34,10 @@ const getTeamsByUserId = (_id) =>
 	    .then((response) => response.data)
 	    .catch(R.tap(console.error));
 
-const getBasesByTeam = (teamId) => {
+const getBasesByTeam = (teamId) =>
 	axios.get(url + '/team/' + teamId + '/base')
 		.then((response) => response.data)
 		.catch(R.tap(console.error));
-}
 
 const getCollaborators = (usersIds) =>
 	axios.get(url + '/user/ids/' + usersIds.join(':'))

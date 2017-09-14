@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
-import API from '../config';
-const socket = io(API.host);
+import AppConfig from '../config';
+const socket = io(AppConfig.host);
 
 const emitTableCoworker = (user, tableId, tables) => {
     return socket.emit('client-upload-table', user, tableId);
