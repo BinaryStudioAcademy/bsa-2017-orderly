@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Header, Icon } from 'semantic-ui-react';
+import { Modal, Header, Icon, Accordion } from 'semantic-ui-react';
 import './recordDialog.scss';
 import TextLine from '../grid/fields/textLine/textLine';
 import LongText from '../grid/fields/longText/longText';
@@ -94,6 +94,20 @@ export const Recordtem = ({id, type, data, tableId, recordData, uploadAttachment
 
 const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPressComment, user, tableId,
                        uploadAttachment, deleteFile, recordIdx}) => {
+    const panels = [
+        {
+            title: <Header><Icon name="history" className="history-icon"/> History</Header>,
+            content: <HistoryList record={record} fields={fields} />
+        },
+        {
+            title: <Header><Icon name="commenting outline" className="comments-icon"/> Comments</Header>,
+            content: <CommentsBlock record={record}
+                                    user={user}
+                                    tableId={tableId}
+                                    onKeyPressComment={onKeyPressComment}/>
+        }
+    ];
+
     return (
         <Modal
             open={true}
@@ -120,6 +134,8 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
                     })}
                 </Modal.Description>
                 <Modal.Description className="modal-sidebar-block">
+                    <Accordion panels={panels} exclusive={false} fluid />
+
                     <div className="modal-history">
                         <Header>
                             <Icon name="history" className="history-icon"/>
