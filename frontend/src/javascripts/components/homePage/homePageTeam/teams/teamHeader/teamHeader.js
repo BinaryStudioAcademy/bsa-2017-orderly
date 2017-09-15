@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import R from 'ramda';
+;
 
 import ShareBlock from './shareBlock';
 import './teamHeader.scss';

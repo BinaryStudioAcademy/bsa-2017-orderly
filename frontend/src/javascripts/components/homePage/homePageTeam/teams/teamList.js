@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import R from 'ramda';
+;
 import { Icon } from 'semantic-ui-react';
 
 import TeamItem from './teamItem';

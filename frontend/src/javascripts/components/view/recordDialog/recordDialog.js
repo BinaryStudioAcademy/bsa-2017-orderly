@@ -123,12 +123,14 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
                                     <Icon name={fieldIcons[ fields[fieldIndex].type ]} className="field__icon"/>
                                     {fields[fieldIndex].name}
                                 </div>
+                                <div className={fields[fieldIndex].type=='multiple'||fields[fieldIndex].type=='select'? 'expand-record-item':''}>
                                 <Recordtem id={recordItem._id} type={fields[fieldIndex].type}
                                         data={recordItem.data} recordData={recordData}
                                         uploadAttachment={uploadAttachment} deleteFile={deleteFile}
                                         currentField={fields[fieldIndex]} recordIdx={recordIdx}
                                         tableId={tableId}
                                 />
+                                </div>
                             </div>
                         )
                     })}

@@ -8,10 +8,10 @@ class MultipleSelect  extends Field {
         super(props, 'multiple');
         let options = [];
         let propsOptions=this.props.currentField.options.multiple;
-
+        let i = 0;
         for (let option in propsOptions) {
         options.push({
-                value: option++,
+                value: i++,
                 label: propsOptions[option],
             })
         }
@@ -29,22 +29,6 @@ class MultipleSelect  extends Field {
             }
         }
 
-
-        // this.props.value.forEach((obj, index) => {
-        //     arr.push(obj)
-        // });
-        // let newValues =[]
-        // let k=0
-        // let values = this.props.value.split(',')
-
-        // for ( let j in values ) {
-        //      newValues.push({
-        //         value: k++, 
-        //         label: values[j],
-        //     })
-        // }
-//if you place newValues into valueSelected, in expand records you can not edit the record (but the current selected value will be there)
-//if you do not place newValues into valueSelected, then you can edit the record but no preselected value in the input    
         this.state = {
             options: options,
             valueSelected:valuesArrIndex || '',
@@ -55,9 +39,10 @@ class MultipleSelect  extends Field {
     componentWillReceiveProps(nextProps) {
         let options = [];
         let propsOptions=this.props.currentField.options.multiple;
+        let i = 0;
         for (let option in propsOptions) {
         options.push({
-                value: option++, 
+                value: i++, 
                 label: propsOptions[option],
             })
         }
@@ -65,6 +50,7 @@ class MultipleSelect  extends Field {
             options: options
         });
     }
+    //
 
     renderActiveField() {
         return (

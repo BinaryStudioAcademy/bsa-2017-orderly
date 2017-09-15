@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const userRepository = require('../../repositories/user/userRepository');
 const emailService = require ('../../services/emailService');
 
-/**
+/*
  * Validate the sign up form
  */
 function validateSignupForm(payload) {

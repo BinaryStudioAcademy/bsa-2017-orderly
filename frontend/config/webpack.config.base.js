@@ -20,6 +20,7 @@ module.exports = {
         extensions: ['.js', '.jsx', '.json', '.scss']
     },
     plugins: [
+	    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new webpack.ProvidePlugin({
             'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
         }),

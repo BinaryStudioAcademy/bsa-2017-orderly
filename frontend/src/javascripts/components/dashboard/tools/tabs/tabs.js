@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon, Label } from 'semantic-ui-react';
-import R from 'ramda';
+;
 import AddTabBtn from './addTabBtn/addTabBtn';
 import TabItem from './tabItem/tabItem';
 import Coworkers from './coworkers/coworkers';

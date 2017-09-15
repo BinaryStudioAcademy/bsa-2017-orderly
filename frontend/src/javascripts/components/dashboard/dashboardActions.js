@@ -4,10 +4,6 @@ const getBaseById = (_id, tableId) => ({
     tableId: tableId
 });
 
-const getTables = () => ({
-    type: 'GET_TABLES'
-});
-
 const deleteTable = (tableId) => ({
     type: 'DELETE_TABLE',
     tableId: tableId
@@ -83,10 +79,11 @@ const addRecord = (tableId) => {
     };
 };
 
-export function addField(tableId) {
+export function addField(tableId, currentViewId) {
     return {
         type: 'ADD_FIELD',
-        tableId: tableId
+        tableId: tableId,
+        currentViewId: currentViewId,
     };
 }
 
@@ -183,11 +180,12 @@ const toggleSearch = () => {
     };
 };
 
-export function changeView(tableId, viewId) {
+export function changeView(tableId, viewId, viewType) {
     return {
         type: 'CHANGE_VIEW',
         tableId,
-        viewId
+        viewId,
+        viewType,
     };
 }
 
@@ -277,6 +275,7 @@ export function changeFieldType(tableId, fieldId, fieldType) {
         fieldType: fieldType
     };
 }
+
 export function changeFieldName(tableId, fieldId, fieldName) {
     return {
         type: 'CHANGE_FIELD_NAME',
@@ -285,6 +284,16 @@ export function changeFieldName(tableId, fieldId, fieldName) {
         fieldName: fieldName,
     };
 }
+
+export function changeFieldDisplay(tableId, fieldId, display) {
+    return {
+        type: 'CHANGE_FIELD_DISPLAY',
+        tableId: tableId,
+        fieldId: fieldId,
+        display: display
+    };
+}
+
 export function changeFieldOptions(tableId, fieldId, fieldOptions, value) {
     return {
         type: 'CHANGE_FIELD_OPTIONS',
@@ -295,11 +304,12 @@ export function changeFieldOptions(tableId, fieldId, fieldOptions, value) {
     };
 }
 
-export function deleteField(tableId, fieldId) {
+export function deleteField(tableId, fieldId, currentView) {
     return {
         type: 'DELETE_FIELD',
         tableId: tableId,
         fieldId: fieldId,
+        currentView: currentView
     };
 }
 
@@ -424,7 +434,6 @@ const getMembersByBaseId = (baseId) => {
 
 export {
     getBaseById,
-    getTables,
     setActive,
     addTable,
     switchTable,

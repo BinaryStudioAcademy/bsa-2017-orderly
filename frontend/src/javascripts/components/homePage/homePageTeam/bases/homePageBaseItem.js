@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
 import { browserHistory } from 'react-router';
-import R from 'ramda'
+
 import ContextMenuIcon from '../../../contextMenu/contextMenuIcon';
 import { createRolesObject } from '../../homePageService'
 import './homePageBaseItem.scss'

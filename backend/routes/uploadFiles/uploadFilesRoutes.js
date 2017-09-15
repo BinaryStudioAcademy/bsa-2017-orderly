@@ -15,6 +15,7 @@ const storage = multer.diskStorage({
 			cb(null, dir)
 		}
 		if (file.fieldname === 'file') {
+			mkdirp.sync('./files')
 			cb(null, './files')
 		}
 	},
