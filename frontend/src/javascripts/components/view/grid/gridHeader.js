@@ -46,10 +46,10 @@ export default class GridHeader extends Component{
                             {/*<Icon name='browser'/>*/}
                             {/*<span className="menu__text">Group</span>*/}
                         {/*</Button>*/}
-                        <SortMenu
+                       {/* <SortMenu
                             currentTable={this.props.currentTable}
                             sortRecords={this.props.sortRecords}
-                        />
+                        />*/}
                         {/*<Button basic icon='external'/>*/}
                         <ExtraMenu
                             currentTableId={this.props.currentTable._id}

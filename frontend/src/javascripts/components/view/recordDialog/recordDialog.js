@@ -112,8 +112,16 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
         <Modal
             open={true}
             onClose={(event) => onOpenRecordDialog('')}
+            className="recordDialog-modal"
             >
-            <Modal.Header className="record-details">Record details</Modal.Header>
+            <Modal.Header className="record-details">
+                Record details
+                <Icon
+                    name='close'
+                    className="closeRecordDialogBtn"
+                    onClick={(event) => onOpenRecordDialog('')}
+                />
+            </Modal.Header>
             <Modal.Content image className="modal-content">
                 <Modal.Description className="modal-fields-block content scrolling">
                     {record.record_data.map((recordItem, fieldIndex) => {

@@ -108,9 +108,22 @@
     }
   }
 }
-.modal {
+.recordDialog-modal {
   position: relative;
   //padding-bottom: 70px;
+
+  .record-details.header {
+    position: relative;
+
+    .closeRecordDialogBtn {
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 0;
+      opacity: 0.5;
+      cursor: pointer;
+    }
+  }
 
   .modal-content {
     padding-right: 0!important;
@@ -391,15 +404,19 @@
     //border-top: 2px solid rgba(117, 116, 116, 0.66);
 
     .username {
-      max-width: 138px;
+      max-width: 119px;//119
       margin-left: 20px;
       margin-right: 20px;
       display: inline-block;
       overflow: hidden;
       text-overflow: ellipsis;
+      position: relative;
+      top: 10px;
     }
     .ui.avatar.image {
       //float: left;
+      position: relative;
+      top: -4px;
     }
 
     .ui.input input {
