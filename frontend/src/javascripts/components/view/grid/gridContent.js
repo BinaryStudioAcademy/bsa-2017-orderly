@@ -30,7 +30,7 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
 const Field = ({id, tableId, type, name, index, records, recordData, changeFieldType, changeFieldName,
                    changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
                    searchFoundIndex, uploadAttachment, deleteFile, onSetSelectFieldRecordItems,
-                   onAppendSelectFieldRecordItems, selectedRecordItemList, currentView}) => {
+                   onAppendSelectFieldRecordItems, selectedRecordItemList, currentView, contentRefs}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -62,21 +62,24 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
             <div className="field__items">
                 {records &&
                 records.map((record, idx) => {
-                    return <RecordItem key={record.record_data[index]._id}
-                                   id={record.record_data[index]._id}
-                                   uploadAttachment={uploadAttachment}
-                                   recordIdx={idx}
-                                   fieldIdx={index}
-                                   currentRecord={record.record_data[index]}
-                                   type={type}
-                                   data={record.record_data[index].data}
-                                   recordData={recordData}
-                                   currentField={currentField}
-                                   searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
-                                   searchFoundIndex={searchFoundIndex}
-                                   deleteFile={deleteFile}
-                                   tableId={tableId}
-                                   selectedRecordItemList={selectedRecordItemList}/>
+                    return <RecordItem
+                        key={record.record_data[index]._id}
+                        id={record.record_data[index]._id}
+                        uploadAttachment={uploadAttachment}
+                        recordIdx={idx}
+                        fieldIdx={index}
+                        currentRecord={record.record_data[index]}
+                        type={type}
+                        data={record.record_data[index].data}
+                        recordData={recordData}
+                        currentField={currentField}
+                        searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
+                        searchFoundIndex={searchFoundIndex}
+                        deleteFile={deleteFile}
+                        tableId={tableId}
+                        selectedRecordItemList={selectedRecordItemList}
+                        contentRefs={contentRefs}
+                    />
                 })}
             </div>
         </div>
@@ -84,7 +87,9 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
 };
 
 const RecordItem = ({id, type, data, recordData, recordIdx, fieldIdx, currentField, searchMatchedRecordItemIdList,
-                     searchFoundIndex, uploadAttachment, tableId, deleteFile, currentRecord, selectedRecordItemList}) => {
+                     searchFoundIndex, uploadAttachment, tableId, deleteFile, currentRecord, selectedRecordItemList,
+                     contentRefs
+                    }) => {
     const fieldPayload = {
         id: id,
         value: data,
@@ -174,7 +179,10 @@ const RecordItem = ({id, type, data, recordData, recordIdx, fieldIdx, currentFie
     }
 
     return (
-        <div className={recordClassName}>
+        <div className={recordClassName}
+             onMouseOver={() => contentRefs[`recordButton_${recordIdx}`].ref.classList.add('show-dialog-button')}
+             onMouseLeave={() => contentRefs[`recordButton_${recordIdx}`].ref.classList.remove('show-dialog-button')}
+        >
             {record}
         </div>
     );
@@ -184,14 +192,14 @@ export default class GridContent extends Component {
     constructor(props) {
         super(props);
         this.props = props;
-        let fieldsToShow = this.props.currentTable.fields.filter((field) => field.display === true)
+        let fieldsToShow = this.props.currentTable.fields.filter((field) => field.display === true);
         
         this.state={
             fields:fieldsToShow
         }
     }
     componentWillReceiveProps(nextProps) {
-        let fieldsToShow = nextProps.currentTable.fields.filter((field) => field.display === true)
+        let fieldsToShow = nextProps.currentTable.fields.filter((field) => field.display === true);
         this.setState({fields:fieldsToShow})
     }
     componentDidMount() {
@@ -250,6 +258,7 @@ export default class GridContent extends Component {
                                             <div className="row-control-container" key={record._id}>
                                                 <Button
                                                     className="record-dialog-btn"
+                                                    ref={`recordButton_${recordIndex}`}
                                                     onClick={(event) => this.props.onOpenRecordDialog(recordIndex)}>
                                                     <Icon name='expand'/>
                                                 </Button>
@@ -301,6 +310,7 @@ export default class GridContent extends Component {
                                     onAppendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
                                     selectedRecordItemList={this.props.selectedRecordItemList}
                                     currentView={this.props.currentTable.currentView}
+                                    contentRefs={this.refs}
                                 />
                             })}</div>
                         </div>
