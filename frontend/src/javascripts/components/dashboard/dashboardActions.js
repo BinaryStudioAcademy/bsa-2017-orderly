@@ -250,6 +250,15 @@ export function updateFilter(tableId, viewId, viewType, fieldId, fieldIndex, fil
     };
 }
 
+export function updateViewHideField(viewId, fieldId, value) {
+    return {
+        type: 'UPDATE_VIEW_HIDE_FIELD',
+        viewId: viewId,
+        fieldId: fieldId,
+        hidden: value
+    };
+}
+
 export function removeFilter(tableId, viewId, viewType, filterId) {
     return {
         type: 'REMOVE_FILTER',

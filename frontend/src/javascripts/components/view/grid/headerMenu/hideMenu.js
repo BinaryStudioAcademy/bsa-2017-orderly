@@ -77,10 +77,12 @@ export default class PopupHideColumn extends Component{
     }
     handleHide = (event) => {
         this.setState({value: event.value, label: event.label})
-        this.props.changeFieldDisplay(this.props.currentTable._id, event.value, 'false')
+        //this.props.changeFieldDisplay(this.props.currentTable._id, event.value, 'false')
+        this.props.updateViewHideField(this.props.currentViewId,  event.value, 'true')
     }
     handleUnhide = (event, id) => {
-        this.props.changeFieldDisplay(this.props.currentTable._id, id, 'true')
+        //this.props.changeFieldDisplay(this.props.currentTable._id, id, 'true')
+        this.props.updateViewHideField(this.props.currentViewId,  event.value, 'false')
     }
 
     render() {

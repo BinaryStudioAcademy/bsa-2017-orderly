@@ -92,6 +92,12 @@ const updateFilter = (payload) => {
         .catch(R.tap(console.error));
 };
 
+const updateViewHideFields = (action) => {
+    return axios.put(url + '/' + action.viewId+ '/fields/' + action.fieldId, action)
+        .then((response) => response)
+        .catch(R.tap(console.error));
+};
+
 const removeFilter = (payload) => {
     return axios.delete(url + '/tables/' + payload.tableId + '/views/' + payload.viewType + '/' +
         payload.viewId + '/filters/' + payload.filterId)
@@ -166,5 +172,6 @@ export {
 	getTableById,
 	updateKanban,
     removeAllFilters,
-	getMembersByBaseId
+	getMembersByBaseId,
+    updateViewHideFields
 };

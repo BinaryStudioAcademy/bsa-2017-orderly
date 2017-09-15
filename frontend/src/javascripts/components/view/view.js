@@ -83,6 +83,7 @@ export default class View extends Component {
                 removeFilter={this.props.removeFilter}
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
+                updateViewHideField={this.props.updateViewHideField}
                 changeFieldDisplay={this.props.changeFieldDisplay}
                 changeFieldOptions={this.props.changeFieldOptions}
                 onOpenRecordDialog={this.props.openRecordDialog}
@@ -106,6 +107,7 @@ export default class View extends Component {
                 setSelectAllRecordItems={this.props.setSelectAllRecordItems}
                 selectedRecordItemList={this.props.selectedRecordItemList}
                 removeAllFilters={this.props.removeAllFilters}
+                currentViewId={this.props.currentView}
             />;
         case 'form':
             return <FormView
