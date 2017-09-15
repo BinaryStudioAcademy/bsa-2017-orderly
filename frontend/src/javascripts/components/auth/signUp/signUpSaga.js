@@ -1,7 +1,7 @@
 import { call, put, takeEvery} from 'redux-saga/effects';
 import * as signUpApi from './signUpApi';
-import { browserHistory } from 'react-router';
 import { SIGN_UP_ACTION, SIGN_UP_PROCESS, SIGN_UP_ERROR } from "./signUpActions";
+import { LOGIN_USER } from '../login/loginActions';
 
 function* fetchUser(action) {
     try {
@@ -10,7 +10,7 @@ function* fetchUser(action) {
         if (!signUp.success) {
             yield put({type: SIGN_UP_ERROR, errors: signUp.errors, message: signUp.message});
         } else {
-            browserHistory.push('/login');
+            yield put({type: LOGIN_USER, email: action.email, password: action.password});
         }
     } catch (e) {
         yield put({type: SIGN_UP_ERROR, message: e.message});
