@@ -111,9 +111,9 @@ export const removeAllFilters = (payload) => {
         .catch(R.tap(console.error));
 };
 
-export const emitTableCoworker = (user, tableId) => {
-    return socket.emit('client-upload-table', user, tableId);
-};
+// export const emitTableCoworker = (user, tableId) => {
+//     return socket.emit('client-upload-table', user, tableId);
+// };
 
 export const uploadFile = ({data, typeOfFile, record_dataId, tableId}) =>
 	axios.post(`/files/attachment/${record_dataId}/${typeOfFile}/${tableId}`, data)
@@ -152,3 +152,10 @@ export const getMembersByBaseId = (baseId) =>
 	axios.get(url + '/team/' + baseId + '/members')
 		.then(response => response.data)
 		.catch(R.tap(console.error));
+
+export const addSort = (payload) => {
+    return axios.post(url + '/tables/' + payload.tableId + '/views/' + payload.viewType + '/' +
+        payload.viewId + '/fields/' + payload.fieldId + '/' + '/sorts')
+        .then((response) => response)
+        .catch(R.tap(console.error));
+};
