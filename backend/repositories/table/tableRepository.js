@@ -21,6 +21,7 @@ class TableRepository extends Repository {
             .populate('records.comments.collaborator')
             .populate('views.view')
             .then((table) => {
+                if (!currentViewId) return table;
                 return TableRepository.filterRecords(table, currentViewId);
             });
     }

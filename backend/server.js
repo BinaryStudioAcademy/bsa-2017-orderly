@@ -50,5 +50,7 @@ const server = app.listen(port, () => {
 
 const io = require('socket.io').listen(server);
 const coworkers = require("./socketModules/coworkersSocket")(io);
+require('./socketModules/tableSocket')(io)
+require('./routes/table/table').socketIO(io)
 
 module.exports = app;
