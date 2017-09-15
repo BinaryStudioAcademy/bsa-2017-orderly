@@ -1,4 +1,4 @@
-;
+import R from 'ramda'
 
 const initState = {
     base: '',
@@ -96,20 +96,21 @@ function dashboardReducer(state = initState, action) {
     }
 
     case 'ADD_TABLE_SUCCEEDED': {
-        return R.mergeAll([
+        const isWillActive = Boolean(action.payload.isWillActive)
+	    if (!R.contains(action.payload.table._id, R.pluck('_id', state.tables))) {return R.mergeAll([
             R.omit(['tables', 'addPopupIsOpen'], state),
             {
                 tables: R.concat(
                     R.map(R.compose(R.assoc('isActive', false), R.dissoc('isActive')))(state.tables),
-                    [R.assoc('isActive', true, action.payload.table)]
+                    [R.assoc('isActive', isWillActive, action.payload.table)]
                 ),
             },
             {addPopupIsOpen: false}
         ]);
+    } else return state
     }
 
     case 'ADD_FIELD_SUCCEEDED': {
-
         return R.mergeAll([
             R.dissoc('tables', state),
             {
@@ -184,7 +185,7 @@ function dashboardReducer(state = initState, action) {
                 tables: R.map((table) => {
                     if (table._id === action.changedTable._id) {
                         const changedTable = action.changedTable;
-                        changedTable.isActive = true;
+                        changedTable.isActive = R.isNil(action.isWillNotActive);
                         changedTable.currentView = table.currentView;
                         return changedTable;
                     }

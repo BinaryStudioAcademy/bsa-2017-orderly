@@ -26,7 +26,7 @@ const CollaboratorItem = (team, teamUser, collaborator, showUserPopup, isShowUse
 			       showUserPopup(['', ''])
 		       }}
 		       avatar/>
-		<div style={{backgroundColor: 'green'}}	className='logo_user_status'/>
+		{/*<div style={{backgroundColor: 'green'}}	className='logo_user_status'/>*/}
 		<div style={hidingPopupStyle(isShowUserPopup, team._id, teamUser.userId)} className='user_info_popup'>
 			<MemberInfo collaborator={collaborator} />
 			<div className='popup_footer'>
