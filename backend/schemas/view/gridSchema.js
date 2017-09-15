@@ -33,6 +33,13 @@ const GridSchema = new Schema({
             }
         ]
     },
+    sorts: [
+        {
+            fieldId: ObjectId,
+            // fieldIndex: Number,
+            sortOption: String,
+        }
+    ],
     fields_config: [
         {
             field: ObjectId,

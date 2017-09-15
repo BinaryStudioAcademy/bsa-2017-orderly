@@ -30,7 +30,9 @@ export default class GridHeader extends Component{
                     <Icon name={viewIcons.grid} id="view-type__icon" size="large"/>
                     <span id="view-type__name">Grid View</span>
                     <Button.Group>
-                        <PopupHideColumn currentTable={this.props.currentTable} changeFieldDisplay={this.props.changeFieldDisplay}/>
+                        <PopupHideColumn
+                            currentTable={this.props.currentTable}
+                            changeFieldDisplay={this.props.changeFieldDisplay}/>
                         <FilterMenu
                             currentTable={this.props.currentTable}
                             currentViewType={this.props.currentViewType}

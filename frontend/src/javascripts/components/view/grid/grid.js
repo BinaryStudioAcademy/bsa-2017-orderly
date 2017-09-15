@@ -8,10 +8,6 @@ export default class Grid extends Component {
         super(props);
     }
 
-    handleSort = (payload) => {
-        this.props.sortRecords(this.props.currentTable, payload.fieldId, payload.sortOption);
-    };
-
     render() {
 
         return (
@@ -28,7 +24,7 @@ export default class Grid extends Component {
                     searchBlockOpen={this.props.searchBlockOpen}
                     currentTable={this.props.currentTable}
                     tables={this.props.tables}
-                    sortRecords={this.handleSort}
+                    sortRecords={this.props.sortRecords}
                     filterRecords={this.props.filterRecords}
                     removeFilter={this.props.removeFilter}
                     deleteView={this.props.deleteView}

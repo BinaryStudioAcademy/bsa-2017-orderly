@@ -268,8 +268,57 @@ router.delete('/:id/views/:viewType/:viewId/filters/', (request, response) => {
         .catch((error) => response.status(500).send(error));
 });
 
+// sort table -------------------------------------
+
+router.get('/:id/views/:viewId/fields/sorts', (request, response) => {
+    tableRepository.performSort(request.params.id, request.params.viewId)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.post('/:id/views/:viewType/:viewId/fields/:fieldId/sorts', (request, response) => {
+    tableRepository.addSort(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType,
+        request.params.fieldId)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.put('/:id/views/:viewType/:viewId/fields/:fieldId/sorts/:sortId', (request, response) => {
+    tableRepository.updateSort(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType,
+        request.params.fieldId,
+        request.params.sortId,
+        request.body.data.sortOption)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.delete('/:id/views/:viewType/:viewId/sorts/:sortId', (request, response) => {
+    tableRepository.removeSort(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType,
+        request.params.sortId)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.delete('/:id/views/:viewType/:viewId/sorts', (request, response) => {
+    tableRepository.removeAllSorts(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
 module.exports = router;
 module.exports.socketIO = function(importIO) {
-	io = importIO
-}
+    io = importIO;
+};
 

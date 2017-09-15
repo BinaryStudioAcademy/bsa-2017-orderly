@@ -40,8 +40,9 @@ export default class SortMenu extends Component {
         }
     };
 
-    preformSort = () => {
-        this.props.sortRecords(R.dissoc('isActive', this.state));
+    addSort = () => {
+        const {fieldId, fieldType, sortOption} = R.dissoc('isActive', this.state);
+        this.props.sortRecords(this.props.currentTable._id, fieldId, fieldType, sortOption);
     };
 
     render() {
@@ -55,7 +56,7 @@ export default class SortMenu extends Component {
                 </div>
                 <div className={this.state.isActive ? "sort__menu" : "hide"}>
                     <Icon className="menu__item" name="x" link/>
-                    <Icon className="menu__item" name="checkmark" link onClick={() => this.preformSort()}/>
+                    <Icon className="menu__item" name="checkmark" link onClick={() => this.addSort()}/>
                     <span className="menu__item item__label-sort-by">Sort by</span>
                     <select className="menu__item item__select" onChange={(e) => {
                         let [fieldId, fieldType] = e.target.value.split(',');
