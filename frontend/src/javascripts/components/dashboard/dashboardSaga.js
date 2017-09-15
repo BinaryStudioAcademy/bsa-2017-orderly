@@ -4,11 +4,10 @@ import {
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
     deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView, deleteView,
     removeFilter, addFilter, updateFilter, getTableById, updateKanban, removeAllFilters,
-	getMembersByBaseId, getTableView,
+    getMembersByBaseId, getTableView, addSort
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
-import R from 'ramda'
 
 const getDashboardReducer = (state) => state.dashboardReducer;
 const getUserProfileReducer = (state) => state.userProfile;
@@ -49,9 +48,9 @@ function* addTableToBase(action) {
     try {
         const base = yield call(updateBaseByNewTable, action.payload);
         yield put({type: 'ADD_TABLE_TO_BASE_SUCCEEDED', base: base});
-        if(R.isNil(action.payload.isWillActive)) {
-	        yield put({type: 'SET_ACTIVE_TAB', tableId: action.payload.table._id});
-	        browserHistory.push(`/dashboard/${base._id}/${action.payload.table._id}`);
+        if (R.isNil(action.payload.isWillActive)) {
+            yield put({type: 'SET_ACTIVE_TAB', tableId: action.payload.table._id});
+            browserHistory.push(`/dashboard/${base._id}/${action.payload.table._id}`);
         }
     } catch (err) {
         yield put({type: 'ADD_TABLE_TO_BASE_FAILED', message: err.message});
@@ -168,7 +167,7 @@ function* removeRecord(action) {
 function* sendTableCoworker(action) {
     try {
         const userProfileReducer = yield select(getUserProfileReducer);
-        yield call (emitTableCoworker, userProfileReducer.user, action.tableId);
+        yield call(emitTableCoworker, userProfileReducer.user, action.tableId);
     } catch (err) {
         yield put({type: 'SEND_TABLE_COWORKER_FAILED', message: err.message});
     }
@@ -177,7 +176,7 @@ function* sendTableCoworker(action) {
 function* sendSwitchTableCoworker(action) {
     try {
         const userProfileReducer = yield select(getUserProfileReducer);
-        yield call (emitSwitchTableCoworker, userProfileReducer.user, action.tableId);
+        yield call(emitSwitchTableCoworker, userProfileReducer.user, action.tableId);
     } catch (err) {
         yield put({type: 'SEND_TABLE_COWORKER_FAILED', message: err.message});
     }
@@ -293,21 +292,20 @@ function* deleteTableView(action) {
 
 function* updatingKanban(action) {
     try {
-        const kanban = yield call(updateKanban, action.kanban)
-        const changedTable = yield call(getTableById, action.tableId)
-	    yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable})
-
+        yield call(updateKanban, action.kanban);
+        const changedTable = yield call(getTableById, action.tableId);
+        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
     } catch (err) {
-        yield put({type: 'UPDATE_KANBAN_VIEW_FAILED', message: err.message})
+        yield put({type: 'UPDATE_KANBAN_VIEW_FAILED', message: err.message});
     }
 }
 
 function* gettingMembersByBaseId(action) {
     try {
-        const members = yield call(getMembersByBaseId, action.baseId)
-	    yield put({type: 'GET_MEMBERS_BY_BASE_ID_SUCCESSED', members})
+        const members = yield call(getMembersByBaseId, action.baseId);
+        yield put({type: 'GET_MEMBERS_BY_BASE_ID_SUCCESSED', members});
     } catch (err) {
-        yield put({type: 'GET_MEMBERS_BY_BASE_ID_FAILED', message: err.message})
+        yield put({type: 'GET_MEMBERS_BY_BASE_ID_FAILED', message: err.message});
     }
 }
 
@@ -321,6 +319,18 @@ function* changeTableView(action) {
         yield put({type: 'CHANGE_VIEW_SUCCEEDED', payload});
     } catch (err) {
         yield put({type: 'CHANGE_VIEW_FAILED', message: err});
+    }
+}
+
+function* addTableSort(action) {
+    try {
+        const updatedSort = yield call(addSort, action);
+        yield put({
+            type: 'ADD_SORT_SUCCEEDED',
+            table: updatedSort.data,
+        });
+    } catch (err) {
+        yield put({type: 'ADD_SORT_FAILED', message: err.message});
     }
 }
 
@@ -356,8 +366,9 @@ function* dashboardSaga() {
     yield takeEvery('REMOVE_ALL_FILTERS', removeAllTableFilters);
     yield takeEvery('UPLOAD_FILES', uploadingFiles);
     yield takeEvery('DELETE_FILE', deletingFile);
-    yield takeEvery('UPDATE_KANBAN_VIEW', updatingKanban)
-    yield takeEvery('GET_MEMBERS_BY_BASE_ID', gettingMembersByBaseId)
+    yield takeEvery('UPDATE_KANBAN_VIEW', updatingKanban);
+    yield takeEvery('GET_MEMBERS_BY_BASE_ID', gettingMembersByBaseId);
+    yield takeEvery('ADD_SORT', addTableSort);
 }
 
 export default dashboardSaga;
