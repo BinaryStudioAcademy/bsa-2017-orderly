@@ -148,8 +148,8 @@ class TableRepository extends Repository {
             const field = table.fields[fieldIndex];
             field.type = data.fieldType || field.type;
             field.name = data.fieldName || field.name;
-            field.display = data.display || field.display
-            
+            field.display = data.display || field.display;
+
             if (data.type === 'CHANGE_FIELD_OPTIONS') {
                 switch (data.currentValue) {
                 case 'select':
@@ -172,7 +172,7 @@ class TableRepository extends Repository {
                     break;
                 }
             }
-            
+
             if (data.fieldType) {
                 table.records.forEach((record) => (record.record_data[fieldIndex].data = ''));
             }
@@ -221,7 +221,7 @@ class TableRepository extends Repository {
         return this.model.findById(tableId, {views: viewId});
     }
 
-    getFromView(viewId, viewType){
+    getFromView(viewId, viewType) {
         const viewModel = typeToSchema[viewType];
         return viewModel.findById(objectId(viewId));
     }
@@ -260,37 +260,41 @@ class TableRepository extends Repository {
     }
 
     pushClonedViewsToTable(viewType, tableId, views) {
-        let newViews = []
-        for ( let view in views[0]) {
+        let newViews = [];
+        for (let view in views[0]) {
             newViews[view] = {view: views[0][view]._id, type: viewType}
         }
-            return this.model.findByIdAndUpdate(
-                tableId,
-                {$push: { views: {$each: newViews } } },
-                {upsert:true}
-            ).populate('views.view');
-        }
+        return this.model.findByIdAndUpdate(
+            tableId,
+            {$push: {views: {$each: newViews}}},
+            {upsert: true}
+        ).populate('views.view');
+    }
 
     updateRecordById(tableId, record_dataId, fileName, isDelete) {
         return this.model.findById(tableId)
-			.then(table => R.map( record => {
-				record.record_data = R.map(data => {
-					if (data._id == record_dataId) {
-						if (!data._id) return {_id: data._id, data: fileName}
-						if (isDelete) {
-							return {_id: data._id, data: fileName}
-						} else {
-							let dataArray = data.data.split(',')
-							dataArray.push(fileName)
-							return {_id: data._id, data: dataArray.join(',')}
-						}
-					}
-					else return data
-				})(record.record_data)
-				return record
-				})(table.records)
-            )
-			.then(newRecords => this.model.findByIdAndUpdate(tableId, {records: newRecords}, {'new': true}).populate('views.view'))
+            .then((table) => R.map((record) => {
+                record.record_data = R.map((data) => {
+                    if (data._id === record_dataId) {
+                        if (!data._id) return {_id: data._id, data: fileName};
+                        if (isDelete) {
+                            return {_id: data._id, data: fileName};
+                        } else {
+                            let dataArray = data.data.split(',');
+                            dataArray.push(fileName);
+                            return {_id: data._id, data: dataArray.join(',')};
+                        }
+                    }
+                    else return data;
+                })(record.record_data);
+                return record;
+            })(table.records))
+            .then((newRecords) => this.model.findByIdAndUpdate(
+                tableId,
+                {records: newRecords},
+                {'new': true}
+                ).populate('views.view')
+            );
     }
 
     deleteView(tableId, viewId, viewType) {
@@ -299,8 +303,7 @@ class TableRepository extends Repository {
                 return this.model.findByIdAndUpdate(
                     tableId,
                     {'$pull': {views: {view: viewId}}},
-                    {'new': true}
-                )
+                    {'new': true})
                     .populate('records.history.collaborator')
                     .populate('records.comments.collaborator')
                     .populate('views.view');
@@ -359,7 +362,7 @@ class TableRepository extends Repository {
         const view = table.views.find((v) => v.view._id.toString() === viewId.toString());
         if (view.type !== 'grid') return table; // filter only applicable for grid view, for now...
         let filteredRecords;
-        for (let filterItem of view.view.filters.filterSet){
+        for (let filterItem of view.view.filters.filterSet) {
             const index = table.fields.findIndex((f) => f._id.toString() === filterItem.fieldId.toString());
             let recordsToFilter = filteredRecords || table.records;
             const lowerQuery = filterItem.value.toLowerCase();
@@ -388,8 +391,7 @@ class TableRepository extends Repository {
                 break;
             }
         }
-        const tableWithFilter = Object.assign({}, table.toObject(), {filteredRecords: filteredRecords});
-        return tableWithFilter;
+        return Object.assign({}, table.toObject(), {filteredRecords: filteredRecords});
     }
 
 }
