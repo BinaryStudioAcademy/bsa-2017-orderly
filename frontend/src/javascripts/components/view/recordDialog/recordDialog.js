@@ -112,6 +112,7 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
         <Modal
             open={true}
             onClose={(event) => onOpenRecordDialog('')}
+            className="recordDialog-modal"
             >
             <Modal.Header className="record-details">Record details</Modal.Header>
             <Modal.Content image className="modal-content">
