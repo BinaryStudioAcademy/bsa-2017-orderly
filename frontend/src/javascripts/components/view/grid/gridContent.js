@@ -230,7 +230,7 @@ export default class GridContent extends Component {
     };
 
     render() {
-        const records = this.props.currentTable.filteredRecords || this.props.currentTable.records;
+        const records = this.props.currentTable.records;
         return (
             <div className="wrapper__grid" ref={(div) => this.wrapperGrid = div}>
                 <div className="grid__content">

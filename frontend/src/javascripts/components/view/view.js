@@ -69,10 +69,6 @@ export default class View extends Component {
                 addField={this.props.addField}
                 deleteField={this.props.deleteField}
                 deleteRecord={this.props.deleteRecord}
-                sortRecords={this.props.sortRecords}
-                filterRecords={this.props.filterRecords}
-                filteredRecords={this.props.filteredRecords}
-                removeFilter={this.props.removeFilter}
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
                 changeFieldDisplay={this.props.changeFieldDisplay}
@@ -93,11 +89,17 @@ export default class View extends Component {
                 viewsCount={viewsCount}
                 addFilter={this.props.addFilter}
                 updateFilter={this.props.updateFilter}
+                removeFilter={this.props.removeFilter}
+                removeAllFilters={this.props.removeAllFilters}
+                addSort={this.props.addSort}
+                updateSort={this.props.updateSort}
+                removeSort={this.props.removeSort}
+                removeAllSorts={this.props.removeAllSorts}
                 setSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
                 appendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
                 setSelectAllRecordItems={this.props.setSelectAllRecordItems}
                 selectedRecordItemList={this.props.selectedRecordItemList}
-                removeAllFilters={this.props.removeAllFilters}
+
             />;
         case 'form':
             return <FormView

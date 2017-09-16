@@ -199,24 +199,6 @@ export function deleteView(tableId, viewId, viewType) {
     };
 }
 
-export function addSort(tableId, fieldId, fieldType, sortOption) {
-    return {
-        type: 'ADD_SORT',
-        tableId: tableId,
-        fieldId: fieldId,
-        fieldType: fieldType,
-        sortOption: sortOption
-    };
-}
-
-export function filterRecords(tableId, viewId) {
-    return {
-        type: 'FILTER_TABLE',
-        tableId: tableId,
-        viewId: viewId,
-    };
-}
-
 export function addFilter(tableId, viewId, viewType, fieldId, fieldIndex) {
     return {
         type: 'ADD_FILTER',
@@ -255,6 +237,49 @@ export function removeFilter(tableId, viewId, viewType, filterId) {
 export function removeAllFilters(tableId, viewId, viewType) {
     return {
         type: 'REMOVE_ALL_FILTERS',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+    };
+}
+
+export function addSort(tableId, viewId, viewType, fieldId, fieldType, sortOption) {
+    return {
+        type: 'ADD_SORT',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+        fieldId: fieldId,
+        fieldType: fieldType,
+        sortOption: sortOption
+    };
+}
+
+export function updateSort(tableId, viewId, viewType, fieldId, sortId, sortOption) {
+    return {
+        type: 'UPDATE_SORT',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+        fieldId: fieldId,
+        sortId: sortId,
+        sortOption: sortOption,
+    };
+}
+
+export function removeSort(tableId, viewId, viewType, sortId) {
+    return {
+        type: 'REMOVE_SORT',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+        sortId: sortId,
+    };
+}
+
+export function removeAllSorts(tableId, viewId, viewType) {
+    return {
+        type: 'REMOVE_ALL_SORTS',
         tableId: tableId,
         viewId: viewId,
         viewType: viewType,

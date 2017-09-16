@@ -2,9 +2,10 @@ import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable, deleteFile,
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
-    deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView, deleteView,
-    removeFilter, addFilter, updateFilter, getTableById, updateKanban, removeAllFilters,
-    getMembersByBaseId, getTableView, addSort
+    deleteFieldRecords, deleteRecord, uploadFile, addView, deleteView,
+    getTableById, updateKanban, getMembersByBaseId, getTableView,
+    addFilter, updateFilter, removeFilter, removeAllFilters,
+    addSort, updateSort, removeSort, removeAllSorts,
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -190,67 +191,6 @@ function* disconnectSocket() {
     }
 }
 
-function* filterTableRecords(action) {
-    try {
-        const filtered = yield call(filterRecords, action);
-        yield put({
-            type: 'FILTER_TABLE_SUCCEEDED',
-            table: filtered.data.table,
-            filteredRecords: filtered.data.filteredRecords
-        });
-    } catch (err) {
-        yield put({type: 'FILTER_TABLE_FAILED', message: err.message});
-    }
-}
-
-function* addTableFilter(action) {
-    try {
-        const updatedFilters = yield call(addFilter, action);
-        yield put({
-            type: 'ADD_FILTER_SUCCEEDED',
-            table: updatedFilters.data,
-        });
-    } catch (err) {
-        yield put({type: 'ADD_FILTER_FAILED', message: err.message});
-    }
-}
-
-function* updateTableFilter(action) {
-    try {
-        const updatedFilters = yield call(updateFilter, action);
-        yield put({
-            type: 'FILTER_TABLE_SUCCEEDED',
-            table: updatedFilters.data,
-        });
-    } catch (err) {
-        yield put({type: 'FILTER_TABLE_FAILED', message: err.message});
-    }
-}
-
-function* removeTableFilter(action) {
-    try {
-        const updatedFilters = yield call(removeFilter, action);
-        yield put({
-            type: 'REMOVE_FILTER_SUCCEEDED',
-            table: updatedFilters.data,
-        });
-    } catch (err) {
-        yield put({type: 'REMOVE_FILTER_FAILED', message: err.message});
-    }
-}
-
-function* removeAllTableFilters(action) {
-    try {
-        const updatedFilters = yield call(removeAllFilters, action);
-        yield put({
-            type: 'REMOVE_ALL_FILTERS_SUCCEEDED',
-            table: updatedFilters.data,
-        });
-    } catch (err) {
-        yield put({type: 'REMOVE_ALL_FILTERS_FAILED', message: err.message});
-    }
-}
-
 function* uploadingFiles(action) {
     try {
         const changedTable = yield call(uploadFile, action);
@@ -322,15 +262,101 @@ function* changeTableView(action) {
     }
 }
 
+function* addTableFilter(action) {
+    try {
+        const updatedFilters = yield call(addFilter, action);
+        yield put({
+            type: 'ADD_FILTER_SUCCEEDED',
+            table: updatedFilters.data,
+        });
+    } catch (err) {
+        yield put({type: 'ADD_FILTER_FAILED', message: err.message});
+    }
+}
+
+function* updateTableFilter(action) {
+    try {
+        const updatedFilters = yield call(updateFilter, action);
+        yield put({
+            type: 'FILTER_TABLE_SUCCEEDED',
+            table: updatedFilters.data,
+        });
+    } catch (err) {
+        yield put({type: 'FILTER_TABLE_FAILED', message: err.message});
+    }
+}
+
+function* removeTableFilter(action) {
+    try {
+        const updatedFilters = yield call(removeFilter, action);
+        yield put({
+            type: 'REMOVE_FILTER_SUCCEEDED',
+            table: updatedFilters.data,
+        });
+    } catch (err) {
+        yield put({type: 'REMOVE_FILTER_FAILED', message: err.message});
+    }
+}
+
+function* removeAllTableFilters(action) {
+    try {
+        const updatedFilters = yield call(removeAllFilters, action);
+        yield put({
+            type: 'REMOVE_ALL_FILTERS_SUCCEEDED',
+            table: updatedFilters.data,
+        });
+    } catch (err) {
+        yield put({type: 'REMOVE_ALL_FILTERS_FAILED', message: err.message});
+    }
+}
+
 function* addTableSort(action) {
     try {
         const updatedSort = yield call(addSort, action);
+        console.log('IN SAGA!!!@#!@#!@#');
+        console.log(updatedSort);
         yield put({
             type: 'ADD_SORT_SUCCEEDED',
             table: updatedSort.data,
         });
     } catch (err) {
         yield put({type: 'ADD_SORT_FAILED', message: err.message});
+    }
+}
+
+function* updateTableSort(action) {
+    try {
+        const updatedSorts = yield call(updateSort, action);
+        yield put({
+            type: 'SORT_TABLE_SUCCEEDED',
+            table: updatedSorts.data,
+        });
+    } catch (err) {
+        yield put({type: 'SORT_TABLE_FAILED', message: err.message});
+    }
+}
+
+function* removeTableSort(action) {
+    try {
+        const updatedSorts = yield call(removeSort, action);
+        yield put({
+            type: 'REMOVE_SORT_SUCCEEDED',
+            table: updatedSorts.data,
+        });
+    } catch (err) {
+        yield put({type: 'REMOVE_SORT_FAILED', message: err.message});
+    }
+}
+
+function* removeAllTableSorts(action) {
+    try {
+        const updatedFilters = yield call(removeAllSorts, action);
+        yield put({
+            type: 'REMOVE_ALL_SORTS_SUCCEEDED',
+            table: updatedFilters.data,
+        });
+    } catch (err) {
+        yield put({type: 'REMOVE_ALL_SORTS_FAILED', message: err.message});
     }
 }
 
@@ -359,16 +385,18 @@ function* dashboardSaga() {
     yield takeEvery('CHANGE_VIEW', changeTableView);
     yield takeEvery(['SWITCH_TABLE', 'SET_ACTIVE_TAB'], sendSwitchTableCoworker);
     yield takeEvery('DISCONNECT_SOCKET', disconnectSocket);
-    yield takeEvery('FILTER_TABLE', filterTableRecords);
-    yield takeEvery('ADD_FILTER', addTableFilter);
-    yield takeEvery('UPDATE_FILTER', updateTableFilter);
-    yield takeEvery('REMOVE_FILTER', removeTableFilter);
-    yield takeEvery('REMOVE_ALL_FILTERS', removeAllTableFilters);
     yield takeEvery('UPLOAD_FILES', uploadingFiles);
     yield takeEvery('DELETE_FILE', deletingFile);
     yield takeEvery('UPDATE_KANBAN_VIEW', updatingKanban);
     yield takeEvery('GET_MEMBERS_BY_BASE_ID', gettingMembersByBaseId);
+    yield takeEvery('ADD_FILTER', addTableFilter);
+    yield takeEvery('UPDATE_FILTER', updateTableFilter);
+    yield takeEvery('REMOVE_FILTER', removeTableFilter);
+    yield takeEvery('REMOVE_ALL_FILTERS', removeAllTableFilters);
     yield takeEvery('ADD_SORT', addTableSort);
+    yield takeEvery('UPDATE_SORT', updateTableSort);
+    yield takeEvery('REMOVE_SORT', removeTableSort);
+    yield takeEvery('REMOVE_ALL_SORTS', removeAllTableSorts);
 }
 
 export default dashboardSaga;

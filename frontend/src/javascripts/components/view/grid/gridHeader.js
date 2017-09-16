@@ -36,21 +36,19 @@ export default class GridHeader extends Component{
                         <FilterMenu
                             currentTable={this.props.currentTable}
                             currentViewType={this.props.currentViewType}
-                            filterRecords={this.props.filterRecords}
-                            removeFilter={this.props.removeFilter}
                             addFilter={this.props.addFilter}
                             updateFilter={this.props.updateFilter}
+                            removeFilter={this.props.removeFilter}
                             removeAllFilters={this.props.removeAllFilters}
                         />
-                        {/*<Button basic>*/}
-                            {/*<Icon name='browser'/>*/}
-                            {/*<span className="menu__text">Group</span>*/}
-                        {/*</Button>*/}
-                       {/* <SortMenu
+                        <SortMenu
                             currentTable={this.props.currentTable}
-                            sortRecords={this.props.sortRecords}
-                        />*/}
-                        {/*<Button basic icon='external'/>*/}
+                            currentViewType={this.props.currentViewType}
+                            addSort={this.props.addSort}
+                            updateSort={this.props.updateSort}
+                            removeSort={this.props.removeSort}
+                            removeAllSorts={this.props.removeAllSorts}
+                        />
                         <ExtraMenu
                             currentTableId={this.props.currentTable._id}
                             tables={this.props.tables}
