@@ -151,10 +151,12 @@ export default class FilterMenu extends Component {
                                        }}/>}
                             </div>)
                     })}
+                    {/* REMOVE NEXT BLOCK AFTER TESING */}
                     {DEBUG &&
                         <Icon className="menu__item" name="checkmark" link size='large'
                               onClick={() => this.preformFilter()}/>
                     }
+                    {/* ------------------------------ */}
                     {!filtersCount &&
                         <div className='menu__item item__no-filters-label'>No filters applied to this view</div>
                     }

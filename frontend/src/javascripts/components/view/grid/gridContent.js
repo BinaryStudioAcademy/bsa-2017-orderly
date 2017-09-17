@@ -30,7 +30,7 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
 const Field = ({id, tableId, type, name, index, records, recordData, changeFieldType, changeFieldName,
                    changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
                    searchFoundIndex, uploadAttachment, deleteFile, onSetSelectFieldRecordItems,
-                   onAppendSelectFieldRecordItems, selectedRecordItemList, display}) => {
+                   onAppendSelectFieldRecordItems, selectedRecordItemList, display, currentView}) => {
     return (
         <div className={display? "display-field" : "none"}>
         <div className="field__items">
@@ -57,6 +57,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
                     deleteField={deleteField}
                     index={index}
                     currentField={currentField}
+                    currentView={currentView}
                 />
             </div>
             <div className="field__items">
@@ -225,7 +226,7 @@ export default class GridContent extends Component {
     }
 
     handleAddField = () => {
-        this.props.addField(this.props.currentTable._id);
+        this.props.addField(this.props.currentTable._id, this.props.currentTable.currentView);
         setTimeout(() => {
             this.wrapperGrid.scrollLeft = this.wrapperGrid.scrollWidth;
         }, 500);
@@ -242,7 +243,7 @@ export default class GridContent extends Component {
     };
 
     render() {
-        const records = this.props.filteredRecords || this.props.currentTable.records;
+        const records = this.props.currentTable.filteredRecords || this.props.currentTable.records;
         return (
             <div className="wrapper__grid" ref={(div) => this.wrapperGrid = div}>
                 <div className="grid__content">
@@ -321,6 +322,7 @@ export default class GridContent extends Component {
                                             onSetSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
                                             onAppendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
                                             selectedRecordItemList={this.props.selectedRecordItemList}
+                                            currentView={this.props.currentTable.currentView}
                                         />
                             })}</div>
                         </div>

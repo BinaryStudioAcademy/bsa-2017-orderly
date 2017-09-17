@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
+import AppConfig from '../config';
 
-const socket = io('http://localhost:2020');
+const socket = io(AppConfig.host);
 
 export default socket;

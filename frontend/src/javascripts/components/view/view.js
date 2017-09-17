@@ -41,15 +41,7 @@ export default class View extends Component {
     };
 
     handleChangeView = (viewId, viewType) => {
-        if (viewType==='form') {
-            //this.props.addRecord(this.props.currentTable._id);
-            this.props.changeView(this.props.currentTable._id, viewId);
-            //browserHistory.push(`/${viewId}`)
-        } else {
-            console.log(window.location.href)
-            this.props.changeView(this.props.currentTable._id, viewId);
-            //browserHistory.push(`${window.location.href}/${viewId}`)
-        }
+        this.props.changeView(this.props.currentTable._id, viewId, viewType);
         this.handleClickOnMenu();
     };
 

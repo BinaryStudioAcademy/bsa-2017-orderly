@@ -37,7 +37,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './src/index.html'));
 });
 
-app.listen(port, host, (err) => {
+const server = app.listen(port, host, (err) => {
     if (err) {
         log(err);
         return;
@@ -46,4 +46,4 @@ app.listen(port, host, (err) => {
     log('🚧  App is listening at http://%s:%s', host, port);
 });
 
-app.keepAliveTimeout = 60000 * 2;
+server.keepAliveTimeout = 60000 * 2;

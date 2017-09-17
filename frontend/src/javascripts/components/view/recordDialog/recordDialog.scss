@@ -104,9 +104,22 @@
     }
   }
 }
-.modal {
+.recordDialog-modal {
   position: relative;
-  padding-bottom: 70px;
+  //padding-bottom: 70px;
+
+  .record-details.header {
+    position: relative;
+
+    .closeRecordDialogBtn {
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 0;
+      opacity: 0.5;
+      cursor: pointer;
+    }
+  }
 
   .modal-content {
     padding-right: 0!important;
@@ -258,14 +271,15 @@
 
   }
 
-  .modal-sidebar-block {
+  .modal-sidebar-block.description {
+    //max-height: calc(70vh);
     width: 49%!important;
-    padding-left: 35px;
-    padding-right: 10px;
+    padding: 0 10px 55px 35px;
 
     .ui.header {
       //margin: 10px 0;
       margin-bottom: 10px;
+      display: inline-block;
     }
 
     .history-icon {
@@ -276,6 +290,18 @@
     .comments-icon {
       font-size: 18px!important;
       line-height: 14px!important;
+    }
+
+    .ui.accordion .title:not(.ui) {
+      border-radius: 0.48571rem;
+      background-color: rgba(144, 143, 143, 0.13);
+      margin: 5px 0;
+      padding: 0;
+    }
+
+    .ui.accordion:not(.styled) .title~.content:not(.ui) {
+      background-color: rgba(144, 143, 143, 0.07);
+      padding: 0;
     }
   }
 
@@ -303,9 +329,11 @@
   }
 
   .modal-history-list {
-    max-height: 30vh!important;
-    min-height: 18vh!important;
+    max-height: 55vh!important;
+    //min-height: 18vh!important;
     overflow-x: hidden!important;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.28571rem;
   }
 
   .record-comment-item:last-child {
@@ -359,19 +387,39 @@
   }
 
   .comments-block {
-    max-height: 30vh!important;
-    min-height: 18vh!important;
+    max-height: 55vh!important;
+    //min-height: 18vh!important;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.28571rem;
   }
 
   .user-comment-info {
     position: absolute;
     bottom: 20px;
-    padding-top: 21px;
+    //padding-top: 21px;
     //border-top: 2px solid rgba(117, 116, 116, 0.66);
+
+    .username {
+      max-width: 119px;//119
+      margin-left: 20px;
+      margin-right: 20px;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      position: relative;
+      top: 10px;
+    }
+    .ui.avatar.image {
+      //float: left;
+      position: relative;
+      top: -4px;
+    }
 
     .ui.input input {
       border: 2px solid rgba(0,0,0,0.15);
-      margin-left: 20px;
+      margin: 0;
+      margin-top: 5px;
+      float: right;
     }
 
     .ui.input input:hover {
@@ -382,12 +430,16 @@
       border: 2px solid #6495ed;
     }
   }
+  .user-comment-info + span + span {
+    display: inline-block;
+    float: left;
+  }
 }
 
 @media screen and (max-width: 1360px) {
   .modal {
     .comments-block {
-      max-height: 20vh!important;
+      max-height: 40vh!important;
     }
   }
 }

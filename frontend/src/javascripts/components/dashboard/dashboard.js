@@ -8,7 +8,9 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
     addView, deleteView, addFilter, updateFilter, setSelectFieldRecordItems, appendSelectFieldRecordItems, setSelectAllRecordItems,
     setSelectRecordItems, shiftKeyDown, shiftKeyUp, clearSelectedRecordItemList, mouseDownRecordItem,
-    mouseUpRecordItem, mouseOverRecordItem, removeAllFilters, getMembersByBaseId, updateViewHideField
+    mouseUpRecordItem, mouseOverRecordItem, removeAllFilters, getMembersByBaseId, updateViewHideField,
+	addTableSucceed, deleteTableSuccess, updateTableSuccess, addRecordSuccess, updateFieldSucceeded,
+	deleteFieldSuccess, deleteRecordSuccess
 } from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
@@ -44,6 +46,13 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = {
+	deleteRecordSuccess: deleteRecordSuccess,
+	deleteFieldSuccess: deleteFieldSuccess,
+	updateFieldSucceeded: updateFieldSucceeded,
+	addRecordSuccess: addRecordSuccess,
+	updateTableSuccess: updateTableSuccess,
+	deleteTableSuccess: deleteTableSuccess,
+	addTableSucceed: addTableSucceed,
     addTableClick: addTable,
     switchTableClick: switchTable,
     getBaseCurrent: getBaseById,

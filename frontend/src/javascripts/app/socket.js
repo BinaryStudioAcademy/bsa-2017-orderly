@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
-const socket = io('http://localhost:2020');
+import AppConfig from '../config';
+const socket = io(AppConfig.host);
 
 const emitTableCoworker = (user, tableId, tables) => {
     return socket.emit('client-upload-table', user, tableId);
@@ -24,10 +25,61 @@ const disconnect = () => {
     return socket.disconnect();
 };
 
+const tableAddSuccess = (callback) => {
+	socket.on('table:add:success', table => {
+		callback(table)
+	})
+}
+
+const shareDeleteTable = (callback) => {
+	socket.on('table:delete:success', tableId => {
+		callback(tableId)
+	})
+}
+
+const shareUpdateTable = (callback) => {
+	socket.on('table:update:success', changedTable => {
+		callback(changedTable)
+	})
+}
+
+const shareAddingNewRecord = (callback) => {
+	socket.on('record:add:success', table => {
+		callback(table)
+	})
+}
+
+const sharingUpdateFieldMeta = (callback) => {
+	socket.on('field:update:meta:success', table => {
+		callback(table)
+	})
+}
+
+const sharingRemoveField = (callback) => {
+	socket.on('field:delete:success', table => {
+		callback(table)
+	})
+}
+
+const sharingRemoveRecord = (callback) => {
+	socket.on('record:delete:success', table => {
+		callback(table)
+	})
+}
+
+
+
 export {
+	sharingRemoveRecord,
+	sharingRemoveField,
+	sharingUpdateFieldMeta,
+	shareAddingNewRecord,
     emitTableCoworker,
     emitSwitchTableCoworker,
     onGetCoworkersList,
     connect,
-    disconnect
+    disconnect,
+	tableAddSuccess,
+	shareDeleteTable,
+	shareUpdateTable
 };

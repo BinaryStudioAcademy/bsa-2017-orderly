@@ -29,7 +29,7 @@ export default class PopupHideColumn extends Component{
         let propsIds=[];
         let i = 0
         for (let item in fields) {
-            if (fields[item].display == true) { 
+            if (fieldsIdShow.includes(fields[item]._id)) { 
                 propsOptions[i] = fields[item].name
                 propsIds[i] = fields[item]._id
                 i += 1;
@@ -76,7 +76,7 @@ export default class PopupHideColumn extends Component{
         let propsIds=[];
         let i = 0
         for (let item in fields) {
-            if (fields[item].display == true) {   
+            if (fieldsIdShow.includes(fields[item]._id)) {   
                 propsOptions[i] = fields[item].name
                 propsIds[i] = fields[item]._id
                 i += 1;
