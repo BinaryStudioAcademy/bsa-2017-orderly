@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const R = require('ramda');
 const tableRepository = require('../../repositories/table/tableRepository');
+const baseRepository = require('../../repositories/base/baseRepository')
 const {defaultTable, defaultViews} = require('../../config/defaultEntities');
 
 const viewReps = {
@@ -64,6 +65,7 @@ router.put('/:id', (request, response, next) => {
 
 router.delete('/:id', (request, response, next) => {
     tableRepository.remove(request.params.id)
+	    .then(() => baseRepository.deleteTableFromBase(request.params.id))
         .then(() => response.sendStatus(204))
         .catch((error) => {
             response.status(400);
