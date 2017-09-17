@@ -21,9 +21,7 @@ import RecordDialog from '../recordDialog/recordDialog';
 
 class RowNum extends Component {
     constructor(props) {
-        super(props);
-        this.props = props;
-        
+        super(props);        
         this.state={
             isHovered: ''
         }
