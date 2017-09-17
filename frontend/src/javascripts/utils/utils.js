@@ -1,5 +1,5 @@
 import Moment from 'moment';
-import R from 'ramda'
+
 
 const formatDateFromNow = (timestamp) => {
     const momentDate = Moment(timestamp);

@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import Header from './header/header';
 import Tabs from './tabs/tabs';
 import View from '../../view/view';
-import R from 'ramda';
-import {onGetCoworkersList} from '../../../app/socket';
+;
+import {onGetCoworkersList, tableAddSuccess, shareDeleteTable, shareUpdateTable,
+        shareAddingNewRecord, sharingUpdateFieldMeta, sharingRemoveField, sharingRemoveRecord} from '../../../app/socket';
 import { getRoleByUserId } from '../dashboardService'
 
 class Tools extends Component {
@@ -43,6 +44,35 @@ class Tools extends Component {
         onGetCoworkersList((coworkersByTables) => {
             _this.props.getCoworkersList(coworkersByTables, _this.props.currentTableId);
         });
+
+        tableAddSuccess((table) => {
+            _this.props.addTableSucceed(table, _this.props.baseId)
+        })
+
+	    shareDeleteTable(tableId => {
+	        _this.props.deleteTableSuccess(tableId)
+        })
+
+        shareUpdateTable(table => {
+            _this.props.updateTableSuccess(table)
+        })
+
+        shareAddingNewRecord(table => {
+            _this.props.addRecordSuccess(table)
+        })
+
+	    sharingUpdateFieldMeta(table => {
+	        _this.props.updateFieldSucceeded(table)
+        })
+
+	    sharingRemoveField(table => {
+	        _this.props.deleteFieldSuccess(table)
+        })
+
+	    sharingRemoveRecord(table => {
+	        _this.props.deleteRecordSuccess(table)
+        })
+
 
 
 
@@ -220,6 +250,7 @@ class Tools extends Component {
                       addField={this.props.addField}
                       changeFieldType={this.props.changeFieldType}
                       changeFieldName={this.props.changeFieldName}
+                      changeFieldDisplay={this.props.changeFieldDisplay}
                       changeFieldOptions={this.props.changeFieldOptions}
                       deleteField={this.props.deleteField}
                       deleteRecord={this.props.deleteRecord}

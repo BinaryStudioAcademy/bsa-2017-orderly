@@ -1,6 +1,6 @@
 import React from 'react';
 import { List } from 'semantic-ui-react';
-import R from 'ramda';
+;
 
 import TeamModal from './teamModal';
 import './namePopup.scss';

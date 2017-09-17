@@ -41,7 +41,7 @@ export default class SortMenu extends Component {
     };
 
     preformSort = () => {
-        this.props.sortRecords(this.state)
+        this.props.sortRecords(R.dissoc('isActive', this.state));
     };
 
     render() {

@@ -8,7 +8,9 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
     addView, deleteView, addFilter, updateFilter, setSelectFieldRecordItems, appendSelectFieldRecordItems, setSelectAllRecordItems,
     setSelectRecordItems, shiftKeyDown, shiftKeyUp, clearSelectedRecordItemList, mouseDownRecordItem,
-    mouseUpRecordItem, mouseOverRecordItem, removeAllFilters, getMembersByBaseId
+    mouseUpRecordItem, mouseOverRecordItem, removeAllFilters, getMembersByBaseId, changeFieldDisplay,
+	addTableSucceed, deleteTableSuccess, updateTableSuccess, addRecordSuccess, updateFieldSucceeded,
+	deleteFieldSuccess, deleteRecordSuccess
 } from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
@@ -44,6 +46,13 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = {
+	deleteRecordSuccess: deleteRecordSuccess,
+	deleteFieldSuccess: deleteFieldSuccess,
+	updateFieldSucceeded: updateFieldSucceeded,
+	addRecordSuccess: addRecordSuccess,
+	updateTableSuccess: updateTableSuccess,
+	deleteTableSuccess: deleteTableSuccess,
+	addTableSucceed: addTableSucceed,
     addTableClick: addTable,
     switchTableClick: switchTable,
     getBaseCurrent: getBaseById,
@@ -77,6 +86,7 @@ const mapDispatchToProps = {
     removeFilter: removeFilter,
     changeFieldName: changeFieldName,
     changeFieldOptions: changeFieldOptions,
+    changeFieldDisplay: changeFieldDisplay,
     deleteField: deleteField,
     deleteRecord: deleteRecord,
     uploadAttachment: uploadAttachment,

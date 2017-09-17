@@ -30,7 +30,7 @@ const RowNum = ({tableId, recordId, index, deleteRecord}) => {
 const Field = ({id, tableId, type, name, index, records, recordData, changeFieldType, changeFieldName,
                    changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
                    searchFoundIndex, uploadAttachment, deleteFile, onSetSelectFieldRecordItems,
-                   onAppendSelectFieldRecordItems, selectedRecordItemList}) => {
+                   onAppendSelectFieldRecordItems, selectedRecordItemList, currentView}) => {
     return (
         <div className="field__items">
             <div className="content__field">
@@ -56,6 +56,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
                     deleteField={deleteField}
                     index={index}
                     currentField={currentField}
+                    currentView={currentView}
                 />
             </div>
             <div className="field__items">
@@ -183,8 +184,16 @@ export default class GridContent extends Component {
     constructor(props) {
         super(props);
         this.props = props;
+        let fieldsToShow = this.props.currentTable.fields.filter((field) => field.display === true)
+        
+        this.state={
+            fields:fieldsToShow
+        }
     }
-
+    componentWillReceiveProps(nextProps) {
+        let fieldsToShow = nextProps.currentTable.fields.filter((field) => field.display === true)
+        this.setState({fields:fieldsToShow})
+    }
     componentDidMount() {
         let _this = this;
         window.addEventListener("keydown",function (e) {
@@ -196,7 +205,7 @@ export default class GridContent extends Component {
     }
 
     handleAddField = () => {
-        this.props.addField(this.props.currentTable._id);
+        this.props.addField(this.props.currentTable._id, this.props.currentTable.currentView);
         setTimeout(() => {
             this.wrapperGrid.scrollLeft = this.wrapperGrid.scrollWidth;
         }, 500);
@@ -213,7 +222,7 @@ export default class GridContent extends Component {
     };
 
     render() {
-        const records = this.props.filteredRecords || this.props.currentTable.records;
+        const records = this.props.currentTable.filteredRecords || this.props.currentTable.records;
         return (
             <div className="wrapper__grid" ref={(div) => this.wrapperGrid = div}>
                 <div className="grid__content">
@@ -267,7 +276,7 @@ export default class GridContent extends Component {
                         </div>
 
                         <div className="content__body body__fields">
-                            {this.props.currentTable.fields.map((field, fieldIndex) => {
+                            {this.state.fields.map((field, fieldIndex) => {
                                 return <Field
                                     key={field._id}
                                     currentField = {field}
@@ -291,6 +300,7 @@ export default class GridContent extends Component {
                                     onSetSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
                                     onAppendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
                                     selectedRecordItemList={this.props.selectedRecordItemList}
+                                    currentView={this.props.currentTable.currentView}
                                 />
                             })}</div>
                         </div>

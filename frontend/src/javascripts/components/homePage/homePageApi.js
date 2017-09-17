@@ -37,7 +37,7 @@ const getTeamsByUserId = (_id) =>
 const getBasesByTeam = (teamId) =>
 	axios.get(url + '/team/' + teamId + '/base')
 		.then((response) => response.data)
-		.catch(R.tap(console.error));
+		.catch(R.tap(console.error))
 
 const getCollaborators = (usersIds) =>
 	axios.get(url + '/user/ids/' + usersIds.join(':'))
