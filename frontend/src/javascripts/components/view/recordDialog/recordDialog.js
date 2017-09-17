@@ -1,5 +1,6 @@
 import React from 'react';
-import { Modal, Header, Icon } from 'semantic-ui-react';
+import { Modal, Header, Icon, Accordion } from 'semantic-ui-react';
+import CommentsForm from './components/comments/commentsForm';
 import './recordDialog.scss';
 import TextLine from '../grid/fields/textLine/textLine';
 import LongText from '../grid/fields/longText/longText';
@@ -94,12 +95,33 @@ export const Recordtem = ({id, type, data, tableId, recordData, uploadAttachment
 
 const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPressComment, user, tableId,
                        uploadAttachment, deleteFile, recordIdx}) => {
+    const panels = [
+        {
+            key: 'panel-history',
+            title: <Header><Icon name="history" className="history-icon"/> History</Header>,
+            content: <HistoryList record={record} fields={fields} />
+        },
+        {
+            key: 'panel-comments',
+            title: <Header><Icon name="commenting outline" className="comments-icon"/> Comments</Header>,
+            content: <CommentsBlock record={record}/>
+        }
+    ];
+
     return (
         <Modal
             open={true}
             onClose={(event) => onOpenRecordDialog('')}
+            className="recordDialog-modal"
             >
-            <Modal.Header className="record-details">Record details</Modal.Header>
+            <Modal.Header className="record-details">
+                Record details
+                <Icon
+                    name='close'
+                    className="closeRecordDialogBtn"
+                    onClick={(event) => onOpenRecordDialog('')}
+                />
+            </Modal.Header>
             <Modal.Content image className="modal-content">
                 <Modal.Description className="modal-fields-block content scrolling">
                     {record.record_data.map((recordItem, fieldIndex) => {
@@ -122,23 +144,11 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
                     })}
                 </Modal.Description>
                 <Modal.Description className="modal-sidebar-block">
-                    <div className="modal-history">
-                        <Header>
-                            <Icon name="history" className="history-icon"/>
-                            History
-                        </Header>
-                        <HistoryList record={record} fields={fields} />
-                    </div>
-                    <div className="modal-comments">
-                        <Header>
-                            <Icon name="commenting outline" className="comments-icon"/>
-                            Comments
-                        </Header>
-                        <CommentsBlock record={record}
-                                       user={user}
-                                       tableId={tableId}
-                                       onKeyPressComment={onKeyPressComment}/>
-                    </div>
+                    <Accordion panels={panels} exclusive={false} fluid />
+                    <CommentsForm record={record}
+                                  user={user}
+                                  tableId={tableId}
+                                  onKeyPressComment={onKeyPressComment}/>
                 </Modal.Description>
             </Modal.Content>
         </Modal>
@@ -146,3 +156,8 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
 };
 
 export default RecordDialog;
+/*
+user={user}
+                                    tableId={tableId}
+                                    onKeyPressComment={onKeyPressComment}
+ */

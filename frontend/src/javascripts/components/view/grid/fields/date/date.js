@@ -34,7 +34,7 @@ class DateField extends Field {
                 onChangeEvent={(event)=>{
                     if (event._d) {
                         this.setState({date: new Date(Date.parse(event._d)).customFormat(`${this.state.format} ${this.state.time}`)})
-                    }
+                        }
                 }}       
                 onBlur={(event) => {this.props.onBlurComponent(this.props.id, event._d?new Date(Date.parse(event._d)).customFormat(`${this.state.format} ${this.state.time}`):'')}}   
                 autoFocus={true}

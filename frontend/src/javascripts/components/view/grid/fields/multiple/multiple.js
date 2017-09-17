@@ -50,6 +50,7 @@ class MultipleSelect  extends Field {
             options: options
         });
     }
+    //
 
     renderActiveField() {
         return (

@@ -1,7 +1,6 @@
 // import React from 'react';
 import React, { Component } from 'react';
 import CommentsList from './commentsList';
-import CommentsForm from './commentsForm';
 
 class CommentsBlock extends Component {
     constructor(props) {
@@ -35,10 +34,6 @@ class CommentsBlock extends Component {
         return (
             <div className="comments-block content scrolling">
                 <CommentsList record={this.props.record}/>
-                <CommentsForm record={this.props.record}
-                              user={this.props.user}
-                              tableId={this.props.tableId}
-                              onKeyPressComment={this.props.onKeyPressComment}/>
             </div>
         )
     }
