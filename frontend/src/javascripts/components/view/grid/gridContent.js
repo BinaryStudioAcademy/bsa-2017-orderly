@@ -38,7 +38,10 @@ class RowNum extends Component {
             <div className={this.state.isHovered?'none':'row'}>
                 <span>{this.props.index + 1}</span>
             </div>
-            <div className={this.state.isHovered?'row':'none'} onClick={(e) => this.props.deleteRecord(e, this.props.tableId, this.props.recordId)}>
+            <div className={this.state.isHovered?'row':'none'} 
+                onContextMenu={(e) => this.props.deleteRecord(e, this.props.tableId, this.props.recordId)} 
+                onClick={(e) => this.props.deleteRecord(e, this.props.tableId, this.props.recordId)}
+            >
                 <Icon name='delete' color='red' />
             </div>
         </div>
