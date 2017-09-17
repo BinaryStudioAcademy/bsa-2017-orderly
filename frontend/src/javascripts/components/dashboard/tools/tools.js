@@ -255,19 +255,20 @@ class Tools extends Component {
                       deleteField={this.props.deleteField}
                       deleteRecord={this.props.deleteRecord}
                       changeView={this.props.changeView}
-                      sortRecords={this.props.sortRecords}
-                      filterRecords={this.props.filterRecords}
-                      filteredRecords={this.props.filteredRecords}
-                      removeFilter={this.props.removeFilter}
                       addView={this.props.addView}
                       deleteView={this.props.deleteView}
                       addFilter={this.props.addFilter}
                       updateFilter={this.props.updateFilter}
+                      removeFilter={this.props.removeFilter}
+                      removeAllFilters={this.props.removeAllFilters}
+                      addSort={this.props.addSort}
+                      updateSort={this.props.updateSort}
+                      removeSort={this.props.removeSort}
+                      removeAllSorts={this.props.removeAllSorts}
                       setSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
                       appendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
                       setSelectAllRecordItems={this.props.setSelectAllRecordItems}
                       selectedRecordItemList={this.props.selectedRecordItemList}
-                      removeAllFilters={this.props.removeAllFilters}
                 />
                 }
             </div>

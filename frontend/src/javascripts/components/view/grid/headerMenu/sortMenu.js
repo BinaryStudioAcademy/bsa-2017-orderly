@@ -40,22 +40,133 @@ export default class SortMenu extends Component {
         }
     };
 
-    preformSort = () => {
-        this.props.sortRecords(R.dissoc('isActive', this.state));
+    addSort = () => {
+        const {fieldId, fieldType, sortOption} = R.dissoc('isActive', this.state);
+        this.props.addSort(
+            this.props.currentTable._id,
+            this.props.currentTable.currentView,
+            this.props.currentViewType,
+            fieldId,
+            fieldType,
+            sortOption);
+    };
+
+    updateSort = (sortId) => {
+        this.props.updateSort(
+            this.props.currentTable._id,
+            this.props.currentTable.currentView,
+            this.props.currentViewType,
+            this.state.fieldId,
+            sortId,
+            this.state.sortOption,
+        )
+    };
+
+    clearSort = (sortId) => {
+        this.props.removeSort(
+            this.props.currentTable._id,
+            this.props.currentTable.currentView,
+            this.props.currentViewType,
+            sortId);
+    };
+
+    clearAllSorts = () => {
+        this.props.removeAllSorts(
+            this.props.currentTable._id,
+            this.props.currentTable.currentView,
+            this.props.currentViewType);
     };
 
     render() {
+        const currentView = this.props.currentTable.views.find(
+            (v) => v.view._id.toString() === this.props.currentTable.currentView);
+        const sortsCount = currentView.view.sorts.length;
         return (
             <Button basic ref='sortMenu' className="sort__button">
                 <div ref={(node) => this.node = node }
                      onClick={(e) => this.handleClickOnMenu(e)}
                      className='button__items'>
                     <Icon name='sort content ascending'/>
-                    <span className="menu__text">Sort</span>
+                    {sortsCount ?
+                        <span className="menu__text">{sortsCount} Sort</span>
+                        :
+                        <span className="menu__text">Sort</span>
+                    }
                 </div>
                 <div className={this.state.isActive ? "sort__menu" : "hide"}>
+                    {currentView.view.sorts.map((sortItem, ind) => {
+                        const [fieldType, sortOrder] = sortItem.sortOption.split('-');
+                        return (
+                            <div key={sortItem._id} className='sort__item' >
+                                <div className='item__sort-controls'>
+                                    <Icon className="menu__item" name="x"
+                                          link onClick={() => this.clearSort(sortItem._id)}/>
+                                </div>
+                                {ind === 0 ?
+                                    <span className="menu__item item__sort-by">Sort by</span>
+                                    :
+                                    <span className="menu__item item__then-by">Then</span>
+                                }
+
+                                <select className="menu__item item__select" onChange={(e) => {
+                                    let [fieldId, fieldType] = e.target.value.split(',');
+                                    let setType = 'number';
+                                    if (textTypes.includes(fieldType)){
+                                        setType = 'text';
+                                    }
+                                    this.setState({
+                                        fieldId: fieldId,
+                                        fieldType: setType,
+                                        sortOption: sortItem.sortOption,
+                                    }, () => {this.updateSort(sortItem._id)});
+                                }}>
+                                    {this.props.currentTable.fields.map((field, ind) => {
+                                        return (
+                                            <option key={ind} value={[field._id, field.type]}>{field.name}</option>
+                                        );
+                                    })}
+                                </select>
+                                <div className="menu__item option__choices">
+                                    {sortOptions[fieldType].map((opt, ind) => {
+                                        return <div key={ind}
+                                                    className={sortItem.sortOption === opt.value ? 'sort__option option__checked' : 'sort__option'}
+                                                    value={opt.value}
+                                                    onClick={() => this.setState({
+                                                        sortOption: opt.value
+                                                    }, () => {this.updateSort(sortItem._id)})}>
+                                            <span>{opt.label}</span>
+                                        </div>;
+                                    })}
+                                </div>
+                            </div>)
+                    })}
+                    {!sortsCount &&
+                        <div className='menu__item item__no-sorts-label'>No sorts applied to this view</div>
+                    }
+                    <div className='menu__item item__menu-controls'>
+                        <div className='menu__item item__add-sort'
+                             onClick={() => {
+                                 this.setState({
+                                     fieldId: this.props.currentTable.fields[0]._id,
+                                     sortOption: 'text-asc',
+                                 }, () => this.addSort())
+                             }}>
+                            + Add sort</div>
+                        {!!sortsCount &&
+                        <div className='menu__item item__clear-sorts'
+                             onClick={() => {
+                                 this.setState({
+                                     fieldId: this.props.currentTable.fields[0]._id,
+                                     sortOption: 'text-asc',
+                                 }, () => this.clearAllSorts())
+                             }}>
+                            Clear all</div>
+                        }
+                    </div>
+
+                    {/* ORIGINAL SORT MENU
                     <Icon className="menu__item" name="x" link/>
-                    <Icon className="menu__item" name="checkmark" link onClick={() => this.preformSort()}/>
+                    <Icon className="menu__item" name="checkmark" link onClick={() => this.addSort()}/>
                     <span className="menu__item item__label-sort-by">Sort by</span>
                     <select className="menu__item item__select" onChange={(e) => {
                         let [fieldId, fieldType] = e.target.value.split(',');
@@ -85,6 +196,7 @@ export default class SortMenu extends Component {
                             </div>;
                         })}
                     </div>
+                    */}
                 </div>
             </Button>
         );

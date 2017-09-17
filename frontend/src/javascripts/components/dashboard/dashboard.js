@@ -5,12 +5,12 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     selectRecordItem, activateRecord, changeRecord, blurRecord, blurRecordComponent,
     changeFieldType, changeFieldOptions, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
     changeSearch, changeSearchFoundIndex, toggleSearch, changeFieldName, deleteRecord, deleteField,
-    changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
+    changeView, addSort, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
     addView, deleteView, addFilter, updateFilter, setSelectFieldRecordItems, appendSelectFieldRecordItems, setSelectAllRecordItems,
     setSelectRecordItems, shiftKeyDown, shiftKeyUp, clearSelectedRecordItemList, mouseDownRecordItem,
     mouseUpRecordItem, mouseOverRecordItem, removeAllFilters, getMembersByBaseId, changeFieldDisplay,
 	addTableSucceed, deleteTableSuccess, updateTableSuccess, addRecordSuccess, updateFieldSucceeded,
-	deleteFieldSuccess, deleteRecordSuccess
+	deleteFieldSuccess, deleteRecordSuccess, updateSort, removeSort, removeAllSorts,
 } from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
@@ -81,9 +81,6 @@ const mapDispatchToProps = {
     changeSearchFoundIndex: changeSearchFoundIndex,
     toggleSearch: toggleSearch,
     changeView: changeView,
-    sortRecords: sortRecords,
-    filterRecords: filterRecords,
-    removeFilter: removeFilter,
     changeFieldName: changeFieldName,
     changeFieldOptions: changeFieldOptions,
     changeFieldDisplay: changeFieldDisplay,
@@ -96,6 +93,12 @@ const mapDispatchToProps = {
     deleteView: deleteView,
     addFilter: addFilter,
     updateFilter: updateFilter,
+    removeFilter: removeFilter,
+    removeAllFilters: removeAllFilters,
+    addSort: addSort,
+    updateSort: updateSort,
+    removeSort: removeSort,
+    removeAllSorts: removeAllSorts,
     setSelectFieldRecordItems: setSelectFieldRecordItems,
     appendSelectFieldRecordItems: appendSelectFieldRecordItems,
     setSelectAllRecordItems: setSelectAllRecordItems,
@@ -107,7 +110,6 @@ const mapDispatchToProps = {
     mouseUpRecordItem: mouseUpRecordItem,
     mouseOverRecordItem: mouseOverRecordItem,
     updateKanbanView: updateKanbanView,
-    removeAllFilters: removeAllFilters,
     getMembersByBaseId: getMembersByBaseId
 };
 

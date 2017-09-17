@@ -8,10 +8,6 @@ export default class Grid extends Component {
         super(props);
     }
 
-    handleSort = (payload) => {
-        this.props.sortRecords(this.props.currentTable, payload.fieldId, payload.sortOption);
-    };
-
     render() {
 
         return (
@@ -28,15 +24,17 @@ export default class Grid extends Component {
                     searchBlockOpen={this.props.searchBlockOpen}
                     currentTable={this.props.currentTable}
                     tables={this.props.tables}
-                    sortRecords={this.handleSort}
-                    filterRecords={this.props.filterRecords}
-                    removeFilter={this.props.removeFilter}
                     deleteView={this.props.deleteView}
                     viewsCount={this.props.viewsCount}
                     currentViewType={this.props.currentViewType}
                     addFilter={this.props.addFilter}
                     updateFilter={this.props.updateFilter}
+                    removeFilter={this.props.removeFilter}
                     removeAllFilters={this.props.removeAllFilters}
+                    addSort={this.props.addSort}
+                    updateSort={this.props.updateSort}
+                    removeSort={this.props.removeSort}
+                    removeAllSorts={this.props.removeAllSorts}
                 />
                 <GridContent
                     currentTable={this.props.currentTable}
@@ -45,7 +43,6 @@ export default class Grid extends Component {
                     addField={this.props.addField}
                     deleteField={this.props.deleteField}
                     deleteRecord={this.props.deleteRecord}
-                    filteredRecords={this.props.filteredRecords}
                     fieldEvents={this.props.fieldEvents}
                     changeFieldType={this.props.changeFieldType}
                     changeFieldName={this.props.changeFieldName}

@@ -1,63 +1,56 @@
-const getBaseById = (_id, tableId) => ({
+export const getBaseById = (_id, tableId) => ({
     type: 'GET_BASE',
     _id: _id,
     tableId: tableId
 });
 
-const deleteTable = (tableId) => ({
+export const deleteTable = (tableId) => ({
     type: 'DELETE_TABLE',
     tableId: tableId
 });
 
-const togglePopup = () => ({
+export const togglePopup = () => ({
     type: 'TOGGLE_POPUP'
 });
 
-const setActive = (tableId) => ({
+export const setActive = (tableId) => ({
     type: 'SET_ACTIVE_TAB',
     tableId: tableId
 });
 
-const setTableIdToActiveModal = (tableId) => ({
+export const setTableIdToActiveModal = (tableId) => ({
     type: 'SET_TABLE_ID_TO_ACTIVE_MODAL',
     tableId: tableId
 });
 
-const addTable = ({table, baseId}) => ({
+export const addTable = ({table, baseId}) => ({
     type: 'ADD_TABLE',
     table: table,
     baseId: baseId
 });
 
-const switchTable = (tableId) => ({
+export const switchTable = (tableId) => ({
     type: 'SWITCH_TABLE',
     tableId: tableId
 });
 
-const openMenu = (tableId) => ({
+export const openMenu = (tableId) => ({
     type: 'OPEN_EDIT_MENU',
     tableId: tableId
 });
 
-const closeMenu = () => ({
+export const closeMenu = () => ({
     type: 'CLOSE_EDIT_MENU'
 });
 
-const addTableToBaseById = (baseId) => {
-    return {
-        type: 'ADD_TABLE_TO_BASE',
-        baseId
-    };
-};
-
-const setTabsModal = (activeModal) => {
+export const setTabsModal = (activeModal) => {
     return {
         type: 'SET_TABS_MODAL',
         activeModal: activeModal
     };
 };
 
-const updateTable = (newData, tableId) => {
+export const updateTable = (newData, tableId) => {
     return {
         type: 'UPDATE_TABLE',
         newData,
@@ -65,14 +58,14 @@ const updateTable = (newData, tableId) => {
     };
 };
 
-const checkTableName = (renameIsError) => {
+export const checkTableName = (renameIsError) => {
     return {
         type: 'CHECK_TABLE_NAME',
         renameIsError: renameIsError
     };
 };
 
-const addRecord = (tableId) => {
+export const addRecord = (tableId) => {
     return {
         type: 'ADD_RECORD',
         tableId
@@ -87,21 +80,21 @@ export function addField(tableId, currentViewId) {
     };
 }
 
-const selectRecordItem = (recordId) => {
+export const selectRecordItem = (recordId) => {
     return {
         type: 'SELECT_RECORD_ITEM',
         recordId: recordId
     };
 };
 
-const activateRecord = (recordId) => {
+export const activateRecord = (recordId) => {
     return {
         type: 'ACTIVATE_RECORD',
         recordId: recordId
     };
 };
 
-const changeRecord = (tableId, recordId, data, user) => {
+export const changeRecord = (tableId, recordId, data, user) => {
     return {
         type: 'CHANGE_RECORD',
         tableId: tableId,
@@ -111,7 +104,7 @@ const changeRecord = (tableId, recordId, data, user) => {
     };
 };
 
-const blurRecord = (tableId, recordId) => {
+export const blurRecord = (tableId, recordId) => {
     return {
         type: 'BLUR_RECORD',
         tableId: tableId,
@@ -119,7 +112,7 @@ const blurRecord = (tableId, recordId) => {
     };
 };
 
-const blurRecordComponent = (tableId, recordId) => {
+export const blurRecordComponent = (tableId, recordId) => {
     return {
         type: 'BLUR_RECORD_COMPONENT',
         tableId: tableId,
@@ -127,7 +120,7 @@ const blurRecordComponent = (tableId, recordId) => {
     };
 };
 
-const openRecordDialog = (index) => {
+export const openRecordDialog = (index) => {
     return {
         type: 'OPEN_RECORD_DIALOG',
         index: index,
@@ -135,7 +128,7 @@ const openRecordDialog = (index) => {
     };
 };
 
-const addComment = (userId, recordId, tableId, comment) => {
+export const addComment = (userId, recordId, tableId, comment) => {
     return {
         type: 'ADD_COMMENT',
         userId: userId,
@@ -145,7 +138,7 @@ const addComment = (userId, recordId, tableId, comment) => {
     };
 };
 
-const getCoworkersList = (coworkersByTables, tableId) => {
+export const getCoworkersList = (coworkersByTables, tableId) => {
     return {
         type: 'GET_COWORKERS_LIST',
         coworkersByTables: coworkersByTables,
@@ -153,13 +146,13 @@ const getCoworkersList = (coworkersByTables, tableId) => {
     };
 };
 
-const disconnectSocket = () => {
+export const disconnectSocket = () => {
     return {
         type: 'DISCONNECT_SOCKET'
     };
 };
 
-const changeSearch = (query, tableId) => {
+export const changeSearch = (query, tableId) => {
     return {
         type: 'CHANGE_SEARCH',
         query: query,
@@ -167,14 +160,14 @@ const changeSearch = (query, tableId) => {
     };
 };
 
-const changeSearchFoundIndex = (value) => {
+export const changeSearchFoundIndex = (value) => {
     return {
         type: 'CHANGE_SEARCH_FOUND_INDEX',
         value: value
     };
 };
 
-const toggleSearch = () => {
+export const toggleSearch = () => {
     return {
         type: 'TOGGLE_SEARCH'
     };
@@ -203,23 +196,6 @@ export function deleteView(tableId, viewId, viewType) {
         tableId: tableId,
         viewId: viewId,
         viewType: viewType,
-    };
-}
-
-export function sortRecords(table, fieldId, sortOption) {
-    return {
-        type: 'SORT_TABLE',
-        table: table,
-        fieldId: fieldId,
-        sortOption: sortOption
-    };
-}
-
-export function filterRecords(tableId, viewId) {
-    return {
-        type: 'FILTER_TABLE',
-        tableId: tableId,
-        viewId: viewId,
     };
 }
 
@@ -261,6 +237,49 @@ export function removeFilter(tableId, viewId, viewType, filterId) {
 export function removeAllFilters(tableId, viewId, viewType) {
     return {
         type: 'REMOVE_ALL_FILTERS',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+    };
+}
+
+export function addSort(tableId, viewId, viewType, fieldId, fieldType, sortOption) {
+    return {
+        type: 'ADD_SORT',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+        fieldId: fieldId,
+        fieldType: fieldType,
+        sortOption: sortOption
+    };
+}
+
+export function updateSort(tableId, viewId, viewType, fieldId, sortId, sortOption) {
+    return {
+        type: 'UPDATE_SORT',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+        fieldId: fieldId,
+        sortId: sortId,
+        sortOption: sortOption,
+    };
+}
+
+export function removeSort(tableId, viewId, viewType, sortId) {
+    return {
+        type: 'REMOVE_SORT',
+        tableId: tableId,
+        viewId: viewId,
+        viewType: viewType,
+        sortId: sortId,
+    };
+}
+
+export function removeAllSorts(tableId, viewId, viewType) {
+    return {
+        type: 'REMOVE_ALL_SORTS',
         tableId: tableId,
         viewId: viewId,
         viewType: viewType,
@@ -321,27 +340,27 @@ export function deleteRecord(tableId, recordId) {
     };
 }
 
-const uploadAttachment = (data, typeOfFile, record_dataId, tableId) => {
-	return {
-		type: 'UPLOAD_FILES',
-		data: data,
-		typeOfFile: typeOfFile,
-		record_dataId: record_dataId,
-		tableId: tableId
-	}
-}
+export const uploadAttachment = (data, typeOfFile, record_dataId, tableId) => {
+    return {
+        type: 'UPLOAD_FILES',
+        data: data,
+        typeOfFile: typeOfFile,
+        record_dataId: record_dataId,
+        tableId: tableId
+    };
+};
 
-const deleteFile = (typeOfFile, record_dataId, tableId, fileNamesStr) => {
+export const deleteFile = (typeOfFile, record_dataId, tableId, fileNamesStr) => {
     return {
         type: 'DELETE_FILE',
         typeOfFile: typeOfFile,
         record_dataId: record_dataId,
         tableId: tableId,
         fileNamesStr: fileNamesStr
-    }
-}
+    };
+};
 
-const setSelectFieldRecordItems= (fieldIndex, tableId) => {
+export const setSelectFieldRecordItems = (fieldIndex, tableId) => {
     return {
         type: 'SET_SELECT_FIELD_RECORD_ITEMS',
         fieldIndex: fieldIndex,
@@ -349,7 +368,7 @@ const setSelectFieldRecordItems= (fieldIndex, tableId) => {
     };
 };
 
-const appendSelectFieldRecordItems = (fieldIndex, tableId) => {
+export const appendSelectFieldRecordItems = (fieldIndex, tableId) => {
     return {
         type: 'APPEND_SELECT_FIELD_RECORD_ITEMS',
         fieldIndex: fieldIndex,
@@ -357,14 +376,14 @@ const appendSelectFieldRecordItems = (fieldIndex, tableId) => {
     };
 };
 
-const setSelectAllRecordItems = (tableId) => {
+export const setSelectAllRecordItems = (tableId) => {
     return {
         type: 'SET_SELECT_ALL_RECORD_ITEMS',
         tableId: tableId
     };
 };
 
-const setSelectRecordItems = (firstSelectRecordItemId, lastSelectRecordItemId, tableId) => {
+export const setSelectRecordItems = (firstSelectRecordItemId, lastSelectRecordItemId, tableId) => {
     return {
         type: 'SET_SELECT_RECORD_ITEMS',
         firstSelectRecordItemId: firstSelectRecordItemId,
@@ -373,25 +392,25 @@ const setSelectRecordItems = (firstSelectRecordItemId, lastSelectRecordItemId, t
     };
 };
 
-const shiftKeyDown = () => {
+export const shiftKeyDown = () => {
     return {
         type: 'SHIFT_KEY_DOWN'
     };
 };
 
-const shiftKeyUp = () => {
+export const shiftKeyUp = () => {
     return {
         type: 'SHIFT_KEY_UP'
     };
 };
 
-const clearSelectedRecordItemList = () => {
+export const clearSelectedRecordItemList = () => {
     return {
         type: 'CLEAR_SELECTED_RECORD_ITEM_LIST'
     };
 };
 
-const mouseDownRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => {
+export const mouseDownRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => {
     return {
         type: 'MOUSE_DOWN_RECORD_ITEM',
         tableId: tableId,
@@ -401,14 +420,14 @@ const mouseDownRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => 
     };
 };
 
-const mouseUpRecordItem = (isRecordItemClicked) => {
+export const mouseUpRecordItem = (isRecordItemClicked) => {
     return {
         type: 'MOUSE_UP_RECORD_ITEM',
         isRecordItemClicked: isRecordItemClicked
     };
 };
 
-const mouseOverRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => {
+export const mouseOverRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => {
     return {
         type: 'MOUSE_OVER_RECORD_ITEM',
         tableId: tableId,
@@ -418,125 +437,75 @@ const mouseOverRecordItem = (tableId, recordItemId, recordIndex, fieldIndex) => 
     };
 };
 
-const saveCurrentTeamRoles = (collaborators) => {
+export const saveCurrentTeamRoles = (collaborators) => {
     return {
         type: 'SAVE_CURRENT_TEAM_ROLES',
-	    collaborators: collaborators
-    }
-}
+        collaborators: collaborators
+    };
+};
 
-const getMembersByBaseId = (baseId) => {
-	return  {
-		type: 'GET_MEMBERS_BY_BASE_ID',
-		baseId: baseId
-	}
-}
+export const getMembersByBaseId = (baseId) => {
+    return {
+        type: 'GET_MEMBERS_BY_BASE_ID',
+        baseId: baseId
+    };
+};
 
-const addTableSucceed = (table, baseId) => {
-	return {
-		type: 'ADD_TABLE_SUCCEEDED',
-		payload: {
-			table: table,
-			baseId: baseId,
-			isWillActive: false
-		}
-	}
-}
+export const addTableSucceed = (table, baseId) => {
+    return {
+        type: 'ADD_TABLE_SUCCEEDED',
+        payload: {
+            table: table,
+            baseId: baseId,
+            isWillActive: false
+        }
+    };
+};
 
-const deleteTableSuccess = (tableId) => {
+export const deleteTableSuccess = (tableId) => {
     return {
         type: 'DELETE_TABLE_SUCCEEDED',
         payload: {
             tableId: tableId
         }
-    }
-}
+    };
+};
 
-const updateTableSuccess = (table) => {
+export const updateTableSuccess = (table) => {
     return {
         type: 'RENAME_TABLE_SUCCEEDED',
         changedTable: table,
         isWillNotActive: true
-    }
-}
+    };
+};
 
-const addRecordSuccess = (table) => {
+export const addRecordSuccess = (table) => {
     return {
         type: 'ADD_RECORD_SUCCEEDED',
         payload: {
             tableId: table._id,
             table: table
         }
-    }
-}
+    };
+};
 
-const updateFieldSucceeded = (table) => {
+export const updateFieldSucceeded = (table) => {
     return {
         type: 'UPDATE_FIELD_SUCCEEDED',
         table: table
-    }
-}
+    };
+};
 
-const deleteFieldSuccess = (table) => {
+export const deleteFieldSuccess = (table) => {
     return {
         type: 'DELETE_FIELD_SUCCEEDED',
         table: table
-    }
-}
+    };
+};
 
-const deleteRecordSuccess = (table) => {
+export const deleteRecordSuccess = (table) => {
     return {
         type: 'DELETE_RECORD_SUCCEEDED',
         table: table
-    }
-}
-
-export {
-	deleteRecordSuccess,
-    deleteFieldSuccess,
-	updateFieldSucceeded,
-	addRecordSuccess,
-	updateTableSuccess,
-	deleteTableSuccess,
-	addTableSucceed,
-    getBaseById,
-    setActive,
-    addTable,
-    switchTable,
-    togglePopup,
-    openMenu,
-    closeMenu,
-    setTabsModal,
-    checkTableName,
-    addTableToBaseById,
-    setTableIdToActiveModal,
-    updateTable,
-    addRecord,
-    selectRecordItem,
-    activateRecord,
-    changeRecord,
-    blurRecord,
-    blurRecordComponent,
-    deleteTable,
-    openRecordDialog,
-    addComment,
-    getCoworkersList,
-    disconnectSocket,
-    changeSearch,
-    changeSearchFoundIndex,
-    toggleSearch,
-	uploadAttachment,
-	deleteFile,
-    setSelectFieldRecordItems,
-    appendSelectFieldRecordItems,
-    setSelectAllRecordItems,
-    setSelectRecordItems,
-    shiftKeyDown,
-    shiftKeyUp,
-    clearSelectedRecordItemList,
-    mouseDownRecordItem,
-    mouseUpRecordItem,
-    mouseOverRecordItem,
-	saveCurrentTeamRoles,
-	getMembersByBaseId
+    };
 };
