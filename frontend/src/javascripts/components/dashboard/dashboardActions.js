@@ -250,11 +250,13 @@ export function updateFilter(tableId, viewId, viewType, fieldId, fieldIndex, fil
     };
 }
 
-export function updateViewHideField(viewId, fieldId, value) {
+export function updateViewHideField(tableId, viewId, viewType, fieldId, value) {
     return {
         type: 'UPDATE_VIEW_HIDE_FIELD',
+        tableId: tableId,
         viewId: viewId,
         fieldId: fieldId,
+        viewType: viewType,
         hidden: value
     };
 }
@@ -293,15 +295,6 @@ export function changeFieldName(tableId, fieldId, fieldName) {
         tableId: tableId,
         fieldId: fieldId,
         fieldName: fieldName,
-    };
-}
-
-export function changeFieldDisplay(tableId, fieldId, display) {
-    return {
-        type: 'CHANGE_FIELD_DISPLAY',
-        tableId: tableId,
-        fieldId: fieldId,
-        display: display
     };
 }
 

@@ -17,7 +17,6 @@ export default class Grid extends Component {
             <div className="grid-view">
                 <GridHeader
                     currentViewId={this.props.currentViewId}
-                    changeFieldDisplay={this.props.changeFieldDisplay}
                     updateViewHideField={this.props.updateViewHideField}
                     onChangeSearch={this.props.onChangeSearch}
                     currentTableId={this.props.currentTable._id}
@@ -39,6 +38,7 @@ export default class Grid extends Component {
                     removeAllFilters={this.props.removeAllFilters}
                 />
                 <GridContent
+                    currentViewId={this.props.currentViewId}
                     currentTable={this.props.currentTable}
                     recordData={this.props.recordData}
                     addRecord={this.props.addRecord}

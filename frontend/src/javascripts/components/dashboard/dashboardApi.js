@@ -93,7 +93,7 @@ const updateFilter = (payload) => {
 };
 
 const updateViewHideFields = (action) => {
-    return axios.put(url + '/' + action.viewId+ '/fields/' + action.fieldId, action)
+    return axios.put(url + '/tables/' + action.tableId + '/views/'+ action.viewType + '/' + action.viewId + '/fields/' + action.fieldId, action)
         .then((response) => response)
         .catch(R.tap(console.error));
 };

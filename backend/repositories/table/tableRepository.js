@@ -132,7 +132,6 @@ class TableRepository extends Repository {
             const field = table.fields[fieldIndex];
             field.type = data.fieldType || field.type;
             field.name = data.fieldName || field.name;
-            field.display = data.display || field.display
             
             if (data.type === 'CHANGE_FIELD_OPTIONS') {
                 switch (data.currentValue) {
@@ -252,7 +251,7 @@ class TableRepository extends Repository {
             return this.model.findByIdAndUpdate(
                 tableId,
                 {$push: { views: {$each: newViews } } },
-                {upsert:true}
+                { upsert: true}
             ).populate('views.view');
         }
 
@@ -372,7 +371,15 @@ class TableRepository extends Repository {
             });
         });
     }
-
+    updateView(tableId, viewId, viewType, fieldId, hidden ) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            let fieldToHide = view.fields_config.find((f) => f.field.toString() === fieldId);
+            fieldToHide.hidden = hidden
+               return view.save().then(() => {
+                    return this.model.findById(tableId).populate('views.view');
+            });
+        })
+    }
 }
 
 const typeToSchema = {

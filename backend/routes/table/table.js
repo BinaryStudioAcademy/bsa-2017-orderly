@@ -221,6 +221,17 @@ router.put('/:id/views/:viewType/:viewId/fields/:fieldId/:fieldIndex/filters/:fi
         .catch((error) => response.status(500).send(error));
 });
 
+router.put('/:id/views/:viewType/:viewId/fields/:fieldId', (request, response) => {
+    tableRepository.updateView(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType,
+        request.params.fieldId, 
+        request.body.hidden)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
 router.delete('/:id/views/:viewType/:viewId/filters/:filterId', (request, response) => {
     tableRepository.removeFilter(
         request.params.id,

@@ -14,8 +14,8 @@ const getUserProfileReducer = (state) => state.userProfile;
 
 function* updateGridHideField(action) {
     try {
-        const view = yield call(updateViewHideFields, action);
-        yield put({type: 'UPDATE_VIEW_HIDE_FIELD_SUCCEEDED', action});
+        const table = yield call(updateViewHideFields, action);
+        yield put({type: 'UPDATE_VIEW_HIDE_FIELD_SUCCEEDED', table: table.data });
     } catch (err) {
         yield put({type: 'UPDATE_VIEW_HIDE_FIELD_FAILED', message: err.message});
     }
@@ -337,7 +337,6 @@ function* dashboardSaga() {
     yield takeEvery('ADD_COMMENT', addNewComment);
     yield takeEvery('CHANGE_FIELD_TYPE', updateFieldMeta);
     yield takeEvery('CHANGE_FIELD_NAME', updateFieldMeta);
-    yield takeEvery('CHANGE_FIELD_DISPLAY', updateFieldMeta);
     yield takeEvery('CHANGE_FIELD_OPTIONS', updateFieldMeta);
     yield takeEvery('DELETE_FIELD', removeField);
     yield takeEvery('DELETE_RECORD', removeRecord);

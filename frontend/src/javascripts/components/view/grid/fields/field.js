@@ -51,7 +51,6 @@ class Field extends Component {
             content = this.renderField();
         }
         return (
-
             <div className={"table-cell " + this.className + this.fieldSelectedClass() + this.fieldActiveClass()}>
                 <div className="table-cell-wrap" onDoubleClick={(event) => this.props.onActivate(this.props.id)}>
                     <div className={"table-cell-inner " + this.fieldDefaultCellClass()}

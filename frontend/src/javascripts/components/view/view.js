@@ -84,7 +84,6 @@ export default class View extends Component {
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
                 updateViewHideField={this.props.updateViewHideField}
-                changeFieldDisplay={this.props.changeFieldDisplay}
                 changeFieldOptions={this.props.changeFieldOptions}
                 onOpenRecordDialog={this.props.openRecordDialog}
                 recordDialogIndex={this.props.recordDialogIndex}
