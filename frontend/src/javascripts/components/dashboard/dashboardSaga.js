@@ -84,6 +84,17 @@ function* removeTable(action) {
         payload.tableId = action.tableId;
         yield call(deleteTable, payload.tableId);
         yield put({type: 'DELETE_TABLE_SUCCEEDED', payload});
+        const objForHomePage = {
+        	_id: action.baseId,
+	        typeAction: 'tables',
+	        value: action.value
+        }
+		yield put({
+			type: 'CHANGE_BASE_PARAM',
+			_id: action.baseId,
+			typeAction: 'tables',
+			value: action.value
+		})
     } catch (err) {
         yield put({type: 'DELETE_TABLE_FAILED', message: err.message});
     }

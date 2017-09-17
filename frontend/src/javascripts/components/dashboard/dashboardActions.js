@@ -8,9 +8,11 @@ const getTables = () => ({
     type: 'GET_TABLES'
 });
 
-const deleteTable = (tableId) => ({
+const deleteTable = (tableId, baseId, value) => ({
     type: 'DELETE_TABLE',
-    tableId: tableId
+    tableId: tableId,
+	baseId: baseId,
+	value: value
 });
 
 const togglePopup = () => ({

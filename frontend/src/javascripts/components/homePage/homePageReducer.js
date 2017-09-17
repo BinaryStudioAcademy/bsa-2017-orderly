@@ -146,6 +146,23 @@ const baseStore = (state = initialState, action) => {
 				}
 			]);
 
+	    // case 'DELETE_TABLE_SUCCEEDED':
+	    // 	console.log(action, 'inside home page reducer')
+	    // 	return R.mergeAll([
+	    // 		R.dissoc('teams', state),
+			//     {
+			//     	teams: R.map(team => {
+			//     		const newTeam = R.clone(team)
+			//     		newTeam.bases = R.map(base => {
+			// 			    const newBase = R.clone(base)
+			// 			    newBase.tables = R.reject(item => item === action.payload.tableId)(base.tables)
+			// 			    return newBase
+			// 		    })(team.bases)
+			//     		return newTeam
+			// 	    })(state.teams)
+			//     }
+		 //    ])
+
 		default:
 			return state
 	}

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 import { browserHistory } from 'react-router';
-;
 
 import { setName } from '../../../../../dashboardService';
 import { ModalBody, renameInput, descriptionInput, isRecordCopy } from './modalContent';
@@ -84,10 +83,11 @@ const PopUpModal = ({table, tables, activeModal, setTabsModal, tablesNames, rena
 							return;
 						}
 						if (activeModal === 'delete') {
-							deleteTable(table._id);
+							deleteTable(table._id, base._id, R.reject(id => id === table._id)(R.pluck('_id', tables)));
 							setTabsModal('');
-							switchTableClick(tables[0]._id)
-							browserHistory.push(`/dashboard/${base._id}/${tables[0]._id}`)
+							const firstIdx = tables[0]._id === table._id ? 1 : 0
+							switchTableClick(tables[firstIdx]._id)
+							browserHistory.push(`/dashboard/${base._id}/${tables[firstIdx]._id}`)
 							return;
 						}
 					}}/>
