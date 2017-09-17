@@ -1,6 +1,5 @@
 import React from 'react';
 import { List } from 'semantic-ui-react';
-;
 
 import PopUpModal from './popUpModal/popUpModal';
 import './tabPopup.scss';
@@ -36,8 +35,26 @@ const TabPopup = ({isOpen, table, activeModal, setTabsModal, deleteTable, tableI
 				<List.Content>Duplicate table</List.Content>
 			</List.Item>
 			<List.Item className='list_menu' onClick={() => {
-				setTableIdToActiveModal(table._id)
-				setTabsModal('delete')
+				if (tables.length >= 2) {
+					setTableIdToActiveModal(table._id)
+					setTabsModal('delete')
+				} else {
+					<Modal trigger={<Button>Basic Modal</Button>} basic size='small'>
+						<Header icon='archive' content='Archive Old Messages' />
+						<Modal.Content>
+							<p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+						</Modal.Content>
+						<Modal.Actions>
+							<Button basic color='red' inverted>
+								<Icon name='remove' /> No
+							</Button>
+							<Button color='green' inverted>
+								<Icon name='checkmark' /> Yes
+							</Button>
+						</Modal.Actions>
+					</Modal>
+				}
+
 			}}>
 				<List.Icon name='trash outline'/>
 				<List.Content>Delete table</List.Content>
