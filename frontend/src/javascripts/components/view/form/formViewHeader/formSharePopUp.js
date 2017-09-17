@@ -15,10 +15,10 @@ export default class PopupShareForm extends Component{
       console.log()
         return (
           <Popup size ="small" wide
-            trigger={<Button basic>
+            trigger={<div className='btn-form-menu'>
                         <Icon name='external'/>
                             <span className="menu__text">Share form</span>
-                    </Button>}
+                    </div>}
             content={
                 <div className='form-share-popup-wrapper'> 
                     <div className='form-share-header'>
