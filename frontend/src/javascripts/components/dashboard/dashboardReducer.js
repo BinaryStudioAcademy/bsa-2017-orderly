@@ -6,7 +6,7 @@ const initState = {
         _id: 0,
         name: '',
         isActive: false,
-        currentView: null,
+        currentView: null
     }],
     addPopupIsOpen: false,
     activeModal: '',
@@ -34,6 +34,21 @@ function dashboardReducer(state = initState, action) {
             state,
             {base: action.payload.base}
         );
+    }
+    case 'UPDATE_VIEW_HIDE_FIELD_SUCCEEDED': {
+        let tables =  state.tables.map(value => Object.assign({}, value))
+        let newTables = tables.map((table) => {
+                if (table._id === action.table._id) { 
+                    table.views = [...action.table.views]
+                    return table 
+                } else {
+                    return table
+                }
+            })
+        return R.merge(
+            state,
+            {tables: newTables}
+        )
     }
 
     case 'GET_MEMBERS_BY_BASE_ID_SUCCESSED': {

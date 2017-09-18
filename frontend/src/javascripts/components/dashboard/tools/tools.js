@@ -185,7 +185,7 @@ class Tools extends Component {
     }
 
     render() {
-        const currentTable = R.find(R.propEq('_id', this.props.currentTableId))(this.props.tables);
+        const currentTable = R.find(R.propEq('_id', this.props.currentTableId))(this.props.tables);        
         const recordData = {
             isRecordSelected: this.isRecordSelected,
             isRecordActive: this.isRecordActive,
@@ -250,7 +250,7 @@ class Tools extends Component {
                       addField={this.props.addField}
                       changeFieldType={this.props.changeFieldType}
                       changeFieldName={this.props.changeFieldName}
-                      changeFieldDisplay={this.props.changeFieldDisplay}
+                      updateViewHideField={this.props.updateViewHideField}
                       changeFieldOptions={this.props.changeFieldOptions}
                       deleteField={this.props.deleteField}
                       deleteRecord={this.props.deleteRecord}

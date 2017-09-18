@@ -59,10 +59,6 @@ const tableSchema = new Schema({
             type: String,
             default: 'new field'
         },
-        display: {
-            type: Boolean,
-            default: true
-        },
         type: {
             type: String,
             require: true

@@ -4,7 +4,7 @@ import {
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
     deleteFieldRecords, deleteRecord, filterRecords, uploadFile, addView, deleteView,
     removeFilter, addFilter, updateFilter, getTableById, updateKanban, removeAllFilters,
-	getMembersByBaseId, getTableView,
+	getMembersByBaseId, updateViewHideFields, getTableView,
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -12,6 +12,15 @@ import R from 'ramda'
 
 const getDashboardReducer = (state) => state.dashboardReducer;
 const getUserProfileReducer = (state) => state.userProfile;
+
+function* updateGridHideField(action) {
+    try {
+        const table = yield call(updateViewHideFields, action);
+        yield put({type: 'UPDATE_VIEW_HIDE_FIELD_SUCCEEDED', table: table.data });
+    } catch (err) {
+        yield put({type: 'UPDATE_VIEW_HIDE_FIELD_FAILED', message: err.message});
+    }
+}
 
 function* fetchBaseById(action) {
     try {
@@ -352,7 +361,6 @@ function* dashboardSaga() {
     yield takeEvery('ADD_COMMENT', addNewComment);
     yield takeEvery('CHANGE_FIELD_TYPE', updateFieldMeta);
     yield takeEvery('CHANGE_FIELD_NAME', updateFieldMeta);
-    yield takeEvery('CHANGE_FIELD_DISPLAY', updateFieldMeta);
     yield takeEvery('CHANGE_FIELD_OPTIONS', updateFieldMeta);
     yield takeEvery('DELETE_FIELD', removeField);
     yield takeEvery('DELETE_RECORD', removeRecord);
@@ -367,8 +375,9 @@ function* dashboardSaga() {
     yield takeEvery('REMOVE_ALL_FILTERS', removeAllTableFilters);
     yield takeEvery('UPLOAD_FILES', uploadingFiles);
     yield takeEvery('DELETE_FILE', deletingFile);
-    yield takeEvery('UPDATE_KANBAN_VIEW', updatingKanban)
-    yield takeEvery('GET_MEMBERS_BY_BASE_ID', gettingMembersByBaseId)
+    yield takeEvery('UPDATE_KANBAN_VIEW', updatingKanban);
+    yield takeEvery('GET_MEMBERS_BY_BASE_ID', gettingMembersByBaseId);
+    yield takeEvery('UPDATE_VIEW_HIDE_FIELD', updateGridHideField);
 }
 
 export default dashboardSaga;

@@ -51,8 +51,9 @@ class RowNum extends Component {
 const Field = ({id, tableId, type, name, index, records, recordData, changeFieldType, changeFieldName,
                    changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
                    searchFoundIndex, uploadAttachment, deleteFile, onSetSelectFieldRecordItems,
-                   onAppendSelectFieldRecordItems, selectedRecordItemList, currentView}) => {
+                   onAppendSelectFieldRecordItems, selectedRecordItemList, display, currentView}) => {
     return (
+        <div className={display? "display-field" : "none"}>
         <div className="field__items">
             <div className="content__field">
                 <span className="content__field-title"
@@ -100,6 +101,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
                                    selectedRecordItemList={selectedRecordItemList}/>
                 })}
             </div>
+        </div>
         </div>
     );
 };
@@ -205,15 +207,34 @@ export default class GridContent extends Component {
     constructor(props) {
         super(props);
         this.props = props;
-        let fieldsToShow = this.props.currentTable.fields.filter((field) => field.display === true)
-        
+        let currentView = this.props.currentTable.views.find((v)=> v.view._id.toString() === this.props.currentViewId)
+        let fieldsIdShow = [], i = 0
+        for (let field in currentView.view.fields_config) {
+            if (currentView.view.fields_config[field].hidden === false) {
+                fieldsIdShow[i] = currentView.view.fields_config[field].field
+                i += 1;
+            }
+        }
+
         this.state={
-            fields:fieldsToShow
+            fields:this.props.currentTable.fields,
+            fieldsIds:fieldsIdShow
         }
     }
     componentWillReceiveProps(nextProps) {
-        let fieldsToShow = nextProps.currentTable.fields.filter((field) => field.display === true)
-        this.setState({fields:fieldsToShow})
+        let currentView = nextProps.currentTable.views.find((v)=> v.view._id.toString() === this.props.currentViewId)
+        let fieldsIdShow = [], i = 0
+        for (let field in currentView.view.fields_config) {
+            if (currentView.view.fields_config[field].hidden === false) {
+                fieldsIdShow[i] = currentView.view.fields_config[field].field
+                i += 1;
+            }
+        }
+
+        this.setState({
+            fields:nextProps.currentTable.fields,
+            fieldsIds:fieldsIdShow
+        })
     }
     componentDidMount() {
         let _this = this;
@@ -299,30 +320,31 @@ export default class GridContent extends Component {
                         <div className="content__body body__fields">
                             {this.state.fields.map((field, fieldIndex) => {
                                 return <Field
-                                    key={field._id}
-                                    currentField = {field}
-                                    id={field._id}
-                                    name={field.name}
-                                    type={field.type}
-                                    index={fieldIndex}
-                                    records={records}
-                                    recordData={this.props.recordData}
-                                    showFieldMenu={this.props.showFieldMenu}
-                                    changeFieldType={this.props.changeFieldType}
-                                    changeFieldOptions={this.props.changeFieldOptions}
-                                    changeFieldName={this.props.changeFieldName}
-                                    deleteField={this.props.deleteField}
-                                    deleteRecord={this.props.deleteRecord}
-                                    tableId={this.props.currentTable._id}
-                                    uploadAttachment={this.props.uploadAttachment}
-                                    deleteFile={this.props.deleteFile}
-                                    searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
-                                    searchFoundIndex={this.props.searchFoundIndex}
-                                    onSetSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
-                                    onAppendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
-                                    selectedRecordItemList={this.props.selectedRecordItemList}
-                                    currentView={this.props.currentTable.currentView}
-                                />
+                                            display={this.state.fieldsIds.includes(field._id)}
+                                            key={field._id}
+                                            currentField = {field}
+                                            id={field._id}
+                                            name={field.name}
+                                            type={field.type}
+                                            index={fieldIndex}
+                                            records={records}
+                                            recordData={this.props.recordData}
+                                            showFieldMenu={this.props.showFieldMenu}
+                                            changeFieldType={this.props.changeFieldType}
+                                            changeFieldOptions={this.props.changeFieldOptions}
+                                            changeFieldName={this.props.changeFieldName}
+                                            deleteField={this.props.deleteField}
+                                            deleteRecord={this.props.deleteRecord}
+                                            tableId={this.props.currentTable._id}
+                                            uploadAttachment={this.props.uploadAttachment}
+                                            deleteFile={this.props.deleteFile}
+                                            searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                                            searchFoundIndex={this.props.searchFoundIndex}
+                                            onSetSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
+                                            onAppendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
+                                            selectedRecordItemList={this.props.selectedRecordItemList}
+                                            currentView={this.props.currentTable.currentView}
+                                        />
                             })}</div>
                         </div>
                         <div className="content__field item__add-record"
