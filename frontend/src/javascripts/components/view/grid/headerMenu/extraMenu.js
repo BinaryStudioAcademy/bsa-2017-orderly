@@ -40,7 +40,8 @@ export default class ExtraMenu extends Component {
     render() {
         
         return (
-            <Button basic ref='extraMenu' className="extra__button">
+            <Button basic ref='extraMenu' disabled={this.props.isReadOnly}
+                    className="extra__button">
                 <div ref={(node) => this.node = node }
                      onClick={(e) => this.handleClickOnMenu(e)}
                      className='button__items'>

@@ -35,10 +35,12 @@ class RowNum extends Component {
             </div>
             <div className={this.state.isHovered?'row':'none'}
                 onContextMenu={(e) => {
-                    this.props.deleteRecord(e, this.props.tableId, this.props.recordId)
+                	if (!this.props.isReadOnly)
+                        this.props.deleteRecord(e, this.props.tableId, this.props.recordId)
                 }}
                 onClick={(e) => {
-                    this.props.deleteRecord(e, this.props.tableId, this.props.recordId)
+                	if (!this.props.isReadOnly)
+	                    this.props.deleteRecord(e, this.props.tableId, this.props.recordId)
                 }}
             >
                 <Icon name='delete' color='red' />
@@ -51,7 +53,8 @@ class RowNum extends Component {
 const Field = ({id, tableId, type, name, index, records, recordData, changeFieldType, changeFieldName,
                    changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
                    searchFoundIndex, uploadAttachment, deleteFile, onSetSelectFieldRecordItems,
-                   onAppendSelectFieldRecordItems, selectedRecordItemList, display, currentView, contentRefs}) => {
+                   onAppendSelectFieldRecordItems, selectedRecordItemList, display, currentView, contentRefs,
+	               isReadOnly, currentRole}) => {
     return (
         <div className={display? "display-field" : "none"}>
             <div className="field__items">
@@ -77,6 +80,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
                         changeFieldOptions={changeFieldOptions}
                         deleteField={deleteField}
                         index={index}
+                        isReadOnly={isReadOnly}
                         currentField={currentField}
                         currentView={currentView}
                     />
@@ -85,6 +89,7 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
                     {records &&
                     records.map((record, idx) => {
                         return <RecordItem
+	                        currentRole={currentRole}
                             key={record.record_data[index]._id}
                             id={record.record_data[index]._id}
                             uploadAttachment={uploadAttachment}
@@ -111,10 +116,11 @@ const Field = ({id, tableId, type, name, index, records, recordData, changeField
 
 const RecordItem = ({id, type, data, recordData, recordIdx, fieldIdx, currentField, searchMatchedRecordItemIdList,
                      searchFoundIndex, uploadAttachment, tableId, deleteFile, currentRecord, selectedRecordItemList,
-                     contentRefs
+                     contentRefs, currentRole
                     }) => {
     const fieldPayload = {
         id: id,
+	    currentRole: currentRole,
         value: data,
         recordIdx: recordIdx,
         fieldIdx: fieldIdx,
@@ -263,6 +269,7 @@ export default class GridContent extends Component {
                             <div className="rows__selector rows__row"/>
                             {records.map((record, recordIndex) => {
                                 return <RowNum key={record._id}
+                                               isReadOnly={this.props.isReadOnly}
                                                tableId={this.props.currentTable._id}
                                                recordId={record._id}
                                                index={recordIndex}
@@ -270,7 +277,7 @@ export default class GridContent extends Component {
                             })}
                         </div>
 
-                        <div className="content__body">
+                        <div className="content__body" style={{display: this.props.isReadOnly ? 'none' : 'block'}}>
                             <div className="field__items row-options-field">
                                 <div className="content__field row-options-field">
                                     <Icon name="lock" className="row-options-field_lock-icon"/>
@@ -310,6 +317,8 @@ export default class GridContent extends Component {
                         <div className="content__body body__fields">
                             {fields.map((field, fieldIndex) => {
                                 return <Field
+	                                isReadOnly={this.props.isReadOnly}
+	                                currentRole={this.props.currentRole}
                                     display={fieldsIdShow.includes(field._id)}
                                     key={field._id}
                                     currentField = {field}
@@ -339,12 +348,18 @@ export default class GridContent extends Component {
                             })}</div>
                         </div>
                         <div className="content__field item__add-record"
-                             onClick={this.handleAddRecord}>
+                             onClick={event => {
+                             	if (!this.props.isReadOnly)
+	                                this.handleAddRecord(event)
+                             } }>
                             <Icon name="plus" className="field__icon"/>
                         </div>
                     </div>
                     <div className="content__field item__add-field"
-                         onClick={this.handleAddField}>
+                         onClick={event => {
+	                         if (!this.props.isReadOnly)
+	                         this.handleAddField(event)
+                         }}>
                         <Icon name="plus" className="field__icon"/>
                     </div>
                 </div>

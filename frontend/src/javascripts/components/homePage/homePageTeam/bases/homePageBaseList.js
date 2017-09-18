@@ -42,6 +42,8 @@ class BaseList extends Component {
   	}
 	render() {
 		const props = this.props
+		const currentMember = R.find(R.propEq('userId', R.path(['user', '_id'], this.props)))(R.path(['team', 'collaborators'], this.props))
+		const currentRole = R.path(['role'], currentMember)
 		if (this.props.bases) {
 			return (
 				<div className='base-list'>
@@ -49,6 +51,7 @@ class BaseList extends Component {
 						return (
 							<div key={base._id || ++temporaryKey}>
 								<BaseItem className="base-list-item"
+								          currentRole={currentRole}
 								          handleClick={props.handleClick}
 								          teamId={props.teamId}
 								          collaborators={props.collaborators}

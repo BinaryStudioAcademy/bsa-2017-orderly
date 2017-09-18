@@ -31,12 +31,14 @@ export default class GridHeader extends Component{
                     <span id="view-type__name">Grid View</span>
                     <Button.Group>
                         <PopupHideColumn
+	                        isReadOnly={this.props.isReadOnly}
                             currentViewId={this.props.currentViewId}
                             currentTable={this.props.currentTable}
                             updateViewHideField={this.props.updateViewHideField}
                         />
                         <FilterMenu
-                            currentTable={this.props.currentTable}
+	                        isReadOnly={this.props.isReadOnly}
+	                        currentTable={this.props.currentTable}
                             currentViewType={this.props.currentViewType}
                             addFilter={this.props.addFilter}
                             updateFilter={this.props.updateFilter}
@@ -44,7 +46,8 @@ export default class GridHeader extends Component{
                             removeAllFilters={this.props.removeAllFilters}
                         />
                         <SortMenu
-                            currentTable={this.props.currentTable}
+	                        isReadOnly={this.props.isReadOnly}
+	                        currentTable={this.props.currentTable}
                             currentViewType={this.props.currentViewType}
                             addSort={this.props.addSort}
                             updateSort={this.props.updateSort}
@@ -52,7 +55,8 @@ export default class GridHeader extends Component{
                             removeAllSorts={this.props.removeAllSorts}
                         />
                         <ExtraMenu
-                            currentTableId={this.props.currentTable._id}
+	                        isReadOnly={this.props.isReadOnly}
+	                        currentTableId={this.props.currentTable._id}
                             tables={this.props.tables}
                             deleteView={this.props.deleteView}
                             viewsCount={this.props.viewsCount}

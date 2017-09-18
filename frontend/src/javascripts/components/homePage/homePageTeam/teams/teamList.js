@@ -19,7 +19,8 @@ class TeamList extends Component {
 					this.props.collaborators, this.props.showUserPopup, this.props.isShowUserPopup,
 					this.props.activeShareModal, this.props.changeActiveShareModal, this.props.allUsers,
 					this.props.getAllUsers, this.props.addCollaborator, this.props.deleteCollaborator,
-					this.props.updateCollaboratorRole, this.props.saveCurrentTeamRoles, this.props.teamNames))(this.props.teams || []) }
+					this.props.updateCollaboratorRole, this.props.saveCurrentTeamRoles, this.props.teamNames,
+					this.props.user))(this.props.teams || []) }
 				<div className='add-header'>
 					<div className='team-name-wrapper'
 					     onClick={() => {

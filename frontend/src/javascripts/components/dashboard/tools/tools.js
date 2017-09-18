@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Header from './header/header';
 import Tabs from './tabs/tabs';
 import View from '../../view/view';
-;
+
 import {onGetCoworkersList, tableAddSuccess, shareDeleteTable, shareUpdateTable,
         shareAddingNewRecord, sharingUpdateFieldMeta, sharingRemoveField, sharingRemoveRecord} from '../../../app/socket';
 import { getRoleByUserId } from '../dashboardService'
@@ -26,6 +26,7 @@ class Tools extends Component {
         this.state = {
             currentUserRole: ''
         }
+
     }
 
     componentWillMount() {
@@ -40,6 +41,7 @@ class Tools extends Component {
     }
 
     componentDidMount() {
+
         const _this = this;
         onGetCoworkersList((coworkersByTables) => {
             _this.props.getCoworkersList(coworkersByTables, _this.props.currentTableId);
@@ -72,9 +74,6 @@ class Tools extends Component {
 	    sharingRemoveRecord(table => {
 	        _this.props.deleteRecordSuccess(table)
         })
-
-
-
 
 	    this.context.router.listenBefore((location, done) => {
             if (!location.pathname.startsWith('/dashboard/' + _this.props.baseId + '/')) {
@@ -128,13 +127,12 @@ class Tools extends Component {
     }
 
     activateRecordHandler(id) {
-        this.props.activateRecord(id);
+	    if (this.props.currentRole !== 'readOnly') this.props.activateRecord(id);
     }
 
     keyPressRecordHandler(id) {
-        if (!this.isRecordActive(id)) {
+        if (!this.isRecordActive(id) && this.props.currentRole !== 'readOnly') {
             this.props.changeRecord(this.props.currentTableId, id, '', this.props.user);
-                                                                                                                                                                                this.props.activateRecord(id);
         }
     }
 
@@ -154,7 +152,8 @@ class Tools extends Component {
     }
 
     blurRecordComponentHandler(id, value) {
-        this.props.changeRecord(this.props.currentTableId, id, value, this.props.user);
+	    if (this.props.currentRole !== 'readOnly')
+	    	this.props.changeRecord(this.props.currentTableId, id, value, this.props.user);
         this.props.blurRecordComponent(this.props.currentTableId, id);
     }
 
@@ -185,7 +184,7 @@ class Tools extends Component {
     }
 
     render() {
-        const currentTable = R.find(R.propEq('_id', this.props.currentTableId))(this.props.tables);        
+        const currentTable = R.find(R.propEq('_id', this.props.currentTableId))(this.props.tables);
         const recordData = {
             isRecordSelected: this.isRecordSelected,
             isRecordActive: this.isRecordActive,
@@ -199,16 +198,18 @@ class Tools extends Component {
             mouseOverRecordItemHandler: this.mouseOverRecordItemHandler
         };
         return (
-            <div onClick={() => {
+            <div onClick={event => {
                 // this.props.closeMenu();
             }}>
                 <Header base={this.props.base}
+                        currentRole={this.props.currentRole}
                         tables={this.props.tables}
                         user={this.props.user}
                         members={this.props.members}
                         menu={this.props.menu}
                         handleClick={this.props.handleClick}/>
                 <Tabs base={this.props.base}
+                      currentRole={this.props.currentRole}
                       members={this.props.members}
                       currentTableId={this.props.currentTableId}
                       tables={this.props.tables}
@@ -230,7 +231,8 @@ class Tools extends Component {
                       collaborators={this.props.collaborators}
                       user={this.props.user}/>
                 {currentTable &&
-                <View currentTable={currentTable}
+                <View currentRole = {this.props.currentRole}
+                      currentTable={currentTable}
                       tables={this.props.tables}
                       recordData={recordData}
                       openRecordDialog={this.props.openRecordDialog}
