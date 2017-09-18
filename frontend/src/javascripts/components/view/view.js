@@ -71,7 +71,7 @@ export default class View extends Component {
                 deleteRecord={this.props.deleteRecord}
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
-                changeFieldDisplay={this.props.changeFieldDisplay}
+                updateViewHideField={this.props.updateViewHideField}
                 changeFieldOptions={this.props.changeFieldOptions}
                 onOpenRecordDialog={this.props.openRecordDialog}
                 recordDialogIndex={this.props.recordDialogIndex}
@@ -99,6 +99,7 @@ export default class View extends Component {
                 appendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
                 setSelectAllRecordItems={this.props.setSelectAllRecordItems}
                 selectedRecordItemList={this.props.selectedRecordItemList}
+                currentViewId={this.props.currentView}
 
             />;
         case 'form':

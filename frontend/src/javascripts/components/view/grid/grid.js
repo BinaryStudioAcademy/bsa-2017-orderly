@@ -9,11 +9,11 @@ export default class Grid extends Component {
     }
 
     render() {
-
         return (
             <div className="grid-view">
                 <GridHeader
-                    changeFieldDisplay={this.props.changeFieldDisplay}
+                    currentViewId={this.props.currentViewId}
+                    updateViewHideField={this.props.updateViewHideField}
                     onChangeSearch={this.props.onChangeSearch}
                     currentTableId={this.props.currentTable._id}
                     currentView={this.props.currentTable.currentView}
@@ -37,6 +37,7 @@ export default class Grid extends Component {
                     removeAllSorts={this.props.removeAllSorts}
                 />
                 <GridContent
+                    currentViewId={this.props.currentViewId}
                     currentTable={this.props.currentTable}
                     recordData={this.props.recordData}
                     addRecord={this.props.addRecord}

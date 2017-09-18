@@ -4,9 +4,15 @@ export const getBaseById = (_id, tableId) => ({
     tableId: tableId
 });
 
-export const deleteTable = (tableId) => ({
+export const getTables = () => ({
+    type: 'GET_TABLES'
+});
+
+export const deleteTable = (tableId, baseId, value) => ({
     type: 'DELETE_TABLE',
-    tableId: tableId
+    tableId: tableId,
+	baseId: baseId,
+	value: value
 });
 
 export const togglePopup = () => ({
@@ -224,6 +230,17 @@ export function updateFilter(tableId, viewId, viewType, fieldId, fieldIndex, fil
     };
 }
 
+export function updateViewHideField(tableId, viewId, viewType, fieldId, value) {
+    return {
+        type: 'UPDATE_VIEW_HIDE_FIELD',
+        tableId: tableId,
+        viewId: viewId,
+        fieldId: fieldId,
+        viewType: viewType,
+        hidden: value
+    };
+}
+
 export function removeFilter(tableId, viewId, viewType, filterId) {
     return {
         type: 'REMOVE_FILTER',
@@ -301,15 +318,6 @@ export function changeFieldName(tableId, fieldId, fieldName) {
         tableId: tableId,
         fieldId: fieldId,
         fieldName: fieldName,
-    };
-}
-
-export function changeFieldDisplay(tableId, fieldId, display) {
-    return {
-        type: 'CHANGE_FIELD_DISPLAY',
-        tableId: tableId,
-        fieldId: fieldId,
-        display: display
     };
 }
 

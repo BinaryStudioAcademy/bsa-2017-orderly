@@ -13,11 +13,11 @@ class HomePageTeamBlock extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.user && !R.equals(nextProps.user, this.props.user)) {
-			nextProps.getTeamsByUser(nextProps.user);
+		if(nextProps.user && !R.equals(nextProps.user, this.props.user) || R.isEmpty(this.props.teams)) {
+			nextProps.getTeamsByUser(nextProps.user)
 		}
 		if (nextProps.teams && !R.equals(nextProps.teams, this.props.teams)) {
-			R.forEach( team => {
+			R.forEach(team => {
 				nextProps.getBasesByTeam(team._id)
 			})(nextProps.teams)
 		}

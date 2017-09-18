@@ -25,9 +25,9 @@ const deleteBase = (_id) =>
         .catch(R.tap(console.error));
 
 const updateBaseById = (_id, typeAction, value) =>
-    axios.put(url + '/base/' + _id, {[typeAction]: value})
-        .then((response) => response.data)
-        .catch(R.tap(console.error));
+	axios.put(url + '/base/' + _id, {[typeAction]: value})
+		.then((response) => response.data)
+		.catch(R.tap(console.error));
 
 const getTeamsByUserId = (_id) =>
     axios.get(url + '/team/user/' + _id)

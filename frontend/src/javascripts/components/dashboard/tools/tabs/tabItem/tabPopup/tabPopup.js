@@ -1,6 +1,5 @@
 import React from 'react';
 import { List } from 'semantic-ui-react';
-;
 
 import PopUpModal from './popUpModal/popUpModal';
 import './tabPopup.scss';
@@ -36,8 +35,10 @@ const TabPopup = ({isOpen, table, activeModal, setTabsModal, deleteTable, tableI
 				<List.Content>Duplicate table</List.Content>
 			</List.Item>
 			<List.Item className='list_menu' onClick={() => {
-				setTableIdToActiveModal(table._id)
-				setTabsModal('delete')
+				if (tables.length >= 2) {
+					setTableIdToActiveModal(table._id)
+					setTabsModal('delete')
+				}
 			}}>
 				<List.Icon name='trash outline'/>
 				<List.Content>Delete table</List.Content>

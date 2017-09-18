@@ -29,7 +29,19 @@ const TabItem = (base, currentTableId, table, switchTableClick, openMenu,
 		           switchTableClick(table._id);
 		           browserHistory.push(`/dashboard/${base._id}/${table._id}`)} }
 	           className={table.description ? 'pr-30' : ''}
-	           htmlFor={'tab' + table._id}>{table.name}</label>
+	           htmlFor={'tab' + table._id}>
+
+               {table.name}
+               <Icon name='caret down' color='grey'
+                   onClick={(evt) => {
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        currentTable = table
+                        openMenu(table._id);
+                        setTimeout(closeMenu, 3000)
+                    }}
+                />
+               </label>
 	    {((description) => {
 		    if (description) return (<Popup
 			    trigger={<Icon link name='info circle'

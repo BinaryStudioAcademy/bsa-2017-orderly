@@ -2,8 +2,8 @@ import {call, put, takeEvery, select, takeLatest} from 'redux-saga/effects';
 import {
     getTablesByIds, getBase, addTable, addFieldsToTable, deleteFile,
     updateBaseByNewTable, addRecord, updateTable, deleteTable, updateField,
-    deleteFieldRecords, deleteRecord, uploadFile, addView, deleteView,
-    getTableById, updateKanban, getMembersByBaseId, getTableView,
+    deleteFieldRecords, deleteRecord, uploadFile, addView, deleteView, getTableById,
+    updateKanban, getMembersByBaseId, getTableView, updateViewHideFields,
     addFilter, updateFilter, removeFilter, removeAllFilters,
     addSort, updateSort, removeSort, removeAllSorts,
 } from './dashboardApi';
@@ -12,6 +12,15 @@ import {browserHistory} from 'react-router';
 
 const getDashboardReducer = (state) => state.dashboardReducer;
 const getUserProfileReducer = (state) => state.userProfile;
+
+function* updateGridHideField(action) {
+    try {
+        const table = yield call(updateViewHideFields, action);
+        yield put({type: 'UPDATE_VIEW_HIDE_FIELD_SUCCEEDED', table: table.data });
+    } catch (err) {
+        yield put({type: 'UPDATE_VIEW_HIDE_FIELD_FAILED', message: err.message});
+    }
+}
 
 function* fetchBaseById(action) {
     try {
@@ -88,6 +97,17 @@ function* removeTable(action) {
         payload.tableId = action.tableId;
         yield call(deleteTable, payload.tableId);
         yield put({type: 'DELETE_TABLE_SUCCEEDED', payload});
+        const objForHomePage = {
+        	_id: action.baseId,
+	        typeAction: 'tables',
+	        value: action.value
+        }
+		yield put({
+			type: 'CHANGE_BASE_PARAM',
+			_id: action.baseId,
+			typeAction: 'tables',
+			value: action.value
+		})
     } catch (err) {
         yield put({type: 'DELETE_TABLE_FAILED', message: err.message});
     }
@@ -377,7 +397,6 @@ function* dashboardSaga() {
     yield takeEvery('ADD_COMMENT', addNewComment);
     yield takeEvery('CHANGE_FIELD_TYPE', updateFieldMeta);
     yield takeEvery('CHANGE_FIELD_NAME', updateFieldMeta);
-    yield takeEvery('CHANGE_FIELD_DISPLAY', updateFieldMeta);
     yield takeEvery('CHANGE_FIELD_OPTIONS', updateFieldMeta);
     yield takeEvery('DELETE_FIELD', removeField);
     yield takeEvery('DELETE_RECORD', removeRecord);
@@ -397,6 +416,7 @@ function* dashboardSaga() {
     yield takeEvery('UPDATE_SORT', updateTableSort);
     yield takeEvery('REMOVE_SORT', removeTableSort);
     yield takeEvery('REMOVE_ALL_SORTS', removeAllTableSorts);
+    yield takeEvery('UPDATE_VIEW_HIDE_FIELD', updateGridHideField);
 }
 
 export default dashboardSaga;

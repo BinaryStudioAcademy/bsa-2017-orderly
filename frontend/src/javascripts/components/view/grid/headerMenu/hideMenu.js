@@ -5,10 +5,19 @@ import Select from 'react-select';
 export default class PopupHideColumn extends Component{
     constructor(props) {
         super(props);
-        let fields = this.props.currentTable.fields    
+        let currentView = this.props.currentTable.views.find((v)=> v.view._id.toString() === this.props.currentViewId)
+        let fieldsIdShow = [], j = 0
+        for (let field in currentView.view.fields_config) {
+            if (currentView.view.fields_config[field].hidden === false) {
+                fieldsIdShow[j] = currentView.view.fields_config[field].field
+                j += 1;
+            }
+        }
+        
+        let fields = this.props.currentTable.fields   
         let hideFields = [];
         for (let field in fields) {
-            if (fields[field].display == false) {   
+            if (!fieldsIdShow.includes(fields[field]._id)) {   
                 hideFields.push({
                     id: fields[field]._id,
                     name: fields[field].name,
@@ -20,7 +29,7 @@ export default class PopupHideColumn extends Component{
         let propsIds=[];
         let i = 0
         for (let item in fields) {
-            if (fields[item].display == true) { 
+            if (fieldsIdShow.includes(fields[item]._id)) { 
                 propsOptions[i] = fields[item].name
                 propsIds[i] = fields[item]._id
                 i += 1;
@@ -37,17 +46,26 @@ export default class PopupHideColumn extends Component{
         this.state = {
             value:'',
             label:'',
-            hided: hideFields,
+            hidden: hideFields,
             options: options,
             count: hideFields.length
         }
 
     }
     componentWillReceiveProps(nextProps) {
-        let fields = nextProps.currentTable.fields;
+        let currentView = nextProps.currentTable.views.find((v)=> v.view._id.toString() === this.props.currentViewId)
+        let fieldsIdShow = [], j = 0
+        for (let field in currentView.view.fields_config) {
+            if (currentView.view.fields_config[field].hidden === false) {
+                fieldsIdShow[j] = currentView.view.fields_config[field].field
+                j += 1;
+            }
+        }
+        
+        let fields = nextProps.currentTable.fields   
         let hideFields = [];
         for (let field in fields) {
-            if (fields[field].display == false) {   
+            if (!fieldsIdShow.includes(fields[field]._id)) {   
                 hideFields.push({
                     id: fields[field]._id,
                     name: fields[field].name,
@@ -58,7 +76,7 @@ export default class PopupHideColumn extends Component{
         let propsIds=[];
         let i = 0
         for (let item in fields) {
-            if (fields[item].display == true) {   
+            if (fieldsIdShow.includes(fields[item]._id)) {   
                 propsOptions[i] = fields[item].name
                 propsIds[i] = fields[item]._id
                 i += 1;
@@ -73,14 +91,14 @@ export default class PopupHideColumn extends Component{
             })
         }
 
-        this.setState({options: options, hided: hideFields, count: hideFields.length})
+        this.setState({options: options, hidden: hideFields, count: hideFields.length})
     }
     handleHide = (event) => {
         this.setState({value: event.value, label: event.label})
-        this.props.changeFieldDisplay(this.props.currentTable._id, event.value, 'false')
+        this.props.updateViewHideField(this.props.currentTable._id, this.props.currentViewId, 'grid', event.value, 'true')
     }
     handleUnhide = (event, id) => {
-        this.props.changeFieldDisplay(this.props.currentTable._id, id, 'true')
+        this.props.updateViewHideField(this.props.currentTable._id, this.props.currentViewId, 'grid', id, 'false')
     }
 
     render() {
@@ -101,10 +119,10 @@ export default class PopupHideColumn extends Component{
                         onChange = {(event) => {this.handleHide(event)}}
                     />
                     <div>
-                        <div className='hide-header'><Header as='h5'>Hided fields</Header></div>
+                        <div className='hide-header'><Header as='h5'>Hidden fields</Header></div>
                         <List>
                         { 
-                            this.state.hided.map((field, current) => {
+                            this.state.hidden.map((field, current) => {
                             return (
                               <List.Item className='option-list-item' key={current}>
                                 <List.Content floated='left'>{field.name}</List.Content>

@@ -19,68 +19,91 @@ import Checkbox from './fields/checkbox/checkbox';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
-const RowNum = ({tableId, recordId, index, deleteRecord}) => {
+class RowNum extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            isHovered:false
+        }
+    }
+
+ render() {
     return (
-        <div className="rows__row" onContextMenu={(e) => deleteRecord(e, tableId, recordId)}>
-            <span>{index + 1}</span>
+        <div className="rows__row" onMouseEnter={()=>this.setState({isHovered: true})} onMouseLeave={()=>this.setState({isHovered: false})}>
+            <div className={this.state.isHovered?'none':'row'}>
+                <span>{this.props.index + 1}</span>
+            </div>
+            <div className={this.state.isHovered?'row':'none'}
+                onContextMenu={(e) => {
+                    this.props.deleteRecord(e, this.props.tableId, this.props.recordId)
+                }}
+                onClick={(e) => {
+                    this.props.deleteRecord(e, this.props.tableId, this.props.recordId)
+                }}
+            >
+                <Icon name='delete' color='red' />
+            </div>
         </div>
-    )
+        )
+    }
 };
 
 const Field = ({id, tableId, type, name, index, records, recordData, changeFieldType, changeFieldName,
                    changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
                    searchFoundIndex, uploadAttachment, deleteFile, onSetSelectFieldRecordItems,
-                   onAppendSelectFieldRecordItems, selectedRecordItemList, currentView, contentRefs}) => {
+                   onAppendSelectFieldRecordItems, selectedRecordItemList, display, currentView, contentRefs}) => {
     return (
-        <div className="field__items">
-            <div className="content__field">
-                <span className="content__field-title"
-                    onClick={(event) => {
-                        if (event.shiftKey) {
-                            onAppendSelectFieldRecordItems(index, tableId)
-                        } else {
-                            onSetSelectFieldRecordItems(index, tableId)
-                        }}}
-                >
-                    <Icon name={fieldIcons[type]} className="field__icon"/>
-                    <span className="field__name">{name}</span>
-                </span>
-                <FieldMenu
-                    id={id}
-                    tableId={tableId}
-                    name={name}
-                    type={type}
-                    changeFieldType={changeFieldType}
-                    changeFieldName={changeFieldName}
-                    changeFieldOptions={changeFieldOptions}
-                    deleteField={deleteField}
-                    index={index}
-                    currentField={currentField}
-                    currentView={currentView}
-                />
-            </div>
+        <div className={display? "display-field" : "none"}>
             <div className="field__items">
-                {records &&
-                records.map((record, idx) => {
-                    return <RecordItem
-                        key={record.record_data[index]._id}
-                        id={record.record_data[index]._id}
-                        uploadAttachment={uploadAttachment}
-                        recordIdx={idx}
-                        fieldIdx={index}
-                        currentRecord={record.record_data[index]}
-                        type={type}
-                        data={record.record_data[index].data}
-                        recordData={recordData}
-                        currentField={currentField}
-                        searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
-                        searchFoundIndex={searchFoundIndex}
-                        deleteFile={deleteFile}
+                <div className="content__field">
+                    <span className="content__field-title"
+                        onClick={(event) => {
+                            if (event.shiftKey) {
+                                onAppendSelectFieldRecordItems(index, tableId)
+                            } else {
+                                onSetSelectFieldRecordItems(index, tableId)
+                            }}}
+                    >
+                        <Icon name={fieldIcons[type]} className="field__icon"/>
+                        <span className="field__name">{name}</span>
+                    </span>
+                    <FieldMenu
+                        id={id}
                         tableId={tableId}
-                        selectedRecordItemList={selectedRecordItemList}
-                        contentRefs={contentRefs}
+                        name={name}
+                        type={type}
+                        changeFieldType={changeFieldType}
+                        changeFieldName={changeFieldName}
+                        changeFieldOptions={changeFieldOptions}
+                        deleteField={deleteField}
+                        index={index}
+                        currentField={currentField}
+                        currentView={currentView}
                     />
-                })}
+                </div>
+                <div className="field__items">
+                    {records &&
+                    records.map((record, idx) => {
+                        return <RecordItem
+                            key={record.record_data[index]._id}
+                            id={record.record_data[index]._id}
+                            uploadAttachment={uploadAttachment}
+                            recordIdx={idx}
+                            fieldIdx={index}
+                            currentRecord={record.record_data[index]}
+                            type={type}
+                            data={record.record_data[index].data}
+                            recordData={recordData}
+                            currentField={currentField}
+                            searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
+                            searchFoundIndex={searchFoundIndex}
+                            deleteFile={deleteFile}
+                            tableId={tableId}
+                            selectedRecordItemList={selectedRecordItemList}
+                            contentRefs={contentRefs}
+                        />
+                    })}
+                </div>
             </div>
         </div>
     );
@@ -192,15 +215,34 @@ export default class GridContent extends Component {
     constructor(props) {
         super(props);
         this.props = props;
-        let fieldsToShow = this.props.currentTable.fields.filter((field) => field.display === true);
-        
+        let currentView = this.props.currentTable.views.find((v)=> v.view._id.toString() === this.props.currentViewId)
+        let fieldsIdShow = [], i = 0
+        for (let field in currentView.view.fields_config) {
+            if (currentView.view.fields_config[field].hidden === false) {
+                fieldsIdShow[i] = currentView.view.fields_config[field].field
+                i += 1;
+            }
+        }
+
         this.state={
-            fields:fieldsToShow
+            fields:this.props.currentTable.fields,
+            fieldsIds:fieldsIdShow
         }
     }
     componentWillReceiveProps(nextProps) {
-        let fieldsToShow = nextProps.currentTable.fields.filter((field) => field.display === true);
-        this.setState({fields:fieldsToShow})
+        let currentView = nextProps.currentTable.views.find((v)=> v.view._id.toString() === this.props.currentViewId)
+        let fieldsIdShow = [], i = 0
+        for (let field in currentView.view.fields_config) {
+            if (currentView.view.fields_config[field].hidden === false) {
+                fieldsIdShow[i] = currentView.view.fields_config[field].field
+                i += 1;
+            }
+        }
+
+        this.setState({
+            fields:nextProps.currentTable.fields,
+            fieldsIds:fieldsIdShow
+        })
     }
     componentDidMount() {
         let _this = this;
@@ -287,6 +329,7 @@ export default class GridContent extends Component {
                         <div className="content__body body__fields">
                             {this.state.fields.map((field, fieldIndex) => {
                                 return <Field
+                                    display={this.state.fieldsIds.includes(field._id)}
                                     key={field._id}
                                     currentField = {field}
                                     id={field._id}

@@ -63,7 +63,13 @@ class BaseList extends Component {
 					})
 					}
 					<div className='relative'>
-						<div className='btn-add-base' onClick={(event) => this.handleClickOnMenu(event)}>+</div>
+						<div className='base-wrapper'>
+							<div className='base-name-header'>
+					          Add Base
+					        </div>
+							<div className='btn-add-base' onClick={(event) => this.handleClickOnMenu(event)}>
+							+</div>
+						</div>
 						<div ref="createBase" className ={
 								this.state.showMewnu ? "addBasePopover" : "none"} >
 							<div>

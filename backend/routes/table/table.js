@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const R = require('ramda');
 const tableRepository = require('../../repositories/table/tableRepository');
+const baseRepository = require('../../repositories/base/baseRepository')
 const {defaultTable, defaultViews} = require('../../config/defaultEntities');
 
 const viewReps = {
@@ -72,6 +73,7 @@ router.put('/:id', (request, response, next) => {
 
 router.delete('/:id', (request, response, next) => {
     tableRepository.remove(request.params.id)
+        .then(() => baseRepository.deleteTableFromBase(request.params.id))
         .then(() => {
             io.emit('table:delete:success', request.params.id);
             return Promise.resolve({});
@@ -212,6 +214,17 @@ router.delete('/:id/views/:viewId/:viewType', (request, response) => {
         .catch((err) => response.status(500).send(err));
 });
 
+router.put('/:id/views/:viewType/:viewId/fields/:fieldId', (request, response) => {
+    tableRepository.updateView(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType,
+        request.params.fieldId,
+        request.body.hidden)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
 // filter table -------------------------------------
 
 router.get('/:id/views/:viewId/fields/filter', (request, response) => {
@@ -319,4 +332,3 @@ module.exports = router;
 module.exports.socketIO = function (importIO) {
     io = importIO;
 };
-
