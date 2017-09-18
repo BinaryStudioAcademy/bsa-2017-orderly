@@ -20,7 +20,6 @@ class Header extends Component {
     }
 
     render() {
-
         return(
             <header className='dashboard_header' style={{backgroundColor:`${this.props.base.color}`}}>
                 <Image src={LogoShort}
@@ -31,7 +30,7 @@ class Header extends Component {
                       className="base-icon-logo"/>
                 <div className='label-header'>
                     <div className='header-base-name'>{this.props.base.name}</div>
-                    <div className='icon-dashbord-settings'>
+                    <div className='icon-dashbord-settings' style={{display: this.props.currentRole === 'readOnly' ? 'none' : 'block'}}>
                         <ContextMenuIcon
                             tables={this.props.tables}
                             base={this.props.base}

@@ -64,7 +64,7 @@ export default class PopupHideColumn extends Component{
         let hideText = hideFields.length != 0? `${hideFields.length} Hide fields:`:'Hide fields'
         return (
           <Popup wide
-            trigger={<Button basic>
+            trigger={<Button disabled={this.props.isReadOnly} basic>
                         <Icon name='hide'/>
                         <span className="menu__text">{hideText}</span>
                     </Button>}
