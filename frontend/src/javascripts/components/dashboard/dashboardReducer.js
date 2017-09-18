@@ -499,15 +499,15 @@ function dashboardReducer(state = initState, action) {
         ]);
     }
 
-    case 'FILTER_TABLE_SUCCEEDED': {
+    case 'ADD_FILTER_SUCCEEDED': {
         return R.mergeAll([
             R.omit(['tables'], state),
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
-                        const newTable = R.omit(['views', 'filteredRecords'], table);
+                        const newTable = R.omit(['views', 'records'], table);
                         newTable.views = action.table.views;
-                        newTable.filteredRecords = action.table.filteredRecords;
+                        newTable.records = action.table.records;
                         return newTable;
                     }
                     return table;
@@ -516,15 +516,15 @@ function dashboardReducer(state = initState, action) {
         ]);
     }
 
-    case 'ADD_FILTER_SUCCEEDED': {
+    case 'FILTER_TABLE_SUCCEEDED': {
         return R.mergeAll([
             R.omit(['tables'], state),
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
-                        const newTable = R.omit(['views', 'filteredRecords'], table);
+                        const newTable = R.omit(['views', 'records'], table);
                         newTable.views = action.table.views;
-                        newTable.filteredRecords = action.table.filteredRecords;
+                        newTable.records = action.table.records;
                         return newTable;
                     }
                     return table;
@@ -539,9 +539,9 @@ function dashboardReducer(state = initState, action) {
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
-                        const newTable = R.omit(['views', 'filteredRecords'], table);
+                        const newTable = R.omit(['views', 'records'], table);
                         newTable.views = action.table.views;
-                        newTable.filteredRecords = action.table.filteredRecords;
+                        newTable.records = action.table.records;
                         return newTable;
                     }
                     return table;
@@ -556,9 +556,9 @@ function dashboardReducer(state = initState, action) {
             {
                 tables: R.map((table) => {
                     if (table._id === action.table._id) {
-                        const newTable = R.omit(['views', 'filteredRecords'], table);
+                        const newTable = R.omit(['views', 'records'], table);
                         newTable.views = action.table.views;
-                        newTable.filteredRecords = action.table.filteredRecords;
+                        newTable.records = action.table.records;
                         return newTable;
                     }
                     return table;
@@ -567,11 +567,72 @@ function dashboardReducer(state = initState, action) {
         ]);
     }
 
-    case 'SORT_TABLE': {
-        console.log('DASH REDUCER SORT RECORDS');
-        console.log(action);
-        console.log('-------------------------');
-        return {...state};
+    case 'ADD_SORT_SUCCEEDED': {
+        return R.mergeAll([
+            R.omit(['tables'], state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        const newTable = R.omit(['views', 'records'], table);
+                        newTable.views = action.table.views;
+                        newTable.records = action.table.records;
+                        return newTable;
+                    }
+                    return table;
+                })(state.tables),
+            },
+        ]);
+    }
+
+    case 'SORT_TABLE_SUCCEEDED': {
+        return R.mergeAll([
+            R.omit(['tables'], state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        const newTable = R.omit(['views', 'records'], table);
+                        newTable.views = action.table.views;
+                        newTable.records = action.table.records;
+                        return newTable;
+                    }
+                    return table;
+                })(state.tables),
+            },
+        ]);
+    }
+
+    case 'REMOVE_SORT_SUCCEEDED': {
+        return R.mergeAll([
+            R.omit(['tables'], state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        const newTable = R.omit(['views', 'records'], table);
+                        newTable.views = action.table.views;
+                        newTable.records = action.table.records;
+                        return newTable;
+                    }
+                    return table;
+                })(state.tables),
+            },
+        ]);
+    }
+
+    case 'REMOVE_ALL_SORTS_SUCCEEDED': {
+        return R.mergeAll([
+            R.omit(['tables'], state),
+            {
+                tables: R.map((table) => {
+                    if (table._id === action.table._id) {
+                        const newTable = R.omit(['views', 'records'], table);
+                        newTable.views = action.table.views;
+                        newTable.records = action.table.records;
+                        return newTable;
+                    }
+                    return table;
+                })(state.tables),
+            },
+        ]);
     }
 
     case 'SET_SELECT_FIELD_RECORD_ITEMS': {

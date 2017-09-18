@@ -38,7 +38,7 @@ export default class ExtraMenu extends Component {
     render() {
         
         return (
-            <div basic ref='extraMenu' className="extra__button">
+            <div ref='extraMenu' className="extra__button">
                 <div ref={(node) => this.node = node }
                      onClick={(e) => this.handleClickOnMenu(e)}
                      className='button__items'>

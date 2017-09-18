@@ -11,7 +11,7 @@ const viewReps = {
     gallery: require('../../repositories/view/galleryRepositories')
 };
 
-let io
+let io;
 
 // tables -------------------------------------
 router.post('/', (request, response, next) => {
@@ -22,9 +22,9 @@ router.post('/', (request, response, next) => {
             viewReps['grid'].add(defaultViews['grid'])
         ])
         .then(([table, view]) => tableRepository.addView(table._id, view._id, view.type))
-	    .then(table => R.tap(table => {
-		    io.emit('table:add:success', table)
-	    })(table))
+        .then((table) => R.tap((table) => {
+            io.emit('table:add:success', table);
+        })(table))
         .then((table) => response.status(201).send(table))
         .catch((error) => {
             response.status(400);
@@ -61,9 +61,9 @@ router.get('/', (request, response, next) => {
 
 router.put('/:id', (request, response, next) => {
     tableRepository.update(request.params.id, request.body)
-	    .then(R.tap(table => {
-		    io.emit('table:update:success', table)
-	    }))
+        .then(R.tap((table) => {
+            io.emit('table:update:success', table);
+        }))
         .then((table) => response.status(200).send(table))
         .catch((error) => {
             response.status(400);
@@ -73,11 +73,11 @@ router.put('/:id', (request, response, next) => {
 
 router.delete('/:id', (request, response, next) => {
     tableRepository.remove(request.params.id)
-	    .then(() => baseRepository.deleteTableFromBase(request.params.id))
-	    .then(() => {
-		    io.emit('table:delete:success', request.params.id)
-            return Promise.resolve({})
-	    })
+        .then(() => baseRepository.deleteTableFromBase(request.params.id))
+        .then(() => {
+            io.emit('table:delete:success', request.params.id);
+            return Promise.resolve({});
+        })
         .then(() => response.sendStatus(204))
         .catch((error) => {
             response.status(400);
@@ -109,19 +109,15 @@ router.post('/:id/records', (request, response, next) => {
 
 router.put('/:id/records', (request, response) => {
     tableRepository.updateRecords(request.params.id, request.body.data.data, request.body.data.currentView)
-        .then((result) => {
-            console.log('IN ROUTERS');
-            console.log(result);
-            return response.status(200).send(result)
-        })
+        .then((result) => response.status(200).send(result))
         .catch((err) => response.status(500).send(err));
 });
 
 router.delete('/:id/records/:recordId', (request, response) => {
     tableRepository.pullRecord(request.params.id, request.params.recordId)
-	    .then(R.tap(table => {
-		    io.emit('record:delete:success', table)
-	    }))
+        .then(R.tap((table) => {
+            io.emit('record:delete:success', table);
+        }))
         .then((result) => response.send(result))
         .catch((err) => response.sendStatus(500).send(err));
 });
@@ -148,33 +144,33 @@ router.post('/:id/fields', (request, response) => {
                 viewReps['kanban'].addColumn(view._id, {field: addedField._id});
             })(kanbanViews)).then(() => table);
         })
-        .then((result) => {console.log('AFTER ADD FIELD RESULT'); return response.status(200).send(result)})
+        .then((result) => response.status(200).send(result))
         .catch((err) => response.status(500).send(err));
 });
 
 router.put('/:id/fields', (request, response) => {
     tableRepository.updateFields(request.params.id, request.body)
-	    .then(R.tap(table => {
-		    io.emit('record:add:success', table)
-	    }))
+        .then(R.tap((table) => {
+            io.emit('record:add:success', table);
+        }))
         .then((result) => response.status(200).send(result))
         .catch((err) => response.status(500).send(err));
 });
 
 router.put('/:id/fields/:fieldId', (request, response) => {
     tableRepository.updateField(request.params.id, request.params.fieldId, request.body)
-	    .then(R.tap(table => {
-		    io.emit('field:update:meta:success', table)
-	    }))
+        .then(R.tap((table) => {
+            io.emit('field:update:meta:success', table);
+        }))
         .then((result) => response.status(200).send(result))
         .catch((err) => response.status(500).send(err));
 });
 
 router.delete('/:id/fields/:fieldId', (request, response) => {
     tableRepository.deleteField(request.params.id, request.params.fieldId, request.body.currentView)
-	    .then(R.tap(table => {
-		    io.emit('field:delete:success', table)
-	    }))
+        .then(R.tap((table) => {
+            io.emit('field:delete:success', table);
+        }))
         .then((result) => response.send(result))
         .catch((err) => response.sendStatus(500).send(err));
 });
@@ -207,15 +203,26 @@ router.get('/:id/views/:viewId/:viewType', (request, response) => {
 router.post('/:id/views', (request, response) => {
     const typeOfView = request.body.viewType;
     viewReps[typeOfView].add(defaultViews[typeOfView])
-		.then((view) => tableRepository.addView(request.body.tableId, view._id, view.type))
-		.then((result) => response.status(200).send(result))
-		.catch((err) => response.status(500).send(err));
+        .then((view) => tableRepository.addView(request.body.tableId, view._id, view.type))
+        .then((result) => response.status(200).send(result))
+        .catch((err) => response.status(500).send(err));
 });
 
 router.delete('/:id/views/:viewId/:viewType', (request, response) => {
     tableRepository.deleteView(request.params.id, request.params.viewId, request.params.viewType)
         .then((result) => response.status(200).send(result))
         .catch((err) => response.status(500).send(err));
+});
+
+router.put('/:id/views/:viewType/:viewId/fields/:fieldId', (request, response) => {
+    tableRepository.updateView(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType,
+        request.params.fieldId,
+        request.body.hidden)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
 });
 
 // filter table -------------------------------------
@@ -251,17 +258,6 @@ router.put('/:id/views/:viewType/:viewId/fields/:fieldId/:fieldIndex/filters/:fi
         .catch((error) => response.status(500).send(error));
 });
 
-router.put('/:id/views/:viewType/:viewId/fields/:fieldId', (request, response) => {
-    tableRepository.updateView(
-        request.params.id,
-        request.params.viewId,
-        request.params.viewType,
-        request.params.fieldId, 
-        request.body.hidden)
-        .then((result) => response.status(200).send(result))
-        .catch((error) => response.status(500).send(error));
-});
-
 router.delete('/:id/views/:viewType/:viewId/filters/:filterId', (request, response) => {
     tableRepository.removeFilter(
         request.params.id,
@@ -281,8 +277,58 @@ router.delete('/:id/views/:viewType/:viewId/filters/', (request, response) => {
         .catch((error) => response.status(500).send(error));
 });
 
-module.exports = router;
-module.exports.socketIO = function(importIO) {
-	io = importIO
-}
+// sort table -------------------------------------
 
+router.get('/:id/views/:viewId/fields/sorts', (request, response) => {
+    tableRepository.performSort(request.params.id, request.params.viewId)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.post('/:id/views/:viewType/:viewId/fields/:fieldId/sorts', (request, response) => {
+    tableRepository.addSort(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType,
+        request.params.fieldId,
+        request.body.sortOption
+    )
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.put('/:id/views/:viewType/:viewId/fields/:fieldId/sorts/:sortId', (request, response) => {
+    tableRepository.updateSort(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType,
+        request.params.fieldId,
+        request.params.sortId,
+        request.body.sortOption)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.delete('/:id/views/:viewType/:viewId/sorts/:sortId', (request, response) => {
+    tableRepository.removeSort(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType,
+        request.params.sortId)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
+router.delete('/:id/views/:viewType/:viewId/sorts', (request, response) => {
+    tableRepository.removeAllSorts(
+        request.params.id,
+        request.params.viewId,
+        request.params.viewType)
+        .then((result) => response.status(200).send(result))
+        .catch((error) => response.status(500).send(error));
+});
+
+module.exports = router;
+module.exports.socketIO = function (importIO) {
+    io = importIO;
+};

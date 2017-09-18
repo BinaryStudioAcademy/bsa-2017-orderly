@@ -86,7 +86,6 @@ export default class FilterMenu extends Component {
     };
 
     render() {
-        const DEBUG = false; //REMOVE AFTER TESTING
         const currentView = this.props.currentTable.views.find(
             (v) => v.view._id.toString() === this.props.currentTable.currentView);
         const filtersCount = currentView.view.filters.filterSet.length;
@@ -151,12 +150,6 @@ export default class FilterMenu extends Component {
                                        }}/>}
                             </div>)
                     })}
-                    {/* REMOVE NEXT BLOCK AFTER TESING */}
-                    {DEBUG &&
-                        <Icon className="menu__item" name="checkmark" link size='large'
-                              onClick={() => this.preformFilter()}/>
-                    }
-                    {/* ------------------------------ */}
                     {!filtersCount &&
                         <div className='menu__item item__no-filters-label'>No filters applied to this view</div>
                     }
