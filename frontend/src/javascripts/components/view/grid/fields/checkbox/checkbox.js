@@ -11,10 +11,6 @@ class Checkbox extends Field {
         }
     }
 
-    isTrue(value) {
-        return (value === 'true');
-    }
-
     renderActiveField() {
         return this.renderSelectedField();
     }
@@ -23,7 +19,9 @@ class Checkbox extends Field {
         if (this.state.checked) {
             return (
                 <span className="checkbox-block"
-                      onClick={(event) => {this.setState({checked:!this.state.checked}); this.props.onChangeCheckbox(this.props.id, 'false')}}>
+                      onClick={(event) => {
+                        this.setState({checked:!this.state.checked}); 
+                        this.props.onChangeCheckbox(this.props.id, 'false')}}>
                     <Icon name="checkmark" className="checkbox-checked"/>
                     <Icon name="square outline" className="checkbox-square"/>
                 </span>
@@ -31,7 +29,9 @@ class Checkbox extends Field {
         }
         return (
             <span className="checkbox-block"
-                  onClick={(event) => {this.setState({checked:!this.state.checked}); this.props.onChangeCheckbox(this.props.id, 'true')}}>
+                  onClick={(event) => {
+                    this.setState({checked:!this.state.checked}); 
+                    this.props.onChangeCheckbox(this.props.id, 'true')}}>
                     <Icon name="square outline" className="checkbox-square"/>
             </span>
         )

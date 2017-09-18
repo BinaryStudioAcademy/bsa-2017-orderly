@@ -26,7 +26,7 @@ const defaultTable = () => {
             {name: 'Long text',      type: 'longtext',   description: 'Second field'},
             {name: 'Number',         type: 'number',     description: 'Third field'},
             {name: 'Single select',  type: 'select',     description: 'Forth field'},
-            {name: 'Auto increment', type: 'autonumber', description: 'Fifth field'},
+            {name: 'Checkbox',       type: 'checkbox',   description: 'Fifth field'},
             {name: 'URL',            type: 'url',        description: 'Sixth field'}
         ]
     };
