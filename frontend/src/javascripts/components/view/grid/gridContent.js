@@ -201,7 +201,8 @@ export default class GridContent extends Component {
         }
     }
     componentWillReceiveProps(nextProps) {
-        let currentView = nextProps.currentTable.views.find((v)=> v.view._id.toString() === this.props.currentViewId)
+        let currentView = this.props.currentTable.views.find((v)=> v.view._id.toString() === this.props.currentViewId)
+        
         let fieldsIdShow = [], i = 0
         for (let field in currentView.view.fields_config) {
             if (currentView.view.fields_config[field].hidden === false) {
