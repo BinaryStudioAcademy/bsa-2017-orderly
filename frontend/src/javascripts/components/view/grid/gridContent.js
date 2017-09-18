@@ -19,74 +19,100 @@ import Checkbox from './fields/checkbox/checkbox';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
-const RowNum = ({tableId, recordId, index, deleteRecord}) => {
+class RowNum extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            isHovered:false
+        }
+    }
+
+ render() {
     return (
-        <div className="rows__row" onContextMenu={(e) => deleteRecord(e, tableId, recordId)}>
-            <span>{index + 1}</span>
+        <div className="rows__row" onMouseEnter={()=>this.setState({isHovered: true})} onMouseLeave={()=>this.setState({isHovered: false})}>
+            <div className={this.state.isHovered?'none':'row'}>
+                <span>{this.props.index + 1}</span>
+            </div>
+            <div className={this.state.isHovered?'row':'none'}
+                onContextMenu={(e) => {
+                    this.props.deleteRecord(e, this.props.tableId, this.props.recordId)
+                }}
+                onClick={(e) => {
+                    this.props.deleteRecord(e, this.props.tableId, this.props.recordId)
+                }}
+            >
+                <Icon name='delete' color='red' />
+            </div>
         </div>
-    )
+        )
+    }
 };
 
 const Field = ({id, tableId, type, name, index, records, recordData, changeFieldType, changeFieldName,
                    changeFieldOptions, deleteField, currentField, searchMatchedRecordItemIdList,
                    searchFoundIndex, uploadAttachment, deleteFile, onSetSelectFieldRecordItems,
-                   onAppendSelectFieldRecordItems, selectedRecordItemList, display, currentView}) => {
+                   onAppendSelectFieldRecordItems, selectedRecordItemList, display, currentView, contentRefs}) => {
     return (
         <div className={display? "display-field" : "none"}>
-        <div className="field__items">
-            <div className="content__field">
-                <span className="content__field-title"
-                    onClick={(event) => {
-                        if (event.shiftKey) {
-                            onAppendSelectFieldRecordItems(index, tableId)
-                        } else {
-                            onSetSelectFieldRecordItems(index, tableId)
-                        }}}
-                >
-                    <Icon name={fieldIcons[type]} className="field__icon"/>
-                    <span className="field__name">{name}</span>
-                </span>
-                <FieldMenu
-                    id={id}
-                    tableId={tableId}
-                    name={name}
-                    type={type}
-                    changeFieldType={changeFieldType}
-                    changeFieldName={changeFieldName}
-                    changeFieldOptions={changeFieldOptions}
-                    deleteField={deleteField}
-                    index={index}
-                    currentField={currentField}
-                    currentView={currentView}
-                />
-            </div>
             <div className="field__items">
-                {records &&
-                records.map((record, idx) => {
-                    return <RecordItem key={record.record_data[index]._id}
-                                   id={record.record_data[index]._id}
-                                   uploadAttachment={uploadAttachment}
-                                   recordIdx={idx}
-                                   fieldIdx={index}
-                                   currentRecord={record.record_data[index]}
-                                   type={type}
-                                   data={record.record_data[index].data}
-                                   recordData={recordData}
-                                   currentField={currentField}
-                                   searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
-                                   searchFoundIndex={searchFoundIndex}
-                                   deleteFile={deleteFile}
-                                   tableId={tableId}
-                                   selectedRecordItemList={selectedRecordItemList}/>
-                })}
+                <div className="content__field">
+                    <span className="content__field-title"
+                        onClick={(event) => {
+                            if (event.shiftKey) {
+                                onAppendSelectFieldRecordItems(index, tableId)
+                            } else {
+                                onSetSelectFieldRecordItems(index, tableId)
+                            }}}
+                    >
+                        <Icon name={fieldIcons[type]} className="field__icon"/>
+                        <span className="field__name">{name}</span>
+                    </span>
+                    <FieldMenu
+                        id={id}
+                        tableId={tableId}
+                        name={name}
+                        type={type}
+                        changeFieldType={changeFieldType}
+                        changeFieldName={changeFieldName}
+                        changeFieldOptions={changeFieldOptions}
+                        deleteField={deleteField}
+                        index={index}
+                        currentField={currentField}
+                        currentView={currentView}
+                    />
+                </div>
+                <div className="field__items">
+                    {records &&
+                    records.map((record, idx) => {
+                        return <RecordItem
+                            key={record.record_data[index]._id}
+                            id={record.record_data[index]._id}
+                            uploadAttachment={uploadAttachment}
+                            recordIdx={idx}
+                            fieldIdx={index}
+                            currentRecord={record.record_data[index]}
+                            type={type}
+                            data={record.record_data[index].data}
+                            recordData={recordData}
+                            currentField={currentField}
+                            searchMatchedRecordItemIdList={searchMatchedRecordItemIdList}
+                            searchFoundIndex={searchFoundIndex}
+                            deleteFile={deleteFile}
+                            tableId={tableId}
+                            selectedRecordItemList={selectedRecordItemList}
+                            contentRefs={contentRefs}
+                        />
+                    })}
+                </div>
             </div>
-        </div>
         </div>
     );
 };
 
 const RecordItem = ({id, type, data, recordData, recordIdx, fieldIdx, currentField, searchMatchedRecordItemIdList,
-                     searchFoundIndex, uploadAttachment, tableId, deleteFile, currentRecord, selectedRecordItemList}) => {
+                     searchFoundIndex, uploadAttachment, tableId, deleteFile, currentRecord, selectedRecordItemList,
+                     contentRefs
+                    }) => {
     const fieldPayload = {
         id: id,
         value: data,
@@ -176,7 +202,10 @@ const RecordItem = ({id, type, data, recordData, recordIdx, fieldIdx, currentFie
     }
 
     return (
-        <div className={recordClassName}>
+        <div className={recordClassName}
+             onMouseOver={() => contentRefs[`recordButton_${recordIdx}`].ref.classList.add('show-dialog-button')}
+             onMouseLeave={() => contentRefs[`recordButton_${recordIdx}`].ref.classList.remove('show-dialog-button')}
+        >
             {record}
         </div>
     );
@@ -244,7 +273,7 @@ export default class GridContent extends Component {
     };
 
     render() {
-        const records = this.props.currentTable.filteredRecords || this.props.currentTable.records;
+        const records = this.props.currentTable.records;
         return (
             <div className="wrapper__grid" ref={(div) => this.wrapperGrid = div}>
                 <div className="grid__content">
@@ -272,6 +301,7 @@ export default class GridContent extends Component {
                                             <div className="row-control-container" key={record._id}>
                                                 <Button
                                                     className="record-dialog-btn"
+                                                    ref={`recordButton_${recordIndex}`}
                                                     onClick={(event) => this.props.onOpenRecordDialog(recordIndex)}>
                                                     <Icon name='expand'/>
                                                 </Button>
@@ -300,31 +330,32 @@ export default class GridContent extends Component {
                         <div className="content__body body__fields">
                             {this.state.fields.map((field, fieldIndex) => {
                                 return <Field
-                                            display={this.state.fieldsIds.includes(field._id)}
-                                            key={field._id}
-                                            currentField = {field}
-                                            id={field._id}
-                                            name={field.name}
-                                            type={field.type}
-                                            index={fieldIndex}
-                                            records={records}
-                                            recordData={this.props.recordData}
-                                            showFieldMenu={this.props.showFieldMenu}
-                                            changeFieldType={this.props.changeFieldType}
-                                            changeFieldOptions={this.props.changeFieldOptions}
-                                            changeFieldName={this.props.changeFieldName}
-                                            deleteField={this.props.deleteField}
-                                            deleteRecord={this.props.deleteRecord}
-                                            tableId={this.props.currentTable._id}
-                                            uploadAttachment={this.props.uploadAttachment}
-                                            deleteFile={this.props.deleteFile}
-                                            searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
-                                            searchFoundIndex={this.props.searchFoundIndex}
-                                            onSetSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
-                                            onAppendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
-                                            selectedRecordItemList={this.props.selectedRecordItemList}
-                                            currentView={this.props.currentTable.currentView}
-                                        />
+                                    display={this.state.fieldsIds.includes(field._id)}
+                                    key={field._id}
+                                    currentField = {field}
+                                    id={field._id}
+                                    name={field.name}
+                                    type={field.type}
+                                    index={fieldIndex}
+                                    records={records}
+                                    recordData={this.props.recordData}
+                                    showFieldMenu={this.props.showFieldMenu}
+                                    changeFieldType={this.props.changeFieldType}
+                                    changeFieldOptions={this.props.changeFieldOptions}
+                                    changeFieldName={this.props.changeFieldName}
+                                    deleteField={this.props.deleteField}
+                                    deleteRecord={this.props.deleteRecord}
+                                    tableId={this.props.currentTable._id}
+                                    uploadAttachment={this.props.uploadAttachment}
+                                    deleteFile={this.props.deleteFile}
+                                    searchMatchedRecordItemIdList={this.props.searchMatchedRecordItemIdList}
+                                    searchFoundIndex={this.props.searchFoundIndex}
+                                    onSetSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
+                                    onAppendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
+                                    selectedRecordItemList={this.props.selectedRecordItemList}
+                                    currentView={this.props.currentTable.currentView}
+                                    contentRefs={this.refs}
+                                />
                             })}</div>
                         </div>
                         <div className="content__field item__add-record"

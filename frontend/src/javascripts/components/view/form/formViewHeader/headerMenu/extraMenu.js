@@ -38,7 +38,7 @@ export default class ExtraMenu extends Component {
     render() {
         
         return (
-            <Button basic ref='extraMenu' className="extra__button">
+            <div ref='extraMenu' className="extra__button">
                 <div ref={(node) => this.node = node }
                      onClick={(e) => this.handleClickOnMenu(e)}
                      className='button__items'>
@@ -66,7 +66,7 @@ export default class ExtraMenu extends Component {
                     </div>
                     }
                 </div>
-            </Button>
+            </div>
         );
     }
 }

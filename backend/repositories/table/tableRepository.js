@@ -5,7 +5,7 @@ const Grid = require('../../schemas/view/gridSchema');
 const Form = require('../../schemas/view/formSchema');
 const Gallery = require('../../schemas/view/gallerySchema');
 const Kanban = require('../../schemas/view/kanbanSchema');
-const objectId = require('mongoose').Types.ObjectId;
+// const objectId = require('mongoose').Types.ObjectId;
 const R = require('ramda');
 
 class TableRepository extends Repository {
@@ -19,10 +19,11 @@ class TableRepository extends Repository {
         return this.model.findById(id)
             .populate('records.history.collaborator')
             .populate('records.comments.collaborator')
-            .populate('views.view')
+            .populate('views.view').lean()
             .then((table) => {
                 if (!currentViewId) return table;
-                return TableRepository.filterRecords(table, currentViewId);
+                const sortedTable = this.sortRecords(table, currentViewId);
+                return this.filterRecords(sortedTable, currentViewId);
             });
     }
 
@@ -30,15 +31,12 @@ class TableRepository extends Repository {
         return this.model.find({'_id': {$in: ids}})
             .populate('records.history.collaborator')
             .populate('records.comments.collaborator')
-            .populate('views.view')
+            .populate('views.view').lean()
             .then((tables) => {
                 const firstTableView = tables[0].views[0].view;
-                // Check if first view of first table have no filters, otherwise - perform filtering+
-                if (!firstTableView.filters.filterSet.length) {
-                    return tables;
-                }
-                const tableWithFilters = TableRepository.filterRecords(tables[0], firstTableView._id);
-                return R.prepend(tableWithFilters, R.drop(1, tables));
+                const sortedTable = this.sortRecords(tables[0], firstTableView._id);
+                const filteredTable = this.filterRecords(sortedTable, firstTableView._id);
+                return R.prepend(filteredTable, R.drop(1, tables));
             });
     }
 
@@ -148,7 +146,7 @@ class TableRepository extends Repository {
             const field = table.fields[fieldIndex];
             field.type = data.fieldType || field.type;
             field.name = data.fieldName || field.name;
-            
+
             if (data.type === 'CHANGE_FIELD_OPTIONS') {
                 switch (data.currentValue) {
                 case 'select':
@@ -171,7 +169,7 @@ class TableRepository extends Repository {
                     break;
                 }
             }
-            
+
             if (data.fieldType) {
                 table.records.forEach((record) => (record.record_data[fieldIndex].data = ''));
             }
@@ -208,7 +206,7 @@ class TableRepository extends Repository {
 
     deleteAllFields(tableId) {
         return this.model.update(
-            {_id: objectId(tableId)},
+            {_id: tableId},
             {'$pull': {fields: {}}});
     }
 
@@ -218,11 +216,6 @@ class TableRepository extends Repository {
 
     getView(tableId, viewId) {
         return this.model.findById(tableId, {views: viewId});
-    }
-
-    getFromView(viewId, viewType){
-        const viewModel = typeToSchema[viewType];
-        return viewModel.findById(objectId(viewId));
     }
 
     addView(tableId, viewId, viewType) {
@@ -259,16 +252,16 @@ class TableRepository extends Repository {
     }
 
     pushClonedViewsToTable(viewType, tableId, views) {
-        let newViews = []
-        for ( let view in views[0]) {
+        let newViews = [];
+        for (let view in views[0]) {
             newViews[view] = {view: views[0][view]._id, type: viewType}
         }
-            return this.model.findByIdAndUpdate(
-                tableId,
-                {$push: { views: {$each: newViews } } },
-                { upsert: true}
-            ).populate('views.view');
-        }
+        return this.model.findByIdAndUpdate(
+            tableId,
+            {$push: {views: {$each: newViews}}},
+            { upsert: true}
+        ).populate('views.view');
+    }
 
     updateRecordById(tableId, record_dataId, fileName, isDelete) {
         return this.model.findById(tableId)
@@ -298,8 +291,7 @@ class TableRepository extends Repository {
                 return this.model.findByIdAndUpdate(
                     tableId,
                     {'$pull': {views: {view: viewId}}},
-                    {'new': true}
-                )
+                    {'new': true})
                     .populate('records.history.collaborator')
                     .populate('records.comments.collaborator')
                     .populate('views.view');
@@ -310,27 +302,9 @@ class TableRepository extends Repository {
     updateView(tableId, viewId, viewType, fieldId, hidden ) {
         return this.getFromView(viewId, viewType).then((view) => {
             let fieldToHide = view.fields_config.find((f) => f.field.toString() === fieldId);
-            fieldToHide.hidden = hidden
-               return view.save().then(() => {
-                    return this.model.findById(tableId).populate('views.view');
-            });
-        })
-    }
-
-    removeFilter(tableId, viewId, viewType, filterId) {
-        return this.getFromView(viewId, viewType).then((view) => {
-            view.filters.filterSet = view.filters.filterSet.filter((f) => f._id.toString() !== filterId);
+            fieldToHide.hidden = hidden;
             return view.save().then(() => {
-                return this.getById(tableId, viewId);
-            });
-        });
-    }
-
-    removeAllFilters(tableId, viewId, viewType) {
-        return this.getFromView(viewId, viewType).then((view) => {
-            view.filters.filterSet = [];
-            return view.save().then(() => {
-                return this.getById(tableId, viewId);
+                return this.getById(tableId);
             });
         });
     }
@@ -363,13 +337,99 @@ class TableRepository extends Repository {
             });
         });
     }
-    
 
-    static filterRecords(table, viewId) {
-        const view = table.views.find((v) => v.view._id.toString() === viewId.toString());
+    removeFilter(tableId, viewId, viewType, filterId) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            view.filters.filterSet = view.filters.filterSet.filter((f) => f._id.toString() !== filterId);
+            return view.save().then(() => {
+                return this.getById(tableId, viewId);
+            });
+        });
+    }
+
+    removeAllFilters(tableId, viewId, viewType) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            view.filters.filterSet = [];
+            return view.save().then(() => {
+                return this.getById(tableId, viewId);
+            });
+        });
+    }
+
+    addSort(tableId, viewId, viewType, fieldId, sortOption) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            view.sorts.push(
+                {
+                    fieldId: fieldId,
+                    sortOption: sortOption,
+                }
+            );
+            return view.save().then(() => {
+                return this.getById(tableId, viewId);
+            });
+        });
+    }
+
+    updateSort(tableId, viewId, viewType, fieldId, sortId, sortOption) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            let sortToUpdate = view.sorts.find((s) => s._id.toString() === sortId);
+            sortToUpdate.fieldId = fieldId;
+            sortToUpdate.sortOption = sortOption;
+            return view.save().then(() => {
+                return this.getById(tableId, viewId);
+            });
+        });
+    }
+
+    removeSort(tableId, viewId, viewType, sortId) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            view.sorts = view.sorts.filter((s) => s._id.toString() !== sortId);
+            return view.save().then(() => {
+                return this.getById(tableId, viewId);
+            });
+        });
+    }
+
+    removeAllSorts(tableId, viewId, viewType) {
+        return this.getFromView(viewId, viewType).then((view) => {
+            view.sorts = [];
+            return view.save().then(() => {
+                return this.getById(tableId, viewId);
+            });
+        });
+    }
+
+    sortRecords(table, viewId) {
+        const view = this.findViewInTable(table.views, viewId);
+        if (view.type !== 'grid') return table; // sort only applicable for grid view, for now...
+        let sortedRecords;
+        for (let sortItem of view.view.sorts) {
+            const index = table.fields.findIndex((f) => f._id.toString() === sortItem.fieldId.toString());
+            let recordsToSort = sortedRecords || table.records;
+            const [_, sortOption] = sortItem.sortOption.split('-');
+            sortedRecords = R.sort((r1, r2) => {
+                const prepared1 = r1.record_data[index].data.toString().toLowerCase();
+                const prepared2 = r2.record_data[index].data.toString().toLowerCase();
+                if (prepared1 < prepared2) {
+                    if (sortOption === 'asc') return -1;
+                    return 1;
+                }
+                if (prepared1 > prepared2) {
+                    if (sortOption === 'asc') return 1;
+                    return -1;
+                }
+                return 0;
+            }, recordsToSort);
+        }
+        return R.assoc('records', sortedRecords || table.records, R.dissoc('records', table));
+    }
+
+    filterRecords(table, viewId) {
+        const view = this.findViewInTable(table.views, viewId);
         if (view.type !== 'grid') return table; // filter only applicable for grid view, for now...
         let filteredRecords;
-        for (let filterItem of view.view.filters.filterSet){
+
+        for (let filterItem of view.view.filters.filterSet) {
             const index = table.fields.findIndex((f) => f._id.toString() === filterItem.fieldId.toString());
             let recordsToFilter = filteredRecords || table.records;
             const lowerQuery = filterItem.value.toLowerCase();
@@ -398,8 +458,15 @@ class TableRepository extends Repository {
                 break;
             }
         }
-        const tableWithFilter = Object.assign({}, table.toObject(), {filteredRecords: filteredRecords});
-        return tableWithFilter;
+        return R.assoc('records', filteredRecords || table.records, R.dissoc('records', table));
+    }
+
+    findViewInTable(tableViews, viewId) {
+        return tableViews.find((v) => v.view._id.toString() === viewId.toString());
+    }
+
+    getFromView(viewId, viewType) {
+        return typeToSchema[viewType].findById(viewId);
     }
 }
 

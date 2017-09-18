@@ -12,7 +12,7 @@ $cell-padding: 0px;
 .wrapper__grid {
   display: inline-block;
   width: 100vw;
-  height: 80.2vh;
+  height: 79.2vh;
   overflow: auto;
   border-top: 2px solid rgba(170, 170, 170, 0.5);
   background-color: #f5f5f5;
@@ -184,4 +184,8 @@ $cell-padding: 0px;
 }
 .content__body .field__items.row-options-field .content__field.row-options-field {
   border-bottom: 0;
+}
+
+.show-dialog-button {
+  opacity: 1!important;
 }
