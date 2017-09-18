@@ -88,13 +88,13 @@ class Tools extends Component {
         });
 
         window.addEventListener("keydown", (event) => {
-            if (event.keyCode === 16) {
+            if (event.keyCode === 17) {
                 _this.props.shiftKeyDown();
             }
         });
 
         window.addEventListener("keyup", (event) => {
-            if (event.keyCode === 16) {
+            if (event.keyCode === 17) {
                 _this.props.shiftKeyUp();
             }
         });
