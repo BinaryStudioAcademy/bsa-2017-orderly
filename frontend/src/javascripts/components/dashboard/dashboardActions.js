@@ -4,9 +4,15 @@ const getBaseById = (_id, tableId) => ({
     tableId: tableId
 });
 
-const deleteTable = (tableId) => ({
+const getTables = () => ({
+    type: 'GET_TABLES'
+});
+
+const deleteTable = (tableId, baseId, value) => ({
     type: 'DELETE_TABLE',
-    tableId: tableId
+    tableId: tableId,
+	baseId: baseId,
+	value: value
 });
 
 const togglePopup = () => ({
@@ -500,6 +506,7 @@ export {
 	deleteTableSuccess,
 	addTableSucceed,
     getBaseById,
+    getTables,
     setActive,
     addTable,
     switchTable,
