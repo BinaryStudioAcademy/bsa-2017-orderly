@@ -19,12 +19,33 @@ import Checkbox from './fields/checkbox/checkbox';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
-const RowNum = ({tableId, recordId, index, deleteRecord}) => {
+class RowNum extends Component {
+    constructor(props) {
+        super(props);        
+        this.state={
+            isHovered:false
+        }
+    }
+
+ render() {
     return (
-        <div className="rows__row" onContextMenu={(e) => deleteRecord(e, tableId, recordId)}>
-            <span>{index + 1}</span>
+        <div className="rows__row" onMouseEnter={()=>this.setState({isHovered: true})} onMouseLeave={()=>this.setState({isHovered: false})}>
+            <div className={this.state.isHovered?'none':'row'}>
+                <span>{this.props.index + 1}</span>
+            </div>
+            <div className={this.state.isHovered?'row':'none'} 
+                onContextMenu={(e) => {
+                    this.props.deleteRecord(e, this.props.tableId, this.props.recordId)
+                }}
+                onClick={(e) => {
+                    this.props.deleteRecord(e, this.props.tableId, this.props.recordId)
+                }}
+            >
+                <Icon name='delete' color='red' />
+            </div>
         </div>
-    )
+        )
+    }
 };
 
 const Field = ({id, tableId, type, name, index, records, recordData, changeFieldType, changeFieldName,

@@ -80,13 +80,18 @@
 }
 .columnName-TypeIcon-Container{
     position: relative;
+    display: flex;
 }
 .field-name{
+    display: inline-block;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 100%;
-    padding: 1px 10px;
+    width: 90%;
+    padding: 1px 8px;
+}
+.icon-field-type{
+    margin-top: 1px;
 }
 .remove-icon-wrapper{
     display: inline;
