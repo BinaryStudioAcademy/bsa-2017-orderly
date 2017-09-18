@@ -15,7 +15,7 @@ import Percent from './fields/percent/percent';
 import Phone from './fields/phone/phone';
 import Attachment from './fields/attachment/attachment';
 import MultipleSelect from './fields/multiple/multiple';
-import Checkbox from './fields/checkbox/checkbox';
+import CheckboxItem from './fields/checkbox/checkbox';
 import FieldMenu from './fieldMenu/fieldMenu';
 import RecordDialog from '../recordDialog/recordDialog';
 
@@ -176,7 +176,7 @@ const RecordItem = ({id, type, data, recordData, recordIdx, fieldIdx, currentFie
             break;
         case 'checkbox':
             const fieldPayloadCheckbox = {...fieldPayload, ...{onActivate: () => {}} };
-            record = <Checkbox {...fieldPayloadCheckbox}/>;
+            record = <CheckboxItem {...fieldPayloadCheckbox}/>;
             break;
 	    default:
             record = <TextLine {...fieldPayload}/>;

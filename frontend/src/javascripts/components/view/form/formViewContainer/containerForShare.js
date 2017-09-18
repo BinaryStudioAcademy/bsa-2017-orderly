@@ -85,7 +85,6 @@ class ContainerForShare extends Component {
             mouseDownRecordItemHandler: () => {},
             mouseOverRecordItemHandler: () => {}
         };
-            console.log(this.props)
         return (
             <div className='formContainer form-for-share'>
                 <div className='form-wrapper'>
@@ -121,17 +120,18 @@ class ContainerForShare extends Component {
                                                 <Icon name={fieldIcons[field.type]}/>
                                                 <span>{field.name}</span>
                                             </div>
-                                            <Recordtem recordData={recordData}
-                                                type={field.type}
-                                                currentField={field}
-                                                id=''
-                                                data=''
-                                                records=''
-                                                tableId={this.state.table._id}
-                                                
-                                                uploadAttachment={this.state.uploadAttachment}
-                                                deleteFile={this.state.deleteFile}
-                                            />
+                                            <div className='form-to-share-record-item-wrapper'>
+                                                <Recordtem recordData={recordData}
+                                                    type={field.type}
+                                                    currentField={field}
+                                                    id=''
+                                                    data=''
+                                                    records=''
+                                                    tableId={this.state.table._id}  
+                                                    uploadAttachment={this.state.uploadAttachment}
+                                                    deleteFile={this.state.deleteFile}
+                                                />
+                                            </div>
                                         </div>
                                     );
                                 }

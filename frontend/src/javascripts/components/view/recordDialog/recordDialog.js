@@ -15,7 +15,7 @@ import Percent from '../grid/fields/percent/percent';
 import Phone from '../grid/fields/phone/phone';
 import Attachment from '../grid/fields/attachment/attachment';
 import MultipleSelect from '../grid/fields/multiple/multiple';
-import Checkbox from '../grid/fields/checkbox/checkbox';
+import CheckboxItem from '../grid/fields/checkbox/checkbox';
 import HistoryList from './components/history/historyList';
 import CommentsBlock from './components/comments/commentsBlock';
 import {fieldIcons, fieldNames} from "../../configuration/fieldTypes";
@@ -80,7 +80,7 @@ export const Recordtem = ({id, type, data, tableId, recordData, uploadAttachment
             break;
         case 'checkbox':
             const fieldPayloadCheckbox = {...fieldPayload };
-            record = <Checkbox {...fieldPayloadCheckbox}/>;
+            record = <CheckboxItem {...fieldPayloadCheckbox}/>;
             break;
         default:
             record = <TextLine {...fieldPayload}/>;

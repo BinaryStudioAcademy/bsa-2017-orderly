@@ -6,6 +6,9 @@ import './checkbox.scss';
 class Checkbox extends Field {
     constructor(props){
         super(props, 'checkbox');
+        this.state = {
+            checked: this.props.value || false
+        }
     }
 
     isTrue(value) {
@@ -17,10 +20,10 @@ class Checkbox extends Field {
     }
 
     renderSelectedField() {
-        if (this.isTrue(this.props.value)) {
+        if (this.state.checked) {
             return (
                 <span className="checkbox-block"
-                      onClick={(event) => {this.props.onChangeCheckbox(this.props.id, 'false')}}>
+                      onClick={(event) => {this.setState({checked:!this.state.checked}); this.props.onChangeCheckbox(this.props.id, 'false')}}>
                     <Icon name="checkmark" className="checkbox-checked"/>
                     <Icon name="square outline" className="checkbox-square"/>
                 </span>
@@ -28,14 +31,14 @@ class Checkbox extends Field {
         }
         return (
             <span className="checkbox-block"
-                  onClick={(event) => {this.props.onChangeCheckbox(this.props.id, 'true')}}>
+                  onClick={(event) => {this.setState({checked:!this.state.checked}); this.props.onChangeCheckbox(this.props.id, 'true')}}>
                     <Icon name="square outline" className="checkbox-square"/>
             </span>
         )
     }
 
     renderField() {
-        if (this.isTrue(this.props.value)) {
+        if (this.state.checked) {
             return (
                 <span className="checkbox-block">
                     <Icon name="checkmark" className="checkbox-checked"/>
