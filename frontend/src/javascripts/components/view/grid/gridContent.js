@@ -214,36 +214,7 @@ const RecordItem = ({id, type, data, recordData, recordIdx, fieldIdx, currentFie
 export default class GridContent extends Component {
     constructor(props) {
         super(props);
-        this.props = props;
-        let currentView = this.props.currentTable.views.find((v)=> v.view._id.toString() === this.props.currentViewId)
-        let fieldsIdShow = [], i = 0
-        for (let field in currentView.view.fields_config) {
-            if (currentView.view.fields_config[field].hidden === false) {
-                fieldsIdShow[i] = currentView.view.fields_config[field].field
-                i += 1;
-            }
-        }
-
-        this.state={
-            fields:this.props.currentTable.fields,
-            fieldsIds:fieldsIdShow
-        }
-    }
-    componentWillReceiveProps(nextProps) {
-        let currentView = nextProps.currentTable.views.find((v)=> v.view._id.toString() === this.props.currentViewId)
-        let fieldsIdShow = [], i = 0
-        for (let field in currentView.view.fields_config) {
-            if (currentView.view.fields_config[field].hidden === false) {
-                fieldsIdShow[i] = currentView.view.fields_config[field].field
-                i += 1;
-            }
-        }
-
-        this.setState({
-            fields:nextProps.currentTable.fields,
-            fieldsIds:fieldsIdShow
-        })
-    }
+     }
     componentDidMount() {
         let _this = this;
         window.addEventListener("keydown",function (e) {
@@ -273,6 +244,16 @@ export default class GridContent extends Component {
 
     render() {
         const records = this.props.currentTable.records;
+        const fields = this.props.currentTable.fields;
+        const currentView = this.props.currentTable.views.find(
+            (v) => v.view._id.toString() === this.props.currentTable.currentView);
+        let fieldsIdShow = [], i = 0
+        for (let field in currentView.view.fields_config) {
+            if (currentView.view.fields_config[field].hidden === false) {
+                fieldsIdShow[i] = currentView.view.fields_config[field].field
+                i += 1;
+            }
+        }
         return (
             <div className="wrapper__grid" ref={(div) => this.wrapperGrid = div}>
                 <div className="grid__content">
@@ -327,9 +308,9 @@ export default class GridContent extends Component {
                         </div>
 
                         <div className="content__body body__fields">
-                            {this.state.fields.map((field, fieldIndex) => {
+                            {fields.map((field, fieldIndex) => {
                                 return <Field
-                                    display={this.state.fieldsIds.includes(field._id)}
+                                    display={fieldsIdShow.includes(field._id)}
                                     key={field._id}
                                     currentField = {field}
                                     id={field._id}
