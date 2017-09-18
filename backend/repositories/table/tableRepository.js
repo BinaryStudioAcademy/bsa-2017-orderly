@@ -302,11 +302,11 @@ class TableRepository extends Repository {
     updateView(tableId, viewId, viewType, fieldId, hidden ) {
         return this.getFromView(viewId, viewType).then((view) => {
             let fieldToHide = view.fields_config.find((f) => f.field.toString() === fieldId);
-            fieldToHide.hidden = hidden
+            fieldToHide.hidden = hidden;
             return view.save().then(() => {
-                return this.model.findById(tableId).populate('views.view');
+                return this.getById(tableId);
             });
-        })
+        });
     }
 
     addFilter(tableId, viewId, viewType, fieldId, fieldIndex) {

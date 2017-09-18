@@ -175,3 +175,9 @@ export const removeAllSorts = (payload) => {
         .then((response) => response)
         .catch(R.tap(console.error));
 };
+
+export const updateViewHideFields = (action) => {
+    return axios.put(url + '/tables/' + action.tableId + '/views/'+ action.viewType + '/' + action.viewId + '/fields/' + action.fieldId, action)
+        .then((response) => response)
+        .catch(R.tap(console.error));
+};
