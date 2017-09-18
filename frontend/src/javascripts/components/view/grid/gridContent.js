@@ -23,24 +23,23 @@ class RowNum extends Component {
     constructor(props) {
         super(props);        
         this.state={
-            isHovered: ''
+            isHovered:false
         }
     }
 
-    handleHover = (e) =>{
-        this.setState({
-            isHovered: !this.state.isHovered
-        });
-    }
  render() {
     return (
-        <div className="rows__row" onMouseEnter={this.handleHover} onMouseLeave={this.handleHover}>
+        <div className="rows__row" onMouseEnter={()=>this.setState({isHovered: true})} onMouseLeave={()=>this.setState({isHovered: false})}>
             <div className={this.state.isHovered?'none':'row'}>
                 <span>{this.props.index + 1}</span>
             </div>
             <div className={this.state.isHovered?'row':'none'} 
-                onContextMenu={(e) => this.props.deleteRecord(e, this.props.tableId, this.props.recordId)} 
-                onClick={(e) => this.props.deleteRecord(e, this.props.tableId, this.props.recordId)}
+                onContextMenu={(e) => {
+                    this.props.deleteRecord(e, this.props.tableId, this.props.recordId)
+                }}
+                onClick={(e) => {
+                    this.props.deleteRecord(e, this.props.tableId, this.props.recordId)
+                }}
             >
                 <Icon name='delete' color='red' />
             </div>
