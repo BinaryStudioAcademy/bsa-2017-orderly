@@ -12,6 +12,7 @@ export default class Grid extends Component {
         return (
             <div className="grid-view">
                 <GridHeader
+	                isReadOnly={this.props.currentRole === 'readOnly'}
                     currentViewId={this.props.currentViewId}
                     updateViewHideField={this.props.updateViewHideField}
                     onChangeSearch={this.props.onChangeSearch}
@@ -37,6 +38,8 @@ export default class Grid extends Component {
                     removeAllSorts={this.props.removeAllSorts}
                 />
                 <GridContent
+	                isReadOnly={this.props.currentRole === 'readOnly'}
+	                currentRole={this.props.currentRole}
                     currentViewId={this.props.currentViewId}
                     currentTable={this.props.currentTable}
                     recordData={this.props.recordData}

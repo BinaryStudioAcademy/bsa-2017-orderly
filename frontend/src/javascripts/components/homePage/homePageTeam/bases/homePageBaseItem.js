@@ -30,8 +30,8 @@ class BaseItem extends Component {
               />
             </div>
             <div> 
-              <div>
-                <ContextMenuIcon 
+              <div style={{display: this.props.currentRole === 'readOnly' ? 'none' : 'block'}}>
+                <ContextMenuIcon
                   teamNames={this.props.teamNames}
                   handleClick = {this.props.handleClick}
                   base = {this.props.base}

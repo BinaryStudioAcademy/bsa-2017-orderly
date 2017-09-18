@@ -6,10 +6,11 @@ import Collaborators from './collaborators';
 
 const ShareBlock = ({team, collaborators, showUserPopup, isShowUserPopup, activeShareModal,
 	                changeActiveShareModal, allUsers, getAllUsers, addCollaborator, deleteCollaborator,
-                    updateCollaboratorRole}) => (
+                    updateCollaboratorRole, currentRole}) => (
 	<div className='share_block'
 	     onClick={() => {
-		     changeActiveShareModal(team._id)
+	     	if (currentRole !== 'readOnly')
+		        changeActiveShareModal(team._id)
 	     }}
 	     >
 		<Collaborators collaborators={collaborators}

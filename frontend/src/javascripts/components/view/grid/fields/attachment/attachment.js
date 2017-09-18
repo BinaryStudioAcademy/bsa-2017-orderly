@@ -36,6 +36,7 @@ class Attachment extends Field {
 
 	handleFile = (event) => {
         //this.props.onMouseDownRecordItem(event, this.props.id, this.props.recordIdx, this.props.fieldIdx);
+		if (this.props.currentRole === 'readOnly') return
 		const file = event.target.files[0];
 		let type;
 		if (R.test(/^image/, file.type)) type = 'image';
@@ -74,7 +75,7 @@ class Attachment extends Field {
 	}
 
 	renderActiveField() {
-		return (			
+		return (
 			<div className='attachment_cell' tabIndex="0">
 				<div className="attachment_selected" onMouseUp={(event) => this.props.onMouseDownRecordItem(event, this.props.id, this.props.recordIdx, this.props.fieldIdx)}>
 					<FileInput name="attachment"
@@ -82,7 +83,6 @@ class Attachment extends Field {
 							   onChange={this.handleFile}
 							   className="add_file_btn"/>
 					<div className='images_wrapper'>
-						{console.log(R.reject(R.isEmpty)(this.props.value.split(',')), 'dfdfdfdfddd!!!!!!!!!!!!')}
 						{R.map(fileName => <div key={++tempKey} className='around_image'>
 												<Image
 												  size='mini'
@@ -112,7 +112,8 @@ class Attachment extends Field {
 						<Button onClick={this.handleClose} basic color='red' inverted>
 							<Icon name='remove' /> No
 						</Button>
-						<Button onClick={() => {
+						<Button disabled={this.props.currentRole === 'readOnly'}
+						        onClick={() => {
 							this.deleteFile(this.state.imageModalOpen)
 							this.handleClose()
 						}} color='green' inverted>

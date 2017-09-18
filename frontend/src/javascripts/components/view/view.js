@@ -61,6 +61,7 @@ export default class View extends Component {
         switch (activeView.type) {
         case 'grid':
             return <Grid
+	            currentRole={this.props.currentRole}
                 currentTable={this.props.currentTable}
                 currentViewType={activeView.type}
                 tables={this.props.tables}
@@ -151,7 +152,9 @@ export default class View extends Component {
             <div className="view__container">
                 <div ref='viewCaret' className="view__caret">
                     <div ref={(node) => this.node = node }
-                         onClick={(e) => this.handleClickOnMenu(e)}>
+                         onClick={(e) => {
+                         	if (this.props.currentRole !== 'readOnly') this.handleClickOnMenu(e)
+                         } }>
                         <Icon name="caret down"
                               id="header__caret"
                               size="large"/>
