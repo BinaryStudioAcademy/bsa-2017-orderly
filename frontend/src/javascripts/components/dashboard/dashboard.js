@@ -17,6 +17,7 @@ import { getCurrentUser } from '../userProfile/userProfileActions';
 import { updateKanbanView } from '../view/kanban/kanbanViewActions'
 
 const mapStateToProps = (state, ownProps) => {
+	const currentRole = R.find(R.propEq('userId', R.path(['user', '_id'], state.userProfile)))(state.dashboardReducer.members)
     return ({
         base: state.dashboardReducer.base,
         menu: state.baseStore.showMenuforBase,
@@ -41,7 +42,8 @@ const mapStateToProps = (state, ownProps) => {
         selectedRecordItemList: state.dashboardReducer.selectedRecordItemList,
         isShiftKeyPressed: state.dashboardReducer.isShiftKeyPressed,
         isMouseDownPressed: state.dashboardReducer.isMouseDownPressed,
-        members: state.dashboardReducer.members
+        members: state.dashboardReducer.members,
+	    currentRole: R.path(['role'], currentRole)
     });
 };
 

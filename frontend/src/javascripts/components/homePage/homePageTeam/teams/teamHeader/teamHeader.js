@@ -15,29 +15,36 @@ class TeamHeader extends Component {
 	}
 
 	render() {
+		const currentMember = R.find(R.propEq('userId', R.path(['user', '_id'], this.props)))(R.path(['team', 'collaborators'], this.props))
+		const currentRole = R.path(['role'], currentMember)
 		return (
 			<div className='team-header'>
 				<div className='team-name-wrapper'
 				     onContextMenu={(event) => {
-					     event.stopPropagation();
-					     event.preventDefault();
-					     this.props.toggleTeamPopup(this.props.team._id, !this.props.teamPopupIsShow.isShow)
-					     setTimeout(() => {
-						     this.props.toggleTeamPopup(this.props.team._id, false)
-					     } , 3000)
+				     	if (currentRole !== 'readOnly') {
+					        event.stopPropagation();
+					        event.preventDefault();
+					        this.props.toggleTeamPopup(this.props.team._id, !this.props.teamPopupIsShow.isShow)
+					        setTimeout(() => {
+						        this.props.toggleTeamPopup(this.props.team._id, false)
+					        } , 3000)
+				        }
 				     }}>{this.props.team.name}
 				     <Icon name='caret down' color='grey' 
 					     onClick={(event) => {
-						     event.stopPropagation();
-						     event.preventDefault();
-						     this.props.toggleTeamPopup(this.props.team._id, !this.props.teamPopupIsShow.isShow)
-						     setTimeout(() => {
-							     this.props.toggleTeamPopup(this.props.team._id, false)
-						     } , 3000)
+						     if (currentRole !== 'readOnly') {
+							     event.stopPropagation();
+							     event.preventDefault();
+							     this.props.toggleTeamPopup(this.props.team._id, !this.props.teamPopupIsShow.isShow)
+							     setTimeout(() => {
+								     this.props.toggleTeamPopup(this.props.team._id, false)
+							     } , 3000)
+						     }
 					     }}
 				     />
 				     </div>
-				<ShareBlock collaborators={this.props.collaborators}
+				<ShareBlock currentRole={currentRole}
+				            collaborators={this.props.collaborators}
 				            updateCollaboratorRole={this.props.updateCollaboratorRole}
 				            deleteCollaborator={this.props.deleteCollaborator}
 				            addCollaborator={this.props.addCollaborator}
