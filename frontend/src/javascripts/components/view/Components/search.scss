@@ -4,6 +4,12 @@
   width: 299px;
   padding-right: 25px;
   border: 2px solid rgba(0, 0, 0, 0.12);
+  position: relative;
+  display: flex;
+  
+  #search-icons{
+    display: flex;
+  }
 
   input {
     width: 176px;
@@ -38,8 +44,8 @@
 
     i.close.icon {
       position: absolute;
-      right: 76px;
-      top: 11px;
+      right: 5px;
+      top: 9px;
       font-size: 14px;
     }
   }
