@@ -1,5 +1,4 @@
 .form-for-share{
-    padding: 50px 150px 100px 150px !important;
     background-color: #fafafa;
 
 }
@@ -13,6 +12,9 @@
     }
 }
 .formContainer {
+    .checkbox-block .checkbox-checked {
+        top: 8px !important;
+    }
 
     position: absolute;
     width: 100%;
