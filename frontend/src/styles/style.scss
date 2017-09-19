@@ -54,6 +54,26 @@
     // #search-wrapper .search-btn{
     //     margin: 0 18px 0 0px !important;
     // }
+    .form-body-wrapper {
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto !important;
+        .availableFormFieldContainer{
+            margin: 0 auto;
+            position: static !important;
+            overflow-y: initial !important;
+        } 
+        .formContainer{
+            position: static !important;
+            padding: 24px 24px 48px 20px !important; 
+            overflow-y: initial !important;
+            overflow-x: initial !important;
+        .form-wrapper {
+            margin-bottom: 20px !important;
+        }
+            
+        }
+    }
 }
 
 @media screen and (max-width:480px) {
@@ -72,7 +92,6 @@
     .form-for-share {
         padding: 20px 20px 30px 20px !important;
     }
-    // #search-wrapper .search-btn{
-    //     margin: 0 18px 0 0px !important;
-    // }
+    
+
 }

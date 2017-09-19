@@ -12,6 +12,9 @@
     }
 }
 .formContainer {
+    .checkbox-block .checkbox-checked {
+        top: 8px !important;
+    }
 
     position: absolute;
     width: 100%;
