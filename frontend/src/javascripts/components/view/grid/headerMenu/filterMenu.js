@@ -90,7 +90,7 @@ export default class FilterMenu extends Component {
             (v) => v.view._id.toString() === this.props.currentTable.currentView);
         const filtersCount = currentView.view.filters.filterSet.length;
         return (
-            <Button basic  disabled={this.props.isReadOnly}
+            <Button className='media' basic  disabled={this.props.isReadOnly}
                     ref='filterMenu' className="filter__button">
                 <div ref={(node) => this.node = node }
                      onClick={(e) => this.handleClickOnMenu(e)}
