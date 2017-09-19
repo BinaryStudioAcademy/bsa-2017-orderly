@@ -31,9 +31,9 @@ class SignUp extends Component {
                     <h3>Create an account</h3>
                     <SignUpForm onSignUp={this.handleSignUp} onChangeForm={this.handleChange}/>
                 </Container>
-                <Container id='sign-up__google'>
+                {/*<Container id='sign-up__google'>
                     <Button fluid content='Sign up with Google' size='big'/>
-                </Container>
+                </Container>*/}
                 <Container textAlign="left" id='sign-up__footer'>
                     <p>Already have an account?</p>
                     <Link to="/login" id="footer__link">Sign In</Link>
