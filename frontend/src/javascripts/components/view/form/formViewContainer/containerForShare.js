@@ -112,28 +112,31 @@ class ContainerForShare extends Component {
                     </div>
                     <div className='form-inputs-list-wrapper'>
                         <div className='form-inputs-list'>
-                            {this.state.table?this.state.table.fields.map((field, ind) => {
-                                if(this.state.included.includes(field._id)) {
-                                    return (
-                                        <div key={ind}  onClick = {() => this.setState({curentInd: ind})} className ={field.type === 'longtext'? "long-text-item" : field.type === 'attachment' ? "attachment-item": field.type === 'checkbox'? 'checkbox-item' :"form-inputs-list-item"}>
-                                            <div className='form-inputs-name'>
-                                                <Icon name={fieldIcons[field.type]}/>
-                                                <span>{field.name}</span>
+                            {this.state.table ? this.state.table.fields.map((field, ind) => {
+                                if(this.state.included.includes(field._id) && field.type !== 'autonumber' ) {
+                                        return (
+                                            <div key={ind}  onClick = {() => this.setState({curentInd: ind})} className ={field.type === 'longtext'? "long-text-item" : field.type === 'attachment' ? "attachment-item": field.type === 'checkbox'? 'checkbox-item' :"form-inputs-list-item"}>
+                                                <div className='form-inputs-name'>
+                                                    <Icon name={fieldIcons[field.type]}/>
+                                                    <span>{field.name}</span>
+                                                </div>
+                                                <div className='form-to-share-record-item-wrapper'>
+                                                  
+                                                    <Recordtem recordData={recordData}
+                                                        type={field.type}
+                                                        currentField={field}
+                                                        id=''
+                                                        data=''
+                                                        records=''
+                                                        recordIdx={this.state.curentInd}
+                                                        tableId={this.state.table._id}  
+                                                        uploadAttachment={this.state.uploadAttachment}
+                                                        deleteFile={this.state.deleteFile}
+                                                    />
+
+                                                </div>
                                             </div>
-                                            <div className='form-to-share-record-item-wrapper'>
-                                                <Recordtem recordData={recordData}
-                                                    type={field.type}
-                                                    currentField={field}
-                                                    id=''
-                                                    data=''
-                                                    records=''
-                                                    tableId={this.state.table._id}  
-                                                    uploadAttachment={this.state.uploadAttachment}
-                                                    deleteFile={this.state.deleteFile}
-                                                />
-                                            </div>
-                                        </div>
-                                    );
+                                        );
                                 }
                             }):<div></div>}
                         </div>

@@ -27,7 +27,12 @@ export default class FormAvailableFields extends Component {
                             <div className='add-all'
                                  onClick={() => {
                                      this.props.includeAll(
-                                         this.props.currentTable.fields.map((f) => f._id), 
+                                         this.props.currentTable.fields.map((f) => {
+                                          if (f.type !=='autonumber') {
+                                            return f._id
+                                          }
+                                        }), 
+                                         
                                          this.props.currentTable._id, 
                                          this.props.currentViewId
                                      );

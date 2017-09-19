@@ -11,7 +11,7 @@ export default class FormViewListOfFields extends Component {
         return (
             <div className='availableFormFields-List'>
                 {this.props.fields.map((field, ind) => {
-                    if (!this.props.included.includes(field._id)) {
+                    if (!this.props.included.includes(field._id) && field.type !== 'autonumber') {
                         return (
                             <div key={ind} className='availableFormField-Item'
                                  onClick={() => this.props.includeField(field._id, this.props.currentTableId, this.props.currentViewId)}>
