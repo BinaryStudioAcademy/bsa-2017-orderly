@@ -43,6 +43,9 @@
     .form-for-share {
         padding: 50px 50px 80px 50px !important;
     }
+    .grid__extra-menu {
+        right: 30px;
+    }
 }
 
 @media screen and (max-width:700px) {
@@ -54,6 +57,21 @@
     // #search-wrapper .search-btn{
     //     margin: 0 18px 0 0px !important;
     // }
+    .sort__menu {
+        left: 0 !important;
+    }
+    .filter__menu {
+        left: 40px !important;
+        .filter__item {
+            flex-direction: column;
+            .item__where{
+                padding: 0px !important;
+            }
+            .item__conjunction{
+                padding: 0px !important; 
+            }
+        }
+    }
     .form-body-wrapper {
         display: flex;
         flex-direction: column;

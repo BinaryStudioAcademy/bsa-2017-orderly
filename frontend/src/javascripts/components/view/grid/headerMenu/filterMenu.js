@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Icon, Button} from 'semantic-ui-react';
+import {Icon, Button, Input} from 'semantic-ui-react';
 import {fieldIcons, fieldNames} from "../../../configuration/fieldTypes";
 import './filterMenu.scss';
 
