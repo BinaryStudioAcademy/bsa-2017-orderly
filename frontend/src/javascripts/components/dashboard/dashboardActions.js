@@ -348,13 +348,15 @@ export function deleteRecord(tableId, recordId) {
     };
 }
 
-export const uploadAttachment = (data, typeOfFile, record_dataId, tableId) => {
+export const uploadAttachment = (data, typeOfFile, record_dataId, tableId, value, idx) => {
     return {
         type: 'UPLOAD_FILES',
         data: data,
         typeOfFile: typeOfFile,
         record_dataId: record_dataId,
-        tableId: tableId
+        tableId: tableId,
+	    value: value,
+	    idx: idx
     };
 };
 

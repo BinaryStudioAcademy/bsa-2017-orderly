@@ -12,14 +12,19 @@ const bgImage = (urlImage) => ({
 })
 
 let tempKey = 0;
+let that
 
 class Attachment extends Field {
+
+
 	constructor(props) {
 		super(props, 'attachment')
 		this.state = {
 			imageModalOpen: false
 		}
+		that = this
 	}
+
 
 	handleOpen = (event, fileName) => {
 		event.preventDefault()
@@ -30,13 +35,16 @@ class Attachment extends Field {
 	handleClose = () => this.setState({imageModalOpen: false})
 
 	deleteFile = (fileName) => {
-		const newValue = R.reject(item => item === fileName)(this.props.value.split(',')).join(',')
+		const files = this.props.value.split(',')
+		const newValue = R.reject(item => {
+			if (!item) return true
+			return item === fileName
+		})(files).join(',')
 		this.props.deleteFile('image', this.props.id, this.props.tableId, newValue)
 	}
 
 	handleFile = (event) => {
-        //this.props.onMouseDownRecordItem(event, this.props.id, this.props.recordIdx, this.props.fieldIdx);
-		if (this.props.currentRole === 'readOnly') return
+		if (that.props.currentRole === 'readOnly') return
 		const file = event.target.files[0];
 		let type;
 		if (R.test(/^image/, file.type)) type = 'image';
@@ -46,7 +54,12 @@ class Attachment extends Field {
 		}
 		const fd = new FormData()
 		fd.append('attachment', file)
-		this.props.uploadAttachment(fd, type, this.props.id, this.props.tableId)
+
+		if (!that.props.id)
+			this.props.uploadAttachment(fd, type, 'temporary', that.props.tableId, file.name, that.props.recordIdx)
+		else
+			this.props.uploadAttachment(fd, type, this.props.id, this.props.tableId, this.props.value, this.props.recordIdx)
+
 	}
 
 	renderField() {

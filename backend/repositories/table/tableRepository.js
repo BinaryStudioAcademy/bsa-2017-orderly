@@ -264,13 +264,14 @@ class TableRepository extends Repository {
     }
 
     updateRecordById(tableId, record_dataId, fileName, isDelete) {
-        return this.model.findById(tableId)
+	    return this.model.findById(tableId)
 			.then(table => R.map( record => {
 				record.record_data = R.map(data => {
 					if (data._id == record_dataId) {
 						if (!data._id) return {_id: data._id, data: fileName}
 						if (isDelete) {
-							return {_id: data._id, data: fileName}
+							const deleteFile = fileName == 11 ? '' : fileName
+							return {_id: data._id, data: deleteFile}
 						} else {
 							let dataArray = data.data.split(',')
 							dataArray.push(fileName)
