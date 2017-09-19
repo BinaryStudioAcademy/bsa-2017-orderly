@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Icon, Button} from 'semantic-ui-react';
+import {Icon, Button, Input} from 'semantic-ui-react';
 import {fieldIcons, fieldNames} from "../../../configuration/fieldTypes";
 import './filterMenu.scss';
 
@@ -90,7 +90,7 @@ export default class FilterMenu extends Component {
             (v) => v.view._id.toString() === this.props.currentTable.currentView);
         const filtersCount = currentView.view.filters.filterSet.length;
         return (
-            <Button basic  disabled={this.props.isReadOnly}
+            <Button className='media' basic  disabled={this.props.isReadOnly}
                     ref='filterMenu' className="filter__button">
                 <div ref={(node) => this.node = node }
                      onClick={(e) => this.handleClickOnMenu(e)}

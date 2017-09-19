@@ -82,7 +82,7 @@ export default class SortMenu extends Component {
             (v) => v.view._id.toString() === this.props.currentTable.currentView);
         const sortsCount = currentView.view.sorts.length;
         return (
-            <Button basic ref='sortMenu' disabled={this.props.isReadOnly}
+            <Button className='media' basic ref='sortMenu' disabled={this.props.isReadOnly}
                     className="sort__button">
                 <div ref={(node) => this.node = node }
                      onClick={(e) => this.handleClickOnMenu(e)}
