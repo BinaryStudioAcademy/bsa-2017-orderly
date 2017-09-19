@@ -214,7 +214,11 @@ function* disconnectSocket() {
 function* uploadingFiles(action) {
     try {
         const changedTable = yield call(uploadFile, action);
-        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
+	    if (action.record_dataId === "temporary") {
+		    yield put({type: 'BLUR_RECORD', recordData: action.value, index: action.idx})
+	    } else {
+		    yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
+	    }
     } catch (err) {
         yield put({type: 'UPLOAD_FILES_FAILED', message: err.message});
     }

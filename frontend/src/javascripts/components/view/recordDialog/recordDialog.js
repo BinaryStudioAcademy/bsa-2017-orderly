@@ -36,6 +36,7 @@ export const Recordtem = ({id, type, data, tableId, recordData, uploadAttachment
         onBlurComponent: recordData.blurRecordComponentHandler,
         onChangeCheckbox: recordData.changeCheckboxHandler,
         autoFocus: false,
+	    recordIdx: recordIdx,
         onMouseDownRecordItem: () => {},
         onMouseOverRecordItem: () => {}
     };

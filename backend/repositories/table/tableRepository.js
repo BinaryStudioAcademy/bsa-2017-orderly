@@ -264,7 +264,7 @@ class TableRepository extends Repository {
     }
 
     updateRecordById(tableId, record_dataId, fileName, isDelete) {
-        return this.model.findById(tableId)
+	    return this.model.findById(tableId)
 			.then(table => R.map( record => {
 				record.record_data = R.map(data => {
 					if (data._id == record_dataId) {

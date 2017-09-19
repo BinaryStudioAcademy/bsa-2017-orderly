@@ -9,6 +9,7 @@ export const CHANGE_FORM_NAME = 'CHANGE_FORM_NAME';
 export const CHANGE_FORM_DESCRIPTION = 'CHANGE_FORM_DESCRIPTION';
 export const UPLOAD_FILES = 'UPLOAD_FILES';
 export const DELETE_FILE = 'DELETE_FILE';
+export const FORM_UPLOAD_FILE_SUCCESS = 'FORM_UPLOAD_FILE_SUCCESS'
 
 
 export function updateableByFormData(tableId, table) {
@@ -29,13 +30,15 @@ export function changeRecord (tableId, recordId, data, user) {
     };
 };
 
-export function uploadAttachment (data, typeOfFile, record_dataId, tableId) {
+export function uploadAttachment (data, typeOfFile, record_dataId, tableId, value, idx) {
     return {
         type: UPLOAD_FILES,
         data: data,
         typeOfFile: typeOfFile,
         record_dataId: record_dataId,
-        tableId: tableId
+        tableId: tableId,
+	    value: value,
+	    idx: idx
     }
 }
 

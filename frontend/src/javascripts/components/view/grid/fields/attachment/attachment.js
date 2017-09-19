@@ -12,13 +12,16 @@ const bgImage = (urlImage) => ({
 })
 
 let tempKey = 0;
+let that
 
 class Attachment extends Field {
 	constructor(props) {
 		super(props, 'attachment')
 		this.state = {
-			imageModalOpen: false
+			imageModalOpen: false,
+			filePathId: this.props.id ? this.props.id : 'temporary'
 		}
+		that = this
 	}
 
 	handleOpen = (event, fileName) => {
@@ -30,12 +33,15 @@ class Attachment extends Field {
 	handleClose = () => this.setState({imageModalOpen: false})
 
 	deleteFile = (fileName) => {
-		const newValue = R.reject(item => item === fileName)(this.props.value.split(',')).join(',')
+		const files = this.props.value.split(',')
+		const newValue = R.reject(item => {
+			if (!item) return true
+			return item === fileName
+		})(files).join(',')
 		this.props.deleteFile('image', this.props.id, this.props.tableId, newValue)
 	}
 
 	handleFile = (event) => {
-        //this.props.onMouseDownRecordItem(event, this.props.id, this.props.recordIdx, this.props.fieldIdx);
 		if (this.props.currentRole === 'readOnly') return
 		const file = event.target.files[0];
 		let type;
@@ -46,7 +52,24 @@ class Attachment extends Field {
 		}
 		const fd = new FormData()
 		fd.append('attachment', file)
-		this.props.uploadAttachment(fd, type, this.props.id, this.props.tableId)
+
+		if (that.state.filePathId === 'temporary') {
+			let value = R.clone(that.state.value)
+			if (!value) {
+				that.setState({value: file.name}, () => {
+					that.props.uploadAttachment(fd, type, that.state.filePathId, that.props.tableId, that.state.value, that.props.recordIdx)
+					return
+				} )
+			} else {
+				let arr = value.split(',')
+					arr.push(file.name)
+				that.setState({value: arr.join()}, () => {
+					that.props.uploadAttachment(fd, type, that.state.filePathId, that.props.tableId, that.state.value, that.props.recordIdx)
+					return
+				})
+			}
+		}
+		that.props.uploadAttachment(fd, type, that.state.filePathId, that.props.tableId, that.state.value, that.props.recordIdx)
 	}
 
 	renderField() {
@@ -63,7 +86,7 @@ class Attachment extends Field {
 	}
 
 	fieldSelectedClass() {
-        return this.props.selected ? ' selected' : '';
+        return that.props.selected ? ' selected' : '';
 	}
 
 	fieldActiveClass() {
@@ -90,7 +113,7 @@ class Attachment extends Field {
 													this.handleOpen(event, fileName)
 												  }}
 												  className='attachment_file'
-													   src={`${AppConfig.host}/files/attachment/${this.props.id}/image/${fileName}`} /></div>)
+													   src={`${AppConfig.host}/files/attachment/${this.state.filePathId}/image/${fileName}`} /></div>)
 						(R.reject(R.isEmpty)(this.props.value.split(',')) || [])}
 					</div>
 
@@ -104,7 +127,7 @@ class Attachment extends Field {
 					size='small'
 				>
 					<Modal.Content className='image_modal_content'>
-					   <div style={bgImage(`${AppConfig.host}/files/attachment/${this.props.id}/image/${this.state.imageModalOpen}`)}
+					   <div style={bgImage(`${AppConfig.host}/files/attachment/${this.state.filePathId}/image/${this.state.imageModalOpen}`)}
 							className='image_modal'/>
 					</Modal.Content>
 					<Modal.Actions>
