@@ -125,23 +125,41 @@
           background: #ffffff !important;
           font-size: 20px !important;
           padding-left: 0 !important;
+          padding-right: 0 !important;
+          width: 100% !important;
         }
         .ui.medium.image{
-            width: 254px;
+            width: 190px;
         }
   }
     .user-profile-wrapper{
         flex-direction: column;
     .form-block{
         flex-direction: column;
+        .form-input-block{
+            margin: 5px auto !important;
+            width: 64% !important;
+            padding-left: 0 !important;
+        }
     }
     .user-profile-photo{
-        margin: 0 auto !important;
+        img {
+            margin: 0 auto !important;
+        }
     }
         .ui.medium.image {
             width: 230px !important;
         }
     }
+    .user-profile-submit-btn{
+        text-align: center !important;
+        .ui.button{
+        }
+    }
+    .user-profile-photo-wrapper
+        .change-avatar-input {
+            margin-bottom: 15px !important;
+        }
 
 }
 @media screen and (max-width:340px) {
