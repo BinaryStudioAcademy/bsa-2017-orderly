@@ -3,6 +3,10 @@ body, html {
         width: 100% !important;
         height: 100% !important;
     }
+.user-profile-wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
 .form-share-popup-wrapper {
     .Select-menu-outer{
     max-height: 183px !important;
@@ -44,6 +48,14 @@ body, html {
     .form-for-share {
         padding: 50px 70px 80px 70px !important;
     }
+    
+    #user-profile-header{
+        .ui.block.header{
+            padding-left: 0 !important;
+        }}
+}
+
+@media screen and (max-width:960px) {
     .user-profile-wrapper{
         flex-direction: column;
     .form-block{
@@ -71,14 +83,6 @@ body, html {
         .change-avatar-input {
             margin-bottom: 15px !important;
         }
-
-    #user-profile-header{
-        .ui.block.header{
-            padding-left: 0 !important;
-        }}
-}
-
-@media screen and (max-width:960px) {
 
     .user-profile-photo-wrapper{
         padding-left: 5px;
