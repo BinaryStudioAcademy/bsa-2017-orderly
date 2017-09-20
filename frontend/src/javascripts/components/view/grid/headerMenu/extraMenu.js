@@ -49,7 +49,10 @@ export default class ExtraMenu extends Component {
                 </div>
                 <div className={this.state.isActive ? 'grid__extra-menu' : 'hide'}>
                     <div className='extra-menu__item'>
-                        <ImportCSV currentTableId={this.props.currentTableId} tables={this.props.tables}/>
+                        <ImportCSV currentTableId={this.props.currentTableId} 
+                                    tables={this.props.tables} 
+                                    currentViewId={this.props.currentViewId}
+                                    currentViewType={this.props.currentViewType}/>
                     </div>
                     <div className='extra-menu__item'>
                         <ExportCSV currentTableId={this.props.currentTableId} tables={this.props.tables}/>

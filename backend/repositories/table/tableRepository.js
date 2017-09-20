@@ -309,6 +309,28 @@ class TableRepository extends Repository {
         });
     }
 
+    uploadCSV(tableId, data, viewId, viewType) {
+        return this.model.findByIdAndUpdate(tableId, data, {'new': true})
+        .then((table) => {
+            let config = [];
+            let j = 0;
+            for ( let i = 0; i< table.fields.length; i++ ) {
+                let obj = {}
+                obj.field = table.fields[i]._id;
+                obj.position = ++j;
+                obj.size = 155;
+                config[i] = obj;
+            }
+            return this.getFromView(viewId, viewType).then((view) => {
+                view.fields_config = config;
+                return view.save()
+                .then(() => {
+                    return this.getById(tableId);
+                });
+            })
+        })
+    }
+
     addFilter(tableId, viewId, viewType, fieldId, fieldIndex) {
         return this.getFromView(viewId, viewType).then((view) => {
             view.filters.filterSet.push(

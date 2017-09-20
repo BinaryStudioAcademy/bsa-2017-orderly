@@ -30,6 +30,7 @@ export default class PopupHideColumn extends Component{
                 j += 1;
             }
         }
+        console.log(fieldsIdShow)
         
         let fields = this.props.currentTable.fields   
         let hideFields = [];
