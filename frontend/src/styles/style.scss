@@ -3,6 +3,14 @@ body, html {
         width: 100% !important;
         height: 100% !important;
     }
+.form-share-popup-wrapper {
+    .Select-menu-outer{
+    max-height: 183px !important;
+    }
+    .Select-menu {
+        max-height: 173px !important;
+    }
+}
 .relative {
   position: relative;
 }
