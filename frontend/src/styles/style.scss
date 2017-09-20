@@ -11,12 +11,16 @@
 
 @media screen and (max-width:1200px) {
     #header__view-type{
+         #view-type__name{
+            margin-right: 5px;
+        }
             .button__items {
             padding: 10px 12px !important;
         }
     }
-    body {
+    body, html {
         width: 100% !important;
+        height: 100% !important;
     }
     #search-wrapper {
         width: 40px !important;
@@ -35,13 +39,14 @@
     .user-profile-photo-wrapper{
         padding-left: 5px;
     }
-    #header__view-type{
-            .button__items {
-            padding: 10px 12px !important;
-        }
-    }
     .form-for-share {
         padding: 50px 50px 80px 50px !important;
+    }
+    .grid__extra-menu {
+        right: 30px;
+    }
+    .filter__menu {
+        left: 40px !important;
     }
 }
 
@@ -51,9 +56,21 @@
         .team-block-wrapper {
           min-width: 550px !important;
         }}}
-    // #search-wrapper .search-btn{
-    //     margin: 0 18px 0 0px !important;
-    // }
+    .sort__menu {
+        left: 50px !important;
+    }
+    .filter__menu {
+        left: 40px !important;
+        .filter__item {
+            flex-direction: column;
+            .item__where{
+                padding: 0px !important;
+            }
+            .item__conjunction{
+                padding: 0px !important; 
+            }
+        }
+    }
     .form-body-wrapper {
         display: flex;
         flex-direction: column;
@@ -77,6 +94,9 @@
 }
 
 @media screen and (max-width:480px) {
+    .dashboard_header .menu-show-2 {
+        left: 16% !important;
+    }
    .home-page-body {
     .team-wrapper {
         .team-block-wrapper {
@@ -93,5 +113,36 @@
         padding: 20px 20px 30px 20px !important;
     }
     
+
+}
+@media screen and (max-width:340px) {
+    #header__view-type{
+        #view-type__name{
+            margin-right: 5px;
+        }
+            .button__items {
+            padding: 5px !important;
+        }
+        .ui.buttons:not(.basic):not(.inverted)>.button, .ui.buttons>.ui.button:not(.basic):not(.inverted) {
+            padding: 5px !important;
+        }
+    }
+    .dashboard_header{
+        padding-right: 0px !important;
+        padding-left: 20px !important;
+        .label-header {
+            margin-left: 30px !important;
+        }
+    }
+    .header-base-name{
+        font-size: 20px !important;
+        margin-right: 0 !important;
+    }
+    #search-wrapper {
+        width: 35px !important;
+        .search-btn {
+            width: 15px !important;
+        }
+    }
 
 }
