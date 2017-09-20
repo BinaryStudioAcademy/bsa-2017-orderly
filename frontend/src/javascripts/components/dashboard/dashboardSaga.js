@@ -83,10 +83,7 @@ function* changeTable(action) {
     try {
         const payload = {};
         payload._id = action.tableId;
-        payload.data = action.newData;
-        payload.viewId = action.viewId;
-        payload.type = action.type;
-        paylad.viewType = action.viewType;
+        payload.body = action.newData;
         const changedTable = yield call(updateTable, payload);
         yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
     } catch (err) {
