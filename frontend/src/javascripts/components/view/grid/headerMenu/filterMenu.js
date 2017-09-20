@@ -86,12 +86,12 @@ export default class FilterMenu extends Component {
     };
 
     render() {
-        const DEBUG = false; //REMOVE AFTER TESTING
         const currentView = this.props.currentTable.views.find(
             (v) => v.view._id.toString() === this.props.currentTable.currentView);
         const filtersCount = currentView.view.filters.filterSet.length;
         return (
-            <Button basic ref='filterMenu' className="filter__button">
+            <Button basic  disabled={this.props.isReadOnly}
+                    ref='filterMenu' className="filter__button">
                 <div ref={(node) => this.node = node }
                      onClick={(e) => this.handleClickOnMenu(e)}
                      className='button__items'>
@@ -151,10 +151,6 @@ export default class FilterMenu extends Component {
                                        }}/>}
                             </div>)
                     })}
-                    {DEBUG &&
-                        <Icon className="menu__item" name="checkmark" link size='large'
-                              onClick={() => this.preformFilter()}/>
-                    }
                     {!filtersCount &&
                         <div className='menu__item item__no-filters-label'>No filters applied to this view</div>
                     }

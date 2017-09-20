@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
 import { browserHistory } from 'react-router';
-import R from 'ramda'
+
 import ContextMenuIcon from '../../../contextMenu/contextMenuIcon';
 import { createRolesObject } from '../../homePageService'
 import './homePageBaseItem.scss'
@@ -22,6 +22,7 @@ class BaseItem extends Component {
           <div className = 'one-base-icon'>
               <Icon inverted link  size='huge'
                     onClick={() => {
+                    	console.log(this.props.base, 'this is base')
                         browserHistory.push(`/dashboard/${this.props.base._id}/${this.props.base.tables[0]}`)
 	                    this.props.saveCurrentTeamRoles(R.mergeWith(R.merge, rolesObject, this.props.collaborators[this.props.teamId]))
                     }}
@@ -29,8 +30,8 @@ class BaseItem extends Component {
               />
             </div>
             <div> 
-              <div>
-                <ContextMenuIcon 
+              <div style={{display: this.props.currentRole === 'readOnly' ? 'none' : 'block'}}>
+                <ContextMenuIcon
                   teamNames={this.props.teamNames}
                   handleClick = {this.props.handleClick}
                   base = {this.props.base}

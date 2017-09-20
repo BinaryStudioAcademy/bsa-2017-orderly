@@ -108,7 +108,7 @@ export default class FieldMenu extends Component {
         this.handleClickOnMenu();
     }
     handleDeleteField = () => {
-        this.props.deleteField(this.props.tableId, this.props.id)
+        this.props.deleteField(this.props.tableId, this.props.id, this.props.currentView)
     }
     handleChangeType =(event) => {
         this.props.changeFieldType(this.props.tableId, this.props.id, event.value)
@@ -184,7 +184,10 @@ export default class FieldMenu extends Component {
         return(
             <div ref="fieldMenu" className='field__ellipsis'>
                 <div ref={(node) => this.node = node } >
-                    <div onClick={(e) => this.handleClickOnMenu(e)} >
+                    <div onClick={(e) => {
+	                    if (!this.props.isReadOnly)
+	                        this.handleClickOnMenu(e)
+                    } } >
                         <Icon name="ellipsis vertical" className="field__change-type"/>
                     </div>
                 </div>

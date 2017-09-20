@@ -5,6 +5,7 @@ import Search from '../Components/search';
 import FilterMenu from './headerMenu/filterMenu';
 import SortMenu from './headerMenu/sortMenu';
 import ExtraMenu from './headerMenu/extraMenu';
+import PopupHideColumn from './headerMenu/hideMenu';
 import './gridHeader.scss';
 
 export default class GridHeader extends Component{
@@ -29,27 +30,33 @@ export default class GridHeader extends Component{
                     <Icon name={viewIcons.grid} id="view-type__icon" size="large"/>
                     <span id="view-type__name">Grid View</span>
                     <Button.Group>
-                        <Button basic>
-                            <Icon name='hide'/>
-                            <span className="menu__text">Hide fields</span>
-                        </Button>
-                        <FilterMenu
+                        <PopupHideColumn
+	                        isReadOnly={this.props.isReadOnly}
+                            currentViewId={this.props.currentViewId}
                             currentTable={this.props.currentTable}
+                            updateViewHideField={this.props.updateViewHideField}
+                        />
+                        <FilterMenu
+	                        isReadOnly={this.props.isReadOnly}
+	                        currentTable={this.props.currentTable}
                             currentViewType={this.props.currentViewType}
-                            filterRecords={this.props.filterRecords}
-                            removeFilter={this.props.removeFilter}
                             addFilter={this.props.addFilter}
                             updateFilter={this.props.updateFilter}
+                            removeFilter={this.props.removeFilter}
                             removeAllFilters={this.props.removeAllFilters}
                         />
-                        <Button basic>
-                            <Icon name='browser'/>
-                            <span className="menu__text">Group</span>
-                        </Button>
-
-                        <Button basic icon='external'/>
+                        <SortMenu
+	                        isReadOnly={this.props.isReadOnly}
+	                        currentTable={this.props.currentTable}
+                            currentViewType={this.props.currentViewType}
+                            addSort={this.props.addSort}
+                            updateSort={this.props.updateSort}
+                            removeSort={this.props.removeSort}
+                            removeAllSorts={this.props.removeAllSorts}
+                        />
                         <ExtraMenu
-                            currentTableId={this.props.currentTable._id}
+	                        isReadOnly={this.props.isReadOnly}
+	                        currentTableId={this.props.currentTable._id}
                             tables={this.props.tables}
                             deleteView={this.props.deleteView}
                             viewsCount={this.props.viewsCount}
@@ -76,9 +83,3 @@ export default class GridHeader extends Component{
         );
     }
 }
-/*
-                        <SortMenu
-                            currentTable={this.props.currentTable}
-                            sortRecords={this.props.sortRecords}
-                        />
- */

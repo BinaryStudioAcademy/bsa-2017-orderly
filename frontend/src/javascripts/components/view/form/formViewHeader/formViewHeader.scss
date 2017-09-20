@@ -1,8 +1,32 @@
 .formView__header {
   display: flex;
   align-items: center;
-  padding: 5px 0;
   border-bottom: 1px solid #EEE;
+}
+.extra__button {
+  padding: 0 !important;
+  cursor: poiner;
+}
+.btn-form-menu{
+    font-weight: 400;
+    text-transform: none;
+    text-shadow: none!important;
+    padding: 10px;
+    
+}
+.btn-form-menu:hover{
+  cursor: pointer;
+}
+.formView__header a{
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: none;
+}
+.formView__header a:hover{
+  color: rgba(0, 0, 0, 0.8) !important;
+  border-bottom: 0 !important;
+}
+.first-butn{
+  cursor: auto !important;
 }
 
 #header__caret {

@@ -2,12 +2,18 @@
   padding: 0 !important;
 }
 
+.sort__button:hover {
+  border-radius: 4px;
+  background-color: #DDD;
+}
+
 .button__items {
   padding: 10px 20px;
 }
 
 .sort__menu {
   display: flex;
+  flex-direction: column;
   align-items: baseline;
   max-width: 50rem;
   background-color: #FFF;
@@ -16,8 +22,26 @@
   padding: 5px 10px;
   z-index: 5;
   position: absolute;
-  top: 120px;
-  left: 470px;
+  top: 135px;
+  //left: 0px;
+}
+
+.sort__item {
+  display: flex;
+  width: 100%;
+}
+
+.item__sort-controls {
+  display: flex;
+  margin: auto 0;
+}
+
+.item__sort-by {
+  padding: 4px 2px;
+}
+
+.item__then-by {
+  padding: 4px 8px;
 }
 
 .menu__item {
@@ -43,7 +67,8 @@
 }
 
 .sort__option {
-  display: inline-block;
+  display: flex;
+  align-items: center;
   padding: 0 10px;
   border-radius: 4px;
   cursor: pointer;
@@ -57,6 +82,30 @@
   display: inline-flex;
   //width: 150px;
 }
+
+.item__no-sorts-label {
+  color: #999;
+}
+
+.item__add-sort, .item__clear-sorts {
+  display: flex;
+  //width: 100%;
+  padding: 5px;
+  border-radius: 4px;
+  text-align: left;
+  cursor: pointer;
+  font-weight: bold;
+  color: #666;
+}
+
+.item__add-sort:hover, .item__clear-sorts:hover{
+  color: #222;
+}
+
+.item__no-sorts-label {
+  color: #999;
+}
+
 
 .hide {
   display: none;

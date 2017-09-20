@@ -2,17 +2,21 @@
   #user-info,
   .user-profile-logout-wrapper {
     float: right;
-    margin-right: 20px;
+    margin-right: 18px;
     margin-top: 10px;
+    a {
+      color: #aa9d9d !important;;
+    }
   }
 }
 
 .user-profile-wrapper {
   text-align: center;
   margin-top: 150px;
-  padding-left: 50px;
+  //padding-left: 60px;
   box-sizing: border-box;
   display: flex;
+  justify-content: center;
 }
 
 #user-info {

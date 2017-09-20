@@ -42,6 +42,8 @@ class BaseList extends Component {
   	}
 	render() {
 		const props = this.props
+		const currentMember = R.find(R.propEq('userId', R.path(['user', '_id'], this.props)))(R.path(['team', 'collaborators'], this.props))
+		const currentRole = R.path(['role'], currentMember)
 		if (this.props.bases) {
 			return (
 				<div className='base-list'>
@@ -49,6 +51,7 @@ class BaseList extends Component {
 						return (
 							<div key={base._id || ++temporaryKey}>
 								<BaseItem className="base-list-item"
+								          currentRole={currentRole}
 								          handleClick={props.handleClick}
 								          teamId={props.teamId}
 								          collaborators={props.collaborators}
@@ -62,8 +65,14 @@ class BaseList extends Component {
 						)
 					})
 					}
-					<div className='relative'>
-						<div className='btn-add-base' onClick={(event) => this.handleClickOnMenu(event)}>+</div>
+					<div className='relative' style={{display: currentRole === 'readOnly' ? 'none' : 'block'}}>
+						<div className='base-wrapper'>
+							<div className='base-name-header'>
+					          Add Base
+					        </div>
+							<div className='btn-add-base' onClick={(event) => this.handleClickOnMenu(event)}>
+							+</div>
+						</div>
 						<div ref="createBase" className ={
 								this.state.showMewnu ? "addBasePopover" : "none"} >
 							<div>

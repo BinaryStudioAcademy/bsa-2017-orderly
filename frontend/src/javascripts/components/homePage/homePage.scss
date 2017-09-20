@@ -1,3 +1,6 @@
+html, body{
+    height: auto !important;
+}
 .home-page-wrapper
   .home-page-body {
     margin-top: 100px;
@@ -23,4 +26,10 @@
 .home-page-header
   a:hover {
     border-bottom: 0 !important;
+}
+.user-profile-logout-wrapper {
+    padding-top:5px;
+    a {
+        color: #aa9d9d !important;
+    }
 }

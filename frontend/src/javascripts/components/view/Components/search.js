@@ -23,7 +23,7 @@ export default class Search extends Component {
     render() {
         return (
             <div id="search-block">
-                <span>
+                <span id="search-icons">
                     <Input
                         size="small"
                         placeholder="Find in view"

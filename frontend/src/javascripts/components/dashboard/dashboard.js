@@ -5,16 +5,19 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     selectRecordItem, activateRecord, changeRecord, blurRecord, blurRecordComponent,
     changeFieldType, changeFieldOptions, openRecordDialog, addComment, getCoworkersList, setTableIdToActiveModal,
     changeSearch, changeSearchFoundIndex, toggleSearch, changeFieldName, deleteRecord, deleteField,
-    changeView, sortRecords, filterRecords, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
+    changeView, addSort, removeFilter, uploadAttachment, deleteFile, disconnectSocket,
     addView, deleteView, addFilter, updateFilter, setSelectFieldRecordItems, appendSelectFieldRecordItems, setSelectAllRecordItems,
     setSelectRecordItems, shiftKeyDown, shiftKeyUp, clearSelectedRecordItemList, mouseDownRecordItem,
-    mouseUpRecordItem, mouseOverRecordItem, removeAllFilters, getMembersByBaseId
+    mouseUpRecordItem, mouseOverRecordItem, removeAllFilters, getMembersByBaseId, updateViewHideField,
+	addTableSucceed, deleteTableSuccess, updateTableSuccess, addRecordSuccess, updateFieldSucceeded,
+	deleteFieldSuccess, deleteRecordSuccess, updateSort, removeSort, removeAllSorts,
 } from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
 import { updateKanbanView } from '../view/kanban/kanbanViewActions'
 
 const mapStateToProps = (state, ownProps) => {
+	const currentRole = R.find(R.propEq('userId', R.path(['user', '_id'], state.userProfile)))(state.dashboardReducer.members)
     return ({
         base: state.dashboardReducer.base,
         menu: state.baseStore.showMenuforBase,
@@ -39,11 +42,19 @@ const mapStateToProps = (state, ownProps) => {
         selectedRecordItemList: state.dashboardReducer.selectedRecordItemList,
         isShiftKeyPressed: state.dashboardReducer.isShiftKeyPressed,
         isMouseDownPressed: state.dashboardReducer.isMouseDownPressed,
-        members: state.dashboardReducer.members
+        members: state.dashboardReducer.members,
+	    currentRole: R.path(['role'], currentRole)
     });
 };
 
 const mapDispatchToProps = {
+	deleteRecordSuccess: deleteRecordSuccess,
+	deleteFieldSuccess: deleteFieldSuccess,
+	updateFieldSucceeded: updateFieldSucceeded,
+	addRecordSuccess: addRecordSuccess,
+	updateTableSuccess: updateTableSuccess,
+	deleteTableSuccess: deleteTableSuccess,
+	addTableSucceed: addTableSucceed,
     addTableClick: addTable,
     switchTableClick: switchTable,
     getBaseCurrent: getBaseById,
@@ -72,11 +83,9 @@ const mapDispatchToProps = {
     changeSearchFoundIndex: changeSearchFoundIndex,
     toggleSearch: toggleSearch,
     changeView: changeView,
-    sortRecords: sortRecords,
-    filterRecords: filterRecords,
-    removeFilter: removeFilter,
     changeFieldName: changeFieldName,
     changeFieldOptions: changeFieldOptions,
+    updateViewHideField: updateViewHideField,
     deleteField: deleteField,
     deleteRecord: deleteRecord,
     uploadAttachment: uploadAttachment,
@@ -86,6 +95,12 @@ const mapDispatchToProps = {
     deleteView: deleteView,
     addFilter: addFilter,
     updateFilter: updateFilter,
+    removeFilter: removeFilter,
+    removeAllFilters: removeAllFilters,
+    addSort: addSort,
+    updateSort: updateSort,
+    removeSort: removeSort,
+    removeAllSorts: removeAllSorts,
     setSelectFieldRecordItems: setSelectFieldRecordItems,
     appendSelectFieldRecordItems: appendSelectFieldRecordItems,
     setSelectAllRecordItems: setSelectAllRecordItems,
@@ -97,7 +112,6 @@ const mapDispatchToProps = {
     mouseUpRecordItem: mouseUpRecordItem,
     mouseOverRecordItem: mouseOverRecordItem,
     updateKanbanView: updateKanbanView,
-    removeAllFilters: removeAllFilters,
     getMembersByBaseId: getMembersByBaseId
 };
 

@@ -1,12 +1,28 @@
+.expand-record-item{
+  .Select-control {
+
+    border: 2px solid rgba(0, 0, 0, 0.15) !important;
+    }
+    input{
+      position:absolute;
+      top: 0;
+      z-index: -1;
+    }
+    .is-searchable.is-focused:not(.is-open) > .Select-control {
+      border: 2px solid rgba(0, 0, 0, 0.15) !important;
+    }
+}
+
 .content__field.row-options-field {
   width: 35px;
   min-width: 35px;
+  margin-top: -0.6px;
 }
 
 .field__item.row-options-field {
   width: 35px;
   min-width: 35px;
-  min-height: 27px;
+  min-height: 0px;
   border-right: 0;
   border-left: 0;
 }
@@ -17,24 +33,24 @@
 }
 .field__item.row-options-field {
   .row-control-container {
-    border-top: 0.5px solid rgba(170, 170, 170, 0.15);
+    border-top: 0.5px solid rgba(170, 170, 170, 0.1);
     border-left: 0.5px solid rgba(170, 170, 170, 0.1);
     height: 33px;
   }
 
-  .row-control-container:first-child {
-    border-top: 0;
-    height: 32px;
-  }
+  // .row-control-container:first-child {
+  //   border-top: 0;
+  //   height: 32px;
+  // }
 
   .row-control-container:last-child {
-      border-bottom: 0;
+    border-bottom: 0;
   }
 }
 
 .field__items.row-options-field {
   .content__field.row-options-field {
-    min-height: 33px;
+    height: 33px;
     border-right: 0;
 
     .row-options-field_lock-icon{
@@ -46,9 +62,9 @@
     .record-dialog-btn {
       position: relative;
       width: 25px;
-      height: 31px;
+      height: 28px;
       padding: 0 !important;
-      margin: 0 0 0 5px;
+      margin: 3px 5px 0 5px;
       cursor: pointer;
       border-left: none;
       text-decoration: none;
@@ -56,6 +72,7 @@
       font-size: 12px;
       color: #2d7ff9;
       background-color: #fff !important;
+      opacity: 0;
 
       .expand.icon {
         color: #2d7ff9;
@@ -66,7 +83,7 @@
         height: 23px !important;
         top: 4px;
         left: 3px;
-        margin: 0;
+        margin: 0!important;
         background-color: #fff;
         display: -webkit-box !important;
         display: -webkit-flex !important;
@@ -87,11 +104,27 @@
         border: 2px solid #ccc;
       }
     }
+    .record-dialog-btn:hover {
+      opacity: 1;
+    }
   }
 }
-.modal {
+.recordDialog-modal {
   position: relative;
-  padding-bottom: 70px;
+  //padding-bottom: 70px;
+
+  .record-details.header {
+    position: relative;
+
+    .closeRecordDialogBtn {
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 0;
+      opacity: 0.5;
+      cursor: pointer;
+    }
+  }
 
   .modal-content {
     padding-right: 0!important;
@@ -107,9 +140,11 @@
     padding-right: 5px;
     margin-top: 10px;
   }
-
+  .expand-record-item {
+    
   .table-cell.date.active {
     z-index: 1000;
+  }
   }
 
   .table-cell-container {
@@ -137,7 +172,6 @@
 
   .modal-field-item {
     margin-bottom: 14px;
-
     .modal-field-name {
       font-weight: 600;
       font-size: 1.2em;
@@ -154,7 +188,6 @@
       resize: none!important;;
       border: 2px solid rgba(0,0,0,0.15)!important;;
       border-radius: .28571429rem!important;
-      //padding: 16px 9.5px!important;;
     }
 
     .ui.input input:hover,
@@ -240,133 +273,18 @@
       }
     }
 
-    .single-select-container {
-      height: 32px;
 
-      .Select {
-        height: 32px !important;
-      }
-      .Select-control {
-        height: 32px !important;
-        position: relative;
-        border: 2px solid rgba(0, 0, 0, 0.15)!important;
-
-        .Select-multi-value-wrapper {
-          width: 100%;
-          height: 32px;
-          display: block;
-          position: absolute;
-          top: 12px;
-
-          .Select-input {
-            width: 100%;
-            height: 32px!important;
-            display: block;
-
-            input {
-              width: 100%!important;
-              height: 100%!important;
-              display: block!important;
-              padding: 0!important;
-              border: none!important;
-              outline: none!important;
-            }
-          }
-
-          .Select-placeholder {
-            top: -3px;
-          }
-        }
-
-        .Select-arrow-zone {
-          height: 32px!important;
-          position: absolute;
-          top: 5px;
-          right: 0;
-        }
-      }
-
-      .Select-value-label {
-        width: 100%;
-        height: 32px;
-        display: block;
-      }
-
-      .Select-menu-outer{
-        z-index: 1000000 !important;
-      }
-    }
-
-    .multiple-select-container {
-      height: 32px;
-
-      .Select {
-        height: 32px !important;
-      }
-      .Select-control {
-        height: 32px !important;
-        position: relative;
-        border: 2px solid rgba(0, 0, 0, 0.15)!important;
-
-        .Select-multi-value-wrapper {
-          width: 100%;
-          height: 32px;
-          display: block;
-          position: absolute;
-          //top: 12px;
-
-          .Select-value {
-            height: 24px;
-          }
-          .Select-value-label {
-            width: inherit;
-            height: inherit;
-            display: inherit;
-          }
-          .Select-placeholder {
-            top: -6px;
-            height: 32px;
-          }
-
-          .Select-input {
-            width: 100%!important;
-            height: 32px!important;
-            display: block!important;
-
-            input {
-              width: 100% !important;
-              height: 100%!important;
-              display: block!important;
-              padding: 0!important;
-              border: none!important;
-              outline: none!important;
-            }
-          }
-        }
-
-        .Select-arrow-zone {
-          height: 32px!important;
-          position: absolute;
-          top: 12px;
-          right: 0;
-        }
-      }
-      .Select-value-label {
-        width: 100%;
-        height: 32px;
-        display: block;
-      }
-    }
   }
 
-  .modal-sidebar-block {
+  .modal-sidebar-block.description {
+    //max-height: calc(70vh);
     width: 49%!important;
-    padding-left: 35px;
-    padding-right: 10px;
+    padding: 0 10px 55px 35px;
 
     .ui.header {
       //margin: 10px 0;
       margin-bottom: 10px;
+      display: inline-block;
     }
 
     .history-icon {
@@ -377,6 +295,18 @@
     .comments-icon {
       font-size: 18px!important;
       line-height: 14px!important;
+    }
+
+    .ui.accordion .title:not(.ui) {
+      border-radius: 0.48571rem;
+      background-color: rgba(144, 143, 143, 0.13);
+      margin: 5px 0;
+      padding: 0;
+    }
+
+    .ui.accordion:not(.styled) .title~.content:not(.ui) {
+      background-color: rgba(144, 143, 143, 0.07);
+      padding: 0;
     }
   }
 
@@ -404,9 +334,11 @@
   }
 
   .modal-history-list {
-    max-height: 30vh!important;
-    min-height: 18vh!important;
+    max-height: 55vh!important;
+    //min-height: 18vh!important;
     overflow-x: hidden!important;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.28571rem;
   }
 
   .record-comment-item:last-child {
@@ -460,19 +392,39 @@
   }
 
   .comments-block {
-    max-height: 30vh!important;
-    min-height: 18vh!important;
+    max-height: 55vh!important;
+    //min-height: 18vh!important;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.28571rem;
   }
 
   .user-comment-info {
     position: absolute;
     bottom: 20px;
-    padding-top: 21px;
+    //padding-top: 21px;
     //border-top: 2px solid rgba(117, 116, 116, 0.66);
+
+    .username {
+      max-width: 119px;//119
+      margin-left: 20px;
+      margin-right: 20px;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      position: relative;
+      top: 10px;
+    }
+    .ui.avatar.image {
+      //float: left;
+      position: relative;
+      top: -4px;
+    }
 
     .ui.input input {
       border: 2px solid rgba(0,0,0,0.15);
-      margin-left: 20px;
+      margin: 0;
+      margin-top: 5px;
+      float: right;
     }
 
     .ui.input input:hover {
@@ -483,12 +435,16 @@
       border: 2px solid #6495ed;
     }
   }
+  .user-comment-info + span + span {
+    display: inline-block;
+    float: left;
+  }
 }
 
 @media screen and (max-width: 1360px) {
   .modal {
     .comments-block {
-      max-height: 20vh!important;
+      max-height: 40vh!important;
     }
   }
 }

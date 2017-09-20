@@ -1,6 +1,6 @@
 import { call, put, takeEvery} from 'redux-saga/effects';
 import { getTablesByIds } from '../dashboard/dashboardApi';
-import R from 'ramda';
+;
 import { addBaseToTeam, updateBaseById, updateTeam,
 		deleteBase, getTeamsByUserId, getBasesByTeam,
 		deleteTeam, addTeam, getCollaborators, getAllUsers,
@@ -95,6 +95,7 @@ function* deletingTeam(action) {
 	try {
 		const deletedTeam = yield call(deleteTeam, action.teamId);
 		yield put({ type: 'DELETE_TEAM_SUCCEEDED', team: deletedTeam })
+
 	} catch (err) {
 		yield put({ type: 'DELETE_TEAM_FAILED', message: err.message })
 	}
@@ -175,6 +176,7 @@ function* updatingCollaboratorRole(action) {
 		yield put({ type: 'UPDATE_TEAM_FAILED', message: err.message});
 	}
 }
+
 
 function* homePageSaga() {
     yield takeEvery('ADD_NEW_BASE', addingBase);

@@ -15,6 +15,7 @@ const storage = multer.diskStorage({
 			cb(null, dir)
 		}
 		if (file.fieldname === 'file') {
+			mkdirp.sync('./files')
 			cb(null, './files')
 		}
 	},
@@ -45,6 +46,7 @@ router.post('/', upload.single('file'), (request, response) => {
 });
 
 router.post('/attachment/:record_dataId/:type/:tableId', upload.single('attachment'), (req, res) => {
+	if (req.params.record_dataId === 'temporary') return res.sendStatus(200)
 	tableRepository.updateRecordById(req.params.tableId, req.params.record_dataId, req.file.originalname)
 		.then(table => res.status(200).send(table))
 		.catch(err => res.status(400).send(err))

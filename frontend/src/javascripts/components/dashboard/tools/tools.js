@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import Header from './header/header';
 import Tabs from './tabs/tabs';
 import View from '../../view/view';
-import R from 'ramda';
-import {onGetCoworkersList} from '../../../app/socket';
+
+import {onGetCoworkersList, tableAddSuccess, shareDeleteTable, shareUpdateTable,
+        shareAddingNewRecord, sharingUpdateFieldMeta, sharingRemoveField, sharingRemoveRecord} from '../../../app/socket';
 import { getRoleByUserId } from '../dashboardService'
 
 class Tools extends Component {
@@ -25,6 +26,7 @@ class Tools extends Component {
         this.state = {
             currentUserRole: ''
         }
+
     }
 
     componentWillMount() {
@@ -39,12 +41,39 @@ class Tools extends Component {
     }
 
     componentDidMount() {
+
         const _this = this;
         onGetCoworkersList((coworkersByTables) => {
             _this.props.getCoworkersList(coworkersByTables, _this.props.currentTableId);
         });
 
+        tableAddSuccess((table) => {
+            _this.props.addTableSucceed(table, _this.props.baseId)
+        })
 
+	    shareDeleteTable(tableId => {
+	        _this.props.deleteTableSuccess(tableId)
+        })
+
+        shareUpdateTable(table => {
+            _this.props.updateTableSuccess(table)
+        })
+
+        shareAddingNewRecord(table => {
+            _this.props.addRecordSuccess(table)
+        })
+
+	    sharingUpdateFieldMeta(table => {
+	        _this.props.updateFieldSucceeded(table)
+        })
+
+	    sharingRemoveField(table => {
+	        _this.props.deleteFieldSuccess(table)
+        })
+
+	    sharingRemoveRecord(table => {
+	        _this.props.deleteRecordSuccess(table)
+        })
 
 	    this.context.router.listenBefore((location, done) => {
             if (!location.pathname.startsWith('/dashboard/' + _this.props.baseId + '/')) {
@@ -58,13 +87,13 @@ class Tools extends Component {
         });
 
         window.addEventListener("keydown", (event) => {
-            if (event.keyCode === 16) {
+            if (event.keyCode === 17) {
                 _this.props.shiftKeyDown();
             }
         });
 
         window.addEventListener("keyup", (event) => {
-            if (event.keyCode === 16) {
+            if (event.keyCode === 17) {
                 _this.props.shiftKeyUp();
             }
         });
@@ -98,13 +127,12 @@ class Tools extends Component {
     }
 
     activateRecordHandler(id) {
-        this.props.activateRecord(id);
+	    if (this.props.currentRole !== 'readOnly') this.props.activateRecord(id);
     }
 
     keyPressRecordHandler(id) {
-        if (!this.isRecordActive(id)) {
+        if (!this.isRecordActive(id) && this.props.currentRole !== 'readOnly') {
             this.props.changeRecord(this.props.currentTableId, id, '', this.props.user);
-                                                                                                                                                                                this.props.activateRecord(id);
         }
     }
 
@@ -124,7 +152,8 @@ class Tools extends Component {
     }
 
     blurRecordComponentHandler(id, value) {
-        this.props.changeRecord(this.props.currentTableId, id, value, this.props.user);
+	    if (this.props.currentRole !== 'readOnly')
+	    	this.props.changeRecord(this.props.currentTableId, id, value, this.props.user);
         this.props.blurRecordComponent(this.props.currentTableId, id);
     }
 
@@ -169,16 +198,18 @@ class Tools extends Component {
             mouseOverRecordItemHandler: this.mouseOverRecordItemHandler
         };
         return (
-            <div onClick={() => {
+            <div onClick={event => {
                 // this.props.closeMenu();
             }}>
                 <Header base={this.props.base}
+                        currentRole={this.props.currentRole}
                         tables={this.props.tables}
                         user={this.props.user}
                         members={this.props.members}
                         menu={this.props.menu}
                         handleClick={this.props.handleClick}/>
                 <Tabs base={this.props.base}
+                      currentRole={this.props.currentRole}
                       members={this.props.members}
                       currentTableId={this.props.currentTableId}
                       tables={this.props.tables}
@@ -200,7 +231,8 @@ class Tools extends Component {
                       collaborators={this.props.collaborators}
                       user={this.props.user}/>
                 {currentTable &&
-                <View currentTable={currentTable}
+                <View currentRole = {this.props.currentRole}
+                      currentTable={currentTable}
                       tables={this.props.tables}
                       recordData={recordData}
                       openRecordDialog={this.props.openRecordDialog}
@@ -220,23 +252,25 @@ class Tools extends Component {
                       addField={this.props.addField}
                       changeFieldType={this.props.changeFieldType}
                       changeFieldName={this.props.changeFieldName}
+                      updateViewHideField={this.props.updateViewHideField}
                       changeFieldOptions={this.props.changeFieldOptions}
                       deleteField={this.props.deleteField}
                       deleteRecord={this.props.deleteRecord}
                       changeView={this.props.changeView}
-                      sortRecords={this.props.sortRecords}
-                      filterRecords={this.props.filterRecords}
-                      filteredRecords={this.props.filteredRecords}
-                      removeFilter={this.props.removeFilter}
                       addView={this.props.addView}
                       deleteView={this.props.deleteView}
                       addFilter={this.props.addFilter}
                       updateFilter={this.props.updateFilter}
+                      removeFilter={this.props.removeFilter}
+                      removeAllFilters={this.props.removeAllFilters}
+                      addSort={this.props.addSort}
+                      updateSort={this.props.updateSort}
+                      removeSort={this.props.removeSort}
+                      removeAllSorts={this.props.removeAllSorts}
                       setSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
                       appendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
                       setSelectAllRecordItems={this.props.setSelectAllRecordItems}
                       selectedRecordItemList={this.props.selectedRecordItemList}
-                      removeAllFilters={this.props.removeAllFilters}
                 />
                 }
             </div>

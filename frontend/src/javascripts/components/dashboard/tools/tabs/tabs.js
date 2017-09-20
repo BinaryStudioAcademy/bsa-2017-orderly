@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon, Label } from 'semantic-ui-react';
-import R from 'ramda';
+
 import AddTabBtn from './addTabBtn/addTabBtn';
 import TabItem from './tabItem/tabItem';
 import Coworkers from './coworkers/coworkers';
@@ -9,17 +9,18 @@ import './tabs.scss';
 const Tabs = ({ base, tables, addPopupIsOpen, currentTableId, renameIsError,
     addTableClick, switchTableClick, togglePopup, openMenu, closeMenu,
     activeModal, setTabsModal, checkTableName, updateTable, deleteTable,
-    coworkers, user, tableIdActiveModal, setTableIdToActiveModal, members}) => (
+    coworkers, user, tableIdActiveModal, setTableIdToActiveModal, members, currentRole}) => (
     <div className='tabs_panel' style={{backgroundColor:`${base.color}`}}>
         <div className='btn_block'>
             <div className='tabs_block'>
                 { R.map( (table) => {
                     if (table._id !== 0 ) return TabItem(base, currentTableId, table, switchTableClick, openMenu,
                                         closeMenu, activeModal, setTabsModal, tables, renameIsError, checkTableName,
-                                        updateTable, deleteTable, addTableClick, tableIdActiveModal, setTableIdToActiveModal);
+                                        updateTable, deleteTable, addTableClick, tableIdActiveModal, setTableIdToActiveModal,
+	                                    currentRole);
                 } )(tables) }
             </div>
-            <div className='add_btn'>
+            <div className='add_btn' style={{display: currentRole === 'readOnly' ? 'none' : 'block'}}>
                 <AddTabBtn base={base}
                     togglePopup={togglePopup}
                     addPopupIsOpen={addPopupIsOpen}

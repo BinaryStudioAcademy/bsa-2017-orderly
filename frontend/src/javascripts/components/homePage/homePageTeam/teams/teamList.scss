@@ -5,7 +5,8 @@
     .team-block-wrapper {
       text-align: center;
       padding: 20px 7%;
-      width: 750px;
+      //max-width: 750px;
+      min-width: 750px;
     }
 
     .team-item {
@@ -73,8 +74,7 @@
       .btn-add-base {
         width: 98px;
         height: 90px;
-        margin: 10px;
-        margin-top: 30px;
+        margin-top: 1px;
         font-size: 65px;
         padding: 33.5px 0 33.5px 0;
         border:1px solid white;

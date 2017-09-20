@@ -41,15 +41,7 @@ export default class View extends Component {
     };
 
     handleChangeView = (viewId, viewType) => {
-        if (viewType==='form') {
-            //this.props.addRecord(this.props.currentTable._id);
-            this.props.changeView(this.props.currentTable._id, viewId);
-            //browserHistory.push(`/${viewId}`)
-        } else {
-            console.log(window.location.href)
-            this.props.changeView(this.props.currentTable._id, viewId);
-            //browserHistory.push(`${window.location.href}/${viewId}`)
-        }
+        this.props.changeView(this.props.currentTable._id, viewId, viewType);
         this.handleClickOnMenu();
     };
 
@@ -69,6 +61,7 @@ export default class View extends Component {
         switch (activeView.type) {
         case 'grid':
             return <Grid
+	            currentRole={this.props.currentRole}
                 currentTable={this.props.currentTable}
                 currentViewType={activeView.type}
                 tables={this.props.tables}
@@ -77,12 +70,9 @@ export default class View extends Component {
                 addField={this.props.addField}
                 deleteField={this.props.deleteField}
                 deleteRecord={this.props.deleteRecord}
-                sortRecords={this.props.sortRecords}
-                filterRecords={this.props.filterRecords}
-                filteredRecords={this.props.filteredRecords}
-                removeFilter={this.props.removeFilter}
                 changeFieldType={this.props.changeFieldType}
                 changeFieldName={this.props.changeFieldName}
+                updateViewHideField={this.props.updateViewHideField}
                 changeFieldOptions={this.props.changeFieldOptions}
                 onOpenRecordDialog={this.props.openRecordDialog}
                 recordDialogIndex={this.props.recordDialogIndex}
@@ -100,11 +90,18 @@ export default class View extends Component {
                 viewsCount={viewsCount}
                 addFilter={this.props.addFilter}
                 updateFilter={this.props.updateFilter}
+                removeFilter={this.props.removeFilter}
+                removeAllFilters={this.props.removeAllFilters}
+                addSort={this.props.addSort}
+                updateSort={this.props.updateSort}
+                removeSort={this.props.removeSort}
+                removeAllSorts={this.props.removeAllSorts}
                 setSelectFieldRecordItems={this.props.setSelectFieldRecordItems}
                 appendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
                 setSelectAllRecordItems={this.props.setSelectAllRecordItems}
                 selectedRecordItemList={this.props.selectedRecordItemList}
-                removeAllFilters={this.props.removeAllFilters}
+                currentViewId={this.props.currentView}
+
             />;
         case 'form':
             return <FormView
@@ -155,7 +152,9 @@ export default class View extends Component {
             <div className="view__container">
                 <div ref='viewCaret' className="view__caret">
                     <div ref={(node) => this.node = node }
-                         onClick={(e) => this.handleClickOnMenu(e)}>
+                         onClick={(e) => {
+                         	if (this.props.currentRole !== 'readOnly') this.handleClickOnMenu(e)
+                         } }>
                         <Icon name="caret down"
                               id="header__caret"
                               size="large"/>
