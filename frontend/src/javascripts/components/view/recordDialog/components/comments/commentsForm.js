@@ -25,6 +25,7 @@ class CommentsForm extends Component {
             </span>
                 <Input type='text'
                        icon='comment'
+                       onFocus={() => {this.props.openComments()}}
                     onKeyPress={(event) => this.keyPressCommentHandler(this.props.user._id,
                                                 this.props.record._id, this.props.tableId, event)}
                 />
