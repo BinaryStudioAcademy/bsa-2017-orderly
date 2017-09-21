@@ -5,7 +5,7 @@ import {
     deleteFieldRecords, deleteRecord, uploadFile, addView, deleteView, getTableById,
     updateKanban, getMembersByBaseId, getTableView, updateViewHideFields,
     addFilter, updateFilter, removeFilter, removeAllFilters,
-    addSort, updateSort, removeSort, removeAllSorts, updateTableCSV
+    addSort, updateSort, removeSort, removeAllSorts, updateTableCSV, deleteComment
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -228,7 +228,11 @@ function* disconnectSocket() {
 function* uploadingFiles(action) {
     try {
         const changedTable = yield call(uploadFile, action);
-        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
+	    if (action.record_dataId === "temporary") {
+		    yield put({type: 'BLUR_RECORD', recordData: action.value, index: action.idx})
+	    } else {
+		    yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
+	    }
     } catch (err) {
         yield put({type: 'UPLOAD_FILES_FAILED', message: err.message});
     }
@@ -394,6 +398,21 @@ function* removeAllTableSorts(action) {
     }
 }
 
+function* deletingComment(action) {
+	try {
+		const updatedTable = yield call(deleteComment, action)
+		yield put({
+			type: 'DELETE_COMMENT_SUCCESSED',
+			tableId: action.tableId,
+			recordId: action.recordId,
+			commentId: action.commentId,
+			updatedTable: updatedTable
+		})
+	} catch (err) {
+		yield put({type: 'DELETE_COMMENT_FAILED', message: err.message})
+	}
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -431,6 +450,7 @@ function* dashboardSaga() {
     yield takeEvery('REMOVE_SORT', removeTableSort);
     yield takeEvery('REMOVE_ALL_SORTS', removeAllTableSorts);
     yield takeEvery('UPDATE_VIEW_HIDE_FIELD', updateGridHideField);
+    yield takeEvery('DELETE_COMMENT', deletingComment)
 }
 
 export default dashboardSaga;

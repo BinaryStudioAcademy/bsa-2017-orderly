@@ -61,6 +61,7 @@ export default class View extends Component {
         switch (activeView.type) {
         case 'grid':
             return <Grid
+	            deleteComment={this.props.deleteComment}
 	            currentRole={this.props.currentRole}
                 currentTable={this.props.currentTable}
                 currentViewType={activeView.type}

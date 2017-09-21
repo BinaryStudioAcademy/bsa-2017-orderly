@@ -297,6 +297,7 @@ export default class GridContent extends Component {
                                     })}
                                     {(this.props.recordDialogIndex === 0 || this.props.recordDialogIndex > 0) &&
                                     <RecordDialog
+	                                    deleteComment={this.props.deleteComment}
                                         record={this.props.currentTable.records[this.props.recordDialogIndex]}
                                         fields={this.props.currentTable.fields}
                                         recordData={this.props.recordData}
