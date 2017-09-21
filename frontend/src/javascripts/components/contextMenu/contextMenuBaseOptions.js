@@ -15,9 +15,7 @@ let BaseOptions = (props) => {
           <Icon name='info circle' className='icon' color='black' size='small'/>
           Description
         </li>
-        <Link to={'/'}>
           <ModalDublicateBase handleClick = {props.handleClick} teamId = {props.teamId} base = {props.base} teamNames={props.teamNames}/>
-        </Link>
         <li className = 'base-options-list-item disabled'>
           <Icon name='slack' className='icon' color='black' size='small'/>
           Slack notifications

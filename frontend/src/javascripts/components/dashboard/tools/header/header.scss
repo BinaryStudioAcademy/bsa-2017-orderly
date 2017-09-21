@@ -77,3 +77,28 @@
     }
   }
 }
+
+.dashboard_header{
+  .menu-show-2
+    .base-options-wrapper
+      .base-options-list
+        .disabled-on-dashoboard {
+          cursor: auto !important;
+          color: rgb(200, 200, 200)!important;
+          i.icon.share.alternate.square:before {
+            color: rgb(200, 200, 200)!important;
+          }
+          i.icon.info.circle:before{
+            color: rgb(200, 200, 200)!important;
+          }
+          i.icon.slack:before{
+            color: rgb(200, 200, 200)!important;
+          }
+        }
+  .menu-show-2
+    .base-options-wrapper
+      .base-options-list
+        .disabled-on-dashoboard:hover {
+          background-color: rgba(0, 0, 0, 0) !important;
+  }
+}
