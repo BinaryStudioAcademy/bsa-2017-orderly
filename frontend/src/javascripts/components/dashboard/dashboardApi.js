@@ -184,3 +184,10 @@ export const updateViewHideFields = (action) => {
         .then((response) => response)
         .catch(R.tap(console.error));
 };
+
+export const deleteComment = ({tableId, recordId, commentId}) =>
+	axios.delete(`${url}/tables/${tableId}/records/${recordId}/comments/${commentId}`)
+		.then(response => {
+			return response.data
+		})
+		.catch(R.tap(console.error))

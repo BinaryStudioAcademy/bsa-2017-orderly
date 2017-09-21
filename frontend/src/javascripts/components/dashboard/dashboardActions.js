@@ -144,6 +144,15 @@ export const addComment = (userId, recordId, tableId, comment) => {
     };
 };
 
+export const deleteComment = (tableId, recordId, commentId) => {
+	return {
+		type: 'DELETE_COMMENT',
+		tableId: tableId,
+		recordId: recordId,
+		commentId: commentId
+	}
+}
+
 export const getCoworkersList = (coworkersByTables, tableId) => {
     return {
         type: 'GET_COWORKERS_LIST',

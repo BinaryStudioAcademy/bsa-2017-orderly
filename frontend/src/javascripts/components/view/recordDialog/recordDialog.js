@@ -95,7 +95,7 @@ export const Recordtem = ({id, type, data, tableId, recordData, uploadAttachment
 };
 
 const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPressComment, user, tableId,
-                       uploadAttachment, deleteFile, recordIdx}) => {
+                       uploadAttachment, deleteFile, recordIdx, deleteComment}) => {
     const panels = [
         {
             key: 'panel-history',
@@ -105,7 +105,9 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
         {
             key: 'panel-comments',
             title: <Header><Icon name="commenting outline" className="comments-icon"/> Comments</Header>,
-            content: <CommentsBlock record={record}/>
+            content: <CommentsBlock record={record}
+                                    deleteComment={deleteComment}
+                                    tableId={tableId}/>
         }
     ];
 

@@ -38,6 +38,7 @@ export default class Grid extends Component {
                     removeAllSorts={this.props.removeAllSorts}
                 />
                 <GridContent
+	                deleteComment={this.props.deleteComment}
 	                isReadOnly={this.props.currentRole === 'readOnly'}
 	                currentRole={this.props.currentRole}
                     currentViewId={this.props.currentViewId}
