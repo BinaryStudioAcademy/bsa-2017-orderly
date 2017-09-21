@@ -401,13 +401,7 @@ function* removeAllTableSorts(action) {
 function* deletingComment(action) {
 	try {
 		const updatedTable = yield call(deleteComment, action)
-		yield put({
-			type: 'DELETE_COMMENT_SUCCESSED',
-			tableId: action.tableId,
-			recordId: action.recordId,
-			commentId: action.commentId,
-			updatedTable: updatedTable
-		})
+		yield put({type: 'UPDATE_TABLE', tableId: action.tableId, newData: updatedTable})
 	} catch (err) {
 		yield put({type: 'DELETE_COMMENT_FAILED', message: err.message})
 	}

@@ -8,6 +8,8 @@ const Kanban = require('../../schemas/view/kanbanSchema');
 const ObjectId = require('mongoose').Types.ObjectId;
 const R = require('ramda');
 
+const mapIndexed = R.addIndex(R.map)
+
 class TableRepository extends Repository {
 
     constructor() {
@@ -304,16 +306,15 @@ class TableRepository extends Repository {
 	pullComment(tableId, recordId, commentId) {
 		return this.model.findById(tableId)
 			.then(table => {
-				const record = R.find(R.propEq('_id', ObjectId(recordId)))(R.path(['records'], table))
-				const filteredComments = R.reject(R.propEq('_id', ObjectId(commentId)))(R.path(['comments'], record))
-				record.comments = filteredComments
-				return this.model.findOneAndUpdate({
-					_id: tableId,
-					'records._id': ObjectId(record._id)
-				},
-					{$set: {'comments' : filteredComments}},
-					{'new': true})
+				mapIndexed((record, recordIdx) => {
+					if (R.equals(ObjectId(record._id), ObjectId(recordId))) {
+						record.comments = R.reject(R.propEq('_id', ObjectId(commentId)))(R.path(['comments'], record))
+					}
+				})(R.path(['records'], table))
+
+				return table.save()
 			})
+			.then(() => this.model.findById(tableId))
 	}
 
     updateView(tableId, viewId, viewType, fieldId, hidden ) {
