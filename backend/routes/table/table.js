@@ -71,6 +71,18 @@ router.put('/:id', (request, response, next) => {
         });
 });
 
+router.put('/csv/:id', (request, response, next) => {
+    tableRepository.uploadCSV(request.params.id, request.body.data, request.body.viewId, request.body.viewType)
+        .then(R.tap((table) => {
+            io.emit('table:update:success', table);
+        }))
+        .then((table) => response.status(200).send(table))
+        .catch((error) => {
+            response.status(400);
+            next(error);
+        });
+});
+
 router.delete('/:id', (request, response, next) => {
     tableRepository.remove(request.params.id)
         .then(() => baseRepository.deleteTableFromBase(request.params.id))

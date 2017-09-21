@@ -5,7 +5,7 @@ import {
     deleteFieldRecords, deleteRecord, uploadFile, addView, deleteView, getTableById,
     updateKanban, getMembersByBaseId, getTableView, updateViewHideFields,
     addFilter, updateFilter, removeFilter, removeAllFilters,
-    addSort, updateSort, removeSort, removeAllSorts, deleteComment
+    addSort, updateSort, removeSort, removeAllSorts, updateTableCSV, deleteComment
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -85,6 +85,20 @@ function* changeTable(action) {
         payload._id = action.tableId;
         payload.body = action.newData;
         const changedTable = yield call(updateTable, payload);
+        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
+    } catch (err) {
+        yield put({type: 'RENAME_TABLE_FAILED', message: err.message});
+    }
+}
+
+function* uploadCSV(action) {
+    try {
+        const payload = {};
+        payload._id = action.tableId;
+        payload.data = action.newData;
+        payload.viewId = action.viewId;
+        payload.viewType = action.viewType;
+        const changedTable = yield call(updateTableCSV, payload);
         yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
     } catch (err) {
         yield put({type: 'RENAME_TABLE_FAILED', message: err.message});
@@ -408,7 +422,7 @@ function* dashboardSaga() {
     yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
     yield takeEvery('ADD_FIELD', addNewField);
     yield takeEvery('UPDATE_TABLE', changeTable);
-    yield takeEvery('CSV_PARSED', changeTable);
+    yield takeEvery('CSV_PARSED', uploadCSV);
     yield takeEvery('CHANGE_FIELD_TYPE', changeTable);
     yield takeEvery('ADD_RECORD', addNewRecord);
     yield takeLatest('CHANGE_RECORD', changeTableRecord);

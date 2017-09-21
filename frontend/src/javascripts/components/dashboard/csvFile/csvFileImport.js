@@ -9,7 +9,9 @@ import './csvFile.scss'
 class ImportCSV extends Component {
   onDrop(file){
     let passJSON = this.props.passJSON;
-    let tableId = this.props.currentTableId
+    let tableId = this.props.currentTableId;
+    let currentViewId = this.props.currentViewId;
+    let currentViewType= this.props.currentViewType;
     
     Papa.parse(file[0], {
       skipEmptyLines: true,
@@ -35,7 +37,7 @@ class ImportCSV extends Component {
         newData.fields = fields;
         newData.records = records;
         console.log(newData)
-        passJSON(newData, tableId);
+        passJSON(newData, tableId, currentViewId, currentViewType);
         
       }
     });
