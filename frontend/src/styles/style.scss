@@ -1,4 +1,20 @@
 
+body, html {
+        width: 100% !important;
+        height: 100% !important;
+    }
+.user-profile-wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
+.form-share-popup-wrapper {
+    .Select-menu-outer{
+    max-height: 183px !important;
+    }
+    .Select-menu {
+        max-height: 173px !important;
+    }
+}
 .relative {
   position: relative;
 }
@@ -32,9 +48,41 @@
     .form-for-share {
         padding: 50px 70px 80px 70px !important;
     }
+    
+    #user-profile-header{
+        .ui.block.header{
+            padding-left: 0 !important;
+        }}
 }
 
 @media screen and (max-width:960px) {
+    .user-profile-wrapper{
+        flex-direction: column;
+    .form-block{
+        flex-direction: column;
+        .form-input-block{
+            margin: 5px auto !important;
+            padding-left: 0 !important;
+        }
+    }
+    .user-profile-photo{
+        img {
+            margin: 0 auto !important;
+        }
+    }
+        .ui.medium.image {
+            width: 230px !important;
+        }
+    }
+    .user-profile-submit-btn{
+        text-align: center !important;
+        .ui.button{
+        }
+    }
+    .user-profile-photo-wrapper
+        .change-avatar-input {
+            margin-bottom: 15px !important;
+        }
 
     .user-profile-photo-wrapper{
         padding-left: 5px;
@@ -102,15 +150,33 @@
         .team-block-wrapper {
           min-width: 350px !important;
         }}}
-    .user-profile-photo-wrapper{
-        width: 88%;
-        padding-left: 3px;
-        .change-avatar-input{
-            width: 100%;
-        }
+    .sort__menu {
+        left: 15px !important;
     }
     .form-for-share {
         padding: 20px 20px 30px 20px !important;
+    }
+    #user-profile-header{
+    margin-top: 100px;
+    text-align: center;
+
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+        .ui.block.header{
+          border: none !important;
+          color: rgba(0,0,0,.5) !important;
+          background: #ffffff !important;
+          font-size: 20px !important;
+          padding-right: 0 !important;
+          width: 100% !important;
+        }
+        .ui.medium.image{
+            width: 190px;
+        }
+    }
+    .form-input-block{
+        width: 64% !important;
     }
     
 
@@ -142,6 +208,13 @@
         width: 35px !important;
         .search-btn {
             width: 15px !important;
+        }
+    }
+    .sort__menu {
+        left: 50px !important;
+        .sort__item{
+            flex-direction: column;
+
         }
     }
 

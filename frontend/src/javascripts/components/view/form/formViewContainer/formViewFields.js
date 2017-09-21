@@ -30,7 +30,7 @@ export default class FormViewFields extends Component {
                                         currentField={this.props.fields[ind]}
                                         records={this.props.records}
                                         recordData={this.props.recordData}
-                                        tableId={this.props.tableId}
+                                        tableId={this.props.currentTableId}
                                         uploadAttachment={this.props.uploadAttachment}
                                         deleteFile={this.props.deleteFile}
                                     />
@@ -40,7 +40,7 @@ export default class FormViewFields extends Component {
                     }):<div></div>}
                 </div>
                 <div className='submit-btn'>
-                    <Button type='submit'>Sumbit form</Button>
+                    <Button type='submit'>Submit form</Button>
                 </div>
             </div>
         );

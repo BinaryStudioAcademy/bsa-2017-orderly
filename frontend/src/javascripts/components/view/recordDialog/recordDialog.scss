@@ -280,6 +280,7 @@
     //max-height: calc(70vh);
     width: 49%!important;
     padding: 0 10px 55px 35px;
+    margin-bottom: 50px;
 
     .ui.header {
       //margin: 10px 0;
@@ -347,12 +348,19 @@
 
   .record-comment-item {
     word-wrap: break-word;
+
+
   }
+
 
   .record-history-header,
   .record-comment-header {
     margin-bottom: 8px;
     font-size: 0.9em;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
   }
 
   .record-history-field {
@@ -396,6 +404,7 @@
     //min-height: 18vh!important;
     border: 2px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.28571rem;
+    margin-bottom: 55px;
   }
 
   .user-comment-info {
@@ -440,6 +449,7 @@
     float: left;
   }
 }
+
 
 @media screen and (max-width: 1360px) {
   .modal {
