@@ -1,5 +1,6 @@
 import React from 'react';
 import { Popup, Icon, Input } from 'semantic-ui-react';
+import { Link } from 'react-router';
 import ModalDublicateBase from '../homePage/homePageTeam/bases/dublicateBasePopUp'
 
 let BaseOptions = (props) => {
@@ -14,15 +15,17 @@ let BaseOptions = (props) => {
           <Icon name='info circle' className='icon' color='black' size='small'/>
           Description
         </li>
-        <ModalDublicateBase handleClick = {props.handleClick} teamId = {props.teamId} base = {props.base} teamNames={props.teamNames}/>
+          <ModalDublicateBase handleClick = {props.handleClick} teamId = {props.teamId} base = {props.base} teamNames={props.teamNames}/>
         <li className = 'base-options-list-item disabled'>
           <Icon name='slack' className='icon' color='black' size='small'/>
           Slack notifications
         </li>
-        <li className = 'base-options-list-item' onClick={()=> props.handleClick(null, 'delete', props.base._id)}>
-          <Icon name='trash' className='icon' color='black' size='small'/>
-          Delete Base
-        </li> 
+        <Link to={'/'}>
+          <li className = 'base-options-list-item' onClick={()=> props.handleClick(null, 'delete', props.base._id)}>
+            <Icon name='trash' className='icon' color='black' size='small'/>
+            Delete Base
+          </li>
+        </Link>
       </ul>
     </div>
   )

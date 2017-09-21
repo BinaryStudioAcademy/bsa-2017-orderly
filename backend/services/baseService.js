@@ -12,17 +12,17 @@ const R = require('ramda');
 
 let baseCopy = (baseToCopy) => {
     let newBase = Object.assign({}, baseToCopy);
-         console.log('aaaaaaaaaaaa', newBase.tables)
-
     return tableRepository.getByIds(newBase.tables)
-    .then((tables) => {
-        return tables.map(table => { 
-            return table.toObject()
-            })
-        })
+    // .then((tables) => {
+    //     return tables.map(table => { 
+    //         return table.toObject()
+    //         })
+    //     })
     .then((tables) => {
         let newTables = tables.map(table => {
+            //table.toObject()
          //delete table._id
+        //console.log(table._id)
          table._id = mongoose.Types.ObjectId();
         
          let fields = table.fields.map(field => {

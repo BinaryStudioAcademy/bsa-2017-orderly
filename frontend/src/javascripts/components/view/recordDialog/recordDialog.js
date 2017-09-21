@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Modal, Header, Icon, Accordion } from 'semantic-ui-react';
 import CommentsForm from './components/comments/commentsForm';
 import './recordDialog.scss';
@@ -94,52 +94,48 @@ export const Recordtem = ({id, type, data, tableId, recordData, uploadAttachment
     );
 };
 
-const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPressComment, user, tableId,
-                       uploadAttachment, deleteFile, recordIdx, deleteComment}) => {
-    const panels = [
-        {
-            key: 'panel-history',
-            title: <Header><Icon name="history" className="history-icon"/> History</Header>,
-            content: <HistoryList record={record} fields={fields} />
-        },
-        {
-            key: 'panel-comments',
-            title: <Header><Icon name="commenting outline" className="comments-icon"/> Comments</Header>,
-            content: <CommentsBlock record={record}
-                                    deleteComment={deleteComment}
-                                    tableId={tableId}/>
+export default class RecordDialog extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeHistory: true,
+            activeComments: false
         }
-    ];
-
-    return (
-        <Modal
+    }
+    render(){
+        return (
+        <Modal 
             open={true}
-            onClose={(event) => onOpenRecordDialog('')}
+            onClose={(event) => this.props.onOpenRecordDialog('')}
             className="recordDialog-modal"
             >
             <Modal.Header className="record-details">
                 Record details
-                <Icon
+                <div className='closeIcon'><Icon
                     name='close'
                     className="closeRecordDialogBtn"
-                    onClick={(event) => onOpenRecordDialog('')}
-                />
+                    onClick={(event) => this.props.onOpenRecordDialog('')}
+                /></div>
             </Modal.Header>
             <Modal.Content image className="modal-content">
                 <Modal.Description className="modal-fields-block content scrolling">
-                    {record.record_data.map((recordItem, fieldIndex) => {
+                    {this.props.record.record_data.map((recordItem, fieldIndex) => {
                         return (
                             <div key={recordItem._id} className="modal-field-item">
                                 <div className="modal-field-name">
-                                    <Icon name={fieldIcons[ fields[fieldIndex].type ]} className="field__icon"/>
-                                    {fields[fieldIndex].name}
+                                    <Icon name={fieldIcons[this.props.fields[fieldIndex].type ]} className="field__icon"/>
+                                    {this.props.fields[fieldIndex].name}
                                 </div>
-                                <div className={fields[fieldIndex].type=='multiple'||fields[fieldIndex].type=='select'? 'expand-record-item':''}>
-                                <Recordtem id={recordItem._id} type={fields[fieldIndex].type}
-                                        data={recordItem.data} recordData={recordData}
-                                        uploadAttachment={uploadAttachment} deleteFile={deleteFile}
-                                        currentField={fields[fieldIndex]} recordIdx={recordIdx}
-                                        tableId={tableId}
+                                <div className={this.props.fields[fieldIndex].type=='multiple'||this.props.fields[fieldIndex].type=='select'? 'expand-record-item':''}>
+                                <Recordtem id={recordItem._id} 
+                                        type={this.props.fields[fieldIndex].type}
+                                        data={recordItem.data} 
+                                        recordData={this.props.recordData}
+                                        uploadAttachment={this.props.uploadAttachment} 
+                                        deleteFile={this.props.deleteFile}
+                                        currentField={this.props.fields[fieldIndex]} 
+                                        recordIdx={this.props.ecordIdx}
+                                        tableId={this.props.tableId}
                                 />
                                 </div>
                             </div>
@@ -147,20 +143,31 @@ const RecordDialog = ({record, fields, recordData, onOpenRecordDialog, onKeyPres
                     })}
                 </Modal.Description>
                 <Modal.Description className="modal-sidebar-block">
-                    <Accordion panels={panels} exclusive={false} fluid />
-                    <CommentsForm record={record}
-                                  user={user}
-                                  tableId={tableId}
-                                  onKeyPressComment={onKeyPressComment}/>
+                    <Accordion fluid>
+                        <Accordion.Title onClick={()=> this.setState({activeHistory: !this.state.activeHistory, activeComments: !this.state.activeComments})}>
+                            <Header><Icon name="history" className="history-icon"/> History</Header>
+                        </Accordion.Title>
+                        <Accordion.Content active={this.state.activeHistory}>
+                            <HistoryList record={this.props.record} fields={this.props.fields} />
+                        </Accordion.Content>
+
+                        <Accordion.Title onClick={()=> this.setState({activeHistory: !this.state.activeHistory, activeComments: !this.state.activeComments})}>
+                            <Header><Icon name="commenting outline" className="comments-icon"/> Comments</Header>
+                        </Accordion.Title>
+                        <Accordion.Content active={this.state.activeComments}>
+                             <CommentsBlock record={this.props.record}
+                                    deleteComment={this.props.deleteComment}
+                                    tableId={this.props.tableId}/>
+                        </Accordion.Content>
+                    </Accordion>
+                    <CommentsForm record={this.props.record}
+                                  user={this.props.user}
+                                  tableId={this.props.tableId}
+                                  onKeyPressComment={this.props.onKeyPressComment}/>
                 </Modal.Description>
             </Modal.Content>
         </Modal>
     );
-};
+    }
+}
 
-export default RecordDialog;
-/*
-user={user}
-                                    tableId={tableId}
-                                    onKeyPressComment={onKeyPressComment}
- */

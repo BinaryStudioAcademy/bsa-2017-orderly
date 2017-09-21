@@ -17,7 +17,6 @@ class ContextMenuIcon extends React.Component {
   }
   
   handleClickOnMenu(event) {
-    
     if (!this.state.menuVisible) {
       document.addEventListener('click', this.handleOutsideClick, false);
     } else {

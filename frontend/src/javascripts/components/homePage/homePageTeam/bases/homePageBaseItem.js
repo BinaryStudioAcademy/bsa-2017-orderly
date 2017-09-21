@@ -22,8 +22,7 @@ class BaseItem extends Component {
           <div className = 'one-base-icon'>
               <Icon inverted link  size='huge'
                     onClick={() => {
-                    	console.log(this.props.base, 'this is base')
-                        browserHistory.push(`/dashboard/${this.props.base._id}/${this.props.base.tables[0]}`)
+                      browserHistory.push(`/dashboard/${this.props.base._id}/${this.props.base.tables[0]}`)
 	                    this.props.saveCurrentTeamRoles(R.mergeWith(R.merge, rolesObject, this.props.collaborators[this.props.teamId]))
                     }}
                     name={this.props.base.icon}

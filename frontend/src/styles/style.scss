@@ -3,6 +3,11 @@ body, html {
         width: 100% !important;
         height: 100% !important;
     }
+    .home-page-body 
+    .team-wrapper 
+    .team-block-wrapper {
+          width: 750px !important;
+        }
 .user-profile-wrapper {
     width: 80%;
     margin: 0 auto;
@@ -56,6 +61,11 @@ body, html {
 }
 
 @media screen and (max-width:960px) {
+    .home-page-body 
+        .team-wrapper 
+        .team-block-wrapper {
+          width: 600px !important;
+        }
     .user-profile-wrapper{
         flex-direction: column;
     .form-block{
@@ -102,7 +112,7 @@ body, html {
    .home-page-body {
     .team-wrapper {
         .team-block-wrapper {
-          min-width: 550px !important;
+          width: 470px !important;
         }}}
     .sort__menu {
         left: 50px !important;
@@ -148,7 +158,7 @@ body, html {
    .home-page-body {
     .team-wrapper {
         .team-block-wrapper {
-          min-width: 350px !important;
+          width: 340px !important;
         }}}
     .sort__menu {
         left: 15px !important;
