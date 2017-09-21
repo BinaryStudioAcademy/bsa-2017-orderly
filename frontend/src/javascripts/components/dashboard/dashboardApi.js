@@ -81,10 +81,13 @@ export const uploadFile = ({data, typeOfFile, record_dataId, tableId}) =>
 		.then(response => response.data)
 		.catch(R.tap(console.error));
 
-export const deleteFile = ({typeOfFile, record_dataId, tableId, fileNamesStr}) =>
-	axios.delete(`/files/attachment/${record_dataId}/${typeOfFile}/${tableId}/${fileNamesStr}`)
+export const deleteFile = ({typeOfFile, record_dataId, tableId, fileNamesStr}) => {
+	const link = `/files/attachment/${record_dataId}/${typeOfFile}/${tableId}/${fileNamesStr ? fileNamesStr : 11}`
+	return axios.delete(link)
 		.then(response => response.data)
 		.catch(R.tap(console.error));
+}
+
 
 export const addView = ({tableId, viewType}) => {
     return axios.post(url + '/tables/' + tableId + '/views', {tableId, viewType})
@@ -181,3 +184,10 @@ export const updateViewHideFields = (action) => {
         .then((response) => response)
         .catch(R.tap(console.error));
 };
+
+export const deleteComment = ({tableId, recordId, commentId}) =>
+	axios.delete(`${url}/tables/${tableId}/records/${recordId}/comments/${commentId}`)
+		.then(response => {
+			return response.data
+		})
+		.catch(R.tap(console.error))

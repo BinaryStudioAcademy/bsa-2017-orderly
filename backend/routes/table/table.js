@@ -122,6 +122,12 @@ router.delete('/:id/records/:recordId', (request, response) => {
         .catch((err) => response.sendStatus(500).send(err));
 });
 
+router.delete('/:tableId/records/:recordId/comments/:commentId', (req, res) => {
+	tableRepository.pullComment(req.params.tableId, req.params.recordId, req.params.commentId)
+		.then(table => res.status(204).send(table))
+		.catch(err => response.sendStatus(500))
+})
+
 // fields -------------------------------------
 router.get('/:id/fields', (request, response) => {
     tableRepository.getFields(request.params.id)

@@ -58,7 +58,6 @@ render() {
             handleClick = {this.props.handleClick} 
             base = {this.props.base}
             teamId={this.props.teamId}
-            teamNames={this.props.teamNames}
             />
         </div>
       </div>

@@ -5,7 +5,7 @@ const Grid = require('../../schemas/view/gridSchema');
 const Form = require('../../schemas/view/formSchema');
 const Gallery = require('../../schemas/view/gallerySchema');
 const Kanban = require('../../schemas/view/kanbanSchema');
-// const objectId = require('mongoose').Types.ObjectId;
+const ObjectId = require('mongoose').Types.ObjectId;
 const R = require('ramda');
 
 class TableRepository extends Repository {
@@ -264,13 +264,14 @@ class TableRepository extends Repository {
     }
 
     updateRecordById(tableId, record_dataId, fileName, isDelete) {
-        return this.model.findById(tableId)
+	    return this.model.findById(tableId)
 			.then(table => R.map( record => {
 				record.record_data = R.map(data => {
 					if (data._id == record_dataId) {
 						if (!data._id) return {_id: data._id, data: fileName}
 						if (isDelete) {
-							return {_id: data._id, data: fileName}
+							const deleteFile = fileName == 11 ? '' : fileName
+							return {_id: data._id, data: deleteFile}
 						} else {
 							let dataArray = data.data.split(',')
 							dataArray.push(fileName)
@@ -298,6 +299,22 @@ class TableRepository extends Repository {
             });
         });
     }
+
+
+	pullComment(tableId, recordId, commentId) {
+		return this.model.findById(tableId)
+			.then(table => {
+				const record = R.find(R.propEq('_id', ObjectId(recordId)))(R.path(['records'], table))
+				const filteredComments = R.reject(R.propEq('_id', ObjectId(commentId)))(R.path(['comments'], record))
+				record.comments = filteredComments
+				return this.model.findOneAndUpdate({
+					_id: tableId,
+					'records._id': ObjectId(record._id)
+				},
+					{$set: {'comments' : filteredComments}},
+					{'new': true})
+			})
+	}
 
     updateView(tableId, viewId, viewType, fieldId, hidden ) {
         return this.getFromView(viewId, viewType).then((view) => {
@@ -468,6 +485,7 @@ class TableRepository extends Repository {
     getFromView(viewId, viewType) {
         return typeToSchema[viewType].findById(viewId);
     }
+
 }
 
 const typeToSchema = {

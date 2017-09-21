@@ -232,6 +232,7 @@ class Tools extends Component {
                       user={this.props.user}/>
                 {currentTable &&
                 <View currentRole = {this.props.currentRole}
+                      deleteComment={this.props.deleteComment}
                       currentTable={currentTable}
                       tables={this.props.tables}
                       recordData={recordData}
