@@ -101,7 +101,13 @@ export default class RecordDialog extends Component {
             activeHistory: true,
             activeComments: false
         }
+	    this.openComments = this.openComments.bind(this)
     }
+
+    openComments() {
+    	this.setState({activeComments: true})
+    }
+
     render(){
         return (
         <Modal 
@@ -161,6 +167,7 @@ export default class RecordDialog extends Component {
                         </Accordion.Content>
                     </Accordion>
                     <CommentsForm record={this.props.record}
+                                  openComments={this.openComments}
                                   user={this.props.user}
                                   tableId={this.props.tableId}
                                   onKeyPressComment={this.props.onKeyPressComment}/>
