@@ -20,10 +20,10 @@ class MultipleSelect  extends Field {
         if (this.props.value) {
             valuesArr = this.props.value.split(',');
             valuesArrIndex= [];
-            for (let i = 0; i < valuesArr.length; i++) {
+            for (let k = 0; k < valuesArr.length; k++) {
                 for (let j = 0; j < propsOptions.length; j++) {
-                    if (valuesArr[i] ===  propsOptions[j]) {
-                        valuesArrIndex.push(j-1);
+                    if (valuesArr[k] ===  propsOptions[j]) {
+                        valuesArrIndex.push(j);
                     }
                 }
             }
@@ -46,11 +46,13 @@ class MultipleSelect  extends Field {
                 label: propsOptions[option],
             })
         }
+        let value=[...this.state.valueSelected];
+
+
         this.setState({ 
             options: options
         });
     }
-    //
 
     renderActiveField() {
         return (
@@ -59,12 +61,12 @@ class MultipleSelect  extends Field {
                     multi={true}
                     value={this.state.valueSelected}
                     onChange = {(event) => {
-                        let labelArr=[];
+                        let labelArr=[], value =[];
                         for ( let i in event) {
                             labelArr[i]=event[i].label;
+                            value[i] = Number(i);
                         }
-                        console.log(event)
-                        this.setState({valueSelected: event, label: labelArr})}}
+                        this.setState({valueSelected: value, label: labelArr})}}
                     onBlur={(event) => this.props.onBlurComponent(this.props.id, this.state.label)}
                     autoFocus={true}
                 />
