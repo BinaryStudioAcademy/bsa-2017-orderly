@@ -140,7 +140,7 @@ export default class RecordDialog extends Component {
                                         uploadAttachment={this.props.uploadAttachment} 
                                         deleteFile={this.props.deleteFile}
                                         currentField={this.props.fields[fieldIndex]} 
-                                        recordIdx={this.props.ecordIdx}
+                                        recordIdx={this.props.recordIdx}
                                         tableId={this.props.tableId}
                                 />
                                 </div>
