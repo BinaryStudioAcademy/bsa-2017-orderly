@@ -1,14 +1,14 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistState } from 'redux-devtools';
-import createLogger from 'redux-logger';
+// import createLogger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga/lib';
 import rootReducer from '../reducer';
-import DevTools from '../DevTools';
+// import DevTools from '../DevTools';
 import rootSaga from "../saga";
 
-const logger = createLogger();
+// const logger = createLogger();
 const sagaMiddleware = createSagaMiddleware();
-const middlewares = [sagaMiddleware, logger, require('redux-immutable-state-invariant')()];
+const middlewares = [sagaMiddleware, /*logger,*/ require('redux-immutable-state-invariant')()];
 
 const getDebugSessionKey = function () {
     const matches = window.location.href.match(/[?&]debug_session=([^&]+)\b/);
@@ -17,7 +17,7 @@ const getDebugSessionKey = function () {
 
 const enhancer = compose(
     applyMiddleware(...middlewares),
-    window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
+    // window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
     persistState(getDebugSessionKey())
 );
 
