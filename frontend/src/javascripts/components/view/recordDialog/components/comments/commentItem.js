@@ -14,10 +14,9 @@ class CommentItem extends Component {
 			     className="record-comment-item">
 				<div className="record-comment-header">
 					<UserProfileShort user={this.props.commentItem.collaborator} showAvatar={true}/>
-					{/*<Icon name='close' link/>*/}
 					<Popup trigger={<Icon name='close' link/>}
 					       on='click'
-					       position='top right'
+					       position='left center'
 						   content={<Button color='red' content='Delete' onClick={() => {
 						                this.props.deleteComment(this.props.tableId, this.props.recordId, this.props.commentItem._id)}
 						   }/>}	/>
