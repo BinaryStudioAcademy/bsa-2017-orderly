@@ -1,6 +1,5 @@
 import React from 'react';
 import { Image } from 'semantic-ui-react';
-
 import avatar from '../../../../../../images/avatar.png';
 import MemberInfo from '../memberInfo/memberInfo';
 import { getRolesColor } from '../../../homePageService';
