@@ -7,7 +7,7 @@ const HistoryList = ({record, fields}) => {
 
     return (
         <div className="modal-history-list content scrolling">
-            {record.history.length === 0 && <div>There are changes for now.</div>}
+            {record.history.length === 0 && <div>There are no changes for now.</div>}
             {record.history.map((historyItem) => {
                 return <HistoryItem key={historyItem._id || ''}
                                     historyItem={historyItem}
