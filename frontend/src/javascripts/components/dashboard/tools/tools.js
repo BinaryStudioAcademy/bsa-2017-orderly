@@ -130,12 +130,14 @@ class Tools extends Component {
 	    if (this.props.currentRole !== 'readOnly') this.props.activateRecord(id);
     }
 
-	keyPressRecordHandler(id) {
-		if (!this.isRecordActive(id) || this.props.currentRole !== 'readOnly') {
-			this.props.changeRecord(this.props.currentTableId, id, '', this.props.user);
-			this.props.activateRecord(id);
-		}
-	}
+	 keyPressRecordHandler(id) {
+      if (!this.isRecordActive(id)) {
+        if( this.props.currentRole !== 'readOnly') {
+          this.props.changeRecord(this.props.currentTableId, id, '', this.props.user);
+          this.props.activateRecord(id);
+        }
+      }
+    }
 
     keyPressSimpleRecordHandler(id, e) {
         this.keyPressRecordHandler(id, e);

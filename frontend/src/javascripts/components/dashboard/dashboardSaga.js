@@ -57,6 +57,16 @@ function* addingTable(action) {
 function* addTableToBase(action) {
     try {
         const base = yield call(updateBaseByNewTable, action.payload);
+        let data = {};
+        data.tableId = action.payload.table._id;
+        data.viewId = action.payload.table.views[0].view._id;
+        data.viewType = action.payload.table.views[0].type;
+
+        let newData = {};
+        newData.view = yield call(getTableView, data);
+        newData.tableId = action.payload.table._id;
+        yield put({type: 'UPDATE_VIEW', data: newData});
+                
         yield put({type: 'ADD_TABLE_TO_BASE_SUCCEEDED', base: base});
         if (R.isNil(action.payload.isWillActive)) {
             yield put({type: 'SET_ACTIVE_TAB', tableId: action.payload.table._id});
