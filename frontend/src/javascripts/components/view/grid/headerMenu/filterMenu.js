@@ -132,9 +132,13 @@ export default class FilterMenu extends Component {
                                     })}
                                 </select>
                                 {!filterItem.condition.includes('empty') &&
-                                <input className="menu__item item__input" type="text"
+                                <input className="menu__item item__input"
+                                       type="text"
                                        value={filterItem.value}
                                        onKeyDown={(e) => {
+                                           if (e.key === 'Escape') {
+                                               this.handleClickOnMenu();
+                                           }
                                            if (e.key === ' ') {
                                                e.preventDefault();
                                                const [fieldId, fieldIndex] = this.refs.fieldIdSelector.value.split(',');
