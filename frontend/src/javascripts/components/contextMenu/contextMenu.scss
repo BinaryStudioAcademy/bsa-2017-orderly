@@ -60,6 +60,9 @@
 .menu-show-2
     .base-options-wrapper {
       text-align: left;
+      a{
+        color: rgba(0, 0, 0, 0.9 )
+      }
 }
 .menu-show-2
     .base-options-wrapper
@@ -79,6 +82,22 @@
 .menu-show-2
     .base-options-wrapper
       .base-options-list
+        .disabled {
+          cursor: auto !important;
+          color: rgb(200, 200, 200)!important;
+          i.icon.share.alternate.square:before {
+            color: rgb(200, 200, 200)!important;
+          }
+          i.icon.info.circle:before{
+            color: rgb(200, 200, 200)!important;
+          }
+          i.icon.slack:before{
+            color: rgb(200, 200, 200)!important;
+          }
+}
+.menu-show-2
+    .base-options-wrapper
+      .base-options-list
         .base-options-list-item:last-child {
           padding-bottom: 8px;
 }
@@ -87,4 +106,11 @@
       .base-options-list
         .base-options-list-item:hover{
           background-color: #DAD5D2;
+}
+
+.menu-show-2
+    .base-options-wrapper
+      .base-options-list
+        .disabled:hover {
+          background-color: rgba(0, 0, 0, 0) !important;
 }

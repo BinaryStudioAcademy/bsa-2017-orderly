@@ -21,7 +21,7 @@ class TeamHeader extends Component {
 			<div className='team-header'>
 				<div className='team-name-wrapper'
 				     onContextMenu={(event) => {
-				     	if (currentRole !== 'readOnly') {
+				     	if (currentRole === 'owner') {
 					        event.stopPropagation();
 					        event.preventDefault();
 					        this.props.toggleTeamPopup(this.props.team._id, !this.props.teamPopupIsShow.isShow)
@@ -32,7 +32,7 @@ class TeamHeader extends Component {
 				     }}>{this.props.team.name}
 				     <Icon name='caret down' color='grey' 
 					     onClick={(event) => {
-						     if (currentRole !== 'readOnly') {
+						     if (currentRole === 'owner') {
 							     event.stopPropagation();
 							     event.preventDefault();
 							     this.props.toggleTeamPopup(this.props.team._id, !this.props.teamPopupIsShow.isShow)

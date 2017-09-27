@@ -115,7 +115,10 @@
 
   .record-details.header {
     position: relative;
-
+    .closeIcon i{
+      right: 10px !important;
+      top: 10px !important;
+    }
     .closeRecordDialogBtn {
       position: absolute;
       right: 0;
@@ -279,14 +282,20 @@
   .modal-sidebar-block.description {
     //max-height: calc(70vh);
     width: 49%!important;
-    padding: 0 10px 55px 35px;
-
+    padding: 0 10px 40px 35px;
+    margin-bottom: 50px;
+    .ui.accordion .title {
+      padding: 12px 0px 0px 10px !important;
+    }
+    .ui.accordion:not(.styled) .title ~ .content:not(.ui) {
+      background-color: rgb(251, 249, 249) !important;
+    }
     .ui.header {
       //margin: 10px 0;
       margin-bottom: 10px;
+      
       display: inline-block;
     }
-
     .history-icon {
       font-size: 16px!important;
       line-height: 12px!important;
@@ -313,7 +322,7 @@
   .record-history-item,
   .record-comment-item {
     border-bottom: 1px solid rgba(117, 116, 116, 0.33);
-    padding: 15px 10px;
+    padding: 8px 10px;
     padding-right: 0;
     margin-right: 15px;
   }
@@ -334,11 +343,12 @@
   }
 
   .modal-history-list {
-    max-height: 55vh!important;
+    max-height: 50vh!important;
     //min-height: 18vh!important;
     overflow-x: hidden!important;
     border: 2px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.28571rem;
+
   }
 
   .record-comment-item:last-child {
@@ -347,12 +357,23 @@
 
   .record-comment-item {
     word-wrap: break-word;
+
+
   }
+
 
   .record-history-header,
   .record-comment-header {
     margin-bottom: 8px;
     font-size: 0.9em;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    .updated{
+      font-style: italic;
+      color: #009688; 
+    }
+
   }
 
   .record-history-field {
@@ -365,7 +386,7 @@
   .record-comment-created,
   .record-history-date {
     color: #999;
-    margin-top: 8px;
+    margin-top: 4px;
     font-size: 0.9em;
   }
 
@@ -392,27 +413,33 @@
   }
 
   .comments-block {
-    max-height: 55vh!important;
+    max-height: 50.8vh!important;
     //min-height: 18vh!important;
     border: 2px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.28571rem;
+    //margin-bottom: 55px;
+    .ui.pointing.label, .ui[class*="pointing above"].label{
+      margin-top: 0 !important;
+    }
   }
 
   .user-comment-info {
     position: absolute;
-    bottom: 20px;
+    bottom: 15px;
+    text-align: center;
+    //bottom: 20px;
     //padding-top: 21px;
     //border-top: 2px solid rgba(117, 116, 116, 0.66);
 
     .username {
-      max-width: 119px;//119
+      max-width: 250px;//119
       margin-left: 20px;
       margin-right: 20px;
       display: inline-block;
       overflow: hidden;
       text-overflow: ellipsis;
       position: relative;
-      top: 10px;
+      top: 3px;
     }
     .ui.avatar.image {
       //float: left;
@@ -441,10 +468,23 @@
   }
 }
 
+.ui.fluid.accordion, .ui.fluid.accordion .accordion {
+    padding-bottom: 20px !important;
+  }
+
 @media screen and (max-width: 1360px) {
   .modal {
     .comments-block {
-      max-height: 40vh!important;
+      max-height: 44vh!important;
     }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .ui.fluid.accordion, .ui.fluid.accordion .accordion {
+    padding-bottom: 50px !important;
+  }
+  .user-comment-info {
+    margin-left: 15%; 
   }
 }

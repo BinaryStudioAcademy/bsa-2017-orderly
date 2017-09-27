@@ -32,6 +32,12 @@ export const updateTable = ({ _id, body }) =>
 		.then((response) => response.data)
 		.catch(R.tap(console.error));
 
+export const updateTableCSV = (payload) =>
+    axios.put(url + '/tables/csv/' + payload._id, payload)
+        .then((response) => response.data)
+        .catch(R.tap(console.error));
+
+
 export const addFieldsToTable = ({tableId, currentViewId}) => {
     return axios.post(url + '/tables/' + tableId + '/fields/', {
         field: {
@@ -184,3 +190,10 @@ export const updateViewHideFields = (action) => {
         .then((response) => response)
         .catch(R.tap(console.error));
 };
+
+export const deleteComment = ({tableId, recordId, commentId}) =>
+	axios.delete(`${url}/tables/${tableId}/records/${recordId}/comments/${commentId}`)
+		.then(response => {
+			return response.data
+		})
+		.catch(R.tap(console.error))

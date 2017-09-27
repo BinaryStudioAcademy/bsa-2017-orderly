@@ -40,7 +40,7 @@ export default class FormViewFields extends Component {
                     }):<div></div>}
                 </div>
                 <div className='submit-btn'>
-                    <Button type='submit'>Sumbit form</Button>
+                    <Button type='submit'>Submit form</Button>
                 </div>
             </div>
         );

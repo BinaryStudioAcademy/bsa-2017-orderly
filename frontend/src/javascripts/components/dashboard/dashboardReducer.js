@@ -72,7 +72,30 @@ function dashboardReducer(state = initState, action) {
         );
     }
 
+    case 'UPDATE_VIEW': {
+        let stateTables = state.tables.map(value => Object.assign({}, value))
+        let currentTableIndex = stateTables.findIndex(table=>{
+            return table._id === action.data.tableId
+        })
+        let currentTable = stateTables[currentTableIndex];
+        let views = currentTable.views.map(value => Object.assign({}, value))
+
+        views[0] =  Object.assign({}, action.data.view.views[0]);
+        currentTable.views = [...views];
+
+        stateTables[currentTableIndex] = Object.assign({}, currentTable);
+
+        return Object.assign(
+            {},
+            state,
+            {tables: stateTables}
+        );
+    }
+
     case 'SET_ACTIVE_TAB': {
+        // let table = state.tables.find((t) => t._id == action.tableId)
+        // table.views[0].view = Object.assign({}, action.view)
+        // console.log(table)
         return R.mergeAll([
             R.omit(['tables'], state),
             {
@@ -80,6 +103,7 @@ function dashboardReducer(state = initState, action) {
                     let tempObj = R.dissoc('isActive', table);
                     tempObj.isActive = table._id === action.tableId;
                     tempObj.currentView = table.views[0].view._id;
+                    //table.views[0].view = Object.assign( {}, action.view || table.views[0].view);
                     return tempObj;
                 })(state.tables),
             },
@@ -111,6 +135,7 @@ function dashboardReducer(state = initState, action) {
     }
 
     case 'ADD_TABLE_SUCCEEDED': {
+        
         const isWillActive = Boolean(action.payload.isWillActive)
 	    if (!R.contains(action.payload.table._id, R.pluck('_id', state.tables))) {return R.mergeAll([
             R.omit(['tables', 'addPopupIsOpen'], state),

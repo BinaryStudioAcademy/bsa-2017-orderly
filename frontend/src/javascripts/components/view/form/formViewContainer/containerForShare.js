@@ -141,7 +141,7 @@ class ContainerForShare extends Component {
                             }):<div></div>}
                         </div>
                         <div className='submit-btn'>
-                            <Modal trigger={<Button type='submit' onClick={this.handleSubmit}>Sumbit form</Button>} size ='tiny' closeIcon>
+                            <Modal trigger={<Button type='submit' onClick={this.handleSubmit}>Submit form</Button>} size ='tiny' closeIcon>
                                 <Modal.Content>
                                   <div className='content-import-spreadsheet'>
                                       <div className='content-subheader-share-form'>Your form has been successfully submitted!</div>

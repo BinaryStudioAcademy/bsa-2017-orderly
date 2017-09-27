@@ -60,8 +60,12 @@
 }
 
 .item__input {
-  min-width: 100px;
-  width: 100%;
+  border: 1px solid rgba(34,36,38,.15);
+  box-shadow: none;
+  transition: box-shadow .1s ease,border-color .1s ease;
+  padding: 5px;
+  min-width: 80px;
+  max-width: 90%;
 }
 
 .item__menu-controls {

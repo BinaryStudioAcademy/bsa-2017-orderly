@@ -5,7 +5,8 @@ const initialState = {
     table: null,
     view: null,
     record_data: [],
-    form: null
+    form: null,
+	showFileToastr: ''
 
 };
 
@@ -28,6 +29,10 @@ export default function formReducer(state = initialState, action) {
     }
     case 'UPDATE_FORM_SUCCEEDED': { 
         return {...state, form: action.form};
+    }
+
+    case 'ADD_FILE_TO_FORM_SUCCESS': {
+    	return {...state, showFileToastr: action.fileName}
     }
 
 

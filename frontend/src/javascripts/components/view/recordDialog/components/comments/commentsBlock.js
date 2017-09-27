@@ -33,7 +33,9 @@ class CommentsBlock extends Component {
     render () {
         return (
             <div className="comments-block content scrolling">
-                <CommentsList record={this.props.record}/>
+                <CommentsList tableId={this.props.tableId}
+                              deleteComment={this.props.deleteComment}
+                              record={this.props.record}/>
             </div>
         )
     }

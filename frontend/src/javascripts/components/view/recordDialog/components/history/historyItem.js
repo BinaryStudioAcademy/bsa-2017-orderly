@@ -7,7 +7,8 @@ const HistoryItem = ({historyItem, field}) => {
     return (
         <div className="record-history-item">
             <div className="record-history-header">
-                <UserProfileShort user={historyItem.collaborator} showAvatar={true}/>, updated
+                <UserProfileShort user={historyItem.collaborator} showAvatar={true}/>
+                <span className='updated'>updated</span>
             </div>
             <div className="record-history-field">{field.name || ''}</div>
             <div className="record-history-changed-from">{historyItem.changes.changed_from}</div>
