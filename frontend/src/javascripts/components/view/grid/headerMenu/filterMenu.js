@@ -40,13 +40,6 @@ export default class FilterMenu extends Component {
         }
     };
 
-    preformFilter = () => {
-        this.props.filterRecords(
-            this.props.currentTable._id,
-            this.props.currentTable.currentView,
-        );
-    };
-
     addFilter = () => {
         this.props.addFilter(
             this.props.currentTable._id,
@@ -66,8 +59,8 @@ export default class FilterMenu extends Component {
             this.state.fieldIndex,
             filterId,
             this.state.condition,
-            this.state.filterQuery
-        )
+            this.state.filterQuery,
+        );
     };
 
     clearFilter = (filterId) => {
@@ -141,6 +134,17 @@ export default class FilterMenu extends Component {
                                 {!filterItem.condition.includes('empty') &&
                                 <input className="menu__item item__input" type="text"
                                        value={filterItem.value}
+                                       onKeyDown={(e) => {
+                                           if (e.key === ' ') {
+                                               e.preventDefault();
+                                               const [fieldId, fieldIndex] = this.refs.fieldIdSelector.value.split(',');
+                                               this.setState({
+                                                   fieldId: fieldId,
+                                                   fieldIndex: fieldIndex,
+                                                   filterQuery: this.state.filterQuery + ' ',
+                                               }, () => this.updateFilter(filterItem._id));
+                                           }
+                                       }}
                                        onChange={(e) => {
                                            const [fieldId, fieldIndex] = this.refs.fieldIdSelector.value.split(',');
                                            this.setState({
@@ -148,7 +152,8 @@ export default class FilterMenu extends Component {
                                                fieldIndex: fieldIndex,
                                                filterQuery: e.target.value
                                            }, () => this.updateFilter(filterItem._id));
-                                       }}/>}
+                                       }}
+                                />}
                             </div>)
                     })}
                     {!filtersCount &&
