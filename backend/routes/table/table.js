@@ -71,6 +71,18 @@ router.put('/:id', (request, response, next) => {
         });
 });
 
+router.put('/csv/:id', (request, response, next) => {
+    tableRepository.uploadCSV(request.params.id, request.body.data, request.body.viewId, request.body.viewType)
+        .then(R.tap((table) => {
+            io.emit('table:update:success', table);
+        }))
+        .then((table) => response.status(200).send(table))
+        .catch((error) => {
+            response.status(400);
+            next(error);
+        });
+});
+
 router.delete('/:id', (request, response, next) => {
     tableRepository.remove(request.params.id)
         .then(() => baseRepository.deleteTableFromBase(request.params.id))
@@ -121,6 +133,12 @@ router.delete('/:id/records/:recordId', (request, response) => {
         .then((result) => response.send(result))
         .catch((err) => response.sendStatus(500).send(err));
 });
+
+router.delete('/:tableId/records/:recordId/comments/:commentId', (req, res) => {
+	tableRepository.pullComment(req.params.tableId, req.params.recordId, req.params.commentId)
+		.then(table => res.status(204).send(table))
+		.catch(err => response.sendStatus(500))
+})
 
 // fields -------------------------------------
 router.get('/:id/fields', (request, response) => {

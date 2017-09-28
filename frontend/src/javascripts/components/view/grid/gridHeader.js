@@ -56,6 +56,8 @@ export default class GridHeader extends Component{
                         />
                         <ExtraMenu
 	                        isReadOnly={this.props.isReadOnly}
+                            currentViewType={this.props.currentViewType}
+                            currentViewId={this.props.currentViewId}
 	                        currentTableId={this.props.currentTable._id}
                             tables={this.props.tables}
                             deleteView={this.props.deleteView}

@@ -1,7 +1,9 @@
-export function passJSON(newData, tableId) {
+export function passJSON(newData, tableId, viewId, viewType) {
   return {
     type: 'CSV_PARSED',
     newData,
-    tableId
+    tableId,
+    viewId,
+    viewType
   }
 }

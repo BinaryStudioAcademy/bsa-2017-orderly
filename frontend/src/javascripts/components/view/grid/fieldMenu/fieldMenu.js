@@ -80,7 +80,7 @@ export default class FieldMenu extends Component {
         }
     };
     
-    handleSumbit = (e) => {
+    handleSubmit = (e) => {
         if( this.state.currentName !== this.props.name) {
             this.props.changeFieldName(this.props.tableId, this.props.id, this.state.currentName)
         }
@@ -237,7 +237,7 @@ export default class FieldMenu extends Component {
                             handleOptionsChange={this.handleOptionsChange}
                         />
                         <div className='button-wrapper' 
-                             onClick={this.handleSumbit}
+                             onClick={this.handleSubmit}
                         >
                             <div className='save-btn'>Save</div>
                         </div>

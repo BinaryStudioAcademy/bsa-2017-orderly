@@ -10,7 +10,7 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
     setSelectRecordItems, shiftKeyDown, shiftKeyUp, clearSelectedRecordItemList, mouseDownRecordItem,
     mouseUpRecordItem, mouseOverRecordItem, removeAllFilters, getMembersByBaseId, updateViewHideField,
 	addTableSucceed, deleteTableSuccess, updateTableSuccess, addRecordSuccess, updateFieldSucceeded,
-	deleteFieldSuccess, deleteRecordSuccess, updateSort, removeSort, removeAllSorts,
+	deleteFieldSuccess, deleteRecordSuccess, updateSort, removeSort, removeAllSorts, deleteComment
 } from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
@@ -112,7 +112,8 @@ const mapDispatchToProps = {
     mouseUpRecordItem: mouseUpRecordItem,
     mouseOverRecordItem: mouseOverRecordItem,
     updateKanbanView: updateKanbanView,
-    getMembersByBaseId: getMembersByBaseId
+    getMembersByBaseId: getMembersByBaseId,
+	deleteComment: deleteComment
 };
 
 const Dashboard = connect(

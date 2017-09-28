@@ -17,7 +17,6 @@ class ContextMenuIcon extends React.Component {
   }
   
   handleClickOnMenu(event) {
-    
     if (!this.state.menuVisible) {
       document.addEventListener('click', this.handleOutsideClick, false);
     } else {
@@ -58,7 +57,6 @@ render() {
             handleClick = {this.props.handleClick} 
             base = {this.props.base}
             teamId={this.props.teamId}
-            teamNames={this.props.teamNames}
             />
         </div>
       </div>

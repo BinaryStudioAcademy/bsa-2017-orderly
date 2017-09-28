@@ -130,10 +130,13 @@ class Tools extends Component {
 	    if (this.props.currentRole !== 'readOnly') this.props.activateRecord(id);
     }
 
-    keyPressRecordHandler(id) {
-        if (!this.isRecordActive(id) && this.props.currentRole !== 'readOnly') {
-            this.props.changeRecord(this.props.currentTableId, id, '', this.props.user);
+	 keyPressRecordHandler(id) {
+      if (!this.isRecordActive(id)) {
+        if( this.props.currentRole !== 'readOnly') {
+          this.props.changeRecord(this.props.currentTableId, id, '', this.props.user);
+          this.props.activateRecord(id);
         }
+      }
     }
 
     keyPressSimpleRecordHandler(id, e) {
@@ -232,6 +235,7 @@ class Tools extends Component {
                       user={this.props.user}/>
                 {currentTable &&
                 <View currentRole = {this.props.currentRole}
+                      deleteComment={this.props.deleteComment}
                       currentTable={currentTable}
                       tables={this.props.tables}
                       recordData={recordData}

@@ -95,7 +95,7 @@ class Login extends React.Component {
                                     <Button id="loginBtn" type="submit" color='orange' fluid>
                                         Sign in
                                     </Button>
-                                    <LoginWithGoogleBtn/>
+                                    {/*<LoginWithGoogleBtn/>*/}
                                 </Form>
                             </Grid.Column>
                         </Grid.Row>

@@ -77,10 +77,10 @@ class BaseList extends Component {
 								this.state.showMewnu ? "addBasePopover" : "none"} >
 							<div>
 								<div className='messageTip'></div>
-								<div className='options'> 
+								{/*<div className='options'> 
 									<img src={template} />
 									<div className='text'>Start with a template</div>
-								</div>
+								</div>*/}
 								<ModalImportSpreadsheet teamId={this.props.teamId}/>
 								<div className='options' onClick={(event) => {props.onNewBaseClick('#234FED', props.teamId); this.handleClickOnMenu(event)}}> 
 									<img src={scratch} />

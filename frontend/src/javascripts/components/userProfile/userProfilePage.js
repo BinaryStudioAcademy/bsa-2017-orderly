@@ -35,13 +35,15 @@ class UserProfilePage extends Component {
                 </span>
                 <UserProfile user={this.props.user}/>
             </div>
+            <div id='user-profile-header'>
+                <Header block >My Profile</Header>
+            </div>
             <div className='user-profile-wrapper'>
                 <UserProfilePhoto 
                     user={this.props.user}
                     handleFile = {this.props.handleFile}
                 />
                 <div className ='user-profile-info'>
-                    <Header block >My Profile</Header>
                     <UserProfileForm 
                         user={this.props.user}
                         handleSubmitForm = {this.props.handleSubmitForm}

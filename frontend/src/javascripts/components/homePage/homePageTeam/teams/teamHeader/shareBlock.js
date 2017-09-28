@@ -9,7 +9,7 @@ const ShareBlock = ({team, collaborators, showUserPopup, isShowUserPopup, active
                     updateCollaboratorRole, currentRole}) => (
 	<div className='share_block'
 	     onClick={() => {
-	     	if (currentRole !== 'readOnly')
+	     	if (currentRole === 'owner')
 		        changeActiveShareModal(team._id)
 	     }}
 	     >

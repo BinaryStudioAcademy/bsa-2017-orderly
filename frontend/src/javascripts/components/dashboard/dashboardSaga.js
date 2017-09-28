@@ -5,7 +5,7 @@ import {
     deleteFieldRecords, deleteRecord, uploadFile, addView, deleteView, getTableById,
     updateKanban, getMembersByBaseId, getTableView, updateViewHideFields,
     addFilter, updateFilter, removeFilter, removeAllFilters,
-    addSort, updateSort, removeSort, removeAllSorts,
+    addSort, updateSort, removeSort, removeAllSorts, updateTableCSV, deleteComment
 } from './dashboardApi';
 import {emitTableCoworker, emitSwitchTableCoworker, disconnect} from '../../app/socket';
 import {browserHistory} from 'react-router';
@@ -57,6 +57,17 @@ function* addingTable(action) {
 function* addTableToBase(action) {
     try {
         const base = yield call(updateBaseByNewTable, action.payload);
+        
+        let data = {};
+        data.tableId = action.payload.table._id;
+        data.viewId = action.payload.table.views[0].view._id;
+        data.viewType = action.payload.table.views[0].type;
+
+        let newData = {};
+        newData.view = yield call(getTableView, data);
+        newData.tableId = action.payload.table._id;
+        yield put({type: 'UPDATE_VIEW', data: newData});
+
         yield put({type: 'ADD_TABLE_TO_BASE_SUCCEEDED', base: base});
         if (R.isNil(action.payload.isWillActive)) {
             yield put({type: 'SET_ACTIVE_TAB', tableId: action.payload.table._id});
@@ -85,6 +96,20 @@ function* changeTable(action) {
         payload._id = action.tableId;
         payload.body = action.newData;
         const changedTable = yield call(updateTable, payload);
+        yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
+    } catch (err) {
+        yield put({type: 'RENAME_TABLE_FAILED', message: err.message});
+    }
+}
+
+function* uploadCSV(action) {
+    try {
+        const payload = {};
+        payload._id = action.tableId;
+        payload.data = action.newData;
+        payload.viewId = action.viewId;
+        payload.viewType = action.viewType;
+        const changedTable = yield call(updateTableCSV, payload);
         yield put({type: 'RENAME_TABLE_SUCCEEDED', changedTable});
     } catch (err) {
         yield put({type: 'RENAME_TABLE_FAILED', message: err.message});
@@ -384,6 +409,15 @@ function* removeAllTableSorts(action) {
     }
 }
 
+function* deletingComment(action) {
+	try {
+		const updatedTable = yield call(deleteComment, action)
+		yield put({type: 'UPDATE_TABLE', tableId: action.tableId, newData: updatedTable})
+	} catch (err) {
+		yield put({type: 'DELETE_COMMENT_FAILED', message: err.message})
+	}
+}
+
 function* dashboardSaga() {
     yield takeEvery('GET_BASE', fetchBaseById);
     yield takeEvery('ADD_TABLE', addingTable);
@@ -393,7 +427,7 @@ function* dashboardSaga() {
     yield takeEvery('ADD_TABLE_SUCCEEDED', addTableToBase);
     yield takeEvery('ADD_FIELD', addNewField);
     yield takeEvery('UPDATE_TABLE', changeTable);
-    yield takeEvery('CSV_PARSED', changeTable);
+    yield takeEvery('CSV_PARSED', uploadCSV);
     yield takeEvery('CHANGE_FIELD_TYPE', changeTable);
     yield takeEvery('ADD_RECORD', addNewRecord);
     yield takeLatest('CHANGE_RECORD', changeTableRecord);
@@ -421,6 +455,7 @@ function* dashboardSaga() {
     yield takeEvery('REMOVE_SORT', removeTableSort);
     yield takeEvery('REMOVE_ALL_SORTS', removeAllTableSorts);
     yield takeEvery('UPDATE_VIEW_HIDE_FIELD', updateGridHideField);
+    yield takeEvery('DELETE_COMMENT', deletingComment)
 }
 
 export default dashboardSaga;
