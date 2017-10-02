@@ -14,7 +14,7 @@ export const getTablesByIds = (ids) =>
 
 export const getTableById = (tableId) =>
 	axios.get(url + '/tables/' + tableId)
-		.then(response => response.data)
+		.then((response) => response.data)
 		.catch(R.tap(console.error));
 
 export const addTable = (table) =>

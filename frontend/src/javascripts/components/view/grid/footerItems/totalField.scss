@@ -1,0 +1,81 @@
+$table-cell-width: 155px;
+
+.table-cell-container{
+  position: relative;
+}
+
+.table-cell {
+  width: $table-cell-width;
+  height: 32px;
+}
+
+.index {
+    width: 33px !important;
+}
+
+.table-cell:focus {
+  outline: none;
+}
+
+.table-cell.selected,
+.table-cell.active {
+  border: 2px solid #6495ed;
+  border-radius: 1px;
+  position: absolute;
+  background-color: #fff;
+  //z-index: 1;
+}
+.wrapper__table {
+  .table-cell.selected,
+  .table-cell.active {
+    z-index: 1;
+  }
+}
+.field__item.selectedList {
+  .table-cell.selected {
+    background-color: #f0f7ff;
+  }
+}
+.table-cell-wrap {
+  user-select: none;
+}
+
+.table-cell.selected .table-cell-wrap .table-cell-inner,
+.table-cell.active .table-cell-wrap .table-cell-inner {
+  outline: none;
+}
+
+.table-cell-inner.default-cell,
+.selected .table-cell-inner {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 4px 10px;
+  height: 100%;
+  width: 100%;
+  line-height: 24px;
+}
+
+.selected .table-cell-inner {
+  padding: 2px 8px;
+}
+
+.active .table-cell-inner {
+  overflow: initial;
+  text-overflow: initial;
+  line-height: initial;
+  padding: 0;
+
+  input {
+    border: 0;
+    outline: none;
+  }
+}
+
+.table-cell .table-cell-wrap {
+  width: 100%;
+  height: 100%;
+
+  .ui.input {
+    width: 100%;
+  }
+}

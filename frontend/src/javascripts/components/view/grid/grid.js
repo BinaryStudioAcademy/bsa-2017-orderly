@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import GridHeader from './gridHeader';
 import GridContent from './gridContent';
+import GridFooter from './gridFooter';
 import './grid.scss';
 
 export default class Grid extends Component {
@@ -64,6 +65,9 @@ export default class Grid extends Component {
                     appendSelectFieldRecordItems={this.props.appendSelectFieldRecordItems}
                     onSetSelectAllRecordItems={this.props.setSelectAllRecordItems}
                     selectedRecordItemList={this.props.selectedRecordItemList}
+                />
+                <GridFooter 
+                    currentTable={this.props.currentTable}
                 />
             </div>
         );

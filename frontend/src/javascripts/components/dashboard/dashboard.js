@@ -14,10 +14,10 @@ import { getBaseById, addTable, switchTable, closeMenu, checkTableName,
 } from './dashboardActions';
 
 import { getCurrentUser } from '../userProfile/userProfileActions';
-import { updateKanbanView } from '../view/kanban/kanbanViewActions'
+import { updateKanbanView } from '../view/kanban/kanbanViewActions';
 
 const mapStateToProps = (state, ownProps) => {
-	const currentRole = R.find(R.propEq('userId', R.path(['user', '_id'], state.userProfile)))(state.dashboardReducer.members)
+    const currentRole = R.find(R.propEq('userId', R.path(['user', '_id'], state.userProfile)))(state.dashboardReducer.members);
     return ({
         base: state.dashboardReducer.base,
         menu: state.baseStore.showMenuforBase,
@@ -43,18 +43,18 @@ const mapStateToProps = (state, ownProps) => {
         isShiftKeyPressed: state.dashboardReducer.isShiftKeyPressed,
         isMouseDownPressed: state.dashboardReducer.isMouseDownPressed,
         members: state.dashboardReducer.members,
-	    currentRole: R.path(['role'], currentRole)
+        currentRole: R.path(['role'], currentRole)
     });
 };
 
 const mapDispatchToProps = {
-	deleteRecordSuccess: deleteRecordSuccess,
-	deleteFieldSuccess: deleteFieldSuccess,
-	updateFieldSucceeded: updateFieldSucceeded,
-	addRecordSuccess: addRecordSuccess,
-	updateTableSuccess: updateTableSuccess,
-	deleteTableSuccess: deleteTableSuccess,
-	addTableSucceed: addTableSucceed,
+    deleteRecordSuccess: deleteRecordSuccess,
+    deleteFieldSuccess: deleteFieldSuccess,
+    updateFieldSucceeded: updateFieldSucceeded,
+    addRecordSuccess: addRecordSuccess,
+    updateTableSuccess: updateTableSuccess,
+    deleteTableSuccess: deleteTableSuccess,
+    addTableSucceed: addTableSucceed,
     addTableClick: addTable,
     switchTableClick: switchTable,
     getBaseCurrent: getBaseById,
@@ -113,7 +113,7 @@ const mapDispatchToProps = {
     mouseOverRecordItem: mouseOverRecordItem,
     updateKanbanView: updateKanbanView,
     getMembersByBaseId: getMembersByBaseId,
-	deleteComment: deleteComment
+    deleteComment: deleteComment
 };
 
 const Dashboard = connect(
