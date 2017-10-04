@@ -31,7 +31,7 @@ class TotalField extends Component {
                     showType: 'Total length'
                 });
             },
-            showValue: this.props.total,
+            showValue: this.props.count,
             showType: 'Count'
         };
     }
