@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const R = require('ramda');
 const tableRepository = require('../../repositories/table/tableRepository');
+const tableService = require('../../services/tableService');
 const baseRepository = require('../../repositories/base/baseRepository')
 const {defaultTable, defaultViews} = require('../../config/defaultEntities');
 
@@ -33,12 +34,14 @@ router.post('/', (request, response, next) => {
 });
 
 router.get('/ids/:ids', (request, response, next) => {
-    tableRepository.getByIds(request.params.ids.split(':'))
-        .then((tables) => response.status(200).send(tables))
-        .catch((error) => {
+    tableService.getByIds(request.params.ids.split(':'), (err, tables) => {
+        if (err) {
             response.status(400);
-            next(error);
-        });
+            next(err);
+        } else if (tables) {
+            response.status(200).send(tables)
+        };
+    })
 });
 
 router.get('/:id', (request, response, next) => {
