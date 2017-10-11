@@ -15,7 +15,8 @@ module.exports = {
             path.join(__dirname, '../node_modules')
         ],
         alias: {
-            models: path.join(__dirname, '../src/javascripts/models')
+            models: path.join(__dirname, '../src/javascripts/models'),
+            'moment$': 'moment/moment',
         },
         extensions: ['.js', '.jsx', '.json', '.scss']
     },

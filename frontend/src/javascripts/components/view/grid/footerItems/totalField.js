@@ -52,7 +52,7 @@ class TotalField extends Component {
     render() {
         return (
             <div className={"table-cell " + this.fieldIndexClass()} onClick={this.toggle.bind(this)}>
-                <div className={(this.state.showActionsDialog && this.props.typeValue != 'index'? 'actions-dialog': 'hidden')}>
+                <div className={(this.state.showActionsDialog && this.props.typeValue !== 'index'? 'actions-dialog': 'hidden')}>
                     <ActionsDialog 
                         typeValue={this.props.typeValue}
                         avgAction={this.state.avg}
@@ -61,7 +61,7 @@ class TotalField extends Component {
                         strLengthAction={this.state.strLength}
                     />
                 </div>
-                <span className={this.props.typeValue != 'index'? '': 'hidden'}>{this.state.showType}: </span>{this.state.showValue || 0}
+                <span className={this.props.typeValue !== 'index'? '': 'hidden'}>{this.state.showType}: </span>{this.state.showValue || 0}
             </div>
         );
     }

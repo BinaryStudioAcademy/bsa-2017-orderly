@@ -66,7 +66,7 @@ export default class Grid extends Component {
                     onSetSelectAllRecordItems={this.props.setSelectAllRecordItems}
                     selectedRecordItemList={this.props.selectedRecordItemList}
                 />
-                <GridFooter 
+                <GridFooter
                     currentTable={this.props.currentTable}
                 />
             </div>
